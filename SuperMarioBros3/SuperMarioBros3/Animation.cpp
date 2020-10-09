@@ -7,8 +7,9 @@
 #include "Ultis.h"
 using namespace std;
 
-CAnimation::CAnimation(DWORD defaultTime)
+CAnimation::CAnimation(string aniID, DWORD defaultTime)
 {
+	id = aniID;
 	currentFrame = -1;
 	speedMultiplier = 1;
 	this->defaultFrameTime = defaultTime;

@@ -160,6 +160,8 @@
     <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="tinystr.h" />
+    <ClInclude Include="tinyxml.h" />
     <ClInclude Include="Ultis.h" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +178,10 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="tinystr.cpp" />
+    <ClCompile Include="tinyxml.cpp" />
+    <ClCompile Include="tinyxmlerror.cpp" />
+    <ClCompile Include="tinyxmlparser.cpp" />
     <ClCompile Include="Ultis.cpp" />
   </ItemGroup>
   <ItemGroup>
