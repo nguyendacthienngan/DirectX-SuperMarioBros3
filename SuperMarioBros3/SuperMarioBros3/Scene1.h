@@ -19,7 +19,6 @@ public:
 	void Load();
 	//void LoadMap(eType);
 
-	void Update(DWORD dt);
 
 	~CScene1();
 };

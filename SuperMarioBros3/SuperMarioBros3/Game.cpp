@@ -5,6 +5,7 @@
 #include "SceneManager.h"
 #include "AnimationManager.h"
 #include "Ultis.h"
+#include "GameKeyEventHandler.h"
 
 #include "Scene1.h"
 CGame* CGame::instance = NULL;
@@ -17,12 +18,15 @@ CGame* CGame::GetInstance()
     return instance;
 }
 
-CGame::~CGame()
+CGame::~CGame() // đúng hay k. Hỏi thầy
 {
-	spriteHandler->Release();
-	backBuffer->Release();
-	d3ddv->Release();
-	d3d->Release();
+	//DebugOut(L"[INFO] This game is about to end");
+	//if (spriteHandler != NULL) spriteHandler->Release();
+	//if (backBuffer != NULL) backBuffer->Release();
+	//if (d3ddv != NULL) d3ddv->Release();
+	//if (d3d != NULL) d3d->Release();
+	////Kill_Keyboard();
+	//if (dinput != NULL) dinput->Release();
 }
 
 void CGame::Init()
@@ -30,8 +34,10 @@ void CGame::Init()
 	CTextureManager::GetInstance()->Init();
 	CSpriteManager::GetInstance()->Init();
 	CAnimationManager::GetInstance()->Init();
-	//DebugOut(CAnimationManager::GetInstance()->Get("ani-small-mario-run") ? L"Load Animation successfully" : L"DM");
-	
+
+	keyEventHandler = new GameKeyEventHandler();
+	InitKeyboard(keyEventHandler); // ***
+
 	CScene1* scene1 = new CScene1();
 	CSceneManager::GetInstance()->Load(scene1);
 	
@@ -41,6 +47,9 @@ void CGame::Init()
 
 void CGame::InitDirectX(HWND hWnd, int scrWidth, int scrHeight)
 {
+	this->hWnd = hWnd;
+	this->screenWidth = scrWidth;
+	this->screenHeight = scrHeight;
 	DebugOut(L"[INFO] Begin Init DirectX \n");
 	d3d = Direct3DCreate9(D3D_SDK_VERSION);
 
@@ -75,6 +84,76 @@ void CGame::InitDirectX(HWND hWnd, int scrWidth, int scrHeight)
 	DebugOut(L"[INFO] Init DirectX Done \n");
 }
 
+void CGame::InitKeyboard(LPKeyEventHandler handler)
+{
+	DebugOut(L"[ERROR] HWND: \n");
+	HRESULT
+		hr = DirectInput8Create
+		(
+			(HINSTANCE)GetWindowLong(hWnd, GWL_HINSTANCE),
+			DIRECTINPUT_VERSION,
+			IID_IDirectInput8, (VOID**)&dInput, NULL
+		);
+	if (hr != DI_OK)
+	{
+		DebugOut(L"[ERROR] DirectInput8 Create failed!\n");
+		return;
+	}
+
+	hr = dInput->CreateDevice(GUID_SysKeyboard, &dInputDevice, NULL);
+
+	// TO-DO: put in exception handling
+	if (hr != DI_OK)
+	{
+		DebugOut(L"[ERROR] CreateDevice failed!\n");
+		return;
+	}
+
+	// Set the data format to "keyboard format" - a predefined data format 
+	//
+	// A data format specifies which controls on a device we
+	// are interested in, and how they should be reported.
+	//
+	// This tells DirectInput that we will be passing an array
+	// of 256 bytes to IDirectInputDevice::GetDeviceState.
+
+	hr = dInputDevice->SetDataFormat(&c_dfDIKeyboard);
+
+	// Chỉ định game ta không chiếm trọn bàn phím mà ta chia sẻ với các chương trình khác
+	hr = dInputDevice->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+
+
+	// IMPORTANT STEP TO USE BUFFERED DEVICE DATA!
+	//
+	// DirectInput uses unbuffered I/O (buffer size = 0) by default.
+	// If you want to read buffered data, you need to set a nonzero
+	// buffer size.
+	//
+	// Set the buffer size to DINPUT_BUFFERSIZE (defined above) elements.
+	//
+	// The buffer size is a DWORD property associated with the device.
+	DIPROPDWORD dipdw;
+
+	dipdw.diph.dwSize = sizeof(DIPROPDWORD);
+	dipdw.diph.dwHeaderSize = sizeof(DIPROPHEADER);
+	dipdw.diph.dwObj = 0;
+	dipdw.diph.dwHow = DIPH_DEVICE;
+	dipdw.dwData = KEYBOARD_BUFFER_SIZE; // Arbitary buffer size
+
+	hr = dInputDevice->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph);
+
+	hr = dInputDevice->Acquire();
+	if (hr != DI_OK)
+	{
+		DebugOut(L"[ERROR] DINPUT8::Acquire failed!\n");
+		return;
+	}
+
+	this->keyEventHandler = handler; // Truyền đối tượng xử lý từng phím (handler) vào bên trong keyHandler
+
+	DebugOut(L"[INFO] Keyboard has been initialized successfully\n");
+}
+
 void CGame::Run()
 {
 	MSG msg;
@@ -103,8 +182,9 @@ void CGame::Run()
 		else
 		{
 			// Call update
-			//Update();
-			//GetService<InputHandler>()->ProcessKeyboard();
+			Update();
+			// Process key
+			ProcessKeyboard(); 
 
 			// Render in limited fps
 			if (delta >= tickPerFrame)
@@ -118,6 +198,21 @@ void CGame::Run()
 				delta = tickPerFrame;
 			}
 		}
+	}
+}
+
+void CGame::End()
+{
+	DebugOut(L"[INFO] This game is about to end");
+	if (spriteHandler != NULL) spriteHandler->Release();
+	if (backBuffer != NULL) backBuffer->Release();
+	if (d3ddv != NULL) d3ddv->Release();
+	if (d3d != NULL) d3d->Release();
+	if (dInput != NULL)
+	{
+		dInput->Release();
+		dInputDevice->Unacquire();
+		dInputDevice->Release();
 	}
 }
 
@@ -152,4 +247,76 @@ void CGame::Render()
 
 	d3ddv->Present(NULL, NULL, NULL, NULL);
 
+}
+
+void CGame::Update()
+{
+	LPSceneManager sceneManger = CSceneManager::GetInstance();
+	LPScene activeScene = sceneManger->GetActiveScene();
+	// Update Scene. Trong Scene sẽ Update các GameObject. Trong GameObject sẽ update các animation. Các animation sẽ update các animation frame / sprite ?
+	if (activeScene != NULL)
+		activeScene->Update(deltaTime);
+}
+
+void CGame::ProcessKeyboard() //Cần chỉnh sửa nhiều
+{
+	HRESULT hr;
+
+	// Collect all key states first:Đọc trạng thái của toàn bộ bàn phím. Mỗi một byte ứng với một phím
+	hr = dInputDevice->GetDeviceState(sizeof(keyStates), keyStates);
+	if (FAILED(hr))
+	{
+		// If the keyboard lost focus or was not acquired then try to get control back.
+		if ((hr == DIERR_INPUTLOST) || (hr == DIERR_NOTACQUIRED))
+		{
+			HRESULT h = dInputDevice->Acquire();
+			if (h == DI_OK)
+			{
+				DebugOut(L"[INFO] Keyboard re-acquired!\n");
+			}
+			else return;
+		}
+		else
+		{
+			//DebugOut(L"[ERROR] DINPUT::GetDeviceState failed. Error: %d\n", hr);
+			return;
+		}
+	}
+
+	// TODO: Ta gọi 1 hàm ảo của 1 đối tượng truyền vô để xử lý
+	//-------------------------------------- CHƯA LÀM -------------------------
+	if (keyEventHandler == nullptr) return;
+
+
+
+	// Collect all buffered events
+	DWORD dwElements = KEYBOARD_BUFFER_SIZE;
+	hr = dInputDevice->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), keyEvents, &dwElements, 0);
+	if (FAILED(hr))
+	{
+		//DebugOut(L"[ERROR] DINPUT::GetDeviceData failed. Error: %d\n", hr);
+		return;
+	}
+
+	// Scan through all buffered events, check if the key is pressed or released
+	for (DWORD i = 0; i < dwElements; i++)
+	{
+		int KeyCode = keyEvents[i].dwOfs;
+		int KeyState = keyEvents[i].dwData;
+		if ((KeyState & 0x80) > 0) // Up xuống Down
+			keyEventHandler->OnKeyDown(KeyCode); // Do object truyền vào
+		else // Down lên Up
+			keyEventHandler->OnKeyUp(KeyCode);
+	}
+}
+
+// Hiện tại chưa chạy được
+bool CGame::GetKeyDown(int keyCode)
+{
+	return (keyStates[keyCode] & 0x80) > 0; // Lấy ra nút được ấn
+}
+
+bool CGame::GetKeyUp(int keyCode)
+{
+	return (keyStates[keyCode] & 0x80) == 0;
 }

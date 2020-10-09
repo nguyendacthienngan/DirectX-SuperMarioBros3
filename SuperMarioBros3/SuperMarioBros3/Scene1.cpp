@@ -8,6 +8,14 @@ CScene1::CScene1()
 {
 }
 
+void CScene1::OnKeyDown(int KeyCode)
+{
+}
+
+void CScene1::OnKeyUp(int KeyCode)
+{
+}
+
 void CScene1::Load()
 {
 	this->id = "PlayScene";
@@ -20,9 +28,6 @@ void CScene1::Load()
 	DebugOut(L"[INFO] Loaded Scene \n");
 }
 
-void CScene1::Update(DWORD dt)
-{
-}
 
 CScene1::~CScene1()
 {

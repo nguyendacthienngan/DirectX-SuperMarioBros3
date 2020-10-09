@@ -76,7 +76,6 @@ bool CAnimationManager::LoadAnimation(std::string filePath)
 	AddAnimation("ani-small-mario-run",ani);*/
 
 	// Load from XML
-	DebugOut(L"[INFO] Load Sprite From XML \n");
 	OutputDebugStringW(ToLPCWSTR(filePath.c_str())); 
 	DebugOut(L"\n");
 

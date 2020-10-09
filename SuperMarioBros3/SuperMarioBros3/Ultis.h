@@ -21,8 +21,8 @@
 		va_end(argp);				\
 }
 void DebugOut(const wchar_t* fmt, ...);
-//void DebugOutTitle(wchar_t* fmt, ...);
-//void SetDebugWindow(HWND hwnd);
+void DebugOutTitle(const wchar_t* fmt, ...);
+void SetDebugWindow(HWND hwnd);
 
 std::vector<std::string> split(std::string line, std::string delimeter = "\t");
 std::wstring ToWSTR(std::string st);

@@ -12,6 +12,17 @@ void CScene::Unload()
 		delete object;
 }
 
+void CScene::Update(DWORD dt)
+{
+	DebugOut(L"[INFO] Updating Scene \n");
+	if (gameObjects.size() == 0) return;
+	for (auto obj : gameObjects)
+	{
+		obj->Update(dt);
+		obj->AnimationUpdate();
+	}
+}
+
 void CScene::Render()
 {
 	DebugOut(L"[INFO] Rendering Scene \n");
@@ -39,6 +50,11 @@ void CScene::RemoveObject(LPGameObject gameObject)
 	{
 		gameObjects.erase(remObj);
 	}
+}
+
+std::vector<LPGameObject> CScene::GetObjects()
+{
+	return gameObjects;
 }
 
 CScene::~CScene()

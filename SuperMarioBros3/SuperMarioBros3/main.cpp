@@ -87,7 +87,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
-    case WM_DESTROY:
+    case WM_DESTROY :
+        CGame::GetInstance()->End();
         PostQuitMessage(0);
         break;
     default:

@@ -26,17 +26,29 @@ private:
 	//STATE?
 	std::string currentState;
 
-	// Mỗi gameobject sẽ lưu animation của riêng nó
+	bool isEnabled;
+
+	// Mỗi gameobject sẽ lưu animation của riêng nó. Nó sẽ clone animation từ animation gốc chứ k lấy thẳng con trỏ animation bên đó
+	// Vì như vậy sẽ làm cho việc animation quá đồng bộ và không tự nhiên
+	// Nhưng lưu ý khi cloneanimation và setstate nhớ đặt tên giống nhau !
+
 	std::unordered_map<std::string, LPAnimation> animations;
 public:
 	CGameObject();
 	~CGameObject();
 
-	//virtual void Update(DWORD dt, std::vector<LPGameObject>* coObjects = NULL); // Truyền một vector GameObject để xét va chạm với GameObject hiện tại
+	// TO-DO
+	virtual void Init(); // sẽ thuần ảo để đến từng gameObject cụ thể sẽ tự load animation riêng
+	virtual void Update(DWORD dt, std::vector<LPGameObject>* coObjects = NULL); // Truyền một vector GameObject để xét va chạm với GameObject hiện tại. Tạm thời chưa làm Update do chưa xử lý va chạm
 	virtual void Render();
 	virtual void AnimationUpdate();
 
 	void AddAnimation(std::string stateName, LPAnimation animation);
+
+	virtual void OnKeyDown(int KeyCode) = 0; // sẽ thuần ảo để đến từng gameObject cụ thể sẽ tự xử lý
+	virtual void OnKeyUp(int KeyCode) = 0;
+
+	bool IsEnabled();
 
 	void SetPosition(D3DXVECTOR2 p) { this->position = p; }
 	void SetSpeed(D3DXVECTOR2 v) { this->velocity = v; }

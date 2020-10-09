@@ -1,6 +1,8 @@
 #include "Ultis.h"
 using namespace std;
 
+HWND _hwnd = NULL;
+
 void DebugOut(const wchar_t* fmt, ...)
 {
 	va_list argp;
@@ -61,3 +63,14 @@ LPCWSTR ToLPCWSTR(string st)
 	return w->c_str();
 }
 
+void DebugOutTitle(const wchar_t* fmt, ...)
+{
+	wchar_t s[1024];
+	VA_PRINTS(s);
+	SetWindowText(_hwnd, s);
+}
+
+void SetDebugWindow(HWND hwnd)
+{
+	_hwnd = hwnd;
+}

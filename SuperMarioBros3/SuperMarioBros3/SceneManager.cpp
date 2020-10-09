@@ -54,18 +54,6 @@ LPScene CSceneManager::GetActiveScene()
 	return nullptr;
 }
 
-void CSceneManager::KeyState(BYTE* state)
-{
-}
-
-void CSceneManager::OnKeyDown(int KeyCode)
-{
-}
-
-void CSceneManager::OnKeyUp(int KeyCode)
-{
-}
-
 CSceneManager::~CSceneManager()
 {
 }
