@@ -1,10 +1,12 @@
 ﻿#include "AnimationManager.h"
 #include "Ultis.h"
-
+#include "tinyxml.h"
+#include "SpriteManager.h"
+#include "GraphicConst.h"
+using namespace std;
 //Tạm thời
 #include "TextureManager.h"
 #include "Animation.h"
-
 LPAnimationManager CAnimationManager::instance = NULL;
 
 LPAnimationManager CAnimationManager::GetInstance()
@@ -20,7 +22,7 @@ CAnimationManager::CAnimationManager()
 bool CAnimationManager::Init()
 {
 	DebugOut(L"[INFO] Load Animation from file XML \n");
-	if (InitAnAnimationSet("MarioAnim") == false)
+	if (InitAnAnimationSet(ANIMATION_PATH + MARIO_ANIM) == false)
 	{
 		DebugOut(L"Cannot Load Mario Animation File \n");
 		return false;
@@ -56,8 +58,8 @@ bool CAnimationManager::InitAnAnimationSet(std::string textureName)
 bool CAnimationManager::LoadAnimation(std::string filePath)
 {
 	// test
-	LPDIRECT3DTEXTURE9 tex = CTextureManager::GetInstance()->GetTexture("tex-mario");
-	LPAnimation ani = new CAnimation();
+	/*LPDIRECT3DTEXTURE9 tex = CTextureManager::GetInstance()->GetTexture("tex-mario");
+	LPAnimation ani = new CAnimation("Run");
 	RECT r;
 	r.left = 323;
 	r.top = 8;
@@ -71,7 +73,52 @@ bool CAnimationManager::LoadAnimation(std::string filePath)
 	r.right = 341 + 16;
 	spr = new CSprite("spr-small-mario-run-1", r, tex);
 	ani->Add(spr,D3DXVECTOR2(2.0f, 2.5f), 100);
-	AddAnimation("ani-small-mario-run",ani);
+	AddAnimation("ani-small-mario-run",ani);*/
+
+	// Load from XML
+	DebugOut(L"[INFO] Load Sprite From XML \n");
+	OutputDebugStringW(ToLPCWSTR(filePath.c_str())); 
+	DebugOut(L"\n");
+
+	TiXmlDocument document(filePath.c_str());
+	if (!document.LoadFile())
+	{
+		OutputDebugStringW(ToLPCWSTR(document.ErrorDesc()));
+		return false;
+	}
+
+	TiXmlElement* root = document.RootElement();
+	TiXmlElement* info = root->FirstChildElement();
+
+	string gameObjectID = info->Attribute("gameObjectId");
+	string textureID = info->Attribute("textureId");
+
+	OutputDebugStringW(ToLPCWSTR("Gameobject id: " + gameObjectID + '\n'));
+	OutputDebugStringW(ToLPCWSTR("Texture id: " + textureID + '\n'));
+
+	for (TiXmlElement* node = info->FirstChildElement(); node != nullptr; node = node->NextSiblingElement())
+	{
+		string aniId = node->Attribute("aniId");
+		float frameTime;
+		node->QueryFloatAttribute("frameTime", &frameTime);
+		string name = node->Attribute("name");
+		OutputDebugStringW(ToLPCWSTR(aniId + ':' + to_string(frameTime) + ':' + name + '\n'));
+		LPAnimation animation = new CAnimation(aniId, frameTime);
+
+		// Sprite ref
+		for (TiXmlElement* sprNode = node->FirstChildElement(); sprNode != nullptr; sprNode = sprNode->NextSiblingElement())
+		{
+			string id = sprNode->Attribute("id");
+			LPSprite sprite = CSpriteManager::GetInstance()->Get(id);
+			float detailFrameTime;
+			sprNode->QueryFloatAttribute("frameTime", &detailFrameTime);
+			animation->Add(sprite, D3DXVECTOR2(0.0f,0.0f), detailFrameTime);
+
+			OutputDebugStringW(ToLPCWSTR("|--" + id + ':' + to_string(detailFrameTime) + '\n'));
+		}
+
+		AddAnimation(aniId, animation);
+	}
 	return true;
 }
 

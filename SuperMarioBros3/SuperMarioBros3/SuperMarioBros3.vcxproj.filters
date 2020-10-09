@@ -58,6 +58,9 @@
     <Filter Include="Game\Scene\World-1-1">
       <UniqueIdentifier>{918625f1-7f84-4a45-baff-3593d6119e65}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Ultis\TinyXML">
+      <UniqueIdentifier>{e2574ecd-2ede-4833-a1a9-2ec79b8ee270}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -117,6 +120,12 @@
     <ClInclude Include="Scene1.h">
       <Filter>Game\Scene\World-1-1</Filter>
     </ClInclude>
+    <ClInclude Include="tinystr.h">
+      <Filter>Framework\Ultis\TinyXML</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml.h">
+      <Filter>Framework\Ultis\TinyXML</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -160,6 +169,18 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="tinystr.cpp">
+      <Filter>Framework\Ultis\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml.cpp">
+      <Filter>Framework\Ultis\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlerror.cpp">
+      <Filter>Framework\Ultis\TinyXML</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlparser.cpp">
+      <Filter>Framework\Ultis\TinyXML</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

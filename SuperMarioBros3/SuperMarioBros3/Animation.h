@@ -22,7 +22,7 @@ private:
 	std::vector<LPAnimationFrame> animFrames;
 
 public: 
-	CAnimation(DWORD defaultTime = 100);
+	CAnimation(std::string aniID, DWORD defaultTime = 100);
 	CAnimation(const CAnimation& obj);
 	void Add(LPSprite sprite, D3DXVECTOR2 pos, DWORD frameTime = 0);
 	void Update();
