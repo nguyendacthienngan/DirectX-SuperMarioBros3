@@ -10,6 +10,7 @@ using namespace std;
 CAnimation::CAnimation(DWORD defaultTime)
 {
 	currentFrame = -1;
+	speedMultiplier = 1;
 	this->defaultFrameTime = defaultTime;
 }
 
@@ -51,12 +52,17 @@ void CAnimation::Update()
 	{
 		int frameInCurrentFrame = animFrames[currentFrame]->GetTime();
 		string s = std::to_string(frameInCurrentFrame);
-		DebugOut(ToLPCWSTR("animFrames[currentFrame]->GetTime(): " +s + "\n"));
+		DebugOut(ToLPCWSTR("Frame Time : " + s + "\n"));
+		DebugOut(ToLPCWSTR("Time Scale : " + std::to_string(CGame::GetTimeScale()) + "\n"));
+		DebugOut(ToLPCWSTR("speedMultiplier : " + std::to_string(speedMultiplier) + "\n"));
 
 		if (currentTime - lastFrameTime > animFrames[currentFrame]->GetTime() * CGame::GetTimeScale() / speedMultiplier)
 		{
+			DebugOut(ToLPCWSTR("Current Frame: " + std::to_string(currentTime)  +"\n"));
 			currentFrame = (currentFrame + 1) % animFrames.size();
 			lastFrameTime = currentTime;
+			DebugOut(ToLPCWSTR("LastFrameTime: " + std::to_string(currentTime) + "\n"));
+
 		}
 	}
 }
