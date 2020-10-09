@@ -1,0 +1,5 @@
+#pragma once
+
+
+#define MAX_FRAME_RATE 120
+#define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 200)

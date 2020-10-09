@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{cbbc2dd1-e581-4fcb-bbfa-029dfa7e2a7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files">
+      <UniqueIdentifier>{1dd3a65c-69ec-4b56-b134-367650a87482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Files\Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Files\Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Framework\Game">
+      <UniqueIdentifier>{2a2f1a66-68cd-49de-ad18-0a978ab00f87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Graphic">
+      <UniqueIdentifier>{ecdd5d90-07b2-4290-9725-e94dd3c30f8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Scene">
+      <UniqueIdentifier>{617195c5-aa3e-4a9f-9a48-0d9efc1a7761}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\GameObject">
+      <UniqueIdentifier>{9ce244ff-2527-4c9c-859f-81b6f0ec5865}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Graphic\Animation">
+      <UniqueIdentifier>{053545b2-8efe-4987-972c-d24f9c593d8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Graphic\Sprite">
+      <UniqueIdentifier>{63ca36de-8fbe-4ece-abc7-b9c2930ca084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Graphic\Texture">
+      <UniqueIdentifier>{33fd8397-e3a2-48b9-bdc8-f7bd39d3a9aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Ultis">
+      <UniqueIdentifier>{5c4e554e-5d4a-49b9-ae1c-89fff7d3cf46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{626868f1-e58e-4bfc-8e46-69c6c2097b04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene">
+      <UniqueIdentifier>{841e5247-be26-4331-8ae1-794c4f53a16e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject">
+      <UniqueIdentifier>{82d3a656-fb2a-45a8-bcc8-721c25aee955}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Mario">
+      <UniqueIdentifier>{30d25829-9b1d-44c7-a117-42fe839a60a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\World-1-1">
+      <UniqueIdentifier>{918625f1-7f84-4a45-baff-3593d6119e65}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Const.h">
+      <Filter>Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Framework\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameConst.h">
+      <Filter>Framework\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Framework\Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Framework\Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Framework\Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Framework\Game\Graphic\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationFrame.h">
+      <Filter>Framework\Game\Graphic\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationManager.h">
+      <Filter>Framework\Game\Graphic\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Framework\Game\Graphic\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Framework\Game\Graphic\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteManager.h">
+      <Filter>Framework\Game\Graphic\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Ultis.h">
+      <Filter>Framework\Ultis</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicConst.h">
+      <Filter>Framework\Game\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Game\GameObject\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene1.h">
+      <Filter>Game\Scene\World-1-1</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game.cpp">
+      <Filter>Framework\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Framework\Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Framework\Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Framework\Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Framework\Game\Graphic\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationFrame.cpp">
+      <Filter>Framework\Game\Graphic\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationManager.cpp">
+      <Filter>Framework\Game\Graphic\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Framework\Game\Graphic\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Framework\Game\Graphic\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteManager.cpp">
+      <Filter>Framework\Game\Graphic\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Ultis.cpp">
+      <Filter>Framework\Ultis</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>Game\GameObject\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene1.cpp">
+      <Filter>Game\Scene\World-1-1</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SuperMarioBros3.rc">
+      <Filter>Files\Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Files\Resource Files</Filter>
+    </Image>
+    <Image Include="SuperMarioBros3.ico">
+      <Filter>Files\Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
