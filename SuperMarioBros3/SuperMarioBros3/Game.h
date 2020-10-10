@@ -55,6 +55,7 @@ public:
 	void Update();
 	// Chỗ này cần xem lại cách tổ chức
 	void ProcessKeyboard(); // Khi Game đang chạy ta sẽ gọi Process keyboard liên tục để kiểm tra
+	bool CheckESCKey();
 
 	int GetScreenWidth() { return screenWidth; }
 	int GetScreenHeight() { return screenHeight; }

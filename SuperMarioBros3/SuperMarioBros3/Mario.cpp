@@ -2,6 +2,8 @@
 
 #include "AnimationManager.h"
 #include "Game.h"
+#include "Ultis.h"
+#include "MarioConst.h"
 CMario::CMario()
 {
 	LoadAnimation();
@@ -16,26 +18,35 @@ void CMario::Init()
 void CMario::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
+	AddAnimation("Idle",animationManager->Clone("ani-small-mario-idle"));
 	AddAnimation("Run",animationManager->Clone("ani-small-mario-run"));
 
-	this->SetState("Run"); // Để tên đồng nhất với animation
+	this->SetState("Idle"); // Để tên đồng nhất với animation
 }
 
-void CMario::Update()
+void CMario::Update(DWORD dt, std::vector<LPGameObject>* coObjects)
 {
+	CGameObject::Update(dt, coObjects);
 	//TO-DO: xử lý các transform
+	DebugOut(L"[INFO] Mario Updating.. \n");
+	auto game = CGame::GetInstance();
 
 	// Xử lý input
-	auto game = CGame::GetInstance();
-	/*if (game->GetKeyDown(DIK_LEFT))
+	if (game->GetKeyDown(DIK_RIGHT))
 	{
-		
+		velocity.x = MARIO_WALKING_SPEED;
+		normal.x = 1;
+		this->SetState("Run");
 	}
-	else if (game->GetKeyDown(DIK_RIGHT))
+	if (game->GetKeyDown(DIK_LEFT))
 	{
+		velocity.x = 0;
+		normal.x = 1;
+		this->SetState("Idle");
+	}
+	position.x += velocity.x * dt;
 
-	}*/
-	
+
 }
 
 void CMario::OnKeyDown(int KeyCode)

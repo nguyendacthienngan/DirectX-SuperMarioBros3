@@ -185,7 +185,8 @@ void CGame::Run()
 			Update();
 			// Process key
 			ProcessKeyboard(); 
-
+			if (CheckESCKey() == true)
+				continue;
 			// Render in limited fps
 			if (delta >= tickPerFrame)
 			{
@@ -214,6 +215,8 @@ void CGame::End()
 		dInputDevice->Unacquire();
 		dInputDevice->Release();
 	}
+	DebugOut(L"[INFO] Bye bye \n");
+
 }
 
 void CGame::Draw(float x, float y, int xCenter, int yCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha)
@@ -261,7 +264,6 @@ void CGame::Update()
 void CGame::ProcessKeyboard() //Cần chỉnh sửa nhiều
 {
 	HRESULT hr;
-
 	// Collect all key states first:Đọc trạng thái của toàn bộ bàn phím. Mỗi một byte ứng với một phím
 	hr = dInputDevice->GetDeviceState(sizeof(keyStates), keyStates);
 	if (FAILED(hr))
@@ -278,7 +280,7 @@ void CGame::ProcessKeyboard() //Cần chỉnh sửa nhiều
 		}
 		else
 		{
-			//DebugOut(L"[ERROR] DINPUT::GetDeviceState failed. Error: %d\n", hr);
+			DebugOut(L"[ERROR] DINPUT::GetDeviceState failed. Error: %d\n", hr);
 			return;
 		}
 	}
@@ -286,6 +288,7 @@ void CGame::ProcessKeyboard() //Cần chỉnh sửa nhiều
 	// TODO: Ta gọi 1 hàm ảo của 1 đối tượng truyền vô để xử lý
 	//-------------------------------------- CHƯA LÀM -------------------------
 	if (keyEventHandler == nullptr) return;
+	//keyEventHandler->KeyState((BYTE*)&keyStates);
 
 
 
@@ -294,7 +297,7 @@ void CGame::ProcessKeyboard() //Cần chỉnh sửa nhiều
 	hr = dInputDevice->GetDeviceData(sizeof(DIDEVICEOBJECTDATA), keyEvents, &dwElements, 0);
 	if (FAILED(hr))
 	{
-		//DebugOut(L"[ERROR] DINPUT::GetDeviceData failed. Error: %d\n", hr);
+		DebugOut(L"[ERROR] DINPUT::GetDeviceData failed. Error: %d\n", hr);
 		return;
 	}
 
@@ -308,6 +311,21 @@ void CGame::ProcessKeyboard() //Cần chỉnh sửa nhiều
 		else // Down lên Up
 			keyEventHandler->OnKeyUp(KeyCode);
 	}
+	
+}
+
+bool CGame::CheckESCKey()
+{
+
+	if (this->GetKeyDown(DIK_ESCAPE))
+	{
+		DebugOutTitle(L"Nhan ESC");
+		DebugOut(L"Nhan ESC \n");
+		CGame::GetInstance()->End();
+		PostQuitMessage(0);
+		return true;
+	}
+	return false;
 }
 
 // Hiện tại chưa chạy được
@@ -318,5 +336,5 @@ bool CGame::GetKeyDown(int keyCode)
 
 bool CGame::GetKeyUp(int keyCode)
 {
-	return (keyStates[keyCode] & 0x80) == 0;
+	return (keyStates[keyCode] & 0x80) <= 0;
 }

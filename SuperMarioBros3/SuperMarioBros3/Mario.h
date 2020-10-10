@@ -10,7 +10,7 @@ public:
 	CMario();
 	void Init();
 	void LoadAnimation();
-	void Update();
+	void Update(DWORD dt, std::vector<LPGameObject>* coObjects);
 
 	void OnKeyDown(int KeyCode);
 	void OnKeyUp(int KeyCode);

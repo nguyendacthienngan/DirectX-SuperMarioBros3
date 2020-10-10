@@ -23,6 +23,8 @@ void CGameObject::Init()
 
 void CGameObject::Update(DWORD dt, std::vector<LPGameObject>* coObjects)
 {
+	DebugOut(L"[INFO] Game Object Updating.. \n");
+
 }
 
 void CGameObject::Render()

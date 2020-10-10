@@ -14,7 +14,7 @@ class CGameObject;
 typedef CGameObject* LPGameObject;
 class CGameObject
 {
-private:
+protected:
 	int id;
 	DWORD dt;
 

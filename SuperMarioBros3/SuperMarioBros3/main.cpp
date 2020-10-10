@@ -1,4 +1,4 @@
-// SuperMarioBros3.cpp : Defines the entry point for the application.
+﻿// SuperMarioBros3.cpp : Defines the entry point for the application.
 //
 
 #include "framework.h"
@@ -87,10 +87,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
-    case WM_DESTROY :
+    case WM_DESTROY:
         CGame::GetInstance()->End();
         PostQuitMessage(0);
         break;
+    //case WM_KEYDOWN: // hỏi thầy
+    //    switch (wParam)
+    //    {
+    //    case VK_ESCAPE:
+    //        CGame::GetInstance()->End();
+    //        PostQuitMessage(0);
+    //        break;
+    //    }
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }

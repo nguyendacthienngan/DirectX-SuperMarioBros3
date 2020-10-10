@@ -135,6 +135,9 @@
     <ClInclude Include="GameKeyEventHandler.h">
       <Filter>Framework\Game\Input</Filter>
     </ClInclude>
+    <ClInclude Include="MarioConst.h">
+      <Filter>Game\GameObject\Mario</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
