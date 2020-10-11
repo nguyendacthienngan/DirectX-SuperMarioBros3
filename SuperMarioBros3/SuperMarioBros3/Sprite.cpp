@@ -49,3 +49,8 @@ void CSprite::SetHeight(int h)
 {
 	height = h;
 }
+
+CSprite::~CSprite()
+{
+	delete texture;
+}

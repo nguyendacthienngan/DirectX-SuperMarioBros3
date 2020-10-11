@@ -24,6 +24,7 @@ public:
 	LPAnimation Clone(std::string id); // Copy constructor: Giúp copy ani ra bản sao để mỗi object xài ani riêng. Không bị trùng nhau
 	void Clear();
 	static LPAnimationManager GetInstance();
+	~CAnimationManager();
 };
 #endif
 

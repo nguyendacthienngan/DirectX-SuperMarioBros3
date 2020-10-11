@@ -74,3 +74,9 @@ void CTextureManager::Add(string id, LPCWSTR filePath, D3DCOLOR transparentColor
 	DebugOut(L"[INFO] Texture loaded Ok: %s\n", filePath);
 	OutputDebugStringW(ToLPCWSTR("[INFO] Texture ID: " + id + "\n"));
 }
+
+CTextureManager::~CTextureManager()
+{
+	for (auto t : textures)
+		delete t.second;
+}

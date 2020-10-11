@@ -79,3 +79,10 @@ void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 	OutputDebugString(ToLPCWSTR("Translate Position: " + std::to_string(transform.translatePos.x) + "\n"));
 	animFrames[currentFrame]->GetSprite()->Draw(transform.translatePos, transform.scale, transform.rotationAngle, alpha);
 }
+
+CAnimation::~CAnimation()
+{
+	for (auto a : animFrames)
+		delete a;
+	animFrames.clear();
+}

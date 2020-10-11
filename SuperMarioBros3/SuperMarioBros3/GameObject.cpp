@@ -13,7 +13,8 @@ CGameObject::CGameObject()
 
 CGameObject::~CGameObject()
 {
-	
+	for (auto a : animations)
+		delete a.second;
 }
 
 

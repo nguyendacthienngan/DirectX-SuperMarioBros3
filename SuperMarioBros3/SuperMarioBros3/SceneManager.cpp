@@ -56,4 +56,9 @@ LPScene CSceneManager::GetActiveScene()
 
 CSceneManager::~CSceneManager()
 {
+	for (auto s : loadedScenes)
+	{
+		delete s.second;
+	}
+	loadedScenes.clear();
 }

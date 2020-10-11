@@ -15,6 +15,12 @@ LPAnimationManager CAnimationManager::GetInstance()
     return instance;
 }
 
+CAnimationManager::~CAnimationManager()
+{
+	for (auto ani : animations)
+		delete ani.second;
+}
+
 CAnimationManager::CAnimationManager()
 {
 }

@@ -26,6 +26,7 @@ public:
 	void SetWidth(int w);
 	int GetHeight();
 	void SetHeight(int h);
+	~CSprite();
 };
 
 #endif

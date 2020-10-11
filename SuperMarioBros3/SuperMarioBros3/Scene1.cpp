@@ -46,4 +46,5 @@ void CScene1::Render()
 
 CScene1::~CScene1()
 {
+	delete mario;
 }

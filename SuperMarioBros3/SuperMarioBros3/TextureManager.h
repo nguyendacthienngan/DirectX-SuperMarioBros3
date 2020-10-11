@@ -22,7 +22,7 @@ public:
 	void LoadTexture(std::string texName, LPCWSTR texPath);
 	LPDIRECT3DTEXTURE9 GetTexture(std::string id);
 	void Add(std::string id, LPCWSTR filePath, D3DCOLOR transparentColor);
-
+	~CTextureManager();
 };
 
 #endif

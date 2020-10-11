@@ -1,4 +1,4 @@
-#include "Scene.h"
+﻿#include "Scene.h"
 #include "Ultis.h"
 using namespace std;
 
@@ -20,6 +20,7 @@ void CScene::Update(DWORD dt)
 	{
 		obj->Update(dt);
 		obj->AnimationUpdate();
+		// Set transform ở đây
 	}
 }
 
@@ -59,4 +60,8 @@ std::vector<LPGameObject> CScene::GetObjects()
 
 CScene::~CScene()
 {
+	delete map; // đúng hay chưa?
+	for (auto gO : gameObjects)
+		delete gO;
+	gameObjects.clear();
 }

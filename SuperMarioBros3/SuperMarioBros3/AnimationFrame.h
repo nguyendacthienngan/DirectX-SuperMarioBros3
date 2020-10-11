@@ -17,6 +17,7 @@ public:
 	CAnimationFrame(LPSprite sprite, DWORD time, D3DXVECTOR2 position);
 	LPSprite GetSprite();
 	DWORD GetTime();
+	~CAnimationFrame();
 };
 
 #endif

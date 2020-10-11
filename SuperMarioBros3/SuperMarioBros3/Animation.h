@@ -48,6 +48,7 @@ public:
 	void ResetSpeedMultiplier() { speedMultiplier = 1.0f; }
 	float GetSpeedMultiplier() { return speedMultiplier; }
 
+	~CAnimation();
 };
 
 #endif
