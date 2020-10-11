@@ -28,7 +28,8 @@ void CScene1::Load()
 	mario->SetPosition(pos);
 	this->AddObject(mario);
 
-	
+	DebugOut(L"[INFO] Load Map ... \n");
+	map = new CMap(MAP_PATH + MAP_WORLD1_1_FILENAME);
 
 	backgroundColor = D3DCOLOR_XRGB(156, 252, 240);
 	DebugOut(L"[INFO] Loaded Scene \n");
@@ -37,8 +38,7 @@ void CScene1::Load()
 
 void CScene1::Render()
 {
-	DebugOut(L"[INFO] Load Map ... \n");
-	map = new CMap(MAP_PATH + MAP_WORLD1_1_FILENAME);
+	DebugOut(L"[INFO] Draw Map ... \n");
 	map->Draw();
 	DebugOut(L"[INFO] Load Map Successfully \n");
 	CScene::Render();
