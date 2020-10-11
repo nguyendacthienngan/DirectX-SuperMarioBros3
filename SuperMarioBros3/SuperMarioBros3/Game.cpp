@@ -249,15 +249,21 @@ void CGame::Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTUR
 	spriteHandler->GetTransform(&oldMatrix);
 	DebugOut(L"Old Matrix: %f", oldMatrix.m);
 
+
 	D3DXVECTOR3 pos(position.x, position.y, 0);
 	D3DXVECTOR3 pCenter(pointCenter.x, pointCenter.y, 0);
-	D3DXVECTOR2* posi = new D3DXVECTOR2(position.x, position.y);
 
 	// Trước khi vẽ mình set cái matrix transform. Sau khi vẽ xong mình trả lại transform trước đó
 	
+	D3DXVECTOR2* posi = new D3DXVECTOR2(position.x, position.y);
 	//D3DXMatrixTransformation2D(&newMatrix, posi, 0, &scale, posi, D3DXToRadian(rotation), new D3DXVECTOR2(0.0f, 0.0f));
-	D3DXMatrixTransformation2D(&newMatrix, NULL, NULL, &scale, &position, D3DXToRadian(rotation), NULL);
+	//D3DXMatrixTransformation2D(&newMatrix, NULL, NULL, new D3DXVECTOR2(3.0f, 3.0f), posi, D3DXToRadian(rotation), NULL);
+	D3DXMatrixTransformation2D(&newMatrix, NULL, NULL, &scale, posi, D3DXToRadian(rotation), NULL);
+
 	DebugOut(L"New Matrix: %f", newMatrix.m);
+	
+	//OutputDebugString(ToLPCWSTR(std::to_string(newMatrix.m)));
+
 	spriteHandler->SetTransform(&newMatrix);
 
 	// Vẽ bằng góc trái trên
@@ -268,6 +274,7 @@ void CGame::Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTUR
 	spriteHandler->Draw(texture, &rect, &pCen, &pos, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 
 	spriteHandler->SetTransform(&oldMatrix);
+
 }
 
 void CGame::Render()

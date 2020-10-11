@@ -59,7 +59,7 @@ void CMario::Render()
 	this->SetScale(scale); 
 	DebugOut(L"Scale: %f", scale.x);
 
-	this->SetRotation(80.0f); // Bị lỗi
+	//this->SetRotation(80.0f); // Bị lỗi
 	DebugOut(L"Rotation: %f", transform.rotationAngle);
 
 	CGameObject::Render();
