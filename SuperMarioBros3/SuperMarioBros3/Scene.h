@@ -5,6 +5,8 @@
 
 #include "GameObject.h"
 
+#include "Map.h"
+
 class CScene;
 typedef CScene* LPScene;
 
@@ -14,6 +16,8 @@ protected:
 	std::vector<LPGameObject> gameObjects;
 	std::string id;
 	LPCWSTR filePath;
+	D3DCOLOR backgroundColor;
+	CMap *map;
 public:
 	CScene();
 
@@ -24,10 +28,11 @@ public:
 	virtual void Render();
 
 	std::string GetSceneId() { return this->id; }
+	D3DCOLOR GetBackgroundColor() { return backgroundColor; }
 
-	void AddObject(LPGameObject gameObject);
-	void RemoveObject(LPGameObject gameObject);
 	std::vector<LPGameObject> GetObjects();
+		void AddObject(LPGameObject gameObject);
+	void RemoveObject(LPGameObject gameObject);
 
 	virtual void OnKeyDown(int KeyCode) = 0;
 	virtual void OnKeyUp(int KeyCode) = 0;

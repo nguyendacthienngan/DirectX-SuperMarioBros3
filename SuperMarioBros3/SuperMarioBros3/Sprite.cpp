@@ -20,6 +20,16 @@ void CSprite::Draw(D3DXVECTOR2 position, D3DXVECTOR2 scale, float rotation, int 
 	game->Draw(position, pointCenter, texture, rect, alpha, scale, rotation);
 }
 
+RECT CSprite::GetRect()
+{
+	return rect;
+}
+
+void CSprite::SetRect(RECT rect)
+{
+	this->rect = rect;
+}
+
 int CSprite::GetWidth()
 {
 	return width;

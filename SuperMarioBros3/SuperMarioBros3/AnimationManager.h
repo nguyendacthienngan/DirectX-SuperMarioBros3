@@ -2,7 +2,7 @@
 #ifndef ANIMATIONMANAGER_H
 #define ANIMATIONMANAGER_H
 
-#include <unordered_map>
+#include <map>
 
 #include "Animation.h"
 
@@ -12,7 +12,7 @@ class CAnimationManager
 {
 private:
 	static LPAnimationManager instance;
-	std::unordered_map<std::string, LPAnimation> animations; // Lưu toàn bộ. Ta sẽ k cần animation set như của thầy Dũng vì ta cho mỗi gameObject clone animation những animation thuộc về nó
+	std::map<std::string, LPAnimation> animations; // Lưu toàn bộ. Ta sẽ k cần animation set như của thầy Dũng vì ta cho mỗi gameObject clone animation những animation thuộc về nó
 	// Animation Manager chỉ có chức năng lưu trữ như một database. Mà được lưu trên RAM để tăng tốc độ xử lý
 public:
 	CAnimationManager();

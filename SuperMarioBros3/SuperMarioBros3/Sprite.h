@@ -20,6 +20,8 @@ public:
 	CSprite(std::string id, RECT rect = RECT(), LPDIRECT3DTEXTURE9 tex = NULL); // texture là bên Texture manager giữ
 	void Draw(D3DXVECTOR2 position, D3DXVECTOR2 scale, float rotation, int alpha = 255);
 
+	RECT GetRect();
+	void SetRect(RECT rect);
 	int GetWidth();
 	void SetWidth(int w);
 	int GetHeight();

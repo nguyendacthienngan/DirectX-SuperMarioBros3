@@ -239,53 +239,36 @@ void CGame::Draw(float x, float y, int xCenter, int yCenter, LPDIRECT3DTEXTURE9 
 
 void CGame::Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha, D3DXVECTOR2 scale, float rotation)
 {
+	d3ddv->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	DebugOut(L"Start Drawing.. \n");
 	
 	// spriteHandlerkhi vẽ sẽ có 1 transform matrix
 	// sẽ vẽ ra textue như thế nào tùy thuộc vào matrix đó
 	// do đó ta sẽ có old matrix và new matrix
 
-	D3DXMATRIX oldMatrix, newMatrix;
-	spriteHandler->GetTransform(&oldMatrix);
-	DebugOut(L"Old Matrix: %f", oldMatrix.m);
-
-
-	D3DXVECTOR3 pos(position.x, position.y, 0);
+	D3DXVECTOR3 pos(position.x, position.y, 0); // Muốn flip thì không chỉ scale -1 mà còn phải position -1 nữa
 	D3DXVECTOR3 pCenter(pointCenter.x, pointCenter.y, 0);
 
 	// Trước khi vẽ mình set cái matrix transform. Sau khi vẽ xong mình trả lại transform trước đó
-	
-	D3DXVECTOR2* posi = new D3DXVECTOR2(position.x, position.y);
-	//D3DXMatrixTransformation2D(&newMatrix, posi, 0, &scale, posi, D3DXToRadian(rotation), new D3DXVECTOR2(0.0f, 0.0f));
-	//D3DXMatrixTransformation2D(&newMatrix, NULL, NULL, new D3DXVECTOR2(3.0f, 3.0f), posi, D3DXToRadian(rotation), NULL);
-	D3DXMatrixTransformation2D(&newMatrix, NULL, NULL, &scale, posi, D3DXToRadian(rotation), NULL);
-
-	DebugOut(L"New Matrix: %f", newMatrix.m);
-	
-	//OutputDebugString(ToLPCWSTR(std::to_string(newMatrix.m)));
-
-	spriteHandler->SetTransform(&newMatrix);
-
-	// Vẽ bằng góc trái trên
-	//spriteHandler->Draw(texture, &rect, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 
 	// Vẽ bằng tâm
 	D3DXVECTOR3 pCen = D3DXVECTOR3(pCenter.x, pCenter.y, 0);
 	spriteHandler->Draw(texture, &rect, &pCen, &pos, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 
-	spriteHandler->SetTransform(&oldMatrix);
-
 }
 
 void CGame::Render()
 {
-	d3ddv->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+	D3DCOLOR bgColor = D3DCOLOR_XRGB(0, 0, 0);
+	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	if (activeScene != nullptr)
+		bgColor = activeScene->GetBackgroundColor();
+	d3ddv->Clear(0, NULL, D3DCLEAR_TARGET, bgColor, 1.0f, 0);
 
 	if (d3ddv->BeginScene())
 	{
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 		if (activeScene != nullptr)
 			activeScene->Render();
 

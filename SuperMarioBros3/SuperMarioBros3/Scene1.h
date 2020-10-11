@@ -19,6 +19,7 @@ public:
 	void Load();
 	//void LoadMap(eType);
 
+	void Render();
 
 	~CScene1();
 };

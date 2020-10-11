@@ -7,7 +7,8 @@
 CMario::CMario()
 {
 	LoadAnimation();
-	
+	this->SetScale(D3DXVECTOR2(0.0f, 0.0f));
+	this->SetRotation(0.0f);
 
 }
 
@@ -20,7 +21,8 @@ void CMario::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
 	AddAnimation("Idle",animationManager->Clone("ani-small-mario-idle"));
-	AddAnimation("Run",animationManager->Clone("ani-small-mario-run"));
+	AddAnimation("Run-Right", animationManager->Clone("ani-small-mario-run"));
+	AddAnimation("Run-Left",animationManager->Clone("ani-small-mario-run"));
 
 	this->SetState("Idle"); // Để tên đồng nhất với animation
 }
@@ -40,28 +42,21 @@ void CMario::Update(DWORD dt, std::vector<LPGameObject>* coObjects)
 	{
 		velocity.x = MARIO_WALKING_SPEED;
 		normal.x = 1;
-		this->SetState("Run");
+		this->SetState("Run-Right");
 	}
 	if (game->GetKeyDown(DIK_LEFT))
 	{
-		velocity.x = 0;
-		normal.x = 1;
-		this->SetState("Idle");
+		normal.x = -1;
+		velocity.x = normal.x*MARIO_WALKING_SPEED;
+		this->SetState("Run-Left");
 	}
-	//transform.translatePos.x += velocity.x * dt;
+	transform.translatePos.x += velocity.x * dt;
 
 
 }
 
 void CMario::Render()
 {
-	D3DXVECTOR2 scale = D3DXVECTOR2(3.0f, 3.0f);
-	this->SetScale(scale); 
-	DebugOut(L"Scale: %f", scale.x);
-
-	//this->SetRotation(80.0f); // Bị lỗi
-	DebugOut(L"Rotation: %f", transform.rotationAngle);
-
 	CGameObject::Render();
 
 }
