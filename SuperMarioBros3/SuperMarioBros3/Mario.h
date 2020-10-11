@@ -11,6 +11,7 @@ public:
 	void Init();
 	void LoadAnimation();
 	void Update(DWORD dt, std::vector<LPGameObject>* coObjects);
+	void Render();
 
 	void OnKeyDown(int KeyCode);
 	void OnKeyUp(int KeyCode);

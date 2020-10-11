@@ -7,6 +7,7 @@
 CMario::CMario()
 {
 	LoadAnimation();
+	
 
 }
 
@@ -27,9 +28,12 @@ void CMario::LoadAnimation()
 void CMario::Update(DWORD dt, std::vector<LPGameObject>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
-	//TO-DO: xử lý các transform
 	DebugOut(L"[INFO] Mario Updating.. \n");
 	auto game = CGame::GetInstance();
+
+	//TO-DO: xử lý các transform
+	
+	//SetRotation(1.0f);
 
 	// Xử lý input
 	if (game->GetKeyDown(DIK_RIGHT))
@@ -44,8 +48,21 @@ void CMario::Update(DWORD dt, std::vector<LPGameObject>* coObjects)
 		normal.x = 1;
 		this->SetState("Idle");
 	}
-	position.x += velocity.x * dt;
+	//transform.translatePos.x += velocity.x * dt;
 
+
+}
+
+void CMario::Render()
+{
+	D3DXVECTOR2 scale = D3DXVECTOR2(3.0f, 3.0f);
+	this->SetScale(scale); 
+	DebugOut(L"Scale: %f", scale.x);
+
+	this->SetRotation(80.0f); // Bị lỗi
+	DebugOut(L"Rotation: %f", transform.rotationAngle);
+
+	CGameObject::Render();
 
 }
 

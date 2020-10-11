@@ -18,7 +18,7 @@ class CSprite
 	LPDIRECT3DTEXTURE9 texture;
 public:
 	CSprite(std::string id, RECT rect = RECT(), LPDIRECT3DTEXTURE9 tex = NULL); // texture là bên Texture manager giữ
-	void Draw(D3DXVECTOR2 position, int alpha = 255);
+	void Draw(D3DXVECTOR2 position, D3DXVECTOR2 scale, float rotation, int alpha = 255);
 
 	int GetWidth();
 	void SetWidth(int w);

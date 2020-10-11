@@ -1,8 +1,8 @@
 #include "Scene1.h"
 #include "Ultis.h"
 
-#define MARIO_START_X 10.0f
-#define MARIO_START_Y 130.0f
+#define MARIO_START_X 100.0f
+#define MARIO_START_Y 50.0f
 
 CScene1::CScene1()
 {

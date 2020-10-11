@@ -8,6 +8,8 @@
 #include "GameKeyEventHandler.h"
 
 #include "Scene1.h"
+
+#include <string>
 CGame* CGame::instance = NULL;
 float CGame::deltaTime = 0.0f;
 float CGame::timeScale = 1.0f;
@@ -219,16 +221,53 @@ void CGame::End()
 
 }
 
-void CGame::Draw(float x, float y, int xCenter, int yCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha)
+void CGame::Draw(float x, float y, int xCenter, int yCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha, D3DXVECTOR2 scale, float rotation)
 {
+	D3DXMATRIX oldMatrix, newMatrix;
+	spriteHandler->GetTransform(&oldMatrix);
+
 	D3DXVECTOR3 p(x, y, 0);
 	D3DXVECTOR3 pCenter(xCenter, yCenter, 0);
+
+	D3DXMatrixTransformation2D(&newMatrix, new D3DXVECTOR2(x,y), 0, &scale, new D3DXVECTOR2(x, y), rotation, new D3DXVECTOR2(0.0f, 0.0f));
+	spriteHandler->SetTransform(&newMatrix);
+
+	// Vẽ bằng tâm
+	spriteHandler->Draw(texture, &rect, &pCenter, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->SetTransform(&oldMatrix);
+}
+
+void CGame::Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha, D3DXVECTOR2 scale, float rotation)
+{
+	DebugOut(L"Start Drawing.. \n");
+	
+	// spriteHandlerkhi vẽ sẽ có 1 transform matrix
+	// sẽ vẽ ra textue như thế nào tùy thuộc vào matrix đó
+	// do đó ta sẽ có old matrix và new matrix
+
+	D3DXMATRIX oldMatrix, newMatrix;
+	spriteHandler->GetTransform(&oldMatrix);
+	DebugOut(L"Old Matrix: %f", oldMatrix.m);
+
+	D3DXVECTOR3 pos(position.x, position.y, 0);
+	D3DXVECTOR3 pCenter(pointCenter.x, pointCenter.y, 0);
+	D3DXVECTOR2* posi = new D3DXVECTOR2(position.x, position.y);
+
+	// Trước khi vẽ mình set cái matrix transform. Sau khi vẽ xong mình trả lại transform trước đó
+	
+	//D3DXMatrixTransformation2D(&newMatrix, posi, 0, &scale, posi, D3DXToRadian(rotation), new D3DXVECTOR2(0.0f, 0.0f));
+	D3DXMatrixTransformation2D(&newMatrix, NULL, NULL, &scale, &position, D3DXToRadian(rotation), NULL);
+	DebugOut(L"New Matrix: %f", newMatrix.m);
+	spriteHandler->SetTransform(&newMatrix);
+
 	// Vẽ bằng góc trái trên
 	//spriteHandler->Draw(texture, &rect, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 
 	// Vẽ bằng tâm
-	spriteHandler->Draw(texture, &rect, &pCenter, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	D3DXVECTOR3 pCen = D3DXVECTOR3(pCenter.x, pCenter.y, 0);
+	spriteHandler->Draw(texture, &rect, &pCen, &pos, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 
+	spriteHandler->SetTransform(&oldMatrix);
 }
 
 void CGame::Render()
@@ -254,6 +293,7 @@ void CGame::Render()
 
 void CGame::Update()
 {
+	
 	LPSceneManager sceneManger = CSceneManager::GetInstance();
 	LPScene activeScene = sceneManger->GetActiveScene();
 	// Update Scene. Trong Scene sẽ Update các GameObject. Trong GameObject sẽ update các animation. Các animation sẽ update các animation frame / sprite ?

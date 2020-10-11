@@ -45,8 +45,8 @@ public:
 	~CGame();
 	void InitDirectX(HWND hWnd, int scrWidth, int scrHeight);
 	void InitKeyboard (LPKeyEventHandler handler);
-	void Draw(float x, float y, int xCenter, int yCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha);
-
+	void Draw(float x, float y, int xCenter, int yCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha, D3DXVECTOR2 scale, float rotation);
+	void Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha, D3DXVECTOR2 scale, float rotation);
 	void Init();
 	void Run(); // while-loop game
 	void End();

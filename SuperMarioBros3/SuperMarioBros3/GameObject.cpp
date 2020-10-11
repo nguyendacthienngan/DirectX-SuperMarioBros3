@@ -41,8 +41,8 @@ void CGameObject::Render()
 			DebugOut(L"Cannot find curState \n");
 			return;
 	}
-	DebugOut(ToLPCWSTR("Position: " + std::to_string(position.x) + "\n"));
-	animations.at(currentState)->Render(position); 
+	DebugOut(ToLPCWSTR("Position: " + std::to_string(transform.translatePos.x) + "\n"));
+	animations.at(currentState)->Render(transform.translatePos);
 
 }
 

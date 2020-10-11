@@ -21,9 +21,11 @@ CAnimation::CAnimation(const CAnimation& obj)
 	this->defaultFrameTime = obj.defaultFrameTime;
 	this->lastFrameTime = obj.lastFrameTime;
 	this->currentFrame = obj.currentFrame;
-	this->speedMultiplier = obj.speedMultiplier;
+	this->speedMultiplier = 1.0f;
 	std::vector<LPAnimationFrame> newFrames(obj.animFrames);
 	this->animFrames = newFrames;
+	//this->transform = obj.transform;
+	this->transform = transform.CreateTransformation(obj.transform.translatePos, obj.transform.scale, obj.transform.rotationAngle);
 }
 
 void CAnimation::Add(LPSprite sprite, D3DXVECTOR2 pos, DWORD frameTime)
@@ -71,5 +73,9 @@ void CAnimation::Update()
 void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 {
 	DebugOut(L"[INFO] Render Animation \n");
-	animFrames[currentFrame]->GetSprite()->Draw(position, alpha);
+	OutputDebugString(ToLPCWSTR("Position: " + std::to_string(position.x) + "\n"));
+	D3DXVECTOR2 translateDestination = D3DXVECTOR2 (position.x, position.y);
+	transform.translatePos = translateDestination;
+	OutputDebugString(ToLPCWSTR("Translate Position: " + std::to_string(transform.translatePos.x) + "\n"));
+	animFrames[currentFrame]->GetSprite()->Draw(transform.translatePos, transform.scale, transform.rotationAngle, alpha);
 }

@@ -165,6 +165,7 @@
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="tinystr.h" />
     <ClInclude Include="tinyxml.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="Ultis.h" />
   </ItemGroup>
   <ItemGroup>

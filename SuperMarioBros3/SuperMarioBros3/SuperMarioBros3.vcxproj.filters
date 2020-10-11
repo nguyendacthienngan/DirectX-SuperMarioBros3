@@ -138,6 +138,9 @@
     <ClInclude Include="MarioConst.h">
       <Filter>Game\GameObject\Mario</Filter>
     </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Framework\Ultis</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">

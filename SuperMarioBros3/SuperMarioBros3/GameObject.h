@@ -9,7 +9,6 @@
 
 #include "Animation.h"
 
-
 class CGameObject;
 typedef CGameObject* LPGameObject;
 class CGameObject
@@ -18,14 +17,17 @@ protected:
 	int id;
 	DWORD dt;
 
-	D3DXVECTOR2 position;
+	Transform transform;
+
+	//D3DXVECTOR2 position;
 	D3DXVECTOR2 velocity;
 	D3DXVECTOR2 distance; // dx = vx*dt, dy = vy*dt, độ dời sau một khoảng thời gian
 	D3DXVECTOR2 normal; // vector pháp tuyến? nx, ny
+	float acceleration; // gia tốc
 
-	//STATE?
 	std::string currentState;
 
+	// To-Do
 	bool isEnabled;
 
 	// Mỗi gameobject sẽ lưu animation của riêng nó. Nó sẽ clone animation từ animation gốc chứ k lấy thẳng con trỏ animation bên đó
@@ -50,10 +52,26 @@ public:
 
 	bool IsEnabled();
 
-	void SetPosition(D3DXVECTOR2 p) { this->position = p; }
+	void SetPosition(D3DXVECTOR2 p) { this->transform.translatePos = p; }
 	void SetSpeed(D3DXVECTOR2 v) { this->velocity = v; }
-	D3DXVECTOR2 GetPosition() { return position; }
+
+	void SetScale(D3DXVECTOR2 s) 
+	{ 
+		this->transform.scale = s;
+		this->animations[currentState]->SetScale(s); // Khi setscale ở GameObject phải đồng bộ với Animation
+	}
+	void SetRotation(float r) 
+	{
+		this->transform.rotationAngle = r; 
+		this->animations[currentState]->SetRotation(r); // Khi setrotation ở GameObject phải đồng bộ với Animation
+	}
+
+	D3DXVECTOR2 GetPosition() { return transform.translatePos; }
 	D3DXVECTOR2 GetSpeed() { return velocity; }
+
+	D3DXVECTOR2 GetScale() { return transform.scale; }
+	float GetRotation() { return transform.rotationAngle; }
+
 	void SetState(std::string state);
 
 };
