@@ -61,6 +61,7 @@ std::vector<LPGameObject> CScene::GetObjects()
 CScene::~CScene()
 {
 	delete map; // đúng hay chưa?
+	delete camera;
 	for (auto gO : gameObjects)
 		delete gO;
 	gameObjects.clear();

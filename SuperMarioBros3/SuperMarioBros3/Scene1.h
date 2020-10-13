@@ -12,9 +12,6 @@ private:
 public:
 	CScene1();
 
-	void KeyState(BYTE* state);
-	void OnKeyDown(int KeyCode);
-	void OnKeyUp(int KeyCode);
 
 	void Load();
 	//void LoadMap(eType);

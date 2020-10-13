@@ -164,6 +164,7 @@ void CGame::Draw(float x, float y, int xCenter, int yCenter, LPDIRECT3DTEXTURE9 
 	spriteHandler->SetTransform(&oldMatrix);
 }
 
+// scale với flip đc nhưng k thể draw map đc do khi truyền vô tham số scale để là 0 :D nên k thấy gì hết. ph set là 1
 void CGame::Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha, D3DXVECTOR2 scale, float rotation)
 {
 	d3ddv->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
@@ -181,8 +182,8 @@ void CGame::Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTUR
 	//DebugOut(L"Scale.x: %f \n", scale.x);
 
 	// Trước khi vẽ mình set cái matrix transform. Sau khi vẽ xong mình trả lại transform trước đó
-	//D3DXMatrixTransformation2D(&newMatrix, &position, 0.0f, &D3DXVECTOR2(-1.0f, 1.0f), NULL, 0.0f, NULL);
 	D3DXMatrixTransformation2D(&newMatrix, &position, 0.0f, &scale, NULL, D3DXToRadian(rotation), NULL);
+	//D3DXMatrixTransformation2D(&newMatrix, &position, 0.0f, NULL, NULL, D3DXToRadian(0.0f), NULL);
 
 	spriteHandler->SetTransform(&newMatrix);
 
