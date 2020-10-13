@@ -20,7 +20,7 @@ CAnimation::CAnimation(const CAnimation& obj)
 	this->id = obj.id;
 	this->defaultFrameTime = obj.defaultFrameTime;
 	this->lastFrameTime = obj.lastFrameTime;
-	this->currentFrame = obj.currentFrame;
+	this->currentFrame = -1;
 	this->speedMultiplier = 1.0f;
 	std::vector<LPAnimationFrame> newFrames(obj.animFrames);
 	this->animFrames = newFrames;
@@ -41,28 +41,38 @@ void CAnimation::Add(LPSprite sprite, D3DXVECTOR2 pos, DWORD frameTime)
 void CAnimation::Update()
 {
 	DebugOut(L"[INFO] Animation Update \n");
-	//if (animFrames.size() == 0 || speedMultiplier == 0.0f) return;
-	if (animFrames.size() == 0) return;
+	if (animFrames.size() == 0 || speedMultiplier == 0.0f) return;
 
 	DWORD currentTime = GetTickCount();
 
 	if (currentFrame == -1)
 	{
+		DebugOut(ToLPCWSTR("Alo \n"));
+
 		currentFrame = 0;
+		DebugOut(ToLPCWSTR("Current Frame: " + std::to_string(currentFrame) + "\n"));
+
+
 		lastFrameTime = currentTime;
 	}
 	else
 	{
-		int frameInCurrentFrame = animFrames[currentFrame]->GetTime();
+		DebugOut(ToLPCWSTR("(2) Anim Frames'size: " + std::to_string(animFrames.size()) + "\n"));
+
+	/*	int frameInCurrentFrame = animFrames[currentFrame]->GetTime();
 		string s = std::to_string(frameInCurrentFrame);
 		DebugOut(ToLPCWSTR("Frame Time : " + s + "\n"));
 		DebugOut(ToLPCWSTR("Time Scale : " + std::to_string(CGame::GetTimeScale()) + "\n"));
-		DebugOut(ToLPCWSTR("speedMultiplier : " + std::to_string(speedMultiplier) + "\n"));
+		DebugOut(ToLPCWSTR("speedMultiplier : " + std::to_string(speedMultiplier) + "\n"));*/
 
 		if (currentTime - lastFrameTime > animFrames[currentFrame]->GetTime() * CGame::GetTimeScale() / speedMultiplier)
 		{
-			DebugOut(ToLPCWSTR("Current Frame: " + std::to_string(currentTime)  +"\n"));
+			//DebugOut(ToLPCWSTR("Current Frame: " + std::to_string(currentTime)  +"\n"));
 			currentFrame = (currentFrame + 1) % animFrames.size();
+			//DebugOut(ToLPCWSTR("Anim Frame Size: " + std::to_string(animFrames.size()) + "\n"));
+
+			DebugOut(ToLPCWSTR("Current Frame: " + std::to_string(currentFrame) + "\n"));
+
 			lastFrameTime = currentTime;
 			DebugOut(ToLPCWSTR("LastFrameTime: " + std::to_string(currentTime) + "\n"));
 
@@ -72,12 +82,23 @@ void CAnimation::Update()
 
 void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 {
+	if (animFrames.size() == 0 || speedMultiplier == 0.0f) return;
+
+
 	DebugOut(L"[INFO] Render Animation \n");
 	OutputDebugString(ToLPCWSTR("Position: " + std::to_string(position.x) + "\n"));
 	D3DXVECTOR2 translateDestination = D3DXVECTOR2 (position.x, position.y);
 	transform.translatePos = translateDestination;
 	OutputDebugString(ToLPCWSTR("Translate Position: " + std::to_string(transform.translatePos.x) + "\n"));
 	animFrames[currentFrame]->GetSprite()->Draw(transform.translatePos, transform.scale, transform.rotationAngle, alpha);
+}
+
+LPAnimationFrame CAnimation::GetAnimFrame()
+{
+	DebugOut(ToLPCWSTR("Current Frame: " + std::to_string(currentFrame) + "\n"));
+	if (currentFrame != -1)
+		return animFrames[currentFrame];
+	return NULL;
 }
 
 CAnimation::~CAnimation()

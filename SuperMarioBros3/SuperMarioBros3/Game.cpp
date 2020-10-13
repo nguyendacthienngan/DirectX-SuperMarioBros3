@@ -241,19 +241,30 @@ void CGame::Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTUR
 {
 	d3ddv->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	DebugOut(L"Start Drawing.. \n");
-	
-	// spriteHandlerkhi vẽ sẽ có 1 transform matrix
-	// sẽ vẽ ra textue như thế nào tùy thuộc vào matrix đó
-	// do đó ta sẽ có old matrix và new matrix
 
 	D3DXVECTOR3 pos(position.x, position.y, 0); // Muốn flip thì không chỉ scale -1 mà còn phải position -1 nữa
 	D3DXVECTOR3 pCenter(pointCenter.x, pointCenter.y, 0);
 
+	// spriteHandlerkhi vẽ sẽ có 1 transform matrix
+	// sẽ vẽ ra textue như thế nào tùy thuộc vào matrix đó
+	// do đó ta sẽ có old matrix và new matrix
+	D3DXMATRIX oldMatrix, newMatrix;
+	spriteHandler->GetTransform(&oldMatrix);
+
+	//DebugOut(L"Scale.x: %f \n", scale.x);
+
 	// Trước khi vẽ mình set cái matrix transform. Sau khi vẽ xong mình trả lại transform trước đó
+	//D3DXMatrixTransformation2D(&newMatrix, &position, 0.0f, &D3DXVECTOR2(-1.0f, 1.0f), NULL, 0.0f, NULL);
+	D3DXMatrixTransformation2D(&newMatrix, &position, 0.0f, &scale, NULL, D3DXToRadian(rotation), NULL);
+
+	spriteHandler->SetTransform(&newMatrix);
+
 
 	// Vẽ bằng tâm
 	D3DXVECTOR3 pCen = D3DXVECTOR3(pCenter.x, pCenter.y, 0);
 	spriteHandler->Draw(texture, &rect, &pCen, &pos, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+
+	spriteHandler->SetTransform(&oldMatrix);
 
 }
 

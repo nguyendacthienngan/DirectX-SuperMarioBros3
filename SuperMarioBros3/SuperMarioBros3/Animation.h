@@ -42,6 +42,9 @@ public:
 	D3DXVECTOR2 GetScale() { return transform.scale; }
 	float GetRotation() { return transform.rotationAngle; }
 
+	LPAnimationFrame GetAnimFrame();
+	
+
 	void SetState();
 
 	void SetSpeedMultiplier(float speed) { speedMultiplier = speed; }
