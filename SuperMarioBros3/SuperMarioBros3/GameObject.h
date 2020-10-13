@@ -47,6 +47,7 @@ public:
 
 	void AddAnimation(std::string stateName, LPAnimation animation);
 
+	virtual void KeyState(BYTE* states) = 0;
 	virtual void OnKeyDown(int KeyCode) = 0; // sẽ thuần ảo để đến từng gameObject cụ thể sẽ tự xử lý
 	virtual void OnKeyUp(int KeyCode) = 0;
 

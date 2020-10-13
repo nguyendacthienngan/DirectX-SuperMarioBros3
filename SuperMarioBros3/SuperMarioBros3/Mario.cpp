@@ -11,24 +11,24 @@
 CMario::CMario()
 {
 	LoadAnimation();
-	this->SetScale(D3DXVECTOR2(3.0f, 3.0f));
+	this->SetScale(D3DXVECTOR2(3, 3));
 	this->SetRotation(0.0f);
-
 }
 
 void CMario::Init()
 {
+	CGameObject::Init();
 	//LoadAnimation(); // chỗ này bị lỗi => Nó k tự gọi Init của nó trong class cha đc !!! Do Init đã được định nghĩa
 }
 
 void CMario::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation("Idle",animationManager->Clone("ani-small-mario-idle"));
-	AddAnimation("Run-Right", animationManager->Clone("ani-small-mario-run"));
-	AddAnimation("Run-Left",animationManager->Clone("ani-small-mario-run"));
+	AddAnimation(MARIO_STATE_IDLE,animationManager->Clone("ani-small-mario-idle"));
+	AddAnimation(MARIO_STATE_WALKING, animationManager->Clone("ani-small-mario-walk"));
+	AddAnimation(MARIO_STATE_RUNNING, animationManager->Clone("ani-small-mario-run"));
 
-	this->SetState("Idle"); // Để tên đồng nhất với animation
+	this->SetState(MARIO_STATE_IDLE); // Để tên đồng nhất với animation
 }
 
 void CMario::Update(DWORD dt, std::vector<LPGameObject>* coObjects)
@@ -61,50 +61,42 @@ void CMario::Update(DWORD dt, std::vector<LPGameObject>* coObjects)
 	}
 	
 
-	// Xử lý input
-	if (game->GetKeyDown(DIK_RIGHT))
-	{
-		velocity.x = MARIO_WALKING_SPEED;
-		normal.x = 1;
-		SetScale(D3DXVECTOR2(3.0f, 3.0f));
-		this->SetState("Run-Right");
-		//SetRotation(30.0f);
-
-	}
-	if (game->GetKeyDown(DIK_LEFT))
-	{
-		normal.x = -1;
-		velocity.x = normal.x*MARIO_WALKING_SPEED;
-		SetScale(D3DXVECTOR2(-3.0f, 3.0f));
-		this->SetState("Run-Left");
-	}
-	/*if (game->GetKeyDown(DIK_DOWN))
-	{
-		normal.y = 1;
-		velocity.y = normal.y * MARIO_WALKING_SPEED;
-		this->SetState("Run-Left");
-		SetScale(D3DXVECTOR2(3.0f, 3.0f));
-
-	}
-	if (game->GetKeyDown(DIK_UP))
-	{
-		normal.y = -1;
-		velocity.y = normal.y * MARIO_WALKING_SPEED;
-		this->SetState("Run-Left");
-		SetScale(D3DXVECTOR2(3.0f, 3.0f));
-	}*/
-
-
 }
 
 void CMario::Render()
 {
 	CGameObject::Render();
+	
+}
+
+void CMario::KeyState(BYTE* states)
+{
 
 }
 
 void CMario::OnKeyDown(int KeyCode)
 {
+	switch (KeyCode)
+	{
+		case DIK_RIGHT:
+		{
+			DebugOut(L"[INFO] KEYCODE: RIGHT \n");
+			velocity.x = MARIO_WALKING_SPEED;
+			normal.x = 1;
+			SetScale(D3DXVECTOR2(3, 3));
+			this->SetState(MARIO_STATE_WALKING);
+			//SetRotation(30.0f);
+			break;
+		}
+		case DIK_LEFT:
+		{
+			DebugOut(L"[INFO] KEYCODE: LEFT \n");
+			normal.x = -1;
+			velocity.x = normal.x * MARIO_WALKING_SPEED;
+			SetScale(D3DXVECTOR2(-3, 3));
+			this->SetState(MARIO_STATE_WALKING);
+		}
+	}
 }
 
 void CMario::OnKeyUp(int KeyCode)

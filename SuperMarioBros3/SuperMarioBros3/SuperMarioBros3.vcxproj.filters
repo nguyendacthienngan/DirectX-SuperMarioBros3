@@ -234,6 +234,9 @@
     <ClInclude Include="MapConst.h">
       <Filter>Framework\Game\Map</Filter>
     </ClInclude>
+    <ClInclude Include="KeyboardManager.h">
+      <Filter>Framework\Game\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -361,6 +364,9 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Framework\Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardManager.cpp">
+      <Filter>Framework\Game\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

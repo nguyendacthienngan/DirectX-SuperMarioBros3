@@ -13,6 +13,7 @@ public:
 	void Update(DWORD dt, std::vector<LPGameObject>* coObjects);
 	void Render();
 
+	void KeyState(BYTE* states);
 	void OnKeyDown(int KeyCode);
 	void OnKeyUp(int KeyCode);
 	~CMario();

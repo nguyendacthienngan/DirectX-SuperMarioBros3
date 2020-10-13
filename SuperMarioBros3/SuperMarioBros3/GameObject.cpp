@@ -7,8 +7,10 @@
 using namespace std;
 CGameObject::CGameObject()
 {
-	this->Init(); // chỗ này bị lỗi nếu để Init là thuần ảo. Ta phải để Init là ảo thôi để có thể gọi được ngay trong cha của nó
+	//CGameObject::Init(); // chỗ này bị lỗi nếu để Init là thuần ảo. Ta phải để Init là ảo thôi để có thể gọi được ngay trong cha của nó
 	this->currentState = "";
+	//this->SetScale(D3DXVECTOR2(3, 3)); // bị lỗi vì Animation chưa có để set scale : Có cách nào để anim với object đồng bộ hoặc bỏ bớt transform trg anim k?
+	
 }
 
 CGameObject::~CGameObject()
@@ -20,6 +22,7 @@ CGameObject::~CGameObject()
 
 void CGameObject::Init()
 {
+	
 }
 
 void CGameObject::Update(DWORD dt, std::vector<LPGameObject>* coObjects)

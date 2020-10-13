@@ -8,9 +8,9 @@
 // Mỗi object sẽ tự xử lý bàn phím cho riêng nó
 // Chứ scene không cần phải tự xử lý
 
-// Nhưng có vấn đề là những nút chung cho cả game thì sẽ handle như thế nào? => Dùng WndProc
+// Nhưng có vấn đề là những nút chung cho cả game thì sẽ handle như thế nào cho tổng quát ?
 
-class GameKeyEventHandler : public CKeyEventHandler
+class CGameKeyEventHandler : public CKeyEventHandler
 {
 public:
 	virtual void OnKeyDown(int KeyCode);

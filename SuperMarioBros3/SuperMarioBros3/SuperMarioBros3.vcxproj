@@ -154,6 +154,7 @@
     <ClInclude Include="GameKeyEventHandler.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphicConst.h" />
+    <ClInclude Include="KeyboardManager.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapConst.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameKeyEventHandler.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="KeyboardManager.cpp" />
     <ClCompile Include="KeyEventHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />

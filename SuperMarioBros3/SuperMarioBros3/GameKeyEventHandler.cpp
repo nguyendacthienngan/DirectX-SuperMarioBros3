@@ -6,7 +6,7 @@
 #include "GameObject.h"
 
 using namespace std;
-void GameKeyEventHandler::OnKeyDown(int KeyCode)
+void CGameKeyEventHandler::OnKeyDown(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	LPSceneManager sceneManger = CSceneManager::GetInstance();
@@ -16,7 +16,7 @@ void GameKeyEventHandler::OnKeyDown(int KeyCode)
 		gameObject->OnKeyDown(KeyCode);
 }
 
-void GameKeyEventHandler::OnKeyUp(int KeyCode)
+void CGameKeyEventHandler::OnKeyUp(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	LPSceneManager sceneManger = CSceneManager::GetInstance();
