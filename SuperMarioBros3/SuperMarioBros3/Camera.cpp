@@ -1,4 +1,5 @@
 ﻿#include "Camera.h"
+#include "KeyboardManager.h"
 
 CCamera::CCamera(int wid, int hei)
 {
@@ -17,14 +18,29 @@ CCamera::~CCamera()
 void CCamera::Update(DWORD dt)
 {
     // xử lý khi người dùng ấn nút sẽ di chuyển theo nút ấn của người dùng
-
+    auto keyManager = CKeyboardManager::GetInstance();
     this->dt = dt; 
     
-    if (posCam.x < boundaryLeft)
-        posCam.x = boundaryLeft;
 
-    if (posCam.x > boundaryRight)
-        posCam.x = boundaryRight;
+    if (keyManager->GetKeyDown(DIK_LEFT))
+        this->posCam.x -= 300 * 0.02;
+
+    if (keyManager->GetKeyDown(DIK_RIGHT))
+        this->posCam.x += 300 * 0.02;
+
+    if (keyManager->GetKeyDown(DIK_UP))
+        this->posCam.y -= 300 * 0.02;
+
+    if (keyManager->GetKeyDown(DIK_DOWN))
+        this->posCam.y += 300 * 0.02;
+
+    //if (posCam.x < boundaryLeft)
+    //    posCam.x = boundaryLeft;
+
+    //if (posCam.x > boundaryRight)
+    //    posCam.x = boundaryRight;
+
+
 }
 
 void CCamera::Render()
@@ -47,19 +63,12 @@ bool CCamera::CheckObjectInCamera(D3DXVECTOR2 posObject, float widthObj, float h
 
 bool CCamera::CheckRectInCamera(RECT rect)
 {
-    auto width = rect.right - rect.left;
-    auto height = rect.top - rect.bottom;
+    auto rectWidth = rect.right - rect.left;
+    auto rectHeight = rect.bottom - rect.top;
 
-    /*return rect.left >= posCam.x - width && rect.right <= posCam.x + widthCam + width &&
-        rect.top >= posCam.y - height && rect.bottom <= posCam.y + heightCam + height;*/
+    return rect.left >= posCam.x - rectWidth && rect.right <= posCam.x + widthCam + rectWidth &&
+        rect.top >= posCam.y - rectHeight && rect.bottom <= posCam.y + heightCam + rectHeight;
 
-   // return false;
-
-    if (rect.left + width < posCam.x || rect.left > posCam.x + widthCam)
-        return false;
-    if (rect.top + height < posCam.y || rect.top > posCam.y + heightCam)
-        return false;
-    return true;
 }
 
 int CCamera::GetSpeedXCam()

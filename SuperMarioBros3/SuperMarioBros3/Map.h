@@ -22,10 +22,10 @@ public:
 
 	void LoadMap(std::string filePath); // tạo đối tương Map và khởi tạo các tileset từ thông tin map nhận được
 	// vẽ map lên màn hình. Tính toán vùng càn vẽ, vị trí tile trong tileset để vẽ trong hàm
-	void Draw();  // vẽ toàn bộ map
-	void Draw(CCamera* camera); // vẽ những gì cần load lên camera thui
+	//void Draw();  // vẽ toàn bộ map
+	//void Draw(CCamera* camera); // vẽ những gì cần load lên camera thui
 
-	void Update(DWORD dt);
+	void Update(CCamera* camera, DWORD dt);
 	void Render(CCamera* camera);
 
 	int GetWidth(); // Chiều rộng map (theo số tile)

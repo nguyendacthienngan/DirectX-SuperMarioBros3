@@ -46,19 +46,6 @@ void CScene1::Load()
 }
 
 
-void CScene1::Render()
-{
-
-	DebugOut(L"[INFO] Draw Map ... \n");
-	//map->Draw(); // Còn bị lag là do chưa chỉnh lại camera. Ta load hết nguyên map và vẽ hết nguyên map sẽ rất nặng
-	//map->Draw(camera); // Load dựa trên camera nhưng chưa set vị trí camera đúng được
-
-	map->Render(camera);
-
-	DebugOut(L"[INFO] Draw Map Successfully \n");
-	CScene::Render();
-}
-
 CScene1::~CScene1()
 {
 	delete mario;

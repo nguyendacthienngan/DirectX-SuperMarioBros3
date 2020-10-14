@@ -37,19 +37,16 @@ void CMario::Update(DWORD dt, std::vector<LPGameObject>* coObjects)
 	DebugOut(L"[INFO] Mario Updating.. \n");
 	auto game = CGame::GetInstance();
 
-	//TO-DO: xét biên 
-
 	transform.translatePos.x += velocity.x * dt;
-
-
 	//transform.translatePos.y += velocity.y * dt;
+	
 	int boundary = NULL;
 	auto animFrame = this->animations[currentState]->GetAnimFrame();
 	if (animFrame != NULL)
 	{
 		LPSprite sprite = animFrame->GetSprite();
 		boundary = sprite->GetWidth() / 2;
-		DebugOut(L"[INFO] boundary: %d \n", boundary);
+		//DebugOut(L"[INFO] boundary: %d \n", boundary);
 	}
 
 	if (boundary != NULL)
@@ -59,8 +56,6 @@ void CMario::Update(DWORD dt, std::vector<LPGameObject>* coObjects)
 		else if (transform.translatePos.x < boundary * abs(transform.scale.x))
 			transform.translatePos.x = boundary * abs(transform.scale.x);
 	}
-	
-
 }
 
 void CMario::Render()
