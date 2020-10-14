@@ -13,6 +13,9 @@ public:
 	void Update(DWORD dt, std::vector<LPGameObject>* coObjects);
 	void Render();
 
+	void GetBoundingBox(float& left, float& top, float& right, float& bottom) ;
+
+
 	void KeyState(BYTE* states);
 	void OnKeyDown(int KeyCode);
 	void OnKeyUp(int KeyCode);
