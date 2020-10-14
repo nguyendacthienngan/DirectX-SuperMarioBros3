@@ -64,6 +64,10 @@ void CMario::Render()
 	
 }
 
+void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+{
+}
+
 void CMario::KeyState(BYTE* states)
 {
 

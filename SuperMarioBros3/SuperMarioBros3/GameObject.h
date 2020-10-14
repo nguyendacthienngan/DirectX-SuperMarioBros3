@@ -11,6 +11,10 @@
 
 class CGameObject;
 typedef CGameObject* LPGameObject;
+
+struct CCollisionEvent;
+typedef CCollisionEvent* LPCollisionEvent;
+
 class CGameObject
 {
 protected:
@@ -47,15 +51,14 @@ public:
 
 	void AddAnimation(std::string stateName, LPAnimation animation);
 
+	// Keyboard
 	virtual void KeyState(BYTE* states) = 0;
 	virtual void OnKeyDown(int KeyCode) = 0; // sẽ thuần ảo để đến từng gameObject cụ thể sẽ tự xử lý
 	virtual void OnKeyUp(int KeyCode) = 0;
 
 	bool IsEnabled();
 
-	void SetPosition(D3DXVECTOR2 p) { this->transform.translatePos = p; }
-	void SetSpeed(D3DXVECTOR2 v) { this->velocity = v; }
-
+	// TRANSFORM
 	void SetScale(D3DXVECTOR2 s) 
 	{ 
 		this->transform.scale = s;
@@ -67,6 +70,27 @@ public:
 		this->animations[currentState]->SetRotation(r); // Khi setrotation ở GameObject phải đồng bộ với Animation
 	}
 
+	// COLLISION
+	void RenderBoundingBox();
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
+
+
+	LPCollisionEvent SweptAABBEx(LPGameObject coO);
+	void CalcPotentialCollisions(std::vector<LPGameObject>* coObjects, std::vector<LPCollisionEvent>& coEvents);
+	void FilterCollision(
+		std::vector<LPCollisionEvent>& coEvents,
+		std::vector<LPCollisionEvent>& coEventsResult,
+		float& min_tx,
+		float& min_ty,
+		float& nx,
+		float& ny,
+		float& rdx,
+		float& rdy);
+
+
+	void SetPosition(D3DXVECTOR2 p) { this->transform.translatePos = p; }
+	void SetSpeed(D3DXVECTOR2 v) { this->velocity = v; }
+
 	D3DXVECTOR2 GetPosition() { return transform.translatePos; }
 	D3DXVECTOR2 GetSpeed() { return velocity; }
 
@@ -75,6 +99,30 @@ public:
 
 	void SetState(std::string state);
 
+};
+
+
+struct CCollisionEvent
+{
+	LPGameObject obj;
+	float t, nx, ny;
+
+	float dx, dy;		// *RELATIVE* movement distance between this object and obj
+
+	CCollisionEvent(float t, float nx, float ny, float dx = 0, float dy = 0, LPGameObject obj = NULL)
+	{
+		this->t = t;
+		this->nx = nx;
+		this->ny = ny;
+		this->dx = dx;
+		this->dy = dy;
+		this->obj = obj;
+	}
+
+	static bool compare(const LPCollisionEvent& a, LPCollisionEvent& b)
+	{
+		return a->t < b->t;
+	}
 };
 
 #endif
