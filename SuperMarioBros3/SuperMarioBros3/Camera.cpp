@@ -1,5 +1,6 @@
 ﻿#include "Camera.h"
 #include "KeyboardManager.h"
+#include "Game.h"
 
 CCamera::CCamera(int wid, int hei)
 {
@@ -15,24 +16,24 @@ CCamera::~CCamera()
     
 }
 
-void CCamera::Update(DWORD dt)
+void CCamera::Update()
 {
     // xử lý khi người dùng ấn nút sẽ di chuyển theo nút ấn của người dùng
     auto keyManager = CKeyboardManager::GetInstance();
-    this->dt = dt; 
+    this->dt = CGame::GetInstance()->GetFixedDeltaTime(); 
     
-
+    
     if (keyManager->GetKeyDown(DIK_LEFT))
-        this->posCam.x -= 300 * 0.02;
+        this->posCam.x -= 300 * CGame::GetInstance()->GetFixedDeltaTime();
 
     if (keyManager->GetKeyDown(DIK_RIGHT))
-        this->posCam.x += 300 * 0.02;
+        this->posCam.x += 300 * CGame::GetInstance()->GetFixedDeltaTime();
 
     if (keyManager->GetKeyDown(DIK_UP))
-        this->posCam.y -= 300 * 0.02;
+        this->posCam.y -= 300 * CGame::GetInstance()->GetFixedDeltaTime();
 
     if (keyManager->GetKeyDown(DIK_DOWN))
-        this->posCam.y += 300 * 0.02;
+        this->posCam.y += 300 * CGame::GetInstance()->GetFixedDeltaTime();
 
     //if (posCam.x < boundaryLeft)
     //    posCam.x = boundaryLeft;

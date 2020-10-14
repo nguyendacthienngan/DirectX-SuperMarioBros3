@@ -17,7 +17,7 @@ public:
 	CCamera(int wid, int hei);
 	~CCamera();
 
-	virtual void Update(DWORD dt);
+	virtual void Update();
 	virtual void Render();
 
 	D3DXVECTOR2 Transform(D3DXVECTOR2 posWorld);

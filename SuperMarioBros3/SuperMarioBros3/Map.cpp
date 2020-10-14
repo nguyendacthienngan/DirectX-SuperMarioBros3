@@ -248,7 +248,7 @@ void CMap::Update(CCamera* camera, DWORD dt)
 {
 	if (camera == NULL)
 		return;
-	camera->Update(dt);
+	camera->Update();
 }
 
 // Giải pháp đơn giản:
