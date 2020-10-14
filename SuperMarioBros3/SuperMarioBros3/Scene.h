@@ -6,6 +6,7 @@
 #include "GameObject.h"
 
 #include "Map.h"
+#include "Camera.h"
 
 class CScene;
 typedef CScene* LPScene;
@@ -18,6 +19,7 @@ protected:
 	LPCWSTR filePath;
 	D3DCOLOR backgroundColor;
 	CMap *map;
+	CCamera *camera;
 public:
 	CScene();
 
@@ -34,8 +36,6 @@ public:
 		void AddObject(LPGameObject gameObject);
 	void RemoveObject(LPGameObject gameObject);
 
-	virtual void OnKeyDown(int KeyCode) = 0;
-	virtual void OnKeyUp(int KeyCode) = 0;
 
 	virtual ~CScene();
 };

@@ -15,7 +15,7 @@ CSprite::CSprite(std::string id, RECT rect, LPDIRECT3DTEXTURE9 tex)
 
 void CSprite::Draw(D3DXVECTOR2 position, D3DXVECTOR2 scale, float rotation, int alpha)
 {
-	DebugOut(L"[INFO] Draw Sprite \n");
+	//DebugOut(L"[INFO] Draw Sprite \n");
 	CGame* game = CGame::GetInstance();
 	game->Draw(position, pointCenter, texture, rect, alpha, scale, rotation);
 }

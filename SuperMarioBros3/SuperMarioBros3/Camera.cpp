@@ -1,4 +1,6 @@
-#include "Camera.h"
+﻿#include "Camera.h"
+#include "KeyboardManager.h"
+#include "Game.h"
 
 CCamera::CCamera(int wid, int hei)
 {
@@ -11,9 +13,38 @@ CCamera::CCamera(int wid, int hei)
 
 CCamera::~CCamera()
 {
+    
 }
 
 void CCamera::Update()
+{
+    // xử lý khi người dùng ấn nút sẽ di chuyển theo nút ấn của người dùng
+    auto keyManager = CKeyboardManager::GetInstance();
+    this->dt = CGame::GetInstance()->GetFixedDeltaTime(); 
+    
+    
+    if (keyManager->GetKeyDown(DIK_LEFT))
+        this->posCam.x -= 300 * CGame::GetInstance()->GetFixedDeltaTime();
+
+    if (keyManager->GetKeyDown(DIK_RIGHT))
+        this->posCam.x += 300 * CGame::GetInstance()->GetFixedDeltaTime();
+
+    if (keyManager->GetKeyDown(DIK_UP))
+        this->posCam.y -= 300 * CGame::GetInstance()->GetFixedDeltaTime();
+
+    if (keyManager->GetKeyDown(DIK_DOWN))
+        this->posCam.y += 300 * CGame::GetInstance()->GetFixedDeltaTime();
+
+    //if (posCam.x < boundaryLeft)
+    //    posCam.x = boundaryLeft;
+
+    //if (posCam.x > boundaryRight)
+    //    posCam.x = boundaryRight;
+
+
+}
+
+void CCamera::Render()
 {
 }
 
@@ -22,8 +53,23 @@ D3DXVECTOR2 CCamera::Transform(D3DXVECTOR2 posWorld)
     return D3DXVECTOR2(posWorld.x - posCam.x, posWorld.y - posCam.y);
 }
 
-void CCamera::CheckObjectInCamera()
+bool CCamera::CheckObjectInCamera(D3DXVECTOR2 posObject, float widthObj, float heightObj) // Thông tin của object
 {
+    if (posObject.x + widthObj < posCam.x || posObject.x > posCam.x + widthCam)
+        return false;
+    if (posObject.y + heightObj < posCam.y || posObject.y > posCam.y + heightCam)
+        return false;
+    return true; // Object nằm trong Cam
+}
+
+bool CCamera::CheckRectInCamera(RECT rect)
+{
+    auto rectWidth = rect.right - rect.left;
+    auto rectHeight = rect.bottom - rect.top;
+
+    return rect.left >= posCam.x - rectWidth && rect.right <= posCam.x + widthCam + rectWidth &&
+        rect.top >= posCam.y - rectHeight && rect.bottom <= posCam.y + heightCam + rectHeight;
+
 }
 
 int CCamera::GetSpeedXCam()
@@ -36,12 +82,12 @@ D3DXVECTOR2 CCamera::GetPositionCam()
     return posCam;
 }
 
-int CCamera::GetWidthCam()
+float CCamera::GetWidthCam()
 {
     return widthCam;
 }
 
-int CCamera::GetHeightCam()
+float CCamera::GetHeightCam()
 {
     return heightCam;
 }
@@ -67,12 +113,12 @@ void CCamera::SetPositionCam(D3DXVECTOR2 pos)
     posCam.y = pos.y;
 }
 
-void CCamera::SetWidthCam(int w)
+void CCamera::SetWidthCam(float w)
 {
     widthCam = w;
 }
 
-void CCamera::SetHeightCam(int h)
+void CCamera::SetHeightCam(float h)
 {
     heightCam = h;
 }

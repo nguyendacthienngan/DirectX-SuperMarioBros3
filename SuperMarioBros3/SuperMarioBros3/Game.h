@@ -56,6 +56,8 @@ public:
 
 	static float GetTimeScale() { return timeScale; }
 	static void SetTimeScale(float time) { timeScale = time; }
+
+	float GetFixedDeltaTime() { return 0.02;  }
 };
 
 #endif

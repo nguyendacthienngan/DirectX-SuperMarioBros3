@@ -100,10 +100,11 @@ void CGame::Run()
 	// Game Loop
 	while (!done)
 	{
-		prevTime = currentTime;
-		currentTime = GetTickCount();
+		prevTime = currentTime; // framestart?
+		currentTime = GetTickCount(); // now
 		delta += (currentTime - prevTime);
-		deltaTime = delta;
+		deltaTime = delta; 
+		// Do trong game không có thời gian thực sự, để tạo cảm giác thời gian trôi qua thì ta chỉ có bộ đếm tick từ lúc start game để tạo cảm giác chân thực
 
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
@@ -115,20 +116,21 @@ void CGame::Run()
 		}
 		else
 		{
-			// Call update
-			Update();
-			// Process key
-			auto keyboardManger = CKeyboardManager::GetInstance();
-			keyboardManger->ProcessKeyboard();
-			if (keyboardManger->CheckESCKey() == true)
-				continue;
-			// Render in limited fps
-			if (delta >= tickPerFrame)
+			// Update and Render in limited fps
+			if (delta >= tickPerFrame) // chuyển frame mới
 			{
+				// Call update
+				Update();
+				// Process key
+				auto keyboardManger = CKeyboardManager::GetInstance();
+				keyboardManger->ProcessKeyboard();
+				if (keyboardManger->CheckESCKey() == true)
+					continue;
 				Render();
+
 				if (delta > tickPerFrame) delta = 0.0f;
 			}
-			else
+			else // chưa tới tickperframe nên cho ngủ vì xong việc cho 1 frame ròi
 			{
 				Sleep(tickPerFrame - delta);
 				delta = tickPerFrame;
@@ -164,10 +166,11 @@ void CGame::Draw(float x, float y, int xCenter, int yCenter, LPDIRECT3DTEXTURE9 
 	spriteHandler->SetTransform(&oldMatrix);
 }
 
+// scale với flip đc nhưng k thể draw map đc do khi truyền vô tham số scale để là 0 :D nên k thấy gì hết. ph set là 1
 void CGame::Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha, D3DXVECTOR2 scale, float rotation)
 {
 	d3ddv->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	DebugOut(L"Start Drawing.. \n");
+	//DebugOut(L"Start Drawing.. \n");
 
 	D3DXVECTOR3 pos(position.x, position.y, 0); // Muốn flip thì không chỉ scale -1 mà còn phải position -1 nữa
 	D3DXVECTOR3 pCenter(pointCenter.x, pointCenter.y, 0);
@@ -181,8 +184,8 @@ void CGame::Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTUR
 	//DebugOut(L"Scale.x: %f \n", scale.x);
 
 	// Trước khi vẽ mình set cái matrix transform. Sau khi vẽ xong mình trả lại transform trước đó
-	//D3DXMatrixTransformation2D(&newMatrix, &position, 0.0f, &D3DXVECTOR2(-1.0f, 1.0f), NULL, 0.0f, NULL);
 	D3DXMatrixTransformation2D(&newMatrix, &position, 0.0f, &scale, NULL, D3DXToRadian(rotation), NULL);
+	//D3DXMatrixTransformation2D(&newMatrix, &position, 0.0f, NULL, NULL, D3DXToRadian(0.0f), NULL);
 
 	spriteHandler->SetTransform(&newMatrix);
 

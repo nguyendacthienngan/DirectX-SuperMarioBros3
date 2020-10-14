@@ -1,22 +1,17 @@
-#include "Scene1.h"
+﻿#include "Scene1.h"
 #include "Ultis.h"
 
 #include "MapConst.h"
+#include "Const.h"
 
-#define MARIO_START_X 100.0f
-#define MARIO_START_Y 50.0f
+#define MARIO_START_X 0
+#define MARIO_START_Y 489
+
 
 CScene1::CScene1()
 {
 }
 
-void CScene1::OnKeyDown(int KeyCode)
-{
-}
-
-void CScene1::OnKeyUp(int KeyCode)
-{
-}
 
 void CScene1::Load()
 {
@@ -28,21 +23,28 @@ void CScene1::Load()
 	mario->SetPosition(pos);
 	this->AddObject(mario);
 
+
 	DebugOut(L"[INFO] Load Map ... \n");
+	DebugOut(L"[INFO] Map Path: ");
+	OutputDebugString(ToLPCWSTR(MAP_PATH + MAP_WORLD1_1_FILENAME));
+	DebugOut(L"\n");
+
 	map = new CMap(MAP_PATH + MAP_WORLD1_1_FILENAME);
+
+	DebugOut(L"[INFO] Init Cam ... \n");
+	camera = new CCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
+	camera->SetPositionCam(D3DXVECTOR2(0, 1248 - (600 - 48))); // Hard code
+
+	//camera = new CCamera(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+	//camera->SetPositionCam(D3DXVECTOR2(0 , 1248 - (300 - 48))); // Hard code
+
+	float boundaryRight = (float)(map->GetWidth() - camera->GetWidthCam());
+	camera->SetBoundary(0.0f, boundaryRight);
 
 	backgroundColor = D3DCOLOR_XRGB(156, 252, 240);
 	DebugOut(L"[INFO] Loaded Scene \n");
 }
 
-
-void CScene1::Render()
-{
-	DebugOut(L"[INFO] Draw Map ... \n");
-	map->Draw();
-	DebugOut(L"[INFO] Load Map Successfully \n");
-	CScene::Render();
-}
 
 CScene1::~CScene1()
 {
