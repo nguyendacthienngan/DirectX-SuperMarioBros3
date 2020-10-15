@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <d3dx9.h>
-
+#include "Mario.h"
 // là 1 object đặc biệt, có thể có nhiều camera (onGround, underGround)
 class CCamera 
 {
@@ -13,8 +13,10 @@ private:
 
 	float boundaryLeft; // set biên camera dựa vào kích thước map: boundary.left = 0
 	float boundaryRight; // VD: boundary.right =  map.width - cam.width => Tùy theo cách mình xét, đây chỉ là ví dụ
+
+	CMario* player;
 public:
-	CCamera(int wid, int hei);
+	CCamera(int wid, int hei, CMario* mario);
 	~CCamera();
 
 	virtual void Update();

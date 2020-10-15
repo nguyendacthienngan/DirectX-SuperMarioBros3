@@ -11,8 +11,8 @@
 CMario::CMario()
 {
 	LoadAnimation();
-	this->SetScale(D3DXVECTOR2(3, 3));
-	this->SetRotation(0.0f);
+	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
+	tag = "player";
 }
 
 void CMario::Init()
@@ -37,7 +37,11 @@ void CMario::Update(DWORD dt, std::vector<LPGameObject>* coObjects)
 	DebugOut(L"[INFO] Mario Updating.. \n");
 	auto game = CGame::GetInstance();
 
+	// Lúc này là milisecond???
+	dt = 20; // Không bị viền
+	distance.x += velocity.x * dt;
 	transform.translatePos.x += velocity.x * dt;
+	//transform.translatePos.x += velocity.x * dt;
 	//transform.translatePos.y += velocity.y * dt;
 	
 	int boundary = NULL;
@@ -82,8 +86,9 @@ void CMario::OnKeyDown(int KeyCode)
 			DebugOut(L"[INFO] KEYCODE: RIGHT \n");
 			velocity.x = MARIO_WALKING_SPEED;
 			normal.x = 1;
-			SetScale(D3DXVECTOR2(3, 3));
 			this->SetState(MARIO_STATE_WALKING);
+			SetScale(D3DXVECTOR2(1.0f, 1.0f));
+
 			//SetRotation(30.0f);
 			break;
 		}
@@ -92,7 +97,7 @@ void CMario::OnKeyDown(int KeyCode)
 			DebugOut(L"[INFO] KEYCODE: LEFT \n");
 			normal.x = -1;
 			velocity.x = normal.x * MARIO_WALKING_SPEED;
-			SetScale(D3DXVECTOR2(-3, 3));
+			SetScale(D3DXVECTOR2(-1.0f, 1.0f));
 			this->SetState(MARIO_STATE_WALKING);
 		}
 	}

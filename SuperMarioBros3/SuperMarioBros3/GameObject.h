@@ -33,6 +33,8 @@ protected:
 
 	// To-Do
 	bool isEnabled;
+	
+	std::string tag; // Phân biệt player với eniemies,...
 
 	// Mỗi gameobject sẽ lưu animation của riêng nó. Nó sẽ clone animation từ animation gốc chứ k lấy thẳng con trỏ animation bên đó
 	// Vì như vậy sẽ làm cho việc animation quá đồng bộ và không tự nhiên
@@ -50,7 +52,7 @@ public:
 	virtual void AnimationUpdate();
 
 	void AddAnimation(std::string stateName, LPAnimation animation);
-
+	std::string GetTag() { return tag; }
 	// Keyboard
 	virtual void KeyState(BYTE* states) = 0;
 	virtual void OnKeyDown(int KeyCode) = 0; // sẽ thuần ảo để đến từng gameObject cụ thể sẽ tự xử lý
@@ -96,6 +98,8 @@ public:
 
 	D3DXVECTOR2 GetScale() { return transform.scale; }
 	float GetRotation() { return transform.rotationAngle; }
+
+	D3DXVECTOR2 GetDistance() { return distance; }
 
 	void SetState(std::string state);
 

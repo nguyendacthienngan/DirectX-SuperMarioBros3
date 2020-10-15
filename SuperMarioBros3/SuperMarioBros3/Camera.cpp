@@ -2,13 +2,23 @@
 #include "KeyboardManager.h"
 #include "Game.h"
 
-CCamera::CCamera(int wid, int hei)
+#include "SceneManager.h"
+#include "Mario.h"
+#include "GameObject.h"
+
+
+#include <vector>
+#include "Ultis.h"
+using namespace std;
+CCamera::CCamera(int wid, int hei, CMario* mario)
 {
     widthCam = wid;
     heightCam = hei;
     boundaryLeft = 0;
     boundaryRight = 0;
     vx = 0.0f;
+    
+    player = mario;
 }
 
 CCamera::~CCamera()
@@ -19,10 +29,31 @@ CCamera::~CCamera()
 void CCamera::Update()
 {
     // xử lý khi người dùng ấn nút sẽ di chuyển theo nút ấn của người dùng
-    auto keyManager = CKeyboardManager::GetInstance();
     this->dt = CGame::GetInstance()->GetFixedDeltaTime(); 
     
-    
+    //float playerX, playerY;
+    //playerX = player->GetPosition().x + posCam.x; // đổi qua tọa độ thực?
+    //playerY = player->GetPosition().y + posCam.y;
+    //DebugOut(L"Position player: (x,y): (%f,%f) \n", playerX, playerY);
+
+    //if (player != NULL)
+    //{
+    //    if (playerX > widthCam / 2 && playerX < widthCam)
+    //    {
+    //        // follow Mario
+    //        //this->posCam.x += 100 * 0.02;
+    //        this->posCam.x = playerX - widthCam/2 + 30;
+    //    }
+    //    //else
+    //    //{
+    //    //    //this->posCam.x -= 100 * 0.02;
+    //    //    this->posCam.x = playerY - heightCam/2;
+    //    //}
+    //    
+    //}
+
+    auto keyManager = CKeyboardManager::GetInstance();
+
     if (keyManager->GetKeyDown(DIK_LEFT))
         this->posCam.x -= 300 * CGame::GetInstance()->GetFixedDeltaTime();
 
@@ -35,18 +66,18 @@ void CCamera::Update()
     if (keyManager->GetKeyDown(DIK_DOWN))
         this->posCam.y += 300 * CGame::GetInstance()->GetFixedDeltaTime();
 
-    //if (posCam.x < boundaryLeft)
-    //    posCam.x = boundaryLeft;
+    if (posCam.x < boundaryLeft)
+        posCam.x = boundaryLeft;
 
-    //if (posCam.x > boundaryRight)
-    //    posCam.x = boundaryRight;
-
-
+    if (posCam.x > boundaryRight)
+        posCam.x = boundaryRight;
 }
 
 void CCamera::Render()
 {
 }
+
+
 
 D3DXVECTOR2 CCamera::Transform(D3DXVECTOR2 posWorld)
 {
