@@ -7,7 +7,7 @@ const std::string SPRITE_DATABASE = SPRITE_PATH + "SpriteDatabases/";
 const std::string ANIMATION_PATH = "Resources/Animations/";
 
 // Textures
-const std::string MARIO_IMG = "mario.png";
+const std::string MARIO_IMG = "mariox3.png";
 const std::string MARIO_TEXTURE = "tex-mario";
 
 // Sprites

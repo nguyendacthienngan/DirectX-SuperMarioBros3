@@ -17,7 +17,13 @@ void CSprite::Draw(D3DXVECTOR2 position, D3DXVECTOR2 scale, float rotation, int 
 {
 	//DebugOut(L"[INFO] Draw Sprite \n");
 	CGame* game = CGame::GetInstance();
-	game->Draw(position, pointCenter, texture, rect, alpha, scale, rotation);
+	//game->Draw(position, pointCenter, texture, rect, alpha, scale, rotation);
+	if (scale.x < 0)
+		game->DrawFlipX(position, pointCenter, texture, rect, alpha);
+	else if (scale.y < 0)
+		game->DrawFlipY(position, pointCenter, texture, rect, alpha);
+	else
+		game->Draw(position, pointCenter, texture, rect, alpha);
 }
 
 RECT CSprite::GetRect()
