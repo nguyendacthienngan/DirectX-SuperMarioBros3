@@ -43,7 +43,7 @@ void CMap::LoadMap(std::string filePath)
 
 		const Tmx::Tileset *tileset = map->GetTileset(i);
 
-		CTextureManager::GetInstance()->Add(MAP_WORLD1_1_NAME, ToLPCWSTR(tileset->GetImage()->GetSource().c_str()), D3DCOLOR_XRGB(255, 128, 192));
+		CTextureManager::GetInstance()->Add(MAP_WORLD1_1_NAME, ToLPCWSTR(MAP_PATH + tileset->GetImage()->GetSource().c_str()), D3DCOLOR_XRGB(255, 128, 192));
 		LPDIRECT3DTEXTURE9 tex = CTextureManager::GetInstance()->GetTexture(MAP_WORLD1_1_NAME);
 		LPSprite sprite = new CSprite(MAP_WORLD1_1_NAME, RECT(), tex);
 
