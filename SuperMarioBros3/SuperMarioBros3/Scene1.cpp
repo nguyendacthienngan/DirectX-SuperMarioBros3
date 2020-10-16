@@ -4,10 +4,11 @@
 #include "MapConst.h"
 #include "Const.h"
 
-//#define MARIO_START_X 0
-//#define MARIO_START_Y 500
-#define MARIO_START_X 0
-#define MARIO_START_Y 484
+#define MARIO_START_X 70
+#define MARIO_START_Y 1204 // Tọa độ theo hệ quy chiếu world
+
+//#define MARIO_START_X 20
+//#define MARIO_START_Y 484
  // Lúc này là tọa độ theo hệ quy chiếu camera
 
 //#define MARIO_START_X 48
@@ -36,18 +37,14 @@ void CScene1::Load()
 	map = new CMap(MAP_PATH + MAP_WORLD1_1_FILENAME);
 
 	DebugOut(L"[INFO] Init Cam ... \n");
-	camera = new CCamera(SCREEN_WIDTH, SCREEN_HEIGHT, mario);
-	camera->SetPositionCam(D3DXVECTOR2(48.0f, 720.0f)); // Hard code: Tọa độ theo hệ quy chiếu world
-	//camera->SetPositionCam(D3DXVECTOR2(48.0f , 703.0f )); // Hard code: Tọa độ theo hệ quy chiếu world
+	camera = new CCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
+	//camera->SetPositionCam(D3DXVECTOR2(48.0f, 720.0f)); // Hard code: Tọa độ theo hệ quy chiếu world
 
 
-	//camera->SetPositionCam(D3DXVECTOR2(pos.x - SCREEN_WIDTH/2, pos.y - SCREEN_HEIGHT/2));
-	//camera->SetPositionCam(D3DXVECTOR2(48, 718)); 
-	//camera->SetPositionCam(D3DXVECTOR2(0, 1248 - (600 - 48)));
-	//camera->SetPositionCam(D3DXVECTOR2(0 , 1248 - (300 - 48)));
+	camera->SetPositionCam(D3DXVECTOR2(pos.x, pos.y - SCREEN_HEIGHT/2));
 
-	float boundaryRight = (float)(map->GetWidth() - camera->GetWidthCam());
-	camera->SetBoundary(0.0f, boundaryRight);
+	/*float boundaryRight = (float)(map->GetWidth() - camera->GetWidthCam());
+	camera->SetBoundary(0.0f, boundaryRight);*/
 
 	backgroundColor = D3DCOLOR_XRGB(156, 252, 240);
 	DebugOut(L"[INFO] Loaded Scene \n");

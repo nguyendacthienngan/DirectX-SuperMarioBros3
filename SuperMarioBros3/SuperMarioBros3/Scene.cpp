@@ -19,7 +19,7 @@ void CScene::Update(DWORD dt)
 	if (gameObjects.size() == 0) return;
 	for (auto obj : gameObjects)
 	{
-		obj->Update(dt);
+		obj->Update(dt, camera);
 		obj->AnimationUpdate();
 		// Set transform animation ở đây ??
 	}
@@ -44,7 +44,7 @@ void CScene::Render()
 	{
 		// TO DO: Enable objects
 
-		obj->Render();
+		obj->Render(camera);
 	}
 }
 

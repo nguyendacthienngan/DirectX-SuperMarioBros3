@@ -10,8 +10,7 @@ public:
 	CMario();
 	void Init();
 	void LoadAnimation();
-	void Update(DWORD dt, std::vector<LPGameObject>* coObjects);
-	void Render();
+	void Update(DWORD dt, CCamera* cam, std::vector<LPGameObject>* coObjects);
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom) ;
 

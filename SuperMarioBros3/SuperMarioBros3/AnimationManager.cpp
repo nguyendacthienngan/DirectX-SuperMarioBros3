@@ -153,11 +153,11 @@ LPAnimation CAnimationManager::Clone(std::string id)
 
 void CAnimationManager::Clear()
 {
-	for (auto x : animations)
+	/*for (auto x : animations)
 	{
 		LPAnimation ani = x.second;
 		delete ani;
 	}
-	animations.clear();
+	animations.clear();*/
 }
 

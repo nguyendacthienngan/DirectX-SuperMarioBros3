@@ -19,8 +19,8 @@ CGameObject::CGameObject()
 
 CGameObject::~CGameObject()
 {
-	for (auto a : animations)
-		delete a.second;
+	/*for (auto a : animations)
+		delete a.second;*/
 }
 
 
@@ -29,13 +29,13 @@ void CGameObject::Init()
 	
 }
 
-void CGameObject::Update(DWORD dt, std::vector<LPGameObject>* coObjects)
+void CGameObject::Update(DWORD dt, CCamera* cam,  std::vector<LPGameObject>* coObjects)
 {
 	DebugOut(L"[INFO] Game Object Updating.. \n");
 
 }
 
-void CGameObject::Render()
+void CGameObject::Render(CCamera* cam)
 {
 	DebugOut(L"[INFO] Render Game Object \n");
 	OutputDebugString(ToLPCWSTR("[INFO] Current State:" + currentState + "\n"));
@@ -49,8 +49,10 @@ void CGameObject::Render()
 			DebugOut(L"Cannot find curState \n");
 			return;
 	}
-	DebugOut(ToLPCWSTR("Position: " + std::to_string(transform.translatePos.x) + "\n"));
-	animations.at(currentState)->Render(transform.translatePos);
+	D3DXVECTOR2 posInCam = cam->Transform(distance);
+	//DebugOut(ToLPCWSTR("Position: " + std::to_string(transform.translatePos.x) + "\n"));
+	//animations.at(currentState)->Render(transform.translatePos);
+	animations.at(currentState)->Render(posInCam);
 
 }
 

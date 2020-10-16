@@ -95,6 +95,6 @@ LPSpriteManager CSpriteManager::GetInstance()
 
 CSpriteManager::~CSpriteManager()
 {
-	for (auto s : sprites)
-		delete s.second;
+	/*for (auto s : sprites)
+		delete s.second;*/
 }

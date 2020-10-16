@@ -31,42 +31,43 @@ void CMario::LoadAnimation()
 	this->SetState(MARIO_STATE_IDLE); // Để tên đồng nhất với animation
 }
 
-void CMario::Update(DWORD dt, std::vector<LPGameObject>* coObjects)
+void CMario::Update(DWORD dt, CCamera* cam, std::vector<LPGameObject>* coObjects)
 {
-	CGameObject::Update(dt, coObjects);
+	CGameObject::Update(dt, cam, coObjects);
 	DebugOut(L"[INFO] Mario Updating.. \n");
 	auto game = CGame::GetInstance();
 
-	// Lúc này là milisecond???
+	// Lúc này là milisecond
 	dt = 20; // Không bị viền
 	distance.x += velocity.x * dt;
-	transform.translatePos.x += velocity.x * dt;
-	//transform.translatePos.x += velocity.x * dt;
-	//transform.translatePos.y += velocity.y * dt;
-	
-	int boundary = NULL;
+	//transform.translatePos.x = distance.x;
+
+	int bound = NULL; // biên của Sprite
 	auto animFrame = this->animations[currentState]->GetAnimFrame();
 	if (animFrame != NULL)
 	{
 		LPSprite sprite = animFrame->GetSprite();
-		boundary = sprite->GetWidth() / 2;
+		bound = sprite->GetWidth() / 2; // 16 /2 = 8
 		//DebugOut(L"[INFO] boundary: %d \n", boundary);
 	}
 
+
+	D3DXVECTOR2 distanceInCam = cam->Transform(distance);
 	if (boundary != NULL)
 	{
-		if (transform.translatePos.x > SCREEN_WIDTH - boundary * abs(transform.scale.x)) 
-			transform.translatePos.x = SCREEN_WIDTH - boundary * abs(transform.scale.x);
-		else if (transform.translatePos.x < boundary * abs(transform.scale.x))
-			transform.translatePos.x = boundary * abs(transform.scale.x);
+		// Xét biên lớn 0 - 800 theo hệ quy chiếu camera
+
+		if (distanceInCam.x > SCREEN_WIDTH - bound * abs(transform.scale.x))
+			distanceInCam.x = SCREEN_WIDTH - bound * abs(transform.scale.x);
+		else if (distanceInCam.x < bound * abs(transform.scale.x))
+			distanceInCam.x = bound * abs(transform.scale.x);
 	}
+	distance = cam->TransformCamToWorld(distanceInCam);
+
+	cam->SetPositionMario(distanceInCam); // Tọa độ theo camera
+	cam->SetSpeedMario(velocity); // Vận tốc theo camera
 }
 
-void CMario::Render()
-{
-	CGameObject::Render();
-	
-}
 
 void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {

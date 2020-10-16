@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include <d3dx9.h>
-#include "Mario.h"
 // là 1 object đặc biệt, có thể có nhiều camera (onGround, underGround)
 class CCamera 
 {
@@ -14,15 +13,17 @@ private:
 	float boundaryLeft; // set biên camera dựa vào kích thước map: boundary.left = 0
 	float boundaryRight; // VD: boundary.right =  map.width - cam.width => Tùy theo cách mình xét, đây chỉ là ví dụ
 
-	CMario* player;
+	D3DXVECTOR2 posMario;
+	D3DXVECTOR2 speedMario;
 public:
-	CCamera(int wid, int hei, CMario* mario);
+	CCamera(int wid, int hei);
 	~CCamera();
 
 	virtual void Update();
 	virtual void Render();
 
 	D3DXVECTOR2 Transform(D3DXVECTOR2 posWorld);
+	D3DXVECTOR2 TransformCamToWorld(D3DXVECTOR2 posInCam);
 	bool CheckObjectInCamera(D3DXVECTOR2 posObject, float widthObj, float heightObj); //Kiểm tra xem obj truyền vào có nằm trong camera không để ta xử lý update / renderm
 	bool CheckRectInCamera(RECT rect);
 
@@ -32,12 +33,16 @@ public:
 	float GetHeightCam();
 	float GetBoundaryLeft();
 	float GetBoundaryRight();
+	D3DXVECTOR2 GetPositionMario();
+	D3DXVECTOR2 GetSpeedMario();
+
 
 	void SetSpeedXCam(float v);
 	void SetPositionCam(D3DXVECTOR2 pos);
 	void SetWidthCam(float w);
 	void SetHeightCam(float h);
 	void SetBoundary(float left, float right);
-
+	void SetPositionMario(D3DXVECTOR2 posMario);
+	void SetSpeedMario(D3DXVECTOR2 speedMario);
 };
 

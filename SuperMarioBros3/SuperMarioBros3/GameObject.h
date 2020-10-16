@@ -8,6 +8,7 @@
 #include <unordered_map>
 
 #include "Animation.h"
+#include "Camera.h"
 
 class CGameObject;
 typedef CGameObject* LPGameObject;
@@ -33,7 +34,8 @@ protected:
 
 	// To-Do
 	bool isEnabled;
-	
+	D3DXVECTOR2 boundary; // boundary trong camera (boundaryLeft, boundaryRight)
+
 	std::string tag; // Phân biệt player với eniemies,...
 
 	// Mỗi gameobject sẽ lưu animation của riêng nó. Nó sẽ clone animation từ animation gốc chứ k lấy thẳng con trỏ animation bên đó
@@ -47,8 +49,8 @@ public:
 
 	// TO-DO
 	virtual void Init(); // sẽ thuần ảo để đến từng gameObject cụ thể sẽ tự load animation riêng
-	virtual void Update(DWORD dt, std::vector<LPGameObject>* coObjects = NULL); // Truyền một vector GameObject để xét va chạm với GameObject hiện tại. Tạm thời chưa làm Update do chưa xử lý va chạm
-	virtual void Render();
+	virtual void Update(DWORD dt, CCamera* cam, std::vector<LPGameObject>* coObjects = NULL); // Truyền một vector GameObject để xét va chạm với GameObject hiện tại. Tạm thời chưa làm Update do chưa xử lý va chạm
+	virtual void Render(CCamera* cam);
 	virtual void AnimationUpdate();
 
 	void AddAnimation(std::string stateName, LPAnimation animation);
@@ -90,16 +92,19 @@ public:
 		float& rdy);
 
 
-	void SetPosition(D3DXVECTOR2 p) { this->transform.translatePos = p; }
+	void SetPosition(D3DXVECTOR2 p) { this->distance = p; }
 	void SetSpeed(D3DXVECTOR2 v) { this->velocity = v; }
 
-	D3DXVECTOR2 GetPosition() { return transform.translatePos; }
+	D3DXVECTOR2 GetPosition() { return this->distance;}
 	D3DXVECTOR2 GetSpeed() { return velocity; }
 
 	D3DXVECTOR2 GetScale() { return transform.scale; }
 	float GetRotation() { return transform.rotationAngle; }
 
 	D3DXVECTOR2 GetDistance() { return distance; }
+
+	D3DXVECTOR2 GetBoundary() { return boundary; }
+	void SetBoundary(D3DXVECTOR2 b) { this->boundary = b; }
 
 	void SetState(std::string state);
 
