@@ -15,6 +15,7 @@ private:
 
 	D3DXVECTOR2 posMario;
 	D3DXVECTOR2 speedMario;
+
 public:
 	CCamera(int wid, int hei);
 	~CCamera();
@@ -35,7 +36,6 @@ public:
 	float GetBoundaryRight();
 	D3DXVECTOR2 GetPositionMario();
 	D3DXVECTOR2 GetSpeedMario();
-
 
 	void SetSpeedXCam(float v);
 	void SetPositionCam(D3DXVECTOR2 pos);
