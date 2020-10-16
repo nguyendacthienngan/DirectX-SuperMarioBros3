@@ -47,7 +47,6 @@ void CAnimation::Update()
 
 	if (currentFrame == -1)
 	{
-
 		currentFrame = 0;
 		lastFrameTime = currentTime;
 	}
@@ -65,13 +64,13 @@ void CAnimation::Update()
 
 void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 {
-	if (animFrames.size() == 0 || speedMultiplier == 0.0f) return;
+	if (currentFrame == -1 || animFrames.size() == 0) return;
 
 
 	DebugOut(L"[INFO] Render Animation \n");
-	D3DXVECTOR2 translateDestination = D3DXVECTOR2 (position.x, position.y);
-	transform.translatePos = translateDestination;
-	animFrames[currentFrame]->GetSprite()->Draw(transform.translatePos, transform.scale, transform.rotationAngle, alpha);
+	transform.translatePos = position;
+	// Sai ở lỗi currentFrame
+	animFrames[currentFrame]->GetSprite()->Draw(position, transform.scale, transform.rotationAngle, alpha);
 }
 
 LPAnimationFrame CAnimation::GetAnimFrame()
@@ -83,7 +82,7 @@ LPAnimationFrame CAnimation::GetAnimFrame()
 
 CAnimation::~CAnimation()
 {
-	for (auto a : animFrames)
+	/*for (auto a : animFrames)
 		delete a;
-	animFrames.clear();
+	animFrames.clear();*/
 }
