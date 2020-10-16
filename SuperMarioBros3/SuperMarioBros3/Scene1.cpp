@@ -43,8 +43,8 @@ void CScene1::Load()
 
 	camera->SetPositionCam(D3DXVECTOR2(pos.x, pos.y - SCREEN_HEIGHT/2));
 
-	/*float boundaryRight = (float)(map->GetWidth() - camera->GetWidthCam());
-	camera->SetBoundary(0.0f, boundaryRight);*/
+	//float boundaryRight = (float)(map->GetWidth() - camera->GetWidthCam());
+	camera->SetBoundary(pos.x, map->GetWidth() - 1000);
 
 	backgroundColor = D3DCOLOR_XRGB(156, 252, 240);
 	DebugOut(L"[INFO] Loaded Scene \n");

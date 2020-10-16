@@ -40,40 +40,33 @@ void CCamera::Update()
     vx = speedMario.x;
     vy = speedMario.y;
      // follow Mario
-    //  Phải luôn đem nhân vật chính vào chính giữa !!!
+
+
+
+    //  Phải luôn đem nhân vật chính vào chính giữa khi nhân vật đi vào giữa khung hình!!!
 
     if (x > SCREEN_WIDTH / 2 - 30 && x < SCREEN_WIDTH / 2 + 30)
     {
         if (vx > 0)
             this->posCam.x += MARIO_WALKING_SPEED * 20;
         else if (vx < 0)
-                this->posCam.x -= MARIO_WALKING_SPEED * 20;
+            this->posCam.x -= MARIO_WALKING_SPEED * 20;
     }
 
     if (vx < 0)
         this->posCam.x -= MARIO_WALKING_SPEED * 20;
-    //if (player != NULL)
-    //{
-    //    if (playerX > 250 && playerX < 350)
-    //    {
-    //        player->SetBoundary(D3DXVECTOR2(250,350));
-    //        // Set boundary là 250 và 350
+    
 
-    //        if (playerVecX > 0)
-    //            this->posCam.x += MARIO_WALKING_SPEED* 20;
-    //        if (playerVecX < 0)
-    //            this->posCam.x -= MARIO_WALKING_SPEED * 20;
-    //    }
-    //    else
-    //    {
-    //        // KHi bắt đầu màn, mario ở bên trái cùng
-    //        // Set boundary left right là 0 và 250
-    //       //player->SetBoundary(D3DXVECTOR2(0, 250));
+    if (posCam.x < boundaryLeft)
+        posCam.x = boundaryLeft;
 
-    //        // Khi kết màn boundary left right là 350 và 600?
-    //    }
-    //    
-    //}
+    if (posCam.x > boundaryRight)
+        posCam.x = boundaryRight;
+
+    // Khi bắt đầu màn, mario ở bên trái cùng
+    // Set boundary left right là 0 và 250
+
+    // Khi kết màn boundary left right là 350 và 600?
 
     /*auto keyManager = CKeyboardManager::GetInstance();
 
@@ -90,11 +83,7 @@ void CCamera::Update()
         this->posCam.y += 300 * CGame::GetInstance()->GetFixedDeltaTime();*/
         
 
-   /* if (posCam.x < boundaryLeft)
-        posCam.x = boundaryLeft;
-
-    if (posCam.x > boundaryRight)
-        posCam.x = boundaryRight;*/
+   
 }
 
 void CCamera::Render()

@@ -48,15 +48,13 @@ void CMario::Update(DWORD dt, CCamera* cam, std::vector<LPGameObject>* coObjects
 	{
 		LPSprite sprite = animFrame->GetSprite();
 		bound = sprite->GetWidth() / 2; // 16 /2 = 8
-		//DebugOut(L"[INFO] boundary: %d \n", boundary);
 	}
 
 
 	D3DXVECTOR2 distanceInCam = cam->Transform(distance);
 	if (boundary != NULL)
 	{
-		// Xét biên lớn 0 - 800 theo hệ quy chiếu camera
-
+		// Xét biên lớn 0 - 800 theo hệ quy chiếu camera để mario k đi ra khỏi camera
 		if (distanceInCam.x > SCREEN_WIDTH - bound * abs(transform.scale.x))
 			distanceInCam.x = SCREEN_WIDTH - bound * abs(transform.scale.x);
 		else if (distanceInCam.x < bound * abs(transform.scale.x))
