@@ -73,6 +73,9 @@
     <Filter Include="Framework\Game\Camera">
       <UniqueIdentifier>{50acab06-5761-4285-b2f8-e9704f980e18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Game\Map\TileMap">
+      <UniqueIdentifier>{f26a9c43-a0de-4554-a619-e7d71a0a104d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -237,6 +240,15 @@
     <ClInclude Include="KeyboardManager.h">
       <Filter>Framework\Game\Input</Filter>
     </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>Framework\Game\Map\TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Tileset.h">
+      <Filter>Framework\Game\Map\TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Framework\Game\Map\TileMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -367,6 +379,15 @@
     </ClCompile>
     <ClCompile Include="KeyboardManager.cpp">
       <Filter>Framework\Game\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Framework\Game\Map\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Tileset.cpp">
+      <Filter>Framework\Game\Map\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Framework\Game\Map\TileMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

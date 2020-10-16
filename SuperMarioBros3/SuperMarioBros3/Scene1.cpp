@@ -29,7 +29,7 @@ void CScene1::Load()
 	OutputDebugString(ToLPCWSTR(MAP_PATH + MAP_WORLD1_1_FILENAME));
 	DebugOut(L"\n");
 
-	map = new CMap(MAP_PATH + MAP_WORLD1_1_FILENAME);
+	map = new CMap(MAP_PATH,MAP_WORLD1_1_FILENAME);
 
 	DebugOut(L"[INFO] Init Cam ... \n");
 	camera = new CCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -38,8 +38,8 @@ void CScene1::Load()
 	//camera = new CCamera(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	//camera->SetPositionCam(D3DXVECTOR2(0 , 1248 - (300 - 48))); // Hard code
 
-	float boundaryRight = (float)(map->GetWidth() - camera->GetWidthCam());
-	camera->SetBoundary(0.0f, boundaryRight);
+	/*float boundaryRight = (float)(map->GetWidth() - camera->GetWidthCam());
+	camera->SetBoundary(0.0f, boundaryRight);*/
 
 	backgroundColor = D3DCOLOR_XRGB(156, 252, 240);
 	DebugOut(L"[INFO] Loaded Scene \n");
