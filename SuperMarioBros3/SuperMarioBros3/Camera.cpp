@@ -47,9 +47,9 @@ void CCamera::Update()
     if (x > SCREEN_WIDTH / 2 - SPACE_MARIO_MOVING_IN_CAMERA && x < SCREEN_WIDTH / 2 + SPACE_MARIO_MOVING_IN_CAMERA)
     {
         if (vx > 0)
-            this->posCam.x += MARIO_WALKING_SPEED * 20;
+            this->posCam.x += MARIO_WALKING_SPEED * CGame::GetInstance()->GetFixedDeltaTime();
         else if (vx < 0)
-            this->posCam.x -= MARIO_WALKING_SPEED * 20;
+            this->posCam.x -= MARIO_WALKING_SPEED * CGame::GetInstance()->GetFixedDeltaTime();
     }
 
     if (vx < 0)

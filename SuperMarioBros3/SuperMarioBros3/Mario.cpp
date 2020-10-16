@@ -38,8 +38,8 @@ void CMario::Update(DWORD dt, CCamera* cam, std::vector<LPGameObject>* coObjects
 	auto game = CGame::GetInstance();
 
 	// Lúc này là milisecond
-	dt = 20; // Không bị viền
-	distance.x += velocity.x * dt;
+	dt = CGame::GetInstance()->GetFixedDeltaTime();  // Không bị viền
+	distance.x += velocity.x * CGame::GetInstance()->GetFixedDeltaTime();
 	//transform.translatePos.x = distance.x;
 
 	int bound = NULL; // biên của Sprite
