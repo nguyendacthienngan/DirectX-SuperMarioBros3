@@ -87,6 +87,7 @@ void CKeyboardManager::InitKeyboard(LPKeyEventHandler handler)
 	if (hr != DI_OK)
 	{
 		DebugOut(L"[ERROR] DINPUT8::Acquire failed!\n");
+		// Lỗi ở đây, mới vô bị mất acquire
 		return;
 	}
 

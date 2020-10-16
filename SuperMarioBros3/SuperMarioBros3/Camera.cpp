@@ -2,6 +2,16 @@
 #include "KeyboardManager.h"
 #include "Game.h"
 
+#include "SceneManager.h"
+#include "Mario.h"
+#include "GameObject.h"
+
+#include "MarioConst.h"
+
+#include <vector>
+#include "Ultis.h"
+#include "Const.h"
+using namespace std;
 CCamera::CCamera(int wid, int hei)
 {
     widthCam = wid;
@@ -9,6 +19,10 @@ CCamera::CCamera(int wid, int hei)
     boundaryLeft = 0;
     boundaryRight = 0;
     vx = 0.0f;
+    
+   /* player = mario;
+    player->SetBoundary(D3DXVECTOR2(0, 800));*/
+
 }
 
 CCamera::~CCamera()
@@ -18,11 +32,51 @@ CCamera::~CCamera()
 
 void CCamera::Update()
 {
-    // xử lý khi người dùng ấn nút sẽ di chuyển theo nút ấn của người dùng
-    auto keyManager = CKeyboardManager::GetInstance();
     this->dt = CGame::GetInstance()->GetFixedDeltaTime(); 
     
-    
+    float x, y, vx, vy;
+    x = posMario.x;  // tọa độ theo hệ quy chiếu Camera
+    y = posMario.y;
+    vx = speedMario.x;
+    vy = speedMario.y;
+     // follow Mario
+    //  Phải luôn đem nhân vật chính vào chính giữa !!!
+
+    if (x > SCREEN_WIDTH / 2 - 30 && x < SCREEN_WIDTH / 2 + 30)
+    {
+        if (vx > 0)
+            this->posCam.x += MARIO_WALKING_SPEED * 20;
+        else if (vx < 0)
+                this->posCam.x -= MARIO_WALKING_SPEED * 20;
+    }
+
+    if (vx < 0)
+        this->posCam.x -= MARIO_WALKING_SPEED * 20;
+    //if (player != NULL)
+    //{
+    //    if (playerX > 250 && playerX < 350)
+    //    {
+    //        player->SetBoundary(D3DXVECTOR2(250,350));
+    //        // Set boundary là 250 và 350
+
+    //        if (playerVecX > 0)
+    //            this->posCam.x += MARIO_WALKING_SPEED* 20;
+    //        if (playerVecX < 0)
+    //            this->posCam.x -= MARIO_WALKING_SPEED * 20;
+    //    }
+    //    else
+    //    {
+    //        // KHi bắt đầu màn, mario ở bên trái cùng
+    //        // Set boundary left right là 0 và 250
+    //       //player->SetBoundary(D3DXVECTOR2(0, 250));
+
+    //        // Khi kết màn boundary left right là 350 và 600?
+    //    }
+    //    
+    //}
+
+    /*auto keyManager = CKeyboardManager::GetInstance();
+
     if (keyManager->GetKeyDown(DIK_LEFT))
         this->posCam.x -= 300 * CGame::GetInstance()->GetFixedDeltaTime();
 
@@ -33,24 +87,30 @@ void CCamera::Update()
         this->posCam.y -= 300 * CGame::GetInstance()->GetFixedDeltaTime();
 
     if (keyManager->GetKeyDown(DIK_DOWN))
-        this->posCam.y += 300 * CGame::GetInstance()->GetFixedDeltaTime();
+        this->posCam.y += 300 * CGame::GetInstance()->GetFixedDeltaTime();*/
+        
 
-    //if (posCam.x < boundaryLeft)
-    //    posCam.x = boundaryLeft;
+   /* if (posCam.x < boundaryLeft)
+        posCam.x = boundaryLeft;
 
-    //if (posCam.x > boundaryRight)
-    //    posCam.x = boundaryRight;
-
-
+    if (posCam.x > boundaryRight)
+        posCam.x = boundaryRight;*/
 }
 
 void CCamera::Render()
 {
 }
 
+
+
 D3DXVECTOR2 CCamera::Transform(D3DXVECTOR2 posWorld)
 {
     return D3DXVECTOR2(posWorld.x - posCam.x, posWorld.y - posCam.y);
+}
+
+D3DXVECTOR2 CCamera::TransformCamToWorld(D3DXVECTOR2 posInCam)
+{
+    return D3DXVECTOR2(posInCam.x + posCam.x, posInCam.y + posCam.y);
 }
 
 bool CCamera::CheckObjectInCamera(D3DXVECTOR2 posObject, float widthObj, float heightObj) // Thông tin của object
@@ -102,6 +162,16 @@ float CCamera::GetBoundaryRight()
     return boundaryRight;
 }
 
+D3DXVECTOR2 CCamera::GetPositionMario()
+{
+    return posMario;
+}
+
+D3DXVECTOR2 CCamera::GetSpeedMario()
+{
+    return speedMario;
+}
+
 void CCamera::SetSpeedXCam(float v)
 {
     vx = v;
@@ -127,4 +197,14 @@ void CCamera::SetBoundary(float left, float right)
 {
     boundaryLeft = left;
     boundaryRight = right;
+}
+
+void CCamera::SetPositionMario(D3DXVECTOR2 posMario)
+{
+    this->posMario = posMario;
+}
+
+void CCamera::SetSpeedMario(D3DXVECTOR2 speedMario)
+{
+    this->speedMario = speedMario;
 }

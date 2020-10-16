@@ -251,9 +251,6 @@ void CMap::Update(CCamera* camera, DWORD dt)
 	camera->Update();
 }
 
-// Giải pháp đơn giản:
-// Loop qua tất cả các tile
-// Chỉ vẽ những tile có trong camera
 void CMap::Render(CCamera* camera)
 {
 	DebugOut(L"[INFO] Begin rendering map... \n");

@@ -19,5 +19,5 @@ DWORD CAnimationFrame::GetTime()
 
 CAnimationFrame::~CAnimationFrame()
 {
-    delete sprite;
+    //delete sprite;
 }

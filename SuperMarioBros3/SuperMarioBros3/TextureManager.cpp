@@ -77,6 +77,6 @@ void CTextureManager::Add(string id, LPCWSTR filePath, D3DCOLOR transparentColor
 
 CTextureManager::~CTextureManager()
 {
-	for (auto t : textures)
-		delete t.second;
+	/*for (auto t : textures)
+		delete t.second;*/
 }

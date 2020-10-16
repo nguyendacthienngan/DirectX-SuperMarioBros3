@@ -14,13 +14,13 @@ CGameObject::CGameObject()
 	//CGameObject::Init(); // chỗ này bị lỗi nếu để Init là thuần ảo. Ta phải để Init là ảo thôi để có thể gọi được ngay trong cha của nó
 	this->currentState = "";
 	//this->SetScale(D3DXVECTOR2(3, 3)); // bị lỗi vì Animation chưa có để set scale : Có cách nào để anim với object đồng bộ hoặc bỏ bớt transform trg anim k?
-	
+	tag = "";
 }
 
 CGameObject::~CGameObject()
 {
-	for (auto a : animations)
-		delete a.second;
+	/*for (auto a : animations)
+		delete a.second;*/
 }
 
 
@@ -29,13 +29,13 @@ void CGameObject::Init()
 	
 }
 
-void CGameObject::Update(DWORD dt, std::vector<LPGameObject>* coObjects)
+void CGameObject::Update(DWORD dt, CCamera* cam,  std::vector<LPGameObject>* coObjects)
 {
 	DebugOut(L"[INFO] Game Object Updating.. \n");
 
 }
 
-void CGameObject::Render()
+void CGameObject::Render(CCamera* cam)
 {
 	DebugOut(L"[INFO] Render Game Object \n");
 	OutputDebugString(ToLPCWSTR("[INFO] Current State:" + currentState + "\n"));
@@ -49,8 +49,10 @@ void CGameObject::Render()
 			DebugOut(L"Cannot find curState \n");
 			return;
 	}
-	DebugOut(ToLPCWSTR("Position: " + std::to_string(transform.translatePos.x) + "\n"));
-	animations.at(currentState)->Render(transform.translatePos);
+	D3DXVECTOR2 posInCam = cam->Transform(distance);
+	//DebugOut(ToLPCWSTR("Position: " + std::to_string(transform.translatePos.x) + "\n"));
+	//animations.at(currentState)->Render(transform.translatePos);
+	animations.at(currentState)->Render(posInCam);
 
 }
 

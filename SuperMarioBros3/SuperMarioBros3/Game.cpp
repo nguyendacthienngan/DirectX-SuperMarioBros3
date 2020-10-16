@@ -121,30 +121,33 @@ void CGame::Run()
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-
-		prevTime = currentTime; // framestart?
-		currentTime = GetTickCount(); // now
-		delta += (currentTime - prevTime);
-		deltaTime = delta;
-
-		if (delta >= tickPerFrame) // chuyển frame mới
+		else
 		{
-			// Call update
-			Update();
-			// Process key
-			auto keyboardManger = CKeyboardManager::GetInstance();
-			keyboardManger->ProcessKeyboard();
-			if (keyboardManger->CheckESCKey() == true)
-				continue;
-			Render();
+			prevTime = currentTime; // framestart?
+			currentTime = GetTickCount(); // now
+			delta += (currentTime - prevTime);
+			deltaTime = delta;
 
-			if (delta > tickPerFrame) delta = 0.0f;
+			if (delta >= tickPerFrame) // chuyển frame mới
+			{
+				// Call update
+				Update();
+				// Process key
+				auto keyboardManger = CKeyboardManager::GetInstance();
+				keyboardManger->ProcessKeyboard();
+				if (keyboardManger->CheckESCKey() == true)
+					continue;
+				Render();
+
+				if (delta > tickPerFrame) delta = 0.0f;
+			}
+			else // chưa tới tickperframe nên cho ngủ vì xong việc cho 1 frame ròi
+			{
+				Sleep(tickPerFrame - delta);
+				delta = tickPerFrame;
+			}
 		}
-		else // chưa tới tickperframe nên cho ngủ vì xong việc cho 1 frame ròi
-		{
-			Sleep(tickPerFrame - delta);
-			delta = tickPerFrame;
-		}
+		
 	}
 }
 
