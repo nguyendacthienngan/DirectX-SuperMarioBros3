@@ -41,11 +41,10 @@ void CCamera::Update()
     vy = speedMario.y;
      // follow Mario
 
-
-
     //  Phải luôn đem nhân vật chính vào chính giữa khi nhân vật đi vào giữa khung hình!!!
+    // Mario sẽ hiển thị di chuyển trong khoảng: SPACE_MARIO_MOVING_IN_CAMERA (30)
 
-    if (x > SCREEN_WIDTH / 2 - 30 && x < SCREEN_WIDTH / 2 + 30)
+    if (x > SCREEN_WIDTH / 2 - SPACE_MARIO_MOVING_IN_CAMERA && x < SCREEN_WIDTH / 2 + SPACE_MARIO_MOVING_IN_CAMERA)
     {
         if (vx > 0)
             this->posCam.x += MARIO_WALKING_SPEED * 20;
@@ -56,17 +55,13 @@ void CCamera::Update()
     if (vx < 0)
         this->posCam.x -= MARIO_WALKING_SPEED * 20;
     
-
+    // Ở đầu scene và cuối scene ta sẽ đặt ra boundary => Mario k được vượt quá boundary này
     if (posCam.x < boundaryLeft)
         posCam.x = boundaryLeft;
 
     if (posCam.x > boundaryRight)
         posCam.x = boundaryRight;
 
-    // Khi bắt đầu màn, mario ở bên trái cùng
-    // Set boundary left right là 0 và 250
-
-    // Khi kết màn boundary left right là 350 và 600?
 
     /*auto keyManager = CKeyboardManager::GetInstance();
 
@@ -81,9 +76,6 @@ void CCamera::Update()
 
     if (keyManager->GetKeyDown(DIK_DOWN))
         this->posCam.y += 300 * CGame::GetInstance()->GetFixedDeltaTime();*/
-        
-
-   
 }
 
 void CCamera::Render()

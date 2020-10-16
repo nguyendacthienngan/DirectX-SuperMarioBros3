@@ -40,10 +40,7 @@ void CScene1::Load()
 	camera = new CCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
 	//camera->SetPositionCam(D3DXVECTOR2(48.0f, 720.0f)); // Hard code: Tọa độ theo hệ quy chiếu world
 
-
 	camera->SetPositionCam(D3DXVECTOR2(pos.x, pos.y - SCREEN_HEIGHT/2));
-
-	//float boundaryRight = (float)(map->GetWidth() - camera->GetWidthCam());
 	camera->SetBoundary(pos.x, map->GetWidth() - 1000);
 
 	backgroundColor = D3DCOLOR_XRGB(156, 252, 240);
