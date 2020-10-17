@@ -10,7 +10,7 @@ public:
 	CMario();
 	void Init();
 	void LoadAnimation();
-	void Update(DWORD dt, CCamera* cam, std::vector<LPGameObject>* coObjects);
+	void Update(DWORD dt, CCamera* cam);
 
 	void KeyState(BYTE* states);
 	void OnKeyDown(int KeyCode);

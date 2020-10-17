@@ -17,7 +17,7 @@ private:
 	LPGameObject gameObject;
 	D3DXVECTOR2 sizeBox;
 	D3DXVECTOR2 localPosition; 
-	D3DXVECTOR2 distance; 
+	D3DXVECTOR2 distance;  //dx = vx*dt
 public:
 
 	void SetGameObjectAttach(LPGameObject gO);

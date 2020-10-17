@@ -16,6 +16,7 @@ CGameObject::CGameObject()
 	tag = "";
 	physiscBody = new CPhysicsBody();
 	collisionBoxs = new vector<CCollisionBox*>();
+	isEnabled = false;
 }
 
 CGameObject::~CGameObject()
@@ -29,7 +30,26 @@ void CGameObject::LoadAnimation()
 {
 }
 
-void CGameObject::Update(DWORD dt, CCamera* cam,  std::vector<LPGameObject>* coObjects)
+void CGameObject::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
+{
+	if (physiscBody->IsDynamic() == false) return;
+
+	vector<CCollisionBox*> otherCollisionBoxs;
+	for (auto obj : *coObjects)
+	{
+		auto collisionBoxsOther = obj->GetCollisionBox();
+		for (auto collisionBox : *collisionBoxsOther)
+			otherCollisionBoxs.push_back(collisionBox);
+	}
+
+	for (auto collisionBox : *collisionBoxs)
+	{
+		physiscBody->Update(this);
+		physiscBody->PhysicsUpdate(collisionBox, &otherCollisionBoxs);
+	}
+}
+
+void CGameObject::Update(DWORD dt, CCamera* cam)
 {
 	DebugOut(L"[INFO] Game Object Updating.. \n");
 
@@ -51,7 +71,6 @@ void CGameObject::Render(CCamera* cam)
 	}
 	D3DXVECTOR2 posInCam = cam->Transform(transform.position);
 	//DebugOut(ToLPCWSTR("Position: " + std::to_string(transform.translatePos.x) + "\n"));
-	//animations.at(currentState)->Render(transform.translatePos);
 	animations.at(currentState)->Render(posInCam);
 
 }

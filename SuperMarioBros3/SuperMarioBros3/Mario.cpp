@@ -14,6 +14,7 @@ CMario::CMario()
 	Init();
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 	tag = "player";
+	isEnabled = true;
 }
 
 void CMario::Init()
@@ -38,9 +39,9 @@ void CMario::LoadAnimation()
 	this->SetState(MARIO_STATE_IDLE); // Để tên đồng nhất với animation
 }
 
-void CMario::Update(DWORD dt, CCamera* cam, std::vector<LPGameObject>* coObjects)
+void CMario::Update(DWORD dt, CCamera* cam)
 {
-	CGameObject::Update(dt, cam, coObjects);
+	CGameObject::Update(dt, cam);
 	DebugOut(L"[INFO] Mario Updating.. \n");
 	auto game = CGame::GetInstance();
 

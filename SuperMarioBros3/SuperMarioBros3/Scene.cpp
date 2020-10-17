@@ -19,6 +19,8 @@ void CScene::Update(DWORD dt)
 	if (gameObjects.size() == 0) return;
 	for (auto obj : gameObjects)
 	{
+		if (obj->IsEnabled() == false) continue;
+		obj->PhysicsUpdate(&gameObjects); // làm sao để phân biệt với các gameobject khác
 		obj->Update(dt, camera);
 		obj->AnimationUpdate();
 		// Set transform animation ở đây ??
