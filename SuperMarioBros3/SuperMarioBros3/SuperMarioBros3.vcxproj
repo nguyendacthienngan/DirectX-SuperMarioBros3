@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -147,6 +147,7 @@
     <ClInclude Include="AnimationFrame.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CollisionBox.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
@@ -185,10 +186,13 @@
     <ClInclude Include="MapReader\zlib128-dll\include\zlib.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MarioConst.h" />
+    <ClInclude Include="PhysicsBody.h" />
+    <ClInclude Include="RectF.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SolidBox.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="targetver.h" />
@@ -203,6 +207,7 @@
     <ClCompile Include="AnimationFrame.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CollisionBox.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameKeyEventHandler.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -231,9 +236,11 @@
     <ClCompile Include="MapReader\TmxTileset.cpp" />
     <ClCompile Include="MapReader\TmxUtil.cpp" />
     <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SolidBox.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="TextureManager.cpp" />

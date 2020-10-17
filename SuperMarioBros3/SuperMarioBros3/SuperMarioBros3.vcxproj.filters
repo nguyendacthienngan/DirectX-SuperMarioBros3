@@ -61,17 +61,26 @@
     <Filter Include="Framework\Ultis\TinyXML">
       <UniqueIdentifier>{e2574ecd-2ede-4833-a1a9-2ec79b8ee270}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Game\Input">
-      <UniqueIdentifier>{902ad6ee-294e-440d-aed1-769e27328a89}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\Ultis\MapReader">
       <UniqueIdentifier>{ecfa5199-a4ae-4bf0-beaa-9baaf1d7f43f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Game\Map">
+    <Filter Include="Framework\Game\Keyboard">
+      <UniqueIdentifier>{902ad6ee-294e-440d-aed1-769e27328a89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Keyboard\KeyEventHandler">
+      <UniqueIdentifier>{deb27a5d-6497-434a-ae65-716646434d84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Scene\Map">
       <UniqueIdentifier>{b2813993-c029-4101-988d-5109473f905b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Game\Camera">
+    <Filter Include="Framework\Game\Scene\Camera">
       <UniqueIdentifier>{50acab06-5761-4285-b2f8-e9704f980e18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Collision">
+      <UniqueIdentifier>{4b538b71-ec2c-4c4c-91b5-16901a313e5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\CollisionBox">
+      <UniqueIdentifier>{c55b5a15-d0ea-49b8-8a98-80bd952db53e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -82,9 +91,6 @@
       <Filter>Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Const.h">
       <Filter>Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
@@ -137,12 +143,6 @@
     </ClInclude>
     <ClInclude Include="tinyxml.h">
       <Filter>Framework\Ultis\TinyXML</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEventHandler.h">
-      <Filter>Framework\Game\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="GameKeyEventHandler.h">
-      <Filter>Framework\Game\Input</Filter>
     </ClInclude>
     <ClInclude Include="MarioConst.h">
       <Filter>Game\GameObject\Mario</Filter>
@@ -226,16 +226,37 @@
       <Filter>Framework\Ultis\MapReader</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>Framework\Game\Map</Filter>
+      <Filter>Framework\Game\Scene\Map</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Framework\Game\Camera</Filter>
+      <Filter>Framework\Game\Scene\Camera</Filter>
     </ClInclude>
     <ClInclude Include="MapConst.h">
-      <Filter>Framework\Game\Map</Filter>
+      <Filter>Framework\Game\Scene\Map</Filter>
     </ClInclude>
     <ClInclude Include="KeyboardManager.h">
-      <Filter>Framework\Game\Input</Filter>
+      <Filter>Framework\Game\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="GameKeyEventHandler.h">
+      <Filter>Framework\Game\Keyboard\KeyEventHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEventHandler.h">
+      <Filter>Framework\Game\Keyboard\KeyEventHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="Const.h">
+      <Filter>Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionBox.h">
+      <Filter>Framework\Game\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsBody.h">
+      <Filter>Framework\Game\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="RectF.h">
+      <Filter>Framework\Ultis</Filter>
+    </ClInclude>
+    <ClInclude Include="SolidBox.h">
+      <Filter>Game\GameObject\CollisionBox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -292,12 +313,6 @@
     </ClCompile>
     <ClCompile Include="tinyxmlparser.cpp">
       <Filter>Framework\Ultis\TinyXML</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyEventHandler.cpp">
-      <Filter>Framework\Game\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="GameKeyEventHandler.cpp">
-      <Filter>Framework\Game\Input</Filter>
     </ClCompile>
     <ClCompile Include="MapReader\base64.cpp">
       <Filter>Framework\Ultis\MapReader</Filter>
@@ -360,13 +375,28 @@
       <Filter>Framework\Ultis\MapReader</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
-      <Filter>Framework\Game\Map</Filter>
+      <Filter>Framework\Game\Scene\Map</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Framework\Game\Camera</Filter>
+      <Filter>Framework\Game\Scene\Camera</Filter>
     </ClCompile>
     <ClCompile Include="KeyboardManager.cpp">
-      <Filter>Framework\Game\Input</Filter>
+      <Filter>Framework\Game\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="GameKeyEventHandler.cpp">
+      <Filter>Framework\Game\Keyboard\KeyEventHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyEventHandler.cpp">
+      <Filter>Framework\Game\Keyboard\KeyEventHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsBody.cpp">
+      <Filter>Framework\Game\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionBox.cpp">
+      <Filter>Framework\Game\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="SolidBox.cpp">
+      <Filter>Game\GameObject\CollisionBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

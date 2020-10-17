@@ -25,7 +25,7 @@ CAnimation::CAnimation(const CAnimation& obj)
 	std::vector<LPAnimationFrame> newFrames(obj.animFrames);
 	this->animFrames = newFrames;
 	//this->transform = obj.transform;
-	this->transform = transform.CreateTransformation(obj.transform.translatePos, obj.transform.scale, obj.transform.rotationAngle);
+	this->transform = transform.CreateTransformation(obj.transform.position, obj.transform.scale, obj.transform.rotationAngle);
 }
 
 void CAnimation::Add(LPSprite sprite, D3DXVECTOR2 pos, DWORD frameTime)
@@ -68,7 +68,7 @@ void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 
 
 	DebugOut(L"[INFO] Render Animation \n");
-	transform.translatePos = position;
+	transform.position = position;
 	// Sai ở lỗi currentFrame
 	animFrames[currentFrame]->GetSprite()->Draw(position, transform.scale, transform.rotationAngle, alpha);
 }

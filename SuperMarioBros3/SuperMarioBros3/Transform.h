@@ -6,14 +6,14 @@
 #include <d3dx9.h>
 struct Transform
 {
-	D3DXVECTOR2 translatePos;
+	D3DXVECTOR2 position;
 	D3DXVECTOR2 scale;
 	float rotationAngle; // nhận vào là độ. Khi vào draw phải chuyển sang rad
 	
-	Transform CreateTransformation(D3DXVECTOR2 translate, D3DXVECTOR2 scale, float rotationAngle)
+	Transform CreateTransformation(D3DXVECTOR2 position, D3DXVECTOR2 scale, float rotationAngle)
 	{
 		Transform result;
-		result.translatePos = translate;
+		result.position = position;
 		result.scale = scale;
 		result.rotationAngle = rotationAngle;
 		return result;

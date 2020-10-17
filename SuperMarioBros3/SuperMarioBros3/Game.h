@@ -41,30 +41,15 @@ public:
 	void Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha);
 
 	//void Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha, D3DXVECTOR2 scale, float rotation);
-	
 	void DrawFlipX(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha);
 	void DrawFlipY(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha);
+	
 	void Init();
 	void Run(); // while-loop game
 	void End();
 	
 	void Render();
 	void Update();
-
-	static void SweptAABB(
-		float ml,			// move left 
-		float mt,			// move top
-		float mr,			// move right 
-		float mb,			// move bottom
-		float dx,			// 
-		float dy,			// 
-		float sl,			// static left
-		float st,
-		float sr,
-		float sb,
-		float& t,
-		float& nx,
-		float& ny);
 
 	int GetScreenWidth() { return screenWidth; }
 	int GetScreenHeight() { return screenHeight; }
@@ -76,7 +61,8 @@ public:
 	static float GetTimeScale() { return timeScale; }
 	static void SetTimeScale(float time) { timeScale = time; }
 
-	float GetFixedDeltaTime() { return 20;  }
+	float GetFixedDeltaTime() { return 20; }
+	float GetDeltaTime() { return deltaTime;  }
 };
 
 #endif

@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
@@ -9,12 +10,19 @@
 
 #include "Animation.h"
 #include "Camera.h"
+#include "PhysicsBody.h"
+#include "CollisionBox.h"
+
+
+class CPhysicsBody;
+typedef CPhysicsBody* LPPhysicsBody;
+
+
+class CCollisionBox;
+typedef CCollisionBox* LPCollisionBox;
 
 class CGameObject;
 typedef CGameObject* LPGameObject;
-
-struct CCollisionEvent;
-typedef CCollisionEvent* LPCollisionEvent;
 
 class CGameObject
 {
@@ -26,7 +34,7 @@ protected:
 
 	//D3DXVECTOR2 position;
 	D3DXVECTOR2 velocity;
-	D3DXVECTOR2 distance; // dx = vx*dt, dy = vy*dt, độ dời sau một khoảng thời gian
+	//D3DXVECTOR2 distance; // dx = vx*dt, dy = vy*dt, độ dời sau một khoảng thời gian
 	D3DXVECTOR2 normal; // vector pháp tuyến? nx, ny
 	float acceleration; // gia tốc
 
@@ -34,7 +42,6 @@ protected:
 
 	// To-Do
 	bool isEnabled;
-	D3DXVECTOR2 boundary; // boundary trong camera (boundaryLeft, boundaryRight)
 
 	std::string tag; // Phân biệt player với eniemies,...
 
@@ -43,6 +50,13 @@ protected:
 	// Nhưng lưu ý khi cloneanimation và setstate nhớ đặt tên giống nhau !
 
 	std::unordered_map<std::string, LPAnimation> animations;
+	
+	// Khi áp dụng PhysicBody lên vật nào thì vật đó sẽ có va chạm với vật khác nếu vật đó có CollisionBox
+	// VD: Mario = Body + CollisionBox, Ghost = Body, Pipe = CollisionBox
+
+	std::vector<LPCollisionBox>* collisionBoxs;
+	LPPhysicsBody physiscBody;
+	
 public:
 	CGameObject();
 	~CGameObject();
@@ -74,64 +88,24 @@ public:
 		this->animations[currentState]->SetRotation(r); // Khi setrotation ở GameObject phải đồng bộ với Animation
 	}
 
-	// COLLISION
 	void RenderBoundingBox();
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
 
-
-	LPCollisionEvent SweptAABBEx(LPGameObject coO);
-	void CalcPotentialCollisions(std::vector<LPGameObject>* coObjects, std::vector<LPCollisionEvent>& coEvents);
-	void FilterCollision(
-		std::vector<LPCollisionEvent>& coEvents,
-		std::vector<LPCollisionEvent>& coEventsResult,
-		float& min_tx,
-		float& min_ty,
-		float& nx,
-		float& ny,
-		float& rdx,
-		float& rdy);
-
-
-	void SetPosition(D3DXVECTOR2 p) { this->distance = p; }
+	void SetPosition(D3DXVECTOR2 p) { this->transform.position = p; }
 	void SetSpeed(D3DXVECTOR2 v) { this->velocity = v; }
 
-	D3DXVECTOR2 GetPosition() { return this->distance;}
+	D3DXVECTOR2 GetPosition() { return this->transform.position;}
 	D3DXVECTOR2 GetSpeed() { return velocity; }
 
 	D3DXVECTOR2 GetScale() { return transform.scale; }
 	float GetRotation() { return transform.rotationAngle; }
 
-	D3DXVECTOR2 GetDistance() { return distance; }
-
-	D3DXVECTOR2 GetBoundary() { return boundary; }
-	void SetBoundary(D3DXVECTOR2 b) { this->boundary = b; }
-
 	void SetState(std::string state);
 
-};
+	LPPhysicsBody GetPhysiscBody() { return physiscBody; }
+	void SetPhysiscBody(LPPhysicsBody p) { this->physiscBody = p; }
 
-
-struct CCollisionEvent
-{
-	LPGameObject obj;
-	float t, nx, ny;
-
-	float dx, dy;		// *RELATIVE* movement distance between this object and obj
-
-	CCollisionEvent(float t, float nx, float ny, float dx = 0, float dy = 0, LPGameObject obj = NULL)
-	{
-		this->t = t;
-		this->nx = nx;
-		this->ny = ny;
-		this->dx = dx;
-		this->dy = dy;
-		this->obj = obj;
-	}
-
-	static bool compare(const LPCollisionEvent& a, LPCollisionEvent& b)
-	{
-		return a->t < b->t;
-	}
+	std::vector<LPCollisionBox>* GetCollisionBox() { return collisionBoxs; }
+	void GetCollisionBox(std::vector<LPCollisionBox>* listCollisionBox) { this->collisionBoxs = listCollisionBox; }
 };
 
 #endif

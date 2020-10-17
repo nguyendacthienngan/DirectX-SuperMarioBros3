@@ -39,7 +39,7 @@ void CMario::Update(DWORD dt, CCamera* cam, std::vector<LPGameObject>* coObjects
 
 	// Lúc này là milisecond
 	dt = CGame::GetInstance()->GetFixedDeltaTime();  // Không bị viền
-	distance.x += velocity.x * CGame::GetInstance()->GetFixedDeltaTime();
+	transform.position.x += velocity.x * CGame::GetInstance()->GetFixedDeltaTime();
 	//transform.translatePos.x = distance.x;
 
 	int bound = NULL; // biên của Sprite
@@ -51,8 +51,8 @@ void CMario::Update(DWORD dt, CCamera* cam, std::vector<LPGameObject>* coObjects
 	}
 
 
-	D3DXVECTOR2 distanceInCam = cam->Transform(distance);
-	if (boundary != NULL)
+	D3DXVECTOR2 distanceInCam = cam->Transform(transform.position);
+	if (bound != NULL)
 	{
 		// Xét biên lớn 0 - 800 theo hệ quy chiếu camera để mario k đi ra khỏi camera
 		if (distanceInCam.x > SCREEN_WIDTH - bound * abs(transform.scale.x))
@@ -60,15 +60,10 @@ void CMario::Update(DWORD dt, CCamera* cam, std::vector<LPGameObject>* coObjects
 		else if (distanceInCam.x < bound * abs(transform.scale.x))
 			distanceInCam.x = bound * abs(transform.scale.x);
 	}
-	distance = cam->TransformCamToWorld(distanceInCam);
+	transform.position = cam->TransformCamToWorld(distanceInCam);
 
 	cam->SetPositionMario(distanceInCam); // Tọa độ theo camera
 	cam->SetSpeedMario(velocity); // Vận tốc theo camera
-}
-
-
-void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
 }
 
 void CMario::KeyState(BYTE* states)
