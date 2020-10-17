@@ -56,28 +56,28 @@ void CMap::LoadMap(std::string filePath)
 
 
 	// Load game objects
-	//auto objectGroups = map->GetObjectGroups();
-	//for (auto objectGroup : objectGroups)
-	//{
-	//	auto objects = objectGroup->GetObjects();
-	//	auto groupName = objectGroup->GetName();
+	auto objectGroups = map->GetObjectGroups();
+	for (auto objectGroup : objectGroups)
+	{
+		auto objects = objectGroup->GetObjects();
+		auto groupName = objectGroup->GetName();
 
-	//	if (groupName.compare("Solid") == 0)
-	//	{
-	//		for (int i = 0; i < objects.size(); ++i)
-	//		{
-	//			D3DXVECTOR2 position(objects[i]->GetX(), objects[i]->GetY());
-	//			D3DXVECTOR2 size(objects[i]->GetWidth(), objects[i]->GetHeight());
+		if (groupName.compare("Solid") == 0)
+		{
+			for (int i = 0; i < objects.size(); ++i)
+			{
+				D3DXVECTOR2 position(objects[i]->GetX(), objects[i]->GetY());
+				D3DXVECTOR2 size(objects[i]->GetWidth(), objects[i]->GetHeight());
 
-	//			CSolidBox* solid = new CSolidBox();
-	//			solid->SetPosition(position + (size / 2.0f));
-	//			solid->GetCollisionBox()->at(0)->SetSizeBox(size);
-	//			this->listGameObjects.push_back(solid);
+				CSolidBox* solid = new CSolidBox();
+				solid->SetPosition(position + (size / 2.0f));
+				solid->GetCollisionBox()->at(0)->SetSizeBox(size);
+				this->listGameObjects.push_back(solid);
 
-	//			// DebugOut(L"BoxSize: %f,%f,%f,%f\n", solid->GetTransform().Position.x, solid->GetTransform().Position.y, boxSize.x, boxSize.y);
-	//		}
-	//	}
-	//}
+				// DebugOut(L"BoxSize: %f,%f,%f,%f\n", solid->GetTransform().Position.x, solid->GetTransform().Position.y, boxSize.x, boxSize.y);
+			}
+		}
+	}
 }
 
 

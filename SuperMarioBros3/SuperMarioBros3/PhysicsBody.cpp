@@ -221,3 +221,8 @@ void CPhysicsBody::SetDynamic(bool isDynamic)
 {
 	this->isDynamic = isDynamic;
 }
+
+void CPhysicsBody::SetGravity(float gravity)
+{
+	this->gravity = gravity;
+}

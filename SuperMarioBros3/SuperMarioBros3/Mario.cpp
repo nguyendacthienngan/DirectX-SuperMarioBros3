@@ -19,6 +19,13 @@ CMario::CMario()
 void CMario::Init()
 {
 	LoadAnimation(); // chỗ này bị lỗi => Nó k tự gọi Init của nó trong class cha đc !!! Do Init đã được định nghĩa
+	CCollisionBox* collisionBox = new CCollisionBox();
+	collisionBox->SetSizeBox(D3DXVECTOR2(14 * 3, 27 * 3)); // Hard code
+	collisionBox->SetGameObjectAttach(this);
+	this->collisionBoxs->push_back(collisionBox); // bị lỗi
+
+	this->physiscBody->SetDynamic(true); // có chuyển động
+	this->physiscBody->SetGravity(0.0006f); // hard code
 }
 
 void CMario::LoadAnimation()

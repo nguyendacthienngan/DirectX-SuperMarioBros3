@@ -64,6 +64,7 @@ public:
 	D3DXVECTOR2 GetSpeed();
 
 	void SetDynamic(bool isDynamic);
+	void SetGravity(float gravity);
 };
 
 
