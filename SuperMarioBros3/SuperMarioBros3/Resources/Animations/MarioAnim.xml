@@ -96,6 +96,10 @@
 		<Animation aniId="ani-big-mario-jump" frameTime="100" name="JUMP">
 			<Sprite id="spr-big-mario-jump-0" left="271" top="49"  width="16" height="26" frameTime="100"/>
 		</Animation>
+		<!-- Animation FALL-->
+		<Animation aniId="ani-big-mario-fall" frameTime="100" name="FALL">
+			<Sprite id="spr-big-mario-fall-0" left="699" top="147"  width="16" height="26" frameTime="100"/>
+		</Animation>
 		<!-- Animation HIGH JUMP-->
 		<Animation aniId="ani-big-mario-high-jump" frameTime="100" name="HIGH-JUMP">
 			<Sprite id="spr-big-mario-high-jump-0" left="357" top="49"  width="19" height="26" frameTime="100"/>
@@ -165,7 +169,7 @@
 		<Animation aniId="ani-raccoon-mario-skid" frameTime="100" name="SKID">
 			<Sprite id="spr-raccoon-mario-skid-0" left="155" top="140"  width="16" height="30" frameTime="100"/>
 		</Animation>
-		<!-- Animation SKID-->
+		<!-- Animation RUN-->
 		<Animation aniId="ani-raccoon-mario-run" frameTime="100" name="RUN">
 			<Sprite id="spr-raccoon-mario-run-0" left="283" top="143"  width="23" height="27" frameTime="100"/>
 			<Sprite id="spr-raccoon-mario-run-1" left="309" top="143"  width="23" height="27" frameTime="100"/>
@@ -174,6 +178,10 @@
 		<!-- Animation JUMP-->
 		<Animation aniId="ani-raccoon-mario-jump" frameTime="100" name="JUMP">
 			<Sprite id="spr-raccoon-mario-jump-0" left="257" top="143"  width="23" height="27" frameTime="100"/>
+		</Animation>
+		<!-- Animation FALL-->
+		<Animation aniId="ani-raccoon-mario-fall" frameTime="100" name="FALL">
+			<Sprite id="spr-raccoon-mario-fall-0" left="129" top="143"  width="23" height="27" frameTime="100"/>
 		</Animation>
 		<!-- Animation SPEED UP-->
 		<Animation aniId="ani-raccoon-mario-speed-up" frameTime="100" name="SPEED-UP">
@@ -278,6 +286,10 @@
 		<Animation aniId="ani-fire-mario-jump" frameTime="100" name="JUMP">
 			<Sprite id="spr-fire-mario-jump-0" left="314" top="110"  width="16" height="26" frameTime="100"/>
 		</Animation>
+		<!-- Animation FALL-->
+		<Animation aniId="ani-fire-mario-fall" frameTime="100" name="FALL">
+			<Sprite id="spr-fire-mario-fall-0" left="242" top="110"  width="16" height="26" frameTime="100"/>
+		</Animation>
 		<!-- Animation HIGH JUMP -->
 		<Animation aniId="ani-fire-mario-high-jump" frameTime="100" name="HIGH-JUMP">
 			<Sprite id="spr-fire-mario-high-jump-0" left="400" top="110"  width="19" height="26" frameTime="100"/>
@@ -360,6 +372,10 @@
 		<!-- Animation JUMP -->
 		<Animation aniId="ani-hammer-mario-jump" frameTime="100" name="JUMP">
 			<Sprite id="spr-hammer-mario-jump-0" left="324" top="209"  width="16" height="27" frameTime="100"/>
+		</Animation>
+		<!-- Animation FALL-->
+		<Animation aniId="ani-hammer-mario-fall" frameTime="100" name="FALL">
+			<Sprite id="spr-hammer-mario-fall-0" left="248" top="209"  width="16" height="27" frameTime="100"/>
 		</Animation>
 		<!-- Animation HIGH JUMP -->
 		<Animation aniId="ani-hammer-mario-high-jump" frameTime="100" name="HIGH-JUMP">
@@ -512,6 +528,10 @@
 		<!-- Animation JUMP -->
 		<Animation aniId="ani-tanooki-mario-jump" frameTime="100" name="JUMP">
 			<Sprite id="spr-tanooki-mario-jump-0" left="238" top="280"  width="23" height="27" frameTime="100"/>
+		</Animation>
+		<!-- Animation FALL-->
+		<Animation aniId="ani-tanooki-mario-fall" frameTime="100" name="FALL">
+			<Sprite id="spr-tanooki-mario-fall-0" left="111" top="280"  width="23" height="27" frameTime="100"/>
 		</Animation>
 		<!-- Animation SPEED UP -->
 		<Animation aniId="ani-tanooki-mario-speed-up" frameTime="100" name="SPEED-UP">

@@ -26,6 +26,7 @@
 		<Sprite id="spr-big-mario-walk-2" left="233" top="49"  width="16" height="26" frameTime="100"/>
 		<Sprite id="spr-big-mario-skid-0" left="252" top="47"  width="16" height="28" frameTime="100"/>
 		<Sprite id="spr-big-mario-jump-0" left="271" top="49"  width="16" height="26" frameTime="100"/>
+		<Sprite id="spr-big-mario-fall-0" left="699" top="147"  width="16" height="26" frameTime="100"/>
 		<Sprite id="spr-big-mario-run-0" left="290" top="48"  width="19" height="27" frameTime="100"/>
 		<Sprite id="spr-big-mario-run-1" left="312" top="48"  width="19" height="27" frameTime="100"/>
 		<Sprite id="spr-big-mario-run-2" left="335" top="49"  width="19" height="26" frameTime="100"/>
@@ -61,6 +62,7 @@
 		<Sprite id="spr-raccoon-mario-spin-1" left="193" top="142"  width="23" height="28" frameTime="100"/>
 		<Sprite id="spr-raccoon-mario-spin-2" left="219" top="142"  width="16" height="28" frameTime="100"/>
 		<Sprite id="spr-raccoon-mario-jump-0" left="257" top="143"  width="23" height="27" frameTime="100"/>
+		<Sprite id="spr-raccoon-mario-fall-0" left="129" top="143"  width="23" height="27" frameTime="100"/>
 		<Sprite id="spr-raccoon-mario-run-0" left="283" top="143"  width="23" height="27" frameTime="100"/>
 		<Sprite id="spr-raccoon-mario-run-1" left="309" top="143"  width="23" height="27" frameTime="100"/>
 		<Sprite id="spr-raccoon-mario-run-2" left="335" top="142"  width="22" height="28" frameTime="100"/>
@@ -104,6 +106,7 @@
 		<Sprite id="spr-fire-mario-throw-0" left="280" top="109"  width="14" height="27" frameTime="100"/>
 		<Sprite id="spr-fire-mario-throw-1" left="297" top="109"  width="14" height="27" frameTime="100"/>
 		<Sprite id="spr-fire-mario-jump-0" left="314" top="110"  width="16" height="26" frameTime="100"/>
+		<Sprite id="spr-fire-mario-fall-0" left="242" top="110"  width="16" height="26" frameTime="100"/>
 		<Sprite id="spr-fire-mario-run-0" left="333" top="109"  width="19" height="27" frameTime="100"/>
 		<Sprite id="spr-fire-mario-run-1" left="355" top="109"  width="19" height="27" frameTime="100"/>
 		<Sprite id="spr-fire-mario-run-2" left="378" top="110"  width="19" height="26" frameTime="100"/>
@@ -133,6 +136,7 @@
 		<Sprite id="spr-hammer-mario-throw-0" left="286" top="208"  width="16" height="28" frameTime="100"/>
 		<Sprite id="spr-hammer-mario-throw-1" left="305" top="208"  width="16" height="28" frameTime="100"/>
 		<Sprite id="spr-hammer-mario-jump-0" left="324" top="209"  width="16" height="27" frameTime="100"/>
+		<Sprite id="spr-hammer-mario-fall-0" left="248" top="209"  width="16" height="27" frameTime="100"/>
 		<Sprite id="spr-hammer-mario-run-0" left="343" top="208"  width="19" height="28" frameTime="100"/>
 		<Sprite id="spr-hammer-mario-run-1" left="365" top="208"  width="19" height="28" frameTime="100"/>
 		<Sprite id="spr-hammer-mario-run-2" left="387" top="209"  width="19" height="27" frameTime="100"/>
@@ -194,6 +198,7 @@
 		<Sprite id="spr-tanooki-mario-walk-2" left="111" top="280"  width="23" height="27" frameTime="100"/>
 		<Sprite id="spr-tanooki-mario-skid-0" left="137" top="278"  width="16" height="29" frameTime="100"/>
 		<Sprite id="spr-tanooki-mario-jump-0" left="238" top="280"  width="23" height="27" frameTime="100"/>
+		<Sprite id="spr-tanooki-mario-fall-0" left="111" top="280"  width="23" height="27" frameTime="100"/>
 		<Sprite id="spr-tanooki-mario-run-0" left="264" top="280"  width="23" height="27" frameTime="100"/>
 		<Sprite id="spr-tanooki-mario-run-1" left="290" top="280"  width="23" height="27" frameTime="100"/>
 		<Sprite id="spr-tanooki-mario-run-2" left="316" top="279"  width="22" height="28" frameTime="100"/>
