@@ -24,9 +24,8 @@ CGameObject::~CGameObject()
 }
 
 
-void CGameObject::Init()
+void CGameObject::LoadAnimation()
 {
-	
 }
 
 void CGameObject::Update(DWORD dt, CCamera* cam,  std::vector<LPGameObject>* coObjects)

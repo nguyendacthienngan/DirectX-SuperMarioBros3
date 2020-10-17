@@ -61,8 +61,9 @@ public:
 	CGameObject();
 	~CGameObject();
 
-	// TO-DO
-	virtual void Init(); // sẽ thuần ảo để đến từng gameObject cụ thể sẽ tự load animation riêng
+	virtual void Init() = 0; // sẽ thuần ảo để đến từng gameObject cụ thể sẽ tự load animation riêng
+	virtual void LoadAnimation();
+
 	virtual void Update(DWORD dt, CCamera* cam, std::vector<LPGameObject>* coObjects = NULL); // Truyền một vector GameObject để xét va chạm với GameObject hiện tại. Tạm thời chưa làm Update do chưa xử lý va chạm
 	virtual void Render(CCamera* cam);
 	virtual void AnimationUpdate();

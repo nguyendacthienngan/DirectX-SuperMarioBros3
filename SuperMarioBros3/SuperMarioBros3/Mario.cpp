@@ -7,18 +7,18 @@
 #include "Const.h"
 #include "Sprite.h"
 
+#include "CollisionBox.h"
 
 CMario::CMario()
 {
-	LoadAnimation();
+	Init();
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 	tag = "player";
 }
 
 void CMario::Init()
 {
-	CGameObject::Init();
-	//LoadAnimation(); // chỗ này bị lỗi => Nó k tự gọi Init của nó trong class cha đc !!! Do Init đã được định nghĩa
+	LoadAnimation(); // chỗ này bị lỗi => Nó k tự gọi Init của nó trong class cha đc !!! Do Init đã được định nghĩa
 }
 
 void CMario::LoadAnimation()
