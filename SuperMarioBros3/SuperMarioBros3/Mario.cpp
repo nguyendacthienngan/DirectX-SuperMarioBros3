@@ -47,7 +47,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	// Co khi do ham update t dang bi sai gi khong :< T dang lam don gian nhat co the lun ak
 	CGameObject::Update(dt, cam);
 	//DebugOut(L"[INFO] Mario Updating.. \n");
-
+	float facing = 1.0f;
 #pragma region KeyState
 	auto keyboard = CKeyboardManager::GetInstance();
 	auto velocity = physiscBody->GetVelocity();
@@ -71,13 +71,14 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	}
 	else
 	{
-		velocity.x = 0.0f;
 		this->SetState(MARIO_STATE_IDLE);
+		//facing = (normal.x > 0) ? 1.0f : -1.0f;
+		SetScale(D3DXVECTOR2(normal.x, 1.0f));
+		velocity.x = 0.0f;
+
 	}
 #pragma endregion
 	physiscBody->SetVelocity(velocity);
-	
-
 }
 
 void CMario::KeyState()
