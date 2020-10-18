@@ -243,9 +243,6 @@
     <ClInclude Include="KeyEventHandler.h">
       <Filter>Framework\Game\Keyboard\KeyEventHandler</Filter>
     </ClInclude>
-    <ClInclude Include="Const.h">
-      <Filter>Files\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CollisionBox.h">
       <Filter>Framework\Game\Collision</Filter>
     </ClInclude>
@@ -257,6 +254,9 @@
     </ClInclude>
     <ClInclude Include="SolidBox.h">
       <Filter>Game\GameObject\CollisionBox</Filter>
+    </ClInclude>
+    <ClInclude Include="Const.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

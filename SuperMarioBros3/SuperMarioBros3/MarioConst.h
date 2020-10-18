@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #define MARIO_WALKING_SPEED		0.1f
 #define MARIO_JUMP_SPEED_Y		0.3f
@@ -17,3 +17,15 @@
 #define MARIO_RUNNING_SPEED		0.5f	
 
 #define SPACE_MARIO_MOVING_IN_CAMERA 30
+
+
+#define MARIO_START_X 70
+//#define MARIO_START_X 8120
+#define MARIO_START_Y 1204 // Tọa độ theo hệ quy chiếu world
+
+//#define MARIO_START_X 20
+//#define MARIO_START_Y 484
+ // Lúc này là tọa độ theo hệ quy chiếu camera
+
+//#define MARIO_START_X 48
+//#define MARIO_START_Y 720

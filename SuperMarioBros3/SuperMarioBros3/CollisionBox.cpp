@@ -64,13 +64,17 @@ RectF CCollisionBox::GetBoundingBox()
 
 	auto pos = GetWorldPosition();
 	RectF r;
+	/*r.left = pos.x;
+	r.right = pos.x + sizeBox.x;
+	r.top =  pos.y ;
+	r.bottom = pos.y + sizeBox.y ;*/
+
 	r.left = pos.x - sizeBox.x * 0.5f;
 	r.right = pos.x + sizeBox.x * 0.5f;
 	r.top = pos.y - sizeBox.y * 0.5f;
 	r.bottom = pos.y + sizeBox.y * 0.5f;
 
-
-	OutputDebugString(ToLPCWSTR("BB: " + name + "\n")); // Bach mun debug out cai gi tên
+	//OutputDebugString(ToLPCWSTR("BB: " + name + "\n")); // Bach mun debug out cai gi tên
 	return r;
 }
 

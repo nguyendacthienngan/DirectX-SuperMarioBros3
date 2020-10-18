@@ -77,30 +77,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 #pragma endregion
 	physiscBody->SetVelocity(velocity);
 	
-#pragma region CheckBoundaryInCamera
-
-	int bound = NULL; // biên của Sprite
-	auto animFrame = this->animations[currentState]->GetAnimFrame();
-	if (animFrame != NULL)
-	{
-		LPSprite sprite = animFrame->GetSprite();
-		bound = sprite->GetWidth() / 2; // 16 /2 = 8
-	}
-
-	D3DXVECTOR2 distanceInCam = cam->Transform(transform.position);
-	if (bound != NULL)
-	{
-		// Xét biên lớn 0 - 800 theo hệ quy chiếu camera để mario k đi ra khỏi camera
-		if (distanceInCam.x > SCREEN_WIDTH - bound * abs(transform.scale.x))
-			distanceInCam.x = SCREEN_WIDTH - bound * abs(transform.scale.x);
-		else if (distanceInCam.x < bound * abs(transform.scale.x))
-			distanceInCam.x = bound * abs(transform.scale.x);
-	}
-	transform.position = cam->TransformCamToWorld(distanceInCam);
-	cam->SetPositionMario(distanceInCam); // Tọa độ theo camera
-	cam->SetSpeedMario(velocity); // Vận tốc theo camera
-#pragma endregion
-	//collisionBoxs->at(0)->SetDistance(transform.position);
 
 }
 

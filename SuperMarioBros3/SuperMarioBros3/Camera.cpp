@@ -19,9 +19,6 @@ CCamera::CCamera(int wid, int hei)
     boundaryRight = 0;
     vx = 0.0f;
     
-   /* player = mario;
-    player->SetBoundary(D3DXVECTOR2(0, 800));*/
-
 }
 
 CCamera::~CCamera()
@@ -33,28 +30,13 @@ void CCamera::Update()
 {
     this->dt = CGame::GetInstance()->GetFixedDeltaTime(); 
     
-    float x, y, vx, vy;
-    x = posMario.x;  // tọa độ theo hệ quy chiếu Camera
-    y = posMario.y;
-    vx = speedMario.x;
-    vy = speedMario.y;
-     // follow Mario
-
-    //  Phải luôn đem nhân vật chính vào chính giữa khi nhân vật đi vào giữa khung hình!!!
-    // Mario sẽ hiển thị di chuyển trong khoảng: SPACE_MARIO_MOVING_IN_CAMERA (30)
-   // this->posCam.x += MARIO_WALKING_SPEED * CGame::GetInstance()->GetFixedDeltaTime();
-
-
-    if (x > SCREEN_WIDTH / 2 - SPACE_MARIO_MOVING_IN_CAMERA && x < SCREEN_WIDTH / 2 + SPACE_MARIO_MOVING_IN_CAMERA)
-    {
-        this->posCam.x = TransformCamToWorld(posMario).x - widthCam * 0.5f;
-    }
-
-   /* if (vx < 0)
-        this->posCam.x -= TransformCamToWorld(posMario).x - widthCam * 0.5f;*/
-
-
+    float x, y;
+    x = gameObject->GetPosition().x;
+    y = gameObject->GetPosition().y;
     
+     // follow Mario
+    posCam.x = x - widthCam * 0.5f;
+
     // Ở đầu scene và cuối scene ta sẽ đặt ra boundary => Mario k được vượt quá boundary này
     if (posCam.x < boundaryLeft)
         posCam.x = boundaryLeft;
@@ -62,6 +44,12 @@ void CCamera::Update()
     if (posCam.x > boundaryRight)
         posCam.x = boundaryRight;
 
+    //	Xét biên để chỉnh lại camera k thoát khỏi camera
+    if (x > boundaryRight + widthCam - 24)
+        x = boundaryRight + widthCam - 24;
+    else if (x < boundaryLeft + 24)
+        x = boundaryLeft + 24;
+    gameObject->SetPosition(D3DXVECTOR2(x, y));
 
     /*auto keyManager = CKeyboardManager::GetInstance();
 
@@ -143,15 +131,12 @@ float CCamera::GetBoundaryRight()
     return boundaryRight;
 }
 
-D3DXVECTOR2 CCamera::GetPositionMario()
+LPGameObject CCamera::GetGameObject()
 {
-    return posMario;
+    return gameObject;
 }
 
-D3DXVECTOR2 CCamera::GetSpeedMario()
-{
-    return speedMario;
-}
+
 
 void CCamera::SetSpeedXCam(float v)
 {
@@ -180,12 +165,9 @@ void CCamera::SetBoundary(float left, float right)
     boundaryRight = right;
 }
 
-void CCamera::SetPositionMario(D3DXVECTOR2 posMario)
+void CCamera::SetGameObject(LPGameObject gO)
 {
-    this->posMario = posMario;
+    gameObject = gO;
 }
 
-void CCamera::SetSpeedMario(D3DXVECTOR2 speedMario)
-{
-    this->speedMario = speedMario;
-}
+
