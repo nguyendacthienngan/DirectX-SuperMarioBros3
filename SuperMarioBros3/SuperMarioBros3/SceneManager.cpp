@@ -20,7 +20,7 @@ void CSceneManager::Init()
 //Load Resource
 void CSceneManager::Load(LPScene scene)
 {
-	DebugOut(L"[INFO] Loading Scene.. \n");
+	//DebugOut(L"[INFO] Loading Scene.. \n");
 	scene->Load(); // Scene Manager nó tự load
 	loadedScenes.insert(make_pair(scene->GetSceneId(), scene));
 	activeSceneId = scene->GetSceneId();

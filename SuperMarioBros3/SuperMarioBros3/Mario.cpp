@@ -32,9 +32,9 @@ void CMario::Init()
 void CMario::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(MARIO_STATE_IDLE,animationManager->Clone("ani-small-mario-idle"));
-	AddAnimation(MARIO_STATE_WALKING, animationManager->Clone("ani-small-mario-walk"));
-	AddAnimation(MARIO_STATE_RUNNING, animationManager->Clone("ani-small-mario-run"));
+	AddAnimation(MARIO_STATE_IDLE,animationManager->Get("ani-small-mario-idle"));
+	AddAnimation(MARIO_STATE_WALKING, animationManager->Get("ani-small-mario-walk"));
+	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-small-mario-run"));
 
 	this->SetState(MARIO_STATE_IDLE); // Để tên đồng nhất với animation
 }
@@ -42,7 +42,7 @@ void CMario::LoadAnimation()
 void CMario::Update(DWORD dt, CCamera* cam)
 {
 	CGameObject::Update(dt, cam);
-	DebugOut(L"[INFO] Mario Updating.. \n");
+	//DebugOut(L"[INFO] Mario Updating.. \n");
 	auto game = CGame::GetInstance();
 
 	// Lúc này là milisecond

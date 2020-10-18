@@ -15,7 +15,7 @@ void CScene::Unload()
 void CScene::Update(DWORD dt)
 {
 
-	DebugOut(L"[INFO] Updating Scene \n");
+	//DebugOut(L"[INFO] Updating Scene \n");
 	if (gameObjects.size() == 0) return;
 	for (auto obj : gameObjects)
 	{
@@ -32,14 +32,14 @@ void CScene::Update(DWORD dt)
 
 void CScene::Render()
 {
-	DebugOut(L"[INFO] Draw Map ... \n");
+	//DebugOut(L"[INFO] Draw Map ... \n");
 	//map->Draw(camera); // Load dựa trên camera nhưng chưa set vị trí camera đúng được
 
 	map->Render(camera);
 
-	DebugOut(L"[INFO] Draw Map Successfully \n");
+	//DebugOut(L"[INFO] Draw Map Successfully \n");
 
-	DebugOut(L"[INFO] Rendering Scene \n");
+	//DebugOut(L"[INFO] Rendering Scene \n");
 	if (gameObjects.size() == 0) return;
 
 	for (auto obj : gameObjects)
@@ -54,7 +54,7 @@ void CScene::AddObject(LPGameObject gameObject)
 {
 	if (gameObject != NULL)
 		gameObjects.push_back(gameObject);
-	DebugOut(L"[INFO] Objects' length: %d \n", gameObjects.size());
+	//DebugOut(L"[INFO] Objects' length: %d \n", gameObjects.size());
 }
 
 void CScene::RemoveObject(LPGameObject gameObject)

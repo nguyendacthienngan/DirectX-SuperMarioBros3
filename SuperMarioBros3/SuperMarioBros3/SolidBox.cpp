@@ -1,5 +1,10 @@
 #include "SolidBox.h"
 
+CSolidBox::CSolidBox()
+{
+	Init();
+}
+
 void CSolidBox::Init()
 {
 	CCollisionBox* box = new CCollisionBox();

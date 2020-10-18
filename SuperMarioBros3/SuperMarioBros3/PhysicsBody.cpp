@@ -34,6 +34,8 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 		pos.x += distance.x;
 		pos.y += distance.y;
 		gameObject->SetPosition(pos);
+		//DebugOut(L"Normal ! \n");
+
 	}
 	else
 	{
@@ -238,12 +240,16 @@ void CPhysicsBody::CalcPotentialCollisions(
 	std::vector<LPCollisionBox>* coObjects,
 	std::vector<LPCollisionEvent>& coEvents)
 {
+
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPCollisionEvent e = SweptAABBEx(cO,coObjects->at(i));
 
 		if (e->t > 0 && e->t <= 1.0f)
+		{
 			coEvents.push_back(e);
+			//DebugOut(L"HIT ! \n");
+		}
 		else
 			delete e;
 	}

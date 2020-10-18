@@ -58,7 +58,7 @@ public:
 	CGameObject();
 	~CGameObject();
 
-	virtual void Init() = 0; // sẽ thuần ảo để đến từng gameObject cụ thể sẽ tự load animation riêng
+	virtual void Init(); // sẽ thuần ảo để đến từng gameObject cụ thể sẽ tự load animation riêng
 	virtual void LoadAnimation();
 
 	void PhysicsUpdate(std::vector<LPGameObject>* coObjects);

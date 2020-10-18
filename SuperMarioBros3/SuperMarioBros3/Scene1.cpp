@@ -35,6 +35,11 @@ void CScene1::Load()
 	DebugOut(L"\n");
 
 	map = new CMap(MAP_PATH + MAP_WORLD1_1_FILENAME);
+	auto gameObjects = map->GetListGameObjects();
+	if (gameObjects.size() == 0)
+		DebugOut(L"Cannot load game objects from map \n");
+	for (auto gO : gameObjects)
+		AddObject(gO);
 
 	DebugOut(L"[INFO] Init Cam ... \n");
 	camera = new CCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
