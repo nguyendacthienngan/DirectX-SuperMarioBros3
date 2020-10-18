@@ -30,17 +30,14 @@ protected:
 	int id;
 	DWORD dt;
 
-	Transform transform;
+	Transform transform; // position ( dời hình ), scale, rotate
 
-	//D3DXVECTOR2 position;
 	D3DXVECTOR2 velocity;
-	//D3DXVECTOR2 distance; // dx = vx*dt, dy = vy*dt, độ dời sau một khoảng thời gian
 	D3DXVECTOR2 normal; // vector pháp tuyến? nx, ny
 	float acceleration; // gia tốc
 
 	std::string currentState;
 
-	// To-Do
 	bool isEnabled;
 
 	std::string tag; // Phân biệt player với eniemies,...
@@ -61,9 +58,11 @@ public:
 	CGameObject();
 	~CGameObject();
 
-	// TO-DO
 	virtual void Init(); // sẽ thuần ảo để đến từng gameObject cụ thể sẽ tự load animation riêng
-	virtual void Update(DWORD dt, CCamera* cam, std::vector<LPGameObject>* coObjects = NULL); // Truyền một vector GameObject để xét va chạm với GameObject hiện tại. Tạm thời chưa làm Update do chưa xử lý va chạm
+	virtual void LoadAnimation();
+
+	void PhysicsUpdate(std::vector<LPGameObject>* coObjects);
+	virtual void Update(DWORD dt, CCamera* cam); // Truyền một vector GameObject để xét va chạm với GameObject hiện tại. Tạm thời chưa làm Update do chưa xử lý va chạm
 	virtual void Render(CCamera* cam);
 	virtual void AnimationUpdate();
 
@@ -75,6 +74,7 @@ public:
 	virtual void OnKeyUp(int KeyCode) = 0;
 
 	bool IsEnabled();
+	void Enable(bool isEnabled) { this->isEnabled = isEnabled; }
 
 	// TRANSFORM
 	void SetScale(D3DXVECTOR2 s) 
@@ -106,6 +106,7 @@ public:
 
 	std::vector<LPCollisionBox>* GetCollisionBox() { return collisionBoxs; }
 	void GetCollisionBox(std::vector<LPCollisionBox>* listCollisionBox) { this->collisionBoxs = listCollisionBox; }
+
 };
 
 #endif

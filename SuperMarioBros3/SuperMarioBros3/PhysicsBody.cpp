@@ -4,8 +4,83 @@
 #include <vector>
 #include <minwindef.h>
 #include <algorithm>
+#include "Ultis.h"
 
 using namespace std;
+
+void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects)
+{
+	auto gameObject = cO->GetGameObjectAttach();
+	auto collisionBox = gameObject->GetCollisionBox()->at(0);
+
+	if (gameObject == NULL || gameObject->IsEnabled() == false || isDynamic == false)
+		return;
+
+	auto dt = CGame::GetInstance()->GetDeltaTime();
+	//auto velocity = physiscBody->GetSpeed(); // không cần nhỉ ********************
+	auto pos = gameObject->GetPosition();
+	auto distance = collisionBox->GetDistance();
+	vector<CollisionEvent*> coEvents;
+	vector<CollisionEvent*> coEventsResult;
+
+	coEvents.clear();
+
+	CalcPotentialCollisions(cO, coObjects, coEvents);
+
+	// No collision occured, proceed normally
+	if (coEvents.size() == 0)
+	{
+		velocity.y += gravity * dt;
+		pos.x += distance.x;
+		pos.y += distance.y;
+		gameObject->SetPosition(pos);
+		//DebugOut(L"Normal ! \n");
+
+	}
+	else
+	{
+		// Collision detetion
+		float min_tx, min_ty, nx = 0, ny;
+
+		// TODO: This is a very ugly designed function!!!!
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
+		//if (rdx != 0 && rdx!=dx)
+		//	x += nx*abs(rdx); 
+
+		pos = gameObject->GetPosition();
+
+		// block every object first!
+		pos.x += min_tx * distance.x + nx * 0.4f; // nx*0.4f : need to push out a bit to avoid overlapping next frame
+		pos.y += min_ty * distance.y + ny * 0.4f;
+
+		if (nx != 0) velocity.x = 0;
+		if (ny != 0) velocity.y = 0;
+
+		gameObject->SetPosition(pos);
+
+		DebugOut(L"HITTTT ! \n");
+
+	}
+
+	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];
+
+}
+void CPhysicsBody::Update(LPGameObject gameObject)
+{
+	if (gameObject == NULL || gameObject->IsEnabled() == false)
+		return;
+	auto dt = CGame::GetInstance()->GetDeltaTime();
+	auto collisionBoxs = gameObject->GetCollisionBox();
+	auto physiscBody = gameObject->GetPhysiscBody();
+	
+	D3DXVECTOR2 distance;
+	distance.x = physiscBody->GetSpeed().x * dt;
+	distance.y = physiscBody->GetSpeed().y * dt;
+	collisionBoxs->at(0)->SetDistance(distance);
+	
+}
 /*
 	Standard sweptAABB implementation
 	Source: GameDev.net
@@ -116,7 +191,7 @@ void CPhysicsBody::SweptAABB(
 /*
 	Extension of original SweptAABB to deal with two moving objects: A đang chạy và kiểm tra coi có với va chạm với B đang dứng yên
 */
-LPCollisionEvent CPhysicsBody::SweptAABBEx(LPCCollisionBox cO, LPCCollisionBox cOOther)
+LPCollisionEvent CPhysicsBody::SweptAABBEx(LPCollisionBox cO, LPCollisionBox cOOther)
 {
 	float sl, st, sr, sb;		// static object bbox
 	float ml, mt, mr, mb;		// moving object bbox
@@ -133,9 +208,8 @@ LPCollisionEvent CPhysicsBody::SweptAABBEx(LPCCollisionBox cO, LPCCollisionBox c
 	float sdx = svx * CGame::GetInstance()->GetDeltaTime();
 	float sdy = svy * CGame::GetInstance()->GetDeltaTime();
 
-	// (rdx, rdy) is RELATIVE movement distance/velocity 
-	float rdx = cO->GetDistance().x - sdx;
-	float rdy = cO->GetDistance().y - sdy;
+	float dx = cO->GetDistance().x - sdx;
+	float dy = cO->GetDistance().y - sdy;
 
 	auto boundingBox = cO->GetBoundingBox(); // A
 	ml = boundingBox.left;
@@ -151,39 +225,43 @@ LPCollisionEvent CPhysicsBody::SweptAABBEx(LPCCollisionBox cO, LPCCollisionBox c
 
 	SweptAABB(
 		ml, mt, mr, mb,
-		rdx, rdy,
+		dx, dy,
 		sl, st, sr, sb,
 		t, nx, ny
 	);
 
-	CCollisionEvent* e = new CCollisionEvent(t, nx, ny, rdx, rdy, cOOther);
+	CollisionEvent* e = new CollisionEvent(t, nx, ny, dx, dy, cOOther);
 	return e;
 }
 
 
 void CPhysicsBody::CalcPotentialCollisions(
-	LPCCollisionBox cO,
-	std::vector<LPCCollisionBox>* coObjects,
+	LPCollisionBox cO,
+	std::vector<LPCollisionBox>* coObjects,
 	std::vector<LPCollisionEvent>& coEvents)
 {
+
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPCollisionEvent e = SweptAABBEx(cO,coObjects->at(i));
 
 		if (e->t > 0 && e->t <= 1.0f)
+		{
 			coEvents.push_back(e);
+			//DebugOut(L"HIT ! \n");
+		}
 		else
 			delete e;
 	}
 
-	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
+	std::sort(coEvents.begin(), coEvents.end(), CollisionEvent::compare);
 }
 
 void CPhysicsBody::FilterCollision(
 	vector<LPCollisionEvent>& coEvents,
 	vector<LPCollisionEvent>& coEventsResult,
 	float& min_tx, float& min_ty,
-	float& nx, float& ny, float& rdx, float& rdy)
+	float& nx, float& ny)
 {
 	min_tx = 1.0f;
 	min_ty = 1.0f;
@@ -200,11 +278,11 @@ void CPhysicsBody::FilterCollision(
 		LPCollisionEvent c = coEvents[i];
 
 		if (c->t < min_tx && c->nx != 0) {
-			min_tx = c->t; nx = c->nx; min_ix = i; rdx = c->dx;
+			min_tx = c->t; nx = c->nx; min_ix = i; 
 		}
 
 		if (c->t < min_ty && c->ny != 0) {
-			min_ty = c->t; ny = c->ny; min_iy = i; rdy = c->dy;
+			min_ty = c->t; ny = c->ny; min_iy = i; 
 		}
 	}
 
@@ -217,7 +295,17 @@ D3DXVECTOR2 CPhysicsBody::GetSpeed()
 	return velocity;
 }
 
+bool CPhysicsBody::IsDynamic()
+{
+	return isDynamic;
+}
+
 void CPhysicsBody::SetDynamic(bool isDynamic)
 {
 	this->isDynamic = isDynamic;
+}
+
+void CPhysicsBody::SetGravity(float gravity)
+{
+	this->gravity = gravity;
 }

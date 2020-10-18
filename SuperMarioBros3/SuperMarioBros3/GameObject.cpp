@@ -11,10 +11,13 @@ using namespace std;
 
 CGameObject::CGameObject()
 {
-	//CGameObject::Init(); // chỗ này bị lỗi nếu để Init là thuần ảo. Ta phải để Init là ảo thôi để có thể gọi được ngay trong cha của nó
 	this->currentState = "";
-	//this->SetScale(D3DXVECTOR2(3, 3)); // bị lỗi vì Animation chưa có để set scale : Có cách nào để anim với object đồng bộ hoặc bỏ bớt transform trg anim k?
 	tag = "";
+	physiscBody = new CPhysicsBody();
+	collisionBoxs = new vector<CCollisionBox*>();
+	isEnabled = false;
+	//CGameObject::Init(); // chỗ này bị lỗi nếu để Init là thuần ảo. Ta phải để Init là ảo thôi để có thể gọi được ngay trong cha của nó
+
 }
 
 CGameObject::~CGameObject()
@@ -26,32 +29,59 @@ CGameObject::~CGameObject()
 
 void CGameObject::Init()
 {
-	
 }
 
-void CGameObject::Update(DWORD dt, CCamera* cam,  std::vector<LPGameObject>* coObjects)
+void CGameObject::LoadAnimation()
 {
-	DebugOut(L"[INFO] Game Object Updating.. \n");
+}
+
+void CGameObject::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
+{
+	if (physiscBody->IsDynamic() == false) return;
+
+	vector<CCollisionBox*> otherCollisionBoxs;
+	for (auto obj : *coObjects)
+	{
+		auto collisionBoxsOther = obj->GetCollisionBox();
+		for (auto collisionBox : *collisionBoxsOther)
+			otherCollisionBoxs.push_back(collisionBox);
+	}
+
+	for (auto collisionBox : *collisionBoxs)
+	{
+		physiscBody->Update(this);
+		physiscBody->PhysicsUpdate(collisionBox, &otherCollisionBoxs);
+	}
+}
+
+void CGameObject::Update(DWORD dt, CCamera* cam)
+{
+	//DebugOut(L"[INFO] Game Object Updating.. \n");
 
 }
 
 void CGameObject::Render(CCamera* cam)
 {
-	DebugOut(L"[INFO] Render Game Object \n");
-	OutputDebugString(ToLPCWSTR("[INFO] Current State:" + currentState + "\n"));
+	//DebugOut(L"[INFO] Render Game Object \n");
+	//OutputDebugString(ToLPCWSTR("[INFO] Current State:" + currentState + "\n"));
 	
 	bool curState = animations.find(currentState) != animations.end();
 	if (curState == NULL || animations.empty())
 	{
-		if(animations.empty())
+		/*if (animations.empty())
+		{
 			DebugOut(L"Dont have Animation \n");
-		if(curState == NULL)
+
+		}
+		if (curState == NULL)
+		{
 			DebugOut(L"Cannot find curState \n");
-			return;
+		}*/
+		return;
+
 	}
 	D3DXVECTOR2 posInCam = cam->Transform(transform.position);
 	//DebugOut(ToLPCWSTR("Position: " + std::to_string(transform.translatePos.x) + "\n"));
-	//animations.at(currentState)->Render(transform.translatePos);
 	animations.at(currentState)->Render(posInCam);
 
 }

@@ -45,6 +45,7 @@ void CMap::LoadMap(std::string filePath)
 		const Tmx::Tileset *tileset = map->GetTileset(i);
 
 		CTextureManager::GetInstance()->Add(MAP_WORLD1_1_NAME, ToLPCWSTR(MAP_PATH + tileset->GetImage()->GetSource().c_str()), D3DCOLOR_XRGB(255, 128, 192));
+		//CTextureManager::GetInstance()->Add(MAP_WORLD1_1_NAME, ToLPCWSTR(tileset->GetImage()->GetSource().c_str()), D3DCOLOR_XRGB(255, 128, 192));
 		LPDIRECT3DTEXTURE9 tex = CTextureManager::GetInstance()->GetTexture(MAP_WORLD1_1_NAME);
 		LPSprite sprite = new CSprite(MAP_WORLD1_1_NAME, RECT(), tex);
 
@@ -56,28 +57,34 @@ void CMap::LoadMap(std::string filePath)
 
 
 	// Load game objects
-	//auto objectGroups = map->GetObjectGroups();
-	//for (auto objectGroup : objectGroups)
-	//{
-	//	auto objects = objectGroup->GetObjects();
-	//	auto groupName = objectGroup->GetName();
+	//DebugOut(L"Load game object (1) \n");
+	auto objectGroups = map->GetObjectGroups();
+	if (objectGroups.size() == 0)
+		DebugOut(L"Cannot Load game object (1) \n");
 
-	//	if (groupName.compare("Solid") == 0)
-	//	{
-	//		for (int i = 0; i < objects.size(); ++i)
-	//		{
-	//			D3DXVECTOR2 position(objects[i]->GetX(), objects[i]->GetY());
-	//			D3DXVECTOR2 size(objects[i]->GetWidth(), objects[i]->GetHeight());
+	for (auto objectGroup : objectGroups)
+	{
+		auto objects = objectGroup->GetObjects();
+		auto groupName = objectGroup->GetName();
+		//DebugOut(L"Load game object (2) \n");
 
-	//			CSolidBox* solid = new CSolidBox();
-	//			solid->SetPosition(position + (size / 2.0f));
-	//			solid->GetCollisionBox()->at(0)->SetSizeBox(size);
-	//			this->listGameObjects.push_back(solid);
+		if (groupName.compare("Solid") == 0)
+		{
+			//DebugOut(L"Solid found \n");
+			for (int i = 0; i < objects.size(); ++i)
+			{
+				D3DXVECTOR2 position(objects[i]->GetX(), objects[i]->GetY());
+				D3DXVECTOR2 size(objects[i]->GetWidth(), objects[i]->GetHeight());
 
-	//			// DebugOut(L"BoxSize: %f,%f,%f,%f\n", solid->GetTransform().Position.x, solid->GetTransform().Position.y, boxSize.x, boxSize.y);
-	//		}
-	//	}
-	//}
+				CSolidBox* solid = new CSolidBox();
+				solid->SetPosition(position + (size / 2.0f));
+				solid->GetCollisionBox()->at(0)->SetSizeBox(size); // collisionBoxs của object bị null
+				this->listGameObjects.push_back(solid);
+
+				// DebugOut(L"BoxSize: %f,%f,%f,%f\n", solid->GetTransform().Position.x, solid->GetTransform().Position.y, boxSize.x, boxSize.y);
+			}
+		}
+	}
 }
 
 
@@ -94,11 +101,11 @@ void CMap::Update(CCamera* camera, DWORD dt)
 
 void CMap::Render(CCamera* camera)
 {
-	DebugOut(L"[INFO] Begin rendering map... \n");
+	//DebugOut(L"[INFO] Begin rendering map... \n");
 
 	if (camera == NULL)
 	{
-		DebugOut(L"[INFO] Camera is NULL \n");
+		DebugOut(L"[ERROR] Camera is NULL \n");
 		return;
 	}
 
@@ -181,7 +188,7 @@ void CMap::Render(CCamera* camera)
 			}
 		}
 	}
-	DebugOut(L"[INFO] Drawed map sucessfully. \n");
+	//DebugOut(L"[INFO] Drawed map sucessfully. \n");
 }
 
 int CMap::GetWidth()

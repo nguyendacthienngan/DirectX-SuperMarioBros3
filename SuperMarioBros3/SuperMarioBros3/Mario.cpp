@@ -7,34 +7,42 @@
 #include "Const.h"
 #include "Sprite.h"
 
+#include "CollisionBox.h"
 
 CMario::CMario()
 {
-	LoadAnimation();
+	Init();
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 	tag = "player";
+	isEnabled = true;
 }
 
 void CMario::Init()
 {
-	CGameObject::Init();
-	//LoadAnimation(); // chỗ này bị lỗi => Nó k tự gọi Init của nó trong class cha đc !!! Do Init đã được định nghĩa
+	LoadAnimation(); // chỗ này bị lỗi => Nó k tự gọi Init của nó trong class cha đc !!! Do Init đã được định nghĩa
+	CCollisionBox* collisionBox = new CCollisionBox();
+	collisionBox->SetSizeBox(D3DXVECTOR2(14 * 3, 27 * 3)); // Hard code
+	collisionBox->SetGameObjectAttach(this);
+	this->collisionBoxs->push_back(collisionBox); // bị lỗi
+
+	this->physiscBody->SetDynamic(true); // có chuyển động
+	this->physiscBody->SetGravity(0.0006f); // hard code
 }
 
 void CMario::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(MARIO_STATE_IDLE,animationManager->Clone("ani-small-mario-idle"));
-	AddAnimation(MARIO_STATE_WALKING, animationManager->Clone("ani-small-mario-walk"));
-	AddAnimation(MARIO_STATE_RUNNING, animationManager->Clone("ani-small-mario-run"));
+	AddAnimation(MARIO_STATE_IDLE,animationManager->Get("ani-small-mario-idle"));
+	AddAnimation(MARIO_STATE_WALKING, animationManager->Get("ani-small-mario-walk"));
+	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-small-mario-run"));
 
 	this->SetState(MARIO_STATE_IDLE); // Để tên đồng nhất với animation
 }
 
-void CMario::Update(DWORD dt, CCamera* cam, std::vector<LPGameObject>* coObjects)
+void CMario::Update(DWORD dt, CCamera* cam)
 {
-	CGameObject::Update(dt, cam, coObjects);
-	DebugOut(L"[INFO] Mario Updating.. \n");
+	CGameObject::Update(dt, cam);
+	//DebugOut(L"[INFO] Mario Updating.. \n");
 	auto game = CGame::GetInstance();
 
 	// Lúc này là milisecond

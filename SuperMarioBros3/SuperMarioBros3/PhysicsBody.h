@@ -4,8 +4,8 @@
 #include <d3d9.h>
 #include <d3d9.h>
 
-struct CCollisionEvent;
-typedef CCollisionEvent* LPCollisionEvent;
+struct CollisionEvent;
+typedef CollisionEvent* LPCollisionEvent;
 
 // PhysicBody đảm nhiệm vụ mô phỏng chuyển động VẬT LÝ của Game Object => Xử lý va chạm
 // Chứ không dùng để dụng chạm với thằng nào hết => Chuyện đó của CollisionBox
@@ -20,7 +20,10 @@ typedef CCollisionEvent* LPCollisionEvent;
 //typedef CGameObject* LPGameObject;
 
 class CCollisionBox;
-typedef CCollisionBox* LPCCollisionBox;
+typedef CCollisionBox* LPCollisionBox;
+
+class CGameObject;
+typedef CGameObject* LPGameObject;
 
 class CPhysicsBody
 {
@@ -31,7 +34,9 @@ private:
 
 public:
 
-	void PhysicsUpdate(std::vector<CCollisionBox>* coObjects);
+	// Chỉ phát lý va chạm thui còn việc xử lý sao thì tùy theo mỗi game object
+	void PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects);
+	void Update(LPGameObject gO);
 
 	static void SweptAABB(
 		float ml,			// move left 
@@ -48,34 +53,32 @@ public:
 		float& nx,
 		float& ny);
 
-	LPCollisionEvent SweptAABBEx(LPCCollisionBox cO, LPCCollisionBox cOOther); // thay vì xét với các gameobject khác, thực chất mình chỉ xét với những collisionbox mà thôi
-	void CalcPotentialCollisions(LPCCollisionBox cO, std::vector<LPCCollisionBox>* coObjects, std::vector<LPCollisionEvent>& coEvents);
+	LPCollisionEvent SweptAABBEx(LPCollisionBox cO, LPCollisionBox cOOther); // thay vì xét với các gameobject khác, thực chất mình chỉ xét với những collisionbox mà thôi
+	void CalcPotentialCollisions(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects, std::vector<LPCollisionEvent>& coEvents);
 	void FilterCollision(
 		std::vector<LPCollisionEvent>& coEvents,
 		std::vector<LPCollisionEvent>& coEventsResult,
 		float& min_tx,
 		float& min_ty,
 		float& nx,
-		float& ny,
-		float& rdx,
-		float& rdy);
-
+		float& ny);
 
 	D3DXVECTOR2 GetSpeed();
-
+	bool IsDynamic();
 	void SetDynamic(bool isDynamic);
+	void SetGravity(float gravity);
 };
 
 
 
-struct CCollisionEvent
+struct CollisionEvent
 {
-	LPCCollisionBox obj;
+	LPCollisionBox obj;
 	float t, nx, ny;
 
 	float dx, dy;		// *RELATIVE* movement distance between this object and obj
 
-	CCollisionEvent(float t, float nx, float ny, float dx = 0, float dy = 0, LPCCollisionBox obj = NULL)
+	CollisionEvent(float t, float nx, float ny, float dx = 0, float dy = 0, LPCollisionBox obj = NULL)
 	{
 		this->t = t;
 		this->nx = nx;
