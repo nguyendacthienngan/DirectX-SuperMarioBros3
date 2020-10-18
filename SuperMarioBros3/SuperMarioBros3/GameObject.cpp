@@ -50,7 +50,7 @@ void CGameObject::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
 	for (auto collisionBox : *collisionBoxs)
 	{
 		physiscBody->Update(this);
-		physiscBody->PhysicsUpdate(collisionBox, &otherCollisionBoxs);
+		physiscBody->PhysicsUpdate(collisionBox, &otherCollisionBoxs); // boxes :D xin loi canh sat :(
 	}
 }
 

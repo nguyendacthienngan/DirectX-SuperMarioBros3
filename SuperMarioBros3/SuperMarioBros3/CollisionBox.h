@@ -17,9 +17,10 @@ private:
 	LPGameObject gameObject;
 	D3DXVECTOR2 sizeBox;
 	D3DXVECTOR2 localPosition; 
-	D3DXVECTOR2 distance;  //dx = vx*dt
+	D3DXVECTOR2 distance;  //dx = vx*dt 
 	std::string name;
 	int id;
+
 public:
 
 	void SetGameObjectAttach(LPGameObject gO);

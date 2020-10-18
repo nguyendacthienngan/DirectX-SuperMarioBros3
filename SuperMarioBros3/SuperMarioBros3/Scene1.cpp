@@ -38,8 +38,14 @@ void CScene1::Load()
 	auto gameObjects = map->GetListGameObjects();
 	if (gameObjects.size() == 0)
 		DebugOut(L"Cannot load game objects from map \n");
+	int count = 0;
 	for (auto gO : gameObjects)
+	{
+		count++;
 		AddObject(gO);
+		
+	}
+	DebugOut(L"Load %d objects \n", count);
 
 	DebugOut(L"[INFO] Init Cam ... \n");
 	camera = new CCamera(SCREEN_WIDTH, SCREEN_HEIGHT);

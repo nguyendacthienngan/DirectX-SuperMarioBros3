@@ -10,6 +10,10 @@ using namespace std;
 
 void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects)
 {
+	//for (auto cOj : *coObjects)
+	//	if (cOj == cO)
+	//		return; // return hay sao Bach
+			
 	auto gameObject = cO->GetGameObjectAttach();
 	auto collisionBox = gameObject->GetCollisionBox()->at(0);
 
@@ -22,6 +26,7 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 	auto distance = collisionBox->GetDistance();
 	vector<CollisionEvent*> coEvents;
 	vector<CollisionEvent*> coEventsResult;
+	velocity.y += gravity * dt;
 
 	coEvents.clear();
 
@@ -30,7 +35,6 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
-		velocity.y += gravity * dt;
 		pos.x += distance.x;
 		pos.y += distance.y;
 		gameObject->SetPosition(pos);
@@ -40,7 +44,7 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 	else
 	{
 		// Collision detetion
-		float min_tx, min_ty, nx = 0, ny;
+		float min_tx, min_ty, nx = 0, ny; // UA??????????, dau69 sao, coi chung ham filter
 
 		// TODO: This is a very ugly designed function!!!!
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
@@ -55,11 +59,14 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 		pos.x += min_tx * distance.x + nx * 0.4f; // nx*0.4f : need to push out a bit to avoid overlapping next frame
 		pos.y += min_ty * distance.y + ny * 0.4f;
 
-		if (nx != 0) velocity.x = 0;
+		if (nx != 0)
+		{
+			velocity.x = 0;
+			DebugOut(L"HIT\n");
+		}
 		if (ny != 0) velocity.y = 0;
 
 		gameObject->SetPosition(pos);
-
 	}
 
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];
@@ -67,6 +74,8 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 }
 void CPhysicsBody::Update(LPGameObject gameObject)
 {
+	// ua sao update co 1 gameObject z
+	// ủa
 	if (gameObject == NULL || gameObject->IsEnabled() == false)
 		return;
 	auto dt = CGame::GetInstance()->GetDeltaTime();
@@ -183,6 +192,8 @@ void CPhysicsBody::SweptAABB(
 		nx = 0.0f;
 		dy > 0 ? ny = -1.0f : ny = 1.0f;
 	}
+	if (nx != 0.0f)
+		DebugOut(L"nx: %f \n", nx);
 #pragma endregion
 }
 
@@ -207,7 +218,7 @@ LPCollisionEvent CPhysicsBody::SweptAABBEx(LPCollisionBox cO, LPCollisionBox cOO
 	float sdy = svy * CGame::GetInstance()->GetDeltaTime();
 
 	// deal with moving object: m speed = original m speed - collide object speed
-	float dx = cO->GetDistance().x - sdx; // laasy vaan toc cua minh tru van toc cua thang dung yen => Theo dinh ly Newton
+	float dx = cO->GetDistance().x - sdx; // laasy vaan toc cua minh tru van toc cua thang dang chay => Xet giua 1 dang chay (minh) va 1 dung yen => Theo dinh ly Newton
 	float dy = cO->GetDistance().y - sdy;
 
 	auto boundingBox = cO->GetBoundingBox(); // A
@@ -222,6 +233,9 @@ LPCollisionEvent CPhysicsBody::SweptAABBEx(LPCollisionBox cO, LPCollisionBox cOO
 	sr = boundingBoxOther.right;
 	sb = boundingBoxOther.bottom;
 
+	std::string name = cOOther->GetName();
+	//OutputDebugString(ToLPCWSTR("Bounding Box" + name));
+	DebugOut(L"  %f, %f, %f, %f \n", sl, st, sr, sb);
 	SweptAABB(
 		ml, mt, mr, mb,
 		dx, dy,
@@ -242,6 +256,10 @@ void CPhysicsBody::CalcPotentialCollisions(
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
+		// dat dk vao day
+		if (coObjects->at(i) == cO)
+			continue;
+
 		LPCollisionEvent e = SweptAABBEx(cO,coObjects->at(i));
 
 		if (e->t > 0 && e->t <= 1.0f)
@@ -249,13 +267,15 @@ void CPhysicsBody::CalcPotentialCollisions(
 			coEvents.push_back(e);
 
 			std::string name = coObjects->at(i)->GetName();
-			//OutputDebugString(ToLPCWSTR("Hit Name: " + name + "\n"));
+			
+			// OutputDebugString(ToLPCWSTR("Hit Name: " + name + "\n"));
 		}
 		else
 			delete e;
 	}
 
 	std::sort(coEvents.begin(), coEvents.end(), CollisionEvent::compare);
+	// DebugOut(L"event: %d\n", coEvents.size());
 }
 
 void CPhysicsBody::FilterCollision(
@@ -279,11 +299,15 @@ void CPhysicsBody::FilterCollision(
 		LPCollisionEvent c = coEvents[i];
 
 		if (c->t < min_tx && c->nx != 0) {
-			min_tx = c->t; nx = c->nx; min_ix = i; 
+			min_tx = c->t; 
+			nx = c->nx; 
+			min_ix = i; 
 		}
 
 		if (c->t < min_ty && c->ny != 0) {
-			min_ty = c->t; ny = c->ny; min_iy = i; 
+			min_ty = c->t; 
+			ny = c->ny; 
+			min_iy = i; 
 		}
 	}
 

@@ -80,13 +80,13 @@ void CMap::LoadMap(std::string filePath)
 
 				//OutputDebugString(ToLPCWSTR("Name object" + name + "\n" ));
 				CSolidBox* solid = new CSolidBox();
-				solid->SetPosition(position + (size / 2.0f));
-				solid->GetCollisionBox()->at(0)->SetSizeBox(size); // collisionBoxs của object bị null
+				solid->SetPosition(position + (size * 0.5f));
+				solid->GetCollisionBox()->at(0)->SetSizeBox(size); 
 				solid->GetCollisionBox()->at(0)->SetName(name);
 				solid->GetCollisionBox()->at(0)->SetId(id);
 				this->listGameObjects.push_back(solid);
 
-				//DebugOut(L"BoxSize: %d, %f,%f,%f,%f\n", id, solid->GetPosition().x, solid->GetPosition().y, size.x, size.y);
+				DebugOut(L"BoxSize: %d, %f,%f,%f,%f\n", id, solid->GetPosition().x, solid->GetPosition().y, size.x, size.y);
 			}
 		}
 	}

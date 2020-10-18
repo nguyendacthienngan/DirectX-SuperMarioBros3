@@ -24,8 +24,10 @@ void CMario::Init()
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(D3DXVECTOR2(14 * 3, 27 * 3)); // Hard code
 	collisionBox->SetGameObjectAttach(this);
+	collisionBox->SetName("Mario");
 	this->collisionBoxs->push_back(collisionBox); // bị lỗi
 
+	this->physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 	this->physiscBody->SetDynamic(true); // có chuyển động
 	this->physiscBody->SetGravity(0.0006f); // hard code
 }
@@ -42,6 +44,7 @@ void CMario::LoadAnimation()
 
 void CMario::Update(DWORD dt, CCamera* cam)
 {
+	// Co khi do ham update t dang bi sai gi khong :< T dang lam don gian nhat co the lun ak
 	CGameObject::Update(dt, cam);
 	//DebugOut(L"[INFO] Mario Updating.. \n");
 
@@ -52,7 +55,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 	if (keyboard->GetKeyStateDown(DIK_RIGHT))
 	{
-		DebugOut(L"[INFO] KEYCODE: RIGHT \n");
+		//DebugOut(L"[INFO] KEYCODE: RIGHT \n");
 		velocity.x = MARIO_WALKING_SPEED;
 		normal.x = 1;
 		this->SetState(MARIO_STATE_WALKING);
@@ -60,7 +63,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	}
 	else if (keyboard->GetKeyStateDown(DIK_LEFT))
 	{
-		DebugOut(L"[INFO] KEYCODE: LEFT \n");
+		//DebugOut(L"[INFO] KEYCODE: LEFT \n");
 		normal.x = -1;
 		velocity.x = normal.x * MARIO_WALKING_SPEED;
 		SetScale(D3DXVECTOR2(-1.0f, 1.0f));
@@ -73,11 +76,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	}
 #pragma endregion
 	physiscBody->SetVelocity(velocity);
-
-#pragma region Update Velocity
-	// Lúc này là milisecond
-	transform.position.x += velocity.x * dt; // Lúc này là milisecond
-#pragma endregion
 	
 #pragma region CheckBoundaryInCamera
 
@@ -99,10 +97,10 @@ void CMario::Update(DWORD dt, CCamera* cam)
 			distanceInCam.x = bound * abs(transform.scale.x);
 	}
 	transform.position = cam->TransformCamToWorld(distanceInCam);
-
 	cam->SetPositionMario(distanceInCam); // Tọa độ theo camera
 	cam->SetSpeedMario(velocity); // Vận tốc theo camera
 #pragma endregion
+	//collisionBoxs->at(0)->SetDistance(transform.position);
 
 }
 
@@ -115,10 +113,11 @@ void CMario::KeyState()
 void CMario::OnKeyDown(int KeyCode)
 {
 	// EVENT
-	//if (KeyCode == DIK_SPACE)
-	//{
-	//	// JUMP
-	//}
+	if (KeyCode == DIK_SPACE)
+	{
+		// JUMP
+		physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -0.3f));
+	}
 }
 
 void CMario::OnKeyUp(int KeyCode)

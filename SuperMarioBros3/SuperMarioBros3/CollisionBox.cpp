@@ -1,4 +1,5 @@
-#include "CollisionBox.h"
+﻿#include "CollisionBox.h"
+#include "Ultis.h"
 
 
 void CCollisionBox::SetGameObjectAttach(LPGameObject gO)
@@ -43,7 +44,8 @@ D3DXVECTOR2 CCollisionBox::GetDistance()
 
 D3DXVECTOR2 CCollisionBox::GetWorldPosition()
 {
-	return gameObject->GetPosition() + localPosition; // localPosition?
+	//return gameObject->GetPosition() + localPosition; // localPosition?
+	return gameObject->GetPosition(); // localPosition?
 }
 
 bool CCollisionBox::IsEnabled()
@@ -58,6 +60,8 @@ RectF CCollisionBox::GetBoundingBox()
 	// 0.5:
 	// La cai box cua t muon no nam giua game object , tu tam (x, y) toa ra chu k phai la trai tren => Dong bo voi sprite
 
+	// Ở đây hả yes
+
 	auto pos = GetWorldPosition();
 	RectF r;
 	r.left = pos.x - sizeBox.x * 0.5f;
@@ -65,6 +69,8 @@ RectF CCollisionBox::GetBoundingBox()
 	r.top = pos.y - sizeBox.y * 0.5f;
 	r.bottom = pos.y + sizeBox.y * 0.5f;
 
+
+	OutputDebugString(ToLPCWSTR("BB: " + name + "\n")); // Bach mun debug out cai gi tên
 	return r;
 }
 

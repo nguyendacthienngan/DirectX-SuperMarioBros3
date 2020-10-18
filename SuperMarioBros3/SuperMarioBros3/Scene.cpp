@@ -20,7 +20,10 @@ void CScene::Update(DWORD dt)
 	for (auto obj : gameObjects)
 	{
 		if (obj->IsEnabled() == false) continue;
-		obj->PhysicsUpdate(&gameObjects); // làm sao để phân biệt với các gameobject khác
+		obj->PhysicsUpdate(&gameObjects); 
+		// for (auto go : gameObjects) if (go == this) continue; // dat trong physics update cua gameobject
+		// ok
+		// làm sao để phân biệt với các gameobject khác. Chỗ này làm sao để phân biejt gameobject đc xét với đang xét v Bách
 		obj->Update(dt, camera);
 		obj->AnimationUpdate();
 		// Set transform animation ở đây ??
@@ -75,7 +78,7 @@ LPGameObject CScene::GetPlayer()
 {
 	LPGameObject player = NULL;
 	for (auto obj : gameObjects)
-		if (obj->GetTag() == "player")
+		if (obj->GetTag() == "player") // so sanh chuoi nen dung ham compare ,k nen ==, oh okay
 			player = obj;
 	return player;
 }
