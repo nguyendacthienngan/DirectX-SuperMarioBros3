@@ -76,8 +76,8 @@ void CPhysicsBody::Update(LPGameObject gameObject)
 	auto physiscBody = gameObject->GetPhysiscBody();
 	
 	D3DXVECTOR2 distance;
-	distance.x = physiscBody->GetSpeed().x * dt;
-	distance.y = physiscBody->GetSpeed().y * dt;
+	distance.x = physiscBody->GetVelocity().x * dt;
+	distance.y = physiscBody->GetVelocity().y * dt;
 	collisionBoxs->at(0)->SetDistance(distance);
 	
 }
@@ -202,8 +202,8 @@ LPCollisionEvent CPhysicsBody::SweptAABBEx(LPCollisionBox cO, LPCollisionBox cOO
 	float svx, svy;
 	auto phyBody = cOOther->GetGameObjectAttach()->GetPhysiscBody();
 
-	svx = phyBody->GetSpeed().x;
-	svy = phyBody->GetSpeed().y;
+	svx = phyBody->GetVelocity().x;
+	svy = phyBody->GetVelocity().y;
 
 	float sdx = svx * CGame::GetInstance()->GetDeltaTime();
 	float sdy = svy * CGame::GetInstance()->GetDeltaTime();
@@ -290,7 +290,7 @@ void CPhysicsBody::FilterCollision(
 	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);
 }
 
-D3DXVECTOR2 CPhysicsBody::GetSpeed()
+D3DXVECTOR2 CPhysicsBody::GetVelocity()
 {
 	return velocity;
 }
@@ -298,6 +298,11 @@ D3DXVECTOR2 CPhysicsBody::GetSpeed()
 bool CPhysicsBody::IsDynamic()
 {
 	return isDynamic;
+}
+
+void CPhysicsBody::SetVelocity(D3DXVECTOR2 s)
+{
+	velocity = s;
 }
 
 void CPhysicsBody::SetDynamic(bool isDynamic)

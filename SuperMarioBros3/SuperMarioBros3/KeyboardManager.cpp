@@ -87,6 +87,8 @@ void CKeyboardManager::InitKeyboard(LPKeyEventHandler handler)
 	if (hr != DI_OK)
 	{
 		DebugOut(L"[ERROR] DINPUT8::Acquire failed!\n");
+		//hr = dInputDevice->Acquire();
+
 		// Lỗi ở đây, mới vô bị mất acquire
 		return;
 	}
@@ -145,13 +147,16 @@ void CKeyboardManager::ProcessKeyboard()
 			keyEventHandler->OnKeyDown(KeyCode); // Do object truyền vào
 		else // Down lên Up
 			keyEventHandler->OnKeyUp(KeyCode);
+		keyEventHandler->KeyState();
+
 	}
 
 }
 
 bool CKeyboardManager::CheckESCKey()
 {
-	if (this->GetKeyDown(DIK_ESCAPE))
+	// TODO: Cần chỉnh lại vì nút ESC Chỉ cần nhấn 1 lần
+	if (this->GetKeyStateDown(DIK_ESCAPE))
 	{
 		DebugOutTitle(L"Nhan ESC");
 		DebugOut(L"Nhan ESC \n");
@@ -167,17 +172,13 @@ void CKeyboardManager::SetHWND(HWND h)
 	hWnd = h;
 }
 
-//void CKeyboardManager::SetKeyEventHandler(LPKeyEventHandler k)
-//{
-//	keyEventHandler = k;
-//}
 
-bool CKeyboardManager::GetKeyDown(int keyCode)
+bool CKeyboardManager::GetKeyStateDown(int keyCode)
 {
 	return (keyStates[keyCode] & 0x80) > 0; // Lấy ra nút được ấn
 }
 
-bool CKeyboardManager::GetKeyUp(int keyCode)
+bool CKeyboardManager::GetKeyStateUp(int keyCode)
 {
 	return (keyStates[keyCode] & 0x80) <= 0;
 }

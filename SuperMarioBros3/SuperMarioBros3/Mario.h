@@ -12,7 +12,7 @@ public:
 	void LoadAnimation();
 	void Update(DWORD dt, CCamera* cam);
 
-	void KeyState(BYTE* states);
+	void KeyState();
 	void OnKeyDown(int KeyCode);
 	void OnKeyUp(int KeyCode);
 	~CMario();

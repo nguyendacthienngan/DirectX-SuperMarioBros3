@@ -20,7 +20,8 @@ private:
 	DIDEVICEOBJECTDATA keyEvents[KEYBOARD_BUFFER_SIZE];		// Buffered keyboard data
 	HWND hWnd;
 
-	
+	// OnKeyDown: Event
+	// GetKeyDown: State
 
 public:
 	CKeyboardManager();
@@ -34,8 +35,8 @@ public:
 	bool CheckESCKey();
 
 	//BYTE GetKeyState(); //TO-DO Còn key state khi ấn giữ thì sao?? 
-	bool GetKeyDown(int keyCode);
-	bool GetKeyUp(int keyCode);
+	bool GetKeyStateDown(int keyCode);
+	bool GetKeyStateUp(int keyCode);
 
 	void SetHWND(HWND h);
 	//void SetKeyEventHandler(LPKeyEventHandler k);

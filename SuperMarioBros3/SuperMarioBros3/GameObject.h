@@ -32,7 +32,7 @@ protected:
 
 	Transform transform; // position ( dời hình ), scale, rotate
 
-	D3DXVECTOR2 velocity;
+	//D3DXVECTOR2 velocity;
 	D3DXVECTOR2 normal; // vector pháp tuyến? nx, ny
 	float acceleration; // gia tốc
 
@@ -69,7 +69,7 @@ public:
 	void AddAnimation(std::string stateName, LPAnimation animation);
 	std::string GetTag() { return tag; }
 	// Keyboard
-	virtual void KeyState(BYTE* states) = 0;
+	virtual void KeyState() = 0;
 	virtual void OnKeyDown(int KeyCode) = 0; // sẽ thuần ảo để đến từng gameObject cụ thể sẽ tự xử lý
 	virtual void OnKeyUp(int KeyCode) = 0;
 
@@ -91,10 +91,9 @@ public:
 	void RenderBoundingBox();
 
 	void SetPosition(D3DXVECTOR2 p) { this->transform.position = p; }
-	void SetSpeed(D3DXVECTOR2 v) { this->velocity = v; }
+
 
 	D3DXVECTOR2 GetPosition() { return this->transform.position;}
-	D3DXVECTOR2 GetSpeed() { return velocity; }
 
 	D3DXVECTOR2 GetScale() { return transform.scale; }
 	float GetRotation() { return transform.rotationAngle; }

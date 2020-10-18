@@ -43,17 +43,18 @@ void CCamera::Update()
 
     //  Phải luôn đem nhân vật chính vào chính giữa khi nhân vật đi vào giữa khung hình!!!
     // Mario sẽ hiển thị di chuyển trong khoảng: SPACE_MARIO_MOVING_IN_CAMERA (30)
+   // this->posCam.x += MARIO_WALKING_SPEED * CGame::GetInstance()->GetFixedDeltaTime();
+
 
     if (x > SCREEN_WIDTH / 2 - SPACE_MARIO_MOVING_IN_CAMERA && x < SCREEN_WIDTH / 2 + SPACE_MARIO_MOVING_IN_CAMERA)
     {
-        if (vx > 0)
-            this->posCam.x += MARIO_WALKING_SPEED * CGame::GetInstance()->GetFixedDeltaTime();
-        else if (vx < 0)
-            this->posCam.x -= MARIO_WALKING_SPEED * CGame::GetInstance()->GetFixedDeltaTime();
+        this->posCam.x = TransformCamToWorld(posMario).x - widthCam * 0.5f;
     }
 
-    if (vx < 0)
-        this->posCam.x -= MARIO_WALKING_SPEED * 20;
+   /* if (vx < 0)
+        this->posCam.x -= TransformCamToWorld(posMario).x - widthCam * 0.5f;*/
+
+
     
     // Ở đầu scene và cuối scene ta sẽ đặt ra boundary => Mario k được vượt quá boundary này
     if (posCam.x < boundaryLeft)

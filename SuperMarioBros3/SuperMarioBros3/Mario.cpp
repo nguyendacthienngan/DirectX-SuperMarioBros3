@@ -15,6 +15,7 @@ CMario::CMario()
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 	tag = "player";
 	isEnabled = true;
+
 }
 
 void CMario::Init()
@@ -43,12 +44,42 @@ void CMario::Update(DWORD dt, CCamera* cam)
 {
 	CGameObject::Update(dt, cam);
 	//DebugOut(L"[INFO] Mario Updating.. \n");
-	auto game = CGame::GetInstance();
 
+#pragma region KeyState
+	auto keyboard = CKeyboardManager::GetInstance();
+	auto velocity = physiscBody->GetVelocity();
+	auto speed = velocity.x;
+
+	if (keyboard->GetKeyStateDown(DIK_RIGHT))
+	{
+		DebugOut(L"[INFO] KEYCODE: RIGHT \n");
+		velocity.x = MARIO_WALKING_SPEED;
+		normal.x = 1;
+		this->SetState(MARIO_STATE_WALKING);
+		SetScale(D3DXVECTOR2(1.0f, 1.0f));
+	}
+	else if (keyboard->GetKeyStateDown(DIK_LEFT))
+	{
+		DebugOut(L"[INFO] KEYCODE: LEFT \n");
+		normal.x = -1;
+		velocity.x = normal.x * MARIO_WALKING_SPEED;
+		SetScale(D3DXVECTOR2(-1.0f, 1.0f));
+		this->SetState(MARIO_STATE_WALKING);
+	}
+	else
+	{
+		velocity.x = 0.0f;
+		this->SetState(MARIO_STATE_IDLE);
+	}
+#pragma endregion
+	physiscBody->SetVelocity(velocity);
+
+#pragma region Update Velocity
 	// Lúc này là milisecond
-	dt = CGame::GetInstance()->GetFixedDeltaTime();  // Không bị viền
-	transform.position.x += velocity.x * CGame::GetInstance()->GetFixedDeltaTime();
-	//transform.translatePos.x = distance.x;
+	transform.position.x += velocity.x * dt; // Lúc này là milisecond
+#pragma endregion
+	
+#pragma region CheckBoundaryInCamera
 
 	int bound = NULL; // biên của Sprite
 	auto animFrame = this->animations[currentState]->GetAnimFrame();
@@ -57,7 +88,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		LPSprite sprite = animFrame->GetSprite();
 		bound = sprite->GetWidth() / 2; // 16 /2 = 8
 	}
-
 
 	D3DXVECTOR2 distanceInCam = cam->Transform(transform.position);
 	if (bound != NULL)
@@ -72,37 +102,23 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 	cam->SetPositionMario(distanceInCam); // Tọa độ theo camera
 	cam->SetSpeedMario(velocity); // Vận tốc theo camera
+#pragma endregion
+
 }
 
-void CMario::KeyState(BYTE* states)
+void CMario::KeyState()
 {
+	
 
 }
 
 void CMario::OnKeyDown(int KeyCode)
 {
-	switch (KeyCode)
-	{
-		case DIK_RIGHT:
-		{
-			DebugOut(L"[INFO] KEYCODE: RIGHT \n");
-			velocity.x = MARIO_WALKING_SPEED;
-			normal.x = 1;
-			this->SetState(MARIO_STATE_WALKING);
-			SetScale(D3DXVECTOR2(1.0f, 1.0f));
-
-			//SetRotation(30.0f);
-			break;
-		}
-		case DIK_LEFT:
-		{
-			DebugOut(L"[INFO] KEYCODE: LEFT \n");
-			normal.x = -1;
-			velocity.x = normal.x * MARIO_WALKING_SPEED;
-			SetScale(D3DXVECTOR2(-1.0f, 1.0f));
-			this->SetState(MARIO_STATE_WALKING);
-		}
-	}
+	// EVENT
+	//if (KeyCode == DIK_SPACE)
+	//{
+	//	// JUMP
+	//}
 }
 
 void CMario::OnKeyUp(int KeyCode)

@@ -180,7 +180,7 @@ void CMap::Render(CCamera* camera)
 					sprite->SetRect(sourceRECT);
 
 					D3DXVECTOR2 vectorScale = D3DXVECTOR2(1.0f, 1.0f);
-					D3DXVECTOR2 newpos = D3DXVECTOR2(position.x + translation.x, position.y + translation.y);
+					D3DXVECTOR2 newpos = D3DXVECTOR2(trunc(position.x + translation.x), trunc(position.y + translation.y));
 
 					sprite->Draw(newpos, vectorScale, 0.0f, D3DCOLOR_XRGB(255, 128, 192));
 

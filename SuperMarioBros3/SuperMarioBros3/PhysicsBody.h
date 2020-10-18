@@ -63,8 +63,10 @@ public:
 		float& nx,
 		float& ny);
 
-	D3DXVECTOR2 GetSpeed();
+	D3DXVECTOR2 GetVelocity();
 	bool IsDynamic();
+
+	void SetVelocity(D3DXVECTOR2 s);
 	void SetDynamic(bool isDynamic);
 	void SetGravity(float gravity);
 };

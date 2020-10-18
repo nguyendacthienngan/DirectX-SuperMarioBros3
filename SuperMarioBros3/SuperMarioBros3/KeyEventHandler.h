@@ -11,6 +11,7 @@ class CKeyEventHandler
 public:
 	virtual void OnKeyDown(int KeyCode) = 0;
 	virtual void OnKeyUp(int KeyCode) = 0;
+	virtual void KeyState() = 0;
 };
 
 #endif

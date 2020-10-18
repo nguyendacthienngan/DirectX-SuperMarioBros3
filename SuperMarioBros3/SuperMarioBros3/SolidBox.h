@@ -7,7 +7,7 @@ class CSolidBox : public CGameObject
 public:
 	CSolidBox();
 	void Init();
-	void KeyState(BYTE* states) { }
+	void KeyState() { }
 	void OnKeyDown(int KeyCode) { }
 	void OnKeyUp(int KeyCode) { }
 };

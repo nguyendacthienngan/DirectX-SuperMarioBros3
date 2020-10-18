@@ -90,9 +90,11 @@ void CGame::InitDirectX(HWND hWnd, int scrWidth, int scrHeight)
 
 void CGame::Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha)
 {
-	D3DXVECTOR3 p(position.x, position.y, 0);
+	//D3DXVECTOR3 p(position.x, position.y, 0);
 	D3DXVECTOR3 pCenter(pointCenter.x, pointCenter.y, 0);
-	spriteHandler->Draw(texture, &rect, &pCenter, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	D3DXVECTOR3 pInt(trunc(position.x), trunc(position.y), 0); // Giúp không bị viền
+
+	spriteHandler->Draw(texture, &rect, &pCenter, &pInt, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 
 void CGame::Run()
@@ -130,13 +132,14 @@ void CGame::Run()
 
 			if (delta >= tickPerFrame) // chuyển frame mới
 			{
-				// Call update
-				Update();
 				// Process key
 				auto keyboardManger = CKeyboardManager::GetInstance();
 				keyboardManger->ProcessKeyboard();
 				if (keyboardManger->CheckESCKey() == true)
 					continue;
+
+				// Call update
+				Update();
 				Render();
 
 				if (delta > tickPerFrame) delta = 0.0f;
