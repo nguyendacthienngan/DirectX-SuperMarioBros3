@@ -43,7 +43,7 @@ D3DXVECTOR2 CCollisionBox::GetDistance()
 
 D3DXVECTOR2 CCollisionBox::GetWorldPosition()
 {
-	return gameObject->GetPosition() + localPosition;
+	return gameObject->GetPosition() + localPosition; // localPosition?
 }
 
 bool CCollisionBox::IsEnabled()
@@ -66,4 +66,24 @@ RectF CCollisionBox::GetBoundingBox()
 	r.bottom = pos.y + sizeBox.y * 0.5f;
 
 	return r;
+}
+
+void CCollisionBox::SetName(std::string n)
+{
+	name = n;
+}
+
+std::string CCollisionBox::GetName()
+{
+	return name;
+}
+
+void CCollisionBox::SetId(int i)
+{
+	id = i;
+}
+
+int CCollisionBox::GetID()
+{
+	return id;
 }

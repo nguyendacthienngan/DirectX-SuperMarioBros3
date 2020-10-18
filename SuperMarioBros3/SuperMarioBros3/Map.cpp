@@ -75,13 +75,18 @@ void CMap::LoadMap(std::string filePath)
 			{
 				D3DXVECTOR2 position(objects[i]->GetX(), objects[i]->GetY());
 				D3DXVECTOR2 size(objects[i]->GetWidth(), objects[i]->GetHeight());
+				int id = objects[i]->GetId();
+				string name = std::to_string(id);
 
+				//OutputDebugString(ToLPCWSTR("Name object" + name + "\n" ));
 				CSolidBox* solid = new CSolidBox();
 				solid->SetPosition(position + (size / 2.0f));
 				solid->GetCollisionBox()->at(0)->SetSizeBox(size); // collisionBoxs của object bị null
+				solid->GetCollisionBox()->at(0)->SetName(name);
+				solid->GetCollisionBox()->at(0)->SetId(id);
 				this->listGameObjects.push_back(solid);
 
-				// DebugOut(L"BoxSize: %f,%f,%f,%f\n", solid->GetTransform().Position.x, solid->GetTransform().Position.y, boxSize.x, boxSize.y);
+				//DebugOut(L"BoxSize: %d, %f,%f,%f,%f\n", id, solid->GetPosition().x, solid->GetPosition().y, size.x, size.y);
 			}
 		}
 	}

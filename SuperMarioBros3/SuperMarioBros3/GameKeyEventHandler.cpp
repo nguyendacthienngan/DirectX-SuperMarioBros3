@@ -8,7 +8,7 @@
 using namespace std;
 void CGameKeyEventHandler::OnKeyDown(int KeyCode)
 {
-	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	LPSceneManager sceneManger = CSceneManager::GetInstance();
 	LPScene activeScene = sceneManger->GetActiveScene();
 	vector<LPGameObject> gameObjects = activeScene->GetObjects(); // nếu vậy mình chỉ truyền cho thằng nào dynamic cast ra là Mario thôi đc k vì mấy thằng kia mình đâu cần xử lý? Nhưng như vậy sẽ không đủ tổng quát? Nên hỏi thầy !
@@ -18,7 +18,7 @@ void CGameKeyEventHandler::OnKeyDown(int KeyCode)
 
 void CGameKeyEventHandler::OnKeyUp(int KeyCode)
 {
-	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	LPSceneManager sceneManger = CSceneManager::GetInstance();
 	LPScene activeScene = sceneManger->GetActiveScene();
 	vector<LPGameObject> gameObjects = activeScene->GetObjects(); // nếu vậy mình chỉ truyền cho thằng nào dynamic cast ra là Mario thôi đc k vì mấy thằng kia mình đâu cần xử lý? Nhưng như vậy sẽ không đủ tổng quát? Nên hỏi thầy !
@@ -28,7 +28,7 @@ void CGameKeyEventHandler::OnKeyUp(int KeyCode)
 
 void CGameKeyEventHandler::KeyState()
 {
-	DebugOut(L"[INFO] KeyState: %d\n");
+	//DebugOut(L"[INFO] KeyState: %d\n");
 	LPSceneManager sceneManger = CSceneManager::GetInstance();
 	LPScene activeScene = sceneManger->GetActiveScene();
 	vector<LPGameObject> gameObjects = activeScene->GetObjects(); // nếu vậy mình chỉ truyền cho thằng nào dynamic cast ra là Mario thôi đc k vì mấy thằng kia mình đâu cần xử lý? Nhưng như vậy sẽ không đủ tổng quát? Nên hỏi thầy !

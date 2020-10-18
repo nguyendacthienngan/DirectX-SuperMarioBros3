@@ -60,8 +60,6 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 
 		gameObject->SetPosition(pos);
 
-		DebugOut(L"HITTTT ! \n");
-
 	}
 
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];
@@ -205,10 +203,11 @@ LPCollisionEvent CPhysicsBody::SweptAABBEx(LPCollisionBox cO, LPCollisionBox cOO
 	svx = phyBody->GetVelocity().x;
 	svy = phyBody->GetVelocity().y;
 
-	float sdx = svx * CGame::GetInstance()->GetDeltaTime();
+	float sdx = svx * CGame::GetInstance()->GetDeltaTime(); // sdx = svx * dt
 	float sdy = svy * CGame::GetInstance()->GetDeltaTime();
 
-	float dx = cO->GetDistance().x - sdx;
+	// deal with moving object: m speed = original m speed - collide object speed
+	float dx = cO->GetDistance().x - sdx; // laasy vaan toc cua minh tru van toc cua thang dung yen => Theo dinh ly Newton
 	float dy = cO->GetDistance().y - sdy;
 
 	auto boundingBox = cO->GetBoundingBox(); // A
@@ -248,7 +247,9 @@ void CPhysicsBody::CalcPotentialCollisions(
 		if (e->t > 0 && e->t <= 1.0f)
 		{
 			coEvents.push_back(e);
-			//DebugOut(L"HIT ! \n");
+
+			std::string name = coObjects->at(i)->GetName();
+			//OutputDebugString(ToLPCWSTR("Hit Name: " + name + "\n"));
 		}
 		else
 			delete e;
@@ -268,7 +269,7 @@ void CPhysicsBody::FilterCollision(
 	int min_ix = -1;
 	int min_iy = -1;
 
-	nx = 0.0f;
+	nx = 0.0f;	
 	ny = 0.0f;
 
 	coEventsResult.clear();

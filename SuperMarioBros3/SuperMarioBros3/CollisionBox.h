@@ -18,6 +18,8 @@ private:
 	D3DXVECTOR2 sizeBox;
 	D3DXVECTOR2 localPosition; 
 	D3DXVECTOR2 distance;  //dx = vx*dt
+	std::string name;
+	int id;
 public:
 
 	void SetGameObjectAttach(LPGameObject gO);
@@ -38,5 +40,10 @@ public:
 
 	RectF GetBoundingBox();
 
+	void SetName(std::string n);
+	std::string GetName();
+
+	void SetId(int i);
+	int GetID();
 };
 typedef CCollisionBox* LPCollisionBox;
