@@ -70,7 +70,7 @@ RectF CCollisionBox::GetBoundingBox()
 	r.bottom = pos.y + sizeBox.y * 0.5f;
 
 
-	OutputDebugString(ToLPCWSTR("BB: " + name + "\n")); // Bach mun debug out cai gi tên
+	//OutputDebugString(ToLPCWSTR("BB: " + name + "\n")); // Bach mun debug out cai gi tên
 	return r;
 }
 

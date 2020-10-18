@@ -235,7 +235,7 @@ LPCollisionEvent CPhysicsBody::SweptAABBEx(LPCollisionBox cO, LPCollisionBox cOO
 
 	std::string name = cOOther->GetName();
 	//OutputDebugString(ToLPCWSTR("Bounding Box" + name));
-	DebugOut(L"  %f, %f, %f, %f \n", sl, st, sr, sb);
+	//DebugOut(L"  %f, %f, %f, %f \n", sl, st, sr, sb);
 	SweptAABB(
 		ml, mt, mr, mb,
 		dx, dy,

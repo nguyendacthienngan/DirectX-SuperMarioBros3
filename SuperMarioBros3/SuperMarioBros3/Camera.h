@@ -1,6 +1,9 @@
 ﻿#pragma once
 #include <d3dx9.h>
+#include "GameObject.h"
 // là 1 object đặc biệt, có thể có nhiều camera (onGround, underGround)
+class CGameObject;
+typedef CGameObject* LPGameObject;
 class CCamera 
 {
 private:
@@ -13,8 +16,7 @@ private:
 	float boundaryLeft; // set biên camera dựa vào kích thước map: boundary.left = 0
 	float boundaryRight; // VD: boundary.right =  map.width - cam.width => Tùy theo cách mình xét, đây chỉ là ví dụ
 
-	D3DXVECTOR2 posMario;
-	D3DXVECTOR2 speedMario;
+	LPGameObject gameObject; // lưu cái gameobject mà camera follow: Mario
 
 public:
 	CCamera(int wid, int hei);
@@ -34,15 +36,13 @@ public:
 	float GetHeightCam();
 	float GetBoundaryLeft();
 	float GetBoundaryRight();
-	D3DXVECTOR2 GetPositionMario();
-	D3DXVECTOR2 GetSpeedMario();
+	LPGameObject GetGameObject();
 
 	void SetSpeedXCam(float v);
 	void SetPositionCam(D3DXVECTOR2 pos);
 	void SetWidthCam(float w);
 	void SetHeightCam(float h);
 	void SetBoundary(float left, float right);
-	void SetPositionMario(D3DXVECTOR2 posMario);
-	void SetSpeedMario(D3DXVECTOR2 speedMario);
+	void SetGameObject(LPGameObject gO);
 };
 

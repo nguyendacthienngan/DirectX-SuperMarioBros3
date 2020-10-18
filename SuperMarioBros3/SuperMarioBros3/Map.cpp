@@ -86,7 +86,7 @@ void CMap::LoadMap(std::string filePath)
 				solid->GetCollisionBox()->at(0)->SetId(id);
 				this->listGameObjects.push_back(solid);
 
-				DebugOut(L"BoxSize: %d, %f,%f,%f,%f\n", id, solid->GetPosition().x, solid->GetPosition().y, size.x, size.y);
+				//DebugOut(L"BoxSize: %d, %f,%f,%f,%f\n", id, solid->GetPosition().x, solid->GetPosition().y, size.x, size.y);
 			}
 		}
 	}
