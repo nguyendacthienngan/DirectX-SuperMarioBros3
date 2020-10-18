@@ -77,11 +77,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 #pragma endregion
 	physiscBody->SetVelocity(velocity);
 	
-#pragma region CheckBoundaryInCamera
-
-	
-	
-#pragma endregion
 
 }
 

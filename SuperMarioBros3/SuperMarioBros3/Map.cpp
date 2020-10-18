@@ -7,6 +7,7 @@
 #include "MapConst.h"
 #include "Ultis.h"
 #include "SolidBox.h"
+#include "MarioConst.h"
 
 using namespace std;
 
@@ -45,7 +46,6 @@ void CMap::LoadMap(std::string filePath)
 		const Tmx::Tileset *tileset = map->GetTileset(i);
 
 		CTextureManager::GetInstance()->Add(MAP_WORLD1_1_NAME, ToLPCWSTR(MAP_PATH + tileset->GetImage()->GetSource().c_str()), D3DCOLOR_XRGB(255, 128, 192));
-		//CTextureManager::GetInstance()->Add(MAP_WORLD1_1_NAME, ToLPCWSTR(tileset->GetImage()->GetSource().c_str()), D3DCOLOR_XRGB(255, 128, 192));
 		LPDIRECT3DTEXTURE9 tex = CTextureManager::GetInstance()->GetTexture(MAP_WORLD1_1_NAME);
 		LPSprite sprite = new CSprite(MAP_WORLD1_1_NAME, RECT(), tex);
 
@@ -79,7 +79,10 @@ void CMap::LoadMap(std::string filePath)
 				string name = std::to_string(id);
 
 				//OutputDebugString(ToLPCWSTR("Name object" + name + "\n" ));
+				position.x += 24; // ???
+				//position.y += MARIO_START_Y;
 				CSolidBox* solid = new CSolidBox();
+				//solid->SetPosition(position);
 				solid->SetPosition(position + (size * 0.5f));
 				solid->GetCollisionBox()->at(0)->SetSizeBox(size); 
 				solid->GetCollisionBox()->at(0)->SetName(name);
