@@ -31,9 +31,9 @@ private:
 	D3DXVECTOR2 velocity;
 	float gravity;
 	bool isDynamic; // phân biệt body tĩnh và body động (Mario, Goomba: dynamic) (Pipe, Block: k dynamic)
-
+	bool isTrigger; // biến dùng để xét trả về OnCollisionEnter với OnTriggerEnter
 public:
-
+	CPhysicsBody();
 	// Chỉ phát lý va chạm thui còn việc xử lý sao thì tùy theo mỗi game object
 	void PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects);
 	void Update(LPGameObject gO);

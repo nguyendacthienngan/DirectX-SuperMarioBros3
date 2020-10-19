@@ -82,6 +82,14 @@ void CGameObject::AnimationUpdate()
 	animations.at(currentState)->Update();
 }
 
+void CGameObject::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions)
+{
+}
+
+void CGameObject::OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions)
+{
+}
+
 void CGameObject::AddAnimation(std::string stateName, LPAnimation animation)
 {
 	animations.insert(make_pair(stateName, animation));
@@ -90,25 +98,6 @@ void CGameObject::AddAnimation(std::string stateName, LPAnimation animation)
 bool CGameObject::IsEnabled()
 {
 	return isEnabled;
-}
-
-void CGameObject::RenderBoundingBox()
-{
-	// TO-DO
-	/*D3DXVECTOR3 p(x, y, 0);
-	RECT rect;
-
-	LPDIRECT3DTEXTURE9 bbox = CTextureManager::GetInstance()->Get(ID_TEX_BBOX);
-
-	float l, t, r, b;
-
-	GetBoundingBox(l, t, r, b);
-	rect.left = 0;
-	rect.top = 0;
-	rect.right = (int)r - (int)l;
-	rect.bottom = (int)b - (int)t;
-
-	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);*/
 }
 
 void CGameObject::SetState(string state)

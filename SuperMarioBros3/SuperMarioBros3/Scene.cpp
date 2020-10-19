@@ -45,7 +45,7 @@ void CScene::Render()
 	for (auto obj : gameObjects)
 	{
 		// TO DO: Enable objects
-
+		if (obj->IsEnabled() == false) continue;
 		obj->Render(camera);
 	}
 }

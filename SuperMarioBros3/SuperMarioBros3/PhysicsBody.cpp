@@ -8,6 +8,11 @@
 
 using namespace std;
 
+CPhysicsBody::CPhysicsBody()
+{
+	isTrigger = false;
+}
+
 void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects)
 {
 	auto gameObject = cO->GetGameObjectAttach();
@@ -51,24 +56,62 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 		//if (rdx != 0 && rdx!=dx)
 		//	x += nx*abs(rdx); 
 
-		pos = gameObject->GetPosition();
+		// Giải pháp cho Koopa
+		/*if (min_ty < min_tx)
+		{
+			velocity.y = 0;
+			CalcPotentialCollisions(cO, coObjects, coEvents);
 
-		// block every object first!
-		pos.x += min_tx * distance.x + nx * 0.2f; // nx*0.4f : need to push out a bit to avoid overlapping next frame
-		pos.y += min_ty * distance.y + ny * 0.2f;
-
-		if (nx != 0)
+		}
+		else
 		{
 			velocity.x = 0;
+			CalcPotentialCollisions(cO, coObjects, coEvents);
+
+		}*/
+
+
+		pos = gameObject->GetPosition(); // Cần hong, có dư hong *************
+
+		if (isTrigger == false) // Xử lý vật lý
+		{
+			// block every object first!
+			pos.x += min_tx * distance.x + nx * 0.4f; // nx*0.4f : need to push out a bit to avoid overlapping next frame
+			pos.y += min_ty * distance.y + ny * 0.4f;
+		}
+		
+		if (nx != 0 || ny != 0)
+		{
+			if (isTrigger == true)
+				gameObject->OnTriggerEnter(cO, coEventsResult);
+			else
+				gameObject->OnCollisionEnter(cO, coEventsResult);
+		}
+		
+		if (nx != 0)
+		{
+			if (isTrigger == false)
+				velocity.x = 0;
 			//DebugOut(L"HIT x\n");
 		}
 		if (ny != 0)
 		{
-			velocity.y = 0;
+			// Có gravity hay k?
+			if (gravity == 0)
+			{
+				if (isTrigger == false) // ???? ******
+					velocity.y = 0;
+			}
+			else
+			{
+				if (nx == 0)
+					velocity.y = 0;
+
+			}
+
 			//DebugOut(L"HIT y\n");
 
 		}
-
 		gameObject->SetPosition(pos);
 	}
 

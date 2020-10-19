@@ -69,8 +69,16 @@ public:
 	virtual void Render(CCamera* cam);
 	virtual void AnimationUpdate();
 
+	// Collision
+	// Khi PhysicsBody bắt dược va chạm, nó sẽ tùy thuộc vào biến trigger để truyền về đúng loại callback mình muốn
+	// OnCollisionEnter: Khi bắt đc va chạm => Hàm này sẽ có hiện tượng vật lý xảy ra như khiến cho mario dội ra khỏi cục gạch,.. kèm theo event trả về
+	virtual void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions);
+	// OnTriggerEnter: Chỉ trả về event thôi, không có hiện tượng vật lý, xử lý gì cả => Dành cho các portal, game bắn máy bay,...
+	virtual void OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions);
+
+	// Animation
 	void AddAnimation(std::string stateName, LPAnimation animation);
-	std::string GetTag() { return tag; }
+
 	// Keyboard
 	virtual void KeyState() = 0;
 	virtual void OnKeyDown(int KeyCode) = 0; // sẽ thuần ảo để đến từng gameObject cụ thể sẽ tự xử lý
@@ -79,7 +87,7 @@ public:
 	bool IsEnabled();
 	void Enable(bool isEnabled) { this->isEnabled = isEnabled; }
 
-	// TRANSFORM
+	// Transform
 	void SetScale(D3DXVECTOR2 s) 
 	{ 
 		this->transform.scale = s;
@@ -91,10 +99,7 @@ public:
 		this->animations[currentState]->SetRotation(r); // Khi setrotation ở GameObject phải đồng bộ với Animation
 	}
 
-	void RenderBoundingBox();
-
 	void SetPosition(D3DXVECTOR2 p) { this->transform.position = p; }
-
 
 	D3DXVECTOR2 GetPosition() { return this->transform.position;}
 
@@ -108,6 +113,10 @@ public:
 
 	std::vector<LPCollisionBox>* GetCollisionBox() { return collisionBoxs; }
 	void GetCollisionBox(std::vector<LPCollisionBox>* listCollisionBox) { this->collisionBoxs = listCollisionBox; }
+
+	void OnCollisionEnter();
+
+	std::string GetTag() { return tag; }
 
 };
 

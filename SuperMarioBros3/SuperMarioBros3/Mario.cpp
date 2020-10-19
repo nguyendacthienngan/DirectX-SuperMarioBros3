@@ -82,6 +82,14 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	physiscBody->SetVelocity(velocity);
 }
 
+void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions)
+{
+}
+
+void CMario::OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions)
+{
+}
+
 void CMario::KeyState()
 {
 	
