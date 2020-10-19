@@ -22,18 +22,11 @@ CGame* CGame::GetInstance()
 
 CGame::~CGame() // đúng hay k. Hỏi thầy
 {
-	//DebugOut(L"[INFO] This game is about to end");
-	//if (spriteHandler != NULL) spriteHandler->Release();
-	//if (backBuffer != NULL) backBuffer->Release();
-	//if (d3ddv != NULL) d3ddv->Release();
-	//if (d3d != NULL) d3d->Release();
-	////Kill_Keyboard();
-	//if (dinput != NULL) dinput->Release();
 }
 
 void CGame::Init()
 {
-	fps = 60;
+	fps = 120;
 
 	CTextureManager::GetInstance()->Init();
 	CSpriteManager::GetInstance()->Init();
