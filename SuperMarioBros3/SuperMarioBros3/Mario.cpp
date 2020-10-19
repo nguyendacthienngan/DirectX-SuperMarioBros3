@@ -20,12 +20,13 @@ CMario::CMario()
 
 void CMario::Init()
 {
-	LoadAnimation(); // chỗ này bị lỗi => Nó k tự gọi Init của nó trong class cha đc !!! Do Init đã được định nghĩa
+	LoadAnimation(); 
 	CCollisionBox* collisionBox = new CCollisionBox();
-	collisionBox->SetSizeBox(D3DXVECTOR2(14 * 3, 27 * 3)); // Hard code
+	collisionBox->SetSizeBox(D3DXVECTOR2(12 * 3, 15 * 3)); // Hard code
 	collisionBox->SetGameObjectAttach(this);
 	collisionBox->SetName("Mario");
-	this->collisionBoxs->push_back(collisionBox); // bị lỗi
+	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
+	this->collisionBoxs->push_back(collisionBox);
 
 	this->physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 	this->physiscBody->SetDynamic(true); // có chuyển động
@@ -44,7 +45,6 @@ void CMario::LoadAnimation()
 
 void CMario::Update(DWORD dt, CCamera* cam)
 {
-	// Co khi do ham update t dang bi sai gi khong :< T dang lam don gian nhat co the lun ak
 	CGameObject::Update(dt, cam);
 	//DebugOut(L"[INFO] Mario Updating.. \n");
 	float facing = 1.0f;
@@ -75,6 +75,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		//facing = (normal.x > 0) ? 1.0f : -1.0f;
 		SetScale(D3DXVECTOR2(normal.x, 1.0f));
 		velocity.x = 0.0f;
+		//velocity.y = 0.0f;
 
 	}
 #pragma endregion

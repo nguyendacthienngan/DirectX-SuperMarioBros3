@@ -22,6 +22,7 @@ private:
 	int id;
 
 public:
+	void RenderBoundingBox();
 
 	void SetGameObjectAttach(LPGameObject gO);
 	LPGameObject GetGameObjectAttach();

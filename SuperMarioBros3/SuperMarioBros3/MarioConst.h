@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#define MARIO_WALKING_SPEED		0.1f
+#define MARIO_WALKING_SPEED		0.15f
 #define MARIO_JUMP_SPEED_Y		0.3f
 #define MARIO_GRAVITY			0.3f
 
@@ -21,6 +21,7 @@
 
 #define MARIO_START_X 70
 //#define MARIO_START_X 8120
+//#define MARIO_START_Y 1000 // Tọa độ theo hệ quy chiếu world
 #define MARIO_START_Y 1204 // Tọa độ theo hệ quy chiếu world
 
 //#define MARIO_START_X 20

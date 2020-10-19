@@ -64,26 +64,15 @@ void CGameObject::Render(CCamera* cam)
 {
 	//DebugOut(L"[INFO] Render Game Object \n");
 	//OutputDebugString(ToLPCWSTR("[INFO] Current State:" + currentState + "\n"));
-	
+	collisionBoxs->at(0)->RenderBoundingBox();
+
+
 	bool curState = animations.find(currentState) != animations.end();
 	if (curState == NULL || animations.empty())
-	{
-		/*if (animations.empty())
-		{
-			DebugOut(L"Dont have Animation \n");
-
-		}
-		if (curState == NULL)
-		{
-			DebugOut(L"Cannot find curState \n");
-		}*/
 		return;
-
-	}
 	D3DXVECTOR2 posInCam = cam->Transform(transform.position);
 	//DebugOut(ToLPCWSTR("Position: " + std::to_string(transform.translatePos.x) + "\n"));
 	animations.at(currentState)->Render(posInCam);
-
 }
 
 void CGameObject::AnimationUpdate()
