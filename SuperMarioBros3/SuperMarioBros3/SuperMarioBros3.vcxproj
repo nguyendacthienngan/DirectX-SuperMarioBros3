@@ -186,6 +186,7 @@
     <ClInclude Include="MapReader\zlib128-dll\include\zlib.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MarioConst.h" />
+    <ClInclude Include="MarioStateSet.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="RectF.h" />
     <ClInclude Include="Resource.h" />

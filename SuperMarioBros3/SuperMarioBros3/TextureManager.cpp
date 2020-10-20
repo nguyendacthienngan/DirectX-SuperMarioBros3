@@ -19,6 +19,8 @@ LPTextureManager CTextureManager::GetInstance()
 void CTextureManager::Init()
 {
 	LoadTexture(MARIO_TEXTURE, ToLPCWSTR(SPRITE_PATH + MARIO_IMG));
+	Add(BOUNDINGBOX_IMG, ToLPCWSTR(TEXTURE_PATH + BOUNDINGBOX_IMG), 255);
+
 }
 
 void CTextureManager::LoadTexture(string texName, LPCWSTR texPath)

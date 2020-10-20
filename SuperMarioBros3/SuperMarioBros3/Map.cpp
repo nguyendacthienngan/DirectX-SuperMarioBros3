@@ -78,8 +78,10 @@ void CMap::LoadMap(std::string filePath)
 				int id = objects[i]->GetId();
 				string name = std::to_string(id);
 
-				//OutputDebugString(ToLPCWSTR("Name object" + name + "\n" ));
-				position.x += 24; // ???
+				position.x += 24;
+				position.y -= 50; // big mario
+				/*position.x += 24; 
+				position.y -= 18;*/ //small Mario
 				//position.y += MARIO_START_Y;
 				CSolidBox* solid = new CSolidBox();
 				//solid->SetPosition(position);
@@ -88,7 +90,8 @@ void CMap::LoadMap(std::string filePath)
 				solid->GetCollisionBox()->at(0)->SetName(name);
 				solid->GetCollisionBox()->at(0)->SetId(id);
 				this->listGameObjects.push_back(solid);
-
+				
+				//OutputDebugString(ToLPCWSTR("Name object" + name + "\n"));
 				//DebugOut(L"BoxSize: %d, %f,%f,%f,%f\n", id, solid->GetPosition().x, solid->GetPosition().y, size.x, size.y);
 			}
 		}

@@ -28,13 +28,16 @@ typedef CGameObject* LPGameObject;
 class CPhysicsBody
 {
 private:
-	D3DXVECTOR2 velocity;
-	float gravity;
+	D3DXVECTOR2 velocity; // vận tốc
+	float gravity; // trọng lực (gia tốc trọng trường)
+	float acceleration; // gia tốc
+	D3DXVECTOR2 dragForce; // lực kéo: tăng theo vận tốc: F = ma
+
 	bool isDynamic; // phân biệt body tĩnh và body động (Mario, Goomba: dynamic) (Pipe, Block: k dynamic)
-
+	bool isTrigger; // biến dùng để xét trả về OnCollisionEnter với OnTriggerEnter
 public:
-
-	// Chỉ phát lý va chạm thui còn việc xử lý sao thì tùy theo mỗi game object
+	CPhysicsBody();
+	// Chỉ phát hiện va chạm thui còn việc xử lý sao thì tùy theo mỗi game object
 	void PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects);
 	void Update(LPGameObject gO);
 
@@ -64,11 +67,15 @@ public:
 		float& ny);
 
 	D3DXVECTOR2 GetVelocity();
+	float GetAcceleration();
+	D3DXVECTOR2 GetDragForce();
 	bool IsDynamic();
 
 	void SetVelocity(D3DXVECTOR2 s);
 	void SetDynamic(bool isDynamic);
 	void SetGravity(float gravity);
+	void SetAcceleration(float acc);
+	void SetDragForce(D3DXVECTOR2 drag);
 };
 
 

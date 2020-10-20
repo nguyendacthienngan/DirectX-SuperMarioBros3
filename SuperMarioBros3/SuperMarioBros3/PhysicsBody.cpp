@@ -8,12 +8,19 @@
 
 using namespace std;
 
+CPhysicsBody::CPhysicsBody()
+{
+	isTrigger = false;
+	velocity.x = 0;
+	velocity.y = 0;
+	gravity = 0;
+	acceleration = 0;
+	dragForce.x = 0;
+	dragForce.y = 0;
+}
+
 void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects)
 {
-	//for (auto cOj : *coObjects)
-	//	if (cOj == cO)
-	//		return; // return hay sao Bach
-			
 	auto gameObject = cO->GetGameObjectAttach();
 	auto collisionBox = gameObject->GetCollisionBox()->at(0);
 
@@ -21,11 +28,12 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 		return;
 
 	auto dt = CGame::GetInstance()->GetDeltaTime();
-	//auto velocity = physiscBody->GetSpeed(); // không cần nhỉ ********************
 	auto pos = gameObject->GetPosition();
 	auto distance = collisionBox->GetDistance();
+	//DebugOut(L"velocity.x, distance.x: %f, %f \n", velocity.x, distance.x);
 	vector<CollisionEvent*> coEvents;
 	vector<CollisionEvent*> coEventsResult;
+
 	velocity.y += gravity * dt;
 
 	coEvents.clear();
@@ -38,44 +46,46 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 		pos.x += distance.x;
 		pos.y += distance.y;
 		gameObject->SetPosition(pos);
-		//DebugOut(L"Normal ! \n");
+		DebugOut(L"Normal ! \n");
 
 	}
 	else
 	{
+		DebugOut(L"HIT ! \n");
+
 		// Collision detetion
-		float min_tx, min_ty, nx = 0, ny; // UA??????????, dau69 sao, coi chung ham filter
+		float min_tx, min_ty, nx = 0, ny; 
 
 		// TODO: This is a very ugly designed function!!!!
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
-		//if (rdx != 0 && rdx!=dx)
-		//	x += nx*abs(rdx); 
-
-		pos = gameObject->GetPosition();
+		pos = gameObject->GetPosition(); // Cần hong, có dư hong *************
 
 		// block every object first!
-		pos.x += min_tx * distance.x + nx * 0.4f; // nx*0.4f : need to push out a bit to avoid overlapping next frame
-		pos.y += min_ty * distance.y + ny * 0.4f;
+		pos.x += min_tx * distance.x + nx; // nx*0.4f : need to push out a bit to avoid overlapping next frame
+		pos.y += min_ty * distance.y + ny;
+		//pos.x += min_tx * distance.x + nx * 0.4f; // nx*0.4f : need to push out a bit to avoid overlapping next frame
+		//pos.y += min_ty * distance.y + ny * 0.4f;
+		// Vấn đề là ở đây
 
 		if (nx != 0)
-		{
 			velocity.x = 0;
-			DebugOut(L"HIT\n");
+
+		if (ny != 0)
+		{			velocity.y = 0;
+			distance.y = 0;
 		}
-		if (ny != 0) velocity.y = 0;
 
 		gameObject->SetPosition(pos);
 	}
+	//DebugOut(L"Mario's Velocity: %f \n", velocity.y);
 
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	coEvents.clear();
 
 }
 void CPhysicsBody::Update(LPGameObject gameObject)
 {
-	// ua sao update co 1 gameObject z
-	// ủa
 	if (gameObject == NULL || gameObject->IsEnabled() == false)
 		return;
 	auto dt = CGame::GetInstance()->GetDeltaTime();
@@ -119,6 +129,7 @@ void CPhysicsBody::SweptAABB(
 	float br = dx > 0 ? mr + dx : mr;
 	float bb = dy > 0 ? mb + dy : mb;
 
+	//DebugOut(L"dx, dy %f %f \n", dx, dy); // SAIIIIIIIII
 	if (br < sl || bl > sr || bb < st || bt > sb) return;
 
 
@@ -192,8 +203,8 @@ void CPhysicsBody::SweptAABB(
 		nx = 0.0f;
 		dy > 0 ? ny = -1.0f : ny = 1.0f;
 	}
-	if (nx != 0.0f)
-		DebugOut(L"nx: %f \n", nx);
+	/*if (nx != 0.0f)
+		DebugOut(L"nx: %f \n", nx);*/
 #pragma endregion
 }
 
@@ -214,12 +225,19 @@ LPCollisionEvent CPhysicsBody::SweptAABBEx(LPCollisionBox cO, LPCollisionBox cOO
 	svx = phyBody->GetVelocity().x;
 	svy = phyBody->GetVelocity().y;
 
+	//DebugOut(L"Mario's Velocity: %f \n", velocity.y);
+	//DebugOut(L"Mario's Gravity: %f \n", gravity);
+
 	float sdx = svx * CGame::GetInstance()->GetDeltaTime(); // sdx = svx * dt
 	float sdy = svy * CGame::GetInstance()->GetDeltaTime();
 
 	// deal with moving object: m speed = original m speed - collide object speed
 	float dx = cO->GetDistance().x - sdx; // laasy vaan toc cua minh tru van toc cua thang dang chay => Xet giua 1 dang chay (minh) va 1 dung yen => Theo dinh ly Newton
 	float dy = cO->GetDistance().y - sdy;
+
+	//DebugOut(L"sd (x,y): %f, %f \n", sdx, sdy);
+	DebugOut(L"dx, dy:  %f, %f \n", dx, dy);
+
 
 	auto boundingBox = cO->GetBoundingBox(); // A
 	ml = boundingBox.left;
@@ -256,7 +274,6 @@ void CPhysicsBody::CalcPotentialCollisions(
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		// dat dk vao day
 		if (coObjects->at(i) == cO)
 			continue;
 
@@ -268,7 +285,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 
 			std::string name = coObjects->at(i)->GetName();
 			
-			// OutputDebugString(ToLPCWSTR("Hit Name: " + name + "\n"));
+			 OutputDebugString(ToLPCWSTR("Hit Name: " + name + "\n"));
 		}
 		else
 			delete e;
@@ -320,6 +337,16 @@ D3DXVECTOR2 CPhysicsBody::GetVelocity()
 	return velocity;
 }
 
+float CPhysicsBody::GetAcceleration()
+{
+	return acceleration;
+}
+
+D3DXVECTOR2 CPhysicsBody::GetDragForce()
+{
+	return dragForce;
+}
+
 bool CPhysicsBody::IsDynamic()
 {
 	return isDynamic;
@@ -338,4 +365,14 @@ void CPhysicsBody::SetDynamic(bool isDynamic)
 void CPhysicsBody::SetGravity(float gravity)
 {
 	this->gravity = gravity;
+}
+
+void CPhysicsBody::SetAcceleration(float acc)
+{
+	acceleration = acc;
+}
+
+void CPhysicsBody::SetDragForce(D3DXVECTOR2 drag)
+{
+	dragForce = drag;
 }

@@ -60,9 +60,9 @@ void CKeyboardManager::InitKeyboard(LPKeyEventHandler handler)
 
 	hr = dInputDevice->SetDataFormat(&c_dfDIKeyboard);
 
-	hr = dInputDevice->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_EXCLUSIVE);
+	//hr = dInputDevice->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_EXCLUSIVE);
 	// Chỉ định game ta không chiếm trọn bàn phím mà ta chia sẻ với các chương trình khác
-	//hr = dInputDevice->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+	hr = dInputDevice->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 
 
 	// IMPORTANT STEP TO USE BUFFERED DEVICE DATA!

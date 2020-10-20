@@ -64,26 +64,15 @@ void CGameObject::Render(CCamera* cam)
 {
 	//DebugOut(L"[INFO] Render Game Object \n");
 	//OutputDebugString(ToLPCWSTR("[INFO] Current State:" + currentState + "\n"));
+	//collisionBoxs->at(0)->RenderBoundingBox();
+
 	
 	bool curState = animations.find(currentState) != animations.end();
 	if (curState == NULL || animations.empty())
-	{
-		/*if (animations.empty())
-		{
-			DebugOut(L"Dont have Animation \n");
-
-		}
-		if (curState == NULL)
-		{
-			DebugOut(L"Cannot find curState \n");
-		}*/
 		return;
-
-	}
 	D3DXVECTOR2 posInCam = cam->Transform(transform.position);
 	//DebugOut(ToLPCWSTR("Position: " + std::to_string(transform.translatePos.x) + "\n"));
 	animations.at(currentState)->Render(posInCam);
-
 }
 
 void CGameObject::AnimationUpdate()
@@ -91,6 +80,14 @@ void CGameObject::AnimationUpdate()
 	bool curState = animations.find(currentState) != animations.end();
 	if (animations.empty() || curState == false) return;
 	animations.at(currentState)->Update();
+}
+
+void CGameObject::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions)
+{
+}
+
+void CGameObject::OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions)
+{
 }
 
 void CGameObject::AddAnimation(std::string stateName, LPAnimation animation)
@@ -101,25 +98,6 @@ void CGameObject::AddAnimation(std::string stateName, LPAnimation animation)
 bool CGameObject::IsEnabled()
 {
 	return isEnabled;
-}
-
-void CGameObject::RenderBoundingBox()
-{
-	// TO-DO
-	/*D3DXVECTOR3 p(x, y, 0);
-	RECT rect;
-
-	LPDIRECT3DTEXTURE9 bbox = CTextureManager::GetInstance()->Get(ID_TEX_BBOX);
-
-	float l, t, r, b;
-
-	GetBoundingBox(l, t, r, b);
-	rect.left = 0;
-	rect.top = 0;
-	rect.right = (int)r - (int)l;
-	rect.bottom = (int)b - (int)t;
-
-	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);*/
 }
 
 void CGameObject::SetState(string state)

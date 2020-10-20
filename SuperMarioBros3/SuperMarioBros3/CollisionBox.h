@@ -22,6 +22,8 @@ private:
 	int id;
 
 public:
+	CCollisionBox();
+	void RenderBoundingBox();
 
 	void SetGameObjectAttach(LPGameObject gO);
 	LPGameObject GetGameObjectAttach();
