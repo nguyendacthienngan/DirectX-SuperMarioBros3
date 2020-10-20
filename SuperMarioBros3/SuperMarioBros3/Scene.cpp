@@ -22,6 +22,7 @@ void CScene::Update(DWORD dt)
 		if (obj->IsEnabled() == false) continue;
 		obj->PhysicsUpdate(&gameObjects); 
 		obj->Update(dt, camera);
+		obj->LateUpdate();
 		obj->AnimationUpdate();
 		// Set transform animation ở đây ??
 	}

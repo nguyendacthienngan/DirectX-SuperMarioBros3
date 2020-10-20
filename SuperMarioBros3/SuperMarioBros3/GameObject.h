@@ -67,7 +67,9 @@ public:
 	virtual void LoadAnimation();
 
 	void PhysicsUpdate(std::vector<LPGameObject>* coObjects);
-	virtual void Update(DWORD dt, CCamera* cam); // Truyền một vector GameObject để xét va chạm với GameObject hiện tại. Tạm thời chưa làm Update do chưa xử lý va chạm
+	virtual void Update(DWORD dt, CCamera* cam);
+	virtual void LateUpdate(); // Update animation
+
 	virtual void Render(CCamera* cam);
 	virtual void AnimationUpdate();
 
@@ -109,14 +111,13 @@ public:
 	float GetRotation() { return transform.rotationAngle; }
 
 	void SetState(std::string state);
+	LPAnimation GetAnimationByState(std::string state);
 
 	LPPhysicsBody GetPhysiscBody() { return physiscBody; }
 	void SetPhysiscBody(LPPhysicsBody p) { this->physiscBody = p; }
 
 	std::vector<LPCollisionBox>* GetCollisionBox() { return collisionBoxs; }
 	void GetCollisionBox(std::vector<LPCollisionBox>* listCollisionBox) { this->collisionBoxs = listCollisionBox; }
-
-	void OnCollisionEnter();
 
 	std::string GetTag() { return tag; }
 

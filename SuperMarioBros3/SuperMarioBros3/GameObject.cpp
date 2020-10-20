@@ -60,6 +60,10 @@ void CGameObject::Update(DWORD dt, CCamera* cam)
 
 }
 
+void CGameObject::LateUpdate()
+{
+}
+
 void CGameObject::Render(CCamera* cam)
 {
 	//DebugOut(L"[INFO] Render Game Object \n");
@@ -103,4 +107,11 @@ bool CGameObject::IsEnabled()
 void CGameObject::SetState(string state)
 {
 	currentState = state;
+}
+
+LPAnimation CGameObject::GetAnimationByState(std::string state)
+{
+	if (animations.find(state) != animations.end())
+		return animations.at(state);
+	return NULL;
 }

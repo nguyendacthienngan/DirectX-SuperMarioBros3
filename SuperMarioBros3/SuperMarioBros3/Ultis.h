@@ -28,3 +28,5 @@ std::vector<std::string> split(std::string line, std::string delimeter = "\t");
 std::wstring ToWSTR(std::string st);
 
 LPCWSTR ToLPCWSTR(std::string st);
+
+float  Clamp(float target, float inf, float sup);
