@@ -46,12 +46,12 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 		pos.x += distance.x;
 		pos.y += distance.y;
 		gameObject->SetPosition(pos);
-		DebugOut(L"Normal ! \n");
+		//DebugOut(L"Normal ! \n");
 
 	}
 	else
 	{
-		DebugOut(L"HIT ! \n");
+		//DebugOut(L"HIT ! \n");
 
 		// Collision detetion
 		float min_tx, min_ty, nx = 0, ny; 
@@ -236,7 +236,7 @@ LPCollisionEvent CPhysicsBody::SweptAABBEx(LPCollisionBox cO, LPCollisionBox cOO
 	float dy = cO->GetDistance().y - sdy;
 
 	//DebugOut(L"sd (x,y): %f, %f \n", sdx, sdy);
-	DebugOut(L"dx, dy:  %f, %f \n", dx, dy);
+	//DebugOut(L"dx, dy:  %f, %f \n", dx, dy);
 
 
 	auto boundingBox = cO->GetBoundingBox(); // A

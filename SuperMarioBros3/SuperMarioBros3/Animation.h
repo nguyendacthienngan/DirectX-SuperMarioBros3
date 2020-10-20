@@ -45,7 +45,7 @@ public:
 	LPAnimationFrame GetAnimFrame();
 	
 
-	void SetState();
+	//void SetState();
 
 	void SetSpeedMultiplier(float speed) { speedMultiplier = speed; }
 	void ResetSpeedMultiplier() { speedMultiplier = 1.0f; }

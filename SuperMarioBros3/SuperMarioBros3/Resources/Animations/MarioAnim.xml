@@ -88,6 +88,12 @@
 		</Animation>
 		<!-- Animation RUN-->
 		<Animation aniId="ani-big-mario-run" frameTime="100" name="RUN">
+			<Sprite id="spr-big-mario-walk-0" left="197" top="48"  width="14" height="27" frameTime="100"/>
+			<Sprite id="spr-big-mario-walk-1" left="214" top="48"  width="16" height="27" frameTime="100"/>
+			<Sprite id="spr-big-mario-walk-2" left="233" top="49"  width="16" height="26" frameTime="100"/>
+		</Animation>
+		<!-- Animation HIGH SPEED-->
+		<Animation aniId="ani-big-mario-high-speed" frameTime="100" name="RUN">
 			<Sprite id="spr-big-mario-run-0" left="290" top="48"  width="19" height="27" frameTime="100"/>
 			<Sprite id="spr-big-mario-run-1" left="312" top="48"  width="19" height="27" frameTime="100"/>
 			<Sprite id="spr-big-mario-run-2" left="335" top="49"  width="19" height="26" frameTime="100"/>
