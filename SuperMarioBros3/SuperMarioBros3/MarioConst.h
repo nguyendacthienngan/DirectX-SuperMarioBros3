@@ -20,4 +20,4 @@
 
 
 #define MARIO_START_X 70
-#define MARIO_START_Y 1204 // Tọa độ theo hệ quy chiếu world
+#define MARIO_START_Y 1100 // Tọa độ theo hệ quy chiếu world

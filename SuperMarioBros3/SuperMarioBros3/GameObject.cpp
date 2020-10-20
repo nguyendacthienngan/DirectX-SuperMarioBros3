@@ -64,9 +64,9 @@ void CGameObject::Render(CCamera* cam)
 {
 	//DebugOut(L"[INFO] Render Game Object \n");
 	//OutputDebugString(ToLPCWSTR("[INFO] Current State:" + currentState + "\n"));
-	collisionBoxs->at(0)->RenderBoundingBox();
+	//collisionBoxs->at(0)->RenderBoundingBox();
 
-
+	
 	bool curState = animations.find(currentState) != animations.end();
 	if (curState == NULL || animations.empty())
 		return;

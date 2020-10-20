@@ -27,6 +27,8 @@ typedef CGameObject* LPGameObject;
 class CCamera;
 typedef CCamera* LPCamera;
 
+class CollisionEvent;
+
 class CGameObject
 {
 protected:

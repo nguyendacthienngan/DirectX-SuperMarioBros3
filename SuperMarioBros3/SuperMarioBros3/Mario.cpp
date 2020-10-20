@@ -30,7 +30,7 @@ void CMario::Init()
 
 	this->physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 	this->physiscBody->SetDynamic(true); // có chuyển động
-	this->physiscBody->SetGravity(0.0006f); // hard code
+	this->physiscBody->SetGravity(0.003f); // hard code
 }
 
 void CMario::LoadAnimation()
@@ -102,7 +102,7 @@ void CMario::OnKeyDown(int KeyCode)
 	if (KeyCode == DIK_SPACE)
 	{
 		// JUMP
-		physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -0.3f));
+		physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -0.5f));
 	}
 }
 

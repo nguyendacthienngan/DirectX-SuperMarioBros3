@@ -4,6 +4,19 @@
 #include "TextureManager.h"
 #include "GraphicConst.h"
 
+CCollisionBox::CCollisionBox()
+{
+	distance.x = 0;
+	distance.y = 0;
+	localPosition.x = 0;
+	localPosition.y = 0;
+	name = "";
+	id = -1;
+	gameObject = NULL;
+	sizeBox.x = 1;
+	sizeBox.y = 1;
+}
+
 void CCollisionBox::RenderBoundingBox()
 {
 	RectF bbRectF = GetBoundingBox();
