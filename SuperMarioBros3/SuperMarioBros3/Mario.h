@@ -4,13 +4,14 @@
 #define MARIO_H
 
 #include "GameObject.h"
-#include "MarioState.h"
+#include "MarioStateSet.h"
 
 class CMario : public CGameObject
 {
 	// Mario Base : Xử lý những thứ cơ bản nhất trước
 private:
-	MarioStateSet state;
+	D3DXVECTOR2 targetVelocity, previousVelocity, previousTargetVelocity; // đến một mức velocity thì thay đổi
+	MarioStateSet currentPhysicsState, previousPhysicsState; // state vật lý, còn currentState ở GameObject là state animation
 	bool isOnGround;
 public:
 	CMario();

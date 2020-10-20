@@ -78,8 +78,10 @@ void CMap::LoadMap(std::string filePath)
 				int id = objects[i]->GetId();
 				string name = std::to_string(id);
 
-				position.x += 24; 
-				position.y -= 18;
+				position.x += 24;
+				position.y -= 50; // big mario
+				/*position.x += 24; 
+				position.y -= 18;*/ //small Mario
 				//position.y += MARIO_START_Y;
 				CSolidBox* solid = new CSolidBox();
 				//solid->SetPosition(position);

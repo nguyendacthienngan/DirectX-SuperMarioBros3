@@ -14,6 +14,9 @@ CPhysicsBody::CPhysicsBody()
 	velocity.x = 0;
 	velocity.y = 0;
 	gravity = 0;
+	acceleration = 0;
+	dragForce.x = 0;
+	dragForce.y = 0;
 }
 
 void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects)
@@ -75,7 +78,7 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 
 		gameObject->SetPosition(pos);
 	}
-	DebugOut(L"Mario's Velocity: %f \n", velocity.y);
+	//DebugOut(L"Mario's Velocity: %f \n", velocity.y);
 
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	coEvents.clear();
@@ -334,6 +337,16 @@ D3DXVECTOR2 CPhysicsBody::GetVelocity()
 	return velocity;
 }
 
+float CPhysicsBody::GetAcceleration()
+{
+	return acceleration;
+}
+
+D3DXVECTOR2 CPhysicsBody::GetDragForce()
+{
+	return dragForce;
+}
+
 bool CPhysicsBody::IsDynamic()
 {
 	return isDynamic;
@@ -352,4 +365,14 @@ void CPhysicsBody::SetDynamic(bool isDynamic)
 void CPhysicsBody::SetGravity(float gravity)
 {
 	this->gravity = gravity;
+}
+
+void CPhysicsBody::SetAcceleration(float acc)
+{
+	acceleration = acc;
+}
+
+void CPhysicsBody::SetDragForce(D3DXVECTOR2 drag)
+{
+	dragForce = drag;
 }

@@ -1,23 +1,25 @@
 ﻿#pragma once
 
+#define MARIO_START_X 70
+#define MARIO_START_Y 1100 // Tọa độ theo hệ quy chiếu world
+
+#define MARIO_GRAVITY			0.003f
+
 #define MARIO_WALKING_SPEED		0.15f
 #define MARIO_JUMP_SPEED_Y		0.3f
-#define MARIO_GRAVITY			0.3f
+#define MARIO_RUNNING_SPEED		0.4f	
+
+#define MARIO_WALKING_DRAG_FORCE	0.0138f
+#define MARIO_RUNNING_DRAG_FORCE	 0.0069f
+
+#define MARIO_WALKING_ACCELERATION  0.00414f
+#define MARIO_RUNNING_ACCELERATION  0.00276f
 
 #define MARIO_STATE_IDLE			"IDLE"
 #define MARIO_STATE_WALKING			"WALK"
-#define MARIO_STATE_JUMP			"JUMP"
 #define MARIO_STATE_RUNNING			"RUN"
-
-#define MARIO_ANI_IDLE_RIGHT		0
-#define MARIO_ANI_IDLE_LEFT			1
-#define MARIO_ANI_WALKING_RIGHT		2
-#define MARIO_ANI_WALKING_LEFT		3
-
-#define MARIO_RUNNING_SPEED		0.5f	
+#define MARIO_STATE_JUMP			"JUMP"
+#define MARIO_STATE_HIGH_JUMP		"HIGH-JUMP"
 
 #define SPACE_MARIO_MOVING_IN_CAMERA 30
 
-
-#define MARIO_START_X 70
-#define MARIO_START_Y 1100 // Tọa độ theo hệ quy chiếu world

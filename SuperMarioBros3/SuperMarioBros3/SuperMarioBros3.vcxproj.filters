@@ -22,23 +22,11 @@
     <Filter Include="Framework\Game">
       <UniqueIdentifier>{2a2f1a66-68cd-49de-ad18-0a978ab00f87}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Game\Graphic">
-      <UniqueIdentifier>{ecdd5d90-07b2-4290-9725-e94dd3c30f8d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\Game\Scene">
       <UniqueIdentifier>{617195c5-aa3e-4a9f-9a48-0d9efc1a7761}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Game\GameObject">
       <UniqueIdentifier>{9ce244ff-2527-4c9c-859f-81b6f0ec5865}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Game\Graphic\Animation">
-      <UniqueIdentifier>{053545b2-8efe-4987-972c-d24f9c593d8a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Game\Graphic\Sprite">
-      <UniqueIdentifier>{63ca36de-8fbe-4ece-abc7-b9c2930ca084}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Game\Graphic\Texture">
-      <UniqueIdentifier>{33fd8397-e3a2-48b9-bdc8-f7bd39d3a9aa}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Ultis">
       <UniqueIdentifier>{5c4e554e-5d4a-49b9-ae1c-89fff7d3cf46}</UniqueIdentifier>
@@ -81,6 +69,18 @@
     </Filter>
     <Filter Include="Game\GameObject\CollisionBox">
       <UniqueIdentifier>{c55b5a15-d0ea-49b8-8a98-80bd952db53e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Graphic">
+      <UniqueIdentifier>{ecdd5d90-07b2-4290-9725-e94dd3c30f8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Graphic\Animation">
+      <UniqueIdentifier>{053545b2-8efe-4987-972c-d24f9c593d8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Graphic\Sprite">
+      <UniqueIdentifier>{63ca36de-8fbe-4ece-abc7-b9c2930ca084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Graphic\Texture">
+      <UniqueIdentifier>{33fd8397-e3a2-48b9-bdc8-f7bd39d3a9aa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -257,6 +257,9 @@
     </ClInclude>
     <ClInclude Include="Const.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioStateSet.h">
+      <Filter>Game\GameObject\Mario</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
