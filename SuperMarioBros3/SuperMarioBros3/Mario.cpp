@@ -35,7 +35,11 @@ void CMario::Init()
 	this->SetState(MARIO_STATE_IDLE); // Để tên đồng nhất với animation
 
 	CCollisionBox* collisionBox = new CCollisionBox();
-	collisionBox->SetSizeBox(D3DXVECTOR2(14 * 3, 27 * 3)); // Big
+	collisionBox->SetSizeBox(BIG_MARIO_BBOX); // Big
+	//collisionBox->SetSizeBox(BIG_MARIO_BBOX); // Big
+	//collisionBox->SetSizeBox(D3DXVECTOR2(14 * 3, 27 * 3)); // Big
+	collisionBox->SetPosition(D3DXVECTOR2(0.0f, 0.0f)); // ??? Local Position?
+
 	//collisionBox->SetSizeBox(D3DXVECTOR2(12 * 3, 15 * 3)); // Small
 	collisionBox->SetGameObjectAttach(this);
 	collisionBox->SetName("Mario");
@@ -61,17 +65,17 @@ void CMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_JUMP, animationManager->Get("ani-big-mario-jump"));
 	AddAnimation(MARIO_STATE_CROUCH, animationManager->Get("ani-big-mario-crouch")); // * BỊ LỖI VÌ KHI ĐỔI BOUNDINGBOX cái map bị lệch. Chưa biết nguyên nhân, có thể do khi draw map theo camera bị lệch
 
-	//AddAnimation(MARIO_STATE_IDLE, animationManager->Get("ani-small-mario-idle"));
-	//AddAnimation(MARIO_STATE_WALKING, animationManager->Get("ani-small-mario-walk"));
-	//AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-small-mario-run"));
-	//AddAnimation(MARIO_STATE_JUMP, animationManager->Get("ani-small-mario-jump"));
+	/*AddAnimation(MARIO_STATE_IDLE, animationManager->Get("ani-small-mario-idle"));
+	AddAnimation(MARIO_STATE_WALKING, animationManager->Get("ani-small-mario-walk"));
+	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-small-mario-run"));
+	AddAnimation(MARIO_STATE_JUMP, animationManager->Get("ani-small-mario-jump"));*/
 }
 
 
 void CMario::Update(DWORD dt, CCamera* cam)
 {
-	CGameObject::Update(dt, cam);
-	//DebugOut(L"[INFO] Mario Updating.. \n");
+	//CGameObject::Update(dt, cam);
+	DebugOut(L"[INFO] Mario Updating.. \n");
 	auto keyboard = CKeyboardManager::GetInstance();
 	auto velocity = physiscBody->GetVelocity();
 	//float acceleration = physiscBody->GetAcceleration();
@@ -123,13 +127,11 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 		targetVelocity.x = normal.x * constSpeed;
 
+		#pragma region Speed
 		// Tính vận tốc
-
-
 		if (abs(velocity.x - targetVelocity.x) > physiscBody->GetAcceleration()) 
 			// Tại sao phải xét với gia tốc: Để tránh sai số (khi mà đã gần đạt tới mức mà thấp hơn cả gia tốc) thì mình cho nó bằng lun
 		{
-
 			if (velocity.x < targetVelocity.x)
 			{
 				velocity.x += abs(physiscBody->GetAcceleration());
@@ -140,7 +142,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 			{
 				//if (velocity.x == targetVelocity.x)
 				velocity.x -= abs(physiscBody->GetAcceleration());
-
 			}
 		}
 		else
@@ -153,16 +154,13 @@ void CMario::Update(DWORD dt, CCamera* cam)
 			currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
 		DebugOut(L"Current speed %f \n", velocity.x);
 		DebugOut(L"Target speed: %f \n", targetVelocity.x);
-
+#pragma endregion
 	}
-	else if (keyboard->GetKeyStateDown(DIK_DOWN))
-	{
-		#pragma region STATE CROUCH
-		currentPhysicsState.move = MoveOnGroundStates::Crouch;
-		#pragma endregion
-	}
+	
 	else
 	{
+
+
 		#pragma region STATE IDLE
 		//DebugOut(L"Stop \n");
 		// Dừng mario
@@ -178,12 +176,9 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		velocity.x *= normal.x;
 		#pragma endregion
 	}
-
-
-
 	physiscBody->SetVelocity(velocity);
 	SetScale(D3DXVECTOR2(normal.x, 1.0f));
-
+	CrouchProcess(keyboard);
 
 }
 
@@ -228,7 +223,7 @@ void CMario::LateUpdate()
 	if (currentState == MARIO_STATE_RUNNING || currentState == MARIO_STATE_WALKING)
 	{
 		multiplier = speed / MARIO_WALKING_SPEED;
-		animation->SetSpeedMultiplier(Clamp(multiplier, 1.0f, 3.0f));
+		animation->SetSpeedMultiplier(Clamp(multiplier, 1.0f, 3.0f)); // Bị lỗi đối với small mario khi small mario chưa có high speed;
 		DebugOut(L"Speed/walkSpeed: %f \n", speed / MARIO_WALKING_SPEED);
 		DebugOut(L"Multiplier: %f \n", multiplier);
 	}	
@@ -242,6 +237,48 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 }
 
 void CMario::OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions)
+{
+}
+
+void CMario::CrouchProcess(CKeyboardManager* keyboard)
+{
+	// Khi chuyển qua Crouch, chiều cao của Crouch nhỏ lại => Ta phải thay dổi lại boxsize và localposition
+	
+	// Một số ràng buộc khi crouch:
+	// Khi vx = 0 và nhấn xuống => Crouch. Khi đang nhấn xuống mà vx != 0 (Đi / chạy qua lại) là chuyển qua ani Đi / chạy
+	// Còn đang nhảy (vy != 0) và ấn xuống thì vẫn crouch. Còn 1 lúc bắt k kịp trạng thái bấm qua lại khi đang nhảy (vy != 0 && vx != 0) thì nó có thể vẫn crouch. 
+
+	bool changeAniState = false;
+	if (keyboard->GetKeyStateDown(DIK_LEFT) || keyboard->GetKeyStateDown(DIK_RIGHT)) // thiếu xét trường hợp nhảy ******
+	{
+		// KHÔNG HỤP
+		changeAniState = true;
+	}
+
+	if (changeAniState == false && keyboard->GetKeyStateDown(DIK_DOWN))
+	{
+		// HỤP
+		collisionBoxs->at(0)->SetSizeBox(BIG_MARIO_CROUCH_BBOX);
+		float transform = BIG_MARIO_BBOX.y - BIG_MARIO_CROUCH_BBOX.y;
+		//transform = -transform;
+		//transform.x *= 0.5f;
+		//transform *= 0.5f;
+		collisionBoxs->at(0)->SetPosition(D3DXVECTOR2(0.0f, transform));
+		//this->SetPosition(D3DXVECTOR2(0,))
+		currentPhysicsState.move = MoveOnGroundStates::Crouch;
+	}
+	else
+	{
+		// KHÔNG HỤP
+		collisionBoxs->at(0)->SetSizeBox(BIG_MARIO_BBOX);
+
+		collisionBoxs->at(0)->SetPosition(D3DXVECTOR2(0.0f, 0.0f));
+		//currentPhysicsState.move = MoveOnGroundStates::Crouch;
+
+	}
+}
+
+void CMario::SkidProcess()
 {
 }
 

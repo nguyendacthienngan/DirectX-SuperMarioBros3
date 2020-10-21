@@ -11,7 +11,7 @@ CAnimation::CAnimation(string aniID, DWORD defaultTime)
 {
 	id = aniID;
 	currentFrame = -1;
-	speedMultiplier = 1;
+	speedMultiplier = 1.0f;
 	this->defaultFrameTime = defaultTime;
 }
 

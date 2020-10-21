@@ -54,11 +54,11 @@ void CGameObject::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
 	}
 }
 
-void CGameObject::Update(DWORD dt, CCamera* cam)
-{
-	//DebugOut(L"[INFO] Game Object Updating.. \n");
-
-}
+//void CGameObject::Update(DWORD dt, CCamera* cam)
+//{
+//	DebugOut(L"[INFO] Game Object Updating.. \n");
+//
+//}
 
 void CGameObject::LateUpdate()
 {

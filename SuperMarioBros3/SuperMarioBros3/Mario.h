@@ -5,6 +5,7 @@
 
 #include "GameObject.h"
 #include "MarioStateSet.h"
+#include "KeyboardManager.h"
 
 class CMario : public CGameObject
 {
@@ -24,6 +25,9 @@ public:
 	void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions); // Xử lý riêng sau khi phát hiện va chạm
 	void OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions); // Tạm thời chưa làm
 	
+	void CrouchProcess(CKeyboardManager* keyboard);
+	void SkidProcess();
+
 	void KeyState();
 	void OnKeyDown(int KeyCode);
 	void OnKeyUp(int KeyCode);

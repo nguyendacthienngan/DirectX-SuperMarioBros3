@@ -67,7 +67,7 @@ public:
 	virtual void LoadAnimation();
 
 	void PhysicsUpdate(std::vector<LPGameObject>* coObjects);
-	virtual void Update(DWORD dt, CCamera* cam);
+	virtual void Update(DWORD dt, CCamera* cam) = 0;
 	virtual void LateUpdate(); // Update animation
 
 	virtual void Render(CCamera* cam);

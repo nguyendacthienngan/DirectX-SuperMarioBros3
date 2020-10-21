@@ -78,21 +78,32 @@ void CMap::LoadMap(std::string filePath)
 				int id = objects[i]->GetId();
 				string name = std::to_string(id);
 
-				position.x += 24;
-				position.y -= 50; // big mario
-				/*position.x += 24; 
-				position.y -= 18;*/ //small Mario
+				// Tại sao các gameObject trên vật cảnh bị dời theo mario?
+				// Big mario sizebox: 42, 81
+				// Big marioc rouch sizebox: 42, 42
+				// Small mario sizebox: 36, 45
+				//position.x += 21; 
+				//position.y -= 49; // big mario
+				//position.x += 24; 
+				//position.y -= 18; //small Mario
 				//position.y += MARIO_START_Y;
+
+				//position.x += MARIO_START_X - 42/2 - 4; // 49
+				position.x += 45;
+				//position.y -= 10;
+				position.y -= 10;
 				CSolidBox* solid = new CSolidBox();
-				//solid->SetPosition(position);
-				solid->SetPosition(position + (size * 0.5f));
-				solid->GetCollisionBox()->at(0)->SetSizeBox(size); 
+				solid->SetPosition(position);
+				//solid->SetPosition(position + (size * 0.5f)); // tâm giữa
+				solid->GetCollisionBox()->at(0)->SetSizeBox(size);
+				//solid->GetCollisionBox()->at(0)->SetPosition(D3DXVECTOR2(0.0f, 0.0f));
+				//solid->GetCollisionBox()->at(0)->SetPosition(D3DXVECTOR2(MARIO_START_X - 42 / 2 - 4, -10));
 				solid->GetCollisionBox()->at(0)->SetName(name);
 				solid->GetCollisionBox()->at(0)->SetId(id);
 				this->listGameObjects.push_back(solid);
 				
-				//OutputDebugString(ToLPCWSTR("Name object" + name + "\n"));
-				//DebugOut(L"BoxSize: %d, %f,%f,%f,%f\n", id, solid->GetPosition().x, solid->GetPosition().y, size.x, size.y);
+				OutputDebugString(ToLPCWSTR("Name object" + name + "\n"));
+				DebugOut(L"BoxSize: %d, %f,%f,%f,%f\n", id, solid->GetPosition().x, solid->GetPosition().y, size.x, size.y);
 			}
 		}
 	}

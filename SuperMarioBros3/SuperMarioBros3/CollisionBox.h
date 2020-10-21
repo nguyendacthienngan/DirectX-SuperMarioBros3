@@ -31,7 +31,7 @@ public:
 	void SetSizeBox(D3DXVECTOR2 size);
 	D3DXVECTOR2 GetSizeBox();
 
-	void SetPosition(D3DXVECTOR2 pos);
+	void SetPosition(D3DXVECTOR2 pos); // Local Position
 	D3DXVECTOR2 GetPosition();
 
 	void SetDistance(D3DXVECTOR2 d);

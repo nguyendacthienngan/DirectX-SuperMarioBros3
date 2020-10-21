@@ -26,6 +26,9 @@ void CCollisionBox::RenderBoundingBox()
 	bbRect.right = sizeBox.x;
 	bbRect.bottom = sizeBox.y;
 
+	
+	//bbRect.left += 20;
+
 	// Đang đi cái rớt cái bụp => Tọa độ đang lệch??
 	//OutputDebugString(ToLPCWSTR("BBName: " + name));
 	//DebugOut(L"(left,top,right,bottom): (%f,%f,%f,%f) \n", bbRectF.left, bbRectF.top, bbRectF.right, bbRectF.bottom);
@@ -79,8 +82,8 @@ D3DXVECTOR2 CCollisionBox::GetDistance()
 
 D3DXVECTOR2 CCollisionBox::GetWorldPosition()
 {
-	//return gameObject->GetPosition() + localPosition; // localPosition?
-	return gameObject->GetPosition(); // localPosition?
+	return gameObject->GetPosition() + localPosition;
+	//return gameObject->GetPosition(); 
 }
 
 bool CCollisionBox::IsEnabled()
@@ -97,15 +100,18 @@ RectF CCollisionBox::GetBoundingBox()
 
 	auto pos = GetWorldPosition();
 	RectF r;
-	/*r.left = pos.x;
+	r.left = pos.x;
 	r.right = pos.x + sizeBox.x;
 	r.top =  pos.y ;
-	r.bottom = pos.y + sizeBox.y ;*/
+	r.bottom = pos.y + sizeBox.y ;
 
-	r.left = pos.x - sizeBox.x * 0.5f;
+	if (name == "Mario")
+		DebugOut(L"BB Mario: RECT (l,t,r,bt) : (%f,%f,%f,%f) \n", r.left, r.top, r.right, r.bottom);
+
+	/*r.left = pos.x - sizeBox.x * 0.5f;
 	r.right = pos.x + sizeBox.x * 0.5f;
 	r.top = pos.y - sizeBox.y * 0.5f;
-	r.bottom = pos.y + sizeBox.y * 0.5f;
+	r.bottom = pos.y + sizeBox.y * 0.5f;*/
 
 	//OutputDebugString(ToLPCWSTR("BB: " + name + "\n")); // Bach mun debug out cai gi tên
 	return r;
