@@ -126,7 +126,8 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		// Tính vận tốc
 
 
-		if (abs(velocity.x - targetVelocity.x) > physiscBody->GetAcceleration()) // Tại sao phải xét với gia tốc
+		if (abs(velocity.x - targetVelocity.x) > physiscBody->GetAcceleration()) 
+			// Tại sao phải xét với gia tốc: Để tránh sai số (khi mà đã gần đạt tới mức mà thấp hơn cả gia tốc) thì mình cho nó bằng lun
 		{
 
 			if (velocity.x < targetVelocity.x)
@@ -138,12 +139,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 			else
 			{
 				//if (velocity.x == targetVelocity.x)
-				DebugOut(L"High Speed \n");
-				if (currentPhysicsState.move == MoveOnGroundStates::Run)
-				{
-					currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
-
-				}
 				velocity.x -= abs(physiscBody->GetAcceleration());
 
 			}
@@ -153,6 +148,9 @@ void CMario::Update(DWORD dt, CCamera* cam)
 			velocity.x = physiscBody->GetAcceleration();
 			//velocity.x = targetVelocity.x;
 		}
+		isHighSpeed = (velocity.x > MARIO_RUNNING_SPEED * 0.9); 
+		if (isHighSpeed == true && currentPhysicsState.move == MoveOnGroundStates::Run)
+			currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
 		DebugOut(L"Current speed %f \n", velocity.x);
 		DebugOut(L"Target speed: %f \n", targetVelocity.x);
 

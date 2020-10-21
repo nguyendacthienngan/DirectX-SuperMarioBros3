@@ -14,6 +14,7 @@ private:
 	D3DXVECTOR2 targetVelocity, previousVelocity, previousTargetVelocity; // đến một mức velocity thì thay đổi
 	MarioStateSet currentPhysicsState, previousPhysicsState; // state vật lý, còn currentState ở GameObject là state animation
 	bool isOnGround;
+	bool isHighSpeed;
 public:
 	CMario();
 	void Init();
