@@ -12,7 +12,7 @@ using namespace std;
 CGameObject::CGameObject()
 {
 	this->currentState = "";
-	tag = "";
+	tag = GameObjectTags::None;
 	physiscBody = new CPhysicsBody();
 	collisionBoxs = new vector<CCollisionBox*>();
 	isEnabled = false;

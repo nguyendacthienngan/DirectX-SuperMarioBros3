@@ -66,12 +66,7 @@ void CAnimation::Update()
 void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 {
 	if (currentFrame == -1 || animFrames.size() == 0) return;
-
-
 	//DebugOut(L"[INFO] Render Animation \n");
-	//transform.position += position;
-	DebugOut(L"position.y: %f \n", transform.position.y);
-	// Sai ở lỗi currentFrame
 	animFrames[currentFrame]->GetSprite()->Draw(position, transform.scale, transform.rotationAngle, alpha);
 }
 

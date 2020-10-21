@@ -12,7 +12,7 @@
 #include "Camera.h"
 #include "PhysicsBody.h"
 #include "CollisionBox.h"
-
+#include "GameObjectTags.h"
 
 class CPhysicsBody;
 typedef CPhysicsBody* LPPhysicsBody;
@@ -37,15 +37,12 @@ protected:
 
 	Transform transform; // position ( dời hình ), scale, rotate
 	D3DXVECTOR2 relativePositionOnScreen = D3DXVECTOR2(0.0f, 0.0f);
-	//D3DXVECTOR2 velocity;
-	D3DXVECTOR2 normal; // vector pháp tuyến? nx, ny
-	float acceleration; // gia tốc
 
 	std::string currentState;
 
 	bool isEnabled;
 
-	std::string tag; // Phân biệt player với eniemies,...
+	GameObjectTags tag; // Phân biệt player với eniemies,...
 
 	// Mỗi gameobject sẽ lưu animation của riêng nó. Nó sẽ clone animation từ animation gốc chứ k lấy thẳng con trỏ animation bên đó
 	// Vì như vậy sẽ làm cho việc animation quá đồng bộ và không tự nhiên
@@ -119,8 +116,8 @@ public:
 	std::vector<LPCollisionBox>* GetCollisionBox() { return collisionBoxs; }
 	void GetCollisionBox(std::vector<LPCollisionBox>* listCollisionBox) { this->collisionBoxs = listCollisionBox; }
 
-	std::string GetTag() { return tag; }
-
+	GameObjectTags GetTag() { return tag; }
+	void SetTag(GameObjectTags t) { this->tag = t; }
 };
 
 #endif

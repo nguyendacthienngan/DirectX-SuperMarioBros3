@@ -11,4 +11,5 @@ void CSolidBox::Init()
 	box->SetGameObjectAttach(this);
 	this->collisionBoxs->push_back(box);
 	this->physiscBody->SetDynamic(false);
+	this->SetTag(GameObjectTags::Solid);
 }

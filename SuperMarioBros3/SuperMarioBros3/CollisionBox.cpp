@@ -95,9 +95,7 @@ RectF CCollisionBox::GetBoundingBox()
 {
 	// GetBoundingBox la lay cai box nam trong the gioi game 
 	// Con boxSize la kich thuoc thoi k co toa do
-	// 0.5:
-	// La cai box cua t muon no nam giua game object , tu tam (x, y) toa ra chu k phai la trai tren => Dong bo voi sprite
-
+	
 	auto pos = GetWorldPosition();
 	RectF r;
 	r.left = pos.x;
@@ -105,13 +103,15 @@ RectF CCollisionBox::GetBoundingBox()
 	r.top =  pos.y ;
 	r.bottom = pos.y + sizeBox.y ;
 
-	if (name == "Mario")
-		DebugOut(L"BB Mario: RECT (l,t,r,bt) : (%f,%f,%f,%f) \n", r.left, r.top, r.right, r.bottom);
+	/*if (name == "Mario")
+		DebugOut(L"BB Mario: RECT (l,t,r,bt) : (%f,%f,%f,%f) \n", r.left, r.top, r.right, r.bottom);*/
 
 	/*r.left = pos.x - sizeBox.x * 0.5f;
 	r.right = pos.x + sizeBox.x * 0.5f;
 	r.top = pos.y - sizeBox.y * 0.5f;
 	r.bottom = pos.y + sizeBox.y * 0.5f;*/
+	// 0.5:
+	// La cai box cua t muon no nam giua game object , tu tam (x, y) toa ra chu k phai la trai tren => Dong bo voi sprite
 
 	//OutputDebugString(ToLPCWSTR("BB: " + name + "\n")); // Bach mun debug out cai gi tên
 	return r;

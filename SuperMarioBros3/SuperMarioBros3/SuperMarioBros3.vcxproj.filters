@@ -261,6 +261,9 @@
     <ClInclude Include="MarioStateSet.h">
       <Filter>Game\GameObject\Mario</Filter>
     </ClInclude>
+    <ClInclude Include="GameObjectTags.h">
+      <Filter>Framework\Game\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">

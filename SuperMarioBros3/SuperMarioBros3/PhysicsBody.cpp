@@ -17,6 +17,8 @@ CPhysicsBody::CPhysicsBody()
 	acceleration = 0;
 	dragForce.x = 0;
 	dragForce.y = 0;
+	normal.x = 1;
+	normal.y = 1;
 }
 
 void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects)
@@ -59,23 +61,42 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 		// TODO: This is a very ugly designed function!!!!
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-		pos = gameObject->GetPosition(); // Cần hong, có dư hong *************
+		pos = gameObject->GetPosition(); 
 
 		// block every object first!
-		pos.x += min_tx * distance.x + nx; // nx*0.4f : need to push out a bit to avoid overlapping next frame
-		pos.y += min_ty * distance.y + ny;
-		//pos.x += min_tx * distance.x + nx * 0.4f; // nx*0.4f : need to push out a bit to avoid overlapping next frame
-		//pos.y += min_ty * distance.y + ny * 0.4f;
-		// Vấn đề là ở đây
-
+		if (isTrigger == false)
+		{
+			pos.x += min_tx * distance.x + nx;
+			pos.y += min_ty * distance.y + ny;
+			//pos.x += min_tx * distance.x + nx * 0.4f; // nx*0.4f : need to push out a bit to avoid overlapping next frame
+			//pos.y += min_ty * distance.y + ny * 0.4f;
+			// Vấn đề là ở đây
+		}
+		
+		if (nx != 0 || ny != 0)
+		{
+			if (isTrigger == true)
+				gameObject->OnTriggerEnter(cO, coEventsResult);
+			else
+				gameObject->OnCollisionEnter(cO, coEventsResult);
+		}
 		if (nx != 0)
 			velocity.x = 0;
+		//velocity.x = isTrigger == true? velocity.x : 0;
 
 		if (ny != 0)
-		{			velocity.y = 0;
-			distance.y = 0;
+		{		
+			if (gravity == 0)
+				velocity.y = isTrigger == true ? velocity.y : 0;
+			else
+			{
+				if (nx == 0)
+				{
+					velocity.y = 0;
+					distance.y = 0;
+				}
+			}
 		}
-
 		gameObject->SetPosition(pos);
 	}
 	//DebugOut(L"Mario's Velocity: %f \n", velocity.y);
@@ -347,6 +368,11 @@ D3DXVECTOR2 CPhysicsBody::GetDragForce()
 	return dragForce;
 }
 
+D3DXVECTOR2 CPhysicsBody::GetNormal()
+{
+	return normal;
+}
+
 bool CPhysicsBody::IsDynamic()
 {
 	return isDynamic;
@@ -375,4 +401,9 @@ void CPhysicsBody::SetAcceleration(float acc)
 void CPhysicsBody::SetDragForce(D3DXVECTOR2 drag)
 {
 	dragForce = drag;
+}
+
+void CPhysicsBody::SetNormal(D3DXVECTOR2 n)
+{
+	this->normal = n;
 }

@@ -154,6 +154,7 @@
     <ClInclude Include="GameConst.h" />
     <ClInclude Include="GameKeyEventHandler.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectTags.h" />
     <ClInclude Include="GraphicConst.h" />
     <ClInclude Include="KeyboardManager.h" />
     <ClInclude Include="KeyEventHandler.h" />

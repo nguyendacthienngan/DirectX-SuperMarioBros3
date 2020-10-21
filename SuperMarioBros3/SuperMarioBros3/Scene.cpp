@@ -76,7 +76,7 @@ LPGameObject CScene::GetPlayer()
 {
 	LPGameObject player = NULL;
 	for (auto obj : gameObjects)
-		if (obj->GetTag() == "player") // so sanh chuoi nen dung ham compare ,k nen ==, oh okay
+		if (obj->GetTag() == GameObjectTags::Player) 
 			player = obj;
 	return player;
 }
