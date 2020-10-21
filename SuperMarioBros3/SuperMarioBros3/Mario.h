@@ -14,12 +14,13 @@ private:
 	D3DXVECTOR2 targetVelocity, previousVelocity, previousTargetVelocity; // đến một mức velocity thì thay đổi
 	MarioStateSet currentPhysicsState, previousPhysicsState; // state vật lý, còn currentState ở GameObject là state animation
 	bool isOnGround;
+	bool isHighSpeed;
 public:
 	CMario();
 	void Init();
 	void LoadAnimation();
 	void Update(DWORD dt, CCamera* cam);
-	
+	void LateUpdate();
 	void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions); // Xử lý riêng sau khi phát hiện va chạm
 	void OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions); // Tạm thời chưa làm
 	

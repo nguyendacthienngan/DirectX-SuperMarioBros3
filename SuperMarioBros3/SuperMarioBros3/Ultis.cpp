@@ -1,4 +1,5 @@
 #include "Ultis.h"
+#include <algorithm>
 using namespace std;
 
 HWND _hwnd = NULL;
@@ -61,6 +62,11 @@ LPCWSTR ToLPCWSTR(string st)
 
 	// delete wcstring   // << can I ? 
 	return w->c_str();
+}
+
+float Clamp(float target, float inf, float sup)
+{
+	return max(inf, min(target, sup));
 }
 
 void DebugOutTitle(const wchar_t* fmt, ...)

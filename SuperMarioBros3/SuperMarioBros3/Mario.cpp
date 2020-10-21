@@ -9,6 +9,10 @@
 
 #include "CollisionBox.h"
 #include <cstdlib>
+#include <cctype> 
+#include <string>
+
+using namespace std;
 
 CMario::CMario()
 {
@@ -81,30 +85,31 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 	if (keyboard->GetKeyStateDown(DIK_RIGHT) || keyboard->GetKeyStateDown(DIK_LEFT))
 	{
-#pragma region STATE RUN
+
 		// Nhấn nút A chạy ! RUN
 		if (keyboard->GetKeyStateDown(DIK_A))
 		{
+			#pragma region STATE RUN
 			currentPhysicsState.move = MoveOnGroundStates::Run;
 			// Do chạy gia tốc thay đổi
-			physiscBody->SetAcceleration(MARIO_RUNNING_SPEED / dt); // a = v/t *******************
+			physiscBody->SetAcceleration( (MARIO_RUNNING_SPEED - abs(velocity.x)) / dt); // a = v/t *******************
 			//physiscBody->SetAcceleration(MARIO_RUNNING_ACCELERATION); // a set sẵn
 			// Kèm theo lực kéo
 			drag.x = MARIO_RUNNING_DRAG_FORCE;
 			physiscBody->SetDragForce(drag);
-#pragma endregion
+			#pragma endregion
 		}
 		else
 		{
-#pragma region STATE WALK
+			#pragma region STATE WALK
 			// Không chạy -> Đi bộ bình thường: WALK
 			currentPhysicsState.move = MoveOnGroundStates::Walk;
-			physiscBody->SetAcceleration(MARIO_WALKING_SPEED / dt); // *******************
+			physiscBody->SetAcceleration( (MARIO_WALKING_SPEED - abs(velocity.x)) / dt); // *******************
 			//physiscBody->SetAcceleration(MARIO_WALKING_ACCELERATION); // *******************
 			// Kèm theo lực kéo
 			drag.x = MARIO_WALKING_DRAG_FORCE;
 			physiscBody->SetDragForce(drag);
-#pragma endregion
+			#pragma endregion
 		}
 		float constSpeed = (currentPhysicsState.move == MoveOnGroundStates::Run) ? MARIO_RUNNING_SPEED : MARIO_WALKING_SPEED;
 		if (keyboard->GetKeyStateDown(DIK_RIGHT))
@@ -118,39 +123,47 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 		targetVelocity.x = normal.x * constSpeed;
 
-		if (abs(velocity.x - targetVelocity.x) > physiscBody->GetAcceleration()) // Tại sao phải xét với gia tốc
+		// Tính vận tốc
+
+
+		if (abs(velocity.x - targetVelocity.x) > physiscBody->GetAcceleration()) 
+			// Tại sao phải xét với gia tốc: Để tránh sai số (khi mà đã gần đạt tới mức mà thấp hơn cả gia tốc) thì mình cho nó bằng lun
 		{
+
 			if (velocity.x < targetVelocity.x)
 			{
-				velocity.x += physiscBody->GetAcceleration();
-				if (currentPhysicsState.move == MoveOnGroundStates::HighSpeed)
-					currentPhysicsState.move = MoveOnGroundStates::Run;
+				velocity.x += abs(physiscBody->GetAcceleration());
+				/*if (currentPhysicsState.move == MoveOnGroundStates::HighSpeed)
+					currentPhysicsState.move = MoveOnGroundStates::Run;*/
 			}
 			else
 			{
 				//if (velocity.x == targetVelocity.x)
-					if (currentPhysicsState.move == MoveOnGroundStates::Run)
-						currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
-				velocity.x -= physiscBody->GetAcceleration();
+				velocity.x -= abs(physiscBody->GetAcceleration());
 
 			}
 		}
 		else
 		{
-			velocity.x = targetVelocity.x;
-
-			/*if (currentPhysicsState.move == MoveOnGroundStates::Run && velocity.x >= targetVelocity.x)
-				currentPhysicsState.move = MoveOnGroundStates::HighSpeed;*/
+			velocity.x = physiscBody->GetAcceleration();
+			//velocity.x = targetVelocity.x;
 		}
-		
+		isHighSpeed = (velocity.x > MARIO_RUNNING_SPEED * 0.9); 
+		if (isHighSpeed == true && currentPhysicsState.move == MoveOnGroundStates::Run)
+			currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
+		DebugOut(L"Current speed %f \n", velocity.x);
+		DebugOut(L"Target speed: %f \n", targetVelocity.x);
 
 	}
 	else if (keyboard->GetKeyStateDown(DIK_DOWN))
 	{
+		#pragma region STATE CROUCH
 		currentPhysicsState.move = MoveOnGroundStates::Crouch;
+		#pragma endregion
 	}
 	else
 	{
+		#pragma region STATE IDLE
 		//DebugOut(L"Stop \n");
 		// Dừng mario
 		// lực kéo sẽ giảm vận tốc lại để cho vận tốc mario đi về 0
@@ -163,44 +176,65 @@ void CMario::Update(DWORD dt, CCamera* cam)
 				currentPhysicsState.move = MoveOnGroundStates::Idle;
 		}
 		velocity.x *= normal.x;
+		#pragma endregion
 	}
 
-#pragma endregion
+
 
 	physiscBody->SetVelocity(velocity);
-
-#pragma region SetStateAnimation And Scale
 	SetScale(D3DXVECTOR2(normal.x, 1.0f));
+
+
+}
+
+void CMario::LateUpdate()
+{
+#pragma region Update State
 	switch (currentPhysicsState.move)
 	{
-		case MoveOnGroundStates::Idle:
-		{
-			SetState(MARIO_STATE_IDLE);
-			break;
-		}
-		case MoveOnGroundStates::Walk:
-		{
-			SetState(MARIO_STATE_WALKING);
-			break;
-		}
-		case MoveOnGroundStates::Run:
-		{
-			SetState(MARIO_STATE_RUNNING);
-			break;
-		}
-		case MoveOnGroundStates::Crouch:
-		{
-			SetState(MARIO_STATE_CROUCH);
-			break;
-		}
-		case MoveOnGroundStates::HighSpeed:
-		{
-			SetState(MARIO_STATE_HIGH_SPEED);
-			break;
-		}
+	case MoveOnGroundStates::Idle:
+	{
+		SetState(MARIO_STATE_IDLE);
+
+		break;
+	}
+	case MoveOnGroundStates::Walk:
+	{
+		SetState(MARIO_STATE_WALKING);
+		break;
+	}
+	case MoveOnGroundStates::Run:
+	{
+		SetState(MARIO_STATE_RUNNING);
+		break;
+	}
+	case MoveOnGroundStates::Crouch:
+	{
+		SetState(MARIO_STATE_CROUCH);
+		break;
+	}
+	case MoveOnGroundStates::HighSpeed:
+	{
+		SetState(MARIO_STATE_HIGH_SPEED);
+		break;
+	}
 	}
 #pragma endregion
 
+#pragma region Multipiler
+	auto animation = GetAnimationByState(currentState);
+	auto speed = abs(physiscBody->GetVelocity().x);
+	auto multiplier = 1.0f;
+	if (currentState == MARIO_STATE_RUNNING || currentState == MARIO_STATE_WALKING)
+	{
+		multiplier = speed / MARIO_WALKING_SPEED;
+		animation->SetSpeedMultiplier(Clamp(multiplier, 1.0f, 3.0f));
+		DebugOut(L"Speed/walkSpeed: %f \n", speed / MARIO_WALKING_SPEED);
+		DebugOut(L"Multiplier: %f \n", multiplier);
+	}	
+	else
+		animation->ResetSpeedMultiplier();
+#pragma endregion
 }
 
 void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions)
@@ -220,11 +254,15 @@ void CMario::KeyState()
 void CMario::OnKeyDown(int KeyCode)
 {
 	// EVENT
-	if (KeyCode == DIK_SPACE)
+	if (KeyCode == DIK_S)
 	{
-		// JUMP
+		// HIGH JUMP
 		physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -0.53f));
 		//this->SetState(MARIO_STATE_JUMP);
+	}
+	if (KeyCode == DIK_X)
+	{
+		physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -0.4f));
 	}
 }
 
