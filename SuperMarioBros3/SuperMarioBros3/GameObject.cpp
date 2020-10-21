@@ -50,7 +50,7 @@ void CGameObject::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
 	for (auto collisionBox : *collisionBoxs)
 	{
 		physiscBody->Update(this);
-		physiscBody->PhysicsUpdate(collisionBox, &otherCollisionBoxs); // boxes :D xin loi canh sat :(
+		physiscBody->PhysicsUpdate(collisionBox, &otherCollisionBoxs);
 	}
 }
 
@@ -66,17 +66,10 @@ void CGameObject::LateUpdate()
 
 void CGameObject::Render(CCamera* cam)
 {
-	//DebugOut(L"[INFO] Render Game Object \n");
-	//OutputDebugString(ToLPCWSTR("[INFO] Current State:" + currentState + "\n"));
-	//collisionBoxs->at(0)->RenderBoundingBox();
-
-	
 	bool curState = animations.find(currentState) != animations.end();
 	if (curState == NULL || animations.empty())
 		return;
 	D3DXVECTOR2 posInCam = cam->Transform(transform.position + relativePositionOnScreen);
-	//D3DXVECTOR2 posInCam = cam->Transform(transform.position);
-	//DebugOut(ToLPCWSTR("Position: " + std::to_string(transform.translatePos.x) + "\n"));
 	animations.at(currentState)->Render(posInCam);
 }
 
@@ -84,7 +77,6 @@ void CGameObject::AnimationUpdate()
 {
 	bool curState = animations.find(currentState) != animations.end();
 	if (animations.empty() || curState == false) return;
-	//animations.at(currentState)->SetPosition(transform.position + relativePositionOnScreen); // *****
 	animations.at(currentState)->Update();
 }
 
