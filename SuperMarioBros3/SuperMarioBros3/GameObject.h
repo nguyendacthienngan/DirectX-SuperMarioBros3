@@ -36,7 +36,7 @@ protected:
 	DWORD dt;
 
 	Transform transform; // position ( dời hình ), scale, rotate
-
+	D3DXVECTOR2 relativePositionOnScreen = D3DXVECTOR2(0.0f, 0.0f);
 	//D3DXVECTOR2 velocity;
 	D3DXVECTOR2 normal; // vector pháp tuyến? nx, ny
 	float acceleration; // gia tốc
@@ -82,7 +82,7 @@ public:
 
 	// Animation
 	void AddAnimation(std::string stateName, LPAnimation animation);
-
+	void SetRelativePositionOnScreen(D3DXVECTOR2); // Dùng khi ví dụ chuyển từ idle -> crouch, dời hình xuống
 	// Keyboard
 	virtual void KeyState() = 0;
 	virtual void OnKeyDown(int KeyCode) = 0; // sẽ thuần ảo để đến từng gameObject cụ thể sẽ tự xử lý

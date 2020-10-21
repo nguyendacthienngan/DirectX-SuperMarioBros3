@@ -230,6 +230,8 @@ void CMario::LateUpdate()
 	else
 		animation->ResetSpeedMultiplier();
 #pragma endregion
+
+	SetRelativePositionOnScreen(collisionBoxs->at(0)->GetPosition());
 }
 
 void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions)
@@ -259,12 +261,12 @@ void CMario::CrouchProcess(CKeyboardManager* keyboard)
 	{
 		// HỤP
 		collisionBoxs->at(0)->SetSizeBox(BIG_MARIO_CROUCH_BBOX);
-		float transform = BIG_MARIO_BBOX.y - BIG_MARIO_CROUCH_BBOX.y;
+		float transformY = BIG_MARIO_BBOX.y - BIG_MARIO_CROUCH_BBOX.y;
 		//transform = -transform;
 		//transform.x *= 0.5f;
 		//transform *= 0.5f;
-		collisionBoxs->at(0)->SetPosition(D3DXVECTOR2(0.0f, transform));
-		//this->SetPosition(D3DXVECTOR2(0,))
+		collisionBoxs->at(0)->SetPosition(D3DXVECTOR2(0.0f, transformY));
+		
 		currentPhysicsState.move = MoveOnGroundStates::Crouch;
 	}
 	else

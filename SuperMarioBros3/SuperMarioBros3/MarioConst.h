@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#define MARIO_START_X					70
-#define MARIO_START_Y					1150 // Tọa độ theo hệ quy chiếu world
+#define MARIO_START_X					94.0f // left,top của BB Mario k đồng bộ với vị trí mario
+#define MARIO_START_Y					1150.0f // Tọa độ theo hệ quy chiếu world
 //#define MARIO_START_Y					1165 // Tọa độ theo hệ quy chiếu world
 //#define MARIO_START_Y					1100 // Tọa độ theo hệ quy chiếu world
 

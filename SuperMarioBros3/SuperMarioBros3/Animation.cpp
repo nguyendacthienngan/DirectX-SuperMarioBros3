@@ -13,6 +13,7 @@ CAnimation::CAnimation(string aniID, DWORD defaultTime)
 	currentFrame = -1;
 	speedMultiplier = 1.0f;
 	this->defaultFrameTime = defaultTime;
+	transform.position = D3DXVECTOR2(0.0f, 0.0f);
 }
 
 CAnimation::CAnimation(const CAnimation& obj)
@@ -68,7 +69,8 @@ void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 
 
 	//DebugOut(L"[INFO] Render Animation \n");
-	transform.position = position;
+	//transform.position += position;
+	DebugOut(L"position.y: %f \n", transform.position.y);
 	// Sai ở lỗi currentFrame
 	animFrames[currentFrame]->GetSprite()->Draw(position, transform.scale, transform.rotationAngle, alpha);
 }

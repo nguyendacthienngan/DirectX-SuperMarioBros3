@@ -74,7 +74,8 @@ void CGameObject::Render(CCamera* cam)
 	bool curState = animations.find(currentState) != animations.end();
 	if (curState == NULL || animations.empty())
 		return;
-	D3DXVECTOR2 posInCam = cam->Transform(transform.position);
+	D3DXVECTOR2 posInCam = cam->Transform(transform.position + relativePositionOnScreen);
+	//D3DXVECTOR2 posInCam = cam->Transform(transform.position);
 	//DebugOut(ToLPCWSTR("Position: " + std::to_string(transform.translatePos.x) + "\n"));
 	animations.at(currentState)->Render(posInCam);
 }
@@ -83,6 +84,7 @@ void CGameObject::AnimationUpdate()
 {
 	bool curState = animations.find(currentState) != animations.end();
 	if (animations.empty() || curState == false) return;
+	//animations.at(currentState)->SetPosition(transform.position + relativePositionOnScreen); // *****
 	animations.at(currentState)->Update();
 }
 
@@ -97,6 +99,11 @@ void CGameObject::OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<Co
 void CGameObject::AddAnimation(std::string stateName, LPAnimation animation)
 {
 	animations.insert(make_pair(stateName, animation));
+}
+
+void CGameObject::SetRelativePositionOnScreen(D3DXVECTOR2 rP)
+{
+	this->relativePositionOnScreen = rP;
 }
 
 bool CGameObject::IsEnabled()
