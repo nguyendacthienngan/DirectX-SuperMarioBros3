@@ -187,6 +187,7 @@
     <ClInclude Include="MapReader\zlib128-dll\include\zlib.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MarioConst.h" />
+    <ClInclude Include="MarioController.h" />
     <ClInclude Include="MarioStateSet.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="RectF.h" />
@@ -238,6 +239,7 @@
     <ClCompile Include="MapReader\TmxTileset.cpp" />
     <ClCompile Include="MapReader\TmxUtil.cpp" />
     <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="MarioController.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene1.cpp" />

@@ -82,6 +82,9 @@
     <Filter Include="Framework\Game\Graphic\Texture">
       <UniqueIdentifier>{33fd8397-e3a2-48b9-bdc8-f7bd39d3a9aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Mario\MarioStates">
+      <UniqueIdentifier>{07d4ad0e-9d3f-4e31-b6f8-755314ffe08d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -131,9 +134,6 @@
     </ClInclude>
     <ClInclude Include="GraphicConst.h">
       <Filter>Framework\Game\Graphic</Filter>
-    </ClInclude>
-    <ClInclude Include="Mario.h">
-      <Filter>Game\GameObject\Mario</Filter>
     </ClInclude>
     <ClInclude Include="Scene1.h">
       <Filter>Game\Scene\World-1-1</Filter>
@@ -258,11 +258,17 @@
     <ClInclude Include="Const.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="MarioStateSet.h">
-      <Filter>Game\GameObject\Mario</Filter>
-    </ClInclude>
     <ClInclude Include="GameObjectTags.h">
       <Filter>Framework\Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioController.h">
+      <Filter>Game\GameObject\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Game\GameObject\Mario\MarioStates</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioStateSet.h">
+      <Filter>Game\GameObject\Mario\MarioStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -298,9 +304,6 @@
     </ClCompile>
     <ClCompile Include="Ultis.cpp">
       <Filter>Framework\Ultis</Filter>
-    </ClCompile>
-    <ClCompile Include="Mario.cpp">
-      <Filter>Game\GameObject\Mario</Filter>
     </ClCompile>
     <ClCompile Include="Scene1.cpp">
       <Filter>Game\Scene\World-1-1</Filter>
@@ -403,6 +406,12 @@
     </ClCompile>
     <ClCompile Include="SolidBox.cpp">
       <Filter>Game\GameObject\CollisionBox</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioController.cpp">
+      <Filter>Game\GameObject\Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>Game\GameObject\Mario\MarioStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
