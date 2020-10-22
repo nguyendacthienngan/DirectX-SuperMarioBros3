@@ -1,9 +1,92 @@
 ﻿#include "Scene.h"
 #include "Ultis.h"
+#include "tinyxml.h"
+#include "Mario.h"
+#include "Game.h"
+#include <string>
 using namespace std;
 
 CScene::CScene()
 {
+}
+
+CScene::CScene(std::string filePath)
+{
+	this->filePath = filePath;
+}
+
+void CScene::Load()
+{
+	// Đọc file Scenes/world1-1.xml
+	TiXmlDocument sceneFile(filePath.c_str());
+	if (!sceneFile.LoadFile())
+	{
+		DebugOut(L"[ERROR] Cannot load file \n");
+		return;
+	}
+	TiXmlElement* root = sceneFile.RootElement();
+	CMario* player = new CMario();
+	for (TiXmlElement* scene = root->FirstChildElement(); scene != NULL; scene->NextSiblingElement())
+	{
+		string name = scene->Attribute("name");
+		if (name.compare("Map") == 0)
+		{
+			string sourceMap = scene->Attribute("source");
+			CMap* map = new CMap(sourceMap); // Ham nay tu load map
+			auto mapSolidBoxs = map->GetListGameObjects();
+			for (auto obj : mapSolidBoxs)
+			{
+				AddObject(obj);
+			}
+			for (TiXmlElement* color = scene->FirstChildElement(); color != NULL ; color->NextSiblingElement() )
+			{
+				int R, G, B;
+				color->QueryIntAttribute("R", &R);
+				color->QueryIntAttribute("G", &G);
+				color->QueryIntAttribute("B", &B);
+				backgroundColor = D3DCOLOR_XRGB(R, G, B);
+			}
+		}
+		else if (name.compare("Player") == 0)
+		{
+			D3DXVECTOR2 startPosition;
+			scene->QueryFloatAttribute("pos_x", &startPosition.x);
+			scene->QueryFloatAttribute("pos_y", &startPosition.y);
+			player->SetPosition(startPosition);
+			AddObject(player);
+		}
+		else if (name.compare("Camera") == 0)
+		{
+			int screenWidth = CGame::GetInstance()->GetScreenWidth();
+			int screenHeight = CGame::GetInstance()->GetScreenHeight();
+			CCamera* camera = new CCamera(screenWidth, screenHeight);
+			int start;
+			scene->QueryIntAttribute("start", &start);
+
+			for (TiXmlElement* boundary = scene->FirstChildElement(); boundary != NULL; boundary->NextSiblingElement())
+			{
+				int id;
+				float pos_x, pos_y, left, top, right, bottom;
+				boundary->QueryIntAttribute("id", &id);
+				if (start == id)
+				{
+					boundary->QueryFloatAttribute("pos_x", &pos_x);
+					boundary->QueryFloatAttribute("pos_y", &pos_y);
+					boundary->QueryFloatAttribute("left", &left);
+					boundary->QueryFloatAttribute("top", &top);
+					boundary->QueryFloatAttribute("right", &right);
+					boundary->QueryFloatAttribute("bottom", &bottom);
+
+					camera->SetBoundary(left, right, top, bottom);
+					
+				}
+			}
+			// co can check lai NULL hay k?
+			D3DXVECTOR2 posCam = D3DXVECTOR2(player->GetPosition().x, screenHeight / 2);
+			camera->SetPositionCam(posCam);
+			camera->SetGameObject(player);
+		}
+	}
 }
 
 void CScene::Unload()

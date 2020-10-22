@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <d3dx9.h>
 #include "GameObject.h"
+#include "Ultis.h"
 // là 1 object đặc biệt, có thể có nhiều camera (onGround, underGround)
 class CGameObject;
 typedef CGameObject* LPGameObject;
@@ -15,6 +16,8 @@ private:
 
 	float boundaryLeft; // set biên camera dựa vào kích thước map: boundary.left = 0
 	float boundaryRight; // VD: boundary.right =  map.width - cam.width => Tùy theo cách mình xét, đây chỉ là ví dụ
+	float boundaryTop; // VD: boundary.right =  map.width - cam.width => Tùy theo cách mình xét, đây chỉ là ví dụ
+	float boundaryBottom; // VD: boundary.right =  map.width - cam.width => Tùy theo cách mình xét, đây chỉ là ví dụ
 
 	LPGameObject gameObject; // lưu cái gameobject mà camera follow: Mario
 
@@ -36,6 +39,7 @@ public:
 	float GetHeightCam();
 	float GetBoundaryLeft();
 	float GetBoundaryRight();
+	RectF GetBoundary();
 	LPGameObject GetGameObject();
 
 	void SetSpeedXCam(float v);
@@ -43,6 +47,7 @@ public:
 	void SetWidthCam(float w);
 	void SetHeightCam(float h);
 	void SetBoundary(float left, float right);
+	void SetBoundary(float left, float right, float top, float bottom);
 	void SetGameObject(LPGameObject gO);
 };
 

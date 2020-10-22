@@ -32,6 +32,7 @@ private:
 	LPDIRECT3DSURFACE9 backBuffer = NULL;
 	LPD3DXSPRITE spriteHandler = NULL; // Sprite helper libary
 
+	std::string gameSource;
 
 public:
 	static CGame* GetInstance();

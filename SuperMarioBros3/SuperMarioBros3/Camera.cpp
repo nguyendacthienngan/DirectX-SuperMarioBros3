@@ -131,6 +131,16 @@ float CCamera::GetBoundaryRight()
     return boundaryRight;
 }
 
+RectF CCamera::GetBoundary()
+{
+    RectF r;
+    r.left = boundaryLeft;
+    r.right = boundaryRight;
+    r.top = boundaryTop;
+    r.bottom = boundaryBottom;
+    return RectF(r);
+}
+
 LPGameObject CCamera::GetGameObject()
 {
     return gameObject;
@@ -163,6 +173,14 @@ void CCamera::SetBoundary(float left, float right)
 {
     boundaryLeft = left;
     boundaryRight = right;
+}
+
+void CCamera::SetBoundary(float left, float right, float top, float bottom)
+{
+    boundaryLeft = left;
+    boundaryRight = right;
+    boundaryTop= left;
+    boundaryBottom = right;
 }
 
 void CCamera::SetGameObject(LPGameObject gO)
