@@ -19,9 +19,9 @@ private:
 public:
 	static LPTextureManager GetInstance();
 	void Init();
-	void LoadTexture(std::string texName, LPCWSTR texPath);
+	void LoadTexture(std::string texName, std::string texPath);
 	LPDIRECT3DTEXTURE9 GetTexture(std::string id);
-	void Add(std::string id, LPCWSTR filePath, D3DCOLOR transparentColor);
+	void Add(std::string id, std::string filePath, D3DCOLOR transparentColor);
 	~CTextureManager();
 };
 

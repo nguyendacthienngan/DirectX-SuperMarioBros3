@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>
   <Root name="Textures">
-    <Texture id="tex-mario" source="Resources/Sprites/mario.png"/>
+    <Texture id="tex-mario" source="Resources/Sprites/mariox3(1).png"/>
     <Texture id="tex-enemy" source="Resources/Sprites/enemy.png"/>
   </Root>
   <Root name="Sprites">

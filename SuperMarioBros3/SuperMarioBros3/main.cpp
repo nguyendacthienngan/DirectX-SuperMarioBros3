@@ -5,6 +5,7 @@
 #include "Const.h"
 #include "Game.h"
 #include "Ultis.h"
+#include "tinyxml.h"
 
 #define MAX_LOADSTRING 100
 
@@ -18,8 +19,8 @@ ATOM                MyRegisterClass(HINSTANCE hInstance);
 HWND                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
+bool                LoadFileConfig(int& fps, int& screenWidth, int& screenHeight);
 
-#include "TextureManager.h"
 
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
@@ -27,6 +28,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_ LPWSTR    lpCmdLine,
     _In_ int       nCmdShow)
 {
+    int fps, screenWidth, screenHeight;
+    if (LoadFileConfig(fps, screenWidth, screenHeight) == false)
+        return NULL;
+    //DebugOut(L"FPS: %d, ScWidth: %d, ScHeight: %d", fps, screenWidth, screenHeight);
     MyRegisterClass(hInstance);
 
     // Perform application initialization:
@@ -36,14 +41,38 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return NULL;
     }
 
-    CGame::GetInstance()->InitDirectX(hWnd, SCREEN_WIDTH, SCREEN_HEIGHT);
+    CGame::GetInstance()->InitDirectX(hWnd, screenWidth, screenHeight, fps);
     CGame::GetInstance()->Init();
     CGame::GetInstance()->Run();
 
     return 0;
 }
 
-
+bool LoadFileConfig(int& fps, int& screenWidth, int& screenHeight)
+{
+    CGame::GetInstance()->ImportGameSource();
+    auto configFilePath = CGame::GetInstance()->GetFilePathByCategory(CATEGORY_CONFIG, CG_GLOBAL_CONFIG);
+    
+    TiXmlDocument doc(configFilePath.c_str());
+    if (doc.LoadFile() == false)
+    {
+        OutputDebugStringW(ToLPCWSTR(doc.ErrorDesc()));
+        return FALSE;
+    }
+    TiXmlElement* root = doc.RootElement();
+    for (TiXmlElement* element = root->FirstChildElement(); element != nullptr; element = element->NextSiblingElement())
+    {
+        std::string name = element->Attribute("name");
+        if (name.compare("frame-rate") == 0)
+            element->QueryIntAttribute("value", &fps);
+        else if (name.compare("resolution") == 0)
+        {
+            element->QueryIntAttribute("width", &screenWidth);
+            element->QueryIntAttribute("height", &screenHeight);
+        }
+    }
+    DebugOut(L"conf: %d, %d, %d\n", fps, screenWidth, screenHeight);
+}
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
     WNDCLASSEXW wcex;

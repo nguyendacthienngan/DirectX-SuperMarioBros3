@@ -73,7 +73,7 @@ void CMario::LoadAnimation()
 void CMario::Update(DWORD dt, CCamera* cam)
 {
 	//CGameObject::Update(dt, cam);
-	//DebugOut(L"[INFO] Mario Updating.. \n");
+	DebugOut(L"[INFO] Mario Updating.. \n");
 	auto keyboard = CKeyboardManager::GetInstance();
 	auto velocity = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();

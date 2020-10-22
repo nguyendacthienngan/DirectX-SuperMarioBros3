@@ -10,10 +10,10 @@ CScene::CScene()
 {
 }
 
-CScene::CScene(std::string filePath)
-{
-	this->filePath = filePath;
-}
+//CScene::CScene(std::string filePath)
+//{
+//	this->filePath = filePath;
+//}
 
 void CScene::Load()
 {
@@ -26,19 +26,21 @@ void CScene::Load()
 	}
 	TiXmlElement* root = sceneFile.RootElement();
 	CMario* player = new CMario();
-	for (TiXmlElement* scene = root->FirstChildElement(); scene != NULL; scene->NextSiblingElement())
+	for (TiXmlElement* scene = root->FirstChildElement(); scene != NULL; scene = scene->NextSiblingElement())
 	{
 		string name = scene->Attribute("name");
 		if (name.compare("Map") == 0)
 		{
+			DebugOut(L"[INFO] Load map \n");
 			string sourceMap = scene->Attribute("source");
-			CMap* map = new CMap(sourceMap); // Ham nay tu load map
+			this->map = new CMap(sourceMap); // Ham nay tu load map
 			auto mapSolidBoxs = map->GetListGameObjects();
 			for (auto obj : mapSolidBoxs)
 			{
 				AddObject(obj);
 			}
-			for (TiXmlElement* color = scene->FirstChildElement(); color != NULL ; color->NextSiblingElement() )
+			DebugOut(L"[INFO] Load background color \n");
+			for (TiXmlElement* color = scene->FirstChildElement(); color != NULL ; color = color->NextSiblingElement() )
 			{
 				int R, G, B;
 				color->QueryIntAttribute("R", &R);
@@ -49,6 +51,7 @@ void CScene::Load()
 		}
 		else if (name.compare("Player") == 0)
 		{
+			DebugOut(L"[INFO] Load player \n");
 			D3DXVECTOR2 startPosition;
 			scene->QueryFloatAttribute("pos_x", &startPosition.x);
 			scene->QueryFloatAttribute("pos_y", &startPosition.y);
@@ -57,13 +60,14 @@ void CScene::Load()
 		}
 		else if (name.compare("Camera") == 0)
 		{
+			DebugOut(L"[INFO] Load camera \n");
 			int screenWidth = CGame::GetInstance()->GetScreenWidth();
 			int screenHeight = CGame::GetInstance()->GetScreenHeight();
-			CCamera* camera = new CCamera(screenWidth, screenHeight);
+			this->camera = new CCamera(screenWidth, screenHeight);
 			int start;
 			scene->QueryIntAttribute("start", &start);
 
-			for (TiXmlElement* boundary = scene->FirstChildElement(); boundary != NULL; boundary->NextSiblingElement())
+			for (TiXmlElement* boundary = scene->FirstChildElement(); boundary != NULL; boundary = boundary->NextSiblingElement())
 			{
 				int id;
 				float pos_x, pos_y, left, top, right, bottom;
@@ -78,13 +82,16 @@ void CScene::Load()
 					boundary->QueryFloatAttribute("bottom", &bottom);
 
 					camera->SetBoundary(left, right, top, bottom);
-					
+					camera->SetPositionCam(D3DXVECTOR2(pos_x, pos_y));
+					//DebugOut(L"[INFO] Camera position (x,y) : %f, %f", camera->GetPositionCam().x, camera->GetPositionCam().y);
+
 				}
 			}
-			// co can check lai NULL hay k?
-			D3DXVECTOR2 posCam = D3DXVECTOR2(player->GetPosition().x, screenHeight / 2);
-			camera->SetPositionCam(posCam);
-			camera->SetGameObject(player);
+			if (player != NULL)
+			{
+				camera->SetGameObject(player);
+			}
+			
 		}
 	}
 }

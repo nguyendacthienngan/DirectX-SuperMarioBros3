@@ -16,14 +16,14 @@ class CScene
 protected:
 	std::vector<LPGameObject> gameObjects;
 	std::string id;
-	LPCWSTR filePath;
+	//LPCWSTR filePath;
 	D3DCOLOR backgroundColor;
 	CMap *map;
 	CCamera *camera;
 	std::string filePath;
 public:
 	CScene();
-	CScene(std::string filePath);
+	//CScene(std::string filePath);
 
 	virtual void Load();
 	virtual void Unload();

@@ -6,6 +6,7 @@
 #include <d3dx9.h>
 #include <d3d9.h>
 #include <dinput.h>
+#include <unordered_map>
 
 #include "KeyEventHandler.h"
 #include "GameConst.h"
@@ -30,14 +31,17 @@ private:
 	
 	/*Draw*/
 	LPDIRECT3DSURFACE9 backBuffer = NULL;
-	LPD3DXSPRITE spriteHandler = NULL; // Sprite helper libary
+	LPD3DXSPRITE spriteHandler = NULL; // Sprite helper libar
 
-	std::string gameSource;
+	// Sau khi đọc file root.xml, ta sẽ lưu các thông tin file đó dưới dạng 1 map chứa 1 map
+	// Mỗi category (Textures, Sprites, Animations, Scenes, Config) sẽ có các bucket
+	// các bucket sẽ giữ id và source (filePath)
+	std::unordered_map<std::string, std::unordered_map<std::string, std::string>> gameSource;
 
 public:
 	static CGame* GetInstance();
 	~CGame();
-	void InitDirectX(HWND hWnd, int scrWidth, int scrHeight);
+	void InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps);
 	void Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha);
 
 	void DrawFlipX(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha);
@@ -62,6 +66,9 @@ public:
 
 	float GetFixedDeltaTime() { return 20; }
 	float GetDeltaTime() { return deltaTime;  }
+
+	bool ImportGameSource();
+	std::string GetFilePathByCategory(std::string category, std::string id);
 };
 
 #endif

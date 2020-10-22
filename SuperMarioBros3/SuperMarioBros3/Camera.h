@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <d3dx9.h>
 #include "GameObject.h"
-#include "Ultis.h"
+#include "RectF.h"
 // là 1 object đặc biệt, có thể có nhiều camera (onGround, underGround)
 class CGameObject;
 typedef CGameObject* LPGameObject;

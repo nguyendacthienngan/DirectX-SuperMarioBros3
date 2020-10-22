@@ -1,4 +1,6 @@
 ﻿#include "SpriteManager.h"
+#include "Game.h"
+#include "Const.h"
 #include "GraphicConst.h"
 #include "Ultis.h"
 #include "tinyxml.h"
@@ -13,7 +15,8 @@ CSpriteManager::CSpriteManager()
 
 void CSpriteManager::Init()
 {
-	LoadSprite(SPRITE_DATABASE + MARIO_DB);
+	auto root = CGame::GetInstance();
+	LoadSprite(root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_MARIO));
 }
 
 void CSpriteManager::Add(string id, RECT rect, LPDIRECT3DTEXTURE9 tex)

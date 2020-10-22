@@ -4,7 +4,7 @@
   <export target="../../../../../Resource/Xml/NewMap/BigMap/world-1-1-map.xml" format="tmx"/>
  </editorsettings>
  <tileset firstgid="1" name="world-1-1" tilewidth="48" tileheight="48" tilecount="870" columns="29">
-  <image source="world-1-1.png" width="1392" height="1440"/>
+  <image source="Resources/Maps/Test map/world-1-1.png" width="1392" height="1440"/>
  </tileset>
  <layer id="9" name="Background-black" width="176" height="41">
   <data encoding="csv">
