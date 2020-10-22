@@ -16,6 +16,7 @@ private:
 	MarioStateSet currentPhysicsState, previousPhysicsState; // state vật lý, còn currentState ở GameObject là state animation
 	bool isOnGround;
 	bool isHighSpeed; // horizontal
+	bool canLowJumpContinous;
 	bool isHighJump, canHighJump; 
 public:
 	CMario();
