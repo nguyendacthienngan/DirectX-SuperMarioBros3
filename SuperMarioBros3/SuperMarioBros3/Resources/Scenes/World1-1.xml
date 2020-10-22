@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Scene>
+  <Scene name="Map" source="Resources/Maps/world-1-1-map.tmx"/>
+  <Scene name="Player" pos_x="94" pos_y="1150"/>
+  <Scene name="Camera" start="0" main="1">
+    <Boundary id="0" pos_x="94" pos_y="335.5" left="94" top="0" right="8448" bottom="1296"/>
+  </Scene> 
+</Scene>
