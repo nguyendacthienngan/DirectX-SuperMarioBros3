@@ -10,7 +10,9 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
+using namespace std;
 #define _W(x)  __W(x)
 #define __W(x)  L##x
 
@@ -34,3 +36,19 @@ float Clamp(float target, float inf, float sup);
 int Sign(float x);
 
 bool InRange(float target, float inf, float sup);
+
+template<typename key_type, typename value_type>
+std::pair<key_type, value_type> floor_entry(const std::map<key_type, value_type>& input, const key_type& key);
+
+template<typename key_type, typename value_type>
+inline std::pair<key_type, value_type> floor_entry(const std::map<key_type, value_type>& input, const key_type& key)
+{
+	if (input.size() < 2)
+		return pair<key_type, value_type>((*input.begin()).first, (*input.begin()).second);
+
+	auto it = input.lower_bound(key);
+	if (it != input.begin() && (*it).first != key) {
+		--it;
+	}
+	return pair<key_type, value_type>((*it).first, (*it).second);
+}

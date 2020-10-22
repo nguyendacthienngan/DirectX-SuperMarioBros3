@@ -85,6 +85,9 @@
     <Filter Include="Game\GameObject\Mario\MarioStates">
       <UniqueIdentifier>{07d4ad0e-9d3f-4e31-b6f8-755314ffe08d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Game\Scene\Map\TileMap">
+      <UniqueIdentifier>{d9af06e8-a2c4-4db4-a48f-efc3c2b0e1ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -270,6 +273,15 @@
     <ClInclude Include="MarioStateSet.h">
       <Filter>Game\GameObject\Mario\MarioStates</Filter>
     </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>Framework\Game\Scene\Map\TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="TileSet.h">
+      <Filter>Framework\Game\Scene\Map\TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>Framework\Game\Scene\Map\TileMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -412,6 +424,15 @@
     </ClCompile>
     <ClCompile Include="Mario.cpp">
       <Filter>Game\GameObject\Mario\MarioStates</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Framework\Game\Scene\Map\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="TileSet.cpp">
+      <Filter>Framework\Game\Scene\Map\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>Framework\Game\Scene\Map\TileMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -124,7 +124,6 @@ void CScene::Update(DWORD dt)
 void CScene::Render()
 {
 	//DebugOut(L"[INFO] Draw Map ... \n");
-	//map->Draw(camera); // Load dựa trên camera nhưng chưa set vị trí camera đúng được
 
 	map->Render(camera);
 
