@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Scene>
+  <Scene name="Map" source="Resources/Maps/Test map/world-1-1-map.tmx">
+    <BackgroundColor R="156" G="252" B="240"/>
+  </Scene>
+  <Scene name="Player" pos_x="94" pos_y="1150"/>
+  <Scene name="Camera" start="0" main="1">
+  <!--Camera-->
+  <!--X,Y: Mario.x, Mario.y - ScreenHeight/2-->
+    <Boundary id="0" pos_x="94" pos_y="814.5" left="94" top="0" right="7448" bottom="1296"/>
+  </Scene> 
+</Scene>

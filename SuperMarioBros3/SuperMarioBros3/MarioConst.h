@@ -1,10 +1,5 @@
 ﻿#pragma once
 
-#define MARIO_START_X					94.0f // left,top của BB Mario k đồng bộ với vị trí mario
-#define MARIO_START_Y					1150.0f // Tọa độ theo hệ quy chiếu world
-//#define MARIO_START_Y					1165 // Tọa độ theo hệ quy chiếu world
-//#define MARIO_START_Y					1100 // Tọa độ theo hệ quy chiếu world
-
 #define MARIO_GRAVITY					0.00093f
 
 #define MARIO_WALKING_SPEED				0.1f 
@@ -14,10 +9,10 @@
 
 #define MARIO_WALKING_DRAG_FORCE		0.0138f
 #define MARIO_RUNNING_DRAG_FORCE		0.0069f
-#define MARIO_JUMP_FORCE				0.1f
+#define MARIO_JUMP_FORCE				0.25f
 #define MARIO_HIGH_JUMP_FORCE			0.45f
 #define MARIO_SUPER_JUMP_FORCE			0.53f
-
+#define MARIO_PUSH_FORCE				0.009f
 
 #define MARIO_WALKING_ACCELERATION		0.00276f
 #define MARIO_RUNNING_ACCELERATION		0.0000001f

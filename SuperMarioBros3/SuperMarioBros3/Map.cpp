@@ -8,7 +8,8 @@
 #include "Ultis.h"
 #include "SolidBox.h"
 #include "MarioConst.h"
-
+#include "Game.h"
+#include "Const.h"
 using namespace std;
 
 CMap::CMap(std::string filePath)
@@ -38,16 +39,17 @@ void CMap::LoadMap(std::string filePath)
 	rect.right = this->GetWidth();	rect.bottom = this->GetHeight();
 	DebugOut(L"[INFO] Map's width: %d \n", rect.right);
 	DebugOut(L"[INFO] Map's height: %d \n", rect.bottom);
+	auto root = CGame::GetInstance();
+	//auto mapPath = root->Get
 
 	for (int i = 0; i < map->GetNumTilesets(); i++) // duyệt qua các layers của map
 	{
 		DebugOut(L"[INFO] Load Tile Layers : %d \n", i);
 
 		const Tmx::Tileset *tileset = map->GetTileset(i);
-
-		CTextureManager::GetInstance()->Add(MAP_WORLD1_1_NAME, ToLPCWSTR(MAP_PATH + tileset->GetImage()->GetSource().c_str()), D3DCOLOR_XRGB(255, 128, 192));
-		LPDIRECT3DTEXTURE9 tex = CTextureManager::GetInstance()->GetTexture(MAP_WORLD1_1_NAME);
-		LPSprite sprite = new CSprite(MAP_WORLD1_1_NAME, RECT(), tex);
+		CTextureManager::GetInstance()->Add(SC_WOLRD_1_1, tileset->GetImage()->GetSource().c_str(), D3DCOLOR_XRGB(255, 128, 192));
+		LPDIRECT3DTEXTURE9 tex = CTextureManager::GetInstance()->GetTexture(SC_WOLRD_1_1);
+		LPSprite sprite = new CSprite(SC_WOLRD_1_1, RECT(), tex);
 
 		listTileset.insert(make_pair(i, sprite)); // insert vào danh sách tileset. Hiện tại mình chỉ có 1 tileset nhưng mình làm tổng quát để sau này có thêm tileset đỡ phải sửa lại
 

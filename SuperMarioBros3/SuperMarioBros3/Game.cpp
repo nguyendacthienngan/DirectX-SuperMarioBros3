@@ -8,7 +8,7 @@
 #include "GameKeyEventHandler.h"
 
 #include "Scene1.h"
-
+#include "tinyxml.h"
 #include <string>
 CGame* CGame::instance = NULL;
 float CGame::deltaTime = 0.0f;
@@ -20,14 +20,13 @@ CGame* CGame::GetInstance()
     return instance;
 }
 
-CGame::~CGame() // đúng hay k. Hỏi thầy
+CGame::~CGame() 
 {
 }
 
 void CGame::Init()
 {
-	fps = 120;
-
+	DebugOut(L"[INFO] Init Manager \n");
 	CTextureManager::GetInstance()->Init();
 	CSpriteManager::GetInstance()->Init();
 	CAnimationManager::GetInstance()->Init();
@@ -39,11 +38,13 @@ void CGame::Init()
 	
 	CScene1* scene1 = new CScene1();
 	CSceneManager::GetInstance()->Load(scene1);
-	
+	DebugOut(L"[INFO] Init Manager Sucessfully \n");
+
 }
 
-void CGame::InitDirectX(HWND hWnd, int scrWidth, int scrHeight)
+void CGame::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
 {
+	this->fps = fps;
 	this->hWnd = hWnd;
 	this->screenWidth = scrWidth;
 	this->screenHeight = scrHeight;
@@ -226,4 +227,47 @@ void CGame::Update()
 	// Update Scene. Trong Scene sẽ Update các GameObject. Trong GameObject sẽ update các animation. Các animation sẽ update các animation frame / sprite ?
 	if (activeScene != NULL)
 		activeScene->Update(deltaTime);
+}
+
+bool CGame::ImportGameSource()
+{
+	auto path = "Resources/root.xml";
+	TiXmlDocument doc(path);
+	if (doc.LoadFile() == false)
+	{
+		OutputDebugStringW(ToLPCWSTR(doc.ErrorDesc()));
+		return false;
+	}
+	TiXmlElement* root = doc.RootElement();
+	for (TiXmlElement* element = root->FirstChildElement(); element != nullptr; element = element->NextSiblingElement())
+	{
+		std::string category = element->Attribute("name");
+		OutputDebugStringW(ToLPCWSTR(category + '\n'));
+
+		std::unordered_map<std::string, std::string> bucket;
+
+		for (auto item = element->FirstChildElement(); item != nullptr; item = item->NextSiblingElement())
+		{
+			std::string id = item->Attribute("id");
+			std::string source = item->Attribute("source");
+			bucket.insert(make_pair(id, source)); // ******
+			OutputDebugStringW(ToLPCWSTR("|--" + id + ":" + source + '\n'));
+		}
+		gameSource.insert(make_pair(category, bucket));
+	}
+	return true;
+}
+
+std::string CGame::GetFilePathByCategory(std::string category, std::string id)
+{
+	if (gameSource.find(category) != gameSource.end())
+	{
+		auto bucket = gameSource.at(category);
+		if (bucket.find(id) != bucket.end())
+		{
+			return bucket.at(id);
+		}
+		return "";
+	}
+	return "";
 }

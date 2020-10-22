@@ -4,6 +4,7 @@
 #include "TextureManager.h"
 #include "Game.h"
 #include "GraphicConst.h"
+#include "Const.h"
 
 using namespace std;
 
@@ -18,12 +19,13 @@ LPTextureManager CTextureManager::GetInstance()
 
 void CTextureManager::Init()
 {
-	LoadTexture(MARIO_TEXTURE, ToLPCWSTR(SPRITE_PATH + MARIO_IMG));
-	Add(BOUNDINGBOX_IMG, ToLPCWSTR(TEXTURE_PATH + BOUNDINGBOX_IMG), 255);
+	auto root = CGame::GetInstance();
+	LoadTexture(TEXTURE_MARIO, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_MARIO));
+	//Add(BOUNDINGBOX_IMG, ToLPCWSTR(TEXTURE_PATH + BOUNDINGBOX_IMG), 255);
 
 }
 
-void CTextureManager::LoadTexture(string texName, LPCWSTR texPath)
+void CTextureManager::LoadTexture(string  texName, string texPath)
 {
 	Add(texName, texPath, D3DCOLOR_XRGB(255, 255, 255));
 }
@@ -36,10 +38,10 @@ LPDIRECT3DTEXTURE9 CTextureManager::GetTexture(std::string id)
 		return textures.at(id);
 }
 
-void CTextureManager::Add(string id, LPCWSTR filePath, D3DCOLOR transparentColor)
+void CTextureManager::Add(string id, std::string filePath, D3DCOLOR transparentColor)
 {
 	D3DXIMAGE_INFO info;
-	HRESULT result = D3DXGetImageInfoFromFile(filePath, &info);
+	HRESULT result = D3DXGetImageInfoFromFile(ToLPCWSTR(filePath), &info);
 	if (result != D3D_OK)
 	{
 		DebugOut(L"[ERROR] GetImageInfoFromFile failed: %s\n", filePath);
@@ -51,7 +53,7 @@ void CTextureManager::Add(string id, LPCWSTR filePath, D3DCOLOR transparentColor
 
 	result = D3DXCreateTextureFromFileEx(
 		d3ddv,								// Pointer to Direct3D device object
-		filePath,							// Path to the image to load
+		ToLPCWSTR(filePath),							// Path to the image to load
 		info.Width,							// Texture width
 		info.Height,						// Texture height
 		1,

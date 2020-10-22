@@ -3,6 +3,8 @@
 #include "tinyxml.h"
 #include "SpriteManager.h"
 #include "GraphicConst.h"
+#include "Game.h"
+#include "Const.h"
 using namespace std;
 //Tạm thời
 #include "TextureManager.h"
@@ -28,11 +30,18 @@ CAnimationManager::CAnimationManager()
 bool CAnimationManager::Init()
 {
 	DebugOut(L"[INFO] Load Animation from file XML \n");
-	if (InitAnAnimationSet(ANIMATION_PATH + MARIO_ANIM) == false)
+	auto root = CGame::GetInstance();
+	if (InitAnAnimationSet(root->GetFilePathByCategory(CATEGORY_ANIMATION, DB_ANIMATION_MARIO)) == false)
 	{
 		DebugOut(L"Cannot Load Mario Animation File \n");
 		return false;
 	}
+	
+	/*if (InitAnAnimationSet(ANIMATION_PATH + MARIO_ANIM) == false)
+	{
+		DebugOut(L"Cannot Load Mario Animation File \n");
+		return false;
+	}*/
 	/*if (InitAnAnimation("EnemyAnim") == false)
 	{
 		DebugOut(L"Cannot Load Enemy Animation File");
@@ -63,24 +72,6 @@ bool CAnimationManager::InitAnAnimationSet(std::string textureName)
 
 bool CAnimationManager::LoadAnimation(std::string filePath)
 {
-	// test
-	/*LPDIRECT3DTEXTURE9 tex = CTextureManager::GetInstance()->GetTexture("tex-mario");
-	LPAnimation ani = new CAnimation("Run");
-	RECT r;
-	r.left = 323;
-	r.top = 8;
-	r.right = 323 + 16;
-	r.bottom = 8 + 16;
-
-	LPSprite spr = new CSprite("spr-small-mario-run-0", r, tex);
-	ani->Add(spr, D3DXVECTOR2(2.0f, 2.5f), 100);
-
-	r.left = 341;
-	r.right = 341 + 16;
-	spr = new CSprite("spr-small-mario-run-1", r, tex);
-	ani->Add(spr,D3DXVECTOR2(2.0f, 2.5f), 100);
-	AddAnimation("ani-small-mario-run",ani);*/
-
 	// Load from XML
 	OutputDebugStringW(ToLPCWSTR(filePath.c_str())); 
 	DebugOut(L"\n");
