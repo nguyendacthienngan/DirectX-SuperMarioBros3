@@ -69,6 +69,16 @@ float Clamp(float target, float inf, float sup)
 	return max(inf, min(target, sup));
 }
 
+int Sign(float x)
+{
+	return x > 0 ? 1 : (x < 0 ? -1 : 0);
+}
+
+bool InRange(float target, float inf, float sup)
+{
+	return inf <= target && target <= sup;
+}
+
 void DebugOutTitle(const wchar_t* fmt, ...)
 {
 	wchar_t s[1024];

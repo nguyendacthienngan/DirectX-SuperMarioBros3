@@ -18,6 +18,7 @@ private:
 	bool isHighSpeed; // horizontal
 	bool canLowJumpContinous;
 	bool isHighJump, canHighJump; 
+	bool isSkid;
 public:
 	CMario();
 	void Init();
@@ -28,7 +29,7 @@ public:
 	void OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions); // Tạm thời chưa làm
 	
 	void CrouchProcess(CKeyboardManager* keyboard);
-	void SkidProcess();
+	void SkidProcess(D3DXVECTOR2 velocity);
 
 	void KeyState();
 	void OnKeyDown(int KeyCode);

@@ -27,6 +27,7 @@ CMario::CMario()
 	this->physiscBody->SetDynamic(true); // có chuyển động
 	this->physiscBody->SetGravity(MARIO_GRAVITY);
 	canHighJump = false;
+	isSkid = false;
 }
 
 void CMario::Init()
@@ -62,7 +63,9 @@ void CMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-big-mario-run"));
 	AddAnimation(MARIO_STATE_HIGH_SPEED, animationManager->Get("ani-big-mario-high-speed"));
 	AddAnimation(MARIO_STATE_JUMP, animationManager->Get("ani-big-mario-jump"));
-	AddAnimation(MARIO_STATE_CROUCH, animationManager->Get("ani-big-mario-crouch")); // * BỊ LỖI VÌ KHI ĐỔI BOUNDINGBOX cái map bị lệch. Chưa biết nguyên nhân, có thể do khi draw map theo camera bị lệch
+	AddAnimation(MARIO_STATE_CROUCH, animationManager->Get("ani-big-mario-crouch"));
+	AddAnimation(MARIO_STATE_SKID, animationManager->Get("ani-big-mario-skid"));
+	AddAnimation(MARIO_STATE_FALL, animationManager->Get("ani-big-mario-fall"));
 
 	/*AddAnimation(MARIO_STATE_IDLE, animationManager->Get("ani-small-mario-idle"));
 	AddAnimation(MARIO_STATE_WALKING, animationManager->Get("ani-small-mario-walk"));
@@ -92,29 +95,41 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		// Nhấn nút A chạy ! RUN
 		if (keyboard->GetKeyStateDown(DIK_A))
 		{
-#pragma region STATE RUN
+			#pragma region STATE RUN
 			currentPhysicsState.move = MoveOnGroundStates::Run;
 			// Do chạy gia tốc thay đổi
-			physiscBody->SetAcceleration((MARIO_RUNNING_SPEED - abs(velocity.x)) / dt); // a = v/t *******************
-			//physiscBody->SetAcceleration(MARIO_RUNNING_ACCELERATION); // a set sẵn
+			if (isSkid == false)
+				physiscBody->SetAcceleration((MARIO_RUNNING_SPEED - abs(velocity.x)) / dt); // a = v/t *******************
+				//physiscBody->SetAcceleration(MARIO_RUNNING_ACCELERATION); // a set sẵn
+			else
+				physiscBody->SetAcceleration((MARIO_SKID_FORCE) / dt);
+			//physiscBody->SetAcceleration((MARIO_SKID_FORCE - abs(velocity.x)) / dt);
 			// Kèm theo lực kéo
 			drag.x = MARIO_RUNNING_DRAG_FORCE;
 			physiscBody->SetDragForce(drag);
-#pragma endregion
+			#pragma endregion
 		}
 		else
 		{
-#pragma region STATE WALK
+			#pragma region STATE WALK
 			// Không chạy -> Đi bộ bình thường: WALK
 			currentPhysicsState.move = MoveOnGroundStates::Walk;
-			physiscBody->SetAcceleration((MARIO_WALKING_SPEED - abs(velocity.x)) / dt); // *******************
+			if (isSkid == false)
+				physiscBody->SetAcceleration((MARIO_WALKING_SPEED - abs(velocity.x)) / dt); // *******************
+			else 
+				physiscBody->SetAcceleration((MARIO_SKID_FORCE - (MARIO_RUNNING_SPEED - MARIO_WALKING_SPEED) ) / dt);
 			//physiscBody->SetAcceleration(MARIO_WALKING_ACCELERATION); // *******************
 			// Kèm theo lực kéo
 			drag.x = MARIO_WALKING_DRAG_FORCE;
 			physiscBody->SetDragForce(drag);
-#pragma endregion
+			#pragma endregion
 		}
-		float constSpeed = (currentPhysicsState.move == MoveOnGroundStates::Run) ? MARIO_RUNNING_SPEED : MARIO_WALKING_SPEED;
+		float constSpeed;
+		if (currentPhysicsState.move == MoveOnGroundStates::Run)
+			constSpeed = MARIO_RUNNING_SPEED;
+		else if (currentPhysicsState.move == MoveOnGroundStates::Walk)
+			constSpeed = MARIO_WALKING_SPEED;
+		//float constSpeed = (currentPhysicsState.move == MoveOnGroundStates::Run) ? MARIO_RUNNING_SPEED : MARIO_WALKING_SPEED;
 		if (keyboard->GetKeyStateDown(DIK_RIGHT))
 			normal.x = 1;
 		else if (keyboard->GetKeyStateDown(DIK_LEFT))
@@ -145,15 +160,16 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		}
 		else
 		{
-			velocity.x = physiscBody->GetAcceleration();
-			//velocity.x = targetVelocity.x;
+			//velocity.x = physiscBody->GetAcceleration();
+			velocity.x = targetVelocity.x;
 		}
-		isHighSpeed = (velocity.x > MARIO_RUNNING_SPEED * 0.9);
+		/*isHighSpeed = (velocity.x > MARIO_RUNNING_SPEED * 0.9);
 		if (isHighSpeed == true && currentPhysicsState.move == MoveOnGroundStates::Run)
-			currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
+			currentPhysicsState.move = MoveOnGroundStates::HighSpeed;*/
 		/*DebugOut(L"Current speed %f \n", velocity.x);
 		DebugOut(L"Target speed: %f \n", targetVelocity.x);*/
 #pragma endregion
+		SkidProcess(velocity);
 	}
 	else
 	{
@@ -170,6 +186,8 @@ void CMario::Update(DWORD dt, CCamera* cam)
 				currentPhysicsState.move = MoveOnGroundStates::Idle;
 		}
 		velocity.x *= normal.x;
+		isSkid = false;
+		
 #pragma endregion
 	}
 
@@ -249,54 +267,80 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 	physiscBody->SetVelocity(velocity);
 	physiscBody->SetNormal(normal);
+
 	SetScale(D3DXVECTOR2(normal.x, 1.0f));
 
+	/*if (isSkid == false)
+		SetScale(D3DXVECTOR2(normal.x, 1.0f));
+	else
+		SetScale(D3DXVECTOR2(-normal.x, 1.0f));*/
 	CrouchProcess(keyboard);
 
 }
 
 void CMario::LateUpdate()
 {
+	if (isSkid == true)
+		currentPhysicsState.move = MoveOnGroundStates::Skid;
 #pragma region Update State
+
+	#pragma region Move On Ground
 	switch (currentPhysicsState.move)
 	{
-	case MoveOnGroundStates::Idle:
-	{
-		SetState(MARIO_STATE_IDLE);
+		case MoveOnGroundStates::Idle:
+		{
+			SetState(MARIO_STATE_IDLE);
 
-		break;
+			break;
+		}
+		case MoveOnGroundStates::Walk:
+		{
+			SetState(MARIO_STATE_WALKING);
+			break;
+		}
+		case MoveOnGroundStates::Run:
+		{
+			SetState(MARIO_STATE_RUNNING);
+			break;
+		}
+		case MoveOnGroundStates::Skid:
+		{
+			auto normal = physiscBody->GetNormal();
+			SetScale(D3DXVECTOR2(-normal.x, 1.0f));
+			SetState(MARIO_STATE_SKID);
+			break;
+		}
+		case MoveOnGroundStates::Crouch:
+		{
+			SetState(MARIO_STATE_CROUCH);
+			break;
+		}
+		case MoveOnGroundStates::HighSpeed:
+		{
+			SetState(MARIO_STATE_HIGH_SPEED);
+			break;
+		}
 	}
-	case MoveOnGroundStates::Walk:
-	{
-		SetState(MARIO_STATE_WALKING);
-		break;
-	}
-	case MoveOnGroundStates::Run:
-	{
-		SetState(MARIO_STATE_RUNNING);
-		break;
-	}
-	case MoveOnGroundStates::Crouch:
-	{
-		SetState(MARIO_STATE_CROUCH);
-		break;
-	}
-	case MoveOnGroundStates::HighSpeed:
-	{
-		SetState(MARIO_STATE_HIGH_SPEED);
-		break;
-	}
-	
-	}
+#	pragma endregion
+
+	#pragma region Jump On Air
+
 	switch (currentPhysicsState.jump)
 	{
-	case JumpOnAirStates::Jump : case JumpOnAirStates::HighJump:
-	case JumpOnAirStates::LowJump:
-	{
-		SetState(MARIO_STATE_JUMP);
-		break;
+		case JumpOnAirStates::Jump: case JumpOnAirStates::HighJump:
+		case JumpOnAirStates::LowJump:
+		{
+			SetState(MARIO_STATE_JUMP);
+			break;
+		}
+		case JumpOnAirStates::Fall:
+		{
+			SetState(MARIO_STATE_FALL);
+			break;
+		}
 	}
-	}
+	#pragma endregion
+
 #pragma endregion
 
 #pragma region Multipiler
@@ -356,12 +400,16 @@ void CMario::CrouchProcess(CKeyboardManager* keyboard)
 	if (keyboard->GetKeyStateDown(DIK_LEFT) || keyboard->GetKeyStateDown(DIK_RIGHT)) // thiếu xét trường hợp nhảy ******
 	{
 		// KHÔNG HỤP
-		changeAniState = true;
+		//if (currentPhysicsState.move != MoveOnGroundStates::Idle)
+			changeAniState = true;
 	}
-
-	if (changeAniState == false && keyboard->GetKeyStateDown(DIK_DOWN))
+	//if (currentPhysicsState.jump != JumpOnAirStates::Stand)
+	//	changeAniState = false;
+	if ((changeAniState == false && keyboard->GetKeyStateDown(DIK_DOWN))
+		|| currentPhysicsState.jump == JumpOnAirStates::Jump)
 	{
 		// HỤP
+		
 		collisionBoxs->at(0)->SetSizeBox(BIG_MARIO_CROUCH_BBOX);
 		float transformY = BIG_MARIO_BBOX.y - BIG_MARIO_CROUCH_BBOX.y;
 		//transform = -transform;
@@ -370,6 +418,7 @@ void CMario::CrouchProcess(CKeyboardManager* keyboard)
 		collisionBoxs->at(0)->SetPosition(D3DXVECTOR2(0.0f, transformY));
 
 		currentPhysicsState.move = MoveOnGroundStates::Crouch;
+
 	}
 	else
 	{
@@ -381,8 +430,38 @@ void CMario::CrouchProcess(CKeyboardManager* keyboard)
 	}
 }
 
-void CMario::SkidProcess()
+void CMario::SkidProcess(D3DXVECTOR2 velocity)
 {
+	//DebugOut(L"Skid abc \n");
+	// Ta detect skid (thắng lại) theo tốc độ của mario chứ không theo state, 
+	//bởi vì có thể state đã chuyển (VD: từ Run sang Walk) nhưng vẫn cần thời gian gia tốc xuống, giữa khoảng gia tốc xuống đó mà không loại trường hợp đó ra
+	// Sẽ detect nhầm qua skid
+	// Do đó ta phải đảm bảo tốc độ nằm ngoài khoảng nhầm lẫn đó thì skid mới xảy ra
+	/*bool skidMovementConstraint =
+		(currentPhysicsState.move == MoveOnGroundStates::Walk &&
+			(abs(velocity.x) < MARIO_WALKING_SPEED && abs(velocity.x) > MARIO_RUNNING_SPEED))
+		|| (currentPhysicsState.move == MoveOnGroundStates::Run);*/
+
+	bool skidMovementConstraint =
+		(currentPhysicsState.move == MoveOnGroundStates::Walk &&
+			(InRange(abs(velocity.x), MARIO_WALKING_SPEED, MARIO_RUNNING_SPEED) == false))
+		|| (currentPhysicsState.move == MoveOnGroundStates::Run);
+
+	auto normal = physiscBody->GetNormal();
+
+	bool skidFacingConstraint = ((previousVelocity.x < velocity.x&& normal.x == -1
+		|| previousVelocity.x > velocity.x && normal.x == 1
+		));
+
+	if (isSkid == false && skidFacingConstraint == true && skidMovementConstraint == true)
+	{
+		isSkid = true;
+		currentPhysicsState.move = MoveOnGroundStates::Skid;
+	}
+	else if (Sign(velocity.x) != Sign(previousVelocity.x))
+		isSkid = false; // Sau khi lật xong phía bên kia thì dừng skid !!!!!!!
+	if (isSkid == true)
+		DebugOut(L"SKIDDDDDD \n");
 }
 
 void CMario::KeyState()

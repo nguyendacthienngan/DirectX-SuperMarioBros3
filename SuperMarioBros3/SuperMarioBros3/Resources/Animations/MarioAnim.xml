@@ -269,7 +269,7 @@
 		</Animation>
 		<!-- Animation IDLE -->
 		<Animation aniId="ani-fire-mario-idle" frameTime="100" name="IDLE">
-			<Sprite id="spr-fire-mario-idle-0" left="206" top="109"  width="14" height="27" frameTime="100"/>
+			<Sprite id="spr-fire-mario-idle-side-0" left="206" top="109"  width="14" height="27" frameTime="100"/>
 		</Animation>
 		<!-- Animation WALK -->
 		<Animation aniId="ani-fire-mario-walk" frameTime="100" name="WALK">

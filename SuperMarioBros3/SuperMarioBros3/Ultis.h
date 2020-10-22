@@ -29,4 +29,8 @@ std::wstring ToWSTR(std::string st);
 
 LPCWSTR ToLPCWSTR(std::string st);
 
-float  Clamp(float target, float inf, float sup);
+float Clamp(float target, float inf, float sup);
+
+int Sign(float x);
+
+bool InRange(float target, float inf, float sup);
