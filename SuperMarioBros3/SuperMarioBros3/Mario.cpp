@@ -187,12 +187,22 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 	if (keyboard->GetKeyStateDown(DIK_X) && isOnGround == true)
 	{
-		DebugOut(L"Da nhan X \n");
 		if (canLowJumpContinous == true)
 		{
 			velocity.y -= MARIO_JUMP_SPEED_Y;
 			isOnGround = false;
 		}
+		currentPhysicsState.jump = JumpOnAirStates::LowJump;
+	}
+	else if (currentPhysicsState.jump == JumpOnAirStates::LowJump)
+	{
+		if (velocity.y > 0) // Hướng xuống 
+		{
+			//canLowJumpContinous = false;
+			currentPhysicsState.jump = JumpOnAirStates::Fall;
+		}
+		else
+			currentPhysicsState.jump = JumpOnAirStates::LowJump;
 	}
 	if (currentPhysicsState.jump == JumpOnAirStates::Jump && canLowJumpContinous == false)
 	{
@@ -274,6 +284,16 @@ void CMario::LateUpdate()
 	case MoveOnGroundStates::HighSpeed:
 	{
 		SetState(MARIO_STATE_HIGH_SPEED);
+		break;
+	}
+	
+	}
+	switch (currentPhysicsState.jump)
+	{
+	case JumpOnAirStates::Jump : case JumpOnAirStates::HighJump:
+	case JumpOnAirStates::LowJump:
+	{
+		SetState(MARIO_STATE_JUMP);
 		break;
 	}
 	}
@@ -387,8 +407,12 @@ void CMario::OnKeyDown(int KeyCode)
 		if (KeyCode == DIK_X)
 		{
 			canLowJumpContinous = true;
+			if (currentPhysicsState.jump == JumpOnAirStates::Stand
+				|| currentPhysicsState.jump == JumpOnAirStates::Jump)
+				currentPhysicsState.jump = JumpOnAirStates::LowJump;
 		}
 		if (currentPhysicsState.jump == JumpOnAirStates::Stand && KeyCode == DIK_S)
+		//	if (currentPhysicsState.jump == JumpOnAirStates::Stand)
 			currentPhysicsState.jump = JumpOnAirStates::Jump;
 	}
 
