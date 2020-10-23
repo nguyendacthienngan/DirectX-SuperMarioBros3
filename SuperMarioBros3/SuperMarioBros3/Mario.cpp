@@ -224,7 +224,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	}
 	if (currentPhysicsState.jump == JumpOnAirStates::Jump && canLowJumpContinous == false)
 	{
-		DebugOut(L"High Jump \n");
+		//DebugOut(L"High Jump \n");
 		auto jumpForce = MARIO_JUMP_FORCE;
 		isHighJump = false;
 		// Nhảy liên tục: Chỉ cần cung cấp dy < 0 và có gravity thì ta tạo cảm giác nó nhảy liên tục chuyển động đều
@@ -232,7 +232,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		if (keyboard->GetKeyStateDown(DIK_S) && canHighJump == true &&
 			(velocity.y >= -MARIO_HIGH_JUMP_FORCE && velocity.y <= MARIO_JUMP_FORCE * (-0.5)))
 		{
-			DebugOut(L"High Jump (1) \n");
+			//DebugOut(L"High Jump (1) \n");
 
 			jumpForce = MARIO_HIGH_JUMP_FORCE;
 			isHighJump = true;
@@ -240,14 +240,14 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		if (velocity.y > -jumpForce && velocity.y < 0 && isHighJump == true) //  isHighJump hay canJump : đang hướng về target
 		{
 			// đang high jump (hướng đi lên) 
-			DebugOut(L"High Jump (2) \n");
+			//DebugOut(L"High Jump (2) \n");
 
 			physiscBody->SetGravity(0.0f);
 			velocity.y -= MARIO_PUSH_FORCE;
 		}
 		else
 		{
-			DebugOut(L"High Jump (3)\n");
+			//DebugOut(L"High Jump (3)\n");
 
 			// Đạt max high jump
 			velocity.y = -1 * jumpForce; // tránh sai số
@@ -282,71 +282,70 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	else
 		SetScale(D3DXVECTOR2(-normal.x, 1.0f));*/
 	CrouchProcess(keyboard);
-
-}
-
-void CMario::LateUpdate()
-{
 	if (isSkid == true)
 		currentPhysicsState.move = MoveOnGroundStates::Skid;
+}
+
+void CMario::Render(CCamera* cam)
+{
 #pragma region Update State
 
-	#pragma region Move On Ground
+#pragma region Move On Ground
 	switch (currentPhysicsState.move)
 	{
-		case MoveOnGroundStates::Idle:
-		{
-			SetState(MARIO_STATE_IDLE);
+	case MoveOnGroundStates::Idle:
+	{
+		SetState(MARIO_STATE_IDLE);
 
-			break;
-		}
-		case MoveOnGroundStates::Walk:
-		{
-			SetState(MARIO_STATE_WALKING);
-			break;
-		}
-		case MoveOnGroundStates::Run:
-		{
-			SetState(MARIO_STATE_RUNNING);
-			break;
-		}
-		case MoveOnGroundStates::Skid:
-		{
-			auto normal = physiscBody->GetNormal();
-			SetScale(D3DXVECTOR2(-normal.x, 1.0f));
-			SetState(MARIO_STATE_SKID);
-			break;
-		}
-		case MoveOnGroundStates::Crouch:
-		{
-			SetState(MARIO_STATE_CROUCH);
-			break;
-		}
-		case MoveOnGroundStates::HighSpeed:
-		{
-			SetState(MARIO_STATE_HIGH_SPEED);
-			break;
-		}
+		break;
+	}
+	case MoveOnGroundStates::Walk:
+	{
+		SetState(MARIO_STATE_WALKING);
+		break;
+	}
+	case MoveOnGroundStates::Run:
+	{
+		SetState(MARIO_STATE_RUNNING);
+		break;
+	}
+	case MoveOnGroundStates::Skid:
+	{
+		auto normal = physiscBody->GetNormal();
+		SetScale(D3DXVECTOR2(-normal.x, 1.0f));
+		SetState(MARIO_STATE_SKID);
+		break;
+	}
+	case MoveOnGroundStates::Crouch:
+	{
+		SetState(MARIO_STATE_CROUCH);
+		break;
+	}
+	case MoveOnGroundStates::HighSpeed:
+	{
+		SetState(MARIO_STATE_HIGH_SPEED);
+		break;
+	}
 	}
 #	pragma endregion
 
-	#pragma region Jump On Air
+#pragma region Jump On Air
 
 	switch (currentPhysicsState.jump)
 	{
-		case JumpOnAirStates::Jump: case JumpOnAirStates::HighJump:
-		case JumpOnAirStates::LowJump:
-		{
-			SetState(MARIO_STATE_JUMP);
-			break;
-		}
-		case JumpOnAirStates::Fall:
-		{
-			SetState(MARIO_STATE_FALL);
-			break;
-		}
+	case JumpOnAirStates::Jump: case JumpOnAirStates::HighJump:
+	case JumpOnAirStates::LowJump:
+	{
+		SetState(MARIO_STATE_JUMP);
+		break;
 	}
-	#pragma endregion
+	case JumpOnAirStates::Fall:
+	{
+		SetState(MARIO_STATE_FALL);
+		break;
+	}
+	}
+#pragma endregion
 
 #pragma endregion
 
@@ -366,6 +365,7 @@ void CMario::LateUpdate()
 #pragma endregion
 
 	SetRelativePositionOnScreen(collisionBoxs->at(0)->GetPosition());
+	CGameObject::Render(cam);
 }
 
 void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents) // ??

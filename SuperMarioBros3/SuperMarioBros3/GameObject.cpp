@@ -60,25 +60,24 @@ void CGameObject::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
 //
 //}
 
-void CGameObject::LateUpdate()
-{
-}
-
 void CGameObject::Render(CCamera* cam)
 {
 	bool curState = animations.find(currentState) != animations.end();
-	if (curState == NULL || animations.empty())
+	if (curState == false || animations.empty())
 		return;
+	//DebugOut(L"Mario position: x,y %f, %f \n", transform.position.x, transform.position.y);
+	animations.find(currentState)->second->SetScale(transform.scale);
+	animations.find(currentState)->second->SetRotation(transform.rotationAngle);
 	D3DXVECTOR2 posInCam = cam->Transform(transform.position + relativePositionOnScreen);
+	posInCam.x = trunc(posInCam.x);
+	posInCam.y = trunc(posInCam.y); // Bị nhích lên nhích xuống, chưa ổn định nên nhìn như lag
+	//posInCam.y = 289;
+	/*DebugOut(L"Mario position: x,y %f, %f \n", transform.position.x, transform.position.y);
+	DebugOut(L"Mario position in cam: x,y %f, %f \n", posInCam.x, posInCam.y);*/
+
 	animations.at(currentState)->Render(posInCam);
 }
 
-void CGameObject::AnimationUpdate()
-{
-	bool curState = animations.find(currentState) != animations.end();
-	if (animations.empty() || curState == false) return;
-	animations.at(currentState)->Update();
-}
 
 void CGameObject::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions)
 {

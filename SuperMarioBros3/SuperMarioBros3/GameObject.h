@@ -65,10 +65,8 @@ public:
 
 	void PhysicsUpdate(std::vector<LPGameObject>* coObjects);
 	virtual void Update(DWORD dt, CCamera* cam) = 0;
-	virtual void LateUpdate(); // Update animation
-
 	virtual void Render(CCamera* cam);
-	virtual void AnimationUpdate();
+	//virtual void AnimationUpdate();
 
 	// Collision
 	// Khi PhysicsBody bắt dược va chạm, nó sẽ tùy thuộc vào biến trigger để truyền về đúng loại callback mình muốn
@@ -89,16 +87,8 @@ public:
 	void Enable(bool isEnabled) { this->isEnabled = isEnabled; }
 
 	// Transform
-	void SetScale(D3DXVECTOR2 s) 
-	{ 
-		this->transform.scale = s;
-		this->animations[currentState]->SetScale(s); // Khi setscale ở GameObject phải đồng bộ với Animation
-	}
-	void SetRotation(float r) 
-	{
-		this->transform.rotationAngle = r; 
-		this->animations[currentState]->SetRotation(r); // Khi setrotation ở GameObject phải đồng bộ với Animation
-	}
+	void SetScale(D3DXVECTOR2 s) { this->transform.scale = s; }
+	void SetRotation(float r)	 { this->transform.rotationAngle = r; }
 
 	void SetPosition(D3DXVECTOR2 p) { this->transform.position = p; }
 

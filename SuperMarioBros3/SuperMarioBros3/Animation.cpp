@@ -39,9 +39,10 @@ void CAnimation::Add(LPSprite sprite, D3DXVECTOR2 pos, DWORD frameTime)
 	animFrames.push_back(frame);
 }
 
-void CAnimation::Update()
+void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 {
-	//DebugOut(L"[INFO] Animation Update \n");
+	//if (currentFrame == -1 || animFrames.size() == 0) return;
+	//DebugOut(L"[INFO] Render Animation \n");
 	if (animFrames.size() == 0 || speedMultiplier == 0.0f) return;
 
 	DWORD currentTime = GetTickCount();
@@ -61,12 +62,6 @@ void CAnimation::Update()
 
 		}
 	}
-}
-
-void CAnimation::Render(D3DXVECTOR2 position, int alpha)
-{
-	if (currentFrame == -1 || animFrames.size() == 0) return;
-	//DebugOut(L"[INFO] Render Animation \n");
 	animFrames[currentFrame]->GetSprite()->Draw(position, transform.scale, transform.rotationAngle, alpha);
 }
 

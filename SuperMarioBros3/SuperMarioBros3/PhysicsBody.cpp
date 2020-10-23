@@ -66,10 +66,10 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 		// block every object first!
 		if (isTrigger == false)
 		{
-			pos.x += min_tx * distance.x + nx;
-			pos.y += min_ty * distance.y + ny;
-			//pos.x += min_tx * distance.x + nx * 0.4f; // nx*0.4f : need to push out a bit to avoid overlapping next frame
-			//pos.y += min_ty * distance.y + ny * 0.4f;
+			/*pos.x += min_tx * distance.x + nx;
+			pos.y += min_ty * distance.y + ny;*/
+			pos.x += min_tx * distance.x + nx * 0.4f; // nx*0.4f : need to push out a bit to avoid overlapping next frame
+			pos.y += min_ty * distance.y + ny * 0.4f;
 			// Vấn đề là ở đây
 		}
 		
@@ -103,6 +103,8 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	coEvents.clear();
+
+
 
 }
 void CPhysicsBody::Update(LPGameObject gameObject)

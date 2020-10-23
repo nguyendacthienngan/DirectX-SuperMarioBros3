@@ -112,9 +112,6 @@ void CScene::Update(DWORD dt)
 		if (obj->IsEnabled() == false) continue;
 		obj->PhysicsUpdate(&gameObjects); 
 		obj->Update(dt, camera);
-		obj->LateUpdate();
-		obj->AnimationUpdate();
-		// Set transform animation ở đây ??
 	}
 
 	if (camera != NULL)
@@ -123,13 +120,7 @@ void CScene::Update(DWORD dt)
 
 void CScene::Render()
 {
-	//DebugOut(L"[INFO] Draw Map ... \n");
-
 	map->Render(camera);
-
-	//DebugOut(L"[INFO] Draw Map Successfully \n");
-
-	//DebugOut(L"[INFO] Rendering Scene \n");
 	if (gameObjects.size() == 0) return;
 
 	for (auto obj : gameObjects)
