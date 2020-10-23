@@ -14,7 +14,9 @@ using namespace std;
 
 CMap::CMap(std::string filePath)
 {
-	LoadMap(filePath);
+	//LoadMap(filePath);
+	LoadTilemap(filePath);
+	//DebugOut(L"Load Tile map \n");
 }
 
 CMap::~CMap()
@@ -22,6 +24,12 @@ CMap::~CMap()
 	DebugOut(L"[INFO] Deleting map \n");
 
 	delete map;
+}
+
+void CMap::LoadTilemap(std::string filePath)
+{
+	tileMap = new CTileMap();
+	tileMap = tileMap->FromTMX(filePath);
 }
 
 Tmx::Map* CMap::GetMap()
@@ -139,79 +147,79 @@ void CMap::Render(CCamera* camera)
 	D3DXVECTOR2 translation = D3DXVECTOR2(-posCam.x, -posCam.y); // ?
 	//DebugOut(L"[INFO] Translation: %f, %f \n", translation.x, translation.y);
 
-	
-	int count = 0;
+	tileMap->Render(camera);
+	//int count = 0;
 
-	for (int i = 0; i < map->GetNumTileLayers(); i++) // duyệt qua các layers của map
-	{
-		const Tmx::TileLayer* layer = map->GetTileLayer(i);
-		if (layer->IsVisible() == false) // Nếu layer bị hide thì không duyệt
-		{
-			continue;
-		}
+	//for (int i = 0; i < map->GetNumTileLayers(); i++) // duyệt qua các layers của map
+	//{
+	//	const Tmx::TileLayer* layer = map->GetTileLayer(i);
+	//	if (layer->IsVisible() == false) // Nếu layer bị hide thì không duyệt
+	//	{
+	//		continue;
+	//	}
 
-		RECT sourceRECT;
+	//	RECT sourceRECT;
 
-		for (int m = 0; m < layer->GetWidth(); m++)
-		{
-			for (int n = 0; n < layer->GetHeight(); n++)
-			{
-				int tilesetIndex = layer->GetTileTilesetIndex(m, n); // Nghĩa là index của 1 tile ở trong hình tileset sẽ là 1 con số. Khi vào map ta muốn đặt tile đó vào map thì ta lưu con số đó
-				if (tilesetIndex != -1) // Do nếu ở map không đặt tile nào thì sẽ đc lưu là -1. Nên ta chỉ xét những số khác -1
-				{
-					const Tmx::Tileset* tileSet = map->GetTileset(tilesetIndex);
+	//	for (int m = 0; m < layer->GetWidth(); m++)
+	//	{
+	//		for (int n = 0; n < layer->GetHeight(); n++)
+	//		{
+	//			int tilesetIndex = layer->GetTileTilesetIndex(m, n); // Nghĩa là index của 1 tile ở trong hình tileset sẽ là 1 con số. Khi vào map ta muốn đặt tile đó vào map thì ta lưu con số đó
+	//			if (tilesetIndex != -1) // Do nếu ở map không đặt tile nào thì sẽ đc lưu là -1. Nên ta chỉ xét những số khác -1
+	//			{
+	//				const Tmx::Tileset* tileSet = map->GetTileset(tilesetIndex);
 
-					int tileWidth = map->GetTileWidth(); // 48
-					int tileHeight = map->GetTileHeight(); // 48
+	//				int tileWidth = map->GetTileWidth(); // 48
+	//				int tileHeight = map->GetTileHeight(); // 48
 
-					int tileSetWidth = tileSet->GetImage()->GetWidth() / tileWidth; // 29
-					int tileSetHeight = tileSet->GetImage()->GetHeight() / tileHeight; // 30
+	//				int tileSetWidth = tileSet->GetImage()->GetWidth() / tileWidth; // 29
+	//				int tileSetHeight = tileSet->GetImage()->GetHeight() / tileHeight; // 30
 
 
-					//tile index
-					int tileID = layer->GetTileId(m, n); // sẽ có giá trị từ 0
+	//				//tile index
+	//				int tileID = layer->GetTileId(m, n); // sẽ có giá trị từ 0
 
-					LPSprite sprite = listTileset[layer->GetTileTilesetIndex(m, n)];
+	//				LPSprite sprite = listTileset[layer->GetTileTilesetIndex(m, n)];
 
-					int y = tileID / tileSetWidth;   
-					int x = tileID - y * tileSetWidth; 
+	//				int y = tileID / tileSetWidth;   
+	//				int x = tileID - y * tileSetWidth; 
 
-					sourceRECT.top = y * tileHeight;
-					sourceRECT.bottom = sourceRECT.top + tileHeight;
-					sourceRECT.left = x * tileWidth;
-					sourceRECT.right = sourceRECT.left + tileWidth;
+	//				sourceRECT.top = y * tileHeight;
+	//				sourceRECT.bottom = sourceRECT.top + tileHeight;
+	//				sourceRECT.left = x * tileWidth;
+	//				sourceRECT.right = sourceRECT.left + tileWidth;
 
-					D3DXVECTOR2 position(m * tileWidth + tileWidth / 2, n * tileHeight + tileHeight / 2);
+	//				D3DXVECTOR2 position(m * tileWidth + tileWidth / 2, n * tileHeight + tileHeight / 2);
 
-					//D3DXVECTOR2 position(m * tileWidth , n * tileHeight );
+	//				//D3DXVECTOR2 position(m * tileWidth , n * tileHeight );
 
-					//	*************CHECK RECT IN CAMERA*****************
-					/*RECT rect;
-					rect.left = position.x;
-					rect.top = position.y;
-					rect.right = rect.left + tileWidth;
-					rect.bottom = rect.right + tileHeight;
+	//				//	*************CHECK RECT IN CAMERA*****************
+	//				/*RECT rect;
+	//				rect.left = position.x;
+	//				rect.top = position.y;
+	//				rect.right = rect.left + tileWidth;
+	//				rect.bottom = rect.right + tileHeight;
 
-					if (camera->CheckRectInCamera(rect) == false)
-						continue;*/
+	//				if (camera->CheckRectInCamera(rect) == false)
+	//					continue;*/
 
-					// ****************************************************
-					count++;
+	//				// ****************************************************
+	//				count++;
 
-					sprite->SetWidth(tileWidth);
-					sprite->SetHeight(tileHeight);
+	//				sprite->SetWidth(tileWidth);
+	//				sprite->SetHeight(tileHeight);
 
-					sprite->SetRect(sourceRECT);
+	//				sprite->SetRect(sourceRECT);
 
-					D3DXVECTOR2 vectorScale = D3DXVECTOR2(1.0f, 1.0f);
-					D3DXVECTOR2 newpos = D3DXVECTOR2(trunc(position.x + translation.x), trunc(position.y + translation.y));
+	//				D3DXVECTOR2 vectorScale = D3DXVECTOR2(1.0f, 1.0f);
+	//				D3DXVECTOR2 newpos = D3DXVECTOR2(trunc(position.x + translation.x), trunc(position.y + translation.y));
 
-					sprite->Draw(newpos, vectorScale, 0.0f, D3DCOLOR_XRGB(255, 255, 255));
+	//				sprite->Draw(newpos, vectorScale, 0.0f, D3DCOLOR_XRGB(255, 255, 255));
 
-				}
-			}
-		}
-	}
+	//			}
+	//		}
+	//	}
+	//}
 	//DebugOut(L"[INFO] Drawed map sucessfully. \n");
 }
 
