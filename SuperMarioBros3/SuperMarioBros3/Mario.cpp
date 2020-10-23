@@ -36,7 +36,7 @@ void CMario::Init()
 	this->SetState(MARIO_STATE_IDLE); // Để tên đồng nhất với animation
 
 	CCollisionBox* collisionBox = new CCollisionBox();
-	collisionBox->SetSizeBox(BIG_MARIO_BBOX); // Big
+	collisionBox->SetSizeBox(SUPER_MARIO_BBOX); // Big
 	//collisionBox->SetSizeBox(BIG_MARIO_BBOX); // Big
 	//collisionBox->SetSizeBox(D3DXVECTOR2(14 * 3, 27 * 3)); // Big
 	collisionBox->SetPosition(D3DXVECTOR2(0.0f, 0.0f)); // ??? Local Position?
@@ -73,7 +73,6 @@ void CMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-small-mario-run"));
 	AddAnimation(MARIO_STATE_JUMP, animationManager->Get("ani-small-mario-jump"));*/
 }
-
 
 void CMario::Update(DWORD dt, CCamera* cam)
 {
@@ -415,8 +414,8 @@ void CMario::CrouchProcess(CKeyboardManager* keyboard)
 	{
 		// HỤP
 		
-		collisionBoxs->at(0)->SetSizeBox(BIG_MARIO_CROUCH_BBOX);
-		float transformY = BIG_MARIO_BBOX.y - BIG_MARIO_CROUCH_BBOX.y;
+		collisionBoxs->at(0)->SetSizeBox(SUPER_MARIO_CROUCH_BBOX);
+		float transformY = SUPER_MARIO_BBOX.y - SUPER_MARIO_CROUCH_BBOX.y;
 		//transform = -transform;
 		//transform.x *= 0.5f;
 		//transform *= 0.5f;
@@ -428,7 +427,7 @@ void CMario::CrouchProcess(CKeyboardManager* keyboard)
 	else
 	{
 		// KHÔNG HỤP
-		collisionBoxs->at(0)->SetSizeBox(BIG_MARIO_BBOX);
+		collisionBoxs->at(0)->SetSizeBox(SUPER_MARIO_BBOX);
 
 		collisionBoxs->at(0)->SetPosition(D3DXVECTOR2(0.0f, 0.0f));
 

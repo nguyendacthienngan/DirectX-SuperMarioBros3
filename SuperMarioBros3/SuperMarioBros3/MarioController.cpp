@@ -8,7 +8,7 @@
 #include "RacoonMario.h"
 #include "FireMario.h"
 #include "GameObjectTags.h"
-
+#include "MarioConst.h"
 #include <unordered_map>
 
 using namespace std;
@@ -57,9 +57,20 @@ void CMarioController::Update()
 
 	for (auto stateObj : listStateObjects)
 	{
-		auto obj = (stateObj).second;
+		auto obj = (stateObj).second; // Lấy ra obj của stateobj
 
-		//if (obj->GetTag() == GameObjectTags::SmallMario || )
+		if (obj == currentStateObject) // ?
+			continue;
+		D3DXVECTOR2 transform = D3DXVECTOR2(0.0f, 0.0f);
+
+		// Set lại box size: Mario chỉ có 2 box size là nhỏ với lớn thôi, nên chỉ cần xét small mario và những anh bạn còn lại
+
+		if (obj->GetTag() == GameObjectTags::SmallMario || currentStateObject->GetTag() == GameObjectTags::SmallMario)
+			transform = SUPER_MARIO_BBOX - SMALL_MARIO_BBOX;
+		if (obj->GetTag() == GameObjectTags::SmallMario)
+			obj->SetPosition(currentStateObject->GetPosition() + transform);
+		else
+			obj->SetPosition(currentStateObject->GetPosition() - transform);
 	}
 }
 
