@@ -224,6 +224,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	}
 	if (currentPhysicsState.jump == JumpOnAirStates::Jump && canLowJumpContinous == false)
 	{
+		DebugOut(L"High Jump \n");
 		auto jumpForce = MARIO_JUMP_FORCE;
 		isHighJump = false;
 		// Nhảy liên tục: Chỉ cần cung cấp dy < 0 và có gravity thì ta tạo cảm giác nó nhảy liên tục chuyển động đều
@@ -231,17 +232,23 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		if (keyboard->GetKeyStateDown(DIK_S) && canHighJump == true &&
 			(velocity.y >= -MARIO_HIGH_JUMP_FORCE && velocity.y <= MARIO_JUMP_FORCE * (-0.5)))
 		{
+			DebugOut(L"High Jump (1) \n");
+
 			jumpForce = MARIO_HIGH_JUMP_FORCE;
 			isHighJump = true;
 		}
 		if (velocity.y > -jumpForce && velocity.y < 0 && isHighJump == true) //  isHighJump hay canJump : đang hướng về target
 		{
 			// đang high jump (hướng đi lên) 
+			DebugOut(L"High Jump (2) \n");
+
 			physiscBody->SetGravity(0.0f);
 			velocity.y -= MARIO_PUSH_FORCE;
 		}
 		else
 		{
+			DebugOut(L"High Jump (3)\n");
+
 			// Đạt max high jump
 			velocity.y = -1 * jumpForce; // tránh sai số
 			physiscBody->SetGravity(MARIO_GRAVITY);

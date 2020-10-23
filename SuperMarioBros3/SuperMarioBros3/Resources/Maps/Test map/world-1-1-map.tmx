@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="15" nextobjectid="48">
  <editorsettings>
-  <export target="../../../../../Resource/Xml/NewMap/BigMap/world-1-1-map.xml" format="tmx"/>
+  <export target="world-1-1-map.xml" format="tmx"/>
  </editorsettings>
  <tileset firstgid="1" name="world-1-1" tilewidth="48" tileheight="48" tilecount="870" columns="29">
   <image source="Resources/Maps/Test map/world-1-1.png" width="1392" height="1440"/>
