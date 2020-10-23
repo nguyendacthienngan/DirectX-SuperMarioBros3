@@ -1,6 +1,7 @@
-#include "TileMap.h"
+﻿#include "TileMap.h"
 #include "Ultis.h"
 #include "SolidBox.h"
+#include "GhostPlatform.h"
 
 CTileMap::CTileMap()
 {
@@ -20,7 +21,24 @@ CTileMap::CTileMap(int width, int height, int tileWidth, int tileHeight)
 
 LPTileset CTileMap::GetTileSetByTileID(int id)
 {
-	return floor_entry(listTilesets, id).second;
+	// Lưu ý là có 2 khái niệm tileid trong file tilemap
+	// 1 là cái xét trong tileset: luôn bắt đầu bằng 0  (tileID)
+	// 1 là cái xét trong layers: tileId + firstGid của tileset tương ứng (tileID + 1)
+
+	// Tham số truyền vào hàm này chính là tileID TRONG LAYER
+	// Do đó khi ta get tileid, ta phải tìm firstgid để biết nó là của tileset nào
+
+	// VD: Ta có 2 tilset, tileset1 có gid là 1, cái thứ 2 có gid là 900
+	// Khi lưu vào map, tileid từ 1->899 : thuộc tileset1, 900 trở đi thuộc tileset2
+
+	// Khi lấy tileid trong layer ra để vẽ
+	// Trong layer ta có đc id là 950
+	// Vậy mình cần tìm cái tileset nào có gid lớn nhất (gần với tileset này nhất) và nhỏ hơn 950 *****
+	// 1 nhỏ hơn nhưng nó chưa lớn nhất =>  lấy 900 là gid
+	// Vậy tile có tileid = 950 thuộc về tileset2
+	
+	// Hàm floor_entry sẽ giúp tìm cái số 900 đó
+	return floor_entry(listTilesets, id).second; // Bản thân cái map trong c++ tổ chức theo binary tree => nên tìm chỉ tốn O(log2(N))
 }
 
 void CTileMap::AddTileSet(int firstgid, LPTileset tileSet)
@@ -36,7 +54,12 @@ void CTileMap::AddLayer(LPLayer layer)
 void CTileMap::Render(CCamera* camera)
 {
 	//DebugOut(L"Render tilemap.. \n");
-	int col = camera->GetPositionCam().x / tileWidth;
+	// Từ một tọa độ bất kỳ nằm bên trg map
+	// Ta sẽ có thể biết được tọa độ nằm trong ô nào của map (Chuyển từ dạng tọa độ về dạng grid)
+	// Bằng cách chia cho số tileWidth và tileHeight (Bởi vì 1 tile có size là  tileWidth,tileHeight)
+
+	// Do đó ta sẽ quy tọa đọ của camera về dạng grid
+	int col = camera->GetPositionCam().x / tileWidth; 
 	int row = camera->GetPositionCam().y / tileHeight;
 
 	/*DebugOut(L"Cam (x,y):  %f, %f\n", camera->GetPositionCam().x, camera->GetPositionCam().y);
@@ -46,17 +69,24 @@ void CTileMap::Render(CCamera* camera)
 	/*if (col > 0) col--;
 	if (row > 0) row--;*/
 
+	// Lấy ra viewport theo dạng grid (số ô)
 	D3DXVECTOR2 camSize = D3DXVECTOR2(camera->GetWidthCam() / tileWidth, camera->GetHeightCam() / tileHeight);
 
-	for (int i = col; i < camSize.x + col + 2; i++) {
-		for (int j = row; j < camSize.y + row + 2; j++) {
+	// việc +2 là do trừ hao cho khỏi bị flick ở cạnh màn hình
+	// vì sẽ có lúc tính toán làm tròn sao sao đó mà sẽ có ô mình k vẽ
+	// do đó mình trừ hao để chắc chắn vẽ hết các ô
+	for (int i = col; i < camSize.x + col + 2; i++) 
+	{
+		for (int j = row; j < camSize.y + row + 2; j++) 
+		{
 
-			int x = i * tileWidth - camera->GetPositionCam().x;
+			int x = i * tileWidth - camera->GetPositionCam().x; // vị trí mình muốn vẽ lên màn hình của ô đó => theo tọa độ camera
 			int y = j * tileHeight - camera->GetPositionCam().y;
 
 			for (LPLayer layer : listLayers) {
-				int id = layer->GetTileID(i % width, j % height);
-				this->GetTileSetByTileID(id)->Draw(id, D3DXVECTOR2(x, y));
+				// i % width, j % height: Đây là tọa độ của ô 
+				int id = layer->GetTileID(i % width, j % height); // Từ tọa độ của ô đó ta lấy ra được tileID
+				this->GetTileSetByTileID(id)->Draw(id, D3DXVECTOR2(x, y)); // Từ tileID ta tìm tileset mà tileID đó thuộc về
 			}
 		}
 	}
@@ -128,10 +158,10 @@ CTileMap* CTileMap::FromTMX(std::string filePath, std::vector<LPGameObject>& lis
 					DebugOut(L"BoxSize: %d, %f,%f,%f,%f\n", id, solid->GetPosition().x, solid->GetPosition().y, size.x, size.y);
 				
 				}
-				/*else if (name.compare("Ghost") == 0)
+				else if (name.compare("Ghost") == 0)
 				{
 
-				}*/
+				}
 			}
 		}
 		if (listGameObjects.size() == 0)

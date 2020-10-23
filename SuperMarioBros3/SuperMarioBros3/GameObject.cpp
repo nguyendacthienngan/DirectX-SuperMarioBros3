@@ -54,6 +54,10 @@ void CGameObject::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
 	}
 }
 
+void CGameObject::Update(DWORD dt, CCamera* cam)
+{
+}
+
 //void CGameObject::Update(DWORD dt, CCamera* cam)
 //{
 //	DebugOut(L"[INFO] Game Object Updating.. \n");
@@ -95,6 +99,18 @@ void CGameObject::AddAnimation(std::string stateName, LPAnimation animation)
 void CGameObject::SetRelativePositionOnScreen(D3DXVECTOR2 rP)
 {
 	this->relativePositionOnScreen = rP;
+}
+
+void CGameObject::KeyState()
+{
+}
+
+void CGameObject::OnKeyDown(int KeyCode)
+{
+}
+
+void CGameObject::OnKeyUp(int KeyCode)
+{
 }
 
 bool CGameObject::IsEnabled()

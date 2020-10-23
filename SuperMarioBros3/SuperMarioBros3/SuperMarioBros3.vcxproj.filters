@@ -88,9 +88,6 @@
     <Filter Include="Framework\Game\Scene\Map\TileMap">
       <UniqueIdentifier>{d9af06e8-a2c4-4db4-a48f-efc3c2b0e1ff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameObject\Ghost">
-      <UniqueIdentifier>{fbe8ad78-2708-43fd-8788-ad6747ce6597}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -285,6 +282,12 @@
     <ClInclude Include="Layer.h">
       <Filter>Framework\Game\Scene\Map\TileMap</Filter>
     </ClInclude>
+    <ClInclude Include="GhostPlatform.h">
+      <Filter>Game\GameObject\CollisionBox</Filter>
+    </ClInclude>
+    <ClInclude Include="Effector.h">
+      <Filter>Framework\Game\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -436,6 +439,9 @@
     </ClCompile>
     <ClCompile Include="Layer.cpp">
       <Filter>Framework\Game\Scene\Map\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="GhostPlatform.cpp">
+      <Filter>Game\GameObject\CollisionBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

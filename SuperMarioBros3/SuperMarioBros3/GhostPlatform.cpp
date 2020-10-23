@@ -1,17 +1,16 @@
-#include "SolidBox.h"
+#include "GhostPlatform.h"
 
-CSolidBox::CSolidBox()
+CGhostPlatform::CGhostPlatform()
 {
 	Init();
 }
 
-
-
-void CSolidBox::Init()
+void CGhostPlatform::Init()
 {
 	CCollisionBox* box = new CCollisionBox();
 	box->SetGameObjectAttach(this);
 	this->collisionBoxs->push_back(box);
 	this->physiscBody->SetDynamic(false);
-	this->SetTag(GameObjectTags::Solid);
+	this->SetTag(GameObjectTags::GhostPlatform);
+	this->SetEffector(Effector::Top);
 }

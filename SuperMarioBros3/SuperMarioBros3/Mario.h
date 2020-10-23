@@ -22,9 +22,9 @@ private:
 	D3DXVECTOR2 previousNormal;
 public:
 	CMario();
-	void Init();
+	void Init() override;
 	void LoadAnimation();
-	void Update(DWORD dt, CCamera* cam);
+	void Update(DWORD dt, CCamera* cam) override;
 	void Render(CCamera* cam);
 	void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions); // Xử lý riêng sau khi phát hiện va chạm
 	void OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions); // Tạm thời chưa làm

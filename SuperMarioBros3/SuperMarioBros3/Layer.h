@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "tinyxml.h"
 #include <d3d9.h>
 #include <d3dx9.h>
@@ -12,7 +12,7 @@ private:
 	int id;
 	int width;
 	int height;
-	int** tiles;
+	int** tiles; // ma trận
 
 public:
 	CLayer();

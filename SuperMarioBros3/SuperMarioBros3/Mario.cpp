@@ -452,7 +452,6 @@ void CMario::CrouchProcess(CKeyboardManager* keyboard)
 
 void CMario::SkidProcess(D3DXVECTOR2 velocity)
 {
-	//DebugOut(L"Skid abc \n");
 	// Ta detect skid (thắng lại) theo tốc độ của mario chứ không theo state, 
 	//bởi vì có thể state đã chuyển (VD: từ Run sang Walk) nhưng vẫn cần thời gian gia tốc xuống, giữa khoảng gia tốc xuống đó mà không loại trường hợp đó ra
 	// Sẽ detect nhầm qua skid

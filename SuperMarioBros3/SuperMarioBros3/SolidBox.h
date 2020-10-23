@@ -6,10 +6,6 @@ class CSolidBox : public CGameObject
 {
 public:
 	CSolidBox();
-	void Update(DWORD dt, CCamera* cam) { };
 	void Init();
-	void KeyState() { }
-	void OnKeyDown(int KeyCode) { }
-	void OnKeyUp(int KeyCode) { }
 };
 

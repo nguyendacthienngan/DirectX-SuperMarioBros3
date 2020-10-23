@@ -351,8 +351,11 @@ void CPhysicsBody::FilterCollision(
 		}
 	}
 
-	if (min_ix >= 0) coEventsResult.push_back(coEvents[min_ix]);
-	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);
+	// Cách cũ của thầy: Chưa xét ghost platform (Xét 4 hướng)
+	/*if (min_ix >= 0) coEventsResult.push_back(coEvents[min_ix]);
+	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);*/
+
+
 }
 
 D3DXVECTOR2 CPhysicsBody::GetVelocity()

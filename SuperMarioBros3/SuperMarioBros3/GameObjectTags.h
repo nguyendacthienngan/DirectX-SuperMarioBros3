@@ -4,5 +4,6 @@ enum class GameObjectTags
 	None, // Default
 	Player,
 	Solid,
+	GhostPlatform,
 	Enemy
 };

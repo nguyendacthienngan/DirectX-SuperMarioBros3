@@ -1,4 +1,4 @@
-#include "Tileset.h"
+﻿#include "Tileset.h"
 #include "TextureManager.h"
 #include "Game.h"
 using namespace std;
@@ -41,12 +41,14 @@ CTileset::~CTileset()
 
 void CTileset::Draw(int gid, D3DXVECTOR2 position, D3DCOLOR overlay)
 {
-	if (gid < firstgid) return; // ?
+	// gid : tileid trong tileset
+	// firstgid: 1
+	if (gid < firstgid) return;
 	RECT r;
-	r.top = ((gid - firstgid) / columns) * tileSize.y;
 	r.left = ((gid - firstgid) % columns) * tileSize.x;
-	r.bottom = r.top + tileSize.y;
+	r.top = ((gid - firstgid) / columns) * tileSize.y;
 	r.right = r.left + tileSize.x;
+	r.bottom = r.top + tileSize.y;
 	//DebugOut(L"Draw Tileset \n");
 	CGame::GetInstance()->Draw(position, D3DXVECTOR2(tileSize.x / 2, tileSize.y / 2), texture, r, overlay);
 }

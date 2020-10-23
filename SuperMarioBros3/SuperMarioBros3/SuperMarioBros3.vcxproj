@@ -149,12 +149,14 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionBox.h" />
     <ClInclude Include="Const.h" />
+    <ClInclude Include="Effector.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameConst.h" />
     <ClInclude Include="GameKeyEventHandler.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectTags.h" />
+    <ClInclude Include="GhostPlatform.h" />
     <ClInclude Include="GraphicConst.h" />
     <ClInclude Include="KeyboardManager.h" />
     <ClInclude Include="KeyEventHandler.h" />
@@ -217,6 +219,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameKeyEventHandler.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GhostPlatform.cpp" />
     <ClCompile Include="KeyboardManager.cpp" />
     <ClCompile Include="KeyEventHandler.cpp" />
     <ClCompile Include="Layer.cpp" />
