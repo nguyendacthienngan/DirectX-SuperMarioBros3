@@ -22,8 +22,8 @@ CGameObject::CGameObject()
 
 CGameObject::~CGameObject()
 {
-	/*for (auto a : animations)
-		delete a.second;*/
+	for (auto a : animations)
+		delete a.second;
 }
 
 
@@ -74,7 +74,7 @@ void CGameObject::Render(CCamera* cam)
 	animations.find(currentState)->second->SetRotation(transform.rotationAngle);
 	D3DXVECTOR2 posInCam = cam->Transform(transform.position + relativePositionOnScreen);
 	posInCam.x = trunc(posInCam.x);
-	posInCam.y = trunc(posInCam.y); // Bị nhích lên nhích xuống, chưa ổn định nên nhìn như lag
+	posInCam.y = trunc(posInCam.y); 
 	//posInCam.y = 289;
 	/*DebugOut(L"Mario position: x,y %f, %f \n", transform.position.x, transform.position.y);
 	DebugOut(L"Mario position in cam: x,y %f, %f \n", posInCam.x, posInCam.y);*/

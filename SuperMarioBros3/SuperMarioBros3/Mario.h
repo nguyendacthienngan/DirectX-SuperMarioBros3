@@ -6,8 +6,9 @@
 #include "GameObject.h"
 #include "MarioStateSet.h"
 #include "KeyboardManager.h"
+#include "IState.h"
 
-class CMario : public CGameObject
+class CMario : public CGameObject, public IState
 {
 	// Mario Base : Xử lý những thứ cơ bản nhất trước của Mario
 	// Đi, chạy, nhảy, hụp, thắng lại
@@ -35,6 +36,12 @@ public:
 	void KeyState();
 	void OnKeyDown(int KeyCode);
 	void OnKeyUp(int KeyCode);
+
+	// State
+	virtual void Access()		override;
+	virtual void Update()		override;
+	virtual void Exit()			override;
+
 	~CMario();
 };
 #endif

@@ -374,6 +374,11 @@ D3DXVECTOR2 CPhysicsBody::GetVelocity()
 	return velocity;
 }
 
+float CPhysicsBody::GetGravity()
+{
+	return gravity;
+}
+
 float CPhysicsBody::GetAcceleration()
 {
 	return acceleration;

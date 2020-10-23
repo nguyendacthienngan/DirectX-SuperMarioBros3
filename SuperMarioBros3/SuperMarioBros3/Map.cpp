@@ -22,20 +22,13 @@ CMap::CMap(std::string filePath)
 CMap::~CMap()
 {
 	DebugOut(L"[INFO] Deleting map \n");
-
-	delete map;
+	delete tileMap;
 }
 
 void CMap::LoadTilemap(std::string filePath)
 {
 	tileMap = new CTileMap();
-	tileMap = tileMap->FromTMX(filePath, listGameObjects);
-	//LoadMap(filePath);
-}
-
-Tmx::Map* CMap::GetMap()
-{
-	return map;
+	tileMap = tileMap->LoadMap(filePath, listGameObjects);
 }
 
 // Load map bằng TMX-parser
@@ -220,26 +213,6 @@ void CMap::Render(CCamera* camera)
 	}
 
 	tileMap->Render(camera);
-}
-
-int CMap::GetWidth()
-{
-	return map->GetTileWidth() * map->GetWidth();
-}
-
-int CMap::GetHeight()
-{
-	return map->GetTileHeight() * map->GetHeight();
-}
-
-int CMap::GetTileWidth()
-{
-	return map->GetTileWidth();
-}
-
-int CMap::GetTileHeight()
-{
-	return map->GetTileHeight();
 }
 
 std::vector<LPGameObject> CMap::GetListGameObjects()

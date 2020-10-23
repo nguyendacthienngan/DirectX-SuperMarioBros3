@@ -2,6 +2,8 @@
 #include "Ultis.h"
 #include "SolidBox.h"
 #include "GhostPlatform.h"
+#include <iostream>
+#include <map>
 
 CTileMap::CTileMap()
 {
@@ -37,8 +39,18 @@ LPTileset CTileMap::GetTileSetByTileID(int id)
 	// 1 nhỏ hơn nhưng nó chưa lớn nhất =>  lấy 900 là gid
 	// Vậy tile có tileid = 950 thuộc về tileset2
 	
-	// Hàm floor_entry sẽ giúp tìm cái số 900 đó
-	return floor_entry(listTilesets, id).second; // Bản thân cái map trong c++ tổ chức theo binary tree => nên tìm chỉ tốn O(log2(N))
+	// Hàm lower_bound của C++ sẽ giúp tìm cái số 900 đó
+	if (listTilesets.size() <= 1)
+		return (*listTilesets.begin()).second;
+
+	auto iterator = listTilesets.lower_bound (id);
+
+	// giá trị trả về của lower_bound functions là 1 bidirectional iterator nên mình có thể --
+	if (iterator != listTilesets.begin() && (*iterator).first != id) // nếu biến iterator k phải biến đầu tiên và id k giống id đã tìm
+		--iterator; // lấy cái trước đó
+	
+	return iterator->second; // Bản thân cái map trong c++ tổ chức theo binary tree => nên tìm chỉ tốn O(log2(N))
+
 }
 
 void CTileMap::AddTileSet(int firstgid, LPTileset tileSet)
@@ -92,7 +104,7 @@ void CTileMap::Render(CCamera* camera)
 	}
 }
 
-CTileMap* CTileMap::FromTMX(std::string filePath, std::vector<LPGameObject>& listGameObjects)
+CTileMap* CTileMap::LoadMap(std::string filePath, std::vector<LPGameObject>& listGameObjects)
 {
 	string fullPath = filePath;
 	TiXmlDocument doc(fullPath.c_str());
@@ -112,7 +124,7 @@ CTileMap* CTileMap::FromTMX(std::string filePath, std::vector<LPGameObject>& lis
 		//Load tileset
 		for (TiXmlElement* element = root->FirstChildElement("tileset"); element != nullptr; element = element->NextSiblingElement("tileset"))
 		{
-			CTileset* tileSet = new CTileset(element, "Resources/Maps/Test map/");
+			CTileset* tileSet = new CTileset(element);
 			gameMap->listTilesets[tileSet->GetFirstgid()] = tileSet;
 		}
 		//Load layer
@@ -158,7 +170,7 @@ CTileMap* CTileMap::FromTMX(std::string filePath, std::vector<LPGameObject>& lis
 					DebugOut(L"BoxSize: %d, %f,%f,%f,%f\n", id, solid->GetPosition().x, solid->GetPosition().y, size.x, size.y);
 				
 				}
-				else if (name.compare("Ghost") == 0)
+				/*else if (name.compare("Ghost") == 0)
 				{
 					CGhostPlatform* ghostPlatform = new CGhostPlatform();
 					ghostPlatform->SetPosition(position);
@@ -166,7 +178,7 @@ CTileMap* CTileMap::FromTMX(std::string filePath, std::vector<LPGameObject>& lis
 					ghostPlatform->GetCollisionBox()->at(0)->SetId(id);
 					ghostPlatform->GetCollisionBox()->at(0)->SetName(nameObject);
 					listGameObjects.push_back(ghostPlatform);
-				}
+				}*/
 			}
 		}
 		if (listGameObjects.size() == 0)

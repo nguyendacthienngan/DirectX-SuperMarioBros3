@@ -13,26 +13,17 @@
 class CMap
 {
 private:
-	Tmx::Map* map;
 	CTileMap* tileMap;
-
-	std::map<int, LPSprite>  listTileset;
 	std::vector<LPGameObject> listGameObjects;
 public:
 	CMap(std::string filePath);
 	~CMap();
-	Tmx::Map* GetMap(); // trả về thông tin của map
-	void LoadTilemap(std::string filePath);
-	void LoadMap(std::string filePath); // tạo đối tương Map và khởi tạo các tileset từ thông tin map nhận được
-	// vẽ map lên màn hình. Tính toán vùng càn vẽ, vị trí tile trong tileset để vẽ trong hàm
+	void LoadTilemap(std::string filePath);// tạo đối tương Map và khởi tạo các tileset từ thông tin map nhận được
+	
 	void Update(CCamera* camera, DWORD dt);
+
+	// vẽ map lên màn hình. Tính toán vùng càn vẽ, vị trí tile trong tileset để vẽ trong hàm
 	void Render(CCamera* camera);
-
-	int GetWidth(); // Chiều rộng map (theo số tile)
-	int GetHeight(); //Chiều dài map(theo số tile)
-	int GetTileWidth(); // Chiều rộng của tileset [Hiện tại: 48x48]
-	int GetTileHeight();// Chiều rộng của tileset
-
 	std::vector<LPGameObject> GetListGameObjects();
 };
 

@@ -14,14 +14,14 @@ CTileset::CTileset(int firstgid, D3DXVECTOR2 tileSize, int tileCount, int column
 	this->texture = CTextureManager::GetInstance()->GetTexture(std::to_string(firstgid));
 }
 
-CTileset::CTileset(TiXmlElement* data, std::string xmlSource)
+CTileset::CTileset(TiXmlElement* data)
 {
 	data->QueryIntAttribute("firstgid", &this->firstgid);
 	data->QueryFloatAttribute("tilewidth", &this->tileSize.x);
 	data->QueryFloatAttribute("tileheight", &this->tileSize.y);
 	data->QueryIntAttribute("tilecount", &this->tileCount);
 	data->QueryIntAttribute("columns", &this->columns);
-	OutputDebugString(ToLPCWSTR("Image Source: " + xmlSource + "\n"));
+	//OutputDebugString(ToLPCWSTR("Image Source: " + xmlSource + "\n"));
 
 	TiXmlElement* imgDom = data->FirstChildElement("image");
 	string imgPath = imgDom->Attribute("source");
@@ -39,7 +39,7 @@ CTileset::~CTileset()
 	texture = NULL;
 }
 
-void CTileset::Draw(int gid, D3DXVECTOR2 position, D3DCOLOR overlay)
+void CTileset::Draw(int gid, D3DXVECTOR2 position, D3DCOLOR color)
 {
 	// gid : tileid trong tileset
 	// firstgid: 1
@@ -50,5 +50,5 @@ void CTileset::Draw(int gid, D3DXVECTOR2 position, D3DCOLOR overlay)
 	r.right = r.left + tileSize.x;
 	r.bottom = r.top + tileSize.y;
 	//DebugOut(L"Draw Tileset \n");
-	CGame::GetInstance()->Draw(position, D3DXVECTOR2(tileSize.x / 2, tileSize.y / 2), texture, r, overlay);
+	CGame::GetInstance()->Draw(position, D3DXVECTOR2(tileSize.x / 2, tileSize.y / 2), texture, r, color);
 }

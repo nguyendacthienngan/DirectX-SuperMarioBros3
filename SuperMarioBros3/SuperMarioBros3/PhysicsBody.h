@@ -68,6 +68,7 @@ public:
 		float& ny);
 
 	D3DXVECTOR2 GetVelocity();
+	float GetGravity();
 	float GetAcceleration();
 	D3DXVECTOR2 GetDragForce();
 	D3DXVECTOR2 GetNormal();

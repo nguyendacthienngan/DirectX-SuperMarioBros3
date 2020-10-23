@@ -88,6 +88,18 @@
     <Filter Include="Framework\Game\Scene\Map\TileMap">
       <UniqueIdentifier>{d9af06e8-a2c4-4db4-a48f-efc3c2b0e1ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Game\StateMachine">
+      <UniqueIdentifier>{4d1ab083-fdb4-4c9a-9d9e-9f055f6780cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Mario\MarioStates\BaseMario">
+      <UniqueIdentifier>{a542e354-c503-42ec-be57-fd1092fa58cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Mario\MarioController">
+      <UniqueIdentifier>{13e89d4f-d62c-416d-8af0-72e94bc1f130}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Mario\Const">
+      <UniqueIdentifier>{fcd058dc-f7bb-402f-bf69-d3d61167bbd7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -146,9 +158,6 @@
     </ClInclude>
     <ClInclude Include="tinyxml.h">
       <Filter>Framework\Ultis\TinyXML</Filter>
-    </ClInclude>
-    <ClInclude Include="MarioConst.h">
-      <Filter>Game\GameObject\Mario</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Framework\Ultis</Filter>
@@ -264,15 +273,6 @@
     <ClInclude Include="GameObjectTags.h">
       <Filter>Framework\Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="MarioController.h">
-      <Filter>Game\GameObject\Mario</Filter>
-    </ClInclude>
-    <ClInclude Include="Mario.h">
-      <Filter>Game\GameObject\Mario\MarioStates</Filter>
-    </ClInclude>
-    <ClInclude Include="MarioStateSet.h">
-      <Filter>Game\GameObject\Mario\MarioStates</Filter>
-    </ClInclude>
     <ClInclude Include="TileMap.h">
       <Filter>Framework\Game\Scene\Map\TileMap</Filter>
     </ClInclude>
@@ -287,6 +287,39 @@
     </ClInclude>
     <ClInclude Include="Effector.h">
       <Filter>Framework\Game\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>Framework\Game\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioStateSet.h">
+      <Filter>Game\GameObject\Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="FireMario.h">
+      <Filter>Game\GameObject\Mario\MarioStates</Filter>
+    </ClInclude>
+    <ClInclude Include="RacoonMario.h">
+      <Filter>Game\GameObject\Mario\MarioStates</Filter>
+    </ClInclude>
+    <ClInclude Include="SmallMario.h">
+      <Filter>Game\GameObject\Mario\MarioStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Game\GameObject\Mario\MarioStates\BaseMario</Filter>
+    </ClInclude>
+    <ClInclude Include="IState.h">
+      <Filter>Framework\Game\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioController.h">
+      <Filter>Game\GameObject\Mario\MarioController</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioConst.h">
+      <Filter>Game\GameObject\Mario\Const</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioControllerConst.h">
+      <Filter>Game\GameObject\Mario\Const</Filter>
+    </ClInclude>
+    <ClInclude Include="SuperMario.h">
+      <Filter>Game\GameObject\Mario\MarioStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -425,12 +458,6 @@
     <ClCompile Include="SolidBox.cpp">
       <Filter>Game\GameObject\CollisionBox</Filter>
     </ClCompile>
-    <ClCompile Include="MarioController.cpp">
-      <Filter>Game\GameObject\Mario</Filter>
-    </ClCompile>
-    <ClCompile Include="Mario.cpp">
-      <Filter>Game\GameObject\Mario\MarioStates</Filter>
-    </ClCompile>
     <ClCompile Include="TileMap.cpp">
       <Filter>Framework\Game\Scene\Map\TileMap</Filter>
     </ClCompile>
@@ -442,6 +469,30 @@
     </ClCompile>
     <ClCompile Include="GhostPlatform.cpp">
       <Filter>Game\GameObject\CollisionBox</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMachine.cpp">
+      <Filter>Framework\Game\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="SmallMario.cpp">
+      <Filter>Game\GameObject\Mario\MarioStates</Filter>
+    </ClCompile>
+    <ClCompile Include="FireMario.cpp">
+      <Filter>Game\GameObject\Mario\MarioStates</Filter>
+    </ClCompile>
+    <ClCompile Include="RacoonMario.cpp">
+      <Filter>Game\GameObject\Mario\MarioStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>Game\GameObject\Mario\MarioStates\BaseMario</Filter>
+    </ClCompile>
+    <ClCompile Include="IState.cpp">
+      <Filter>Framework\Game\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioController.cpp">
+      <Filter>Game\GameObject\Mario\MarioController</Filter>
+    </ClCompile>
+    <ClCompile Include="SuperMario.cpp">
+      <Filter>Game\GameObject\Mario\MarioStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

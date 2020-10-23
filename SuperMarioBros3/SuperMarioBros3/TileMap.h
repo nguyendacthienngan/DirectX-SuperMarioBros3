@@ -28,7 +28,7 @@ public:
 
 	void Render(CCamera* camera);
 
-	static CTileMap* FromTMX(std::string filePath, std::vector<LPGameObject>& listGameObjects);
+	static CTileMap* LoadMap(std::string filePath, std::vector<LPGameObject>& listGameObjects);
 
 	~CTileMap();
 };
