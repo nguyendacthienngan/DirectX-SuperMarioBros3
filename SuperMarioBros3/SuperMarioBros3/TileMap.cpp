@@ -146,7 +146,7 @@ CTileMap* CTileMap::FromTMX(std::string filePath, std::vector<LPGameObject>& lis
 				if (name.compare("Solid") == 0)
 				{
 					if (heightObjectOne != 0)
-						position.y -= (heightObjectOne + 13);
+						position.y -= (heightObjectOne + 13); // bị lệch trục y (Không biết tại sao)
 
 					CSolidBox* solid = new CSolidBox();
 					solid->SetPosition(position);
@@ -160,7 +160,12 @@ CTileMap* CTileMap::FromTMX(std::string filePath, std::vector<LPGameObject>& lis
 				}
 				else if (name.compare("Ghost") == 0)
 				{
-
+					CGhostPlatform* ghostPlatform = new CGhostPlatform();
+					ghostPlatform->SetPosition(position);
+					ghostPlatform->GetCollisionBox()->at(0)->SetSizeBox(size);
+					ghostPlatform->GetCollisionBox()->at(0)->SetId(id);
+					ghostPlatform->GetCollisionBox()->at(0)->SetName(nameObject);
+					listGameObjects.push_back(ghostPlatform);
 				}
 			}
 		}
@@ -168,7 +173,7 @@ CTileMap* CTileMap::FromTMX(std::string filePath, std::vector<LPGameObject>& lis
 			DebugOut(L"[ERROR] Cannot load game objects \n");
 		return gameMap;
 	}
-	DebugOut(L"[ERROR] Cannnot load file map");
+	DebugOut(L"[ERROR] Cannnot load file map \n");
 	return nullptr;
 }
 
