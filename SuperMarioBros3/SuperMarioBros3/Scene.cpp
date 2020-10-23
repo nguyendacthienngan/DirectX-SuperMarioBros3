@@ -63,8 +63,11 @@ void CScene::Load()
 			//player->SetPosition(startPosition);
 			player->GetCurrentStateObject()->SetPosition(startPosition);
 			AddObject(player);
-			
-			/*player->SetPosition(startPosition);
+
+			/*D3DXVECTOR2 startPosition;
+			scene->QueryFloatAttribute("pos_x", &startPosition.x);
+			scene->QueryFloatAttribute("pos_y", &startPosition.y);
+			player->SetPosition(startPosition);
 			AddObject(player);*/
 		}
 		else if (name.compare("Camera") == 0)
@@ -98,7 +101,7 @@ void CScene::Load()
 			}
 			if (player != NULL)
 			{
-				camera->SetGameObject(player);
+				camera->SetGameObject(player->GetCurrentStateObject());
 			}
 			
 		}

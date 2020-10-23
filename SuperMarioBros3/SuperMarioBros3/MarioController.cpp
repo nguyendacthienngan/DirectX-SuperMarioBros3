@@ -88,7 +88,7 @@ void CMarioController::SwitchToState(std::string state)
 {
 	// Đổi trạng thái (STATE)
 	//if (state.compare("") != 0)
-		SwitchState(listMarioStates.at(state));
+		SwitchState(listMarioStates.at(state)); // Bị lỗi
 
 	// Nếu object đó đã được khởi tạo trc đó thì mình lấy lại vị trí trc đó đã lưu
 	if (currentStateObject != NULL)
@@ -120,10 +120,10 @@ void CMarioController::OnKeyDown(int KeyCode)
 	{
 		SwitchToState(SUPER_MARIO_STATE);
 	}
-	else if (KeyCode == DIK_3)
+	/*else if (KeyCode == DIK_3)
 	{
 		SwitchToState(RACOON_MARIO_STATE);
-	}
+	}*/
 	else if (KeyCode == DIK_4)
 	{
 		SwitchToState(FIRE_MARIO_STATE);
