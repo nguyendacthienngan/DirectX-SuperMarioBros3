@@ -19,16 +19,25 @@ CMario::CMario()
 	Init();
 	LoadAnimation();
 
+	currentPhysicsState =
+	{
+		MoveOnGroundStates::Idle,
+		JumpOnAirStates::Stand
+	};
+	targetVelocity.x = 0.0f;
+	targetVelocity.y = 0.0f;
+
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 	tag = GameObjectTags::Player;
 	isEnabled = true;
-	isOnGround = false; // ?
+	isOnGround = false; 
 	this->physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 	this->physiscBody->SetDynamic(true); // có chuyển động
 	this->physiscBody->SetGravity(MARIO_GRAVITY);
 	canHighJump = false;
 	isSkid = false;
 	previousNormal = physiscBody->GetNormal();
+	canCrouch = true;
 }
 
 void CMario::Init()
@@ -39,7 +48,7 @@ void CMario::Init()
 	collisionBox->SetSizeBox(SUPER_MARIO_BBOX); // Big
 	//collisionBox->SetSizeBox(BIG_MARIO_BBOX); // Big
 	//collisionBox->SetSizeBox(D3DXVECTOR2(14 * 3, 27 * 3)); // Big
-	collisionBox->SetPosition(D3DXVECTOR2(0.0f, 0.0f)); // ??? Local Position?
+	collisionBox->SetPosition(D3DXVECTOR2(0.0f, 0.0f)); // Local Position
 
 	//collisionBox->SetSizeBox(D3DXVECTOR2(12 * 3, 15 * 3)); // Small
 	collisionBox->SetGameObjectAttach(this);
@@ -47,13 +56,6 @@ void CMario::Init()
 	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
 	this->collisionBoxs->push_back(collisionBox);
 
-	currentPhysicsState =
-	{
-		MoveOnGroundStates::Idle,
-		JumpOnAirStates::Stand
-	};
-	targetVelocity.x = 0.0f;
-	targetVelocity.y = 0.0f;
 }
 
 void CMario::LoadAnimation()
@@ -68,16 +70,12 @@ void CMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_SKID, animationManager->Get("ani-big-mario-skid"));
 	AddAnimation(MARIO_STATE_FALL, animationManager->Get("ani-big-mario-fall"));
 
-	/*AddAnimation(MARIO_STATE_IDLE, animationManager->Get("ani-small-mario-idle"));
-	AddAnimation(MARIO_STATE_WALKING, animationManager->Get("ani-small-mario-walk"));
-	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-small-mario-run"));
-	AddAnimation(MARIO_STATE_JUMP, animationManager->Get("ani-small-mario-jump"));*/
 }
 
 void CMario::Update(DWORD dt, CCamera* cam)
 {
-	//CGameObject::Update(dt, cam);
-	//DebugOut(L"[INFO] Mario Updating.. \n");
+	CGameObject::Update(dt, cam);
+	DebugOut(L"[INFO] Mario Updating.. \n");
 	auto keyboard = CKeyboardManager::GetInstance();
 	auto velocity = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
@@ -135,7 +133,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 			physiscBody->SetNormal(normal);
 			targetVelocity.x = -1 * constSpeed;
 		}
-
 		// Do ta chỉ cho phép chạy tới 1 khoảng nhất định rồi dừng lại. 
 		// Thì việc dừng lại ta sẽ phụ thuộc vào vận tốc
 		// Nếu vận tốc tới 1 mức target thì t cho mario dừng lại
@@ -279,12 +276,14 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 	SetScale(D3DXVECTOR2(normal.x, 1.0f));
 
-	CrouchProcess(keyboard);
+	if (canCrouch == true) // Small Mario k thể crouch
+		CrouchProcess(keyboard);
 	
 }
 
 void CMario::Render(CCamera* cam)
 {
+	DebugOut(L"[INFO] Render Mario \n");
 #pragma region Update State
 
 #pragma region Move On Ground

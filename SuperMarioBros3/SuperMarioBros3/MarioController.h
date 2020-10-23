@@ -20,5 +20,9 @@ public:
 	void AddStateObjectsToScene(LPScene scene);
 	void SwitchToState(std::string state);
 	void OnKeyDown(int KeyCode) override;
+	
+	void SetCurrentStateObject(LPGameObject gO);
+	LPGameObject GetCurrentStateObject();
+	~CMarioController();
 };
 

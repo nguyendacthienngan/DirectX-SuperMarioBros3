@@ -16,6 +16,8 @@ CMarioController::CMarioController()
 {
 	Init();
 	currentStateObject = NULL;
+	SwitchToState(SUPER_MARIO_STATE);
+	currentStateObject->Enable(true);
 }
 void CMarioController::Init()
 {
@@ -26,24 +28,26 @@ void CMarioController::Init()
 	// SMALL MARIO
 	marioStateObject = new CSmallMario();
 	listMarioStates.insert(make_pair(SMALL_MARIO_STATE, marioStateObject));
+	listStateObjects.insert(make_pair(SMALL_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
 	
 	// SUPER MARIO
 	marioStateObject = new CSuperMario();
 	listMarioStates.insert(make_pair(SUPER_MARIO_STATE, marioStateObject));
+	listStateObjects.insert(make_pair(SUPER_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
 
 	// RACOON MARIO
-	marioStateObject = new CRacoonMario();
+	/*marioStateObject = new CRacoonMario();
 	listMarioStates.insert(make_pair(RACOON_MARIO_STATE, marioStateObject));
-	marioStateObject->Enable(false);
+	listStateObjects.insert(make_pair(RACOON_MARIO_STATE, marioStateObject));
+	marioStateObject->Enable(false);*/
 
 	// FIRE MARIO
 	marioStateObject = new CFireMario();
 	listMarioStates.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
+	listStateObjects.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
-
-	SwitchToState(SUPER_MARIO_STATE);
 }
 
 void CMarioController::Update()
@@ -83,7 +87,7 @@ void CMarioController::AddStateObjectsToScene(LPScene scene)
 void CMarioController::SwitchToState(std::string state)
 {
 	// Đổi trạng thái (STATE)
-	if (state.compare("") != 0)
+	//if (state.compare("") != 0)
 		SwitchState(listMarioStates.at(state));
 
 	// Nếu object đó đã được khởi tạo trc đó thì mình lấy lại vị trí trc đó đã lưu
@@ -102,7 +106,8 @@ void CMarioController::SwitchToState(std::string state)
 	}
 
 	// Gán object (OBJECT)
-	currentStateObject = listStateObjects.at(state);
+	if (listStateObjects.size() != 0)
+		currentStateObject = listStateObjects.at(state);
 }
 
 void CMarioController::OnKeyDown(int KeyCode)
@@ -123,4 +128,19 @@ void CMarioController::OnKeyDown(int KeyCode)
 	{
 		SwitchToState(FIRE_MARIO_STATE);
 	}
+}
+
+void CMarioController::SetCurrentStateObject(LPGameObject gO)
+{
+	this->currentStateObject = gO;
+}
+
+LPGameObject CMarioController::GetCurrentStateObject()
+{
+	return currentStateObject;
+}
+
+CMarioController::~CMarioController()
+{
+	
 }

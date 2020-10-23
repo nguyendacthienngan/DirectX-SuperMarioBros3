@@ -3,6 +3,7 @@
 #include "tinyxml.h"
 #include "Mario.h"
 #include "Game.h"
+#include "MarioController.h"
 #include <string>
 using namespace std;
 
@@ -25,7 +26,8 @@ void CScene::Load()
 		return;
 	}
 	TiXmlElement* root = sceneFile.RootElement();
-	CMario* player = new CMario();
+	//CMario* player = new CMario();
+	CMarioController* player = NULL;
 	for (TiXmlElement* scene = root->FirstChildElement(); scene != NULL; scene = scene->NextSiblingElement())
 	{
 		string name = scene->Attribute("name");
@@ -55,8 +57,15 @@ void CScene::Load()
 			D3DXVECTOR2 startPosition;
 			scene->QueryFloatAttribute("pos_x", &startPosition.x);
 			scene->QueryFloatAttribute("pos_y", &startPosition.y);
-			player->SetPosition(startPosition);
+
+			player = new CMarioController();
+			player->AddStateObjectsToScene(this);
+			//player->SetPosition(startPosition);
+			player->GetCurrentStateObject()->SetPosition(startPosition);
 			AddObject(player);
+			
+			/*player->SetPosition(startPosition);
+			AddObject(player);*/
 		}
 		else if (name.compare("Camera") == 0)
 		{
