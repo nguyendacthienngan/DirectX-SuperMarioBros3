@@ -19,6 +19,7 @@ private:
 	bool canLowJumpContinous;
 	bool isHighJump, canHighJump; 
 	bool isSkid;
+	D3DXVECTOR2 previousNormal;
 public:
 	CMario();
 	void Init();
