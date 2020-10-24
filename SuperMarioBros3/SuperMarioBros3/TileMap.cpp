@@ -158,7 +158,8 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::vector<LPGameObject>& lis
 				if (name.compare("Solid") == 0)
 				{
 					if (heightObjectOne != 0)
-						position.y -= (heightObjectOne + 13); // bị lệch trục y (Không biết tại sao)
+						position.y -= 9; // bị lệch trục y (Không biết tại sao)
+					//position.y -= (heightObjectOne + 13); // bị lệch trục y (Không biết tại sao)
 
 					CSolidBox* solid = new CSolidBox();
 					solid->SetPosition(position);

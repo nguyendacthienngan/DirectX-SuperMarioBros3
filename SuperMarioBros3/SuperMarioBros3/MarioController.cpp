@@ -18,8 +18,9 @@ CMarioController::CMarioController()
 {
 	Init();
 	currentStateObject = NULL;
-	SwitchToState(SMALL_MARIO_STATE);
+	//SwitchToState(SMALL_MARIO_STATE);
 	//SwitchToState(SUPER_MARIO_STATE);
+	SwitchToState(FIRE_MARIO_STATE);
 	//currentStateObject->Enable(true);
 }
 void CMarioController::Init()
@@ -35,10 +36,10 @@ void CMarioController::Init()
 	marioStateObject->Enable(false);
 	
 	// SUPER MARIO
-	/*marioStateObject = new CSuperMario();
+	marioStateObject = new CSuperMario();
 	listMarioStates.insert(make_pair(SUPER_MARIO_STATE, marioStateObject));
 	listStateObjects.insert(make_pair(SUPER_MARIO_STATE, marioStateObject));
-	marioStateObject->Enable(false);*/
+	marioStateObject->Enable(false);
 
 	// RACOON MARIO
 	/*marioStateObject = new CRacoonMario();
@@ -47,10 +48,10 @@ void CMarioController::Init()
 	marioStateObject->Enable(false);*/
 
 	// FIRE MARIO
-	/*marioStateObject = new CFireMario();
+	marioStateObject = new CFireMario();
 	listMarioStates.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
 	listStateObjects.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
-	marioStateObject->Enable(false);*/
+	marioStateObject->Enable(false);
 }
 
 void CMarioController::Update()

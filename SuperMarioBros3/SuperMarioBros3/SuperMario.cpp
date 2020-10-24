@@ -6,12 +6,12 @@ CSuperMario::CSuperMario()
 {
 	CSuperMario::LoadAnimation();
 	CSuperMario::Init();
+	CMario::InitProperties();
 }
 void CSuperMario::Init()
 {
 	
 	this->SetState(MARIO_STATE_IDLE); // Để tên đồng nhất với animation
-
 
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(SUPER_MARIO_BBOX); // Big
@@ -23,8 +23,10 @@ void CSuperMario::Init()
 	collisionBox->SetGameObjectAttach(this);
 	collisionBox->SetName("Mario");
 	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
-	this->collisionBoxs->push_back(collisionBox);
-	
+	CSuperMario::collisionBoxs->push_back(collisionBox);
+	//auto id = CSuperMario::collisionBoxs->at(0)->GetID();
+	//DebugOut(L"Init Super Mario . Collision Box id : \n", id);
+
 }
 void CSuperMario::LoadAnimation()
 {
