@@ -1,4 +1,5 @@
 #include "StateMachine.h"
+#include "Ultis.h"
 
 void CStateMachine::SwitchState(IState* state)
 {
@@ -11,6 +12,7 @@ void CStateMachine::SwitchState(IState* state)
 
 void CStateMachine::Update()
 {
+
 	if (currentState != nullptr)
 		currentState->Update();
 }

@@ -18,32 +18,16 @@ CMario::CMario()
 {
 	Init();
 	LoadAnimation();
-
-	currentPhysicsState =
-	{
-		MoveOnGroundStates::Idle,
-		JumpOnAirStates::Stand
-	};
-	targetVelocity.x = 0.0f;
-	targetVelocity.y = 0.0f;
-
-	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
-	tag = GameObjectTags::Player;
-	isEnabled = true;
-	isOnGround = false; 
-	this->physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
-	this->physiscBody->SetDynamic(true); // có chuyển động
-	this->physiscBody->SetGravity(MARIO_GRAVITY);
-	canHighJump = false;
-	isSkid = false;
-	previousNormal = physiscBody->GetNormal();
-	canCrouch = true;
+	InitProperties();
+	DebugOut(L"Init Mario \n");
 }
 
 void CMario::Init()
 {
+	/*
 	this->SetState(MARIO_STATE_IDLE); // Để tên đồng nhất với animation
 
+	
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(SUPER_MARIO_BBOX); // Big
 	//collisionBox->SetSizeBox(BIG_MARIO_BBOX); // Big
@@ -55,12 +39,36 @@ void CMario::Init()
 	collisionBox->SetName("Mario");
 	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
 	this->collisionBoxs->push_back(collisionBox);
+	*/
 
+}
+
+void CMario::InitProperties()
+{
+	currentPhysicsState =
+	{
+		MoveOnGroundStates::Idle,
+		JumpOnAirStates::Stand
+	};
+	targetVelocity.x = 0.0f;
+	targetVelocity.y = 0.0f;
+
+	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
+	tag = GameObjectTags::Player;
+	isEnabled = true;
+	isOnGround = false;
+	this->physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
+	this->physiscBody->SetDynamic(true); // có chuyển động
+	this->physiscBody->SetGravity(MARIO_GRAVITY);
+	canHighJump = false;
+	isSkid = false;
+	previousNormal = physiscBody->GetNormal();
+	canCrouch = true;
 }
 
 void CMario::LoadAnimation()
 {
-	auto animationManager = CAnimationManager::GetInstance();
+	/*auto animationManager = CAnimationManager::GetInstance();
 	AddAnimation(MARIO_STATE_IDLE, animationManager->Get("ani-big-mario-idle"));
 	AddAnimation(MARIO_STATE_WALKING, animationManager->Get("ani-big-mario-walk"));
 	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-big-mario-run"));
@@ -68,7 +76,13 @@ void CMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_JUMP, animationManager->Get("ani-big-mario-jump"));
 	AddAnimation(MARIO_STATE_CROUCH, animationManager->Get("ani-big-mario-crouch"));
 	AddAnimation(MARIO_STATE_SKID, animationManager->Get("ani-big-mario-skid"));
-	AddAnimation(MARIO_STATE_FALL, animationManager->Get("ani-big-mario-fall"));
+	AddAnimation(MARIO_STATE_FALL, animationManager->Get("ani-big-mario-fall"));*/
+
+	/*auto animationManager = CAnimationManager::GetInstance();
+	AddAnimation(MARIO_STATE_IDLE, animationManager->Get("ani-small-mario-idle"));
+	AddAnimation(MARIO_STATE_WALKING, animationManager->Get("ani-small-mario-walk"));
+	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-small-mario-run"));
+	AddAnimation(MARIO_STATE_JUMP, animationManager->Get("ani-small-mario-jump"));*/
 
 }
 
@@ -85,6 +99,10 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	previousNormal = physiscBody->GetNormal();
 	physiscBody->SetDragForce(D3DXVECTOR2(MARIO_WALKING_DRAG_FORCE, 0.0f));
 	D3DXVECTOR2 drag = physiscBody->GetDragForce();
+
+	DebugOut(L"Velocity Mario while update %f, %f \n", velocity.x, velocity.y);
+
+
 #pragma region KeyState
 
 	// Horizontal Movement: Walk, Run, Idle
@@ -529,6 +547,7 @@ void CMario::OnKeyUp(int KeyCode)
 
 void CMario::Access()
 {
+	this->isEnabled = true;
 }
 
 void CMario::Update()
@@ -537,6 +556,7 @@ void CMario::Update()
 
 void CMario::Exit()
 {
+	this->isEnabled = false;
 }
 
 CMario::~CMario()
