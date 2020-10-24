@@ -298,6 +298,8 @@ void CPhysicsBody::CalcPotentialCollisions(
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
+		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
+			continue;
 		if (coObjects->at(i) == cO)
 			continue;
 

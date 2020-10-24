@@ -16,23 +16,16 @@ using namespace std;
 
 CMario::CMario()
 {
-	Init();
 	LoadAnimation();
 	InitProperties();
-	DebugOut(L"Init Mario \n");
-	//canCrouch = true;
-
 }
 
 void CMario::Init()
 {
-	/*
 	this->SetState(MARIO_STATE_IDLE); // Để tên đồng nhất với animation
 
-	
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(SUPER_MARIO_BBOX); // Big
-	//collisionBox->SetSizeBox(BIG_MARIO_BBOX); // Big
 	//collisionBox->SetSizeBox(D3DXVECTOR2(14 * 3, 27 * 3)); // Big
 	collisionBox->SetPosition(D3DXVECTOR2(0.0f, 0.0f)); // Local Position
 
@@ -41,7 +34,7 @@ void CMario::Init()
 	collisionBox->SetName("Mario");
 	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
 	this->collisionBoxs->push_back(collisionBox);
-	*/
+	
 
 }
 
@@ -90,7 +83,6 @@ void CMario::LoadAnimation()
 void CMario::Update(DWORD dt, CCamera* cam)
 {
 	CGameObject::Update(dt, cam);
-	DebugOut(L"[INFO] Mario Updating.. \n");
 	auto keyboard = CKeyboardManager::GetInstance();
 	auto velocity = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
@@ -100,9 +92,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	previousNormal = physiscBody->GetNormal();
 	physiscBody->SetDragForce(D3DXVECTOR2(MARIO_WALKING_DRAG_FORCE, 0.0f));
 	D3DXVECTOR2 drag = physiscBody->GetDragForce();
-
-	DebugOut(L"Velocity Mario while update %f, %f \n", velocity.x, velocity.y);
-
 
 #pragma region KeyState
 
@@ -171,13 +160,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 				velocity.x -= physiscBody->GetAcceleration()*dt;
 		}
 
-		// HIGHSPEED LÀM SAU
-		/*isHighSpeed = (velocity.x > MARIO_RUNNING_SPEED * 0.9);
-		if (isHighSpeed == true && currentPhysicsState.move == MoveOnGroundStates::Run)
-			currentPhysicsState.move = MoveOnGroundStates::HighSpeed;*/
-		/*DebugOut(L"Current speed %f \n", velocity.x);
-		DebugOut(L"Target speed: %f \n", targetVelocity.x);*/
-
 #pragma endregion
 		physiscBody->SetNormal(normal);
 		physiscBody->SetVelocity(velocity);
@@ -189,7 +171,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	else
 	{
 #pragma region STATE IDLE
-		//DebugOut(L"Stop \n");
 		// Dừng mario
 		// lực kéo sẽ giảm vận tốc lại để cho vận tốc mario đi về 0
 		// khi vx < lực kéo rồi thì set vx = 0 luôn r cho nó đứng lại để tránh sai số
@@ -234,7 +215,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	{
 		if (velocity.y > 0) // Hướng xuống 
 		{
-			//canLowJumpContinous = false;
 			currentPhysicsState.jump = JumpOnAirStates::Fall;
 		}
 		else
@@ -242,31 +222,23 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	}
 	if (currentPhysicsState.jump == JumpOnAirStates::Jump && canLowJumpContinous == false)
 	{
-		//DebugOut(L"High Jump \n");
 		auto jumpForce = MARIO_JUMP_FORCE;
 		isHighJump = false;
-		// Nhảy liên tục: Chỉ cần cung cấp dy < 0 và có gravity thì ta tạo cảm giác nó nhảy liên tục chuyển động đều
 
+		// Nhảy liên tục: Chỉ cần cung cấp dy < 0 và có gravity thì ta tạo cảm giác nó nhảy liên tục chuyển động đều
 		if (keyboard->GetKeyStateDown(DIK_S) && canHighJump == true &&
 			(velocity.y >= -MARIO_HIGH_JUMP_FORCE && velocity.y <= MARIO_JUMP_FORCE * (-0.5)))
 		{
-			//DebugOut(L"High Jump (1) \n");
-
 			jumpForce = MARIO_HIGH_JUMP_FORCE;
 			isHighJump = true;
 		}
 		if (velocity.y > -jumpForce && velocity.y < 0 && isHighJump == true) //  isHighJump hay canJump : đang hướng về target
 		{
-			// đang high jump (hướng đi lên) 
-			//DebugOut(L"High Jump (2) \n");
-
 			physiscBody->SetGravity(0.0f);
 			velocity.y -= MARIO_PUSH_FORCE;
 		}
 		else
 		{
-			//DebugOut(L"High Jump (3)\n");
-
 			// Đạt max high jump
 			velocity.y = -1 * jumpForce; // tránh sai số
 			physiscBody->SetGravity(MARIO_GRAVITY);
@@ -302,7 +274,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 void CMario::Render(CCamera* cam)
 {
-	DebugOut(L"[INFO] Render Mario \n");
 #pragma region Update State
 
 #pragma region Move On Ground
@@ -326,7 +297,6 @@ void CMario::Render(CCamera* cam)
 	}
 	case MoveOnGroundStates::Skid:
 	{
-	//	DebugOut(L"Skid State \n");
 		auto normal = physiscBody->GetNormal();
 		SetScale(D3DXVECTOR2(-normal.x, 1.0f));
 		SetState(MARIO_STATE_SKID);
@@ -340,6 +310,11 @@ void CMario::Render(CCamera* cam)
 	case MoveOnGroundStates::HighSpeed:
 	{
 		SetState(MARIO_STATE_HIGH_SPEED);
+		break;
+	}
+	case MoveOnGroundStates::Spin:
+	{
+		SetState(MARIO_STATE_SPIN);
 		break;
 	}
 	}
@@ -388,14 +363,13 @@ void CMario::Render(CCamera* cam)
 	CGameObject::Render(cam);
 }
 
-void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents) // ??
+void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
 {
 	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
 		{
-			// ny < 0 (hướng lên trên), nx < 0.000001f ?
 			if (collisionEvent->ny < 0 && isOnGround == false)
 			{
 				isOnGround = true;
@@ -405,7 +379,7 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 			if (collisionEvent->nx != 0) // vừa ấn nhảy vừa ấn qua trái phải
 			{
 				auto v = physiscBody->GetVelocity();
-				physiscBody->SetVelocity(D3DXVECTOR2(0, v.y)); // ?
+				physiscBody->SetVelocity(D3DXVECTOR2(0, v.y));
 			}
 		}
 	}
@@ -427,33 +401,22 @@ void CMario::CrouchProcess(CKeyboardManager* keyboard)
 	if (keyboard->GetKeyStateDown(DIK_LEFT) || keyboard->GetKeyStateDown(DIK_RIGHT)) // thiếu xét trường hợp nhảy ******
 	{
 		// KHÔNG HỤP
-		//if (currentPhysicsState.move != MoveOnGroundStates::Idle)
-			changeAniState = true;
+		changeAniState = true;
 	}
-	//if (currentPhysicsState.jump != JumpOnAirStates::Stand)
-	//	changeAniState = false;
 	if ((changeAniState == false && keyboard->GetKeyStateDown(DIK_DOWN))
 		|| currentPhysicsState.jump == JumpOnAirStates::Jump)
 	{
 		// HỤP
-		
 		collisionBoxs->at(0)->SetSizeBox(SUPER_MARIO_CROUCH_BBOX);
 		float transformY = SUPER_MARIO_BBOX.y - SUPER_MARIO_CROUCH_BBOX.y;
-		//transform = -transform;
-		//transform.x *= 0.5f;
-		//transform *= 0.5f;
 		collisionBoxs->at(0)->SetPosition(D3DXVECTOR2(0.0f, transformY));
-
 		currentPhysicsState.move = MoveOnGroundStates::Crouch;
-
 	}
 	else
 	{
 		// KHÔNG HỤP
 		collisionBoxs->at(0)->SetSizeBox(SUPER_MARIO_BBOX);
-
 		collisionBoxs->at(0)->SetPosition(D3DXVECTOR2(0.0f, 0.0f));
-
 	}
 }
 
@@ -464,13 +427,6 @@ void CMario::SkidProcess(D3DXVECTOR2 velocity)
 	// Sẽ detect nhầm qua skid
 	// Do đó ta phải đảm bảo tốc độ nằm ngoài khoảng nhầm lẫn đó thì skid mới xảy ra
 	
-	/*bool skidMovementConstraint = false;
-	if (currentPhysicsState.move == MoveOnGroundStates::Walk &&
-		(abs(velocity.x) < MARIO_WALKING_SPEED && abs(velocity.x) > MARIO_RUNNING_SPEED))
-		skidMovementConstraint = true;
-	else if (currentPhysicsState.move == MoveOnGroundStates::Run)
-		skidMovementConstraint = true;*/
-
 	bool skidMovementConstraint =
 		(currentPhysicsState.move == MoveOnGroundStates::Walk &&
 			(abs(velocity.x) < MARIO_WALKING_SPEED && abs(velocity.x) > MARIO_RUNNING_SPEED))
@@ -481,39 +437,25 @@ void CMario::SkidProcess(D3DXVECTOR2 velocity)
 		|| previousVelocity.x > velocity.x && normal.x == 1
 		));
 
-	/*bool skidFacingConstraint = false;
-	if (previousVelocity.x < velocity.x && normal.x == -1)
-		skidFacingConstraint = true;
-	else if (previousVelocity.x > velocity.x && normal.x == 1)
-		skidFacingConstraint = true;*/
 	if (isSkid == false && skidFacingConstraint == true && skidMovementConstraint == true)
 	{
-		DebugOut(L"Skid Detected\n");
-
 		isSkid = true;
 		currentPhysicsState.move = MoveOnGroundStates::Skid;
 	}
 	else if (Sign(velocity.x) != Sign(previousVelocity.x) || normal.x != previousNormal.x)
 		isSkid = false; // Sau khi lật xong phía bên kia thì dừng skid !!!!!!!
-	if (isSkid == true)
-		DebugOut(L"Skid Detected\n");
 }
 
 void CMario::KeyState()
 {
-
 
 }
 
 void CMario::OnKeyDown(int KeyCode)
 {
 	// EVENT
-	DebugOut(L"On Key Down \n");
-	DebugOut(L"On ground: %d \n", isOnGround);
 	if ((KeyCode == DIK_S || KeyCode == DIK_X) && isOnGround == true)
 	{
-		DebugOut(L"JUMP \n");
-
 		// JUMP
 		physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -MARIO_JUMP_SPEED_Y)); // Vẫn còn bị trọng lực kéo mạnh quá
 		isOnGround = false;
@@ -530,17 +472,19 @@ void CMario::OnKeyDown(int KeyCode)
 				currentPhysicsState.jump = JumpOnAirStates::LowJump;
 		}
 		if (currentPhysicsState.jump == JumpOnAirStates::Stand && KeyCode == DIK_S)
-		//	if (currentPhysicsState.jump == JumpOnAirStates::Stand)
 			currentPhysicsState.jump = JumpOnAirStates::Jump;
 	}
-
+	if (KeyCode == DIK_Z)
+	{
+		currentPhysicsState.move = MoveOnGroundStates::Spin;
+	}
 }
 
 void CMario::OnKeyUp(int KeyCode)
 {
 	if (KeyCode == DIK_S)
 	{
-		canHighJump = false; // thả nút ra là cho nó ngừng nhảy cao lièn
+		canHighJump = false;
 	}
 	if (KeyCode == DIK_RIGHT)
 	{
@@ -552,20 +496,31 @@ void CMario::OnKeyUp(int KeyCode)
 		currentPhysicsState.move = MoveOnGroundStates::Idle;
 
 	}
+	/*if (KeyCode == DIK_Z || currentPhysicsState.move == MoveOnGroundStates::Spin)
+	{
+		currentPhysicsState.move = MoveOnGroundStates::Idle;
+
+	}*/
 }
 
 void CMario::Access()
 {
 	this->isEnabled = true;
+	//this->collisionBoxs->at(0)->GetGameObjectAttach()->Enable(true);
+	//DebugOut(L"Access: Collision box enable: %d \n", this->collisionBoxs->at(0)->GetGameObjectAttach()->IsEnabled());
+
 }
 
 void CMario::Update()
 {
+
 }
 
 void CMario::Exit()
 {
 	this->isEnabled = false;
+	//this->collisionBoxs->at(0)->GetGameObjectAttach()->Enable(false); // solid box . Nếu solid box bị disable thì sao? thì không update
+	//DebugOut(L"Exit: Collision box enable: %d \n", this->collisionBoxs->at(0)->GetGameObjectAttach()->IsEnabled());
 }
 
 CMario::~CMario()

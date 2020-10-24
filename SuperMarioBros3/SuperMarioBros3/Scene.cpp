@@ -18,7 +18,6 @@ CScene::CScene()
 
 void CScene::Load()
 {
-	// Đọc file Scenes/world1-1.xml
 	TiXmlDocument sceneFile(filePath.c_str());
 	if (!sceneFile.LoadFile())
 	{
@@ -95,8 +94,6 @@ void CScene::Load()
 
 					camera->SetBoundary(left, right, top, bottom);
 					camera->SetPositionCam(D3DXVECTOR2(pos_x, pos_y));
-					//DebugOut(L"[INFO] Camera position (x,y) : %f, %f", camera->GetPositionCam().x, camera->GetPositionCam().y);
-
 				}
 			}
 			if (player != NULL)
@@ -116,8 +113,6 @@ void CScene::Unload()
 
 void CScene::Update(DWORD dt)
 {
-
-	//DebugOut(L"[INFO] Updating Scene \n");
 	if (gameObjects.size() == 0) return;
 	for (auto obj : gameObjects)
 	{
@@ -156,6 +151,18 @@ void CScene::RemoveObject(LPGameObject gameObject)
 	if (remObj != gameObjects.end())
 	{
 		gameObjects.erase(remObj);
+	}
+}
+
+void CScene::SetObjectPosition(D3DXVECTOR2 distance)
+{
+	for (auto obj : gameObjects)
+	{
+		if (obj->GetTag() == GameObjectTags::Solid)
+		{
+			auto pos = obj->GetCollisionBox()->at(0)->GetPosition();
+			obj->GetCollisionBox()->at(0)->SetPosition(pos + distance);
+		}
 	}
 }
 

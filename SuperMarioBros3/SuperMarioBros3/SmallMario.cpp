@@ -5,16 +5,15 @@
 #include "Ultis.h"
 CSmallMario::CSmallMario()
 {
+	//CMario::Init();
 	CSmallMario::Init();
 	CMario::InitProperties();
 }
 void CSmallMario::Init()
 {
-	SetTag(GameObjectTags::SmallMario);
+	SetTag(GameObjectTags::Player);
 	LoadAnimation();
-	//DebugOut(L"Init Small Mario \n");
 	CCollisionBox* collisionBox = new CCollisionBox(); 
-	//collisionBox->SetSizeBox(SUPER_MARIO_BBOX);
 	collisionBox->SetSizeBox(D3DXVECTOR2(12 * 3, 15 * 3));
 	collisionBox->SetGameObjectAttach(this);
 	collisionBox->SetName("Mario"); // SmallMario

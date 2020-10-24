@@ -19,7 +19,7 @@ class CSpriteManager
 public:
 	CSpriteManager();
 	void Init();
-	void Add(std::string id, RECT rect, LPDIRECT3DTEXTURE9 tex);
+	void Add(std::string id, RECT rect, LPDIRECT3DTEXTURE9 tex, D3DXVECTOR2 pointCenter);
 	bool LoadSprite(std::string filePath);
 	LPSprite Get(std::string id);
 	void Clear();

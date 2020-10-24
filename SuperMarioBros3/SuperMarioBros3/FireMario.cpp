@@ -3,7 +3,8 @@
 #include "MarioConst.h"
 CFireMario::CFireMario()
 {
-	SetTag(GameObjectTags::PowerupMario);
+	CMario::Init();
+	SetTag(GameObjectTags::Player);
 	Init();
 	isThrowingFireBall = false;
 	lastState = currentState;
@@ -14,18 +15,6 @@ void CFireMario::Init()
 {
 	LoadAnimation();
 	this->SetState(MARIO_STATE_IDLE); // Để tên đồng nhất với animation
-
-	CCollisionBox* collisionBox = new CCollisionBox();
-	collisionBox->SetSizeBox(SUPER_MARIO_BBOX); // Big
-	//collisionBox->SetSizeBox(BIG_MARIO_BBOX); // Big
-	//collisionBox->SetSizeBox(D3DXVECTOR2(14 * 3, 27 * 3)); // Big
-	collisionBox->SetPosition(D3DXVECTOR2(0.0f, 0.0f)); // Local Position
-
-	//collisionBox->SetSizeBox(D3DXVECTOR2(12 * 3, 15 * 3)); // Small
-	collisionBox->SetGameObjectAttach(this);
-	collisionBox->SetName("Mario");
-	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
-	collisionBoxs->push_back(collisionBox);
 }
 
 void CFireMario::LoadAnimation()
@@ -66,12 +55,12 @@ void CFireMario::Render(CCamera* cam)
 	
 }
 
-void CFireMario::OnKeyDown(int KeyCode)
-{
-	CMario::OnKeyDown(KeyCode);
-
-	// ATTACK / THROW FIRE BALL
-	if (KeyCode == DIK_A && isThrowingFireBall == false)
-		isThrowingFireBall = true;
-
-}
+//void CFireMario::OnKeyDown(int KeyCode)
+//{
+//	CMario::OnKeyDown(KeyCode);
+//
+//	//// ATTACK / THROW FIRE BALL
+//	//if (KeyCode == DIK_A && isThrowingFireBall == false)
+//	//	isThrowingFireBall = true;
+//
+//}

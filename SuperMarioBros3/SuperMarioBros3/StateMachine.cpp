@@ -4,7 +4,10 @@
 void CStateMachine::SwitchState(IState* state)
 {
 	if (currentState != nullptr)
+	{
 		currentState->Exit();
+		DebugOut(L"Exit \n");
+	}
 
 	this->currentState = state;
 	currentState->Access();

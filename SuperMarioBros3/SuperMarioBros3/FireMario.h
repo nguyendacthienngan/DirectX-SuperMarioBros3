@@ -10,6 +10,6 @@ public:
 	void LoadAnimation() override;
 	void Render(CCamera* cam) override;
 
-	void OnKeyDown(int KeyCode) override;
+	//void OnKeyDown(int KeyCode) override;
 };
 

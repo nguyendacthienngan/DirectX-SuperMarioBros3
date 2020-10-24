@@ -26,7 +26,6 @@ private:
 	Transform transform;
 	D3DXVECTOR2 relativePosition;
 	std::vector<LPAnimationFrame> animFrames;
-
 public: 
 	CAnimation(std::string aniID, DWORD defaultTime = 100);
 	CAnimation(const CAnimation& obj);

@@ -4,6 +4,7 @@
 #include "Ultis.h"
 CSuperMario::CSuperMario()
 {
+	CMario::Init();
 	CSuperMario::LoadAnimation();
 	CSuperMario::Init();
 	CMario::InitProperties();
@@ -14,17 +15,17 @@ void CSuperMario::Init()
 	
 	this->SetState(MARIO_STATE_IDLE); // Để tên đồng nhất với animation
 
-	CCollisionBox* collisionBox = new CCollisionBox();
-	collisionBox->SetSizeBox(SUPER_MARIO_BBOX); // Big
-	//collisionBox->SetSizeBox(BIG_MARIO_BBOX); // Big
-	//collisionBox->SetSizeBox(D3DXVECTOR2(14 * 3, 27 * 3)); // Big
-	collisionBox->SetPosition(D3DXVECTOR2(0.0f, 0.0f)); // Local Position
+	//CCollisionBox* collisionBox = new CCollisionBox();
+	//collisionBox->SetSizeBox(SUPER_MARIO_BBOX); // Big
+	////collisionBox->SetSizeBox(BIG_MARIO_BBOX); // Big
+	////collisionBox->SetSizeBox(D3DXVECTOR2(14 * 3, 27 * 3)); // Big
+	//collisionBox->SetPosition(D3DXVECTOR2(0.0f, 0.0f)); // Local Position
 
-	//collisionBox->SetSizeBox(D3DXVECTOR2(12 * 3, 15 * 3)); // Small
-	collisionBox->SetGameObjectAttach(this);
-	collisionBox->SetName("Mario");
-	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
-	CSuperMario::collisionBoxs->push_back(collisionBox);
+	////collisionBox->SetSizeBox(D3DXVECTOR2(12 * 3, 15 * 3)); // Small
+	//collisionBox->SetGameObjectAttach(this);
+	//collisionBox->SetName("Mario");
+	//collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
+	//CSuperMario::collisionBoxs->push_back(collisionBox);
 	//auto id = CSuperMario::collisionBoxs->at(0)->GetID();
 	//DebugOut(L"Init Super Mario . Collision Box id : \n", id);
 

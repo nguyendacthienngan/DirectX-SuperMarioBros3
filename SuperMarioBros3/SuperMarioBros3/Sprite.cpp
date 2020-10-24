@@ -3,14 +3,17 @@
 
 #include "Ultis.h"
 
-CSprite::CSprite(std::string id, RECT rect, LPDIRECT3DTEXTURE9 tex)
+CSprite::CSprite(std::string id, RECT rect, LPDIRECT3DTEXTURE9 tex, D3DXVECTOR2 pointCen)
 {
 	this->id = id;
 	this->rect = rect;
 	this->texture = tex;
 	this->width = rect.right - rect.left;
 	this->height = rect.top - rect.bottom;
-	this->pointCenter = D3DXVECTOR2(width/2, height/2);
+	if (pointCen == D3DXVECTOR2(0.0f, 0.0f))
+		this->pointCenter = D3DXVECTOR2(width / 2, height / 2);
+	else
+		this->pointCenter = pointCen;
 }
 
 void CSprite::Draw(D3DXVECTOR2 position, D3DXVECTOR2 scale, float rotation, int alpha)

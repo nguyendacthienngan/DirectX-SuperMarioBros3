@@ -207,9 +207,12 @@
 		</Animation>
 		<!-- Animation SPIN-->
 		<Animation aniId="ani-raccoon-mario-spin" frameTime="100" name="SPIN">
-			<Sprite id="spr-raccoon-mario-spin-0" left="174" top="142"  width="16" height="28" frameTime="100"/>
-			<Sprite id="spr-raccoon-mario-spin-1" left="193" top="142"  width="23" height="28" frameTime="100"/>
-			<Sprite id="spr-raccoon-mario-spin-2" left="219" top="142"  width="16" height="28" frameTime="100"/>
+			<Sprite id="spr-raccoon-mario-spin-0" left="80" top="142"  width="21" height="28" frameTime="100" xPivot="14"/>
+			<Sprite id="spr-raccoon-mario-spin-1" left="78" top="107"  width="23" height="28" frameTime="100" xPivot="7"/>
+			<Sprite id="spr-raccoon-mario-spin-2" left="174" top="142"  width="16" height="28" frameTime="100"/>
+			<Sprite id="spr-raccoon-mario-spin-3" left="193" top="142"  width="23" height="28" frameTime="100" xPivot="7"/>
+			<Sprite id="spr-raccoon-mario-spin-4" left="219" top="142"  width="16" height="28" frameTime="100"/>
+			<Sprite id="spr-raccoon-mario-spin-5" left="80" top="142"  width="21" height="28" frameTime="100" xPivot="14"/>
 		</Animation>
 		<!-- Animation CROUCH-->
 		<Animation aniId="ani-raccoon-mario-crouch" frameTime="100" name="CROUCH">
