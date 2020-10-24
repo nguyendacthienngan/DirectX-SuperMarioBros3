@@ -7,6 +7,7 @@ CFireMario::CFireMario()
 	Init();
 	isThrowingFireBall = false;
 	lastState = currentState;
+	canCrouch = true;
 }
 
 void CFireMario::Init()
@@ -55,13 +56,13 @@ void CFireMario::Render(CCamera* cam)
 	CMario::Render(cam);
 
 	// ************ Còn phải check lại
-	if (currentState.compare(MARIO_STATE_ATTACK) == 0) // đã set attack
-	{
-		isThrowingFireBall = false;
-		if (animations.find(lastState) == animations.end())
-			lastState = MARIO_STATE_IDLE;
-		SetState(lastState);
-	}
+	//if (currentState.compare(MARIO_STATE_ATTACK) == 0) // đã set attack
+	//{
+	//	isThrowingFireBall = false;
+	//	if (animations.find(lastState) == animations.end())
+	//		lastState = MARIO_STATE_IDLE;
+	//	SetState(lastState);
+	//}
 	
 }
 

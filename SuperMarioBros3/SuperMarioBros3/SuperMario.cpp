@@ -7,6 +7,7 @@ CSuperMario::CSuperMario()
 	CSuperMario::LoadAnimation();
 	CSuperMario::Init();
 	CMario::InitProperties();
+	canCrouch = true;
 }
 void CSuperMario::Init()
 {

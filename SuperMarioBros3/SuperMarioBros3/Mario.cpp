@@ -20,6 +20,8 @@ CMario::CMario()
 	LoadAnimation();
 	InitProperties();
 	DebugOut(L"Init Mario \n");
+	//canCrouch = true;
+
 }
 
 void CMario::Init()
@@ -63,7 +65,6 @@ void CMario::InitProperties()
 	canHighJump = false;
 	isSkid = false;
 	previousNormal = physiscBody->GetNormal();
-	canCrouch = true;
 }
 
 void CMario::LoadAnimation()
@@ -368,15 +369,19 @@ void CMario::Render(CCamera* cam)
 	auto animation = GetAnimationByState(currentState);
 	auto speed = abs(physiscBody->GetVelocity().x);
 	auto multiplier = 1.0f;
-	if (currentState == MARIO_STATE_RUNNING || currentState == MARIO_STATE_WALKING)
+	if (animation != NULL)
 	{
-		multiplier = speed / MARIO_WALKING_SPEED;
-		animation->SetSpeedMultiplier(Clamp(multiplier, 1.0f, 3.0f)); // Bị lỗi đối với small mario khi small mario chưa có high speed;
-		DebugOut(L"Speed/walkSpeed: %f \n", speed / MARIO_WALKING_SPEED);
-		DebugOut(L"Multiplier: %f \n", multiplier);
+		if (currentState == MARIO_STATE_RUNNING || currentState == MARIO_STATE_WALKING)
+		{
+			multiplier = speed / MARIO_WALKING_SPEED;
+			animation->SetSpeedMultiplier(Clamp(multiplier, 1.0f, 3.0f)); // Bị lỗi đối với small mario khi small mario chưa có high speed;
+			DebugOut(L"Speed/walkSpeed: %f \n", speed / MARIO_WALKING_SPEED);
+			DebugOut(L"Multiplier: %f \n", multiplier);
+		}
+		else
+			animation->ResetSpeedMultiplier();
 	}
-	else
-		animation->ResetSpeedMultiplier();
+	
 #pragma endregion
 
 	SetRelativePositionOnScreen(collisionBoxs->at(0)->GetPosition());
@@ -503,8 +508,12 @@ void CMario::KeyState()
 void CMario::OnKeyDown(int KeyCode)
 {
 	// EVENT
+	DebugOut(L"On Key Down \n");
+	DebugOut(L"On ground: %d \n", isOnGround);
 	if ((KeyCode == DIK_S || KeyCode == DIK_X) && isOnGround == true)
 	{
+		DebugOut(L"JUMP \n");
+
 		// JUMP
 		physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -MARIO_JUMP_SPEED_Y)); // Vẫn còn bị trọng lực kéo mạnh quá
 		isOnGround = false;

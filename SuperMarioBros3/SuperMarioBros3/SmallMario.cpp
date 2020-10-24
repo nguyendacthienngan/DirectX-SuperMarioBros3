@@ -34,6 +34,8 @@ void CSmallMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_WALKING, animationManager->Get("ani-small-mario-walk"));
 	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-small-mario-run"));
 	AddAnimation(MARIO_STATE_JUMP, animationManager->Get("ani-small-mario-jump"));
+	AddAnimation(MARIO_STATE_FALL, animationManager->Get("ani-small-mario-jump"));
+	AddAnimation(MARIO_STATE_CROUCH, animationManager->Get("ani-small-mario-idle"));
 
 	CSmallMario::SetState(MARIO_STATE_IDLE);
 }
