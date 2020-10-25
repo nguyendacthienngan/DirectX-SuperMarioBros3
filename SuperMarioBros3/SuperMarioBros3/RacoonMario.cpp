@@ -6,7 +6,7 @@
 CRacoonMario::CRacoonMario()
 {
 	CMario::Init();
-	SetTag(GameObjectTags::Player);
+	SetTag(GameObjectTags::PowerupMario);
 	canCrouch = true;
 	canAttack = true;
 	CRacoonMario::Init();

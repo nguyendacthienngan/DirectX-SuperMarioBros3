@@ -5,7 +5,6 @@
 #include "Ultis.h"
 CSmallMario::CSmallMario()
 {
-	//CMario::Init();
 	CSmallMario::Init();
 	CMario::InitProperties();
 	canCrouch = false;
