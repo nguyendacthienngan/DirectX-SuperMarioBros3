@@ -1,23 +1,25 @@
-#include "Sprite.h"
+﻿#include "Sprite.h"
 #include "Game.h"
 
 #include "Ultis.h"
 
-CSprite::CSprite(std::string id, RECT rect, LPDIRECT3DTEXTURE9 tex)
+CSprite::CSprite(std::string id, int xPivot, RECT rect, LPDIRECT3DTEXTURE9 tex)
 {
 	this->id = id;
 	this->rect = rect;
 	this->texture = tex;
 	this->width = rect.right - rect.left;
-	this->height = rect.top - rect.bottom;
-	this->pointCenter = D3DXVECTOR2(width/2, height/2);
+	this->height = rect.bottom - rect.top;
+
+	if (xPivot == -3)
+		this->pointCenter = D3DXVECTOR2(width *0.5, height * 0.5);
+	else
+		this->pointCenter = D3DXVECTOR2(xPivot, height*0.5);
 }
 
 void CSprite::Draw(D3DXVECTOR2 position, D3DXVECTOR2 scale, float rotation, int alpha)
 {
-	//DebugOut(L"[INFO] Draw Sprite \n");
 	CGame* game = CGame::GetInstance();
-	//game->Draw(position, pointCenter, texture, rect, alpha, scale, rotation);
 	if (scale.x < 0)
 		game->DrawFlipX(position, pointCenter, texture, rect, alpha);
 	else if (scale.y < 0)

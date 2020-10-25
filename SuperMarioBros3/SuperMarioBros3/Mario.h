@@ -12,7 +12,7 @@ class CMario : public CGameObject, public IState
 {
 	// Mario Base : Xử lý những thứ cơ bản nhất trước của Mario
 	// Đi, chạy, nhảy, hụp, thắng lại
-private:
+protected:
 	D3DXVECTOR2 targetVelocity, previousVelocity, previousTargetVelocity; // đến một mức velocity thì thay đổi
 	MarioStateSet currentPhysicsState, previousPhysicsState; // state vật lý, còn currentState ở GameObject là state animation
 	bool isOnGround;
@@ -20,10 +20,12 @@ private:
 	bool canLowJumpContinous;
 	bool isHighJump, canHighJump; 
 	bool isSkid;
+	bool canCrouch;
 	D3DXVECTOR2 previousNormal;
 public:
 	CMario();
 	void Init() override;
+	virtual void InitProperties();
 	void LoadAnimation();
 	void Update(DWORD dt, CCamera* cam) override;
 	void Render(CCamera* cam);

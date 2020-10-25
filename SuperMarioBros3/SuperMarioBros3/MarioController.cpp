@@ -9,13 +9,18 @@
 #include "FireMario.h"
 #include "GameObjectTags.h"
 #include "MarioConst.h"
+#include "SceneManager.h"
 #include <unordered_map>
+#include "Ultis.h"
 
 using namespace std;
 CMarioController::CMarioController()
 {
 	Init();
 	currentStateObject = NULL;
+	SwitchToState(RACOON_MARIO_STATE);
+	//SwitchToState(SUPER_MARIO_STATE);
+	//SwitchToState(SMALL_MARIO_STATE);
 }
 void CMarioController::Init()
 {
@@ -26,24 +31,26 @@ void CMarioController::Init()
 	// SMALL MARIO
 	marioStateObject = new CSmallMario();
 	listMarioStates.insert(make_pair(SMALL_MARIO_STATE, marioStateObject));
+	listStateObjects.insert(make_pair(SMALL_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
 	
 	// SUPER MARIO
 	marioStateObject = new CSuperMario();
 	listMarioStates.insert(make_pair(SUPER_MARIO_STATE, marioStateObject));
+	listStateObjects.insert(make_pair(SUPER_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
 
 	// RACOON MARIO
 	marioStateObject = new CRacoonMario();
 	listMarioStates.insert(make_pair(RACOON_MARIO_STATE, marioStateObject));
+	listStateObjects.insert(make_pair(RACOON_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
 
 	// FIRE MARIO
 	marioStateObject = new CFireMario();
 	listMarioStates.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
+	listStateObjects.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
-
-	SwitchToState(SUPER_MARIO_STATE);
 }
 
 void CMarioController::Update()
@@ -52,6 +59,7 @@ void CMarioController::Update()
 	if (currentStateObject == NULL)
 		return;
 
+
 	// Lấy ra position của current object, MarioController đi theo
 	SetPosition(currentStateObject->GetPosition());
 
@@ -59,19 +67,11 @@ void CMarioController::Update()
 	{
 		auto obj = (stateObj).second; // Lấy ra obj của stateobj
 
-		if (obj == currentStateObject) // ?
+		if (obj == currentStateObject)
 			continue;
 		D3DXVECTOR2 transform = D3DXVECTOR2(0.0f, 0.0f);
-
-		// Set lại box size: Mario chỉ có 2 box size là nhỏ với lớn thôi, nên chỉ cần xét small mario và những anh bạn còn lại
-
-		if (obj->GetTag() == GameObjectTags::SmallMario || currentStateObject->GetTag() == GameObjectTags::SmallMario)
-			transform = SUPER_MARIO_BBOX - SMALL_MARIO_BBOX;
-		if (obj->GetTag() == GameObjectTags::SmallMario)
-			obj->SetPosition(currentStateObject->GetPosition() + transform);
-		else
-			obj->SetPosition(currentStateObject->GetPosition() - transform);
 	}
+	
 }
 
 void CMarioController::AddStateObjectsToScene(LPScene scene)
@@ -83,13 +83,13 @@ void CMarioController::AddStateObjectsToScene(LPScene scene)
 void CMarioController::SwitchToState(std::string state)
 {
 	// Đổi trạng thái (STATE)
-	if (state.compare("") != 0)
-		SwitchState(listMarioStates.at(state));
+		SwitchState(listMarioStates.at(state)); 
 
 	// Nếu object đó đã được khởi tạo trc đó thì mình lấy lại vị trí trc đó đã lưu
 	if (currentStateObject != NULL)
 	{
 		// Current state object sẽ đi theo Mario Controller
+
 		auto controllerPhyBody = currentStateObject->GetPhysiscBody();
 
 		// Của current state object (SuperMario, SmallMario,..)
@@ -99,28 +99,77 @@ void CMarioController::SwitchToState(std::string state)
 		currentPhyBody->SetVelocity(controllerPhyBody->GetVelocity());
 		currentPhyBody->SetGravity(controllerPhyBody->GetGravity());
 		currentPhyBody->SetAcceleration(controllerPhyBody->GetAcceleration());
+
+		listStateObjects.at(state)->SetPosition(currentStateObject->GetPosition());
+		D3DXVECTOR2 transform = D3DXVECTOR2(0.0f, 0.0f);
+		transform.y = SUPER_MARIO_BBOX.y - SMALL_MARIO_BBOX.y; // Tính lại
+
+		// hoặc boxsize coi của nhỏ hay lớn
+		if (listStateObjects.at(state)->GetTag() == GameObjectTags::SmallMario)
+		{
+			//listStateObjects.at(state)->SetPosition(listStateObjects.at(state)->GetPosition() + transform);
+			listStateObjects.at(state)->SetPosition(listStateObjects.at(state)->GetPosition() + transform);
+			listStateObjects.at(state)->GetCollisionBox()->at(0)->SetPosition(D3DXVECTOR2(0.0f, 0.0f));
+			listStateObjects.at(state)->SetRelativePositionOnScreen(listStateObjects.at(state)->GetCollisionBox()->at(0)->GetPosition());
+
+
+		}
+		else
+		{
+			listStateObjects.at(state)->SetPosition(listStateObjects.at(state)->GetPosition() - transform);
+			 listStateObjects.at(state)->GetCollisionBox()->at(0)->SetPosition(transform);
+			listStateObjects.at(state)->SetRelativePositionOnScreen(listStateObjects.at(state)->GetCollisionBox()->at(0)->GetPosition());
+
+		}
+
 	}
 
 	// Gán object (OBJECT)
-	currentStateObject = listStateObjects.at(state);
+	if (listStateObjects.size() != 0)
+	{
+		currentStateObject = listStateObjects.at(state);
+		auto scene = CSceneManager::GetInstance()->GetActiveScene();
+		if (scene != NULL)
+		{
+			auto camera = scene->GetCamera();
+			camera->SetGameObject(currentStateObject);
+		}
+	}
+		
 }
 
 void CMarioController::OnKeyDown(int KeyCode)
 {
 	if (KeyCode == DIK_1)
 	{
-		SwitchToState(SMALL_MARIO_STATE);
+		SwitchToState(SUPER_MARIO_STATE);
 	}
 	else if (KeyCode == DIK_2)
 	{
-		SwitchToState(SUPER_MARIO_STATE);
+		SwitchToState(RACOON_MARIO_STATE);
 	}
 	else if (KeyCode == DIK_3)
 	{
-		SwitchToState(RACOON_MARIO_STATE);
+		SwitchToState(FIRE_MARIO_STATE);
 	}
 	else if (KeyCode == DIK_4)
 	{
-		SwitchToState(FIRE_MARIO_STATE);
+		SwitchToState(SMALL_MARIO_STATE);
+
 	}
+}
+
+void CMarioController::SetCurrentStateObject(LPGameObject gO)
+{
+	this->currentStateObject = gO;
+}
+
+LPGameObject CMarioController::GetCurrentStateObject()
+{
+	return currentStateObject;
+}
+
+CMarioController::~CMarioController()
+{
+	
 }

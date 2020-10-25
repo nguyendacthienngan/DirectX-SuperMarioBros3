@@ -40,6 +40,7 @@ public:
 	void AddObject(LPGameObject gameObject);
 	void RemoveObject(LPGameObject gameObject);
 
+	void SetObjectPosition(D3DXVECTOR2 distance);
 
 	virtual ~CScene();
 };

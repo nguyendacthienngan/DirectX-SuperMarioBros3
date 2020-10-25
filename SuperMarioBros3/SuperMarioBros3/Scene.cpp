@@ -3,6 +3,7 @@
 #include "tinyxml.h"
 #include "Mario.h"
 #include "Game.h"
+#include "MarioController.h"
 #include <string>
 using namespace std;
 
@@ -17,7 +18,6 @@ CScene::CScene()
 
 void CScene::Load()
 {
-	// Đọc file Scenes/world1-1.xml
 	TiXmlDocument sceneFile(filePath.c_str());
 	if (!sceneFile.LoadFile())
 	{
@@ -25,7 +25,8 @@ void CScene::Load()
 		return;
 	}
 	TiXmlElement* root = sceneFile.RootElement();
-	CMario* player = new CMario();
+	//CMario* player = new CMario();
+	CMarioController* player = NULL;
 	for (TiXmlElement* scene = root->FirstChildElement(); scene != NULL; scene = scene->NextSiblingElement())
 	{
 		string name = scene->Attribute("name");
@@ -55,8 +56,18 @@ void CScene::Load()
 			D3DXVECTOR2 startPosition;
 			scene->QueryFloatAttribute("pos_x", &startPosition.x);
 			scene->QueryFloatAttribute("pos_y", &startPosition.y);
-			player->SetPosition(startPosition);
+
+			player = new CMarioController();
+			player->AddStateObjectsToScene(this);
+			//player->SetPosition(startPosition);
+			player->GetCurrentStateObject()->SetPosition(startPosition);
 			AddObject(player);
+
+			/*D3DXVECTOR2 startPosition;
+			scene->QueryFloatAttribute("pos_x", &startPosition.x);
+			scene->QueryFloatAttribute("pos_y", &startPosition.y);
+			player->SetPosition(startPosition);
+			AddObject(player);*/
 		}
 		else if (name.compare("Camera") == 0)
 		{
@@ -83,13 +94,11 @@ void CScene::Load()
 
 					camera->SetBoundary(left, right, top, bottom);
 					camera->SetPositionCam(D3DXVECTOR2(pos_x, pos_y));
-					//DebugOut(L"[INFO] Camera position (x,y) : %f, %f", camera->GetPositionCam().x, camera->GetPositionCam().y);
-
 				}
 			}
 			if (player != NULL)
 			{
-				camera->SetGameObject(player);
+				camera->SetGameObject(player->GetCurrentStateObject());
 			}
 			
 		}
@@ -104,8 +113,6 @@ void CScene::Unload()
 
 void CScene::Update(DWORD dt)
 {
-
-	//DebugOut(L"[INFO] Updating Scene \n");
 	if (gameObjects.size() == 0) return;
 	for (auto obj : gameObjects)
 	{
@@ -125,7 +132,6 @@ void CScene::Render()
 
 	for (auto obj : gameObjects)
 	{
-		// TO DO: Enable objects
 		if (obj->IsEnabled() == false) continue;
 		obj->Render(camera);
 	}
@@ -144,6 +150,18 @@ void CScene::RemoveObject(LPGameObject gameObject)
 	if (remObj != gameObjects.end())
 	{
 		gameObjects.erase(remObj);
+	}
+}
+
+void CScene::SetObjectPosition(D3DXVECTOR2 distance)
+{
+	for (auto obj : gameObjects)
+	{
+		if (obj->GetTag() == GameObjectTags::Solid)
+		{
+			auto pos = obj->GetCollisionBox()->at(0)->GetPosition();
+			obj->GetCollisionBox()->at(0)->SetPosition(pos + distance);
+		}
 	}
 }
 

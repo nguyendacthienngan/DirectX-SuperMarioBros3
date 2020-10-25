@@ -4,7 +4,8 @@
     <BackgroundColor R="156" G="252" B="240"/>
   </Scene>
    <!--   <Scene name="Player" pos_x="94" pos_y="1150"/> -->
-  <Scene name="Player" pos_x="118" pos_y="1000"/>
+   <!--   <Scene name="Player" pos_x="118" pos_y="1000"/> -->
+  <Scene name="Player" pos_x="130" pos_y="1000"/>
   <Scene name="Camera" start="0" main="1">
   <!--Camera-->
   <!--X,Y: Mario.x, Mario.y - ScreenHeight/2-->

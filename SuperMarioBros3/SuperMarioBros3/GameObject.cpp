@@ -58,26 +58,21 @@ void CGameObject::Update(DWORD dt, CCamera* cam)
 {
 }
 
-//void CGameObject::Update(DWORD dt, CCamera* cam)
-//{
-//	DebugOut(L"[INFO] Game Object Updating.. \n");
-//
-//}
-
 void CGameObject::Render(CCamera* cam)
 {
 	bool curState = animations.find(currentState) != animations.end();
 	if (curState == false || animations.empty())
 		return;
-	//DebugOut(L"Mario position: x,y %f, %f \n", transform.position.x, transform.position.y);
 	animations.find(currentState)->second->SetScale(transform.scale);
 	animations.find(currentState)->second->SetRotation(transform.rotationAngle);
+
 	D3DXVECTOR2 posInCam = cam->Transform(transform.position + relativePositionOnScreen);
 	posInCam.x = trunc(posInCam.x);
-	posInCam.y = trunc(posInCam.y); 
-	//posInCam.y = 289;
-	/*DebugOut(L"Mario position: x,y %f, %f \n", transform.position.x, transform.position.y);
-	DebugOut(L"Mario position in cam: x,y %f, %f \n", posInCam.x, posInCam.y);*/
+	//posInCam.y = trunc(posInCam.y);
+	if (tag != GameObjectTags::SmallMario)
+		posInCam.y = trunc(posInCam.y) + 18;
+	DebugOut(L"Mario position: x,y %f, %f \n", transform.position.x, transform.position.y);
+	DebugOut(L"Mario position in cam: x,y %f, %f \n", posInCam.x, posInCam.y);
 
 	animations.at(currentState)->Render(posInCam);
 }
@@ -91,8 +86,9 @@ void CGameObject::OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<Co
 {
 }
 
-void CGameObject::AddAnimation(std::string stateName, LPAnimation animation)
+void CGameObject::AddAnimation(std::string stateName, LPAnimation animation, bool isLoop)
 {
+	animation->SetLoopAnimation(isLoop);
 	animations.insert(make_pair(stateName, animation));
 }
 

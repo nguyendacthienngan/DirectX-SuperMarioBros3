@@ -39,7 +39,7 @@ protected:
 	Transform transform; // position ( dời hình ), scale, rotate
 	D3DXVECTOR2 relativePositionOnScreen = D3DXVECTOR2(0.0f, 0.0f);
 
-	std::string currentState;
+	std::string currentState, lastState;
 
 	bool isEnabled;
 
@@ -78,7 +78,7 @@ public:
 	virtual void OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions);
 
 	// Animation
-	void AddAnimation(std::string stateName, LPAnimation animation);
+	void AddAnimation(std::string stateName, LPAnimation animation, bool isLoop = true); // một số animation như quăng lửa k cần lặp
 	void SetRelativePositionOnScreen(D3DXVECTOR2); // Dùng khi ví dụ chuyển từ idle -> crouch, dời hình xuống
 	// Keyboard
 	virtual void KeyState();

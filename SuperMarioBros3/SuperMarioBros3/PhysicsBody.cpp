@@ -99,11 +99,12 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 		}
 		gameObject->SetPosition(pos);
 	}
-	//DebugOut(L"Mario's Velocity: %f \n", velocity.y);
+	DebugOut(L"Mario's Velocity: %f \n", velocity.y);
+	DebugOut(L"Mario's Distance: %f \n", distance.y);
 
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	coEvents.clear();
-
+	
 
 
 }
@@ -297,6 +298,8 @@ void CPhysicsBody::CalcPotentialCollisions(
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
+		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
+			continue;
 		if (coObjects->at(i) == cO)
 			continue;
 

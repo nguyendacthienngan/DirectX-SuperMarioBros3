@@ -84,11 +84,10 @@ void CGame::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
 
 void CGame::Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha)
 {
-	//D3DXVECTOR3 p(position.x, position.y, 0);
 	D3DXVECTOR3 pCenter((int)pointCenter.x, (int)pointCenter.y, 0);
 	D3DXVECTOR3 pInt((int)(position.x), (int)(position.y), 0); // Giúp không bị viền
 	//DebugOut(L"Mario position in cam: x,y %f, %f \n", pInt.x, pInt.y);
-
+	//DebugOut(L"When drawing: Point center: %f, %f \n", pCenter.x, pCenter.y);
 	spriteHandler->Draw(texture, &rect, &pCenter, &pInt, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 

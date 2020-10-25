@@ -17,7 +17,7 @@ class CSprite
 	D3DXVECTOR2 pointCenter;
 	LPDIRECT3DTEXTURE9 texture;
 public:
-	CSprite(std::string id, RECT rect = RECT(), LPDIRECT3DTEXTURE9 tex = NULL); // texture là bên Texture manager giữ
+	CSprite(std::string id, int xPivot, RECT rect = RECT(), LPDIRECT3DTEXTURE9 tex = NULL); // texture là bên Texture manager giữ
 	void Draw(D3DXVECTOR2 position, D3DXVECTOR2 scale, float rotation, int alpha = 255);
 
 	RECT GetRect();
