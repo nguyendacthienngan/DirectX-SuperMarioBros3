@@ -18,6 +18,24 @@ CCollisionBox::CCollisionBox()
 	sizeBox.y = 1;
 }
 
+void CCollisionBox::Render(CCamera* camera, int distance)
+{
+	auto pos = GetWorldPosition();
+	auto tex = CTextureManager::GetInstance()->GetTexture(TEXTURE_BBOX);
+	RECT bbRect;
+	bbRect.left = 0;
+	bbRect.top = 0;
+	bbRect.right = sizeBox.x;
+	bbRect.bottom = sizeBox.y;
+
+	D3DXVECTOR2 posInCam, camPos;
+	camPos = camera->GetPositionCam();
+	posInCam.x = trunc(pos.x - camPos.x);
+	posInCam.y = trunc(pos.y - camPos.y + distance);
+
+	CGame::GetInstance()->Draw(posInCam, tex, bbRect, 32);
+}
+
 void CCollisionBox::SetGameObjectAttach(LPGameObject gO)
 {
 	this->gameObject = gO;

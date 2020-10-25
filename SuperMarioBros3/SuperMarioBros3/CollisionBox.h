@@ -11,6 +11,8 @@ typedef CGameObject* LPGameObject;
 class CPhysicsBody;
 typedef CPhysicsBody* LPPhysicsBody;
 
+class CCamera;
+
 class CCollisionBox
 {
 private:
@@ -23,6 +25,8 @@ private:
 
 public:
 	CCollisionBox();
+
+	void Render(CCamera* camera, int distance);
 	
 	void SetGameObjectAttach(LPGameObject gO);
 	LPGameObject GetGameObjectAttach();

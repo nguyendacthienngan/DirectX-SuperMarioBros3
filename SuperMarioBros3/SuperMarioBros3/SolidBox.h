@@ -7,6 +7,5 @@ class CSolidBox : public CGameObject
 public:
 	CSolidBox();
 	void Init();
-	void Render(CCamera* cam) override;
 };
 
