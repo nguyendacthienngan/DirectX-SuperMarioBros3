@@ -79,32 +79,38 @@ public:
 	void AddAnimation(std::string stateName, LPAnimation animation, bool isLoop = true); // một số animation như quăng lửa k cần lặp
 	void SetRelativePositionOnScreen(D3DXVECTOR2); // Dùng khi ví dụ chuyển từ idle -> crouch, dời hình xuống
 	virtual void EndAnimation();
+	LPAnimation GetAnimationByState(std::string state);
 
 	virtual void KeyState();
 	virtual void OnKeyDown(int KeyCode); // sẽ thuần ảo để đến từng gameObject cụ thể sẽ tự xử lý
 	virtual void OnKeyUp(int KeyCode);
 
 	bool IsEnabled();
-	void Enable(bool isEnabled) { this->isEnabled = isEnabled; }
+	void Enable(bool isEnabled);
 
-	void SetScale(D3DXVECTOR2 s) { this->transform.scale = s; }
-	void SetRotation(float r)	 { this->transform.rotationAngle = r; }
-	void SetPosition(D3DXVECTOR2 p) { this->transform.position = p; }
+	D3DXVECTOR2 GetScale();
+	void SetScale(D3DXVECTOR2 s);
 
-	D3DXVECTOR2 GetPosition() { return this->transform.position;}
-	D3DXVECTOR2 GetScale() { return transform.scale; }
-	float GetRotation() { return transform.rotationAngle; }
-	LPAnimation GetAnimationByState(std::string state);
-	LPPhysicsBody GetPhysiscBody() { return physiscBody; }
-	std::vector<LPCollisionBox>* GetCollisionBox() { return collisionBoxs; }
-	void GetCollisionBox(std::vector<LPCollisionBox>* listCollisionBox) { this->collisionBoxs = listCollisionBox; }
-	GameObjectTags GetTag() { return tag; }
-	Effector GetEffector() { return effector; }
+	float GetRotation();
+	void SetRotation(float r);
 
+	D3DXVECTOR2 GetPosition();
+	void SetPosition(D3DXVECTOR2 p);
+
+	LPPhysicsBody GetPhysiscBody();
+	void SetPhysiscBody(LPPhysicsBody p);
+
+	std::vector<LPCollisionBox>* GetCollisionBox();
+	void GetCollisionBox(std::vector<LPCollisionBox>* listCollisionBox);
+
+	std::string GetState();
 	void SetState(std::string state);
-	void SetPhysiscBody(LPPhysicsBody p) { this->physiscBody = p; }
-	void SetTag(GameObjectTags t) { this->tag = t; }
-	void SetEffector(Effector e) { this->effector = effector; }
+
+	GameObjectTags GetTag();
+	void SetTag(GameObjectTags t);
+
+	Effector GetEffector();
+	void SetEffector(Effector e);
 };
 
 #endif

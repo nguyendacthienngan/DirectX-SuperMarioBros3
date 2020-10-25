@@ -16,8 +16,6 @@ CGameObject::CGameObject()
 	physiscBody = new CPhysicsBody();
 	collisionBoxs = new vector<CCollisionBox*>();
 	isEnabled = false;
-	//CGameObject::Init(); // chỗ này bị lỗi nếu để Init là thuần ảo. Ta phải để Init là ảo thôi để có thể gọi được ngay trong cha của nó
-
 }
 
 CGameObject::~CGameObject()
@@ -121,6 +119,66 @@ bool CGameObject::IsEnabled()
 	return isEnabled;
 }
 
+void CGameObject::Enable(bool isEnabled)
+{
+	this->isEnabled = isEnabled;
+}
+
+D3DXVECTOR2 CGameObject::GetScale()
+{
+	return transform.scale;
+}
+
+void CGameObject::SetScale(D3DXVECTOR2 s)
+{
+	this->transform.scale = s;
+}
+
+float CGameObject::GetRotation()
+{
+	return transform.rotationAngle;
+}
+
+void CGameObject::SetRotation(float r)
+{
+	this->transform.rotationAngle = r;
+}
+
+D3DXVECTOR2 CGameObject::GetPosition()
+{
+	return this->transform.position;
+}
+
+void CGameObject::SetPosition(D3DXVECTOR2 p)
+{
+	this->transform.position = p;
+}
+
+LPPhysicsBody CGameObject::GetPhysiscBody()
+{
+	return physiscBody;
+}
+
+void CGameObject::SetPhysiscBody(LPPhysicsBody p)
+{
+	this->physiscBody = p;
+}
+
+std::vector<LPCollisionBox>* CGameObject::GetCollisionBox()
+{
+	return collisionBoxs;
+}
+
+void CGameObject::GetCollisionBox(std::vector<LPCollisionBox>* listCollisionBox)
+{
+	this->collisionBoxs = listCollisionBox;
+}
+
+std::string CGameObject::GetState()
+{
+	return currentState;
+}
+
 void CGameObject::SetState(string state)
 {
 	if (animations.find(state) == animations.end())
@@ -128,6 +186,26 @@ void CGameObject::SetState(string state)
 	lastState = currentState;
 	currentState = state;
 	animations.at(state)->SetPlay(false);
+}
+
+GameObjectTags CGameObject::GetTag()
+{
+	return tag;
+}
+
+void CGameObject::SetTag(GameObjectTags t)
+{
+	this->tag = t;
+}
+
+Effector CGameObject::GetEffector()
+{
+	return effector;
+}
+
+void CGameObject::SetEffector(Effector e)
+{
+	this->effector = effector;
 }
 
 LPAnimation CGameObject::GetAnimationByState(std::string state)
