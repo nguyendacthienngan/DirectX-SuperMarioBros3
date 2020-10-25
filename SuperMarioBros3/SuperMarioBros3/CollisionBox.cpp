@@ -30,7 +30,7 @@ void CCollisionBox::Render(CCamera* camera, int distance)
 
 	D3DXVECTOR2 posInCam, camPos;
 	camPos = camera->GetPositionCam();
-	posInCam.x = trunc(pos.x - camPos.x);
+	posInCam.x = trunc(pos.x - camPos.x + distance);
 	posInCam.y = trunc(pos.y - camPos.y + distance);
 
 	CGame::GetInstance()->Draw(posInCam, tex, bbRect, 32);

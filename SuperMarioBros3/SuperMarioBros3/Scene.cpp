@@ -126,7 +126,7 @@ void CScene::Render()
 		//if (obj->IsEnabled() == false) continue;
 		obj->Render(camera);
 		if (obj->GetCollisionBox()->size() != 0)
-			obj->GetCollisionBox()->at(0)->Render(camera, -18);
+			obj->GetCollisionBox()->at(0)->Render(camera, -24);
 	}
 }
 
