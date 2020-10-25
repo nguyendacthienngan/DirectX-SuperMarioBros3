@@ -18,7 +18,8 @@ CMarioController::CMarioController()
 {
 	Init();
 	currentStateObject = NULL;
-	SwitchToState(SUPER_MARIO_STATE);
+	SwitchToState(RACOON_MARIO_STATE);
+	//SwitchToState(SUPER_MARIO_STATE);
 	//SwitchToState(SMALL_MARIO_STATE);
 }
 void CMarioController::Init()
@@ -106,6 +107,7 @@ void CMarioController::SwitchToState(std::string state)
 		// hoặc boxsize coi của nhỏ hay lớn
 		if (listStateObjects.at(state)->GetTag() == GameObjectTags::SmallMario)
 		{
+			//listStateObjects.at(state)->SetPosition(listStateObjects.at(state)->GetPosition() + transform);
 			listStateObjects.at(state)->SetPosition(listStateObjects.at(state)->GetPosition() + transform);
 			listStateObjects.at(state)->GetCollisionBox()->at(0)->SetPosition(D3DXVECTOR2(0.0f, 0.0f));
 			listStateObjects.at(state)->SetRelativePositionOnScreen(listStateObjects.at(state)->GetCollisionBox()->at(0)->GetPosition());
@@ -114,7 +116,7 @@ void CMarioController::SwitchToState(std::string state)
 		}
 		else
 		{
-			listStateObjects.at(state)->SetPosition(listStateObjects.at(state)->GetPosition() - D3DXVECTOR2(0.0f, transform.y));
+			listStateObjects.at(state)->SetPosition(listStateObjects.at(state)->GetPosition() - transform);
 			 listStateObjects.at(state)->GetCollisionBox()->at(0)->SetPosition(transform);
 			listStateObjects.at(state)->SetRelativePositionOnScreen(listStateObjects.at(state)->GetCollisionBox()->at(0)->GetPosition());
 
@@ -149,6 +151,11 @@ void CMarioController::OnKeyDown(int KeyCode)
 	else if (KeyCode == DIK_3)
 	{
 		SwitchToState(FIRE_MARIO_STATE);
+	}
+	else if (KeyCode == DIK_4)
+	{
+		SwitchToState(SMALL_MARIO_STATE);
+
 	}
 }
 

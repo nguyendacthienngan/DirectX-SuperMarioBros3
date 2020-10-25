@@ -11,7 +11,8 @@ CSmallMario::CSmallMario()
 }
 void CSmallMario::Init()
 {
-	SetTag(GameObjectTags::Player);
+	SetTag(GameObjectTags::SmallMario);
+	//SetTag(GameObjectTags::Player);
 	LoadAnimation();
 	CCollisionBox* collisionBox = new CCollisionBox(); 
 	collisionBox->SetSizeBox(D3DXVECTOR2(12 * 3, 15 * 3));

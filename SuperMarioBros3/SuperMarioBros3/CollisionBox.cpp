@@ -103,10 +103,14 @@ RectF CCollisionBox::GetBoundingBox()
 	r.top =  pos.y ;
 	r.bottom = pos.y + sizeBox.y ;
 
-	/*if (name == "Mario")
-		DebugOut(L"Pos (x,y): (%f,%f) \n", pos.x, pos.y);
+	//if (name == "Mario")
+	//{
+	//	DebugOut(L"Pos (x,y): (%f,%f) \n", pos.x, pos.y);
+	//	DebugOut(L"Size Box Mario (width, height): (%f,%f) \n", sizeBox.x, sizeBox.y);
 
-	if (name == "Mario")
+	//}
+
+	/*if (name == "Mario")
 		DebugOut(L"BB Mario: RECT (l,t,r,bt) : (%f,%f,%f,%f) \n", r.left, r.top, r.right, r.bottom);*/
 
 	/*r.left = pos.x - sizeBox.x * 0.5f;
