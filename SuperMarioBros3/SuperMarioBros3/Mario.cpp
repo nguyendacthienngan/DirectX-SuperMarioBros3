@@ -516,7 +516,7 @@ void CMario::Access()
 
 }
 
-void CMario::Update()
+void CMario::Process()
 {
 
 }

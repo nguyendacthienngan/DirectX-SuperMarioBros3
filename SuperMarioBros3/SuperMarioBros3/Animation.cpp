@@ -46,36 +46,45 @@ void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 {
 	if (animFrames.size() == 0 || speedMultiplier == 0.0f) return;
 
-	DWORD currentTime = GetTickCount();
-
-	//DebugOut(L"Is Loop: %d \n", isLoop);
+	DWORD now = GetTickCount();
 	if (currentFrame == -1)
 	{
 		currentFrame = 0;
-		lastFrameTime = currentTime;
+		lastFrameTime = now;
 	}
 	else
 	{
-
-		if (currentTime - lastFrameTime > animFrames[currentFrame]->GetTime() * CGame::GetTimeScale() / speedMultiplier)
+		DWORD t = animFrames[currentFrame]->GetTime();
+		if (now - lastFrameTime > t * CGame::GetTimeScale() / speedMultiplier)
 		{
-			if (currentFrame == animFrames.size() - 1)
+			if (currentFrame == animFrames.size() - 1 && isLoop == false)
 			{
-				if (isLoop == false)
-				{
-					isPlaying = false;
-					gameObject->EndAnimation();
-				}
+				gameObject->EndAnimation();
+				isPlaying = false;
+
 			}
-			// Đối với animation lặp từ frame cuối tới frame đầu
 			else if (isPlaying == true)
 			{
-				currentFrame = (currentFrame + 1) % animFrames.size();
-				lastFrameTime = currentTime;
+				currentFrame++;
+				lastFrameTime = now;
+				if (currentFrame >= animFrames.size()) currentFrame = 0;
 			}
 		}
 	}
+	
 	animFrames[currentFrame]->GetSprite()->Draw(position, transform.scale, transform.rotationAngle, alpha);
+}
+
+void CAnimation::SetPlay(bool isPause)
+{
+	if (isPause == false && isPlaying == false)
+	{
+		// Reset lại frameTime
+		//isPlaying = true;
+		currentFrame = -1; // currentFrame = -1 hay k?
+	//	lastFrameTime = GetTickCount();
+	}
+	isPlaying = true;
 }
 
 LPAnimationFrame CAnimation::GetAnimFrame()

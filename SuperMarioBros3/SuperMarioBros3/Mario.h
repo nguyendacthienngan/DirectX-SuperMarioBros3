@@ -42,7 +42,7 @@ public:
 
 	// State
 	virtual void Access()		override;
-	virtual void Update()		override;
+	virtual void Process()		override;
 	virtual void Exit()			override;
 
 	~CMario();

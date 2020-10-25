@@ -16,7 +16,7 @@ private:
 public:
 	CMarioController();
 	void Init() override;
-	void Update() override;
+	void Process() override;
 	void AddStateObjectsToScene(LPScene scene);
 	void SwitchToState(std::string state);
 	void OnKeyDown(int KeyCode) override;

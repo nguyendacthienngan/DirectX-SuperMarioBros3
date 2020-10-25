@@ -70,7 +70,10 @@ void CGameObject::Render(CCamera* cam)
 	posInCam.x = trunc(posInCam.x);
 	//posInCam.y = trunc(posInCam.y);
 	if (tag != GameObjectTags::SmallMario)
-		posInCam.y = trunc(posInCam.y) + 18;
+		posInCam.y = trunc(posInCam.y) + 18; // Đang hardcode, sẽ fix sau
+
+	
+
 	/*DebugOut(L"Mario position: x,y %f, %f \n", transform.position.x, transform.position.y);
 	DebugOut(L"Mario position in cam: x,y %f, %f \n", posInCam.x, posInCam.y);*/
 
@@ -121,7 +124,11 @@ bool CGameObject::IsEnabled()
 
 void CGameObject::SetState(string state)
 {
+	if (animations.find(state) == animations.end())
+		return;
+	lastState = currentState;
 	currentState = state;
+	animations.at(state)->SetPlay(false);
 }
 
 LPAnimation CGameObject::GetAnimationByState(std::string state)

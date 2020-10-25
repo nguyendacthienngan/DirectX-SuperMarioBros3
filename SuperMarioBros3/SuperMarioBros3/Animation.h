@@ -41,7 +41,7 @@ public:
 	void SetRotation(float r) { this->transform.rotationAngle = r; }
 	void SetLoopAnimation(bool isLoop) { this->isLoop = isLoop; }
 	void SetRelativePosition(D3DXVECTOR2 rP) { this->relativePosition = rP; }
-
+	void SetPlay(bool isPause);
 	D3DXVECTOR2 GetPosition() { return transform.position; }
 	D3DXVECTOR2 GetScale() { return transform.scale; }
 	float GetRotation() { return transform.rotationAngle; }

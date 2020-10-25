@@ -53,9 +53,9 @@ void CMarioController::Init()
 	marioStateObject->Enable(false);
 }
 
-void CMarioController::Update()
+void CMarioController::Process()
 {
-	CStateMachine::Update();
+	CStateMachine::Process();
 	if (currentStateObject == NULL)
 		return;
 

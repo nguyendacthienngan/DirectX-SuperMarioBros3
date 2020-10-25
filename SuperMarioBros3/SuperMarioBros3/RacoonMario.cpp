@@ -1,4 +1,4 @@
-#include "RacoonMario.h"
+﻿#include "RacoonMario.h"
 #include "MarioConst.h"
 #include "AnimationManager.h"
 #include "Ultis.h"
@@ -38,7 +38,9 @@ void CRacoonMario::EndAnimation()
 	if (currentState.compare(MARIO_STATE_ATTACK) == 0)
 	{
 		isAttack = false;
-		SetState(MARIO_STATE_IDLE);
+		if (animations.find(lastState) == animations.end()) // Không kiếm được last state trong animation, đồng nghĩa với việc last state chưa được khởi tạo, còn nếu đc khởi tạo rồi thì mình set state theo cái state trước đó
+			lastState = MARIO_STATE_IDLE;
+		SetState(lastState);
 	}
 }
 

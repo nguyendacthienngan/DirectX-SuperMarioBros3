@@ -13,9 +13,9 @@ void CStateMachine::SwitchState(IState* state)
 	currentState->Access();
 }
 
-void CStateMachine::Update()
+void CStateMachine::Process()
 {
 
 	if (currentState != nullptr)
-		currentState->Update();
+		currentState->Process();
 }

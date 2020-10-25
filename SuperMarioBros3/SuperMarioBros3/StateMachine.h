@@ -9,6 +9,6 @@ public:
 	// Chuyển state hiện tại sang state được truyền vô
 	// Gọi sự kiện vào state mới (Access)
 	virtual void SwitchState(IState* state);
-	virtual void Update();
+	virtual void Process();
 };
 
