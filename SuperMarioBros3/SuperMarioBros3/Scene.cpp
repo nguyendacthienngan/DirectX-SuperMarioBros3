@@ -11,11 +11,6 @@ CScene::CScene()
 {
 }
 
-//CScene::CScene(std::string filePath)
-//{
-//	this->filePath = filePath;
-//}
-
 void CScene::Load()
 {
 	TiXmlDocument sceneFile(filePath.c_str());
@@ -59,15 +54,8 @@ void CScene::Load()
 
 			player = new CMarioController();
 			player->AddStateObjectsToScene(this);
-			//player->SetPosition(startPosition);
 			player->GetCurrentStateObject()->SetPosition(startPosition);
 			AddObject(player);
-
-			/*D3DXVECTOR2 startPosition;
-			scene->QueryFloatAttribute("pos_x", &startPosition.x);
-			scene->QueryFloatAttribute("pos_y", &startPosition.y);
-			player->SetPosition(startPosition);
-			AddObject(player);*/
 		}
 		else if (name.compare("Camera") == 0)
 		{
@@ -116,6 +104,9 @@ void CScene::Update(DWORD dt)
 	if (gameObjects.size() == 0) return;
 	for (auto obj : gameObjects)
 	{
+
+		/*if (obj->GetTag() == GameObjectTags::Solid)
+			DebugOut(L"SolidBox \n");*/
 		if (obj->IsEnabled() == false) continue;
 		obj->PhysicsUpdate(&gameObjects); 
 		obj->Update(dt, camera);
@@ -127,13 +118,15 @@ void CScene::Update(DWORD dt)
 
 void CScene::Render()
 {
-	map->Render(camera);
+	//map->Render(camera);
 	if (gameObjects.size() == 0) return;
 
 	for (auto obj : gameObjects)
 	{
-		if (obj->IsEnabled() == false) continue;
+		//if (obj->IsEnabled() == false) continue;
 		obj->Render(camera);
+		if (obj->GetTag() == GameObjectTags::Solid)
+			obj->Render(camera);
 	}
 }
 
@@ -141,7 +134,6 @@ void CScene::AddObject(LPGameObject gameObject)
 {
 	if (gameObject != NULL)
 		gameObjects.push_back(gameObject);
-	//DebugOut(L"[INFO] Objects' length: %d \n", gameObjects.size());
 }
 
 void CScene::RemoveObject(LPGameObject gameObject)

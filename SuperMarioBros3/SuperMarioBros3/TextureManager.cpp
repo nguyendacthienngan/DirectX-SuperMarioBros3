@@ -21,7 +21,7 @@ void CTextureManager::Init()
 {
 	auto root = CGame::GetInstance();
 	LoadTexture(TEXTURE_MARIO, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_MARIO));
-	LoadTexture(TEXTURE_MARIO, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_MARIO));
+	LoadTexture(TEXTURE_BBOX, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_BBOX));
 }
 
 void CTextureManager::LoadTexture(string  texName, string texPath)
@@ -72,9 +72,10 @@ void CTextureManager::Add(string id, std::string filePath, D3DCOLOR transparentC
 		return;
 	}
 
-	textures[id] = texture;
+	//textures.at(id) = texture;
+	textures.insert(make_pair(id, texture));
 
-	DebugOut(L"[INFO] Texture loaded Ok: %s\n", filePath);
+	OutputDebugStringW(ToLPCWSTR("[INFO] Texture loaded Ok:  " + filePath + "\n"));
 	OutputDebugStringW(ToLPCWSTR("[INFO] Texture ID: " + id + "\n"));
 }
 

@@ -91,6 +91,12 @@ void CGame::Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTUR
 	spriteHandler->Draw(texture, &rect, &pCenter, &pInt, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 
+void CGame::Draw(D3DXVECTOR2 position, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha)
+{
+	D3DXVECTOR3 pInt((int)(position.x), (int)(position.y), 0); // Giúp không bị viền
+	spriteHandler->Draw(texture, &rect, NULL, &pInt, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+}
+
 void CGame::Run()
 {
 	MSG msg;
@@ -103,10 +109,6 @@ void CGame::Run()
 	// Game Loop
 	while (!done)
 	{
-		//prevTime = currentTime; // framestart?
-		//currentTime = GetTickCount(); // now
-		//delta += (currentTime - prevTime);
-		//deltaTime = delta; 
 		// Do trong game không có thời gian thực sự, để tạo cảm giác thời gian trôi qua thì ta chỉ có bộ đếm tick từ lúc start game để tạo cảm giác chân thực
 
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))

@@ -69,13 +69,12 @@ void CGameObject::Render(CCamera* cam)
 	D3DXVECTOR2 posInCam = cam->Transform(transform.position + relativePositionOnScreen);
 	posInCam.x = trunc(posInCam.x);
 	//posInCam.y = trunc(posInCam.y);
+
 	if (tag != GameObjectTags::SmallMario)
 		posInCam.y = trunc(posInCam.y) + 18; // Đang hardcode, sẽ fix sau
 
-	
-
-	/*DebugOut(L"Mario position: x,y %f, %f \n", transform.position.x, transform.position.y);
-	DebugOut(L"Mario position in cam: x,y %f, %f \n", posInCam.x, posInCam.y);*/
+	DebugOut(L"Mario position: x,y %f, %f \n", transform.position.x, transform.position.y);
+	DebugOut(L"Mario position in cam: x,y %f, %f \n", posInCam.x, posInCam.y);
 
 	animations.at(currentState)->Render(posInCam);
 }
