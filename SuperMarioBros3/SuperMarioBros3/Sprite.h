@@ -26,6 +26,9 @@ public:
 	void SetWidth(int w);
 	int GetHeight();
 	void SetHeight(int h);
+
+	D3DXVECTOR2 GetPointCenter();
+	void SetPointCenter(D3DXVECTOR2 pointCenter);
 	~CSprite();
 };
 

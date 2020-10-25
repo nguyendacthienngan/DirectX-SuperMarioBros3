@@ -58,6 +58,16 @@ void CSprite::SetHeight(int h)
 	height = h;
 }
 
+D3DXVECTOR2 CSprite::GetPointCenter()
+{
+	return pointCenter;
+}
+
+void CSprite::SetPointCenter(D3DXVECTOR2 pointCenter)
+{
+	this->pointCenter = pointCenter;
+}
+
 CSprite::~CSprite()
 {
 	//delete texture;

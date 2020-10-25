@@ -4,7 +4,7 @@
 CFireMario::CFireMario()
 {
 	CMario::Init();
-	SetTag(GameObjectTags::PowerupMario);
+	SetTag(GameObjectTags::FireMario);
 	Init();
 	isThrowingFireBall = false;
 	lastState = currentState;

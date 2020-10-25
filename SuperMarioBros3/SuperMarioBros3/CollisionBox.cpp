@@ -90,6 +90,10 @@ RectF CCollisionBox::GetBoundingBox()
 {
 	// GetBoundingBox la lay cai box nam trong the gioi game 
 	// Con boxSize la kich thuoc thoi k co toa do
+	int pointCenterX = 0;
+	auto tag = gameObject->GetTag();
+	/*if (tag == GameObjectTags::RaccoonMario)
+		pointCenterX = gameObject->GetAnimationByState(gameObject->GetCu);*/
 	auto pos = GetWorldPosition();
 	RectF r;
 	r.left = pos.x;

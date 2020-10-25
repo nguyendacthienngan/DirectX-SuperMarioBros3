@@ -5,7 +5,8 @@ enum class GameObjectTags
 	Player,
 	SmallMario,
 	SuperMario,
-	PowerupMario,
+	RaccoonMario,
+	FireMario,
 	Solid,
 	GhostPlatform,
 	Enemy
