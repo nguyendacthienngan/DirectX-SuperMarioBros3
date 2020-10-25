@@ -11,7 +11,9 @@
 #include "AnimationFrame.h"
 #include "Sprite.h"
 #include "Transform.h"
-
+#include "GameObject.h"
+class CGameObject;
+typedef CGameObject* LPGameObject;
 
 class CAnimation;
 typedef CAnimation* LPAnimation;
@@ -22,10 +24,12 @@ private:
 	DWORD defaultFrameTime, lastFrameTime;
 	int currentFrame;
 	float speedMultiplier;
-	bool isLoop;
+	bool isLoop, isPlaying;
 	Transform transform;
 	D3DXVECTOR2 relativePosition;
 	std::vector<LPAnimationFrame> animFrames;
+	CGameObject* gameObject; // Lưu con trỏ gameobject mà animation thuộc về để gọi animation end
+
 public: 
 	CAnimation(std::string aniID, DWORD defaultTime = 100);
 	CAnimation(const CAnimation& obj);
@@ -50,6 +54,9 @@ public:
 	void SetSpeedMultiplier(float speed) { speedMultiplier = speed; }
 	void ResetSpeedMultiplier() { speedMultiplier = 1.0f; }
 	float GetSpeedMultiplier() { return speedMultiplier; }
+
+	void SetGameObject(LPGameObject gO) { gameObject = gO; }
+	LPGameObject GetGameObject() { return gameObject; }
 
 	~CAnimation();
 };

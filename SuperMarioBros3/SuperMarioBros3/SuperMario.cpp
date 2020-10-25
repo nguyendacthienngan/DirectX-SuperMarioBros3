@@ -9,6 +9,7 @@ CSuperMario::CSuperMario()
 	CSuperMario::Init();
 	CMario::InitProperties();
 	canCrouch = true;
+	canAttack = false;
 }
 void CSuperMario::Init()
 {

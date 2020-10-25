@@ -71,8 +71,8 @@ void CGameObject::Render(CCamera* cam)
 	//posInCam.y = trunc(posInCam.y);
 	if (tag != GameObjectTags::SmallMario)
 		posInCam.y = trunc(posInCam.y) + 18;
-	DebugOut(L"Mario position: x,y %f, %f \n", transform.position.x, transform.position.y);
-	DebugOut(L"Mario position in cam: x,y %f, %f \n", posInCam.x, posInCam.y);
+	/*DebugOut(L"Mario position: x,y %f, %f \n", transform.position.x, transform.position.y);
+	DebugOut(L"Mario position in cam: x,y %f, %f \n", posInCam.x, posInCam.y);*/
 
 	animations.at(currentState)->Render(posInCam);
 }
@@ -89,12 +89,17 @@ void CGameObject::OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<Co
 void CGameObject::AddAnimation(std::string stateName, LPAnimation animation, bool isLoop)
 {
 	animation->SetLoopAnimation(isLoop);
+	animation->SetGameObject(this);
 	animations.insert(make_pair(stateName, animation));
 }
 
 void CGameObject::SetRelativePositionOnScreen(D3DXVECTOR2 rP)
 {
 	this->relativePositionOnScreen = rP;
+}
+
+void CGameObject::EndAnimation()
+{
 }
 
 void CGameObject::KeyState()

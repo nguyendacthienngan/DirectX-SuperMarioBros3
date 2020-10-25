@@ -9,6 +9,7 @@ CFireMario::CFireMario()
 	isThrowingFireBall = false;
 	lastState = currentState;
 	canCrouch = true;
+	canAttack = true;
 }
 
 void CFireMario::Init()

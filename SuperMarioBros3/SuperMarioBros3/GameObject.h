@@ -18,7 +18,6 @@
 class CPhysicsBody;
 typedef CPhysicsBody* LPPhysicsBody;
 
-
 class CCollisionBox;
 typedef CCollisionBox* LPCollisionBox;
 
@@ -28,7 +27,10 @@ typedef CGameObject* LPGameObject;
 class CCamera;
 typedef CCamera* LPCamera;
 
-class CollisionEvent;
+struct CollisionEvent;
+
+class CAnimation;
+typedef CAnimation* LPAnimation;
 
 class CGameObject
 {
@@ -80,6 +82,7 @@ public:
 	// Animation
 	void AddAnimation(std::string stateName, LPAnimation animation, bool isLoop = true); // một số animation như quăng lửa k cần lặp
 	void SetRelativePositionOnScreen(D3DXVECTOR2); // Dùng khi ví dụ chuyển từ idle -> crouch, dời hình xuống
+	virtual void EndAnimation();
 	// Keyboard
 	virtual void KeyState();
 	virtual void OnKeyDown(int KeyCode); // sẽ thuần ảo để đến từng gameObject cụ thể sẽ tự xử lý

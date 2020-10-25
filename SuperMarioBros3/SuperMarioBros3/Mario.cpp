@@ -22,24 +22,23 @@ CMario::CMario()
 
 void CMario::Init()
 {
-	this->SetState(MARIO_STATE_IDLE); // Để tên đồng nhất với animation
-
+	this->SetState(MARIO_STATE_IDLE); 
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(SUPER_MARIO_BBOX); // Big
-	//collisionBox->SetSizeBox(D3DXVECTOR2(14 * 3, 27 * 3)); // Big
 	collisionBox->SetPosition(D3DXVECTOR2(0.0f, 0.0f)); // Local Position
-
-	//collisionBox->SetSizeBox(D3DXVECTOR2(12 * 3, 15 * 3)); // Small
 	collisionBox->SetGameObjectAttach(this);
 	collisionBox->SetName("Mario");
 	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
 	this->collisionBoxs->push_back(collisionBox);
-	
-
 }
 
 void CMario::InitProperties()
 {
+	this->physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
+	this->physiscBody->SetDynamic(true); // có chuyển động
+	this->physiscBody->SetGravity(MARIO_GRAVITY);
+
+	tag = GameObjectTags::Player; // Cần hay k?
 	currentPhysicsState =
 	{
 		MoveOnGroundStates::Idle,
@@ -48,16 +47,14 @@ void CMario::InitProperties()
 	targetVelocity.x = 0.0f;
 	targetVelocity.y = 0.0f;
 
-	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
-	tag = GameObjectTags::Player;
+	previousNormal = physiscBody->GetNormal();
 	isEnabled = true;
 	isOnGround = false;
-	this->physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
-	this->physiscBody->SetDynamic(true); // có chuyển động
-	this->physiscBody->SetGravity(MARIO_GRAVITY);
 	canHighJump = false;
 	isSkid = false;
-	previousNormal = physiscBody->GetNormal();
+	isAttack = false;
+	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
+
 }
 
 void CMario::LoadAnimation()
@@ -93,7 +90,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	physiscBody->SetDragForce(D3DXVECTOR2(MARIO_WALKING_DRAG_FORCE, 0.0f));
 	D3DXVECTOR2 drag = physiscBody->GetDragForce();
 
-#pragma region KeyState
 
 	// Horizontal Movement: Walk, Run, Idle
 	if (keyboard->GetKeyStateDown(DIK_RIGHT) || keyboard->GetKeyStateDown(DIK_LEFT)) // Có thể nhấn a trước khi nhấn qua lại
@@ -167,6 +163,10 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		SkidProcess(velocity);
 		if (isSkid == true)
 			currentPhysicsState.move = MoveOnGroundStates::Skid;
+	}
+	else if ( (keyboard->GetKeyStateDown(DIK_Z) || isAttack == true ) && canAttack == true)
+	{
+		currentPhysicsState.move = MoveOnGroundStates::Attack;
 	}
 	else
 	{
@@ -265,7 +265,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	physiscBody->SetVelocity(velocity);
 	physiscBody->SetNormal(normal);
 
-	SetScale(D3DXVECTOR2(normal.x, 1.0f));
 
 	if (canCrouch == true) // Small Mario k thể crouch
 		CrouchProcess(keyboard);
@@ -274,6 +273,8 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 void CMario::Render(CCamera* cam)
 {
+	SetScale(D3DXVECTOR2(physiscBody->GetNormal().x, 1.0f));
+
 #pragma region Update State
 
 #pragma region Move On Ground
@@ -312,9 +313,11 @@ void CMario::Render(CCamera* cam)
 		SetState(MARIO_STATE_HIGH_SPEED);
 		break;
 	}
-	case MoveOnGroundStates::Spin:
+	case MoveOnGroundStates::Attack:
 	{
-		SetState(MARIO_STATE_SPIN);
+		DebugOut(L"Set Attack  \n");
+
+		SetState(MARIO_STATE_ATTACK);
 		break;
 	}
 	}
@@ -339,6 +342,8 @@ void CMario::Render(CCamera* cam)
 #pragma endregion
 
 #pragma endregion
+	if (currentState != "IDLE")
+		OutputDebugString(ToLPCWSTR("Current State " + currentState + "\n"));
 
 #pragma region Multipiler
 	auto animation = GetAnimationByState(currentState);
@@ -350,8 +355,8 @@ void CMario::Render(CCamera* cam)
 		{
 			multiplier = speed / MARIO_WALKING_SPEED;
 			animation->SetSpeedMultiplier(Clamp(multiplier, 1.0f, 3.0f)); // Bị lỗi đối với small mario khi small mario chưa có high speed;
-			DebugOut(L"Speed/walkSpeed: %f \n", speed / MARIO_WALKING_SPEED);
-			DebugOut(L"Multiplier: %f \n", multiplier);
+			/*DebugOut(L"Speed/walkSpeed: %f \n", speed / MARIO_WALKING_SPEED);
+			DebugOut(L"Multiplier: %f \n", multiplier);*/
 		}
 		else
 			animation->ResetSpeedMultiplier();
@@ -474,9 +479,11 @@ void CMario::OnKeyDown(int KeyCode)
 		if (currentPhysicsState.jump == JumpOnAirStates::Stand && KeyCode == DIK_S)
 			currentPhysicsState.jump = JumpOnAirStates::Jump;
 	}
-	if (KeyCode == DIK_Z)
+	if (KeyCode == DIK_Z && canAttack == true && isAttack == false)
 	{
-		currentPhysicsState.move = MoveOnGroundStates::Spin;
+		DebugOut(L"ZZZ \n");
+		//SetState(MARIO_STATE_ATTACK);
+		isAttack = true;
 	}
 }
 
@@ -489,17 +496,15 @@ void CMario::OnKeyUp(int KeyCode)
 	if (KeyCode == DIK_RIGHT)
 	{
 		currentPhysicsState.move = MoveOnGroundStates::Idle;
-		
 	}
 	if (KeyCode == DIK_LEFT)
 	{
 		currentPhysicsState.move = MoveOnGroundStates::Idle;
-
 	}
-	/*if (KeyCode == DIK_Z || currentPhysicsState.move == MoveOnGroundStates::Spin)
+	/*if (KeyCode == DIK_Z || isAttack == true)
 	{
+		isAttack = false;
 		currentPhysicsState.move = MoveOnGroundStates::Idle;
-
 	}*/
 }
 

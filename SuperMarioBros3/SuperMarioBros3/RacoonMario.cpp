@@ -8,6 +8,7 @@ CRacoonMario::CRacoonMario()
 	CMario::Init();
 	SetTag(GameObjectTags::Player);
 	canCrouch = true;
+	canAttack = true;
 	CRacoonMario::Init();
 	CRacoonMario::LoadAnimation();
 }
@@ -29,7 +30,16 @@ void CRacoonMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_FALL, animationManager->Get("ani-raccoon-mario-fall"));
 	AddAnimation(MARIO_STATE_SKID, animationManager->Get("ani-raccoon-mario-skid"));
 	AddAnimation(MARIO_STATE_CROUCH, animationManager->Get("ani-raccoon-mario-crouch"));
-	AddAnimation(MARIO_STATE_SPIN, animationManager->Get("ani-raccoon-mario-spin"));
+	AddAnimation(MARIO_STATE_ATTACK, animationManager->Get("ani-raccoon-mario-spin"), false);
+}
+
+void CRacoonMario::EndAnimation()
+{
+	if (currentState.compare(MARIO_STATE_ATTACK) == 0)
+	{
+		isAttack = false;
+		SetState(MARIO_STATE_IDLE);
+	}
 }
 
 

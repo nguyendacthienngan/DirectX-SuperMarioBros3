@@ -32,7 +32,6 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 	auto dt = CGame::GetInstance()->GetDeltaTime();
 	auto pos = gameObject->GetPosition();
 	auto distance = collisionBox->GetDistance();
-	//DebugOut(L"velocity.x, distance.x: %f, %f \n", velocity.x, distance.x);
 	vector<CollisionEvent*> coEvents;
 	vector<CollisionEvent*> coEventsResult;
 
@@ -99,8 +98,6 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 		}
 		gameObject->SetPosition(pos);
 	}
-	DebugOut(L"Mario's Velocity: %f \n", velocity.y);
-	DebugOut(L"Mario's Distance: %f \n", distance.y);
 
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	coEvents.clear();
@@ -248,20 +245,12 @@ LPCollisionEvent CPhysicsBody::SweptAABBEx(LPCollisionBox cO, LPCollisionBox cOO
 
 	svx = phyBody->GetVelocity().x;
 	svy = phyBody->GetVelocity().y;
-
-	//DebugOut(L"Mario's Velocity: %f \n", velocity.y);
-	//DebugOut(L"Mario's Gravity: %f \n", gravity);
-
 	float sdx = svx * CGame::GetInstance()->GetDeltaTime(); // sdx = svx * dt
 	float sdy = svy * CGame::GetInstance()->GetDeltaTime();
 
 	// deal with moving object: m speed = original m speed - collide object speed
 	float dx = cO->GetDistance().x - sdx; // laasy vaan toc cua minh tru van toc cua thang dang chay => Xet giua 1 dang chay (minh) va 1 dung yen => Theo dinh ly Newton
 	float dy = cO->GetDistance().y - sdy;
-
-	//DebugOut(L"sd (x,y): %f, %f \n", sdx, sdy);
-	//DebugOut(L"dx, dy:  %f, %f \n", dx, dy);
-
 
 	auto boundingBox = cO->GetBoundingBox(); // A
 	ml = boundingBox.left;
@@ -276,8 +265,6 @@ LPCollisionEvent CPhysicsBody::SweptAABBEx(LPCollisionBox cO, LPCollisionBox cOO
 	sb = boundingBoxOther.bottom;
 
 	std::string name = cOOther->GetName();
-	//OutputDebugString(ToLPCWSTR("Bounding Box" + name));
-	//DebugOut(L"  %f, %f, %f, %f \n", sl, st, sr, sb);
 	SweptAABB(
 		ml, mt, mr, mb,
 		dx, dy,
@@ -318,7 +305,6 @@ void CPhysicsBody::CalcPotentialCollisions(
 	}
 
 	std::sort(coEvents.begin(), coEvents.end(), CollisionEvent::compare);
-	// DebugOut(L"event: %d\n", coEvents.size());
 }
 
 

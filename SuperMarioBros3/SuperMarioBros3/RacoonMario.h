@@ -6,5 +6,6 @@ public:
 	CRacoonMario();
 	void Init() override;
 	void LoadAnimation() override;
+	void EndAnimation() override;
 };
 

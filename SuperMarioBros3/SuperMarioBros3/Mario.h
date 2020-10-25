@@ -22,6 +22,7 @@ protected:
 	bool isSkid;
 	bool canCrouch;
 	D3DXVECTOR2 previousNormal;
+	bool canAttack, isAttack;
 public:
 	CMario();
 	void Init() override;
