@@ -15,6 +15,7 @@
 
 #define TEXTURE_MARIO "tex-mario"
 #define TEXTURE_ENEMY "tex-enemy"
+#define TEXTURE_BBOX "tex-bbox"
 
 #define DB_SPRITE_MARIO "spr-mario"
 #define DB_SPRITE_ENEMY "spr-enemy"

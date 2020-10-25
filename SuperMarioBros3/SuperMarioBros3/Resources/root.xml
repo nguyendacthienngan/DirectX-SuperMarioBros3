@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>
   <Root name="Textures">
-    <Texture id="tex-mario" source="Resources/Sprites/mariox3(1).png"/>
-    <Texture id="tex-enemy" source="Resources/Sprites/enemy.png"/>
+    <Texture id="tex-mario" source="Resources/Textures/mariox3(1).png"/>
+    <Texture id="tex-enemy" source="Resources/Textures/enemy.png"/>
+    <Texture id="tex-bbox" source="Resources/Textures/bbox.png"/>
   </Root>
   <Root name="Sprites">
-    <Sprite id="spr-mario" source="Resources/Sprites/SpriteDatabases/MarioDB.xml"/>
-    <Sprite id="spr-enemy" source="Resources/Sprites/SpriteDatabases/EnemyDB.xml"/>
+    <Sprite id="spr-mario" source="Resources/Sprites/MarioDB.xml"/>
+    <Sprite id="spr-enemy" source="Resources/Sprites/EnemyDB.xml"/>
   </Root>
   <Root name="Animations">
     <Animation id="ani-mario" source="Resources/Animations/MarioAnim.xml"/>

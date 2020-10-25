@@ -21,8 +21,7 @@ void CTextureManager::Init()
 {
 	auto root = CGame::GetInstance();
 	LoadTexture(TEXTURE_MARIO, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_MARIO));
-	//Add(BOUNDINGBOX_IMG, ToLPCWSTR(TEXTURE_PATH + BOUNDINGBOX_IMG), 255);
-
+	LoadTexture(TEXTURE_MARIO, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_MARIO));
 }
 
 void CTextureManager::LoadTexture(string  texName, string texPath)
