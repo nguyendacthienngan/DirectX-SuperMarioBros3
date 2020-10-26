@@ -89,6 +89,9 @@ void CGame::Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTUR
 	//DebugOut(L"Mario position in cam: x,y %f, %f \n", pInt.x, pInt.y);
 	//DebugOut(L"When drawing: Point center: %f, %f \n", pCenter.x, pCenter.y);
 	spriteHandler->Draw(texture, &rect, &pCenter, &pInt, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	DebugOut(L"position mario after drawing: (%f, %f) \n", pInt.x, pInt.y);
+	DebugOut(L"pointCenter mario after drawing: (%f, %f) \n", pointCenter.x, pointCenter.y);
+
 }
 
 void CGame::Draw(D3DXVECTOR2 position, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha)
@@ -175,6 +178,7 @@ void CGame::DrawFlipX(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DT
 
 	D3DXVECTOR3 pInt((int)(position.x), (int)(position.y), 0);
 
+	//spriteHandler->Draw(texture, &rect, pCenter, &pInt, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	spriteHandler->Draw(texture, &rect, &pCenter, &pInt, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	spriteHandler->SetTransform(&oldMatrix);
 

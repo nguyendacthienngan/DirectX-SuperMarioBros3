@@ -69,7 +69,13 @@ void CGameObject::Render(CCamera* cam)
 	//posInCam.y = trunc(posInCam.y);
 
 	if (tag != GameObjectTags::SmallMario)
+	{
+		//posInCam.x = trunc(posInCam.x) - 40; // Đang hardcode, sẽ fix sau
+		//posInCam.y = trunc(posInCam.y) - 20; // Đang hardcode, sẽ fix sau
 		posInCam.y = trunc(posInCam.y) + 18; // Đang hardcode, sẽ fix sau
+
+
+	}
 
 	DebugOut(L"Mario position: x,y %f, %f \n", transform.position.x, transform.position.y);
 	DebugOut(L"Mario position in cam: x,y %f, %f \n", posInCam.x, posInCam.y);

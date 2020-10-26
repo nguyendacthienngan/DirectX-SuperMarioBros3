@@ -20,6 +20,8 @@ CSprite::CSprite(std::string id, int xPivot, RECT rect, LPDIRECT3DTEXTURE9 tex)
 void CSprite::Draw(D3DXVECTOR2 position, D3DXVECTOR2 scale, float rotation, int alpha)
 {
 	CGame* game = CGame::GetInstance();
+	DebugOut(L"position mario before drawing: (%f, %f) \n", position.x, position.y);
+	DebugOut(L"pointCenter mario before drawing: (%f, %f) \n", pointCenter.x, pointCenter.y);
 	if (scale.x < 0)
 		game->DrawFlipX(position, pointCenter, texture, rect, alpha);
 	else if (scale.y < 0)

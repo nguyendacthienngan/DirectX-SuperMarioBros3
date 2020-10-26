@@ -21,6 +21,8 @@ CCollisionBox::CCollisionBox()
 void CCollisionBox::Render(CCamera* camera, int distance)
 {
 	auto pos = GetWorldPosition();
+	
+
 	auto tex = CTextureManager::GetInstance()->GetTexture(TEXTURE_BBOX);
 	RECT bbRect;
 	bbRect.left = 0;
@@ -30,10 +32,19 @@ void CCollisionBox::Render(CCamera* camera, int distance)
 
 	D3DXVECTOR2 posInCam, camPos;
 	camPos = camera->GetPositionCam();
-	posInCam.x = trunc(pos.x - camPos.x + distance);
-	posInCam.y = trunc(pos.y - camPos.y + distance);
 
-	CGame::GetInstance()->Draw(posInCam, tex, bbRect, 32);
+
+	/*posInCam.x = trunc(pos.x - camPos.x);
+	posInCam.y = trunc(pos.y - camPos.y);*/
+
+	posInCam.x = trunc(pos.x - camPos.x + 21);
+	posInCam.y = trunc(pos.y - camPos.y + 21);
+
+	/*posInCam.x = trunc(pos.x - camPos.x);
+	posInCam.y = trunc(pos.y - camPos.y);*/
+
+	//CGame::GetInstance()->Draw(posInCam, tex, bbRect, 32);
+	CGame::GetInstance()->Draw(posInCam,D3DXVECTOR2(sizeBox.x*0.5f, sizeBox.y*0.5f) ,tex, bbRect, 32);
 }
 
 void CCollisionBox::SetGameObjectAttach(LPGameObject gO)
@@ -78,7 +89,34 @@ D3DXVECTOR2 CCollisionBox::GetDistance()
 
 D3DXVECTOR2 CCollisionBox::GetWorldPosition()
 {
-	return gameObject->GetPosition() + localPosition;
+	/*float pointCenterX = 0;
+	auto tag = gameObject->GetTag();
+	if (tag == GameObjectTags::RaccoonMario)
+	{
+		auto phyBody = gameObject->GetPhysiscBody();
+		DebugOut(L"Normal Mario x: %f \n", phyBody->GetNormal().x);
+		if (phyBody->GetNormal().x == 1)
+		{
+			auto animation = gameObject->GetAnimationByState(gameObject->GetState());
+			if (animation == NULL)
+				DebugOut(L"Animation is NULL \n");
+			else
+			{
+				auto sprite = animation->GetAnimFrame()->GetSprite();
+				if (sprite == NULL)
+					DebugOut(L"Sprite is NULL \n");
+				else
+				{
+					pointCenterX = sprite->GetPointCenter().x;
+					DebugOut(L"Point Center X: %f \n", pointCenterX);
+				}
+
+			}
+		}
+	}*/
+	auto worldPos = gameObject->GetPosition() + localPosition;
+	//worldPos.x += pointCenterX; // ***** lưu ý
+	return worldPos;
 }
 
 bool CCollisionBox::IsEnabled()
@@ -90,16 +128,23 @@ RectF CCollisionBox::GetBoundingBox()
 {
 	// GetBoundingBox la lay cai box nam trong the gioi game 
 	// Con boxSize la kich thuoc thoi k co toa do
-	int pointCenterX = 0;
-	auto tag = gameObject->GetTag();
-	/*if (tag == GameObjectTags::RaccoonMario)
-		pointCenterX = gameObject->GetAnimationByState(gameObject->GetCu);*/
+
 	auto pos = GetWorldPosition();
 	RectF r;
-	r.left = pos.x;
-	r.right = pos.x + sizeBox.x;
-	r.top =  pos.y ;
-	r.bottom = pos.y + sizeBox.y ;
+	r.left = pos.x - sizeBox.x*0.5f;
+	r.right = pos.x + sizeBox.x*0.5f;
+	r.top =  pos.y - sizeBox.y * 0.5f;
+	r.bottom = pos.y + sizeBox.y * 0.5f;
+
+	/*r.left = pos.x;
+	r.top = pos.y;
+	r.right = r.left + sizeBox.x;
+	r.bottom = r.top + sizeBox.y;*/
+	/*if (name == "Mario")
+	{
+		OutputDebugString(ToLPCWSTR("BBOX: " + name));
+		DebugOut(L" (L, R, T, B) : (%f, %f, %f, %f) \n ", r.left, r.right, r.top, r.bottom);
+	}*/
 	return r;
 }
 

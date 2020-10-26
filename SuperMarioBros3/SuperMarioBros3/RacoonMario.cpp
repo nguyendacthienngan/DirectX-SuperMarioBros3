@@ -6,7 +6,7 @@
 CRacoonMario::CRacoonMario()
 {
 	CMario::Init();
-	SetTag(GameObjectTags::FireMario);
+	SetTag(GameObjectTags::RaccoonMario);
 	canCrouch = true;
 	canAttack = true;
 	CRacoonMario::Init();
@@ -44,4 +44,34 @@ void CRacoonMario::EndAnimation()
 	}
 }
 
+void CRacoonMario::UpdatePositition()
+{
+	float pointCenterX = 0;
+	if (tag == GameObjectTags::RaccoonMario)
+	{
+		DebugOut(L"Normal Mario x: %f \n", physiscBody->GetNormal().x);
+		if (physiscBody->GetNormal().x == 1)
+		{
+			auto animation = animations.at(currentState);
+			if (animation == NULL)
+				DebugOut(L"Animation is NULL \n");
+			else
+			{
+				auto sprite = animation->GetAnimFrame()->GetSprite();
+				if (sprite == NULL)
+					DebugOut(L"Sprite is NULL \n");
+				else
+				{
+					pointCenterX = sprite->GetPointCenter().x;
+					DebugOut(L"Point Center X: %f \n", pointCenterX);
+				}
 
+			}
+		}
+	}
+}
+
+void CRacoonMario::SetPositionToPointCenter(bool isPointCenter)
+{
+	isSetToPointCenter = isPointCenter;
+}
