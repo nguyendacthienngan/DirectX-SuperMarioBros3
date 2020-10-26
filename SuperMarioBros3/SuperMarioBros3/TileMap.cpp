@@ -159,7 +159,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::vector<LPGameObject>& lis
 				{
 					CSolidBox* solid = new CSolidBox();
 					//solid->SetPosition(position); 
-					solid->SetPosition(position - D3DXVECTOR2(45, 40) + size*0.5); // lấy tọa độ giữa
+					solid->SetPosition(position - D3DXVECTOR2(24, 40) + size*0.5); // lấy tọa độ giữa
 					solid->GetCollisionBox()->at(0)->SetSizeBox(size);
 					solid->GetCollisionBox()->at(0)->SetId(id);
 					solid->GetCollisionBox()->at(0)->SetName(nameObject);

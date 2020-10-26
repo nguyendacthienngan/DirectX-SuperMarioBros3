@@ -37,11 +37,11 @@ void CCollisionBox::Render(CCamera* camera, int distance)
 	/*posInCam.x = trunc(pos.x - camPos.x);
 	posInCam.y = trunc(pos.y - camPos.y);*/
 
-	posInCam.x = trunc(pos.x - camPos.x + 21);
-	posInCam.y = trunc(pos.y - camPos.y + 21);
+	/*posInCam.x = trunc(pos.x - camPos.x + 21);
+	posInCam.y = trunc(pos.y - camPos.y + 21);*/
 
-	/*posInCam.x = trunc(pos.x - camPos.x);
-	posInCam.y = trunc(pos.y - camPos.y);*/
+	posInCam.x = trunc(pos.x - camPos.x);
+	posInCam.y = trunc(pos.y - camPos.y + 20);
 
 	//CGame::GetInstance()->Draw(posInCam, tex, bbRect, 32);
 	CGame::GetInstance()->Draw(posInCam,D3DXVECTOR2(sizeBox.x*0.5f, sizeBox.y*0.5f) ,tex, bbRect, 32);
