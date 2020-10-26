@@ -19,9 +19,9 @@ void CSpriteManager::Init()
 	LoadSprite(root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_MARIO));
 }
 
-void CSpriteManager::Add(string id, RECT rect, LPDIRECT3DTEXTURE9 tex, int xPivot)
+void CSpriteManager::Add(string id, RECT rect, LPDIRECT3DTEXTURE9 tex, int xPivot, D3DXCOLOR transcolor)
 {
-	LPSprite s = new CSprite(id, xPivot, rect, tex);
+	LPSprite s = new CSprite(id, xPivot, rect, tex, transcolor);
 	sprites.insert(make_pair(id, s));
 }
 
@@ -50,17 +50,14 @@ bool CSpriteManager::LoadSprite(string filePath)
 	{
 
 		string spriteID = node->Attribute("id");
-		int left, top, width, height, pivotX;
+		int left, top, width, height, pivotX, transcolor;
+		D3DXCOLOR color;
 		node->QueryIntAttribute("left", &left);
 		node->QueryIntAttribute("top", &top);
 		node->QueryIntAttribute("width", &width);
 		node->QueryIntAttribute("height", &height);
-
 		if (node->QueryIntAttribute("xPivot", &pivotX) != TIXML_SUCCESS)
-		{
 			pivotX = -1;
-		}
-
 		pivotX *= 3;
 		OutputDebugStringW(ToLPCWSTR(spriteID + ':' + to_string(left) + ':' + to_string(top) + ':' + to_string(width) + ':' + to_string(height) + ':' + to_string(pivotX) + '\n'));
 		
@@ -72,7 +69,6 @@ bool CSpriteManager::LoadSprite(string filePath)
 
 		Add(spriteID, rect, tex, pivotX);
 	}
-	// Load Sprite from XML
 	return true;
 }
 

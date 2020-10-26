@@ -9,5 +9,6 @@ enum class GameObjectTags
 	FireMario,
 	Solid,
 	GhostPlatform,
-	Enemy
+	Enemy,
+	Misc
 };

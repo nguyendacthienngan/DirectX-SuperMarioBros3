@@ -25,10 +25,16 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 {
 	auto gameObject = cO->GetGameObjectAttach();
 	auto collisionBox = gameObject->GetCollisionBox()->at(0);
+	if (cO->GetName() == "Fire-Ball")
+	{
+		DebugOut(L"BBBOX FIRE BALL before checking condition\n");
+		DebugOut(L"Gravity: %f \n", gravity);
+	}
 
 	if (gameObject == NULL || gameObject->IsEnabled() == false || isDynamic == false)
 		return;
 
+	
 	auto dt = CGame::GetInstance()->GetDeltaTime();
 	auto pos = gameObject->GetPosition();
 	auto distance = collisionBox->GetDistance();
@@ -102,7 +108,8 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	coEvents.clear();
 	
-
+	if (cO->GetName() == "Fire-Ball")
+		DebugOut(L"Velocity (x,y): (%f, %f) \n", velocity.x, velocity.y);
 
 }
 void CPhysicsBody::Update(LPGameObject gameObject)
@@ -117,7 +124,8 @@ void CPhysicsBody::Update(LPGameObject gameObject)
 	distance.x = physiscBody->GetVelocity().x * dt;
 	distance.y = physiscBody->GetVelocity().y * dt;
 	collisionBoxs->at(0)->SetDistance(distance);
-	
+	if (gameObject->GetTag() ==  GameObjectTags::Misc)
+		DebugOut(L"BBBOX FIRE BALL when updating\n");
 }
 /*
 	Standard sweptAABB implementation

@@ -10,6 +10,11 @@
 #include <map>
 #include "TileMap.h"
 
+class CGameObject;
+typedef CGameObject* LPGameObject;
+
+class CTileMap;
+
 class CMap
 {
 private:

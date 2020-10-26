@@ -70,16 +70,12 @@ void CGameObject::Render(CCamera* cam)
 
 	if (tag != GameObjectTags::SmallMario)
 	{
-		//posInCam.x = trunc(posInCam.x) - 40; // Đang hardcode, sẽ fix sau
-		//posInCam.y = trunc(posInCam.y) - 20; // Đang hardcode, sẽ fix sau
+		//posInCam.x = trunc(posInCam.x) - 40; 
+		//posInCam.y = trunc(posInCam.y) - 20; 
 		posInCam.y = trunc(posInCam.y) + 18; // Đang hardcode, sẽ fix sau
 
 
 	}
-
-	DebugOut(L"Mario position: x,y %f, %f \n", transform.position.x, transform.position.y);
-	DebugOut(L"Mario position in cam: x,y %f, %f \n", posInCam.x, posInCam.y);
-
 	animations.at(currentState)->Render(posInCam);
 }
 
@@ -212,6 +208,11 @@ Effector CGameObject::GetEffector()
 void CGameObject::SetEffector(Effector e)
 {
 	this->effector = effector;
+}
+
+void CGameObject::AddMiscToScene(LPScene scene)
+{
+
 }
 
 LPAnimation CGameObject::GetAnimationByState(std::string state)

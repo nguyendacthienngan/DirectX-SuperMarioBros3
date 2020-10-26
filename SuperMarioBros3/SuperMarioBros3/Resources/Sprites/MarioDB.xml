@@ -100,6 +100,7 @@
 		<Sprite id="spr-raccoon-mario-roll-5" left="439" top="342"  width="21" height="20" frameTime="100"/>
 		<Sprite id="spr-raccoon-mario-roll-6" left="462" top="340"  width="20" height="22" frameTime="100"/>
 		<Sprite id="spr-raccoon-mario-roll-7" left="485" top="341"  width="20" height="21" frameTime="100"/>
+		
 		<Sprite id="spr-fire-mario-map-???-0" left="124" top="115"  width="16" height="21" frameTime="100"/>
 		<Sprite id="spr-fire-mario-map-???-1" left="143" top="115"  width="16" height="21" frameTime="100"/>
 		<Sprite id="spr-fire-mario-idle-front-0" left="458" top="109"  width="16" height="27" frameTime="100"/>

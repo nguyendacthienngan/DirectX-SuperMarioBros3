@@ -40,7 +40,7 @@ public:
 	void OnKeyDown(int KeyCode);
 	void OnKeyUp(int KeyCode);
 
-	// State
+
 	virtual void Access()		override;
 	virtual void Process()		override;
 	virtual void Exit()			override;

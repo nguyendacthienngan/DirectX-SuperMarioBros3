@@ -3,29 +3,29 @@
 
 #include "Ultis.h"
 
-CSprite::CSprite(std::string id, int xPivot, RECT rect, LPDIRECT3DTEXTURE9 tex)
+CSprite::CSprite(std::string id, int xPivot, RECT rect, LPDIRECT3DTEXTURE9 tex, D3DXCOLOR transcolor)
 {
 	this->id = id;
 	this->rect = rect;
 	this->texture = tex;
 	this->width = rect.right - rect.left;
 	this->height = rect.bottom - rect.top;
-
+	this->transcolor = transcolor;
 	if (xPivot == -3)
 		this->pointCenter = D3DXVECTOR2(width *0.5, height * 0.5);
 	else
 		this->pointCenter = D3DXVECTOR2(xPivot, height*0.5);
 }
 
-void CSprite::Draw(D3DXVECTOR2 position, D3DXVECTOR2 scale, float rotation, int alpha)
+void CSprite::Draw(D3DXVECTOR2 position, D3DXVECTOR2 scale, float rotation, D3DXCOLOR transcolor)
 {
 	CGame* game = CGame::GetInstance();
 	if (scale.x < 0)
-		game->DrawFlipX(position, pointCenter, texture, rect, alpha);
+		game->DrawFlipX(position, pointCenter, texture, rect, transcolor);
 	else if (scale.y < 0)
-		game->DrawFlipY(position, pointCenter, texture, rect, alpha);
+		game->DrawFlipY(position, pointCenter, texture, rect, transcolor);
 	else
-		game->Draw(position, pointCenter, texture, rect, alpha);
+		game->Draw(position, pointCenter, texture, rect, transcolor);
 }
 
 RECT CSprite::GetRect()

@@ -18,7 +18,8 @@ CMarioController::CMarioController()
 {
 	Init();
 	currentStateObject = NULL;
-	SwitchToState(RACOON_MARIO_STATE);
+	SwitchToState(FIRE_MARIO_STATE);
+	//SwitchToState(RACOON_MARIO_STATE);
 	//SwitchToState(SUPER_MARIO_STATE);
 	//SwitchToState(SMALL_MARIO_STATE);
 }
@@ -76,7 +77,10 @@ void CMarioController::Process()
 void CMarioController::AddStateObjectsToScene(LPScene scene)
 {
 	for (auto obj : listStateObjects)
+	{
 		scene->AddObject(obj.second);
+		obj.second->AddMiscToScene(scene);
+	}
 }
 
 void CMarioController::SwitchToState(std::string state)

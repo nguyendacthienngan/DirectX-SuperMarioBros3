@@ -72,7 +72,7 @@ void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 		}
 	}
 	
-	animFrames[currentFrame]->GetSprite()->Draw(position, transform.scale, transform.rotationAngle, alpha);
+	animFrames[currentFrame]->GetSprite()->Draw(position, transform.scale, transform.rotationAngle, D3DXCOLOR(255,255,255,alpha));
 }
 
 void CAnimation::SetPlay(bool isPause)

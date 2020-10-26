@@ -100,6 +100,9 @@
     <Filter Include="Game\GameObject\Mario\BaseMario">
       <UniqueIdentifier>{a542e354-c503-42ec-be57-fd1092fa58cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Misc">
+      <UniqueIdentifier>{2ce07ac5-c857-4db2-a313-02a53da1de70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -321,6 +324,18 @@
     <ClInclude Include="SuperMario.h">
       <Filter>Game\GameObject\Mario\MarioStates</Filter>
     </ClInclude>
+    <ClInclude Include="Misc.h">
+      <Filter>Game\GameObject\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="FireBall.h">
+      <Filter>Game\GameObject\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="MiscConst.h">
+      <Filter>Game\GameObject\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectController.h">
+      <Filter>Framework\Game\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -493,6 +508,15 @@
     </ClCompile>
     <ClCompile Include="SuperMario.cpp">
       <Filter>Game\GameObject\Mario\MarioStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Misc.cpp">
+      <Filter>Game\GameObject\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBall.cpp">
+      <Filter>Game\GameObject\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectController.cpp">
+      <Filter>Framework\Game\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -21,8 +21,6 @@ CCollisionBox::CCollisionBox()
 void CCollisionBox::Render(CCamera* camera, int distance)
 {
 	auto pos = GetWorldPosition();
-	
-
 	auto tex = CTextureManager::GetInstance()->GetTexture(TEXTURE_BBOX);
 	RECT bbRect;
 	bbRect.left = 0;
@@ -36,7 +34,7 @@ void CCollisionBox::Render(CCamera* camera, int distance)
 	posInCam.x = trunc(pos.x - camPos.x);
 	posInCam.y = trunc(pos.y - camPos.y + 20);
 
-	CGame::GetInstance()->Draw(posInCam,D3DXVECTOR2(sizeBox.x*0.5f, sizeBox.y*0.5f) ,tex, bbRect, 32);
+	CGame::GetInstance()->Draw(posInCam,D3DXVECTOR2(sizeBox.x*0.5f, sizeBox.y*0.5f) ,tex, bbRect, D3DCOLOR_ARGB(32,255,255,255));
 }
 
 void CCollisionBox::SetGameObjectAttach(LPGameObject gO)
@@ -95,7 +93,8 @@ RectF CCollisionBox::GetBoundingBox()
 {
 	// GetBoundingBox la lay cai box nam trong the gioi game 
 	// Con boxSize la kich thuoc thoi k co toa do
-
+	/*if (name == "Fire-Ball")
+		DebugOut(L"BBBOX FIRE BALL \n");*/
 	auto pos = GetWorldPosition();
 	RectF r;
 	r.left = pos.x - sizeBox.x*0.5f;

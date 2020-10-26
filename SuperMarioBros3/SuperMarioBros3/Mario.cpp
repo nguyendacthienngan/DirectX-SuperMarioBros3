@@ -148,8 +148,9 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		if (isSkid == true)
 			currentPhysicsState.move = MoveOnGroundStates::Skid;
 	}
-	else if ( (keyboard->GetKeyStateDown(DIK_Z) || isAttack == true ) && canAttack == true)
+	else if ( (keyboard->GetKeyStateDown(DIK_Z) || isAttack == true) && canAttack == true) // Hỏi lại thầy xem có sai quy tắc k?
 	{
+		DebugOut(L"Attacking \n");
 		currentPhysicsState.move = MoveOnGroundStates::Attack;
 	}
 	else
@@ -462,11 +463,11 @@ void CMario::OnKeyDown(int KeyCode)
 		if (currentPhysicsState.jump == JumpOnAirStates::Stand && KeyCode == DIK_S)
 			currentPhysicsState.jump = JumpOnAirStates::Jump;
 	}
-	if (KeyCode == DIK_Z && canAttack == true && isAttack == false)
+	if (KeyCode == DIK_Z && canAttack == true && isAttack == false && currentPhysicsState.move != MoveOnGroundStates::Attack)
 	{
-		DebugOut(L"ZZZ \n");
-		//SetState(MARIO_STATE_ATTACK);
 		isAttack = true;
+		//currentPhysicsState.move = MoveOnGroundStates::Attack;
+
 	}
 }
 
@@ -484,11 +485,6 @@ void CMario::OnKeyUp(int KeyCode)
 	{
 		currentPhysicsState.move = MoveOnGroundStates::Idle;
 	}
-	/*if (KeyCode == DIK_Z || isAttack == true)
-	{
-		isAttack = false;
-		currentPhysicsState.move = MoveOnGroundStates::Idle;
-	}*/
 }
 
 void CMario::Access()

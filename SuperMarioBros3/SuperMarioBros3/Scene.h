@@ -11,6 +11,11 @@
 class CScene;
 typedef CScene* LPScene;
 
+class CGameObject;
+typedef CGameObject* LPGameObject;
+
+class CMap;
+
 class CScene
 {
 protected:

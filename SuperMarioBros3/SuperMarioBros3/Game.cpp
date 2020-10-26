@@ -82,11 +82,11 @@ void CGame::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
 	DebugOut(L"[INFO] Init DirectX Done \n");
 }
 
-void CGame::Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha)
+void CGame::Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, D3DXCOLOR transcolor)
 {
 	D3DXVECTOR3 pCenter((int)pointCenter.x, (int)pointCenter.y, 0);
 	D3DXVECTOR3 pInt((int)(position.x), (int)(position.y), 0); // Giúp không bị viền
-	spriteHandler->Draw(texture, &rect, &pCenter, &pInt, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->Draw(texture, &rect, &pCenter, &pInt, transcolor);
 }
 
 void CGame::Draw(D3DXVECTOR2 position, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha)
@@ -158,7 +158,7 @@ void CGame::End()
 	DebugOut(L"[INFO] Bye bye \n");
 }
 
-void CGame::DrawFlipX(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha)
+void CGame::DrawFlipX(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, D3DXCOLOR transcolor)
 {
 	D3DXVECTOR3 pCenter((int)pointCenter.x, (int)pointCenter.y, 0);
 	D3DXVECTOR2 pScale(-1, 1);
@@ -170,23 +170,23 @@ void CGame::DrawFlipX(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DT
 	D3DXMatrixTransformation2D(&newMatrix, &position, 0.0f, &pScale, NULL, 0.0f, NULL);
 	spriteHandler->SetTransform(&newMatrix);
 
-	spriteHandler->Draw(texture, &rect, &pCenter, &pInt, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->Draw(texture, &rect, &pCenter, &pInt, transcolor);
 	spriteHandler->SetTransform(&oldMatrix);
 }
 
-void CGame::DrawFlipY(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha)
+void CGame::DrawFlipY(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, D3DXCOLOR transcolor)
 {
 	D3DXVECTOR3 pCenter((int)pointCenter.x, (int)pointCenter.y, 0);
 	D3DXVECTOR2 pScale(1, -1);
 	D3DXVECTOR3 pInt((int)(position.x), (int)(position.y), 0);
 	D3DXMATRIX oldMatrix, newMatrix;
-
+	
 	spriteHandler->GetTransform(&oldMatrix);
 
 	D3DXMatrixTransformation2D(&newMatrix, &position, 0.0f, &pScale, NULL, 0.0f, NULL);
 	spriteHandler->SetTransform(&newMatrix);
 
-	spriteHandler->Draw(texture, &rect, &pCenter, &pInt, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->Draw(texture, &rect, &pCenter, &pInt, transcolor);
 	spriteHandler->SetTransform(&oldMatrix);
 }
 

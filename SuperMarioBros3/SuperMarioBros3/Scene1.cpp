@@ -5,6 +5,8 @@
 #include "Const.h"
 #include "MarioConst.h"
 #include "Game.h"
+
+#include "FireBall.h"
 CScene1::CScene1()
 {
 	this->id = "PlayScene";

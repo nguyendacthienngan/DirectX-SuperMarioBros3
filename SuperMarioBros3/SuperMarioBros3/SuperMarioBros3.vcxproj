@@ -150,6 +150,7 @@
     <ClInclude Include="CollisionBox.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Effector.h" />
+    <ClInclude Include="FireBall.h" />
     <ClInclude Include="FireMario.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
@@ -195,6 +196,9 @@
     <ClInclude Include="MarioController.h" />
     <ClInclude Include="MarioControllerConst.h" />
     <ClInclude Include="MarioStateSet.h" />
+    <ClInclude Include="Misc.h" />
+    <ClInclude Include="MiscConst.h" />
+    <ClInclude Include="ObjectController.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="RacoonMario.h" />
     <ClInclude Include="RectF.h" />
@@ -223,6 +227,7 @@
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionBox.cpp" />
+    <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="FireMario.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameKeyEventHandler.cpp" />
@@ -256,6 +261,8 @@
     <ClCompile Include="MapReader\TmxUtil.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="MarioController.cpp" />
+    <ClCompile Include="Misc.cpp" />
+    <ClCompile Include="ObjectController.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="RacoonMario.cpp" />
     <ClCompile Include="Scene.cpp" />

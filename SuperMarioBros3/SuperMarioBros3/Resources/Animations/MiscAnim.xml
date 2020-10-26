@@ -149,9 +149,9 @@
 	<!-- FIRE BALL -->
 		<Animation aniId="ani-fire-ball" frameTime="100">
 			<Sprite id="spr-fire-ball-0" left="0" top="1"  width="8" height="8"/>
-			<Sprite id="spr-fire-ball-0" left="11" top="0"  width="8" height="9"/>
-			<Sprite id="spr-fire-ball-0" left="22" top="1"  width="8" height="8"/>
-			<Sprite id="spr-fire-ball-0" left="33" top="0"  width="8" height="9"/>
+			<Sprite id="spr-fire-ball-1" left="11" top="0"  width="8" height="9"/>
+			<Sprite id="spr-fire-ball-2" left="22" top="1"  width="8" height="8"/>
+			<Sprite id="spr-fire-ball-3" left="33" top="0"  width="8" height="9"/>
 		</Animation>
 	</Textures>
 </Textures>

@@ -14,6 +14,10 @@
 #include "CollisionBox.h"
 #include "GameObjectTags.h"
 #include "Effector.h"
+#include "Scene.h"
+
+class CScene;
+typedef CScene* LPScene;
 
 class CPhysicsBody;
 typedef CPhysicsBody* LPPhysicsBody;
@@ -64,7 +68,7 @@ public:
 	virtual void Init();
 	virtual void LoadAnimation();
 
-	void PhysicsUpdate(std::vector<LPGameObject>* coObjects);
+	virtual void PhysicsUpdate(std::vector<LPGameObject>* coObjects);
 	virtual void Update(DWORD dt, CCamera* cam);
 	virtual void Render(CCamera* cam);
 
@@ -111,6 +115,8 @@ public:
 
 	Effector GetEffector();
 	void SetEffector(Effector e);
+
+	virtual void AddMiscToScene(LPScene scene);
 };
 
 #endif

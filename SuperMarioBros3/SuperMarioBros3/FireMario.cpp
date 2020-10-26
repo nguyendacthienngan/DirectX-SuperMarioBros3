@@ -1,15 +1,27 @@
 ﻿#include "FireMario.h"
 #include "AnimationManager.h"
 #include "MarioConst.h"
+#include "Misc.h"
+#include "MiscConst.h"
+#include "SceneManager.h"
+
 CFireMario::CFireMario()
 {
 	CMario::Init();
 	SetTag(GameObjectTags::FireMario);
+	CFireBall* fireBall1 = new CFireBall(); 
+	fireBall1->SetFireMario(this);
+	listFireBalls.push_back(fireBall1);
+	CFireBall* fireBall2 = new CFireBall();
+	fireBall2->SetFireMario(this);
+	listFireBalls.push_back(fireBall2);
+
 	Init();
-	isThrowingFireBall = false;
 	lastState = currentState;
 	canCrouch = true;
 	canAttack = true;
+	currentFireBall = NULL;
+
 }
 
 void CFireMario::Init()
@@ -34,34 +46,60 @@ void CFireMario::LoadAnimation()
 
 void CFireMario::Render(CCamera* cam)
 {
-	auto ani = GetAnimationByState(currentState);
-
-	if (isThrowingFireBall == true)
-	{
-		if (currentState.compare(MARIO_STATE_ATTACK) != 0) // Chưa set state Attack
-			SetState(MARIO_STATE_ATTACK);
-		ani->SetSpeedMultiplier(2.0f);
-		return;
-	}
 	CMario::Render(cam);
+}
 
-	// ************ Còn phải check lại
-	//if (currentState.compare(MARIO_STATE_ATTACK) == 0) // đã set attack
-	//{
-	//	isThrowingFireBall = false;
-	//	if (animations.find(lastState) == animations.end())
-	//		lastState = MARIO_STATE_IDLE;
-	//	SetState(lastState);
-	//}
+void CFireMario::Update(DWORD dt, CCamera* cam)
+{
+	CMario::Update(dt, cam);
+	
 	
 }
 
-//void CFireMario::OnKeyDown(int KeyCode)
-//{
-//	CMario::OnKeyDown(KeyCode);
-//
-//	//// ATTACK / THROW FIRE BALL
-//	//if (KeyCode == DIK_A && isThrowingFireBall == false)
-//	//	isThrowingFireBall = true;
-//
-//}
+void CFireMario::EndAnimation()
+{
+	if (currentState.compare(MARIO_STATE_ATTACK) == 0)
+	{
+		isAttack = false; // có bị phạm luật hay không?
+		if (animations.find(lastState) == animations.end()) // Không kiếm được last state trong animation, đồng nghĩa với việc last state chưa được khởi tạo, còn nếu đc khởi tạo rồi thì mình set state theo cái state trước đó
+			lastState = MARIO_STATE_IDLE;
+		SetState(lastState);
+	}
+}
+
+void CFireMario::AddMiscToScene(CScene* scene)
+{
+	CGameObject::AddMiscToScene(scene);
+	for (auto fireBall : listFireBalls)
+	{
+		scene->AddObject(fireBall);
+	}
+}
+
+void CFireMario::OnKeyDown(int KeyCode)
+{
+	CMario::OnKeyDown(KeyCode);
+	if (isAttack == true)
+	{
+		currentFireBall = listFireBalls[0];
+		if (currentFireBall == NULL)
+			return;
+		auto firePhyBody = currentFireBall->GetPhysiscBody();
+
+		currentFireBall->Enable(true);
+		auto normal = physiscBody->GetNormal();
+
+		auto posMario = transform.position;
+		posMario.x += SUPER_MARIO_BBOX.x *0.5f *normal.x;
+		firePhyBody->SetVelocity(D3DXVECTOR2(FIRE_BALL_SPEED * normal.x, 0.0f));
+
+		currentFireBall->SetPosition(transform.position);
+	}
+	else
+	{
+		if (currentFireBall != NULL)
+		{
+			currentFireBall->Enable(false);
+		}
+	}
+}

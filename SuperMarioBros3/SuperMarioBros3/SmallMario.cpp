@@ -15,7 +15,7 @@ void CSmallMario::Init()
 	SetTag(GameObjectTags::SmallMario);
 	LoadAnimation();
 	CCollisionBox* collisionBox = new CCollisionBox(); 
-	collisionBox->SetSizeBox(D3DXVECTOR2(12 * 3, 15 * 3));
+	collisionBox->SetSizeBox(SMALL_MARIO_BBOX);
 	collisionBox->SetGameObjectAttach(this);
 	collisionBox->SetName("Mario"); // SmallMario
 	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
