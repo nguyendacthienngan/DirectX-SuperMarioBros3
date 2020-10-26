@@ -2,7 +2,7 @@
 
 #define FIRE_BALL_ANIMATION				"FIRE-BALL"
 
-#define FIRE_BALL_SPEED					0.1f 
+#define FIRE_BALL_SPEED					0.25f 
 
 const D3DXVECTOR2 FIRE_BALL_BBOX		(8, 9);
 

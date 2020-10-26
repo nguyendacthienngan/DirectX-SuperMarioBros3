@@ -98,7 +98,7 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 				if (nx == 0)
 				{
 					velocity.y = 0;
-					distance.y = 0;
+					//distance.y = 0;
 				}
 			}
 		}

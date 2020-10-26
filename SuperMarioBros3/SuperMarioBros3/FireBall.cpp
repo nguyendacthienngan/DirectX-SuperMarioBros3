@@ -50,6 +50,7 @@ void CFireBall::SetFireMario(CGameObject* fireM)
 
 void CFireBall::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
 {
+
 	/*for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
