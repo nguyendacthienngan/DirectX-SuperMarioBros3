@@ -9,7 +9,5 @@ public:
 	void Init() override;
 	void LoadAnimation() override;
 	void EndAnimation() override;
-	void UpdatePositition();
-	void SetPositionToPointCenter(bool isPointCenter);
 };
 

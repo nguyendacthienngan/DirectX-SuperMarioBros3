@@ -104,9 +104,6 @@ void CScene::Update(DWORD dt)
 	if (gameObjects.size() == 0) return;
 	for (auto obj : gameObjects)
 	{
-
-		/*if (obj->GetTag() == GameObjectTags::Solid)
-			DebugOut(L"SolidBox \n");*/
 		if (obj->IsEnabled() == false) continue;
 		obj->PhysicsUpdate(&gameObjects); 
 		obj->Update(dt, camera);
@@ -123,7 +120,6 @@ void CScene::Render()
 
 	for (auto obj : gameObjects)
 	{
-		//if (obj->IsEnabled() == false) continue;
 		obj->Render(camera);
 		if (obj->GetCollisionBox()->size() != 0)
 			obj->GetCollisionBox()->at(0)->Render(camera, -24);

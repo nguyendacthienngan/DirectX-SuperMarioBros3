@@ -28,17 +28,17 @@ void CMarioController::Init()
 
 	CMario* marioStateObject;
 	
-	//// SMALL MARIO
-	//marioStateObject = new CSmallMario();
-	//listMarioStates.insert(make_pair(SMALL_MARIO_STATE, marioStateObject));
-	//listStateObjects.insert(make_pair(SMALL_MARIO_STATE, marioStateObject));
-	//marioStateObject->Enable(false);
-	//
-	//// SUPER MARIO
-	//marioStateObject = new CSuperMario();
-	//listMarioStates.insert(make_pair(SUPER_MARIO_STATE, marioStateObject));
-	//listStateObjects.insert(make_pair(SUPER_MARIO_STATE, marioStateObject));
-	//marioStateObject->Enable(false);
+	// SMALL MARIO
+	marioStateObject = new CSmallMario();
+	listMarioStates.insert(make_pair(SMALL_MARIO_STATE, marioStateObject));
+	listStateObjects.insert(make_pair(SMALL_MARIO_STATE, marioStateObject));
+	marioStateObject->Enable(false);
+	
+	// SUPER MARIO
+	marioStateObject = new CSuperMario();
+	listMarioStates.insert(make_pair(SUPER_MARIO_STATE, marioStateObject));
+	listStateObjects.insert(make_pair(SUPER_MARIO_STATE, marioStateObject));
+	marioStateObject->Enable(false);
 
 	// RACOON MARIO
 	marioStateObject = new CRacoonMario();
@@ -46,11 +46,11 @@ void CMarioController::Init()
 	listStateObjects.insert(make_pair(RACOON_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
 
-	//// FIRE MARIO
-	//marioStateObject = new CFireMario();
-	//listMarioStates.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
-	//listStateObjects.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
-	//marioStateObject->Enable(false);
+	// FIRE MARIO
+	marioStateObject = new CFireMario();
+	listMarioStates.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
+	listStateObjects.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
+	marioStateObject->Enable(false);
 }
 
 void CMarioController::Process()
@@ -58,7 +58,6 @@ void CMarioController::Process()
 	CStateMachine::Process();
 	if (currentStateObject == NULL)
 		return;
-
 
 	// Lấy ra position của current object, MarioController đi theo
 	SetPosition(currentStateObject->GetPosition());
@@ -140,7 +139,7 @@ void CMarioController::SwitchToState(std::string state)
 
 void CMarioController::OnKeyDown(int KeyCode)
 {
-	/*if (KeyCode == DIK_1)
+	if (KeyCode == DIK_1)
 	{
 		SwitchToState(SUPER_MARIO_STATE);
 	}
@@ -156,7 +155,7 @@ void CMarioController::OnKeyDown(int KeyCode)
 	{
 		SwitchToState(SMALL_MARIO_STATE);
 
-	}*/
+	}
 }
 
 void CMarioController::SetCurrentStateObject(LPGameObject gO)

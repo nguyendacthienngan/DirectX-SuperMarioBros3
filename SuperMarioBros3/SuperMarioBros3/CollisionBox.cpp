@@ -33,17 +33,9 @@ void CCollisionBox::Render(CCamera* camera, int distance)
 	D3DXVECTOR2 posInCam, camPos;
 	camPos = camera->GetPositionCam();
 
-
-	/*posInCam.x = trunc(pos.x - camPos.x);
-	posInCam.y = trunc(pos.y - camPos.y);*/
-
-	/*posInCam.x = trunc(pos.x - camPos.x + 21);
-	posInCam.y = trunc(pos.y - camPos.y + 21);*/
-
 	posInCam.x = trunc(pos.x - camPos.x);
 	posInCam.y = trunc(pos.y - camPos.y + 20);
 
-	//CGame::GetInstance()->Draw(posInCam, tex, bbRect, 32);
 	CGame::GetInstance()->Draw(posInCam,D3DXVECTOR2(sizeBox.x*0.5f, sizeBox.y*0.5f) ,tex, bbRect, 32);
 }
 
@@ -89,31 +81,6 @@ D3DXVECTOR2 CCollisionBox::GetDistance()
 
 D3DXVECTOR2 CCollisionBox::GetWorldPosition()
 {
-	/*float pointCenterX = 0;
-	auto tag = gameObject->GetTag();
-	if (tag == GameObjectTags::RaccoonMario)
-	{
-		auto phyBody = gameObject->GetPhysiscBody();
-		DebugOut(L"Normal Mario x: %f \n", phyBody->GetNormal().x);
-		if (phyBody->GetNormal().x == 1)
-		{
-			auto animation = gameObject->GetAnimationByState(gameObject->GetState());
-			if (animation == NULL)
-				DebugOut(L"Animation is NULL \n");
-			else
-			{
-				auto sprite = animation->GetAnimFrame()->GetSprite();
-				if (sprite == NULL)
-					DebugOut(L"Sprite is NULL \n");
-				else
-				{
-					pointCenterX = sprite->GetPointCenter().x;
-					DebugOut(L"Point Center X: %f \n", pointCenterX);
-				}
-
-			}
-		}
-	}*/
 	auto worldPos = gameObject->GetPosition() + localPosition;
 	//worldPos.x += pointCenterX; // ***** lưu ý
 	return worldPos;
@@ -135,16 +102,6 @@ RectF CCollisionBox::GetBoundingBox()
 	r.right = pos.x + sizeBox.x*0.5f;
 	r.top =  pos.y - sizeBox.y * 0.5f;
 	r.bottom = pos.y + sizeBox.y * 0.5f;
-
-	/*r.left = pos.x;
-	r.top = pos.y;
-	r.right = r.left + sizeBox.x;
-	r.bottom = r.top + sizeBox.y;*/
-	/*if (name == "Mario")
-	{
-		OutputDebugString(ToLPCWSTR("BBOX: " + name));
-		DebugOut(L" (L, R, T, B) : (%f, %f, %f, %f) \n ", r.left, r.right, r.top, r.bottom);
-	}*/
 	return r;
 }
 

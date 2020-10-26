@@ -2,6 +2,8 @@
 #include "Ultis.h"
 #include "SolidBox.h"
 #include "GhostPlatform.h"
+#include "MapConst.h"
+
 #include <iostream>
 #include <map>
 
@@ -74,13 +76,6 @@ void CTileMap::Render(CCamera* camera)
 	int col = camera->GetPositionCam().x / tileWidth; 
 	int row = camera->GetPositionCam().y / tileHeight;
 
-	/*DebugOut(L"Cam (x,y):  %f, %f\n", camera->GetPositionCam().x, camera->GetPositionCam().y);
-	DebugOut(L"Tile (w,h):  %d, %d\n", tileWidth, tileHeight);
-	DebugOut(L"Col, row : %d, %d\n", col, row);*/
-
-	/*if (col > 0) col--;
-	if (row > 0) row--;*/
-
 	// Lấy ra viewport theo dạng grid (số ô)
 	D3DXVECTOR2 camSize = D3DXVECTOR2(camera->GetWidthCam() / tileWidth, camera->GetHeightCam() / tileHeight);
 
@@ -119,8 +114,6 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::vector<LPGameObject>& lis
 		root->QueryIntAttribute("tilewidth", &gameMap->tileWidth);
 		root->QueryIntAttribute("tileheight", &gameMap->tileHeight);
 
-		//DebugOut(L"[INFO] Tilemap: (width, height, tileWidth, tileHeight) : (%d, %d, %d, %d) \n", gameMap->width, gameMap->height, gameMap->tileWidth, gameMap->tileHeight);
-
 		//Load tileset
 		for (TiXmlElement* element = root->FirstChildElement("tileset"); element != nullptr; element = element->NextSiblingElement("tileset"))
 		{
@@ -158,8 +151,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::vector<LPGameObject>& lis
 				if (name.compare("Solid") == 0)
 				{
 					CSolidBox* solid = new CSolidBox();
-					//solid->SetPosition(position); 
-					solid->SetPosition(position - D3DXVECTOR2(24, 40) + size*0.5); // lấy tọa độ giữa
+					solid->SetPosition(position - translateConst + size*0.5); // lấy tọa độ giữa
 					solid->GetCollisionBox()->at(0)->SetSizeBox(size);
 					solid->GetCollisionBox()->at(0)->SetId(id);
 					solid->GetCollisionBox()->at(0)->SetName(nameObject);

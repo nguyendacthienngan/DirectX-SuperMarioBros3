@@ -50,15 +50,15 @@ bool CSpriteManager::LoadSprite(string filePath)
 	{
 
 		string spriteID = node->Attribute("id");
-		int left, top, width, height, pivotX = -1;
+		int left, top, width, height, pivotX;
 		node->QueryIntAttribute("left", &left);
 		node->QueryIntAttribute("top", &top);
 		node->QueryIntAttribute("width", &width);
 		node->QueryIntAttribute("height", &height);
 
-		if (node->QueryIntAttribute("xPivot", &pivotX) == TIXML_SUCCESS && pivotX != -1)
+		if (node->QueryIntAttribute("xPivot", &pivotX) != TIXML_SUCCESS)
 		{
-			//DebugOut(L"PivotX : %d", pivotX);
+			pivotX = -1;
 		}
 
 		pivotX *= 3;

@@ -86,12 +86,7 @@ void CGame::Draw(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTUR
 {
 	D3DXVECTOR3 pCenter((int)pointCenter.x, (int)pointCenter.y, 0);
 	D3DXVECTOR3 pInt((int)(position.x), (int)(position.y), 0); // Giúp không bị viền
-	//DebugOut(L"Mario position in cam: x,y %f, %f \n", pInt.x, pInt.y);
-	//DebugOut(L"When drawing: Point center: %f, %f \n", pCenter.x, pCenter.y);
 	spriteHandler->Draw(texture, &rect, &pCenter, &pInt, D3DCOLOR_ARGB(alpha, 255, 255, 255));
-	/*DebugOut(L"position mario after drawing: (%f, %f) \n", pInt.x, pInt.y);
-	DebugOut(L"pointCenter mario after drawing: (%f, %f) \n", pointCenter.x, pointCenter.y);*/
-
 }
 
 void CGame::Draw(D3DXVECTOR2 position, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha)
@@ -168,40 +163,28 @@ void CGame::DrawFlipX(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DT
 	D3DXVECTOR3 pCenter((int)pointCenter.x, (int)pointCenter.y, 0);
 	D3DXVECTOR2 pScale(-1, 1);
 	D3DXVECTOR3 pInt((int)(position.x), (int)(position.y), 0);
-
-	DebugOut(L"pointCenter mario when drawing: (%f, %f) \n", pointCenter.x, pointCenter.y);
-
 	D3DXMATRIX oldMatrix, newMatrix; 
 
 	spriteHandler->GetTransform(&oldMatrix);
 
 	D3DXMatrixTransformation2D(&newMatrix, &position, 0.0f, &pScale, NULL, 0.0f, NULL);
-	//D3DXMatrixTransformation2D(&newMatrix, &position, 0.0f, &pScale, NULL, 0.0f, NULL);
-	//D3DXMatrixScaling(&newMatrix, -1.0f, 1.0f, .0f);
-
 	spriteHandler->SetTransform(&newMatrix);
 
-
-	//spriteHandler->Draw(texture, &rect, pCenter, &pInt, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	spriteHandler->Draw(texture, &rect, &pCenter, &pInt, D3DCOLOR_ARGB(alpha, 255, 255, 255));
-
-	DebugOut(L"pointCenter mario after drawing: (%f, %f) \n", pointCenter.x, pointCenter.y);
-
 	spriteHandler->SetTransform(&oldMatrix);
-
 }
 
 void CGame::DrawFlipY(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, int alpha)
 {
 	D3DXVECTOR3 pCenter((int)pointCenter.x, (int)pointCenter.y, 0);
 	D3DXVECTOR2 pScale(1, -1);
+	D3DXVECTOR3 pInt((int)(position.x), (int)(position.y), 0);
 	D3DXMATRIX oldMatrix, newMatrix;
+
 	spriteHandler->GetTransform(&oldMatrix);
 
 	D3DXMatrixTransformation2D(&newMatrix, &position, 0.0f, &pScale, NULL, 0.0f, NULL);
 	spriteHandler->SetTransform(&newMatrix);
-
-	D3DXVECTOR3 pInt((int)(position.x), (int)(position.y), 0);
 
 	spriteHandler->Draw(texture, &rect, &pCenter, &pInt, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 	spriteHandler->SetTransform(&oldMatrix);
