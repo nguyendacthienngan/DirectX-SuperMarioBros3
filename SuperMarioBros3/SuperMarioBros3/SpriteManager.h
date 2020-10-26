@@ -20,7 +20,7 @@ public:
 	CSpriteManager();
 	void Init();
 	void Add(std::string id, RECT rect, LPDIRECT3DTEXTURE9 tex, int xPivot, D3DXCOLOR transcolor = D3DCOLOR_XRGB(255,0,255));
-	bool LoadSprite(std::string filePath);
+	bool LoadSprite(std::string texName, std::string filePath);
 	LPSprite Get(std::string id);
 	void Clear();
 	static LPSpriteManager GetInstance();

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Textures>
-	<Textures textureId="tex-misc">
+	<Textures id="tex-fire-ball">
+		<Sprite id="spr-fire-ball-0" left="0" top="1"  width="8" height="8" frameTime="100" />
+		<Sprite id="spr-fire-ball-1" left="11" top="0"  width="8" height="9" frameTime="100" />
+		<Sprite id="spr-fire-ball-2" left="22" top="1"  width="8" height="8" frameTime="100" />
+		<Sprite id="spr-fire-ball-3" left="33" top="0"  width="8" height="9" frameTime="100" />
+	</Textures>
+
+	<Textures id="tex-misc">
 		<Sprite id="spr-coin-0" left="294" top="101"  width="8" height="14"/>
 		<Sprite id="spr-coin-1" left="311" top="101"  width="1" height="14"/>
 		<Sprite id="spr-coin-2" left="321" top="101"  width="4" height="14"/>
@@ -44,11 +51,5 @@
 		<Sprite id="spr-music-note-block-2" left="390" top="188"  width="16" height="16"/>
 		<Sprite id="spr-red-music-note-block-0" left="409" top="188"  width="16" height="16"/>
 	</Textures>
-	<Textures textureId="tex-fire-ball">
-		<Sprite id="spr-fire-ball-0" left="0" top="1"  width="8" height="8"/>
-		<Sprite id="spr-fire-ball-1" left="11" top="0"  width="8" height="9"/>
-		<Sprite id="spr-fire-ball-2" left="22" top="1"  width="8" height="8"/>
-		<Sprite id="spr-fire-ball-3" left="33" top="0"  width="8" height="9"/>
-	</Textures>
-
+	
 </Textures>

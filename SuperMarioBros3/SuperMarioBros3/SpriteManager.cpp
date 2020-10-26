@@ -16,7 +16,8 @@ CSpriteManager::CSpriteManager()
 void CSpriteManager::Init()
 {
 	auto root = CGame::GetInstance();
-	LoadSprite(root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_MARIO));
+	LoadSprite(TEXTURE_MARIO, root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_MARIO));
+	LoadSprite(TEXTURE_FIRE_BALL,root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_FIRE_BALL));
 }
 
 void CSpriteManager::Add(string id, RECT rect, LPDIRECT3DTEXTURE9 tex, int xPivot, D3DXCOLOR transcolor)
@@ -25,7 +26,7 @@ void CSpriteManager::Add(string id, RECT rect, LPDIRECT3DTEXTURE9 tex, int xPivo
 	sprites.insert(make_pair(id, s));
 }
 
-bool CSpriteManager::LoadSprite(string filePath)
+bool CSpriteManager::LoadSprite(std::string texName, std::string filePath)
 {
 	DebugOut(L"[INFO] Load Sprite From XML \n");
 	OutputDebugStringW(ToLPCWSTR(filePath.c_str()));
@@ -38,38 +39,43 @@ bool CSpriteManager::LoadSprite(string filePath)
 	}
 
 	TiXmlElement* root = document.RootElement();
-	TiXmlElement* texture = root->FirstChildElement();
-
-	string textureID = texture->Attribute("id");
-	LPDIRECT3DTEXTURE9 tex = CTextureManager::GetInstance()->GetTexture(textureID);
-
-	if (tex != nullptr)
-		OutputDebugStringW(ToLPCWSTR("Texture id: " + textureID + '\n'));
-
-	for (TiXmlElement* node = texture->FirstChildElement(); node != nullptr; node = node->NextSiblingElement())
+	for (TiXmlElement* texture = root->FirstChildElement(); texture != nullptr; texture = texture->NextSiblingElement())
 	{
+		string textureID = texture->Attribute("id");
+		if (textureID != texName)
+			continue;
+		LPDIRECT3DTEXTURE9 tex = CTextureManager::GetInstance()->GetTexture(textureID);
 
-		string spriteID = node->Attribute("id");
-		int left, top, width, height, pivotX, transcolor;
-		D3DXCOLOR color;
-		node->QueryIntAttribute("left", &left);
-		node->QueryIntAttribute("top", &top);
-		node->QueryIntAttribute("width", &width);
-		node->QueryIntAttribute("height", &height);
-		if (node->QueryIntAttribute("xPivot", &pivotX) != TIXML_SUCCESS)
-			pivotX = -1;
-		pivotX *= 3;
-		OutputDebugStringW(ToLPCWSTR(spriteID + ':' + to_string(left) + ':' + to_string(top) + ':' + to_string(width) + ':' + to_string(height) + ':' + to_string(pivotX) + '\n'));
-		
-		RECT rect;
-		rect.left = left*3;
-		rect.top = top * 3;
-		rect.right = (left + width)*3;
-		rect.bottom = (top + height)*3;
+		if (tex != nullptr)
+			OutputDebugStringW(ToLPCWSTR("Texture id: " + textureID + '\n'));
+		else
+			return false;
+		for (TiXmlElement* node = texture->FirstChildElement(); node != nullptr; node = node->NextSiblingElement())
+		{
 
-		Add(spriteID, rect, tex, pivotX);
+			string spriteID = node->Attribute("id");
+			int left, top, width, height, pivotX, transcolor;
+			D3DXCOLOR color;
+			node->QueryIntAttribute("left", &left);
+			node->QueryIntAttribute("top", &top);
+			node->QueryIntAttribute("width", &width);
+			node->QueryIntAttribute("height", &height);
+			if (node->QueryIntAttribute("xPivot", &pivotX) != TIXML_SUCCESS)
+				pivotX = -1;
+			pivotX *= 3;
+			OutputDebugStringW(ToLPCWSTR(spriteID + ':' + to_string(left) + ':' + to_string(top) + ':' + to_string(width) + ':' + to_string(height) + ':' + to_string(pivotX) + '\n'));
+
+			RECT rect;
+			rect.left = left * 3;
+			rect.top = top * 3;
+			rect.right = (left + width) * 3;
+			rect.bottom = (top + height) * 3;
+
+			Add(spriteID, rect, tex, pivotX);
+		}
+		return true;
 	}
-	return true;
+	
 }
 
 LPSprite CSpriteManager::Get(string id)
