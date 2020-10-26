@@ -59,22 +59,6 @@ void CMario::InitProperties()
 
 void CMario::LoadAnimation()
 {
-	/*auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(MARIO_STATE_IDLE, animationManager->Get("ani-big-mario-idle"));
-	AddAnimation(MARIO_STATE_WALKING, animationManager->Get("ani-big-mario-walk"));
-	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-big-mario-run"));
-	AddAnimation(MARIO_STATE_HIGH_SPEED, animationManager->Get("ani-big-mario-high-speed"));
-	AddAnimation(MARIO_STATE_JUMP, animationManager->Get("ani-big-mario-jump"));
-	AddAnimation(MARIO_STATE_CROUCH, animationManager->Get("ani-big-mario-crouch"));
-	AddAnimation(MARIO_STATE_SKID, animationManager->Get("ani-big-mario-skid"));
-	AddAnimation(MARIO_STATE_FALL, animationManager->Get("ani-big-mario-fall"));*/
-
-	/*auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(MARIO_STATE_IDLE, animationManager->Get("ani-small-mario-idle"));
-	AddAnimation(MARIO_STATE_WALKING, animationManager->Get("ani-small-mario-walk"));
-	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-small-mario-run"));
-	AddAnimation(MARIO_STATE_JUMP, animationManager->Get("ani-small-mario-jump"));*/
-
 }
 
 void CMario::Update(DWORD dt, CCamera* cam)
@@ -408,13 +392,12 @@ void CMario::CrouchProcess(CKeyboardManager* keyboard)
 		// KHÔNG HỤP
 		changeAniState = true;
 	}
-	if ((changeAniState == false && keyboard->GetKeyStateDown(DIK_DOWN))
-		|| currentPhysicsState.jump == JumpOnAirStates::Jump)
+	if ((changeAniState == false && keyboard->GetKeyStateDown(DIK_DOWN)))
 	{
 		// HỤP
 		collisionBoxs->at(0)->SetSizeBox(SUPER_MARIO_CROUCH_BBOX);
 		float transformY = SUPER_MARIO_BBOX.y - SUPER_MARIO_CROUCH_BBOX.y;
-		collisionBoxs->at(0)->SetPosition(D3DXVECTOR2(0.0f, transformY));
+		collisionBoxs->at(0)->SetPosition(D3DXVECTOR2(0.0f, transformY*0.5f));
 		currentPhysicsState.move = MoveOnGroundStates::Crouch;
 	}
 	else
