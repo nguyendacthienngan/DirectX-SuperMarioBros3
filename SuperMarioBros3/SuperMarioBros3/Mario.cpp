@@ -331,21 +331,21 @@ void CMario::Render(CCamera* cam)
 		OutputDebugString(ToLPCWSTR("Current State " + currentState + "\n"));
 
 #pragma region Multipiler
-	auto animation = GetAnimationByState(currentState);
-	auto speed = abs(physiscBody->GetVelocity().x);
-	auto multiplier = 1.0f;
-	if (animation != NULL)
-	{
-		if (currentState == MARIO_STATE_RUNNING || currentState == MARIO_STATE_WALKING)
-		{
-			multiplier = speed / MARIO_WALKING_SPEED;
-			animation->SetSpeedMultiplier(Clamp(multiplier, 1.0f, 3.0f)); // Bị lỗi đối với small mario khi small mario chưa có high speed;
-			/*DebugOut(L"Speed/walkSpeed: %f \n", speed / MARIO_WALKING_SPEED);
-			DebugOut(L"Multiplier: %f \n", multiplier);*/
-		}
-		else
-			animation->ResetSpeedMultiplier();
-	}
+	//auto animation = GetAnimationByState(currentState);
+	//auto speed = abs(physiscBody->GetVelocity().x);
+	//auto multiplier = 1.0f;
+	//if (animation != NULL)
+	//{
+	//	if (currentState == MARIO_STATE_RUNNING || currentState == MARIO_STATE_WALKING)
+	//	{
+	//		multiplier = speed / MARIO_WALKING_SPEED;
+	//		animation->SetSpeedMultiplier(Clamp(multiplier, 1.0f, 3.0f)); // Bị lỗi đối với small mario khi small mario chưa có high speed;
+	//		/*DebugOut(L"Speed/walkSpeed: %f \n", speed / MARIO_WALKING_SPEED);
+	//		DebugOut(L"Multiplier: %f \n", multiplier);*/
+	//	}
+	//	else
+	//		animation->ResetSpeedMultiplier();
+	//}
 	
 #pragma endregion
 

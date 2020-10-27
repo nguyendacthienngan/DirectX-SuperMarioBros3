@@ -23,7 +23,6 @@ private:
 	std::string id;
 	DWORD defaultFrameTime, lastFrameTime;
 	int currentFrame;
-	float speedMultiplier;
 	bool isLoop, isPlaying;
 	Transform transform;
 	D3DXVECTOR2 relativePosition;
@@ -48,12 +47,6 @@ public:
 	bool GetLoopAnimation() { return isLoop; }
 	LPAnimationFrame GetAnimFrame();
 	D3DXVECTOR2 GetRelativePosition() { return relativePosition; }
-
-	//void SetState();
-
-	void SetSpeedMultiplier(float speed) { speedMultiplier = speed; }
-	void ResetSpeedMultiplier() { speedMultiplier = 1.0f; }
-	float GetSpeedMultiplier() { return speedMultiplier; }
 
 	void SetGameObject(LPGameObject gO) { gameObject = gO; }
 	LPGameObject GetGameObject() { return gameObject; }

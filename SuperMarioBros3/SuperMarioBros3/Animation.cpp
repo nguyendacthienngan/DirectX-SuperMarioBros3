@@ -11,7 +11,6 @@ CAnimation::CAnimation(string aniID, DWORD defaultTime)
 {
 	id = aniID;
 	currentFrame = -1;
-	speedMultiplier = 1.0f;
 	this->defaultFrameTime = defaultTime;
 	transform.position = D3DXVECTOR2(0.0f, 0.0f);
 	isLoop = true;
@@ -24,7 +23,6 @@ CAnimation::CAnimation(const CAnimation& obj)
 	this->defaultFrameTime = obj.defaultFrameTime;
 	this->lastFrameTime = obj.lastFrameTime;
 	this->currentFrame = -1;
-	this->speedMultiplier = 1.0f;
 	std::vector<LPAnimationFrame> newFrames(obj.animFrames);
 	this->animFrames = newFrames;
 	this->transform = transform.CreateTransformation(obj.transform.position, obj.transform.scale, obj.transform.rotationAngle);
@@ -44,7 +42,7 @@ void CAnimation::Add(LPSprite sprite, D3DXVECTOR2 pos, DWORD frameTime)
 
 void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 {
-	if (animFrames.size() == 0 || speedMultiplier == 0.0f) return;
+	if (animFrames.size() == 0) return;
 
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
@@ -55,7 +53,7 @@ void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 	else
 	{
 		DWORD t = animFrames[currentFrame]->GetTime();
-		if (now - lastFrameTime > t * CGame::GetTimeScale() / speedMultiplier)
+		if (now - lastFrameTime > t * CGame::GetTimeScale())
 		{
 			if (currentFrame == animFrames.size() - 1 && isLoop == false)
 			{
