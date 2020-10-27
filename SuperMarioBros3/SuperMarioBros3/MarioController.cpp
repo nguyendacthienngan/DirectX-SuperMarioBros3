@@ -18,8 +18,8 @@ CMarioController::CMarioController()
 {
 	Init();
 	currentStateObject = NULL;
-	SwitchToState(FIRE_MARIO_STATE);
-	//SwitchToState(RACOON_MARIO_STATE);
+	//SwitchToState(FIRE_MARIO_STATE);
+	SwitchToState(RACOON_MARIO_STATE);
 	//SwitchToState(SUPER_MARIO_STATE);
 	//SwitchToState(SMALL_MARIO_STATE);
 }
@@ -110,7 +110,6 @@ void CMarioController::SwitchToState(std::string state)
 		// hoặc boxsize coi của nhỏ hay lớn
 		if (listStateObjects.at(state)->GetTag() == GameObjectTags::SmallPlayer)
 		{
-			//listStateObjects.at(state)->SetPosition(listStateObjects.at(state)->GetPosition() + transform);
 			listStateObjects.at(state)->SetPosition(listStateObjects.at(state)->GetPosition() + transform);
 			listStateObjects.at(state)->GetCollisionBox()->at(0)->SetPosition(D3DXVECTOR2(0.0f, 0.0f));
 			listStateObjects.at(state)->SetRelativePositionOnScreen(listStateObjects.at(state)->GetCollisionBox()->at(0)->GetPosition());
