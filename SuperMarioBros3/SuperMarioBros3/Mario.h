@@ -18,7 +18,7 @@ protected:
 	bool isOnGround;
 	bool isHighSpeed; // horizontal
 	bool canLowJumpContinous;
-	bool isHighJump, canHighJump; 
+	bool isHighJump, canHighJump, isJump; 
 	bool isSkid;
 	bool canCrouch;
 	D3DXVECTOR2 previousNormal;

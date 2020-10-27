@@ -7,6 +7,7 @@ class CScene;
 class CFireMario : public CMario
 {
 private:
+	bool isJumpAttack;
 	int countFireBall;
 	DWORD timeToNextAttack, lastAttackTime;
 public:

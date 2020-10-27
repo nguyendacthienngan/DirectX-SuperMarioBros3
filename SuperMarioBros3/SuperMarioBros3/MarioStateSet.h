@@ -2,7 +2,7 @@
 
 enum class MoveOnGroundStates
 {
-	Idle, Walk, Run, HighSpeed, Skid, Crouch, Attack
+	Idle, Walk, Run, HighSpeed, Skid, Crouch, Attack, JumpAttack
 };
 
 enum class JumpOnAirStates

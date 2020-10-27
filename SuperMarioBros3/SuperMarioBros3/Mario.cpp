@@ -52,6 +52,7 @@ void CMario::InitProperties()
 	isEnabled = true;
 	isOnGround = false;
 	canHighJump = false;
+	isJump = false;
 	isSkid = false;
 	isAttack = false;
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
@@ -447,6 +448,8 @@ void CMario::OnKeyDown(int KeyCode)
 	{
 		// JUMP
 		physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -MARIO_JUMP_SPEED_Y)); // Vẫn còn bị trọng lực kéo mạnh quá
+		isJump = true;
+
 		isOnGround = false;
 		if (KeyCode == DIK_S)
 		{

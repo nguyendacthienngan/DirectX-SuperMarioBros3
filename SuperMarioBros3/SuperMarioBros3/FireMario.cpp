@@ -19,6 +19,7 @@ CFireMario::CFireMario()
 	canAttackContinious = false;
 	timeToNextAttack = 1000; // milisecond
 	lastAttackTime = 0;
+	isJumpAttack = false;
 }
 
 void CFireMario::Init()
@@ -43,16 +44,39 @@ void CFireMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_SKID, animationManager->Get("ani-fire-mario-skid"));
 	AddAnimation(MARIO_STATE_CROUCH, animationManager->Get("ani-fire-mario-crouch"));
 	AddAnimation(MARIO_STATE_ATTACK, animationManager->Get("ani-fire-mario-throw"), false);
+	AddAnimation(MARIO_STATE_JUMP_ATTACK, animationManager->Get("ani-fire-mario-swim"), false);
 }
 
 void CFireMario::Render(CCamera* cam)
 {
 	CMario::Render(cam);
+	switch (currentPhysicsState.move)
+	{
+	case MoveOnGroundStates::JumpAttack:
+	{
+		SetState(MARIO_STATE_JUMP_ATTACK);
+		break;
+	}
+	}
 }
 
 void CFireMario::Update(DWORD dt, CCamera* cam)
 {
 	CMario::Update(dt, cam);
+	if (isAttack == true) // Nếu không có thì bị lỗi khi vừa đi vừa quăng lửa
+	{
+		currentPhysicsState.move = MoveOnGroundStates::Attack;
+
+		//if (isJump == false)
+		//	currentPhysicsState.move = MoveOnGroundStates::Attack;
+		//else if (isOnGround == false)
+		//{
+		//	// S + Z
+		//	currentPhysicsState.move = MoveOnGroundStates::JumpAttack;
+		//	isJumpAttack = true;
+		//}
+	}
+
 }
 
 void CFireMario::EndAnimation()
@@ -61,6 +85,7 @@ void CFireMario::EndAnimation()
 	{
 
 		isAttack = false; 
+		isJumpAttack = false;
 		if (animations.find(lastState) == animations.end() || lastState == currentState) // Không kiếm được last state trong animation, đồng nghĩa với việc last state chưa được khởi tạo, còn nếu đc khởi tạo rồi thì mình set state theo cái state trước đó
 		{
 			lastState = MARIO_STATE_IDLE;
@@ -83,6 +108,9 @@ void CFireMario::AddMiscToScene(CScene* scene)
 
 void CFireMario::OnKeyDown(int KeyCode)
 {
+	//Bị lỗi khi vừa đi vừa quăng lửa
+	/*Thì animation vẫn là đang walk = > cục lửa vẫn văng ra
+	Khi hét walk rồi thì mới tới animation của quăng lửa(vì isAttack bật nhưng k setstate đc)*/
 	CMario::OnKeyDown(KeyCode);
 	if (isAttack == true)
 	{
