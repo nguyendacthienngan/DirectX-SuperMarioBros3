@@ -22,7 +22,7 @@ protected:
 	bool isSkid;
 	bool canCrouch;
 	D3DXVECTOR2 previousNormal;
-	bool canAttack, isAttack;
+	bool canAttack, isAttack, canAttackContinious;
 	MarioStates marioStateTag;
 public:
 	CMario();

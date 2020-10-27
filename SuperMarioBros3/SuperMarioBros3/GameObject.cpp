@@ -16,6 +16,7 @@ CGameObject::CGameObject()
 	physiscBody = new CPhysicsBody();
 	collisionBoxs = new vector<CCollisionBox*>();
 	isEnabled = false;
+	currentState = "IDLE";
 }
 
 CGameObject::~CGameObject()

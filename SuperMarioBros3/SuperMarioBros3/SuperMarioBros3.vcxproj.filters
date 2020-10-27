@@ -333,9 +333,6 @@
     <ClInclude Include="MiscConst.h">
       <Filter>Game\GameObject\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectController.h">
-      <Filter>Framework\Game\GameObject</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -514,9 +511,6 @@
     </ClCompile>
     <ClCompile Include="FireBall.cpp">
       <Filter>Game\GameObject\Misc</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectController.cpp">
-      <Filter>Framework\Game\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

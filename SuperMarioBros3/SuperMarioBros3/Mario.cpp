@@ -149,9 +149,8 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		if (isSkid == true)
 			currentPhysicsState.move = MoveOnGroundStates::Skid;
 	}
-	else if ( (keyboard->GetKeyStateDown(DIK_Z) || isAttack == true) && canAttack == true) // Hỏi lại thầy xem có sai quy tắc k?
+	else if ( (isAttack == true) && canAttack == true) 
 	{
-		DebugOut(L"Attacking \n");
 		currentPhysicsState.move = MoveOnGroundStates::Attack;
 	}
 	else

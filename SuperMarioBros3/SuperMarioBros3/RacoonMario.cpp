@@ -7,7 +7,7 @@ CRacoonMario::CRacoonMario()
 {
 	CMario::Init();
 	marioStateTag = MarioStates::RacoonMario;
-
+	canAttackContinious = true;
 	canCrouch = true;
 	canAttack = true;
 	CRacoonMario::Init();

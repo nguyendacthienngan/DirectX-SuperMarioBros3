@@ -16,6 +16,9 @@ CFireMario::CFireMario()
 	canAttack = true;
 
 	countFireBall = 0;
+	canAttackContinious = false;
+	timeToNextAttack = 1000; // milisecond
+	lastAttackTime = 0;
 }
 
 void CFireMario::Init()
@@ -46,18 +49,27 @@ void CFireMario::Render(CCamera* cam)
 void CFireMario::Update(DWORD dt, CCamera* cam)
 {
 	CMario::Update(dt, cam);
-	
-	
 }
 
 void CFireMario::EndAnimation()
 {
 	if (currentState.compare(MARIO_STATE_ATTACK) == 0)
 	{
+
 		isAttack = false; 
-		if (animations.find(lastState) == animations.end()) // Không kiếm được last state trong animation, đồng nghĩa với việc last state chưa được khởi tạo, còn nếu đc khởi tạo rồi thì mình set state theo cái state trước đó
+		if (animations.find(lastState) == animations.end() || lastState == currentState) // Không kiếm được last state trong animation, đồng nghĩa với việc last state chưa được khởi tạo, còn nếu đc khởi tạo rồi thì mình set state theo cái state trước đó
+		{
 			lastState = MARIO_STATE_IDLE;
-		SetState(lastState); // bị lỗi, vì khi attack xong nó dừng ở frame cuối của animation và giữ state là last state => Attack => K chuyển sang trạng thái IDLE khi đang đứng yên (bắn lửa xong), phải di chuyển r mới thay đổi state đc
+		}
+		SetState(lastState); 
+		if (countFireBall > 2)
+		{
+			DWORD now = GetTickCount();
+			if (now - lastAttackTime >= timeToNextAttack) // Được attack típ
+			{
+				countFireBall = 0;
+			}
+		}
 	}
 }
 
@@ -70,7 +82,21 @@ void CFireMario::OnKeyDown(int KeyCode)
 	CMario::OnKeyDown(KeyCode);
 	if (isAttack == true)
 	{
-		countFireBall++;
+		countFireBall++; 
+
+		DWORD now = GetTickCount();
+		if (now - lastAttackTime < timeToNextAttack && countFireBall > 2)  
+		{
+			// Cannot attack until 1 second
+			isAttack = false; 
+			return;
+		}
+		if (now - lastAttackTime >= timeToNextAttack)
+		{
+			//do đến lần thứ 4, now > lastAttackTime rất nhiều và fireBall cx lớn hơn 2. Đáng ra nó phải quăng đc bóng. Nhưng, k có chỗ reset lại số bóng của nó
+			countFireBall = 1; 
+		}
+			
 		if (countFireBall <= 2)
 		{
 			CFireBall* currentFireBall;
@@ -90,15 +116,11 @@ void CFireMario::OnKeyDown(int KeyCode)
 			currentFireBall->SetPosition(posMario);
 
 			firePhyBody->SetVelocity(D3DXVECTOR2(FIRE_BALL_SPEED * normal.x, 0));
+			
+			lastAttackTime = GetTickCount();
+
 		}
 	}
-	else
-	{
-		// Bị lỗi, ngay khi ấn xong đáng ra Fire Mario phải chuyển từ Attack về Idle (Khi end animation) thì lúc này vô đc else. Nhưng lúc mình ấn nó chưa xong animation?
-		countFireBall = 0;
-		DebugOut(L"Count fireball: %d \n", countFireBall);
-	}
-		
 }
 
 CFireMario::~CFireMario()
@@ -107,5 +129,4 @@ CFireMario::~CFireMario()
 	{
 		delete fireBall;
 	}
-	//delete currentFireBall;
 }

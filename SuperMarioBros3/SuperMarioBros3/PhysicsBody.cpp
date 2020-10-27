@@ -26,11 +26,6 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 {
 	auto gameObject = cO->GetGameObjectAttach();
 	auto collisionBox = gameObject->GetCollisionBox()->at(0);
-	if (cO->GetName() == "Fire-Ball")
-	{
-		DebugOut(L"BBBOX FIRE BALL before checking condition\n");
-		DebugOut(L"Gravity: %f \n", gravity);
-	}
 
 	if (gameObject == NULL || gameObject->IsEnabled() == false || isDynamic == false)
 		return;
@@ -290,7 +285,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
+		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
 			continue;
 		if (coObjects->at(i) == cO)
 			continue;

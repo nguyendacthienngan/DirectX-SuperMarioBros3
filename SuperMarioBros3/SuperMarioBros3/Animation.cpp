@@ -78,9 +78,8 @@ void CAnimation::SetPlay(bool isPause)
 	if (isPause == false && isPlaying == false)
 	{
 		// Reset lại frameTime
-		//isPlaying = true;
-		currentFrame = -1; // currentFrame = -1 hay k?
-	//	lastFrameTime = GetTickCount();
+		currentFrame = -1; 
+		//	lastFrameTime = GetTickCount();
 	}
 	isPlaying = true;
 }
