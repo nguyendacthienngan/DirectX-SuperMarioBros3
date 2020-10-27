@@ -13,9 +13,7 @@ void CGameKeyEventHandler::OnKeyDown(int KeyCode)
 	LPScene activeScene = sceneManger->GetActiveScene();
 	vector<LPGameObject> gameObjects = activeScene->GetObjects(); // nếu vậy mình chỉ truyền cho thằng nào dynamic cast ra là Mario thôi đc k vì mấy thằng kia mình đâu cần xử lý? Nhưng như vậy sẽ không đủ tổng quát? Nên hỏi thầy !
 	for (auto gameObject : gameObjects)
-		if (gameObject->GetTag() == GameObjectTags::Player || gameObject->GetTag() == GameObjectTags::SmallMario 
-			|| gameObject->GetTag() == GameObjectTags::SuperMario || gameObject->GetTag() == GameObjectTags::FireMario
-			|| gameObject->GetTag() == GameObjectTags::RaccoonMario)
+		if (gameObject->GetTag() == GameObjectTags::Player)
 				gameObject->OnKeyDown(KeyCode);
 }
 
@@ -26,9 +24,7 @@ void CGameKeyEventHandler::OnKeyUp(int KeyCode)
 	LPScene activeScene = sceneManger->GetActiveScene();
 	vector<LPGameObject> gameObjects = activeScene->GetObjects(); // nếu vậy mình chỉ truyền cho thằng nào dynamic cast ra là Mario thôi đc k vì mấy thằng kia mình đâu cần xử lý? Nhưng như vậy sẽ không đủ tổng quát? Nên hỏi thầy !
 	for (auto gameObject : gameObjects)
-		if (gameObject->GetTag() == GameObjectTags::Player || gameObject->GetTag() == GameObjectTags::SmallMario
-			|| gameObject->GetTag() == GameObjectTags::SuperMario || gameObject->GetTag() == GameObjectTags::FireMario
-			|| gameObject->GetTag() == GameObjectTags::RaccoonMario)
+		if (gameObject->GetTag() == GameObjectTags::Player)
 				gameObject->OnKeyUp(KeyCode);
 }
 
@@ -39,8 +35,6 @@ void CGameKeyEventHandler::KeyState()
 	LPScene activeScene = sceneManger->GetActiveScene();
 	vector<LPGameObject> gameObjects = activeScene->GetObjects(); // nếu vậy mình chỉ truyền cho thằng nào dynamic cast ra là Mario thôi đc k vì mấy thằng kia mình đâu cần xử lý? Nhưng như vậy sẽ không đủ tổng quát? Nên hỏi thầy !
 	for (auto gameObject : gameObjects)
-		if (gameObject->GetTag() == GameObjectTags::Player || gameObject->GetTag() == GameObjectTags::SmallMario
-			|| gameObject->GetTag() == GameObjectTags::SuperMario || gameObject->GetTag() == GameObjectTags::FireMario
-			|| gameObject->GetTag() == GameObjectTags::RaccoonMario)
+		if (gameObject->GetTag() == GameObjectTags::Player)
 				gameObject->KeyState();
 }

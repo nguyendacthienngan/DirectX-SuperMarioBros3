@@ -19,6 +19,7 @@ CPhysicsBody::CPhysicsBody()
 	dragForce.y = 0;
 	normal.x = 1;
 	normal.y = 1;
+	bounceForce = 0;
 }
 
 void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects)
@@ -97,7 +98,8 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 			{
 				if (nx == 0)
 				{
-					velocity.y = 0;
+					velocity.y = -bounceForce;
+					distance.y = velocity.y * dt;
 					//distance.y = 0;
 				}
 			}
@@ -107,9 +109,6 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	coEvents.clear();
-	
-	if (cO->GetName() == "Fire-Ball")
-		DebugOut(L"Velocity (x,y): (%f, %f) \n", velocity.x, velocity.y);
 
 }
 void CPhysicsBody::Update(LPGameObject gameObject)
@@ -124,8 +123,6 @@ void CPhysicsBody::Update(LPGameObject gameObject)
 	distance.x = physiscBody->GetVelocity().x * dt;
 	distance.y = physiscBody->GetVelocity().y * dt;
 	collisionBoxs->at(0)->SetDistance(distance);
-	if (gameObject->GetTag() ==  GameObjectTags::Misc)
-		DebugOut(L"BBBOX FIRE BALL when updating\n");
 }
 /*
 	Standard sweptAABB implementation
@@ -404,6 +401,16 @@ void CPhysicsBody::SetVelocity(D3DXVECTOR2 s)
 void CPhysicsBody::SetDynamic(bool isDynamic)
 {
 	this->isDynamic = isDynamic;
+}
+
+float CPhysicsBody::GetBounceForce()
+{
+	return bounceForce;
+}
+
+void CPhysicsBody::SetBounceForce(float bF)
+{
+	bounceForce = bF;
 }
 
 void CPhysicsBody::SetGravity(float gravity)

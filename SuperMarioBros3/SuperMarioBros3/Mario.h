@@ -23,6 +23,7 @@ protected:
 	bool canCrouch;
 	D3DXVECTOR2 previousNormal;
 	bool canAttack, isAttack;
+	MarioStates marioStateTag;
 public:
 	CMario();
 	void Init() override;
@@ -40,6 +41,8 @@ public:
 	void OnKeyDown(int KeyCode);
 	void OnKeyUp(int KeyCode);
 
+	void SetMarioStateTag(MarioStates tag);
+	MarioStates GettMarioStateTag();
 
 	virtual void Access()		override;
 	virtual void Process()		override;

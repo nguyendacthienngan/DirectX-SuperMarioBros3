@@ -1,14 +1,13 @@
 #pragma once
+
 enum class GameObjectTags
 {
 	None, // Default
 	Player,
-	SmallMario,
-	SuperMario,
-	RaccoonMario,
-	FireMario,
+	SmallPlayer,
 	Solid,
 	GhostPlatform,
 	Enemy,
 	Misc
 };
+

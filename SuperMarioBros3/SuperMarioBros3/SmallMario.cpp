@@ -7,12 +7,14 @@ CSmallMario::CSmallMario()
 {
 	CSmallMario::Init();
 	CMario::InitProperties();
+	tag = GameObjectTags::SmallPlayer;
+	marioStateTag = MarioStates::SmallMario;
+
 	canCrouch = false;
 	canAttack = false;
 }
 void CSmallMario::Init()
 {
-	SetTag(GameObjectTags::SmallMario);
 	LoadAnimation();
 	CCollisionBox* collisionBox = new CCollisionBox(); 
 	collisionBox->SetSizeBox(SMALL_MARIO_BBOX);

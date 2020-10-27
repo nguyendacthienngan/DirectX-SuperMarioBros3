@@ -15,3 +15,8 @@ struct MarioStateSet
 	MoveOnGroundStates move;
 	JumpOnAirStates jump;
 };
+
+enum class MarioStates
+{
+	SmallMario, SuperMario, FireMario, RacoonMario
+};

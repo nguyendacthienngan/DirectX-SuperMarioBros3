@@ -31,6 +31,8 @@ private:
 	D3DXVECTOR2 velocity; // vận tốc
 	float gravity; // trọng lực (gia tốc trọng trường)
 	float acceleration; // gia tốc
+	float bounceForce; // lực nảy
+
 	D3DXVECTOR2 dragForce; // lực kéo: tăng theo vận tốc: F = ma
 	D3DXVECTOR2 normal; // nx, ny [ Để xác định hướng trái / phải, trên / dưới ]
 
@@ -68,18 +70,25 @@ public:
 		float& ny);
 
 	D3DXVECTOR2 GetVelocity();
-	float GetGravity();
-	float GetAcceleration();
-	D3DXVECTOR2 GetDragForce();
-	D3DXVECTOR2 GetNormal();
-	bool IsDynamic();
-
 	void SetVelocity(D3DXVECTOR2 s);
-	void SetDynamic(bool isDynamic);
+
+	float GetGravity();
 	void SetGravity(float gravity);
+
+	float GetAcceleration();
 	void SetAcceleration(float acc);
+
+	D3DXVECTOR2 GetDragForce();
 	void SetDragForce(D3DXVECTOR2 drag);
+
+	D3DXVECTOR2 GetNormal();
 	void SetNormal(D3DXVECTOR2 n);
+
+	bool IsDynamic();
+	void SetDynamic(bool isDynamic);
+
+	float GetBounceForce();
+	void SetBounceForce(float bF);
 };
 
 

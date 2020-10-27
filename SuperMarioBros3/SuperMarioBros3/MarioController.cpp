@@ -108,7 +108,7 @@ void CMarioController::SwitchToState(std::string state)
 		transform.y = SUPER_MARIO_BBOX.y - SMALL_MARIO_BBOX.y; // Tính lại
 
 		// hoặc boxsize coi của nhỏ hay lớn
-		if (listStateObjects.at(state)->GetTag() == GameObjectTags::SmallMario)
+		if (listStateObjects.at(state)->GetTag() == GameObjectTags::SmallPlayer)
 		{
 			//listStateObjects.at(state)->SetPosition(listStateObjects.at(state)->GetPosition() + transform);
 			listStateObjects.at(state)->SetPosition(listStateObjects.at(state)->GetPosition() + transform);

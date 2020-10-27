@@ -4,24 +4,18 @@
 #include "Misc.h"
 #include "MiscConst.h"
 #include "SceneManager.h"
+#include "Ultis.h"
 
 CFireMario::CFireMario()
 {
 	CMario::Init();
-	SetTag(GameObjectTags::FireMario);
-	CFireBall* fireBall1 = new CFireBall(); 
-	fireBall1->SetFireMario(this);
-	listFireBalls.push_back(fireBall1);
-	CFireBall* fireBall2 = new CFireBall();
-	fireBall2->SetFireMario(this);
-	listFireBalls.push_back(fireBall2);
-
+	marioStateTag = MarioStates::FireMario;
 	Init();
 	lastState = currentState;
 	canCrouch = true;
 	canAttack = true;
-	currentFireBall = NULL;
 
+	countFireBall = 0;
 }
 
 void CFireMario::Init()
@@ -60,20 +54,15 @@ void CFireMario::EndAnimation()
 {
 	if (currentState.compare(MARIO_STATE_ATTACK) == 0)
 	{
-		isAttack = false; // có bị phạm luật hay không?
+		isAttack = false; 
 		if (animations.find(lastState) == animations.end()) // Không kiếm được last state trong animation, đồng nghĩa với việc last state chưa được khởi tạo, còn nếu đc khởi tạo rồi thì mình set state theo cái state trước đó
 			lastState = MARIO_STATE_IDLE;
-		SetState(lastState);
+		SetState(lastState); // bị lỗi, vì khi attack xong nó dừng ở frame cuối của animation và giữ state là last state => Attack => K chuyển sang trạng thái IDLE khi đang đứng yên (bắn lửa xong), phải di chuyển r mới thay đổi state đc
 	}
 }
 
 void CFireMario::AddMiscToScene(CScene* scene)
 {
-	CGameObject::AddMiscToScene(scene);
-	for (auto fireBall : listFireBalls)
-	{
-		scene->AddObject(fireBall);
-	}
 }
 
 void CFireMario::OnKeyDown(int KeyCode)
@@ -81,26 +70,42 @@ void CFireMario::OnKeyDown(int KeyCode)
 	CMario::OnKeyDown(KeyCode);
 	if (isAttack == true)
 	{
-		currentFireBall = listFireBalls[0];
-		if (currentFireBall == NULL)
-			return;
-		auto firePhyBody = currentFireBall->GetPhysiscBody();
+		countFireBall++;
+		if (countFireBall <= 2)
+		{
+			CFireBall* currentFireBall;
+			currentFireBall = new CFireBall();
+			listFireBalls.push_back(currentFireBall);
 
-		currentFireBall->Enable(true);
-		auto normal = physiscBody->GetNormal();
+			auto scene = CSceneManager::GetInstance()->GetActiveScene();
+			scene->AddObject(currentFireBall);
 
-		auto posMario = transform.position + relativePositionOnScreen;
-		posMario.x += SUPER_MARIO_BBOX.x *0.5f *normal.x;
-		currentFireBall->SetPosition(posMario);
+			auto firePhyBody = currentFireBall->GetPhysiscBody();
 
-		firePhyBody->SetVelocity(D3DXVECTOR2(FIRE_BALL_SPEED * normal.x,0));
+			currentFireBall->Enable(true);
+			auto normal = physiscBody->GetNormal();
 
+			auto posMario = transform.position + relativePositionOnScreen;
+			posMario.x += SUPER_MARIO_BBOX.x * 0.5f * normal.x;
+			currentFireBall->SetPosition(posMario);
+
+			firePhyBody->SetVelocity(D3DXVECTOR2(FIRE_BALL_SPEED * normal.x, 0));
+		}
 	}
 	else
 	{
-		if (currentFireBall != NULL)
-		{
-			currentFireBall->Enable(false);
-		}
+		// Bị lỗi, ngay khi ấn xong đáng ra Fire Mario phải chuyển từ Attack về Idle (Khi end animation) thì lúc này vô đc else. Nhưng lúc mình ấn nó chưa xong animation?
+		countFireBall = 0;
+		DebugOut(L"Count fireball: %d \n", countFireBall);
 	}
+		
+}
+
+CFireMario::~CFireMario()
+{
+	for (auto fireBall : listFireBalls)
+	{
+		delete fireBall;
+	}
+	//delete currentFireBall;
 }

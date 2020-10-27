@@ -18,6 +18,8 @@ CMario::CMario()
 {
 	LoadAnimation();
 	InitProperties();
+	tag = GameObjectTags::Player;
+
 }
 
 void CMario::Init()
@@ -38,7 +40,6 @@ void CMario::InitProperties()
 	this->physiscBody->SetDynamic(true); // có chuyển động
 	this->physiscBody->SetGravity(MARIO_GRAVITY);
 
-	tag = GameObjectTags::Player; // Cần hay k?
 	currentPhysicsState =
 	{
 		MoveOnGroundStates::Idle,
@@ -485,6 +486,16 @@ void CMario::OnKeyUp(int KeyCode)
 	{
 		currentPhysicsState.move = MoveOnGroundStates::Idle;
 	}
+}
+
+void CMario::SetMarioStateTag(MarioStates tag)
+{
+	marioStateTag = tag;
+}
+
+MarioStates CMario::GettMarioStateTag()
+{
+	return marioStateTag;
 }
 
 void CMario::Access()

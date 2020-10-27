@@ -5,7 +5,8 @@
 CSuperMario::CSuperMario()
 {
 	CMario::Init();
-	SetTag(GameObjectTags::SuperMario);
+	marioStateTag = MarioStates::SuperMario;
+
 	CSuperMario::LoadAnimation();
 	CSuperMario::Init();
 	CMario::InitProperties();

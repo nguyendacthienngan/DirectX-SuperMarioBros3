@@ -8,7 +8,7 @@ class CFireMario : public CMario
 {
 private:
 	std::vector<CGameObject*> listFireBalls;
-	CGameObject* currentFireBall;
+	int countFireBall;
 public:
 	CFireMario();
 	void Init() override;
@@ -18,5 +18,7 @@ public:
 	void EndAnimation();
 	void AddMiscToScene(CScene* scene) override;
 	void OnKeyDown(int KeyCode) override;
+	
+	~CFireMario();
 };
 

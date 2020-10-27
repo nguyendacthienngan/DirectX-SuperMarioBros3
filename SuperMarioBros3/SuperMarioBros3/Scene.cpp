@@ -106,8 +106,6 @@ void CScene::Update(DWORD dt)
 	{
 		
 		if (obj->IsEnabled() == false) continue;
-		/*if (obj->GetTag() == GameObjectTags::Misc)
-			DebugOut(L"BBBOX FIRE BALL \n");*/
 		obj->PhysicsUpdate(&gameObjects); 
 		obj->Update(dt, camera);
 	}
@@ -123,6 +121,7 @@ void CScene::Render()
 
 	for (auto obj : gameObjects)
 	{
+		if (obj->IsEnabled() == false) continue;
 		obj->Render(camera);
 		if (obj->GetCollisionBox()->size() != 0)
 			obj->GetCollisionBox()->at(0)->Render(camera, -24);

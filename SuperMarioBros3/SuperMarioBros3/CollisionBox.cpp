@@ -93,8 +93,6 @@ RectF CCollisionBox::GetBoundingBox()
 {
 	// GetBoundingBox la lay cai box nam trong the gioi game 
 	// Con boxSize la kich thuoc thoi k co toa do
-	/*if (name == "Fire-Ball")
-		DebugOut(L"BBBOX FIRE BALL \n");*/
 	auto pos = GetWorldPosition();
 	RectF r;
 	r.left = pos.x - sizeBox.x*0.5f;

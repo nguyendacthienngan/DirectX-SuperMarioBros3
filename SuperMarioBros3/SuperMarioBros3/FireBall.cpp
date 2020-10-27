@@ -2,6 +2,8 @@
 #include "MiscConst.h"
 #include "AnimationManager.h"
 #include "Ultis.h"
+#include "SceneManager.h"
+#include "FireMario.h"
 
 CFireBall::CFireBall()
 {
@@ -22,6 +24,7 @@ CFireBall::CFireBall()
 	physiscBody->SetDynamic(true);
 	physiscBody->SetGravity(FIRE_BALL_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
+	physiscBody->SetBounceForce(FIRE_BALL_BOUNCE_FORCE);
 }
 
 void CFireBall::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
@@ -50,15 +53,17 @@ void CFireBall::SetFireMario(CGameObject* fireM)
 
 void CFireBall::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
 {
-
-	/*for (auto collisionEvent : collisionEvents)
+	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid
+			&& collisionEvent->nx != 0)
 		{
-			
+			this->isEnabled = false;
+			auto scene = CSceneManager::GetInstance()->GetActiveScene();
+			scene->RemoveObject(this);
 		}
-	}*/
+	}
 }
 
 CGameObject* CFireBall::GetFireMario()
