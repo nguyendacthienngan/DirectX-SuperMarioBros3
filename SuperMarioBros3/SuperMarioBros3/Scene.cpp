@@ -95,8 +95,18 @@ void CScene::Load()
 
 void CScene::Unload()
 {
-	for (auto object : gameObjects)
-		delete object;
+	//for (int i = 0; i < gameObjects.size(); i++)
+	//	delete gameObjects[i];
+	////for (auto object : gameObjects)
+	////{
+	////	RemoveObject(object);
+	////	//object->Clear();
+	////	delete object;
+	////	object = NULL;
+	////}
+	//map = NULL;
+	//camera = NULL;
+	//gameObjects.clear();
 }
 
 void CScene::Update(DWORD dt)
@@ -136,10 +146,10 @@ void CScene::AddObject(LPGameObject gameObject)
 
 void CScene::RemoveObject(LPGameObject gameObject)
 {
-	auto remObj = find(gameObjects.begin(), gameObjects.end(), gameObject);
-	if (remObj != gameObjects.end())
+	auto gameObj = find(gameObjects.begin(), gameObjects.end(), gameObject);
+	if (gameObj != gameObjects.end())
 	{
-		gameObjects.erase(remObj);
+		gameObjects.erase(gameObj);
 	}
 }
 
@@ -171,9 +181,4 @@ LPGameObject CScene::GetPlayer()
 
 CScene::~CScene()
 {
-	delete map; // đúng hay chưa?
-	delete camera;
-	for (auto gO : gameObjects)
-		delete gO;
-	gameObjects.clear();
 }

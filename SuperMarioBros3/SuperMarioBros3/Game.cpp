@@ -150,7 +150,13 @@ void CGame::Run()
 
 void CGame::End()
 {
-	DebugOut(L"[INFO] This game is about to end");
+	DebugOut(L"[INFO] This game is about to end \n");
+
+	CSceneManager::GetInstance()->GetActiveScene()->Unload();
+	CTextureManager::GetInstance()->Clear();
+	CSpriteManager::GetInstance()->Clear();
+	CAnimationManager::GetInstance()->Clear();
+
 	if (spriteHandler != NULL) spriteHandler->Release();
 	if (backBuffer != NULL) backBuffer->Release();
 	if (d3ddv != NULL) d3ddv->Release();

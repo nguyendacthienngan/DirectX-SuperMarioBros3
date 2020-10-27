@@ -27,6 +27,10 @@ void CFireMario::Init()
 	this->SetState(MARIO_STATE_IDLE); // Để tên đồng nhất với animation
 }
 
+void CFireMario::Clear()
+{
+}
+
 void CFireMario::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
@@ -87,7 +91,7 @@ void CFireMario::OnKeyDown(int KeyCode)
 		DWORD now = GetTickCount();
 		if (now - lastAttackTime < timeToNextAttack && countFireBall > 2)  
 		{
-			// Cannot attack until 1 second
+			// Cannot attack until 1 second (lần thứ 3)
 			isAttack = false; 
 			return;
 		}
@@ -101,7 +105,6 @@ void CFireMario::OnKeyDown(int KeyCode)
 		{
 			CFireBall* currentFireBall;
 			currentFireBall = new CFireBall();
-			listFireBalls.push_back(currentFireBall);
 
 			auto scene = CSceneManager::GetInstance()->GetActiveScene();
 			scene->AddObject(currentFireBall);
@@ -125,8 +128,6 @@ void CFireMario::OnKeyDown(int KeyCode)
 
 CFireMario::~CFireMario()
 {
-	for (auto fireBall : listFireBalls)
-	{
-		delete fireBall;
-	}
+	CGameObject::~CGameObject();
+
 }

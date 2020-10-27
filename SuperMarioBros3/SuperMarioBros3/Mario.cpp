@@ -519,4 +519,6 @@ void CMario::Exit()
 
 CMario::~CMario()
 {
+	CGameObject::~CGameObject();
+
 }

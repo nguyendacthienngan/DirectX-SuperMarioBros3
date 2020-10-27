@@ -66,6 +66,7 @@ public:
 	~CGameObject();
 
 	virtual void Init();
+	virtual void Clear();
 	virtual void LoadAnimation();
 
 	virtual void PhysicsUpdate(std::vector<LPGameObject>* coObjects);

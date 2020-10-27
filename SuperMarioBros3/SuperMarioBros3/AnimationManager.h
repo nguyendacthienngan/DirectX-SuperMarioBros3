@@ -17,12 +17,12 @@ private:
 public:
 	CAnimationManager();
 	bool Init();
+	void Clear();
 	bool InitAnAnimationSet(std::string textureName, std::string filePath);
 	bool LoadAnimation(std::string texName, std::string filePath);
 	void AddAnimation(std::string id, LPAnimation ani); // Lưu toàn bộ DB
 	LPAnimation Get(std::string id);
 	LPAnimation Clone(std::string id); // Copy constructor: Giúp copy ani ra bản sao để mỗi object xài ani riêng. Không bị trùng nhau
-	void Clear();
 	static LPAnimationManager GetInstance();
 	~CAnimationManager();
 };

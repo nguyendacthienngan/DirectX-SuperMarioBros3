@@ -20,8 +20,12 @@ void CScene1::Load()
 	DebugOut(L"[INFO] Loaded Scene \n");
 }
 
+void CScene1::Unload()
+{
+	CScene::Unload();
+	mario = NULL;
+}
 
 CScene1::~CScene1()
 {
-	delete mario;
 }

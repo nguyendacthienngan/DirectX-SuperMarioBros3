@@ -6,5 +6,6 @@ public:
 	CSuperMario();
 	void Init() override;
 	void LoadAnimation() override;
+	~CSuperMario();
 };
 

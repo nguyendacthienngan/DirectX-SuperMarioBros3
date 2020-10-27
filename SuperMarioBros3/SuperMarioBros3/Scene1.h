@@ -14,8 +14,7 @@ public:
 
 
 	void Load();
-	//void LoadMap(eType);
-
+	void Unload() override;
 
 	~CScene1();
 };

@@ -18,6 +18,10 @@ CCollisionBox::CCollisionBox()
 	sizeBox.y = 1;
 }
 
+CCollisionBox::~CCollisionBox()
+{
+}
+
 void CCollisionBox::Render(CCamera* camera, int distance)
 {
 	auto pos = GetWorldPosition();

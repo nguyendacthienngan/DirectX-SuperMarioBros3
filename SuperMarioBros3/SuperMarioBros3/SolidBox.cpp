@@ -19,3 +19,9 @@ void CSolidBox::Init()
 	this->physiscBody->SetDynamic(false);
 	this->SetTag(GameObjectTags::Solid);
 }
+
+CSolidBox::~CSolidBox()
+{
+	CGameObject::~CGameObject();
+
+}

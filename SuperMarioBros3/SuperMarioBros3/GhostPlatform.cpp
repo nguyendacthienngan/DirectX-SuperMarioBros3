@@ -14,3 +14,9 @@ void CGhostPlatform::Init()
 	this->SetTag(GameObjectTags::GhostPlatform);
 	this->SetEffector(Effector::Top);
 }
+
+CGhostPlatform::~CGhostPlatform()
+{
+	CGameObject::~CGameObject();
+
+}

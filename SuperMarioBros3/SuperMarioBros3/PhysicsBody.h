@@ -40,6 +40,7 @@ private:
 	bool isTrigger; // biến dùng để xét trả về OnCollisionEnter với OnTriggerEnter
 public:
 	CPhysicsBody();
+	~CPhysicsBody();
 	// Chỉ phát hiện va chạm thui còn việc xử lý sao thì tùy theo mỗi game object [ OnCollisionEnter]
 	void PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects);
 	void Update(LPGameObject gO);

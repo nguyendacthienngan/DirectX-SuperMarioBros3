@@ -44,3 +44,9 @@ void CRacoonMario::EndAnimation()
 		SetState(lastState);
 	}
 }
+
+CRacoonMario::~CRacoonMario()
+{
+	CGameObject::~CGameObject();
+
+}

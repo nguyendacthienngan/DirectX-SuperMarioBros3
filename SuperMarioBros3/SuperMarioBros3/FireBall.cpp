@@ -27,28 +27,25 @@ CFireBall::CFireBall()
 	physiscBody->SetBounceForce(FIRE_BALL_BOUNCE_FORCE);
 }
 
+CFireBall::~CFireBall()
+{
+	CGameObject::~CGameObject();
+}
+
 void CFireBall::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
 {
-
 	CGameObject::PhysicsUpdate(coObjects);
 }
 
 void CFireBall::Update(DWORD dt, CCamera* cam)
 {
 	CGameObject::Update(dt, cam);
-
 }
 
 void CFireBall::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
 	AddAnimation(FIRE_BALL_ANIMATION, animationManager->Get("ani-fire-ball"));
-
-}
-
-void CFireBall::SetFireMario(CGameObject* fireM)
-{
-	fireMario = fireM;
 }
 
 void CFireBall::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
@@ -64,9 +61,4 @@ void CFireBall::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Co
 			scene->RemoveObject(this);
 		}
 	}
-}
-
-CGameObject* CFireBall::GetFireMario()
-{
-	return fireMario;
 }

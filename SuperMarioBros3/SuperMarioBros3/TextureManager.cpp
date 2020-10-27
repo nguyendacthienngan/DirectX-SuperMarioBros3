@@ -26,6 +26,16 @@ void CTextureManager::Init()
 	LoadTexture(TEXTURE_FIRE_BALL, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_FIRE_BALL));
 }
 
+void CTextureManager::Clear()
+{
+	for (auto t : textures)
+	{
+		LPDIRECT3DTEXTURE9 tex = t.second;
+		if (tex != NULL) tex->Release();
+	}
+	textures.clear();
+}
+
 void CTextureManager::LoadTexture(string  texName, string texPath)
 {
 	Add(texName, texPath, D3DCOLOR_XRGB(255, 255, 255));
@@ -83,6 +93,5 @@ void CTextureManager::Add(string id, std::string filePath, D3DCOLOR transparentC
 
 CTextureManager::~CTextureManager()
 {
-	/*for (auto t : textures)
-		delete t.second;*/
+	
 }

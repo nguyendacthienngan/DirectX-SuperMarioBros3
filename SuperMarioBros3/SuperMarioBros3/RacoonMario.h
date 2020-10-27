@@ -9,5 +9,6 @@ public:
 	void Init() override;
 	void LoadAnimation() override;
 	void EndAnimation() override;
+	~CRacoonMario();
 };
 

@@ -8,5 +8,6 @@ class CGhostPlatform: public CGameObject
 public:
 	CGhostPlatform();
 	void Init() override;
+	~CGhostPlatform();
 };
 

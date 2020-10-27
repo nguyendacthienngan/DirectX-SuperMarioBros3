@@ -21,13 +21,21 @@ CGameObject::CGameObject()
 
 CGameObject::~CGameObject()
 {
-	for (auto a : animations)
-		delete a.second;
+
 }
 
 
 void CGameObject::Init()
 {
+}
+
+void CGameObject::Clear()
+{
+	/*if (physiscBody != NULL) delete physiscBody;
+	for (auto col : *collisionBoxs)
+		delete col;
+	collisionBoxs->clear();
+	delete collisionBoxs;*/
 }
 
 void CGameObject::LoadAnimation()

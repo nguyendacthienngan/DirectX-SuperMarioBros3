@@ -19,8 +19,7 @@ LPAnimationManager CAnimationManager::GetInstance()
 
 CAnimationManager::~CAnimationManager()
 {
-	for (auto ani : animations)
-		delete ani.second;
+	
 }
 
 CAnimationManager::CAnimationManager()
@@ -139,11 +138,11 @@ LPAnimation CAnimationManager::Clone(std::string id)
 
 void CAnimationManager::Clear()
 {
-	/*for (auto x : animations)
+	for (auto x : animations)
 	{
 		LPAnimation ani = x.second;
 		delete ani;
 	}
-	animations.clear();*/
+	animations.clear();
 }
 

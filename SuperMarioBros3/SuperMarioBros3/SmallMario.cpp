@@ -36,3 +36,9 @@ void CSmallMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_CROUCH, animationManager->Get("ani-small-mario-idle"));
 	CSmallMario::SetState(MARIO_STATE_IDLE);
 }
+
+CSmallMario::~CSmallMario()
+{
+	CGameObject::~CGameObject();
+
+}

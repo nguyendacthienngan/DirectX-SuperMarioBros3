@@ -25,7 +25,7 @@ private:
 
 public:
 	CCollisionBox();
-
+	~CCollisionBox();
 	void Render(CCamera* camera, int distance);
 	
 	void SetGameObjectAttach(LPGameObject gO);

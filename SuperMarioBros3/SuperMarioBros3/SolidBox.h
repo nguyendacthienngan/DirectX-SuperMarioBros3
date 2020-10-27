@@ -7,5 +7,6 @@ class CSolidBox : public CGameObject
 public:
 	CSolidBox();
 	void Init();
+	~CSolidBox();
 };
 

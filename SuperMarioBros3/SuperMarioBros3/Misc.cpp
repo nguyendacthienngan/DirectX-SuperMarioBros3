@@ -3,3 +3,9 @@
 CMisc::CMisc()
 {
 }
+
+CMisc::~CMisc()
+{
+	CGameObject::~CGameObject();
+
+}

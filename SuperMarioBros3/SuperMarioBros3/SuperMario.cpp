@@ -30,3 +30,9 @@ void CSuperMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_SKID, animationManager->Get("ani-big-mario-skid"));
 	AddAnimation(MARIO_STATE_FALL, animationManager->Get("ani-big-mario-fall"));
 }
+
+CSuperMario::~CSuperMario()
+{
+	CGameObject::~CGameObject();
+
+}

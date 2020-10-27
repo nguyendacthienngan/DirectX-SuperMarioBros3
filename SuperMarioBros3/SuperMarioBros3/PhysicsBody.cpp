@@ -22,6 +22,10 @@ CPhysicsBody::CPhysicsBody()
 	bounceForce = 0;
 }
 
+CPhysicsBody::~CPhysicsBody()
+{
+}
+
 void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects)
 {
 	auto gameObject = cO->GetGameObjectAttach();
@@ -285,7 +289,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
+		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc) // Chỗ player là tạm thời ! Phải sửa lại là coObject đó có enable hay k mới đúng
 			continue;
 		if (coObjects->at(i) == cO)
 			continue;
@@ -298,7 +302,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 
 			std::string name = coObjects->at(i)->GetName();
 			
-			 OutputDebugString(ToLPCWSTR("Hit Name: " + name + "\n"));
+			// OutputDebugString(ToLPCWSTR("Hit Name: " + name + "\n"));
 		}
 		else
 			delete e;

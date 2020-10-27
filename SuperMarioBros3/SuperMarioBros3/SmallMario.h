@@ -6,5 +6,6 @@ public:
 	CSmallMario();
 	void Init() override;
 	void LoadAnimation() override;
+	~CSmallMario();
 };
 

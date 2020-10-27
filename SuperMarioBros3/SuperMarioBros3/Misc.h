@@ -4,5 +4,6 @@ class CMisc : public CGameObject
 {
 public:
 	CMisc();
+	~CMisc();
 };
 

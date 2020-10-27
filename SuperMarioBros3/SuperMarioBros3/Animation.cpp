@@ -93,7 +93,5 @@ LPAnimationFrame CAnimation::GetAnimFrame()
 
 CAnimation::~CAnimation()
 {
-	for (auto a : animFrames)
-		delete a;
-	animFrames.clear();
+	
 }

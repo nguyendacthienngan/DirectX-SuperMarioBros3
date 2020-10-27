@@ -7,13 +7,12 @@ class CScene;
 class CFireMario : public CMario
 {
 private:
-	std::vector<CGameObject*> listFireBalls;
 	int countFireBall;
 	DWORD timeToNextAttack, lastAttackTime;
-	// last attack time?
 public:
 	CFireMario();
 	void Init() override;
+	void Clear() override;
 	void LoadAnimation() override;
 	void Render(CCamera* cam) override;
 	void Update(DWORD dt, CCamera* cam) override;
