@@ -150,6 +150,8 @@
     <ClInclude Include="CollisionBox.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Effector.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyConst.h" />
     <ClInclude Include="FireBall.h" />
     <ClInclude Include="FireMario.h" />
     <ClInclude Include="framework.h" />
@@ -163,6 +165,7 @@
     <ClInclude Include="IState.h" />
     <ClInclude Include="KeyboardManager.h" />
     <ClInclude Include="KeyEventHandler.h" />
+    <ClInclude Include="Koopa.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapConst.h" />
@@ -226,6 +229,7 @@
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionBox.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="FireMario.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -235,6 +239,7 @@
     <ClCompile Include="IState.cpp" />
     <ClCompile Include="KeyboardManager.cpp" />
     <ClCompile Include="KeyEventHandler.cpp" />
+    <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />

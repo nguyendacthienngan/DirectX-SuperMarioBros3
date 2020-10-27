@@ -5,6 +5,7 @@
 #include "Game.h"
 #include "MarioController.h"
 #include <string>
+#include "Koopa.h"
 using namespace std;
 
 CScene::CScene()
@@ -56,6 +57,21 @@ void CScene::Load()
 			player->AddStateObjectsToScene(this);
 			player->GetCurrentStateObject()->SetPosition(startPosition);
 			AddObject(player);
+		}
+		else if (name.compare("Enemy") == 0)
+		{
+			DebugOut(L"[INFO] Load enemy \n");
+			
+			for (TiXmlElement* enemy = scene->FirstChildElement(); enemy != NULL; enemy = enemy->NextSiblingElement())
+			{
+				CKoopa* koopa = new CKoopa();
+				D3DXVECTOR2 startPosition;
+				enemy->QueryFloatAttribute("pos_x", &startPosition.x);
+				enemy->QueryFloatAttribute("pos_y", &startPosition.y);
+
+				koopa->SetPosition(startPosition);
+				AddObject(koopa);
+			}
 		}
 		else if (name.compare("Camera") == 0)
 		{

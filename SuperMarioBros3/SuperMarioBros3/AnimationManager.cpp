@@ -40,6 +40,11 @@ bool CAnimationManager::Init()
 		DebugOut(L"Cannot Load Fire Ball Animation File \n");
 		return false;
 	}
+	if (InitAnAnimationSet(TEXTURE_ENEMY, root->GetFilePathByCategory(CATEGORY_ANIMATION, DB_ANIMATION_ENEMY)) == false)
+	{
+		DebugOut(L"Cannot Load Fire Ball Animation File \n");
+		return false;
+	}
 	return true;
 }
 

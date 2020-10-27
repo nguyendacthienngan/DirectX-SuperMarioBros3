@@ -83,7 +83,6 @@ void CFireMario::EndAnimation()
 {
 	if (currentState.compare(MARIO_STATE_ATTACK) == 0)
 	{
-
 		isAttack = false; 
 		isJumpAttack = false;
 		if (animations.find(lastState) == animations.end() || lastState == currentState) // Không kiếm được last state trong animation, đồng nghĩa với việc last state chưa được khởi tạo, còn nếu đc khởi tạo rồi thì mình set state theo cái state trước đó

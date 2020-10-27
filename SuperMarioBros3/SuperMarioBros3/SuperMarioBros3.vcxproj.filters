@@ -103,6 +103,9 @@
     <Filter Include="Game\GameObject\Misc">
       <UniqueIdentifier>{2ce07ac5-c857-4db2-a313-02a53da1de70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Enemy">
+      <UniqueIdentifier>{528f2e80-6fbd-4fef-9f0b-30a9ac13c097}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -333,6 +336,15 @@
     <ClInclude Include="MiscConst.h">
       <Filter>Game\GameObject\Misc</Filter>
     </ClInclude>
+    <ClInclude Include="Koopa.h">
+      <Filter>Game\GameObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Game\GameObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyConst.h">
+      <Filter>Game\GameObject\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -511,6 +523,12 @@
     </ClCompile>
     <ClCompile Include="FireBall.cpp">
       <Filter>Game\GameObject\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Game\GameObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Koopa.cpp">
+      <Filter>Game\GameObject\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

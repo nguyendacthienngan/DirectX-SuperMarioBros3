@@ -24,6 +24,7 @@ void CTextureManager::Init()
 	LoadTexture(TEXTURE_BBOX, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_BBOX));
 	LoadTexture(TEXTURE_MISC, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_MISC));
 	LoadTexture(TEXTURE_FIRE_BALL, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_FIRE_BALL));
+	LoadTexture(TEXTURE_ENEMY, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_ENEMY));
 }
 
 void CTextureManager::Clear()
