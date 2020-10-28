@@ -78,6 +78,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	physiscBody->SetDragForce(D3DXVECTOR2(MARIO_WALKING_DRAG_FORCE, 0.0f));
 	D3DXVECTOR2 drag = physiscBody->GetDragForce();
 
+	// Tốc độ đang có vấn đề, chưa kiểm soát tốt
 
 	// Horizontal Movement: Walk, Run, Idle
 	if (keyboard->GetKeyStateDown(DIK_RIGHT) || keyboard->GetKeyStateDown(DIK_LEFT)) // Có thể nhấn a trước khi nhấn qua lại
@@ -117,14 +118,14 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		{
 			normal.x = 1;
 			physiscBody->SetNormal(normal);
-			targetVelocity.x = 1 * constSpeed;
 		}
 		else if (keyboard->GetKeyStateDown(DIK_LEFT))
 		{
 			normal.x = -1;
 			physiscBody->SetNormal(normal);
-			targetVelocity.x = -1 * constSpeed;
 		}
+		targetVelocity.x = normal.x * constSpeed;
+
 		// Do ta chỉ cho phép chạy tới 1 khoảng nhất định rồi dừng lại. 
 		// Thì việc dừng lại ta sẽ phụ thuộc vào vận tốc
 		// Nếu vận tốc tới 1 mức target thì t cho mario dừng lại
@@ -147,6 +148,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		DebugOut(L"TargetVelocity.x: %f \n", targetVelocity.x);
 		DebugOut(L"Acceleration %f \n", physiscBody->GetAcceleration());
 #pragma endregion
+		normal.x = (velocity.x > 0) ? 1 : -1;
 		physiscBody->SetNormal(normal);
 		physiscBody->SetVelocity(velocity);
 
@@ -291,8 +293,8 @@ void CMario::Render(CCamera* cam)
 	}
 	case MoveOnGroundStates::Skid:
 	{
-		auto normal = physiscBody->GetNormal();
-		SetScale(D3DXVECTOR2(-normal.x, 1.0f));
+		/*auto normal = physiscBody->GetNormal();
+		SetScale(D3DXVECTOR2(-normal.x, 1.0f));*/
 		SetState(MARIO_STATE_SKID);
 		break;
 	}
@@ -431,23 +433,16 @@ void CMario::SkidProcess(D3DXVECTOR2 velocity)
 	// Sẽ detect nhầm qua skid
 	// Do đó ta phải đảm bảo tốc độ nằm ngoài khoảng nhầm lẫn đó thì skid mới xảy ra
 	
-	bool skidMovementConstraint =
-		(currentPhysicsState.move == MoveOnGroundStates::Walk &&
-			(abs(velocity.x) < MARIO_WALKING_SPEED && abs(velocity.x) > MARIO_RUNNING_SPEED))
-		|| (currentPhysicsState.move == MoveOnGroundStates::Run);
+	auto keyboard = CKeyboardManager::GetInstance();
 
-	auto normal = physiscBody->GetNormal();
-	bool skidFacingConstraint = ((previousVelocity.x < velocity.x&& normal.x == -1
-		|| previousVelocity.x > velocity.x && normal.x == 1
-		));
-
-	if (isSkid == false && skidFacingConstraint == true && skidMovementConstraint == true)
+	int sign = keyboard->GetKeyStateDown(DIK_RIGHT) ? 1 : -1;
+	if (isOnGround == true && velocity.x * sign < 0) 
 	{
-		isSkid = true;
-		currentPhysicsState.move = MoveOnGroundStates::Skid;
+		isSkid = velocity.x / abs(velocity.x);
 	}
-	else if (Sign(velocity.x) != Sign(previousVelocity.x) || normal.x != previousNormal.x)
-		isSkid = false; // Sau khi lật xong phía bên kia thì dừng skid !!!!!!!
+	if (isSkid * velocity.x <= 0)
+		isSkid = 0;
+	//DebugOut((isSkid == true) ? L"Skid Detected! \n" : L"No Skid ! \n");
 }
 
 void CMario::KeyState()
