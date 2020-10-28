@@ -71,6 +71,8 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	auto normal = physiscBody->GetNormal();
 	previousPhysicsState = currentPhysicsState;
 	previousVelocity = velocity;
+
+	DebugOut(L"Velocity Before: %f \n", velocity.x);
 	previousTargetVelocity = targetVelocity;
 	previousNormal = physiscBody->GetNormal();
 	physiscBody->SetDragForce(D3DXVECTOR2(MARIO_WALKING_DRAG_FORCE, 0.0f));
@@ -141,7 +143,9 @@ void CMario::Update(DWORD dt, CCamera* cam)
 			else
 				velocity.x -= physiscBody->GetAcceleration()*dt;
 		}
-
+		DebugOut(L"Velocity.x: %f \n", velocity.x);
+		DebugOut(L"TargetVelocity.x: %f \n", targetVelocity.x);
+		DebugOut(L"Acceleration %f \n", physiscBody->GetAcceleration());
 #pragma endregion
 		physiscBody->SetNormal(normal);
 		physiscBody->SetVelocity(velocity);
@@ -160,14 +164,14 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		// Dừng mario
 		// lực kéo sẽ giảm vận tốc lại để cho vận tốc mario đi về 0
 		// khi vx < lực kéo rồi thì set vx = 0 luôn r cho nó đứng lại để tránh sai số
-		if (abs(velocity.x) <= physiscBody->GetDragForce().x)
+		if (abs(velocity.x) <= physiscBody->GetDragForce().x*dt)
 		{
 			velocity.x = 0;
 			if (currentPhysicsState.move != MoveOnGroundStates::Idle)
 				currentPhysicsState.move = MoveOnGroundStates::Idle;
 		}
 		else
-			velocity.x = (abs(velocity.x) - physiscBody->GetDragForce().x);
+			velocity.x = (abs(velocity.x) - physiscBody->GetDragForce().x*dt);
 		velocity.x *= normal.x;
 		isSkid = false;
 		physiscBody->SetNormal(normal);
@@ -175,6 +179,8 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		
 #pragma endregion
 	}
+
+
 
 	// Vertical Movement: Jump, High Jump, Super Jump
 

@@ -18,8 +18,8 @@ CMarioController::CMarioController()
 {
 	Init();
 	currentStateObject = NULL;
-	SwitchToState(FIRE_MARIO_STATE);
-	//SwitchToState(RACOON_MARIO_STATE);
+	//SwitchToState(FIRE_MARIO_STATE);
+	SwitchToState(RACOON_MARIO_STATE);
 	//SwitchToState(SUPER_MARIO_STATE);
 	//SwitchToState(SMALL_MARIO_STATE);
 }

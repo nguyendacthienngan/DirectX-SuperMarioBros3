@@ -35,7 +35,8 @@ void CFireMario::Clear()
 void CFireMario::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-fire-mario-high-speed"));
+	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-fire-mario-run"));
+	AddAnimation(MARIO_STATE_HIGH_SPEED, animationManager->Get("ani-fire-mario-high-speed"));
 	AddAnimation(MARIO_STATE_WALKING, animationManager->Get("ani-fire-mario-walk"));
 	AddAnimation(MARIO_STATE_JUMP, animationManager->Get("ani-fire-mario-jump"));
 	AddAnimation(MARIO_STATE_FLY, animationManager->Get("ani-fire-mario-high-jump"));
