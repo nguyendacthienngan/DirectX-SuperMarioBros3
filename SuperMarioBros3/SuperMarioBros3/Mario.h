@@ -16,10 +16,10 @@ protected:
 	D3DXVECTOR2 targetVelocity, previousVelocity, previousTargetVelocity; // đến một mức velocity thì thay đổi
 	MarioStateSet currentPhysicsState, previousPhysicsState; // state vật lý, còn currentState ở GameObject là state animation
 	bool isOnGround;
-	bool isHighSpeed; // horizontal
+	bool isHighSpeed, isRun; // horizontal
 	bool canLowJumpContinous;
 	bool isHighJump, canHighJump, isJump; 
-	bool isSkid;
+	int isSkid;
 	bool canCrouch;
 	D3DXVECTOR2 previousNormal;
 	bool canAttack, isAttack, canAttackContinious;
