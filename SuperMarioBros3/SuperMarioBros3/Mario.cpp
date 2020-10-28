@@ -243,6 +243,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	{
 		if (isOnGround == true)
 			currentPhysicsState.jump = JumpOnAirStates::Stand;
+		isJump = false;
 	}
 
 
@@ -301,9 +302,12 @@ void CMario::Render(CCamera* cam)
 	}
 	case MoveOnGroundStates::Attack:
 	{
-		DebugOut(L"Set Attack  \n");
-
 		SetState(MARIO_STATE_ATTACK);
+		break;
+	}
+	case MoveOnGroundStates::JumpAttack:
+	{
+		SetState(MARIO_STATE_JUMP_ATTACK);
 		break;
 	}
 	}
@@ -311,20 +315,24 @@ void CMario::Render(CCamera* cam)
 
 #pragma region Jump On Air
 
-	switch (currentPhysicsState.jump)
+	if (currentPhysicsState.move != MoveOnGroundStates::JumpAttack)
 	{
-	case JumpOnAirStates::Jump: case JumpOnAirStates::HighJump:
-	case JumpOnAirStates::LowJump:
-	{
-		SetState(MARIO_STATE_JUMP);
-		break;
+		switch (currentPhysicsState.jump)
+		{
+		case JumpOnAirStates::Jump: case JumpOnAirStates::HighJump:
+		case JumpOnAirStates::LowJump:
+		{
+			SetState(MARIO_STATE_JUMP);
+			break;
+		}
+		case JumpOnAirStates::Fall:
+		{
+			SetState(MARIO_STATE_FALL);
+			break;
+		}
+		}
 	}
-	case JumpOnAirStates::Fall:
-	{
-		SetState(MARIO_STATE_FALL);
-		break;
-	}
-	}
+	
 #pragma endregion
 
 #pragma endregion

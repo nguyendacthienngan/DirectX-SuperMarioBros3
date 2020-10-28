@@ -289,13 +289,11 @@
 			<Sprite id="spr-fire-mario-throw-0" left="280" top="109"  width="14" height="27" frameTime="100"/>
 			<Sprite id="spr-fire-mario-throw-1" left="297" top="109"  width="14" height="27" frameTime="100"/>
 		</Animation>
-		<!-- Animation FIRE BALL-->
-		<!-- <Animation aniId="ani-fire-ball" frameTime="100" name="THROW">
-			<Sprite id="spr-fire-ball-0" left="162" top="124"  width="8" height="8" frameTime="100" transcolor="0"/>
-			<Sprite id="spr-fire-ball-1" left="173" top="123"  width="8" height="9" frameTime="100" transcolor="0"/>
-			<Sprite id="spr-fire-ball-2" left="184" top="124"  width="8" height="8" frameTime="100" transcolor="0"/>
-			<Sprite id="spr-fire-ball-3" left="195" top="123"  width="8" height="9" frameTime="100" transcolor="0"/>
-		</Animation> -->
+		<Animation aniId="ani-fire-mario-jump-throw" frameTime="100" name="THROW">
+			<Sprite id="spr-fire-mario-swim-2" left="642" top="110"  width="19" height="26" frameTime="100"/>
+			<Sprite id="spr-fire-mario-swim-1" left="621" top="109"  width="18" height="27" frameTime="100"/>
+			<Sprite id="spr-fire-mario-swim-0" left="599" top="109"  width="19" height="27" frameTime="100"/>
+		</Animation>
 		<!-- Animation RUN -->
 		<Animation aniId="ani-fire-mario-high-speed" frameTime="100" name="RUN">
 			<Sprite id="spr-fire-mario-walk-0" left="206" top="109"  width="14" height="27" frameTime="100"/>

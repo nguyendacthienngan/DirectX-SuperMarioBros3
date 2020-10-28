@@ -58,7 +58,7 @@ void CScene::Load()
 			player->GetCurrentStateObject()->SetPosition(startPosition);
 			AddObject(player);
 		}
-		else if (name.compare("Enemy") == 0)
+		/*else if (name.compare("Enemy") == 0)
 		{
 			DebugOut(L"[INFO] Load enemy \n");
 			
@@ -72,7 +72,7 @@ void CScene::Load()
 				koopa->SetPosition(startPosition);
 				AddObject(koopa);
 			}
-		}
+		}*/
 		else if (name.compare("Camera") == 0)
 		{
 			DebugOut(L"[INFO] Load camera \n");
