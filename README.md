@@ -15,7 +15,7 @@
 
 ## 4. Tool sử dụng
 - Tile Map Editor: Hỗ trợ việc tạo tileset và tạo map
-- Sử dụng thư viện TinyXML và TMXParser để đọc file map và file sprite
+- Sử dụng thư viện TinyXML để đọc file map và file sprite
 - Tool của bạn Tăng Khánh Chương hỗ trợ viết cắt sprite từ spritecow
 
 ## 5. Các kỹ thuật (sẽ) sử dụng
