@@ -154,6 +154,10 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 		if (isSkid == true)
 			currentPhysicsState.move = MoveOnGroundStates::Skid;
+
+		if (abs(velocity.x) > MARIO_RUNNING_SPEED * 0.95f)
+			currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
+
 	}
 	else if ( (isAttack == true) && canAttack == true) 
 	{
@@ -193,20 +197,22 @@ void CMario::Update(DWORD dt, CCamera* cam)
 			feverState = 1;
 		pMeterCounting += PMETER_STEP * dt;
 		if (pMeterCounting > PMETER_MAX + 1)
+		{
 			pMeterCounting = PMETER_MAX + 1;
+		}
 	}
 	else if (feverState != 2 && feverState != -1) // nếu feverState đang = 1 mà k thỏa những điều kiện trên thì reset lại
 		feverState = 0;
 
 #pragma region FEVER STATE
-	if (pMeterCounting >= PMETER_MAX && feverState == 1)
+	if (pMeterCounting >= PMETER_MAX && feverState <= 0)
 	{
 		feverState = 2;
 		lastFeverTime = GetTickCount();
 	}
 	else if (pMeterCounting > 0 && feverState == -1) // feverState = -1
 	{
-		pMeterCounting -= PMETER_STEP * 2.0f * dt; // Chưa hiểu
+		pMeterCounting -= PMETER_STEP * 2.0f * dt;
 		if (pMeterCounting > PMETER_MAX)
 			pMeterCounting = PMETER_MAX;
 	}
@@ -216,6 +222,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		if (GetTickCount() - lastFeverTime > MARIO_FEVER_TIME)
 		{
 			feverState = 0;
+			currentPhysicsState.jump = JumpOnAirStates::Stand;
 		}
 	}
 #pragma endregion
@@ -257,7 +264,22 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	{
 		if (keyboard->GetKeyStateDown(DIK_S))
 		{
-			if (abs(beforeJumpPosition) - abs(transform.position.y)   <= MARIO_HIGH_JUMP_HEIGHT)
+			float jumpMaxHeight;
+
+			if (feverState == 2 && abs(velocity.x) > MARIO_RUNNING_SPEED * 0.85f)
+			{
+				// SUPER JUMP
+				jumpMaxHeight = MARIO_SUPER_JUMP_HEIGHT;
+
+				DebugOut(L"Super Jump \n");
+			}
+			else
+			{
+				// HIGH - JUMP
+				jumpMaxHeight = MARIO_HIGH_JUMP_HEIGHT;
+
+			}
+			if (abs(beforeJumpPosition) - abs(transform.position.y) <= jumpMaxHeight)
 			{
 				velocity.y = -MARIO_PUSH_FORCE;
 			}
@@ -366,10 +388,11 @@ void CMario::Render(CCamera* cam)
 			break;
 		}
 		}
-	}
-	if (feverState == 2)
-	{
-		SetState(MARIO_STATE_FLY);
+		if (feverState == 2 && isOnGround == false)
+		{
+			SetState(MARIO_STATE_FLY);
+
+		}
 	}
 	
 #pragma endregion

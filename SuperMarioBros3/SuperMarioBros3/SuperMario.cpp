@@ -23,7 +23,8 @@ void CSuperMario::LoadAnimation()
 	auto animationManager = CAnimationManager::GetInstance();
 	AddAnimation(MARIO_STATE_IDLE, animationManager->Get("ani-big-mario-idle"));
 	AddAnimation(MARIO_STATE_WALKING, animationManager->Get("ani-big-mario-walk"));
-	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-big-mario-high-speed"));
+	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-big-mario-run"));
+	AddAnimation(MARIO_STATE_HIGH_SPEED, animationManager->Get("ani-big-mario-high-speed"));
 	AddAnimation(MARIO_STATE_FLY, animationManager->Get("ani-big-mario-high-jump"));
 	AddAnimation(MARIO_STATE_JUMP, animationManager->Get("ani-big-mario-jump"));
 	AddAnimation(MARIO_STATE_CROUCH, animationManager->Get("ani-big-mario-crouch"));

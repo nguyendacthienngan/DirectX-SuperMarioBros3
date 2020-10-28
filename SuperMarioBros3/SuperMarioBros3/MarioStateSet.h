@@ -7,7 +7,7 @@ enum class MoveOnGroundStates
 
 enum class JumpOnAirStates
 {
-	Stand, Jump, HighJump, Fall, LowJump
+	Stand, Jump, HighJump, Fall, LowJump, Fly
 };
 
 struct MarioStateSet
