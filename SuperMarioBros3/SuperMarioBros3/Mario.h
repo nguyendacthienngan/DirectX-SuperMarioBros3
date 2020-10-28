@@ -13,8 +13,9 @@ class CMario : public CGameObject, public IState
 	// Mario Base : Xử lý những thứ cơ bản nhất trước của Mario
 	// Đi, chạy, nhảy, hụp, thắng lại
 protected:
-	D3DXVECTOR2 targetVelocity, previousVelocity, previousTargetVelocity; // đến một mức velocity thì thay đổi
-	MarioStateSet currentPhysicsState, previousPhysicsState; // state vật lý, còn currentState ở GameObject là state animation
+	MarioStates marioStateTag;
+	D3DXVECTOR2 targetVelocity, previousVelocity; 
+	MarioStateSet currentPhysicsState; // state vật lý, còn currentState ở GameObject là state animation
 	bool isOnGround;
 	bool isHighSpeed, isRun; // horizontal
 	bool canLowJumpContinous;
@@ -23,9 +24,12 @@ protected:
 	bool canCrouch;
 	D3DXVECTOR2 previousNormal;
 	bool canAttack, isAttack, canAttackContinious;
-	MarioStates marioStateTag;
 	bool isJumpAttack;
-
+	int feverState; // - 1, 0, 1, 2 : -1 là disable đối với Raccoon vì Raccoon bay kiểu khác
+	DWORD feverTime; // Thời gian PMeter giữ giá trị max
+	DWORD lastFeverTime; 
+	float pMeterCounting;
+	float lowJumpHeight;
 public:
 	CMario();
 	void Init() override;

@@ -56,6 +56,13 @@ void CMario::InitProperties()
 	isSkid = false;
 	isAttack = false;
 	isRun = false;
+	feverTime = MARIO_FEVER_TIME;
+	lastFeverTime = 0;
+	feverState = 0;
+	pMeterCounting = 0.0f;
+	lowJumpHeight = 0.0f;
+	isHighJump = true; // Do lúc nào cx set lại nên chỗ trừ lúc nào cx trừ
+
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 
 }
@@ -177,7 +184,45 @@ void CMario::Update(DWORD dt, CCamera* cam)
 #pragma endregion
 	}
 
+#pragma region P-METER
+	if (currentPhysicsState.move == MoveOnGroundStates::Run
+		&& abs(velocity.x) > MARIO_RUNNING_SPEED * 0.15f
+		&& pMeterCounting < PMETER_MAX + 1
+		&& currentPhysicsState.jump == JumpOnAirStates::Stand
+		&& feverState != 2)
+	{
+		if (feverState != -1)
+			feverState = 1;
+		pMeterCounting += PMETER_STEP * dt;
+		if (pMeterCounting > PMETER_MAX + 1)
+			pMeterCounting = PMETER_MAX + 1;
+	}
+	else if (feverState != 2 && feverState != -1) // nếu feverState đang = 1 mà k thỏa những điều kiện trên thì reset lại
+		feverState = 0;
 
+#pragma region FEVER STATE
+	if (pMeterCounting >= PMETER_MAX && feverState == 1)
+	{
+		feverState = 2;
+		lastFeverTime = GetTickCount();
+	}
+	else if (pMeterCounting > 0 && feverState == -1) // feverState = -1
+	{
+		pMeterCounting -= PMETER_STEP * 2.0f * dt; // Chưa hiểu
+		if (pMeterCounting > PMETER_MAX)
+			pMeterCounting = PMETER_MAX;
+	}
+	if (feverState == 2)
+	{
+		pMeterCounting = PMETER_MAX; // giữ giá trị max 1 thời gian
+		if (GetTickCount() - lastFeverTime > MARIO_FEVER_TIME)
+		{
+			feverState = 0;
+		}
+	}
+#pragma endregion
+
+#pragma endregion
 
 	// Vertical Movement: Jump, High Jump, Super Jump
 
@@ -190,9 +235,18 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 // Đối với ấn nút X giữ lâu => Mario sẽ nhảy liên tục
 // Ấn S giữ lâu thì chỉ nhảy cao hơn thôi
+	/*velocity = physiscBody->GetVelocity();
+	auto dy = abs(transform.position.y);
+	DebugOut(L"Dy : %f \n", dy);
 
+	if (dy >= lowJumpHeight && lowJumpHeight != 0.0f)
+		canHighJump = true;
+	else
+		canHighJump = false;*/
 	if (keyboard->GetKeyStateDown(DIK_X) && isOnGround == true)
 	{
+		// Nhảy liên tục: Chỉ cần cung cấp dy < 0 và có gravity thì ta tạo cảm giác nó nhảy liên tục chuyển động đều
+
 		if (canLowJumpContinous == true)
 		{
 			velocity.y -= MARIO_JUMP_SPEED_Y;
@@ -209,46 +263,37 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		else
 			currentPhysicsState.jump = JumpOnAirStates::LowJump;
 	}
-	if (currentPhysicsState.jump == JumpOnAirStates::Jump && canLowJumpContinous == false)
+	if (currentPhysicsState.jump == JumpOnAirStates::Jump && canLowJumpContinous == false && canHighJump == true)
 	{
-		auto jumpForce = MARIO_JUMP_FORCE;
-		isHighJump = false;
+		if (keyboard->GetKeyStateDown(DIK_S))
+		{
+			DebugOut(L"High Jump \n");
+			DebugOut(L"(1) High Jump Force: %f, current vy: %f \n", MARIO_HIGH_JUMP_FORCE, velocity.y);
+			DebugOut(L"DY : %f \n", transform.position.y);
+			if (abs(transform.position.y) >= abs(MARIO_HIGH_JUMP_HEIGHT)) 
+			{
+				velocity.y = -MARIO_PUSH_FORCE;
+			}
+			else
+			{
+				// EndJump
+				velocity.y = 0;
+				canHighJump = false;
+				DebugOut(L"Dat duoc High Jump \n");
+			}
+		}
+	}
+	if (velocity.y > 0)
+	{
+		currentPhysicsState.jump = JumpOnAirStates::Fall;
+	}
 
-		// Nhảy liên tục: Chỉ cần cung cấp dy < 0 và có gravity thì ta tạo cảm giác nó nhảy liên tục chuyển động đều
-		if (keyboard->GetKeyStateDown(DIK_S) && canHighJump == true &&
-			(velocity.y >= -MARIO_HIGH_JUMP_FORCE && velocity.y <= MARIO_JUMP_FORCE * (-0.5)))
-		{
-			jumpForce = MARIO_HIGH_JUMP_FORCE;
-			isHighJump = true;
-		}
-		if (velocity.y > -jumpForce && velocity.y < 0 && isHighJump == true) //  isHighJump hay canJump : đang hướng về target
-		{
-			physiscBody->SetGravity(0.0f);
-			velocity.y -= MARIO_PUSH_FORCE;
-		}
-		else
-		{
-			// Đạt max high jump
-			velocity.y = -1 * jumpForce; // tránh sai số
-			physiscBody->SetGravity(MARIO_GRAVITY);
-			currentPhysicsState.jump = JumpOnAirStates::HighJump;
-		}
-	}
-	else if (currentPhysicsState.jump == JumpOnAirStates::HighJump)
-	{
-		if (velocity.y > 0) // Hướng xuống 
-		{
-			canHighJump = false;
-			currentPhysicsState.jump = JumpOnAirStates::Fall;
-		}
-	}
-	else if (currentPhysicsState.jump == JumpOnAirStates::Fall)
+	if (currentPhysicsState.jump == JumpOnAirStates::Fall)
 	{
 		if (isOnGround == true)
 			currentPhysicsState.jump = JumpOnAirStates::Stand;
 		isJump = false;
 	}
-
 
 #pragma endregion
 
@@ -336,6 +381,10 @@ void CMario::Render(CCamera* cam)
 		}
 		}
 	}
+	if (feverState == 2)
+	{
+		SetState(MARIO_STATE_FLY);
+	}
 	
 #pragma endregion
 
@@ -422,12 +471,11 @@ void CMario::KeyState()
 void CMario::OnKeyDown(int KeyCode)
 {
 	// EVENT
-	if ((KeyCode == DIK_S || KeyCode == DIK_X) && isOnGround == true)
+	if ((KeyCode == DIK_S || KeyCode == DIK_X) && isOnGround == true && currentPhysicsState.jump == JumpOnAirStates::Stand)
 	{
 		// JUMP
-		physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -MARIO_JUMP_SPEED_Y)); // Vẫn còn bị trọng lực kéo mạnh quá
+		physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -MARIO_JUMP_FORCE));
 		isJump = true;
-
 		isOnGround = false;
 		if (KeyCode == DIK_S)
 		{
@@ -443,6 +491,7 @@ void CMario::OnKeyDown(int KeyCode)
 		}
 		if (currentPhysicsState.jump == JumpOnAirStates::Stand && KeyCode == DIK_S)
 			currentPhysicsState.jump = JumpOnAirStates::Jump;
+		isOnGround = false;
 	}
 	if (KeyCode == DIK_Z && canAttack == true && isAttack == false && currentPhysicsState.move != MoveOnGroundStates::Attack)
 	{
