@@ -205,6 +205,12 @@
 			<Sprite id="spr-raccoon-mario-fly-1" left="468" top="143"  width="24" height="27" frameTime="50"/>
 			<Sprite id="spr-raccoon-mario-fly-2" left="495" top="142"  width="24" height="28" frameTime="50"/>
 		</Animation>
+		 <!-- Animation FLOAT-->
+		<Animation aniId="ani-raccoon-mario-float" frameTime="50" name="FLOAT">
+			<Sprite id="spr-raccoon-mario-run-2" left="129" top="143"  width="23" height="27" frameTime="50"/>
+			<Sprite id="spr-raccoon-mario-run-1" left="129" top="143"  width="23" height="27" frameTime="50"/>
+			<Sprite id="spr-raccoon-mario-run-0" left="80" top="142"  width="21" height="28" frameTime="50"/>
+		</Animation>
 		<!-- Animation SPIN-->
 		<Animation aniId="ani-raccoon-mario-spin" frameTime="50" name="SPIN">
 			<Sprite id="spr-raccoon-mario-spin-0" left="80" top="142"  width="21" height="28" frameTime="50" xPivot="14"/>

@@ -7,6 +7,8 @@ CSmallMario::CSmallMario()
 {
 	CSmallMario::Init();
 	CMario::InitProperties();
+	CSmallMario::SetState(MARIO_STATE_IDLE);
+
 	tag = GameObjectTags::SmallPlayer;
 	marioStateTag = MarioStates::SmallMario;
 
@@ -34,7 +36,8 @@ void CSmallMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_JUMP, animationManager->Get("ani-small-mario-jump"));
 	AddAnimation(MARIO_STATE_FALL, animationManager->Get("ani-small-mario-jump"));
 	AddAnimation(MARIO_STATE_CROUCH, animationManager->Get("ani-small-mario-idle"));
-	CSmallMario::SetState(MARIO_STATE_IDLE);
+	AddAnimation(MARIO_STATE_FLY, animationManager->Get("ani-small-mario-high-jump"));
+
 }
 
 CSmallMario::~CSmallMario()
