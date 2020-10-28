@@ -56,7 +56,7 @@ void CFireMario::Render(CCamera* cam)
 void CFireMario::Update(DWORD dt, CCamera* cam)
 {
 	CMario::Update(dt, cam);
-	if (isAttack == true) // Nếu không có thì bị lỗi khi vừa đi vừa quăng lửa
+	if (isAttack == true) 
 	{
 		if (isOnGround == true && isJump == false) 
 			currentPhysicsState.move = MoveOnGroundStates::Attack;
