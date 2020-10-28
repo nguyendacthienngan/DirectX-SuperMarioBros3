@@ -29,7 +29,7 @@ protected:
 	DWORD feverTime; // Thời gian PMeter giữ giá trị max
 	DWORD lastFeverTime; 
 	float pMeterCounting;
-	float lowJumpHeight;
+	float beforeJumpPosition;
 public:
 	CMario();
 	void Init() override;

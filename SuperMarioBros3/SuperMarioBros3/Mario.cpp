@@ -60,9 +60,7 @@ void CMario::InitProperties()
 	lastFeverTime = 0;
 	feverState = 0;
 	pMeterCounting = 0.0f;
-	lowJumpHeight = 0.0f;
-	isHighJump = true; // Do lúc nào cx set lại nên chỗ trừ lúc nào cx trừ
-
+	beforeJumpPosition = 0.0f;
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 
 }
@@ -235,14 +233,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 // Đối với ấn nút X giữ lâu => Mario sẽ nhảy liên tục
 // Ấn S giữ lâu thì chỉ nhảy cao hơn thôi
-	/*velocity = physiscBody->GetVelocity();
-	auto dy = abs(transform.position.y);
-	DebugOut(L"Dy : %f \n", dy);
-
-	if (dy >= lowJumpHeight && lowJumpHeight != 0.0f)
-		canHighJump = true;
-	else
-		canHighJump = false;*/
 	if (keyboard->GetKeyStateDown(DIK_X) && isOnGround == true)
 	{
 		// Nhảy liên tục: Chỉ cần cung cấp dy < 0 và có gravity thì ta tạo cảm giác nó nhảy liên tục chuyển động đều
@@ -267,10 +257,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	{
 		if (keyboard->GetKeyStateDown(DIK_S))
 		{
-			DebugOut(L"High Jump \n");
-			DebugOut(L"(1) High Jump Force: %f, current vy: %f \n", MARIO_HIGH_JUMP_FORCE, velocity.y);
-			DebugOut(L"DY : %f \n", transform.position.y);
-			if (abs(transform.position.y) >= abs(MARIO_HIGH_JUMP_HEIGHT)) 
+			if (abs(beforeJumpPosition) - abs(transform.position.y)   <= MARIO_HIGH_JUMP_HEIGHT)
 			{
 				velocity.y = -MARIO_PUSH_FORCE;
 			}
@@ -279,7 +266,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 				// EndJump
 				velocity.y = 0;
 				canHighJump = false;
-				DebugOut(L"Dat duoc High Jump \n");
 			}
 		}
 	}
@@ -474,6 +460,7 @@ void CMario::OnKeyDown(int KeyCode)
 	if ((KeyCode == DIK_S || KeyCode == DIK_X) && isOnGround == true && currentPhysicsState.jump == JumpOnAirStates::Stand)
 	{
 		// JUMP
+		//beforeJumpPosition = transform.position.y;
 		physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -MARIO_JUMP_FORCE));
 		isJump = true;
 		isOnGround = false;
@@ -481,6 +468,8 @@ void CMario::OnKeyDown(int KeyCode)
 		{
 			canHighJump = true;
 			canLowJumpContinous = false;
+			beforeJumpPosition = transform.position.y;
+
 		}
 		if (KeyCode == DIK_X)
 		{
