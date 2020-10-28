@@ -222,7 +222,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		if (GetTickCount() - lastFeverTime > MARIO_FEVER_TIME)
 		{
 			feverState = 0;
-			currentPhysicsState.jump = JumpOnAirStates::Stand;
+			pMeterCounting = 0.0f;
 		}
 	}
 #pragma endregion
@@ -371,7 +371,6 @@ void CMario::Render(CCamera* cam)
 #	pragma endregion
 
 #pragma region Jump On Air
-
 	if (currentPhysicsState.move != MoveOnGroundStates::JumpAttack)
 	{
 		switch (currentPhysicsState.jump)
@@ -391,7 +390,6 @@ void CMario::Render(CCamera* cam)
 		if (feverState == 2 && isOnGround == false)
 		{
 			SetState(MARIO_STATE_FLY);
-
 		}
 	}
 	
