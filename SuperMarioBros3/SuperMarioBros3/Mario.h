@@ -24,6 +24,8 @@ protected:
 	D3DXVECTOR2 previousNormal;
 	bool canAttack, isAttack, canAttackContinious;
 	MarioStates marioStateTag;
+	bool isJumpAttack;
+
 public:
 	CMario();
 	void Init() override;

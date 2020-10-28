@@ -10,6 +10,7 @@ CRacoonMario::CRacoonMario()
 	canAttackContinious = true;
 	canCrouch = true;
 	canAttack = true;
+	isJumpAttack = false;
 	CRacoonMario::Init();
 	CRacoonMario::LoadAnimation();
 }
@@ -32,16 +33,39 @@ void CRacoonMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_SKID, animationManager->Get("ani-raccoon-mario-skid"));
 	AddAnimation(MARIO_STATE_CROUCH, animationManager->Get("ani-raccoon-mario-crouch"));
 	AddAnimation(MARIO_STATE_ATTACK, animationManager->Get("ani-raccoon-mario-spin"), false);
+	AddAnimation(MARIO_STATE_JUMP_ATTACK, animationManager->Get("ani-raccoon-mario-spin"), false);
 }
 
 void CRacoonMario::EndAnimation()
 {
 	if (currentState.compare(MARIO_STATE_ATTACK) == 0)
 	{
-		isAttack = false; // có bị phạm luật hay không?
+		isAttack = false; 
+		isJumpAttack = false;
 		if (animations.find(lastState) == animations.end()) // Không kiếm được last state trong animation, đồng nghĩa với việc last state chưa được khởi tạo, còn nếu đc khởi tạo rồi thì mình set state theo cái state trước đó
 			lastState = MARIO_STATE_IDLE;
 		SetState(lastState);
+	}
+}
+
+void CRacoonMario::Update(DWORD dt, CCamera* cam)
+{
+	CMario::Update(dt, cam);
+	if (isAttack == true) // Nếu không có thì bị lỗi khi vừa đi vừa quăng lửa
+	{
+		currentPhysicsState.move = MoveOnGroundStates::Attack;
+		if (isOnGround == false || isJump == true)
+		{
+			// S + Z
+			currentPhysicsState.move = MoveOnGroundStates::JumpAttack;
+			isJumpAttack = true;
+		}
+		if (currentPhysicsState.jump == JumpOnAirStates::Fall && currentPhysicsState.move == MoveOnGroundStates::JumpAttack)
+		{
+			currentPhysicsState.move = MoveOnGroundStates::Idle;
+			isAttack = false;
+			isJumpAttack = false;
+		}
 	}
 }
 

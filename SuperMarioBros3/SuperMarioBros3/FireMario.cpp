@@ -49,16 +49,6 @@ void CFireMario::LoadAnimation()
 
 void CFireMario::Render(CCamera* cam)
 {
-	/*switch (currentPhysicsState.move)
-	{
-	case MoveOnGroundStates::JumpAttack:
-	{
-		DebugOut(L"Render Jump Attack \n");
-
-		SetState(MARIO_STATE_JUMP_ATTACK);
-		break;
-	}
-	}*/
 	CMario::Render(cam);
 }
 
@@ -67,17 +57,13 @@ void CFireMario::Update(DWORD dt, CCamera* cam)
 	CMario::Update(dt, cam);
 	if (isAttack == true) // Nếu không có thì bị lỗi khi vừa đi vừa quăng lửa
 	{
-		//currentPhysicsState.move = MoveOnGroundStates::Attack;
-
-		// Bị lỗi như trước đó: attack quăng lửa đc nhưng vẫn ani của jump / walk, kết thức ani jump /walk r mới tới ani attack do cờ isAttack bật nhưng k set state attack đc mà bị jump /walk chiếm
-		if (isOnGround == true && isJump == false) // đang sai ở đây
+		if (isOnGround == true && isJump == false) 
 			currentPhysicsState.move = MoveOnGroundStates::Attack;
 		else
 		{
 			// S + Z
 			currentPhysicsState.move = MoveOnGroundStates::JumpAttack;
 			isJumpAttack = true;
-			
 		}
 		if (currentPhysicsState.jump == JumpOnAirStates::Fall && currentPhysicsState.move == MoveOnGroundStates::JumpAttack)
 		{

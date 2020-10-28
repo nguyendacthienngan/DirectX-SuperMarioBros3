@@ -9,6 +9,7 @@ public:
 	void Init() override;
 	void LoadAnimation() override;
 	void EndAnimation() override;
+	void Update(DWORD dt, CCamera* cam) override;
 	~CRacoonMario();
 };
 
