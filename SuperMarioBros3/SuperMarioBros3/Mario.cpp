@@ -55,7 +55,6 @@ void CMario::InitProperties()
 	isJump = false;
 	isSkid = false;
 	isAttack = false;
-	isRun = false;
 	feverTime = MARIO_FEVER_TIME;
 	lastFeverTime = 0;
 	feverState = 0;
@@ -84,7 +83,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	{
 		//SkidProcess(velocity);
 		// Nhấn nút A chạy ! RUN
-		if (keyboard->GetKeyStateDown(DIK_A) && isRun == false)
+		if (keyboard->GetKeyStateDown(DIK_A))
 		{
 #pragma region STATE RUN
 			currentPhysicsState.move = MoveOnGroundStates::Run;
@@ -159,10 +158,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 			currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
 
 	}
-	else if ( keyboard->GetKeyStateDown(DIK_Z) && (isAttack == true) && canAttack == true) 
-	{
-		currentPhysicsState.move = MoveOnGroundStates::Attack;
-	}
 	else
 	{
 #pragma region STATE IDLE
@@ -180,7 +175,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 		velocity.x *= physiscBody->GetNormal().x;
 		isSkid = false;
-		isRun = false;
 		physiscBody->SetVelocity(velocity);
 		
 #pragma endregion
@@ -199,6 +193,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		if (pMeterCounting > PMETER_MAX + 1)
 		{
 			pMeterCounting = PMETER_MAX + 1;
+
 		}
 	}
 	else if (feverState != 2 && feverState != -1) // nếu feverState đang = 1 mà k thỏa những điều kiện trên thì reset lại
@@ -299,8 +294,8 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	{
 		if (isOnGround == true)
 			currentPhysicsState.jump = JumpOnAirStates::Stand;
-		feverState = -1;
-		pMeterCounting = 0;
+		/*feverState = -1;
+		pMeterCounting = 0;*/
 	}
 	if (currentPhysicsState.jump == JumpOnAirStates::Fall)
 	{

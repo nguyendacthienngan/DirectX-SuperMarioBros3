@@ -11,6 +11,7 @@ CRacoonMario::CRacoonMario()
 	canCrouch = true;
 	canAttack = true;
 	isJumpAttack = false;
+	isAttackContinious = false;
 	CRacoonMario::Init();
 	CRacoonMario::LoadAnimation();
 }
@@ -42,20 +43,29 @@ void CRacoonMario::EndAnimation()
 {
 	if (currentState.compare(MARIO_STATE_ATTACK) == 0)
 	{
-		isAttack = false; 
-		isJumpAttack = false;
-		if (animations.find(lastState) == animations.end()) // Không kiếm được last state trong animation, đồng nghĩa với việc last state chưa được khởi tạo, còn nếu đc khởi tạo rồi thì mình set state theo cái state trước đó
-			lastState = MARIO_STATE_IDLE;
-		SetState(lastState);
+		if (isAttackContinious == false)
+		{
+			isAttack = false;
+			isJumpAttack = false;
+			if (animations.find(lastState) == animations.end()) // Không kiếm được last state trong animation, đồng nghĩa với việc last state chưa được khởi tạo, còn nếu đc khởi tạo rồi thì mình set state theo cái state trước đó
+				lastState = MARIO_STATE_IDLE;
+			SetState(lastState);
+		}
+	
 	}
 }
 
 void CRacoonMario::Update(DWORD dt, CCamera* cam)
 {
+	auto keyboard = CKeyboardManager::GetInstance();
 	CMario::Update(dt, cam);
 	if (isAttack == true) 
 	{
 		currentPhysicsState.move = MoveOnGroundStates::Attack;
+		if (keyboard->GetKeyStateDown(DIK_Z))
+		{
+			isAttackContinious = true;
+		}
 		if (isOnGround == false || isJump == true)
 		{
 			// S + Z
@@ -69,10 +79,20 @@ void CRacoonMario::Update(DWORD dt, CCamera* cam)
 			isJumpAttack = false;
 		}
 	}
+
 	// Bay
 	// Set Gravity = 0 để bé cáo bay thỏa thích trên trời, đến max time (4s) rồi thì hạ xuống từ từ
 	// Lúc bay, ta sẽ set abs(vel.x), abs(vel.y) tăng
 
+}
+
+void CRacoonMario::OnKeyUp(int KeyCode)
+{
+	CMario::OnKeyUp(KeyCode);
+	if (KeyCode == DIK_Z)
+	{
+		isAttackContinious = false;
+	}
 }
 
 CRacoonMario::~CRacoonMario()
