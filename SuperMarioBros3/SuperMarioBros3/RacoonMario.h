@@ -9,8 +9,9 @@ private:
 	DWORD timeToKeyFlyDown;
 	DWORD lastFlyTime; // time để tính từ lúc canFly cho đến khi hết timeToFly
 	DWORD lastKeyFlyDown;
-	bool isFly;
+	//bool isFly;
 	bool moreFlyPower;
+	bool flyDown;
 public:
 	CRacoonMario();
 	void Init() override;

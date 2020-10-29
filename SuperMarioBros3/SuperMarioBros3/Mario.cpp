@@ -56,6 +56,7 @@ void CMario::InitProperties()
 	isSkid = false;
 	isAttack = false;
 	canFly = false;
+	isFly = false;
 	feverTime = MARIO_FEVER_TIME;
 	lastFeverTime = 0;
 	feverState = 0;
@@ -260,10 +261,9 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	}
 	if (currentPhysicsState.jump == JumpOnAirStates::Jump && canLowJumpContinous == false && canHighJump == true)
 	{
-		if (keyboard->GetKeyStateDown(DIK_S))
+		if (keyboard->GetKeyStateDown(DIK_S) && isFly == false)
 		{
 			float jumpMaxHeight;
-
 			if (feverState == 2 && abs(velocity.x) > MARIO_RUNNING_SPEED * 0.85f)
 			{
 				// SUPER JUMP
@@ -284,7 +284,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 			else
 			{
 				// EndJump
-				velocity.y = -MARIO_PUSH_FORCE/2;
+				velocity.y = -MARIO_PUSH_FORCE / 2;
 				canHighJump = false;
 			}
 		}
@@ -293,7 +293,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	{
 		currentPhysicsState.jump = JumpOnAirStates::Fall;
 	}
-	if (currentPhysicsState.jump == JumpOnAirStates::Fly )
+	if (currentPhysicsState.jump == JumpOnAirStates::Fly) // Có thể lỗi ở đây
 	{
 		if (isOnGround == true)
 			currentPhysicsState.jump = JumpOnAirStates::Stand;

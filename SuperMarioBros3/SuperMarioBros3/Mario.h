@@ -31,6 +31,7 @@ protected:
 	float pMeterCounting;
 	float beforeJumpPosition;
 	bool canFly;
+	bool isFly;
 public:
 	CMario();
 	void Init() override;
