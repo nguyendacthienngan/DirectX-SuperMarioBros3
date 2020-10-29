@@ -12,7 +12,7 @@ CRacoonMario::CRacoonMario()
 	canAttack = true;
 	isJumpAttack = false;
 	isAttackContinious = false;
-	timeToFly = 3000;
+	timeToFly = 2000;
 	timeToKeyFlyDown = 200;
 	lastFlyTime = 0;
 	lastKeyFlyDown = 0;
@@ -90,6 +90,8 @@ void CRacoonMario::Update(DWORD dt, CCamera* cam)
 	// Bay
 	// Set Gravity = 0 để bé cáo bay thỏa thích trên trời, đến max time (4s) rồi thì hạ xuống từ từ
 	// Lúc bay, ta sẽ set abs(vel.x), abs(vel.y) tăng
+
+
 	auto velocity = physiscBody->GetVelocity();
 	auto sign = physiscBody->GetNormal().x;
 	if (currentPhysicsState.jump == JumpOnAirStates::Fly)
@@ -97,13 +99,18 @@ void CRacoonMario::Update(DWORD dt, CCamera* cam)
 		if (isOnGround == true)
 			currentPhysicsState.jump = JumpOnAirStates::Stand;
 	}
-	if (GetTickCount64() - lastKeyFlyDown > timeToKeyFlyDown && lastKeyFlyDown != 0)
+	if (GetTickCount64() - lastKeyFlyDown > timeToKeyFlyDown && lastKeyFlyDown != 0 && moreFlyPower == true) // có thể ở đây sai
 	{
+		DebugOut(L"STOP FLY \n!!!");
 		moreFlyPower = false;
 		if (canFly == true)
 			physiscBody->SetGravity(MARIO_GRAVITY / 2);
-
 	}
+	//if (isFly == true)
+	//{
+	//	currentPhysicsState.jump = JumpOnAirStates::Fly;
+	//	physiscBody->SetGravity(0.0f);
+	//}
 	
 }
 
@@ -113,9 +120,11 @@ void CRacoonMario::OnKeyDown(int KeyCode)
 	
 	if (KeyCode == DIK_S)
 	{
-		if (GetTickCount() - lastFlyTime > timeToFly && lastFlyTime != 0 && isFly == true) // chỗ này bị sai
+		if (canFly == true && isFly == false)
+			lastFlyTime = GetTickCount64();
+		if (GetTickCount() - lastFlyTime > timeToFly && lastFlyTime != 0 && isFly == true) //***** CẦN CHECK LẠI
 		{
-			// End Fly
+			// chưa làm rớt chầm chậm đc
 			isFly = false;
 			physiscBody->SetGravity(MARIO_GRAVITY);
 			if (isOnGround == false)
@@ -123,20 +132,27 @@ void CRacoonMario::OnKeyDown(int KeyCode)
 			else
 				currentPhysicsState.jump = JumpOnAirStates::Stand;
 			pMeterCounting = 0;
-			canFly = false; // cần hay k?
+			canFly = false; 
+			lastFlyTime = 0;
+			feverState = -1;
 			return;
 		}
 		if (canFly == true)
 		{
+			// Vô đc mà tại sao nó k thể trừ tiếp đc? Có thể là do lúc này gravity khác nhau
+			// Nên có trừ cx k đáng kể
+			// Đến khi xét va chạm với mặt đất => gravity thay đổi => Mới bay đc
+
+			// Vẫn chưa nhấn liên tục dược => sau khi bị moreflypower = false thì phải đợi rớt xuống đất mới có thể fly lại đc
+
 			moreFlyPower = true;
 			auto velocity = physiscBody->GetVelocity();
 			auto sign = physiscBody->GetNormal().x;
 			DebugOut(L"To be fly ~\n");
 			isFly = true;
-			lastFlyTime = GetTickCount();
 
 			currentPhysicsState.jump = JumpOnAirStates::Fly;
-			velocity.y -= MARIO_FLY_FORCE * dt; // còn theo hướng thì sao?
+			velocity.y -= MARIO_FLY_FORCE * dt; 
 			velocity.x += sign * MARIO_FLY_FORCE;
 			physiscBody->SetGravity(0.0f);
 			physiscBody->SetVelocity(velocity);

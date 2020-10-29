@@ -24,8 +24,7 @@
 
 #define MARIO_FEVER_TIME				2000
 
-//#define PMETER_MAX						8
-#define PMETER_MAX						3
+#define PMETER_MAX						5
 #define PMETER_STEP						0.005f
 
 #define MARIO_STATE_IDLE				"IDLE"

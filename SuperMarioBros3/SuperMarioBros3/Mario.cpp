@@ -214,13 +214,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		{
 			canFly = true;
 		}
-
-		// Cái này làm bên Raccoon
-		/*pMeterCounting -= PMETER_STEP * 2.0f * dt;
-		DebugOut(L"pMeterCounting: %f \n", pMeterCounting);*/
-
-		/*if (pMeterCounting > PMETER_MAX)
-			pMeterCounting = PMETER_MAX;*/
 	}
 	if (feverState == 2)
 	{
