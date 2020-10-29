@@ -5,6 +5,9 @@ class CRacoonMario : public CMario
 private:
 	bool isSetToPointCenter;
 	bool isAttackContinious;
+	DWORD timeToFly;
+	DWORD lastFlyTime;
+	bool isFly;
 public:
 	CRacoonMario();
 	void Init() override;

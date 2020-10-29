@@ -12,6 +12,10 @@ CRacoonMario::CRacoonMario()
 	canAttack = true;
 	isJumpAttack = false;
 	isAttackContinious = false;
+	timeToFly = 4000;
+	lastFlyTime = 0;
+	isFly = false;
+	feverState = -1;
 	CRacoonMario::Init();
 	CRacoonMario::LoadAnimation();
 }
@@ -83,6 +87,35 @@ void CRacoonMario::Update(DWORD dt, CCamera* cam)
 	// Bay
 	// Set Gravity = 0 để bé cáo bay thỏa thích trên trời, đến max time (4s) rồi thì hạ xuống từ từ
 	// Lúc bay, ta sẽ set abs(vel.x), abs(vel.y) tăng
+	auto velocity = physiscBody->GetVelocity();
+	auto sign = physiscBody->GetNormal().x;
+	if (canFly == true)
+	{
+		DebugOut(L"To be fly ~\n");
+		if (keyboard->GetKeyStateDown(DIK_S))
+		{
+			isFly = true;
+			currentPhysicsState.jump = JumpOnAirStates::Fly;
+			lastFlyTime = GetTickCount();
+		}
+		if (isFly == true)
+		{
+			velocity.y -= MARIO_FLY_FORCE; // còn theo hướng thì sao?
+			velocity.x += sign*MARIO_FLY_FORCE;
+			physiscBody->SetGravity(0.0f);
+		}
+		if (GetTickCount() - lastFlyTime > timeToFly)
+		{
+			// End Fly
+			isFly = false;
+			physiscBody->SetGravity(MARIO_GRAVITY);
+			velocity.y += MARIO_FLY_FORCE;
+			currentPhysicsState.jump = JumpOnAirStates::Fall;
+
+			pMeterCounting = 0;
+			canFly = false; // cần hay k?
+		}
+	}
 
 }
 

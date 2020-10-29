@@ -55,6 +55,7 @@ void CMario::InitProperties()
 	isJump = false;
 	isSkid = false;
 	isAttack = false;
+	canFly = false;
 	feverTime = MARIO_FEVER_TIME;
 	lastFeverTime = 0;
 	feverState = 0;
@@ -193,29 +194,31 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		if (pMeterCounting > PMETER_MAX + 1)
 		{
 			pMeterCounting = PMETER_MAX + 1;
-
+			canFly = true;
 		}
+		DebugOut(L"FeverState %d, P-meter %f \n", feverState, pMeterCounting);
+
 	}
 	else if (feverState != 2 && feverState != -1) // nếu feverState đang = 1 mà k thỏa những điều kiện trên thì reset lại
 		feverState = 0;
 
 #pragma region FEVER STATE
-	if (pMeterCounting >= PMETER_MAX && feverState <= 0)
+	if (pMeterCounting >= PMETER_MAX)
 	{
-		feverState = 2;
-		lastFeverTime = GetTickCount();
-	}
-	else if (pMeterCounting > 0 && feverState == -1) // feverState = -1
-	{
-		pMeterCounting -= PMETER_STEP * 2.0f * dt;
-		if (pMeterCounting > PMETER_MAX)
-			pMeterCounting = PMETER_MAX;
+		canFly = true;
+
+		DebugOut(L"PMETER MAX, feverState %d \n", feverState);
+		lastFeverTime = GetTickCount64(); // để sai chỗ?
+
+		if (feverState != -1)
+			feverState = 2;
 	}
 	if (feverState == 2)
 	{
 		pMeterCounting = PMETER_MAX; // giữ giá trị max 1 thời gian
-		if (GetTickCount() - lastFeverTime > MARIO_FEVER_TIME)
+		if (GetTickCount64() - lastFeverTime > MARIO_FEVER_TIME)
 		{
+			DebugOut(L"Stop Fly\n");
 			feverState = 0;
 			pMeterCounting = 0.0f;
 		}
@@ -290,12 +293,12 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	{
 		currentPhysicsState.jump = JumpOnAirStates::Fall;
 	}
-	if (currentPhysicsState.jump == JumpOnAirStates::Fly && marioStateTag == MarioStates::RacoonMario)
+	if (currentPhysicsState.jump == JumpOnAirStates::Fly )
 	{
 		if (isOnGround == true)
 			currentPhysicsState.jump = JumpOnAirStates::Stand;
-		/*feverState = -1;
-		pMeterCounting = 0;*/
+		feverState = 0;
+		pMeterCounting = 0;
 	}
 	if (currentPhysicsState.jump == JumpOnAirStates::Fall)
 	{
@@ -423,6 +426,7 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 			{
 				auto v = physiscBody->GetVelocity();
 				physiscBody->SetVelocity(D3DXVECTOR2(0, v.y));
+				pMeterCounting = 0;
 			}
 		}
 	}

@@ -30,6 +30,7 @@ protected:
 	DWORD lastFeverTime; 
 	float pMeterCounting;
 	float beforeJumpPosition;
+	bool canFly;
 public:
 	CMario();
 	void Init() override;

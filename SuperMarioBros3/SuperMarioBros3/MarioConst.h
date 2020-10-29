@@ -13,6 +13,7 @@
 #define MARIO_HIGH_JUMP_FORCE			0.6f
 #define MARIO_SUPER_JUMP_FORCE			0.53f
 #define MARIO_PUSH_FORCE				0.3f
+#define MARIO_FLY_FORCE					0.5f
 
 #define MARIO_HIGH_JUMP_HEIGHT			180.5f
 #define MARIO_SUPER_JUMP_HEIGHT			200.5f
@@ -23,7 +24,8 @@
 
 #define MARIO_FEVER_TIME				2000
 
-#define PMETER_MAX						8
+//#define PMETER_MAX						8
+#define PMETER_MAX						3
 #define PMETER_STEP						0.005f
 
 #define MARIO_STATE_IDLE				"IDLE"

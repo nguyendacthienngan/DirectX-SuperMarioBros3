@@ -26,7 +26,7 @@ CMarioController::CMarioController()
 void CMarioController::Init()
 {
 	SetTag(GameObjectTags::Player);
-
+	isEnabled = true;
 	CMario* marioStateObject;
 	
 	// SMALL MARIO
