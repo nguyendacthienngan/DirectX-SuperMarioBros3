@@ -69,6 +69,10 @@ void CRacoonMario::Update(DWORD dt, CCamera* cam)
 			isJumpAttack = false;
 		}
 	}
+	// Bay
+	// Set Gravity = 0 để bé cáo bay thỏa thích trên trời, đến max time (4s) rồi thì hạ xuống từ từ
+	// Lúc bay, ta sẽ set abs(vel.x), abs(vel.y) tăng
+
 }
 
 CRacoonMario::~CRacoonMario()

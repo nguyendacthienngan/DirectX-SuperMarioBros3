@@ -159,7 +159,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 			currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
 
 	}
-	else if ( (isAttack == true) && canAttack == true) 
+	else if ( keyboard->GetKeyStateDown(DIK_Z) && (isAttack == true) && canAttack == true) 
 	{
 		currentPhysicsState.move = MoveOnGroundStates::Attack;
 	}
@@ -286,7 +286,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 			else
 			{
 				// EndJump
-				velocity.y = 0;
+				velocity.y = -MARIO_PUSH_FORCE/2;
 				canHighJump = false;
 			}
 		}
@@ -295,13 +295,20 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	{
 		currentPhysicsState.jump = JumpOnAirStates::Fall;
 	}
-
+	if (currentPhysicsState.jump == JumpOnAirStates::Fly && marioStateTag == MarioStates::RacoonMario)
+	{
+		if (isOnGround == true)
+			currentPhysicsState.jump = JumpOnAirStates::Stand;
+		feverState = -1;
+		pMeterCounting = 0;
+	}
 	if (currentPhysicsState.jump == JumpOnAirStates::Fall)
 	{
 		if (isOnGround == true)
 			currentPhysicsState.jump = JumpOnAirStates::Stand;
 		isJump = false;
 	}
+
 
 #pragma endregion
 
@@ -503,7 +510,7 @@ void CMario::OnKeyDown(int KeyCode)
 			currentPhysicsState.jump = JumpOnAirStates::Jump;
 		isOnGround = false;
 	}
-	if (KeyCode == DIK_Z && canAttack == true && isAttack == false && currentPhysicsState.move != MoveOnGroundStates::Attack)
+	if ((KeyCode == DIK_Z || KeyCode == DIK_A)&& canAttack == true && isAttack == false && currentPhysicsState.move != MoveOnGroundStates::Attack)
 	{
 		isAttack = true;
 	}
