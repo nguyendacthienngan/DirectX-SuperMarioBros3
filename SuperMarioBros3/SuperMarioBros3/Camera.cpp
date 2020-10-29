@@ -36,6 +36,7 @@ void CCamera::Update()
     
      // follow Mario
     posCam.x = x - widthCam * 0.5f;
+    posCam.y = y - widthCam * 0.5f;
 
     // Ở đầu scene và cuối scene ta sẽ đặt ra boundary => Mario k được vượt quá boundary này
     if (posCam.x < boundaryLeft)
@@ -44,6 +45,12 @@ void CCamera::Update()
     if (posCam.x > boundaryRight)
         posCam.x = boundaryRight;
 
+    if (posCam.y < boundaryTop)
+        posCam.y = boundaryTop;
+
+    if (posCam.y > boundaryBottom)
+        posCam.y = boundaryBottom;
+
     //	Xét biên để chỉnh lại camera k thoát khỏi camera
     if (x > boundaryRight + widthCam - 24)
         x = boundaryRight + widthCam - 24;
@@ -51,19 +58,6 @@ void CCamera::Update()
         x = boundaryLeft + 24;
     gameObject->SetPosition(D3DXVECTOR2(x, y));
 
-    /*auto keyManager = CKeyboardManager::GetInstance();
-
-    if (keyManager->GetKeyDown(DIK_LEFT))
-        this->posCam.x -= 300 * CGame::GetInstance()->GetFixedDeltaTime();
-
-    if (keyManager->GetKeyDown(DIK_RIGHT))
-        this->posCam.x += 300 * CGame::GetInstance()->GetFixedDeltaTime();
-
-    if (keyManager->GetKeyDown(DIK_UP))
-        this->posCam.y -= 300 * CGame::GetInstance()->GetFixedDeltaTime();
-
-    if (keyManager->GetKeyDown(DIK_DOWN))
-        this->posCam.y += 300 * CGame::GetInstance()->GetFixedDeltaTime();*/
 }
 
 void CCamera::Render()

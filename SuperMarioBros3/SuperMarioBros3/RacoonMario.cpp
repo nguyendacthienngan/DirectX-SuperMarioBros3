@@ -12,9 +12,12 @@ CRacoonMario::CRacoonMario()
 	canAttack = true;
 	isJumpAttack = false;
 	isAttackContinious = false;
-	timeToFly = 4000;
+	timeToFly = 3000;
+	timeToKeyFlyDown = 200;
 	lastFlyTime = 0;
+	lastKeyFlyDown = 0;
 	isFly = false;
+	moreFlyPower = false;
 	feverState = -1;
 	CRacoonMario::Init();
 	CRacoonMario::LoadAnimation();
@@ -30,11 +33,12 @@ void CRacoonMario::LoadAnimation()
 	auto animationManager = CAnimationManager::GetInstance();
 
 	AddAnimation(MARIO_STATE_IDLE, animationManager->Get("ani-raccoon-mario-idle"));
-	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-raccoon-mario-walk"));
 	AddAnimation(MARIO_STATE_WALKING, animationManager->Get("ani-raccoon-mario-walk"));
+	AddAnimation(MARIO_STATE_RUNNING, animationManager->Get("ani-raccoon-mario-walk"));
+	AddAnimation(MARIO_STATE_HIGH_SPEED, animationManager->Get("ani-raccoon-mario-speed-up"));
+
 	AddAnimation(MARIO_STATE_JUMP, animationManager->Get("ani-raccoon-mario-jump"));
-	AddAnimation(MARIO_STATE_FLY, animationManager->Get("ani-raccoon-mario-jump"));
-	AddAnimation(MARIO_STATE_FULLFLY, animationManager->Get("ani-raccoon-mario-fly"));
+	AddAnimation(MARIO_STATE_FLY, animationManager->Get("ani-raccoon-mario-fly"));
 	AddAnimation(MARIO_STATE_FLOAT, animationManager->Get("ani-raccoon-mario-float"));
 	AddAnimation(MARIO_STATE_FALL, animationManager->Get("ani-raccoon-mario-fall"));
 	AddAnimation(MARIO_STATE_SKID, animationManager->Get("ani-raccoon-mario-skid"));
@@ -55,7 +59,6 @@ void CRacoonMario::EndAnimation()
 				lastState = MARIO_STATE_IDLE;
 			SetState(lastState);
 		}
-	
 	}
 }
 
@@ -89,32 +92,57 @@ void CRacoonMario::Update(DWORD dt, CCamera* cam)
 	// Lúc bay, ta sẽ set abs(vel.x), abs(vel.y) tăng
 	auto velocity = physiscBody->GetVelocity();
 	auto sign = physiscBody->GetNormal().x;
-	if (canFly == true)
+	if (currentPhysicsState.jump == JumpOnAirStates::Fly)
 	{
-		DebugOut(L"To be fly ~\n");
-		if (keyboard->GetKeyStateDown(DIK_S))
-		{
-			isFly = true;
-			currentPhysicsState.jump = JumpOnAirStates::Fly;
-			lastFlyTime = GetTickCount();
-		}
-		if (isFly == true)
-		{
-			velocity.y -= MARIO_FLY_FORCE; // còn theo hướng thì sao?
-			velocity.x += sign*MARIO_FLY_FORCE;
-			physiscBody->SetGravity(0.0f);
-		}
-		if (GetTickCount() - lastFlyTime > timeToFly)
+		if (isOnGround == true)
+			currentPhysicsState.jump = JumpOnAirStates::Stand;
+	}
+	if (GetTickCount64() - lastKeyFlyDown > timeToKeyFlyDown && lastKeyFlyDown != 0)
+	{
+		moreFlyPower = false;
+		if (canFly == true)
+			physiscBody->SetGravity(MARIO_GRAVITY / 2);
+
+	}
+	
+}
+
+void CRacoonMario::OnKeyDown(int KeyCode)
+{
+	CMario::OnKeyDown(KeyCode);
+	
+	if (KeyCode == DIK_S)
+	{
+		if (GetTickCount() - lastFlyTime > timeToFly && lastFlyTime != 0 && isFly == true) // chỗ này bị sai
 		{
 			// End Fly
 			isFly = false;
 			physiscBody->SetGravity(MARIO_GRAVITY);
-			velocity.y += MARIO_FLY_FORCE;
-			currentPhysicsState.jump = JumpOnAirStates::Fall;
-
+			if (isOnGround == false)
+				currentPhysicsState.jump = JumpOnAirStates::Fall;
+			else
+				currentPhysicsState.jump = JumpOnAirStates::Stand;
 			pMeterCounting = 0;
 			canFly = false; // cần hay k?
+			return;
 		}
+		if (canFly == true)
+		{
+			moreFlyPower = true;
+			auto velocity = physiscBody->GetVelocity();
+			auto sign = physiscBody->GetNormal().x;
+			DebugOut(L"To be fly ~\n");
+			isFly = true;
+			lastFlyTime = GetTickCount();
+
+			currentPhysicsState.jump = JumpOnAirStates::Fly;
+			velocity.y -= MARIO_FLY_FORCE * dt; // còn theo hướng thì sao?
+			velocity.x += sign * MARIO_FLY_FORCE;
+			physiscBody->SetGravity(0.0f);
+			physiscBody->SetVelocity(velocity);
+			lastKeyFlyDown = GetTickCount64();
+		}
+		
 	}
 
 }

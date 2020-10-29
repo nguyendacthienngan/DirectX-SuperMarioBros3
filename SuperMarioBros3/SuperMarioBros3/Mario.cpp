@@ -181,6 +181,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 #pragma endregion
 	}
 
+	//PMeterProcess(physiscBody->GetVelocity());
 #pragma region P-METER
 	if (currentPhysicsState.move == MoveOnGroundStates::Run
 		&& abs(velocity.x) > MARIO_RUNNING_SPEED * 0.15f
@@ -194,31 +195,38 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		if (pMeterCounting > PMETER_MAX + 1)
 		{
 			pMeterCounting = PMETER_MAX + 1;
-			canFly = true;
 		}
-		DebugOut(L"FeverState %d, P-meter %f \n", feverState, pMeterCounting);
+		DebugOut(L"pMeterCounting: %f \n", pMeterCounting);
 
 	}
 	else if (feverState != 2 && feverState != -1) // nếu feverState đang = 1 mà k thỏa những điều kiện trên thì reset lại
 		feverState = 0;
 
 #pragma region FEVER STATE
-	if (pMeterCounting >= PMETER_MAX)
+	if (pMeterCounting >= PMETER_MAX && feverState == 0)
 	{
-		canFly = true;
+		feverState = 2;
+		lastFeverTime = GetTickCount();
+	}
+	else if (pMeterCounting > 0 && feverState == -1) // feverState = -1 là con raccoon
+	{
+		if (pMeterCounting >= PMETER_MAX)
+		{
+			canFly = true;
+		}
 
-		DebugOut(L"PMETER MAX, feverState %d \n", feverState);
-		lastFeverTime = GetTickCount64(); // để sai chỗ?
+		// Cái này làm bên Raccoon
+		/*pMeterCounting -= PMETER_STEP * 2.0f * dt;
+		DebugOut(L"pMeterCounting: %f \n", pMeterCounting);*/
 
-		if (feverState != -1)
-			feverState = 2;
+		/*if (pMeterCounting > PMETER_MAX)
+			pMeterCounting = PMETER_MAX;*/
 	}
 	if (feverState == 2)
 	{
 		pMeterCounting = PMETER_MAX; // giữ giá trị max 1 thời gian
-		if (GetTickCount64() - lastFeverTime > MARIO_FEVER_TIME)
+		if (GetTickCount() - lastFeverTime > MARIO_FEVER_TIME)
 		{
-			DebugOut(L"Stop Fly\n");
 			feverState = 0;
 			pMeterCounting = 0.0f;
 		}
@@ -226,7 +234,6 @@ void CMario::Update(DWORD dt, CCamera* cam)
 #pragma endregion
 
 #pragma endregion
-
 	// Vertical Movement: Jump, High Jump, Super Jump
 
 #pragma region STATE JUMP
@@ -391,11 +398,16 @@ void CMario::Render(CCamera* cam)
 			SetState(MARIO_STATE_FALL);
 			break;
 		}
-		}
-		if (feverState == 2 && isOnGround == false)
+		case JumpOnAirStates::Fly: //Riêng raccoon
 		{
 			SetState(MARIO_STATE_FLY);
 		}
+		}
+		if (feverState == 2 && isOnGround == false) // Các mario khác
+		{
+			SetState(MARIO_STATE_FLY);
+		}
+		
 	}
 	
 #pragma endregion
