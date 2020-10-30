@@ -289,7 +289,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		if (coObjects->at(i)->GetGameObjectAttach()->IsEnabled() == false)
+		if (coObjects->at(i)->GetGameObjectAttach()->IsEnabled() == false && coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid)
 			continue;
 
 		// Chỗ này sai
