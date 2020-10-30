@@ -1,17 +1,14 @@
 #include "Koopa.h"
 #include "AnimationManager.h"
-#include "EnemyConst.h"
+#include "Ultis.h"
 CKoopa::CKoopa()
 {
 	LoadAnimation();
 	Init();
-
 }
 
 void CKoopa::Init()
 {
-	this->SetTag(GameObjectTags::Enemy);
-
 	LoadAnimation();
 	SetState(KOOPA_STATE_IDLE);
 	isEnabled = true;
@@ -33,7 +30,13 @@ void CKoopa::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
 	AddAnimation(KOOPA_STATE_IDLE, animationManager->Get("ani-red-koopa-troopa-idle"));
-	AddAnimation(KOOPA_STATE_IDLE, animationManager->Get("ani-red-koopa-troopa-move"));
-	AddAnimation(KOOPA_STATE_IDLE, animationManager->Get("ani-red-koopa-troopa-spin"));
-	AddAnimation(KOOPA_STATE_IDLE, animationManager->Get("ani-red-koopa-troopa-crouch"));
+	AddAnimation(KOOPA_STATE_MOVE, animationManager->Get("ani-red-koopa-troopa-move"));
+	AddAnimation(KOOPA_STATE_SPIN, animationManager->Get("ani-red-koopa-troopa-spin"));
+	AddAnimation(KOOPA_STATE_CROUCH, animationManager->Get("ani-red-koopa-troopa-crouch"));
+}
+
+void CKoopa::Update(DWORD dt, CCamera* cam)
+{
+	DebugOut(L"Koopa Position Y: %f \n", transform.position.y);
+
 }
