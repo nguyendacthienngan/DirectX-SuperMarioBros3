@@ -394,11 +394,18 @@ void CMario::Render(CCamera* cam)
 		case JumpOnAirStates::Fly: //Riêng raccoon
 		{
 			SetState(MARIO_STATE_FLY);
+			break;
+		}
+		case JumpOnAirStates::Float:
+		{
+			SetState(MARIO_STATE_FLOAT);
+			break;
 		}
 		}
 		if (feverState == 2 && isOnGround == false) // Các mario khác
 		{
 			SetState(MARIO_STATE_FLY);
+
 		}
 		
 	}
