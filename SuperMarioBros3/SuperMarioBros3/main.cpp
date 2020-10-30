@@ -84,12 +84,12 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = hInstance;
-    wcex.hIcon = NULL;
+    wcex.hIcon = (HICON)LoadImage(NULL, L"Super_Mario_Bros_3.ico", IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
     wcex.lpszMenuName = NULL;
     wcex.lpszClassName = TITLE;
-    wcex.hIconSm = NULL;
+    wcex.hIconSm = (HICON)LoadImage(NULL, L"Super_Mario_Bros_3.ico", IMAGE_ICON, 32, 32, LR_LOADFROMFILE);
 
     return RegisterClassExW(&wcex);
 }

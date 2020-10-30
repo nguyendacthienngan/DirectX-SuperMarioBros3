@@ -2,7 +2,6 @@
 
 #ifndef MAP_H
 #define MAP_H
-#include "./MapReader/Tmx.h.in"
 #include "Sprite.h"
 #include "Camera.h"
 #include "GameObject.h"
