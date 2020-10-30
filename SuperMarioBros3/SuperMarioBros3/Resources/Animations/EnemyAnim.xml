@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Textures>
     <!--	Texture Enemy	-->
-	<Textures gameObjectId=0 textureId="tex-enemy">
+	<Textures gameObjectId= 0 textureId="tex-enemy">
 
 		<!--		GOOMBA		-->
 		
@@ -32,7 +32,7 @@
 			<Sprite id="spr-red-goomba-walk-1" left="125" top="70"  width="16" height="16"/>
 		</Animation>
 	 	<!-- Animation DIE-->
-		<Animation aniId="ani-red-goomba-die" frameTime="100"name = "DIE">
+		<Animation aniId="ani-red-goomba-die" frameTime="100" name = "DIE">
 			<Sprite id="spr-red-goomba-die-0" left="145" top="77"  width="16" height="9"/>
 		</Animation>
 		

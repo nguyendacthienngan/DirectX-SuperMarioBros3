@@ -124,6 +124,12 @@
     <Filter Include="Files\Resouces\Textures">
       <UniqueIdentifier>{7802115c-478e-4aa2-a3eb-a4adaf19c594}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Enemy\Goomba">
+      <UniqueIdentifier>{e6911fe9-06d0-4f17-b3f5-709d66c6f963}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Enemy\Koopa">
+      <UniqueIdentifier>{06d4e1ac-ee89-4c70-822b-81b18e338535}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -279,9 +285,6 @@
     <ClInclude Include="MiscConst.h">
       <Filter>Game\GameObject\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="Koopa.h">
-      <Filter>Game\GameObject\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Game\GameObject\Enemy</Filter>
     </ClInclude>
@@ -289,7 +292,16 @@
       <Filter>Game\GameObject\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Goomba.h">
-      <Filter>Game\GameObject\Enemy</Filter>
+      <Filter>Game\GameObject\Enemy\Goomba</Filter>
+    </ClInclude>
+    <ClInclude Include="Koopa.h">
+      <Filter>Game\GameObject\Enemy\Koopa</Filter>
+    </ClInclude>
+    <ClInclude Include="GoombaConst.h">
+      <Filter>Game\GameObject\Enemy\Goomba</Filter>
+    </ClInclude>
+    <ClInclude Include="KoopaConst.h">
+      <Filter>Game\GameObject\Enemy\Koopa</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -413,11 +425,11 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Game\GameObject\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Koopa.cpp">
-      <Filter>Game\GameObject\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="Goomba.cpp">
-      <Filter>Game\GameObject\Enemy</Filter>
+      <Filter>Game\GameObject\Enemy\Goomba</Filter>
+    </ClCompile>
+    <ClCompile Include="Koopa.cpp">
+      <Filter>Game\GameObject\Enemy\Koopa</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

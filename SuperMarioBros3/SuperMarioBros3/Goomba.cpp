@@ -1,17 +1,19 @@
-#include "Goomba.h"
+﻿#include "Goomba.h"
 #include "AnimationManager.h"
 #include "Ultis.h"
+#include "GoombaConst.h"
 
 CGoomba::CGoomba()
 {
 	CGoomba::Init();
+	distanceToMove = 200;
+	SetState(GOOMBA_STATE_WALK);
 
 }
 
 void CGoomba::Init()
 {
 	LoadAnimation();
-	SetState(GOOMBA_STATE_IDLE);
 	isEnabled = true;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
@@ -30,12 +32,40 @@ void CGoomba::Init()
 void CGoomba::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(GOOMBA_STATE_IDLE, animationManager->Get("ani-goomba-idle"));
-	AddAnimation(GOOMBA_STATE_WALK, animationManager->Get("ani-goomba-walk"));
-	AddAnimation(GOOMBA_STATE_DIE, animationManager->Get("ani-goomba-die"));
+	AddAnimation(GOOMBA_STATE_IDLE, animationManager->Clone("ani-goomba-idle"));
+	AddAnimation(GOOMBA_STATE_WALK, animationManager->Clone("ani-goomba-walk"));
+	AddAnimation(GOOMBA_STATE_DIE, animationManager->Clone("ani-goomba-die"));
 }
 
 void CGoomba::Update(DWORD dt, CCamera* cam)
 {
 	//DebugOut(L"Goomba Position Y: %f \n", transform.position.y);
+	auto velocity = physiscBody->GetVelocity();
+	auto normal = physiscBody->GetNormal();
+
+	velocity.x = normal.x * GOOMBA_SPEED;
+
+	physiscBody->SetVelocity(velocity);
+}
+
+void CGoomba::Render(CCamera* cam)
+{
+	CGameObject::Render(cam);
+}
+
+void CGoomba::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
+{
+	for (auto collisionEvent : collisionEvents)
+	{
+		auto collisionBox = collisionEvent->obj;
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
+		{
+			if (collisionEvent->nx != 0)
+			{
+				auto normal = physiscBody->GetNormal();
+				normal.x = -1;
+				physiscBody->SetNormal(normal);
+			}
+		}
+	}
 }

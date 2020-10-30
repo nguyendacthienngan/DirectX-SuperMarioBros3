@@ -162,11 +162,13 @@
     <ClInclude Include="GameObjectTags.h" />
     <ClInclude Include="GhostPlatform.h" />
     <ClInclude Include="Goomba.h" />
+    <ClInclude Include="GoombaConst.h" />
     <ClInclude Include="GraphicConst.h" />
     <ClInclude Include="IState.h" />
     <ClInclude Include="KeyboardManager.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koopa.h" />
+    <ClInclude Include="KoopaConst.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapConst.h" />

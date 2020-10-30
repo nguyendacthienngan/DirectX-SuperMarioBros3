@@ -1,6 +1,8 @@
 #include "Koopa.h"
 #include "AnimationManager.h"
 #include "Ultis.h"
+#include "KoopaConst.h"
+
 CKoopa::CKoopa()
 {
 	LoadAnimation();
@@ -10,7 +12,7 @@ CKoopa::CKoopa()
 void CKoopa::Init()
 {
 	LoadAnimation();
-	SetState(KOOPA_STATE_IDLE);
+	SetState(KOOPA_STATE_MOVE);
 	isEnabled = true;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
@@ -37,6 +39,4 @@ void CKoopa::LoadAnimation()
 
 void CKoopa::Update(DWORD dt, CCamera* cam)
 {
-	DebugOut(L"Koopa Position Y: %f \n", transform.position.y);
-
 }
