@@ -26,3 +26,8 @@ D3DXVECTOR2 CEnemy::GetStartPosition()
 {
 	return startPosition;
 }
+
+void CEnemy::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
+{
+
+}

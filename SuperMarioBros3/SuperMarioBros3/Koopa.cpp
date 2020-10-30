@@ -13,7 +13,7 @@ void CKoopa::Init()
 {
 	LoadAnimation();
 	SetState(KOOPA_STATE_MOVE);
-	isEnabled = true;
+	isEnabled = false;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(KOOPA_BBOX);

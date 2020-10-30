@@ -14,4 +14,7 @@ public:
 
 	void SetStartPosition(D3DXVECTOR2 sT);
 	D3DXVECTOR2 GetStartPosition();
+
+	void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents) override;
+
 };

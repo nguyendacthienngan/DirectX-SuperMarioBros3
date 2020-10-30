@@ -289,7 +289,14 @@ void CPhysicsBody::CalcPotentialCollisions(
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc) // Chỗ player là tạm thời ! Phải sửa lại là coObject đó có enable hay k mới đúng
+		if (coObjects->at(i)->GetGameObjectAttach()->IsEnabled() == false)
+			continue;
+
+		// Chỗ này sai
+		//if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc) // Chỗ player là tạm thời ! Phải sửa lại là coObject đó có enable hay k mới đúng
+		//	continue;
+
+		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc) 
 			continue;
 		if (coObjects->at(i) == cO)
 			continue;
@@ -299,10 +306,9 @@ void CPhysicsBody::CalcPotentialCollisions(
 		if (e->t > 0 && e->t <= 1.0f)
 		{
 			coEvents.push_back(e);
-
 			std::string name = coObjects->at(i)->GetName();
 			
-			// OutputDebugString(ToLPCWSTR("Hit Name: " + name + "\n"));
+			OutputDebugString(ToLPCWSTR("Hit Name: " + name + "\n"));
 		}
 		else
 			delete e;

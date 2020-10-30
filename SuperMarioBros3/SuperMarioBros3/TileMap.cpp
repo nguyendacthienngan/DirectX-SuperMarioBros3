@@ -197,8 +197,8 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					{
 						CKoopaShell* koopaShell = new CKoopaShell();
 						koopaShell->SetEnemyType(enemyType);
-						koopaShell->SetPosition(position - translateGoombaConst);
-						koopaShell->SetStartPosition(position - translateGoombaConst);
+						koopaShell->SetPosition(position - translateKoopaShellConst);
+						koopaShell->SetStartPosition(position - translateKoopaShellConst);
 						listGameObjects.push_back(koopaShell);
 					}
 				}

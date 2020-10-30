@@ -12,7 +12,7 @@ void CKoopaShell::Init()
 {
 	LoadAnimation();
 	SetState(KOOPA_SHELL_STATE_IDLE);
-	isEnabled = true;
+	isEnabled = false;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(KOOPA_SHELL_BBOX);
@@ -36,7 +36,7 @@ void CKoopaShell::LoadAnimation()
 
 void CKoopaShell::Update(DWORD dt, CCamera* cam)
 {
-	DebugOut(L"KoopaShell Position.y %f \n", transform.position.y);
+	//DebugOut(L"KoopaShell Position.y %f \n", transform.position.y);
 }
 
 void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
