@@ -42,15 +42,15 @@ void CCamera::Update()
     if (posCam.x < boundaryLeft)
         posCam.x = boundaryLeft;
 
-    if (posCam.x > boundaryRight)
-        posCam.x = boundaryRight;
+    if (posCam.x > boundaryRight - widthCam)
+        posCam.x = boundaryRight - widthCam;
 
     if (posCam.y < boundaryTop)
         posCam.y = boundaryTop;
 
-    if (posCam.y > boundaryBottom)
-        posCam.y = boundaryBottom;
-
+    if (posCam.y > boundaryBottom - heightCam)
+        posCam.y = boundaryBottom - heightCam;
+    
     //	Xét biên để chỉnh lại camera k thoát khỏi camera
     if (x > boundaryRight + widthCam - 24)
         x = boundaryRight + widthCam - 24;
@@ -173,8 +173,8 @@ void CCamera::SetBoundary(float left, float right, float top, float bottom)
 {
     boundaryLeft = left;
     boundaryRight = right;
-    boundaryTop= left;
-    boundaryBottom = right;
+    boundaryTop= top;
+    boundaryBottom = bottom;
 }
 
 void CCamera::SetGameObject(LPGameObject gO)
