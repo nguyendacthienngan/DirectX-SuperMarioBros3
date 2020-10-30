@@ -2,7 +2,6 @@
 
 #ifndef MAP_H
 #define MAP_H
-#include "./MapReader/Tmx.h.in"
 #include "Sprite.h"
 #include "Camera.h"
 #include "GameObject.h"
@@ -21,9 +20,9 @@ private:
 	CTileMap* tileMap;
 	std::vector<LPGameObject> listGameObjects;
 public:
-	CMap(std::string filePath);
+	CMap(std::string filePath, std::string fileMap);
 	~CMap();
-	void LoadTilemap(std::string filePath);// tạo đối tương Map và khởi tạo các tileset từ thông tin map nhận được
+	void LoadTilemap(std::string filePath, std::string fileMap);// tạo đối tương Map và khởi tạo các tileset từ thông tin map nhận được
 	
 	void Update(CCamera* camera, DWORD dt);
 

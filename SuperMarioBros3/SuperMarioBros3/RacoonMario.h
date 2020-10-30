@@ -5,13 +5,13 @@ class CRacoonMario : public CMario
 private:
 	bool isSetToPointCenter;
 	bool isAttackContinious;
-	DWORD timeToFly;
-	DWORD timeToKeyFlyDown;
+	DWORD timeToFly, timeToFloat;
+	DWORD timeToKeyFlyDown, timeToKeyFloatDown;
 	DWORD lastFlyTime; // time để tính từ lúc canFly cho đến khi hết timeToFly
-	DWORD lastKeyFlyDown;
-	//bool isFly;
-	bool moreFlyPower;
+	DWORD lastKeyFlyDown, lastFloatTime, lastKeyFloatDown;
+	bool moreFlyPower, moreFloatPower;
 	bool flyDown;
+	bool canFloat, isFloat; // Giành cho việc ngay khi bay xong có thẩy quẫy đuôi để rơi chậm
 public:
 	CRacoonMario();
 	void Init() override;

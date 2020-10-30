@@ -21,7 +21,6 @@ void CScene::Load()
 		return;
 	}
 	TiXmlElement* root = sceneFile.RootElement();
-	//CMario* player = new CMario();
 	CMarioController* player = NULL;
 	for (TiXmlElement* scene = root->FirstChildElement(); scene != NULL; scene = scene->NextSiblingElement())
 	{
@@ -30,7 +29,8 @@ void CScene::Load()
 		{
 			DebugOut(L"[INFO] Load map \n");
 			string sourceMap = scene->Attribute("source");
-			this->map = new CMap(sourceMap); // Ham nay tu load map
+			string fileMap = scene->Attribute("fileName");
+			this->map = new CMap(sourceMap, fileMap); // Ham nay tu load map
 			auto mapSolidBoxs = map->GetListGameObjects();
 			for (auto obj : mapSolidBoxs)
 			{
@@ -58,21 +58,6 @@ void CScene::Load()
 			player->GetCurrentStateObject()->SetPosition(startPosition);
 			AddObject(player);
 		}
-		/*else if (name.compare("Enemy") == 0)
-		{
-			DebugOut(L"[INFO] Load enemy \n");
-			
-			for (TiXmlElement* enemy = scene->FirstChildElement(); enemy != NULL; enemy = enemy->NextSiblingElement())
-			{
-				CKoopa* koopa = new CKoopa();
-				D3DXVECTOR2 startPosition;
-				enemy->QueryFloatAttribute("pos_x", &startPosition.x);
-				enemy->QueryFloatAttribute("pos_y", &startPosition.y);
-
-				koopa->SetPosition(startPosition);
-				AddObject(koopa);
-			}
-		}*/
 		else if (name.compare("Camera") == 0)
 		{
 			DebugOut(L"[INFO] Load camera \n");

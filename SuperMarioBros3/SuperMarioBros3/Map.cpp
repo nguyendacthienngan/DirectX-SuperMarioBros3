@@ -12,10 +12,10 @@
 #include "Const.h"
 using namespace std;
 
-CMap::CMap(std::string filePath)
+CMap::CMap(std::string filePath, std::string fileMap)
 {
 	//LoadMap(filePath);
-	LoadTilemap(filePath);
+	LoadTilemap(filePath, fileMap);
 	//DebugOut(L"Load Tile map \n");
 }
 
@@ -25,10 +25,10 @@ CMap::~CMap()
 	delete tileMap;
 }
 
-void CMap::LoadTilemap(std::string filePath)
+void CMap::LoadTilemap(std::string filePath, std::string fileMap)
 {
 	tileMap = new CTileMap();
-	tileMap = tileMap->LoadMap(filePath, listGameObjects);
+	tileMap = tileMap->LoadMap(filePath, fileMap, listGameObjects);
 }
 
 // Load map bằng TMX-parser

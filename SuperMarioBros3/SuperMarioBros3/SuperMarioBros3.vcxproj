@@ -247,6 +247,7 @@
   <ItemGroup>
     <Image Include="small.ico" />
     <Image Include="SuperMarioBros3.ico" />
+    <Image Include="Super_Mario_Bros_3.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

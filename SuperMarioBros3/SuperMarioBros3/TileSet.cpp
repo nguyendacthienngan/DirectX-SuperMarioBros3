@@ -13,7 +13,7 @@ CTileset::CTileset(int firstgid, D3DXVECTOR2 tileSize, int tileCount, int column
 	this->texture = CTextureManager::GetInstance()->GetTexture(std::to_string(firstgid));
 }
 
-CTileset::CTileset(TiXmlElement* data)
+CTileset::CTileset(TiXmlElement* data, std::string filePath)
 {
 	data->QueryIntAttribute("firstgid", &this->firstgid);
 	data->QueryFloatAttribute("tilewidth", &this->tileSize.x);
@@ -23,7 +23,7 @@ CTileset::CTileset(TiXmlElement* data)
 
 	TiXmlElement* imgDom = data->FirstChildElement("image");
 	string imgPath = imgDom->Attribute("source");
-
+	imgPath = filePath + imgPath;
 	CTextureManager::GetInstance()->Add(std::to_string(firstgid), imgPath, D3DCOLOR_ARGB(0, 0, 0, 0));
 	this->texture = CTextureManager::GetInstance()->GetTexture(std::to_string(firstgid));
 }

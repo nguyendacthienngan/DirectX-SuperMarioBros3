@@ -4,7 +4,7 @@
   <export target="world-1-1-map.xml" format="tmx"/>
  </editorsettings>
  <tileset firstgid="1" name="world-1-1" tilewidth="48" tileheight="48" tilecount="870" columns="29">
-  <image source="Resources/Maps/Test map/world-1-1.png" width="1392" height="1440"/>
+  <image source="world-1-1.png" width="1392" height="1440"/>
  </tileset>
  <layer id="9" name="Background-black" width="176" height="41">
   <data encoding="csv">
@@ -447,5 +447,10 @@
   <object id="47" x="6480.17" y="816.167" width="143.667" height="47.6667"/>
   <object id="50" x="4175.67" y="576" width="191.667" height="48"/>
   <object id="51" x="4416" y="528.333" width="672" height="47.6667"/>
+ </objectgroup>
+ <objectgroup id="15" name="Enemy">
+  <object id="42" name="goomba" type="basic" x="1608" y="1224"/>
+  <object id="43" name="goomba" type="basic" x="696" y="1224"/>
+  <object id="44" name="koopa-shell" type="red" x="1318" y="1224"/>
  </objectgroup>
 </map>

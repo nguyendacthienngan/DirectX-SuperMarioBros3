@@ -99,9 +99,9 @@ void CTileMap::Render(CCamera* camera)
 	}
 }
 
-CTileMap* CTileMap::LoadMap(std::string filePath, std::vector<LPGameObject>& listGameObjects)
+CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects)
 {
-	string fullPath = filePath;
+	string fullPath = filePath + fileMap;
 	TiXmlDocument doc(fullPath.c_str());
 
 	if (doc.LoadFile()) {
@@ -117,7 +117,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::vector<LPGameObject>& lis
 		//Load tileset
 		for (TiXmlElement* element = root->FirstChildElement("tileset"); element != nullptr; element = element->NextSiblingElement("tileset"))
 		{
-			CTileset* tileSet = new CTileset(element);
+			CTileset* tileSet = new CTileset(element, filePath);
 			gameMap->listTilesets[tileSet->GetFirstgid()] = tileSet;
 		}
 		//Load layer
@@ -169,6 +169,10 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::vector<LPGameObject>& lis
 					ghostPlatform->GetCollisionBox()->at(0)->SetName(nameObject);
 					listGameObjects.push_back(ghostPlatform);
 				}*/
+				else if (name.compare("Enemy") == 0)
+				{
+					
+				}
 			}
 		}
 		if (listGameObjects.size() == 0)

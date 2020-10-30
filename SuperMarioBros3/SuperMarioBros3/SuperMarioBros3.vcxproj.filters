@@ -103,6 +103,9 @@
     <Filter Include="Game\GameObject\Enemy">
       <UniqueIdentifier>{528f2e80-6fbd-4fef-9f0b-30a9ac13c097}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Resouces">
+      <UniqueIdentifier>{5a34c865-db59-4efa-b201-ff91687c95f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -403,6 +406,9 @@
       <Filter>Files\Resource Files</Filter>
     </Image>
     <Image Include="SuperMarioBros3.ico">
+      <Filter>Files\Resource Files</Filter>
+    </Image>
+    <Image Include="Super_Mario_Bros_3.ico">
       <Filter>Files\Resource Files</Filter>
     </Image>
   </ItemGroup>
