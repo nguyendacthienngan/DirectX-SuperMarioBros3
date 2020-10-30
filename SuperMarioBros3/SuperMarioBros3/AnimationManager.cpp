@@ -92,8 +92,8 @@ bool CAnimationManager::LoadAnimation(std::string texName, std::string filePath)
 		for (TiXmlElement* node = info->FirstChildElement(); node != nullptr; node = node->NextSiblingElement())
 		{
 			string aniId = node->Attribute("aniId");
-			float frameTime;
-			node->QueryFloatAttribute("frameTime", &frameTime);
+			int frameTime;
+			node->QueryIntAttribute("frameTime", &frameTime);
 			string name = node->Attribute("name");
 			OutputDebugStringW(ToLPCWSTR(aniId + ':' + to_string(frameTime) + ':' + name + '\n'));
 			LPAnimation animation = new CAnimation(aniId, frameTime);
@@ -103,11 +103,8 @@ bool CAnimationManager::LoadAnimation(std::string texName, std::string filePath)
 			{
 				string id = sprNode->Attribute("id");
 				LPSprite sprite = CSpriteManager::GetInstance()->Get(id);
-				float detailFrameTime;
-				sprNode->QueryFloatAttribute("frameTime", &detailFrameTime);
-				animation->Add(sprite, D3DXVECTOR2(0.0f, 0.0f), detailFrameTime);
-
-				OutputDebugStringW(ToLPCWSTR("|--" + id + ':' + to_string(detailFrameTime) + '\n'));
+				animation->Add(sprite, D3DXVECTOR2(0.0f, 0.0f), frameTime);
+				OutputDebugStringW(ToLPCWSTR("|--" + id + ':' + to_string(frameTime) + '\n'));
 			}
 
 			AddAnimation(aniId, animation);

@@ -1,9 +1,9 @@
 #pragma once
 #include "Enemy.h"
-class CKoopa: public CEnemy
+class CKoopaShell : public CEnemy
 {
 public:
-	CKoopa();
+	CKoopaShell();
 	void Init();
 	void LoadAnimation();
 	void Update(DWORD dt, CCamera* cam) override;

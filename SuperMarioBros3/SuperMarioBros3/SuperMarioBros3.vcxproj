@@ -161,11 +161,15 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectTags.h" />
     <ClInclude Include="GhostPlatform.h" />
+    <ClInclude Include="Goomba.h" />
+    <ClInclude Include="GoombaConst.h" />
     <ClInclude Include="GraphicConst.h" />
     <ClInclude Include="IState.h" />
     <ClInclude Include="KeyboardManager.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koopa.h" />
+    <ClInclude Include="KoopaConst.h" />
+    <ClInclude Include="KoopaShell.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapConst.h" />
@@ -211,10 +215,12 @@
     <ClCompile Include="GameKeyEventHandler.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GhostPlatform.cpp" />
+    <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="IState.cpp" />
     <ClCompile Include="KeyboardManager.cpp" />
     <ClCompile Include="KeyEventHandler.cpp" />
     <ClCompile Include="Koopa.cpp" />
+    <ClCompile Include="KoopaShell.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -245,9 +251,33 @@
     <ResourceCompile Include="SuperMarioBros3.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Maps\Test map\world-1-1.png" />
+    <Image Include="Resources\Textures\bbox.png" />
+    <Image Include="Resources\Textures\enemy_x3.png" />
+    <Image Include="Resources\Textures\fire-ball-white.png" />
+    <Image Include="Resources\Textures\intro_x3.png" />
+    <Image Include="Resources\Textures\mariox3(1).png" />
+    <Image Include="Resources\Textures\misc_x3.png" />
+    <Image Include="Resources\Textures\UI_x3.png" />
     <Image Include="small.ico" />
     <Image Include="SuperMarioBros3.ico" />
     <Image Include="Super_Mario_Bros_3.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Maps\Test map\world-1-1-map.tmx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Resources\Animations\EnemyAnim.xml" />
+    <Xml Include="Resources\Animations\MarioAnim.xml" />
+    <Xml Include="Resources\Animations\MiscAnim.xml" />
+    <Xml Include="Resources\Animations\UiAnim.xml" />
+    <Xml Include="Resources\config.xml" />
+    <Xml Include="Resources\root.xml" />
+    <Xml Include="Resources\Scenes\World1-1.xml" />
+    <Xml Include="Resources\Sprites\EnemyDB.xml" />
+    <Xml Include="Resources\Sprites\MarioDB.xml" />
+    <Xml Include="Resources\Sprites\MiscDB.xml" />
+    <Xml Include="Resources\Sprites\UiDB.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

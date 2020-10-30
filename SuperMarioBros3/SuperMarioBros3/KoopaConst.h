@@ -1,0 +1,14 @@
+#pragma once
+
+#define KOOPA_STATE_MOVE		"MOVE"
+#define KOOPA_STATE_CROUCH		"CROUCH"
+
+#define KOOPA_SHELL_STATE_IDLE		"IDLE"
+#define KOOPA_SHELL_STATE_RUN		"RUN"
+
+#define KOOPA_SPEED				0.039f 
+
+const D3DXVECTOR2 KOOPA_BBOX(16 * 3, 27 * 3);
+const D3DXVECTOR2 KOOPA_SHELL_BBOX(16 * 3, 16 * 3);
+
+#define KOOPA_GRAVITY			0.00093f

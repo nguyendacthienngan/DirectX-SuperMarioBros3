@@ -1,51 +1,58 @@
-#include "Koopa.h"
+﻿#include "Goomba.h"
 #include "AnimationManager.h"
 #include "Ultis.h"
-#include "KoopaConst.h"
+#include "GoombaConst.h"
 
-CKoopa::CKoopa()
+CGoomba::CGoomba()
 {
-	LoadAnimation();
-	Init();
+	CGoomba::Init();
+	distanceToMove = 200;
+	SetState(GOOMBA_STATE_WALK);
+
 }
 
-void CKoopa::Init()
+void CGoomba::Init()
 {
 	LoadAnimation();
-	SetState(KOOPA_STATE_MOVE);
 	isEnabled = true;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
-	collisionBox->SetSizeBox(KOOPA_BBOX);
+	collisionBox->SetSizeBox(GOOMBA_BBOX);
 	collisionBox->SetGameObjectAttach(this);
-	collisionBox->SetName("Koopa");
+	collisionBox->SetName("Goomba");
 	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
 	this->collisionBoxs->push_back(collisionBox);
 
 
 	physiscBody->SetDynamic(true);
-	physiscBody->SetGravity(KOOPA_GRAVITY);
+	physiscBody->SetGravity(GOOMBA_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 }
 
-void CKoopa::LoadAnimation()
+void CGoomba::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(KOOPA_STATE_MOVE, animationManager->Get("ani-red-koopa-troopa-move"));
-	AddAnimation(KOOPA_STATE_CROUCH, animationManager->Get("ani-red-koopa-troopa-crouch"));
+	AddAnimation(GOOMBA_STATE_WALK, animationManager->Clone("ani-goomba-walk"));
+	AddAnimation(GOOMBA_STATE_DIE, animationManager->Clone("ani-goomba-die"));
 }
 
-void CKoopa::Update(DWORD dt, CCamera* cam)
+void CGoomba::Update(DWORD dt, CCamera* cam)
 {
+	//DebugOut(L"Goomba Position Y: %f \n", transform.position.y);
 	auto velocity = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
 
-	velocity.x = normal.x * KOOPA_SPEED;
+	velocity.x = normal.x * GOOMBA_SPEED;
 
 	physiscBody->SetVelocity(velocity);
 }
 
-void CKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
+void CGoomba::Render(CCamera* cam)
+{
+	CGameObject::Render(cam);
+}
+
+void CGoomba::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
 {
 	for (auto collisionEvent : collisionEvents)
 	{

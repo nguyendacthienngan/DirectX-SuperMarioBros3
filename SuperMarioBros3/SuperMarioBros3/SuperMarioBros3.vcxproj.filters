@@ -106,6 +106,30 @@
     <Filter Include="Files\Resouces">
       <UniqueIdentifier>{5a34c865-db59-4efa-b201-ff91687c95f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Files\Resouces\Maps">
+      <UniqueIdentifier>{5b91a648-84df-4b00-8b8e-7713d83e88b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Resouces\Maps\Test map">
+      <UniqueIdentifier>{6bb2e1d1-0a4c-41b5-a3d5-a993915dbd93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Resouces\Animations">
+      <UniqueIdentifier>{335e95c2-bc2a-4470-a3bb-daf1e134b9fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Resouces\Scenes">
+      <UniqueIdentifier>{d797aa61-f799-465c-abc6-d2067bdbd179}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Resouces\Sprites">
+      <UniqueIdentifier>{0fcc7d7f-17d1-4ea1-856c-82b80e393d4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Files\Resouces\Textures">
+      <UniqueIdentifier>{7802115c-478e-4aa2-a3eb-a4adaf19c594}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Enemy\Goomba">
+      <UniqueIdentifier>{e6911fe9-06d0-4f17-b3f5-709d66c6f963}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Enemy\Koopa">
+      <UniqueIdentifier>{06d4e1ac-ee89-4c70-822b-81b18e338535}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -261,14 +285,26 @@
     <ClInclude Include="MiscConst.h">
       <Filter>Game\GameObject\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="Koopa.h">
-      <Filter>Game\GameObject\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Game\GameObject\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="EnemyConst.h">
       <Filter>Game\GameObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>Game\GameObject\Enemy\Goomba</Filter>
+    </ClInclude>
+    <ClInclude Include="Koopa.h">
+      <Filter>Game\GameObject\Enemy\Koopa</Filter>
+    </ClInclude>
+    <ClInclude Include="GoombaConst.h">
+      <Filter>Game\GameObject\Enemy\Goomba</Filter>
+    </ClInclude>
+    <ClInclude Include="KoopaConst.h">
+      <Filter>Game\GameObject\Enemy\Koopa</Filter>
+    </ClInclude>
+    <ClInclude Include="KoopaShell.h">
+      <Filter>Game\GameObject\Enemy\Koopa</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -392,8 +428,14 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Game\GameObject\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Game\GameObject\Enemy\Goomba</Filter>
+    </ClCompile>
     <ClCompile Include="Koopa.cpp">
-      <Filter>Game\GameObject\Enemy</Filter>
+      <Filter>Game\GameObject\Enemy\Koopa</Filter>
+    </ClCompile>
+    <ClCompile Include="KoopaShell.cpp">
+      <Filter>Game\GameObject\Enemy\Koopa</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -411,5 +453,69 @@
     <Image Include="Super_Mario_Bros_3.ico">
       <Filter>Files\Resource Files</Filter>
     </Image>
+    <Image Include="Resources\Maps\Test map\world-1-1.png">
+      <Filter>Files\Resouces\Maps\Test map</Filter>
+    </Image>
+    <Image Include="Resources\Textures\enemy_x3.png">
+      <Filter>Files\Resouces\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\fire-ball-white.png">
+      <Filter>Files\Resouces\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\intro_x3.png">
+      <Filter>Files\Resouces\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\mariox3(1).png">
+      <Filter>Files\Resouces\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\misc_x3.png">
+      <Filter>Files\Resouces\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\UI_x3.png">
+      <Filter>Files\Resouces\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\bbox.png">
+      <Filter>Files\Resouces\Textures</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Maps\Test map\world-1-1-map.tmx">
+      <Filter>Files\Resouces\Maps\Test map</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Resources\Animations\EnemyAnim.xml">
+      <Filter>Files\Resouces\Animations</Filter>
+    </Xml>
+    <Xml Include="Resources\Animations\MarioAnim.xml">
+      <Filter>Files\Resouces\Animations</Filter>
+    </Xml>
+    <Xml Include="Resources\Animations\MiscAnim.xml">
+      <Filter>Files\Resouces\Animations</Filter>
+    </Xml>
+    <Xml Include="Resources\Animations\UiAnim.xml">
+      <Filter>Files\Resouces\Animations</Filter>
+    </Xml>
+    <Xml Include="Resources\Scenes\World1-1.xml">
+      <Filter>Files\Resouces\Scenes</Filter>
+    </Xml>
+    <Xml Include="Resources\Sprites\EnemyDB.xml">
+      <Filter>Files\Resouces\Sprites</Filter>
+    </Xml>
+    <Xml Include="Resources\Sprites\MarioDB.xml">
+      <Filter>Files\Resouces\Sprites</Filter>
+    </Xml>
+    <Xml Include="Resources\Sprites\MiscDB.xml">
+      <Filter>Files\Resouces\Sprites</Filter>
+    </Xml>
+    <Xml Include="Resources\Sprites\UiDB.xml">
+      <Filter>Files\Resouces\Sprites</Filter>
+    </Xml>
+    <Xml Include="Resources\config.xml">
+      <Filter>Files\Resouces</Filter>
+    </Xml>
+    <Xml Include="Resources\root.xml">
+      <Filter>Files\Resouces</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

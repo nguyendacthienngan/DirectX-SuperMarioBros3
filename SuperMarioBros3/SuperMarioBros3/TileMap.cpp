@@ -4,6 +4,10 @@
 #include "GhostPlatform.h"
 #include "MapConst.h"
 
+#include "Koopa.h"
+#include "KoopaShell.h"
+#include "Goomba.h"
+
 #include <iostream>
 #include <map>
 
@@ -171,7 +175,32 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				}*/
 				else if (name.compare("Enemy") == 0)
 				{
-					
+					std::string enemyName = object->Attribute("name");
+					std::string enemyType = object->Attribute("type");
+					if (enemyName.compare("koopa") == 0)
+					{
+						CKoopa* koopa = new CKoopa();
+						koopa->SetEnemyType(enemyType);
+						koopa->SetPosition(position - translateKoopaConst);
+						koopa->SetStartPosition(position - translateKoopaConst);
+						listGameObjects.push_back(koopa);
+					}
+					else if (enemyName.compare("goomba") == 0)
+					{
+						CGoomba* goomba = new CGoomba();
+						goomba->SetEnemyType(enemyType);
+						goomba->SetPosition(position - translateGoombaConst);
+						goomba->SetStartPosition(position - translateGoombaConst);
+						listGameObjects.push_back(goomba);
+					}
+					else if (enemyName.compare("koopa-shell") == 0)
+					{
+						CKoopaShell* koopaShell = new CKoopaShell();
+						koopaShell->SetEnemyType(enemyType);
+						koopaShell->SetPosition(position - translateGoombaConst);
+						koopaShell->SetStartPosition(position - translateGoombaConst);
+						listGameObjects.push_back(koopaShell);
+					}
 				}
 			}
 		}

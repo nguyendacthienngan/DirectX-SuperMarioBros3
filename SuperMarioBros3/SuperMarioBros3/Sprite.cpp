@@ -20,8 +20,6 @@ CSprite::CSprite(std::string id, int xPivot, RECT rect, LPDIRECT3DTEXTURE9 tex, 
 void CSprite::Draw(D3DXVECTOR2 position, D3DXVECTOR2 scale, float rotation, D3DXCOLOR transcolor)
 {
 	CGame* game = CGame::GetInstance();
-	/*if (id == "spr-fire-ball-0" || id == "spr-fire-ball-1" || id == "spr-fire-ball-2" || id == "spr-fire-ball-3" || id == "spr-fire-ball-4")
-		transcolor = D3DCOLOR_ARGB(255, 255, 255, 255);*/
 	if (scale.x < 0)
 		game->DrawFlipX(position, pointCenter, texture, rect, transcolor);
 	else if (scale.y < 0)
