@@ -31,12 +31,33 @@ void CKoopa::Init()
 void CKoopa::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(KOOPA_STATE_IDLE, animationManager->Get("ani-red-koopa-troopa-idle"));
 	AddAnimation(KOOPA_STATE_MOVE, animationManager->Get("ani-red-koopa-troopa-move"));
-	AddAnimation(KOOPA_STATE_SPIN, animationManager->Get("ani-red-koopa-troopa-spin"));
 	AddAnimation(KOOPA_STATE_CROUCH, animationManager->Get("ani-red-koopa-troopa-crouch"));
 }
 
 void CKoopa::Update(DWORD dt, CCamera* cam)
 {
+	auto velocity = physiscBody->GetVelocity();
+	auto normal = physiscBody->GetNormal();
+
+	velocity.x = normal.x * KOOPA_SPEED;
+
+	physiscBody->SetVelocity(velocity);
+}
+
+void CKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
+{
+	for (auto collisionEvent : collisionEvents)
+	{
+		auto collisionBox = collisionEvent->obj;
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
+		{
+			if (collisionEvent->nx != 0)
+			{
+				auto normal = physiscBody->GetNormal();
+				normal.x = -1;
+				physiscBody->SetNormal(normal);
+			}
+		}
+	}
 }

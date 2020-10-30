@@ -5,6 +5,7 @@
 #include "MapConst.h"
 
 #include "Koopa.h"
+#include "KoopaShell.h"
 #include "Goomba.h"
 
 #include <iostream>
@@ -191,6 +192,14 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						goomba->SetPosition(position - translateGoombaConst);
 						goomba->SetStartPosition(position - translateGoombaConst);
 						listGameObjects.push_back(goomba);
+					}
+					else if (enemyName.compare("koopa-shell") == 0)
+					{
+						CKoopaShell* koopaShell = new CKoopaShell();
+						koopaShell->SetEnemyType(enemyType);
+						koopaShell->SetPosition(position - translateGoombaConst);
+						koopaShell->SetStartPosition(position - translateGoombaConst);
+						listGameObjects.push_back(koopaShell);
 					}
 				}
 			}

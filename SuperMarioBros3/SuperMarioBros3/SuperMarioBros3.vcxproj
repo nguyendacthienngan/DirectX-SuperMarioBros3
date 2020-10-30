@@ -169,6 +169,7 @@
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="KoopaConst.h" />
+    <ClInclude Include="KoopaShell.h" />
     <ClInclude Include="Layer.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapConst.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="KeyboardManager.cpp" />
     <ClCompile Include="KeyEventHandler.cpp" />
     <ClCompile Include="Koopa.cpp" />
+    <ClCompile Include="KoopaShell.cpp" />
     <ClCompile Include="Layer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />

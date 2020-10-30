@@ -32,7 +32,6 @@ void CGoomba::Init()
 void CGoomba::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(GOOMBA_STATE_IDLE, animationManager->Clone("ani-goomba-idle"));
 	AddAnimation(GOOMBA_STATE_WALK, animationManager->Clone("ani-goomba-walk"));
 	AddAnimation(GOOMBA_STATE_DIE, animationManager->Clone("ani-goomba-die"));
 }

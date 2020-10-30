@@ -303,6 +303,9 @@
     <ClInclude Include="KoopaConst.h">
       <Filter>Game\GameObject\Enemy\Koopa</Filter>
     </ClInclude>
+    <ClInclude Include="KoopaShell.h">
+      <Filter>Game\GameObject\Enemy\Koopa</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -429,6 +432,9 @@
       <Filter>Game\GameObject\Enemy\Goomba</Filter>
     </ClCompile>
     <ClCompile Include="Koopa.cpp">
+      <Filter>Game\GameObject\Enemy\Koopa</Filter>
+    </ClCompile>
+    <ClCompile Include="KoopaShell.cpp">
       <Filter>Game\GameObject\Enemy\Koopa</Filter>
     </ClCompile>
   </ItemGroup>
