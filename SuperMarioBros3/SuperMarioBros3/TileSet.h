@@ -27,7 +27,7 @@ private:
 
 public:
 	CTileset(int firstgid, D3DXVECTOR2 tileSize, int tileCount, int columns, std::string imageSource);
-	CTileset(TiXmlElement* data);
+	CTileset(TiXmlElement* data, std::string fileMap);
 	~CTileset();
 	int GetFirstgid() { return firstgid; }
 
