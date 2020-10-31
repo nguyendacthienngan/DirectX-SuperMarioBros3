@@ -71,11 +71,8 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 		// block every object first!
 		if (isTrigger == false)
 		{
-			/*pos.x += min_tx * distance.x + nx;
-			pos.y += min_ty * distance.y + ny;*/
 			pos.x += min_tx * distance.x + nx * 0.4f; // nx*0.4f : need to push out a bit to avoid overlapping next frame
 			pos.y += min_ty * distance.y + ny * 0.4f;
-			// Vấn đề là ở đây
 		}
 		
 		if (nx != 0 || ny != 0)
@@ -97,7 +94,7 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 			{
 				if (nx == 0)
 				{
-					velocity.y = -bounceForce;
+					velocity.y = -bounceForce; // lực nảy
 					distance.y = velocity.y * dt;
 					//distance.y = 0;
 				}
@@ -228,8 +225,6 @@ void CPhysicsBody::SweptAABB(
 		nx = 0.0f;
 		dy > 0 ? ny = -1.0f : ny = 1.0f;
 	}
-	/*if (nx != 0.0f)
-		DebugOut(L"nx: %f \n", nx);*/
 #pragma endregion
 }
 

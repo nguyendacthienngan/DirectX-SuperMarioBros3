@@ -117,7 +117,7 @@ public:
 	Effector GetEffector();
 	void SetEffector(Effector e);
 
-	virtual void AddMiscToScene(LPScene scene);
+	virtual void AddObjectToScene(LPScene scene);
 };
 
 #endif

@@ -181,7 +181,9 @@
     <ClInclude Include="Misc.h" />
     <ClInclude Include="MiscConst.h" />
     <ClInclude Include="PhysicsBody.h" />
-    <ClInclude Include="RacoonMario.h" />
+    <ClInclude Include="RaccoonTailBox.h" />
+    <ClInclude Include="RaccoonTailConst.h" />
+    <ClInclude Include="RaccoonMario.h" />
     <ClInclude Include="RectF.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
@@ -228,7 +230,8 @@
     <ClCompile Include="MarioController.cpp" />
     <ClCompile Include="Misc.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
-    <ClCompile Include="RacoonMario.cpp" />
+    <ClCompile Include="RaccoonTailBox.cpp" />
+    <ClCompile Include="RaccoonMario.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="SceneManager.cpp" />

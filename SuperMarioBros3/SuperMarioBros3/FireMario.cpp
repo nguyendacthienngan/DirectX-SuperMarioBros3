@@ -98,15 +98,8 @@ void CFireMario::EndAnimation()
 	}
 }
 
-void CFireMario::AddMiscToScene(CScene* scene)
-{
-}
-
 void CFireMario::OnKeyDown(int KeyCode)
 {
-	//Bị lỗi khi vừa đi vừa quăng lửa
-	/*Thì animation vẫn là đang walk = > cục lửa vẫn văng ra
-	Khi hét walk rồi thì mới tới animation của quăng lửa(vì isAttack bật nhưng k setstate đc)*/
 	CMario::OnKeyDown(KeyCode);
 	if (isAttack == true)
 	{

@@ -5,7 +5,7 @@
 
 #include "SmallMario.h"
 #include "SuperMario.h"
-#include "RacoonMario.h"
+#include "RaccoonMario.h"
 #include "FireMario.h"
 #include "GameObjectTags.h"
 #include "MarioConst.h"
@@ -42,7 +42,7 @@ void CMarioController::Init()
 	marioStateObject->Enable(false);
 
 	// RACOON MARIO
-	marioStateObject = new CRacoonMario();
+	marioStateObject = new CRaccoonMario();
 	listMarioStates.insert(make_pair(RACOON_MARIO_STATE, marioStateObject));
 	listStateObjects.insert(make_pair(RACOON_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
@@ -79,7 +79,7 @@ void CMarioController::AddStateObjectsToScene(LPScene scene)
 	for (auto obj : listStateObjects)
 	{
 		scene->AddObject(obj.second);
-		obj.second->AddMiscToScene(scene);
+		obj.second->AddObjectToScene(scene);
 	}
 }
 

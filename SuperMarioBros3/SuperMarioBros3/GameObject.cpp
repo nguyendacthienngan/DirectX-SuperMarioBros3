@@ -215,7 +215,7 @@ void CGameObject::SetEffector(Effector e)
 	this->effector = effector;
 }
 
-void CGameObject::AddMiscToScene(LPScene scene)
+void CGameObject::AddObjectToScene(LPScene scene)
 {
 
 }
