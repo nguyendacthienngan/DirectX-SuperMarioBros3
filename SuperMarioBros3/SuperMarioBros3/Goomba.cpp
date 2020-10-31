@@ -112,18 +112,23 @@ void CGoomba::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* 
 	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
 	{
 		CGoomba::OnDie();
+
 	}
 }
 
 void CGoomba::OnDie()
 {
 	currentPhysicsState = GoombaState::Die;
-	auto v = physiscBody->GetVelocity();
 	// Tạm thời thui, sau này còn xét kiểu chết khác nhau
 	// Và mình sẽ cho nó time để die riêng
 	// Sau khi hết time là nó tự disable
+	auto v = physiscBody->GetVelocity();
 	v.x = 0.0f;
 	physiscBody->SetVelocity(v);
 	physiscBody->SetGravity(0.0f);
 	startDeadTime = GetTickCount64();
+
+	SetRelativePositionOnScreen(D3DXVECTOR2(0, (GOOMBA_BBOX.y - GOOMBA_DIE_BBOX.y) * 0.5f));
+	collisionBoxs->at(0)->SetSizeBox(GOOMBA_DIE_BBOX);
+
 }
