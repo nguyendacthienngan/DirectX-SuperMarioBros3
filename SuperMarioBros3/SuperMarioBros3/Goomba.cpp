@@ -6,9 +6,9 @@
 CGoomba::CGoomba()
 {
 	CGoomba::Init();
-	//distanceToMove = 200;
 	SetState(GOOMBA_STATE_WALK);
 	currentPhysicsState = GoombaState::Walk;
+	enemyTag = EnemyTag::Goomba;
 }
 
 void CGoomba::Init()

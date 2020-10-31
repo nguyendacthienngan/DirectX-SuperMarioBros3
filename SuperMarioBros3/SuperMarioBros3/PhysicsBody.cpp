@@ -5,6 +5,7 @@
 #include <minwindef.h>
 #include <algorithm>
 #include "Ultis.h"
+#include "Enemy.h"
 
 using namespace std;
 
@@ -303,6 +304,16 @@ void CPhysicsBody::CalcPotentialCollisions(
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
 			continue;
 
+		// Quái cùng loại gặp nhau sẽ đẩy ra, quái khác loại thì đi qua nhau
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
+		{
+			auto selfObject = cO->GetGameObjectAttach();
+			auto otherObject = coObjects->at(i)->GetGameObjectAttach();
+			CEnemy* selfEnemyObject = static_cast<CEnemy*>(selfObject);
+			CEnemy* otherEnemyObject = static_cast<CEnemy*>(otherObject);
+			if (selfEnemyObject->GetEnemyTag() != otherEnemyObject->GetEnemyTag() )
+				continue;
+		}
 		// Có overlap (Dùng AABB)
 		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && cO->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid)
 		{

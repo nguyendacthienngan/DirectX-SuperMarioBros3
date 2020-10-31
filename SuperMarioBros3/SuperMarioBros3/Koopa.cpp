@@ -8,6 +8,8 @@ CKoopa::CKoopa()
 {
 	LoadAnimation();
 	Init();
+	enemyTag = EnemyTag::Koopa;
+
 }
 
 void CKoopa::Init()

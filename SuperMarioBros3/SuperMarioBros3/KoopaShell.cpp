@@ -7,6 +7,7 @@ CKoopaShell::CKoopaShell()
 {
 	LoadAnimation();
 	Init();
+	enemyTag = EnemyTag::KoopaShell;
 }
 
 void CKoopaShell::Init()
