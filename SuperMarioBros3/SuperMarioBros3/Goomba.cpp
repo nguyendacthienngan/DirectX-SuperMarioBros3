@@ -45,13 +45,6 @@ void CGoomba::Update(DWORD dt, CCamera* cam)
 	{
 		velocity.x = normal.x * GOOMBA_SPEED;
 	}
-	else
-	{
-		// Tạm thời thui, sau này còn xét kiểu chết khác nhau
-		// Và mình sẽ cho nó time để die riêng
-		// Sau khi hết time là nó tự disable
-		velocity.x = 0;
-	}
 	physiscBody->SetVelocity(velocity);
 
 	
@@ -96,6 +89,15 @@ void CGoomba::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Coll
 				CGoomba::OnDie();
 			}
 		}
+		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
+		{
+			// Mario đạp lên đầu
+			if (collisionEvent->ny != 0)
+			{
+				CGoomba::OnDie();
+			
+			}
+		}
 	}
 }
 
@@ -110,5 +112,12 @@ void CGoomba::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* 
 void CGoomba::OnDie()
 {
 	currentPhysicsState = GoombaState::Die;
-
+	auto v = physiscBody->GetVelocity();
+	// Tạm thời thui, sau này còn xét kiểu chết khác nhau
+		// Và mình sẽ cho nó time để die riêng
+		// Sau khi hết time là nó tự disable
+	v.x = 0.0f;
+	//v.y = -.5f;
+	physiscBody->SetVelocity(v);
+	physiscBody->SetGravity(0.0f);
 }

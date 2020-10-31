@@ -33,6 +33,7 @@ protected:
 	float beforeJumpPosition;
 	bool canFly;
 	bool isFly;
+	bool bounceAfterJumpOnEnemy, stopBounce;
 public:
 	CMario();
 	void Init() override;
