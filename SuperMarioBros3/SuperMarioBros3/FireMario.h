@@ -18,7 +18,6 @@ public:
 	void Render(CCamera* cam) override;
 	void Update(DWORD dt, CCamera* cam) override;
 	void EndAnimation();
-	void AddMiscToScene(CScene* scene) override;
 	void OnKeyDown(int KeyCode) override;
 	
 	~CFireMario();

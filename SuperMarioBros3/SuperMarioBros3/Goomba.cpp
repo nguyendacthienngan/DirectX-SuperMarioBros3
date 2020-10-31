@@ -1,20 +1,19 @@
 ﻿#include "Goomba.h"
 #include "AnimationManager.h"
 #include "Ultis.h"
-#include "GoombaConst.h"
 
 CGoomba::CGoomba()
 {
 	CGoomba::Init();
-	distanceToMove = 200;
+	//distanceToMove = 200;
 	SetState(GOOMBA_STATE_WALK);
-
+	currentPhysicsState = GoombaState::Walk;
 }
 
 void CGoomba::Init()
 {
 	LoadAnimation();
-	isEnabled = true;
+	isEnabled = false;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(GOOMBA_BBOX);
@@ -41,14 +40,37 @@ void CGoomba::Update(DWORD dt, CCamera* cam)
 	//DebugOut(L"Goomba Position Y: %f \n", transform.position.y);
 	auto velocity = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
-
-	velocity.x = normal.x * GOOMBA_SPEED;
-
+	if (currentPhysicsState != GoombaState::Die)
+	{
+		velocity.x = normal.x * GOOMBA_SPEED;
+	}
+	else
+	{
+		// Tạm thời thui, sau này còn xét kiểu chết khác nhau
+		// Và mình sẽ cho nó time để die riêng
+		// Sau khi hết time là nó tự disable
+		velocity.x = 0;
+	}
 	physiscBody->SetVelocity(velocity);
+
+	
 }
 
 void CGoomba::Render(CCamera* cam)
 {
+	switch (currentPhysicsState)
+	{
+		case GoombaState::Walk:
+		{
+			SetState(GOOMBA_STATE_WALK);
+			break;
+		}
+		case GoombaState::Die:
+		{
+			SetState(GOOMBA_STATE_DIE);
+			break;
+		}
+	}
 	CGameObject::Render(cam);
 }
 
@@ -67,4 +89,18 @@ void CGoomba::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Coll
 			}
 		}
 	}
+}
+
+void CGoomba::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
+{
+	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
+	{
+		CGoomba::OnDie();
+	}
+}
+
+void CGoomba::OnDie()
+{
+	currentPhysicsState = GoombaState::Die;
+
 }

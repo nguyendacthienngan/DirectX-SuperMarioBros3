@@ -130,6 +130,9 @@
     <Filter Include="Game\GameObject\Enemy\Koopa">
       <UniqueIdentifier>{06d4e1ac-ee89-4c70-822b-81b18e338535}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Mario\MarioStates\RaccoonTail">
+      <UniqueIdentifier>{a96c0e5f-441b-4f4f-99b5-c86b9f9e457c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -252,9 +255,6 @@
     <ClInclude Include="FireMario.h">
       <Filter>Game\GameObject\Mario\MarioStates</Filter>
     </ClInclude>
-    <ClInclude Include="RacoonMario.h">
-      <Filter>Game\GameObject\Mario\MarioStates</Filter>
-    </ClInclude>
     <ClInclude Include="SmallMario.h">
       <Filter>Game\GameObject\Mario\MarioStates</Filter>
     </ClInclude>
@@ -305,6 +305,15 @@
     </ClInclude>
     <ClInclude Include="KoopaShell.h">
       <Filter>Game\GameObject\Enemy\Koopa</Filter>
+    </ClInclude>
+    <ClInclude Include="RaccoonTailBox.h">
+      <Filter>Game\GameObject\Mario\MarioStates\RaccoonTail</Filter>
+    </ClInclude>
+    <ClInclude Include="RaccoonTailConst.h">
+      <Filter>Game\GameObject\Mario\MarioStates\RaccoonTail</Filter>
+    </ClInclude>
+    <ClInclude Include="RaccoonMario.h">
+      <Filter>Game\GameObject\Mario\MarioStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -404,9 +413,6 @@
     <ClCompile Include="FireMario.cpp">
       <Filter>Game\GameObject\Mario\MarioStates</Filter>
     </ClCompile>
-    <ClCompile Include="RacoonMario.cpp">
-      <Filter>Game\GameObject\Mario\MarioStates</Filter>
-    </ClCompile>
     <ClCompile Include="Mario.cpp">
       <Filter>Game\GameObject\Mario\BaseMario</Filter>
     </ClCompile>
@@ -436,6 +442,12 @@
     </ClCompile>
     <ClCompile Include="KoopaShell.cpp">
       <Filter>Game\GameObject\Enemy\Koopa</Filter>
+    </ClCompile>
+    <ClCompile Include="RaccoonTailBox.cpp">
+      <Filter>Game\GameObject\Mario\MarioStates\RaccoonTail</Filter>
+    </ClCompile>
+    <ClCompile Include="RaccoonMario.cpp">
+      <Filter>Game\GameObject\Mario\MarioStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

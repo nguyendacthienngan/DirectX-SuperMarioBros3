@@ -1,41 +1,55 @@
-﻿#include "RacoonMario.h"
+﻿#include "RaccoonMario.h"
 #include "MarioConst.h"
 #include "AnimationManager.h"
 #include "Ultis.h"
 #include "MarioStateSet.h"
-CRacoonMario::CRacoonMario()
+CRaccoonMario::CRaccoonMario()
 {
 	CMario::Init();
 	marioStateTag = MarioStates::RacoonMario;
+	raccoonTailBox = new CRaccoonTailBox();
+	CRaccoonMario::Init();
+	CRaccoonMario::LoadAnimation();
+}
+
+void CRaccoonMario::Init()
+{
+	SetState(MARIO_STATE_IDLE);
 	canAttackContinious = true;
 	canCrouch = true;
 	canAttack = true;
 	isJumpAttack = false;
 	isAttackContinious = false;
-	timeToFly = 4000;
-	timeToFloat = 5000;
-	timeToKeyFlyDown = 200;
-	timeToKeyFloatDown = 1000;
+
+#pragma region Các biến flag để xét việc Fly
+	timeToFly = FLYING_TIME;
+	timeToKeyFlyDown = TIME_TO_PRESS_S_TO_FLY;
 	lastFlyTime = 0;
 	lastKeyFlyDown = 0;
 	isFly = false;
-	moreFlyPower = false;
-	moreFloatPower = false;
 	flyDown = false;
+	moreFlyPower = false;
+#pragma endregion
+
+#pragma region Các biến flag để xét việc Float
+	timeToFloat = FLOATING_TIME;
+	timeToKeyFloatDown = TIME_TO_PRESS_S_TO_FLOAT;
+	moreFloatPower = false;
 	feverState = -1;
 	canFloat = false;
 	isFloat = false;
 	lastFloatTime = 0;
-	CRacoonMario::Init();
-	CRacoonMario::LoadAnimation();
+#pragma endregion
+	
+#pragma region  Các biến flag để xét việc Attack (Quay đuôi)
+	timeToAttack = ATTACKING_TIME;
+	beginAttackTime = 0;
+	beginAttackTail = false;
+#pragma endregion
+
 }
 
-void CRacoonMario::Init()
-{
-	SetState(MARIO_STATE_IDLE);
-}
-
-void CRacoonMario::LoadAnimation()
+void CRaccoonMario::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
 
@@ -54,7 +68,7 @@ void CRacoonMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_JUMP_ATTACK, animationManager->Get("ani-raccoon-mario-spin"), false);
 }
 
-void CRacoonMario::EndAnimation()
+void CRaccoonMario::EndAnimation()
 {
 	if (currentState.compare(MARIO_STATE_ATTACK) == 0)
 	{
@@ -62,6 +76,9 @@ void CRacoonMario::EndAnimation()
 		{
 			isAttack = false;
 			isJumpAttack = false;
+			raccoonTailBox->Enable(false);
+			beginAttackTail = false;
+
 			if (animations.find(lastState) == animations.end()) // Không kiếm được last state trong animation, đồng nghĩa với việc last state chưa được khởi tạo, còn nếu đc khởi tạo rồi thì mình set state theo cái state trước đó
 				lastState = MARIO_STATE_IDLE;
 			SetState(lastState);
@@ -69,15 +86,26 @@ void CRacoonMario::EndAnimation()
 	}
 }
 
-void CRacoonMario::Update(DWORD dt, CCamera* cam)
+void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 {
 	auto keyboard = CKeyboardManager::GetInstance();
 	CMario::Update(dt, cam);
 	if (isAttack == true) 
 	{
+		// Nếu vừa ấn attack cái enable cái đuôi là sai vì tới frame thứ 3 của Attack Animation mới là cái đuôi giơ ra
+		// Nên mình sẽ set cái time phù hợp để xét va chạm đuôi đúng
+		//raccoonTailBox->Enable(true);
+		if (GetTickCount64() - beginAttackTime > ATTACKING_TIME && beginAttackTime != 0)
+		{
+			raccoonTailBox->Enable(true);
+			beginAttackTail = true;
+		}
+
+#pragma region Xử lý việc quay đuôi với phím tắt
 		currentPhysicsState.move = MoveOnGroundStates::Attack;
 		if (keyboard->GetKeyStateDown(DIK_Z))
 		{
+			// Z giữ lâu
 			isAttackContinious = true;
 		}
 		if (isOnGround == false || isJump == true)
@@ -91,12 +119,15 @@ void CRacoonMario::Update(DWORD dt, CCamera* cam)
 			currentPhysicsState.move = MoveOnGroundStates::Idle;
 			isAttack = false;
 			isJumpAttack = false;
+
+			raccoonTailBox->Enable(false);
 		}
+#pragma endregion
+
 	}
 
 	// Bay
 	// Set Gravity = 0 để bé cáo bay thỏa thích trên trời, đến max time (4s) rồi thì hạ xuống từ từ
-	// Lúc bay, ta sẽ set abs(vel.x), abs(vel.y) tăng
 
 	auto velocity = physiscBody->GetVelocity();
 	auto sign = physiscBody->GetNormal().x;
@@ -186,14 +217,27 @@ void CRacoonMario::Update(DWORD dt, CCamera* cam)
 	
 #pragma endregion
 
+
+
+
+	// Set vị trí của TailBox ngay trước mặt Mario (overlap 1 khoảng với box của Mario)
+	auto tailPosition = transform.position;
+	auto normal = physiscBody->GetNormal();
+	tailPosition.x += SUPER_MARIO_BBOX.x*0.8f*normal.x ;
+	raccoonTailBox->SetPosition(tailPosition);
 }
 
-void CRacoonMario::OnKeyDown(int KeyCode)
+void CRaccoonMario::AddObjectToScene(LPScene scene)
+{
+	scene->AddObject(raccoonTailBox);
+}
+
+void CRaccoonMario::OnKeyDown(int KeyCode)
 {
 	CMario::OnKeyDown(KeyCode);
-	
 	if (KeyCode == DIK_S)
 	{
+#pragma region Xử lý việc bay của Mario
 		// FLY
 		if (canFly == true && isFly == false)
 			lastFlyTime = GetTickCount64();
@@ -229,6 +273,9 @@ void CRacoonMario::OnKeyDown(int KeyCode)
 			lastKeyFlyDown = GetTickCount64();
 			flyDown = false;
 		}
+#pragma endregion
+
+#pragma region Xử lý việc sau khi bay mà quẫy đuôi bay chậm
 
 		//// FLOAT
 		if (isFloat == false && canFloat == true)
@@ -243,12 +290,13 @@ void CRacoonMario::OnKeyDown(int KeyCode)
 			physiscBody->SetGravity(0.0f);
 
 		}
-		
+#pragma endregion
+
 	}
 
 }
 
-void CRacoonMario::OnKeyUp(int KeyCode)
+void CRaccoonMario::OnKeyUp(int KeyCode)
 {
 	CMario::OnKeyUp(KeyCode);
 	if (KeyCode == DIK_Z)
@@ -257,7 +305,7 @@ void CRacoonMario::OnKeyUp(int KeyCode)
 	}
 }
 
-CRacoonMario::~CRacoonMario()
+CRaccoonMario::~CRaccoonMario()
 {
 	CGameObject::~CGameObject();
 

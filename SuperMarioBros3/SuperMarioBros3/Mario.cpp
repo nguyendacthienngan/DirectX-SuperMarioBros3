@@ -523,6 +523,7 @@ void CMario::OnKeyDown(int KeyCode)
 	}
 	if ((KeyCode == DIK_Z || KeyCode == DIK_A)&& canAttack == true && isAttack == false && currentPhysicsState.move != MoveOnGroundStates::Attack)
 	{
+		beginAttackTime = GetTickCount64();
 		isAttack = true;
 	}
 }

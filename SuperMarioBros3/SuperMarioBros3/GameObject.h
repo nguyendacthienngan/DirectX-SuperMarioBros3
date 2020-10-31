@@ -80,6 +80,9 @@ public:
 
 	virtual void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions);
 	virtual void OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions);
+	virtual void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox);
+	virtual void OnDie();
+	virtual void OnDamage();
 
 	void AddAnimation(std::string stateName, LPAnimation animation, bool isLoop = true); // một số animation như quăng lửa k cần lặp
 	void SetRelativePositionOnScreen(D3DXVECTOR2); // Dùng khi ví dụ chuyển từ idle -> crouch, dời hình xuống
@@ -117,7 +120,7 @@ public:
 	Effector GetEffector();
 	void SetEffector(Effector e);
 
-	virtual void AddMiscToScene(LPScene scene);
+	virtual void AddObjectToScene(LPScene scene);
 };
 
 #endif
