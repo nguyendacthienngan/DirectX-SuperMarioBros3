@@ -51,6 +51,8 @@ public:
 	void OnKeyDown(int KeyCode);
 	void OnKeyUp(int KeyCode);
 
+	void OnDamaged();
+
 	void SetMarioStateTag(MarioStates tag);
 	MarioStates GettMarioStateTag();
 

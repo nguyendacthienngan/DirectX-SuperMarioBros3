@@ -45,8 +45,14 @@ void CGoomba::Update(DWORD dt, CCamera* cam)
 	{
 		velocity.x = normal.x * GOOMBA_SPEED;
 	}
+	else if (GetTickCount64() - startDeadTime > GOOMBA_DIE_TIME)
+	{
+		this->isEnabled = false;
+		physiscBody->SetDynamic(false);
+	}
 	physiscBody->SetVelocity(velocity);
-
+	
+	
 	
 }
 
@@ -114,10 +120,10 @@ void CGoomba::OnDie()
 	currentPhysicsState = GoombaState::Die;
 	auto v = physiscBody->GetVelocity();
 	// Tạm thời thui, sau này còn xét kiểu chết khác nhau
-		// Và mình sẽ cho nó time để die riêng
-		// Sau khi hết time là nó tự disable
+	// Và mình sẽ cho nó time để die riêng
+	// Sau khi hết time là nó tự disable
 	v.x = 0.0f;
-	//v.y = -.5f;
 	physiscBody->SetVelocity(v);
 	physiscBody->SetGravity(0.0f);
+	startDeadTime = GetTickCount64();
 }

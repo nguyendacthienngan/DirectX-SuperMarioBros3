@@ -453,20 +453,26 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 		}
 		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy) // xét tổng quát, nhưng thiệt ra có 1 số con mình nhảy lên đầu chưa đúng lắm ?
 		{
-			if (collisionEvent->ny < 0) // nhảy lên đầu quái
+			if (collisionEvent->ny !=  0) // nhảy lên đầu quái
 			{
 				if (bounceAfterJumpOnEnemy == false && stopBounce == false)
 				{
 					auto normal = physiscBody->GetNormal();
-					physiscBody->SetVelocity(D3DXVECTOR2(normal.x* MARIO_WALKING_SPEED, -MARIO_JUMP_FORCE));
+					physiscBody->SetVelocity(D3DXVECTOR2(normal.x* 0.21f, -MARIO_JUMP_FORCE)); // làm sao để nảy lên r chạy qua 1 bên
 					isJump = true;
 					isOnGround = false;
 					canHighJump = true;
 					currentPhysicsState.jump = JumpOnAirStates::Jump;
 					bounceAfterJumpOnEnemy = true;
-					stopBounce = true;
 				}
+				if (stopBounce == true)
+					stopBounce = false;
 				
+			}
+			else if (collisionEvent->nx != 0)
+			{
+				// TO-DO: Bị damaged
+				OnDamaged();
 			}
 		}
 	}
@@ -562,6 +568,11 @@ void CMario::OnKeyUp(int KeyCode)
 	{
 		canHighJump = false;
 	}
+}
+
+void CMario::OnDamaged()
+{
+
 }
 
 void CMario::SetMarioStateTag(MarioStates tag)
