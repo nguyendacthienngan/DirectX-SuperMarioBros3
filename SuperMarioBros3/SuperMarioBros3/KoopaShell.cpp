@@ -1,4 +1,4 @@
-#include "KoopaShell.h"
+﻿#include "KoopaShell.h"
 #include "KoopaConst.h"
 #include "AnimationManager.h"
 #include "Ultis.h"
@@ -7,6 +7,7 @@ CKoopaShell::CKoopaShell()
 {
 	LoadAnimation();
 	Init();
+	enemyTag = EnemyTag::KoopaShell;
 }
 
 void CKoopaShell::Init()
@@ -52,6 +53,14 @@ void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<
 				CKoopaShell::OnDie();
 			}
 		}
+		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
+		{
+			// Mario đạp lên đầu
+			if (collisionEvent->ny != 0)
+			{
+				CKoopaShell::OnDie();
+			}
+		}
 	}
 }
 
@@ -69,6 +78,10 @@ void CKoopaShell::OnDie()
 	auto normal = physiscBody->GetNormal();
 	normal.y = -1;
 	physiscBody->SetNormal(normal);
+	auto v = physiscBody->GetVelocity();
+	v.y = -1.0f;
+	physiscBody->SetVelocity(v);
+	physiscBody->SetGravity(0.0f);
 }
 
 void CKoopaShell::Render(CCamera* cam)

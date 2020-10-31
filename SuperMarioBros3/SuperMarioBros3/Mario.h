@@ -33,6 +33,7 @@ protected:
 	float beforeJumpPosition;
 	bool canFly;
 	bool isFly;
+	bool bounceAfterJumpOnEnemy, stopBounce;
 public:
 	CMario();
 	void Init() override;
@@ -49,6 +50,8 @@ public:
 	void KeyState();
 	void OnKeyDown(int KeyCode);
 	void OnKeyUp(int KeyCode);
+
+	void OnDamaged();
 
 	void SetMarioStateTag(MarioStates tag);
 	MarioStates GettMarioStateTag();

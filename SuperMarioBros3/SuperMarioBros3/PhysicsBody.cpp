@@ -5,6 +5,7 @@
 #include <minwindef.h>
 #include <algorithm>
 #include "Ultis.h"
+#include "Enemy.h"
 
 using namespace std;
 
@@ -45,8 +46,6 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 
 	coEvents.clear();
 
-	//if (cO->GetName() == "Raccoon-Tail")
-	//	DebugOut(L"Raccoon Taillll \n");
 	CalcPotentialCollisions(cO, coObjects, coEvents);
 
 	// No collision occured, proceed normally
@@ -160,7 +159,6 @@ void CPhysicsBody::SweptAABB(
 	float br = dx > 0 ? mr + dx : mr;
 	float bb = dy > 0 ? mb + dy : mb;
 
-	//DebugOut(L"dx, dy %f %f \n", dx, dy); // SAIIIIIIIII
 	if (br < sl || bl > sr || bb < st || bt > sb) return;
 
 
@@ -297,31 +295,36 @@ void CPhysicsBody::CalcPotentialCollisions(
 			continue;
 		if (coObjects->at(i) == cO)
 			continue;
+
+		// Lửa không xét với Mario, và không xét với chính nó
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Player && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc )
 			continue;
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
 			continue;
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
+			continue;
 
-		
-		// Chỗ này sai, đã sửa nhưng chưa test lại
-		//if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc) // Chỗ player là tạm thời ! Phải sửa lại là coObject đó có enable hay k mới đúng
-		//	continue;
-
+		// Quái cùng loại gặp nhau sẽ đẩy ra, quái khác loại thì đi qua nhau
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
+		{
+			auto selfObject = cO->GetGameObjectAttach();
+			auto otherObject = coObjects->at(i)->GetGameObjectAttach();
+			CEnemy* selfEnemyObject = static_cast<CEnemy*>(selfObject);
+			CEnemy* otherEnemyObject = static_cast<CEnemy*>(otherObject);
+			if (selfEnemyObject->GetEnemyTag() != otherEnemyObject->GetEnemyTag() )
+				continue;
+		}
 		// Có overlap (Dùng AABB)
 		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && cO->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid)
 		{
 			if (CheckAABB(cO->GetBoundingBox(), coObjects->at(i)->GetBoundingBox()) == true || CheckAABB(coObjects->at(i)->GetBoundingBox(), cO->GetBoundingBox()) == true)
 			{
-				//DebugOut(L"Overlapppppp \n");
-				//OutputDebugString(ToLPCWSTR("BB: " + cO->GetName() + "over lap " + coObjects->at(i)->GetName() + "\n"));
 				cO->GetGameObjectAttach()->OnOverlappedEnter(cO, coObjects->at(i));
 				coObjects->at(i)->GetGameObjectAttach()->OnOverlappedEnter(coObjects->at(i), cO);
 				continue;
 			}
 		}
 		LPCollisionEvent e = SweptAABBEx(cO,coObjects->at(i));
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
-			DebugOut(L"Enemy meets Fire Balllll \n");
 		if (e->t > 0 && e->t <= 1.0f)
 		{
 			coEvents.push_back(e);

@@ -57,6 +57,8 @@ void CMario::InitProperties()
 	isAttack = false;
 	canFly = false;
 	isFly = false;
+	stopBounce = false;
+	bounceAfterJumpOnEnemy = false;
 	feverTime = MARIO_FEVER_TIME;
 	lastFeverTime = 0;
 	feverState = 0;
@@ -261,10 +263,10 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	}
 	if (currentPhysicsState.jump == JumpOnAirStates::Jump && canLowJumpContinous == false && canHighJump == true)
 	{
-		if (keyboard->GetKeyStateDown(DIK_S) && isFly == false)
+		if ( (keyboard->GetKeyStateDown(DIK_S) && isFly == false) || bounceAfterJumpOnEnemy == true)
 		{
 			float jumpMaxHeight;
-			if (feverState == 2 && abs(velocity.x) > MARIO_RUNNING_SPEED * 0.85f)
+			if ( (feverState == 2 && abs(velocity.x) > MARIO_RUNNING_SPEED * 0.85f))
 			{
 				// SUPER JUMP
 				jumpMaxHeight = MARIO_SUPER_JUMP_HEIGHT;
@@ -287,6 +289,13 @@ void CMario::Update(DWORD dt, CCamera* cam)
 				velocity.y = -MARIO_PUSH_FORCE / 2;
 				canHighJump = false;
 			}
+			if (bounceAfterJumpOnEnemy == true)
+			{
+				bounceAfterJumpOnEnemy = false;
+				canHighJump = false;
+				stopBounce = true;
+			}
+
 		}
 	}
 	if (velocity.y > 0)
@@ -423,6 +432,7 @@ void CMario::Render(CCamera* cam)
 
 void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
 {
+	physiscBody->SetBounceForce(0);
 	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
@@ -439,6 +449,30 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 				auto v = physiscBody->GetVelocity();
 				physiscBody->SetVelocity(D3DXVECTOR2(0, v.y));
 				pMeterCounting = 0;
+			}
+		}
+		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy) // xét tổng quát, nhưng thiệt ra có 1 số con mình nhảy lên đầu chưa đúng lắm ?
+		{
+			if (collisionEvent->ny !=  0) // nhảy lên đầu quái
+			{
+				if (bounceAfterJumpOnEnemy == false && stopBounce == false)
+				{
+					auto normal = physiscBody->GetNormal();
+					physiscBody->SetVelocity(D3DXVECTOR2(normal.x* 0.21f, -MARIO_JUMP_FORCE)); // làm sao để nảy lên r chạy qua 1 bên
+					isJump = true;
+					isOnGround = false;
+					canHighJump = true;
+					currentPhysicsState.jump = JumpOnAirStates::Jump;
+					bounceAfterJumpOnEnemy = true;
+				}
+				if (stopBounce == true)
+					stopBounce = false;
+				
+			}
+			else if (collisionEvent->nx != 0)
+			{
+				// TO-DO: Bị damaged
+				OnDamaged();
 			}
 		}
 	}
@@ -534,6 +568,11 @@ void CMario::OnKeyUp(int KeyCode)
 	{
 		canHighJump = false;
 	}
+}
+
+void CMario::OnDamaged()
+{
+
 }
 
 void CMario::SetMarioStateTag(MarioStates tag)

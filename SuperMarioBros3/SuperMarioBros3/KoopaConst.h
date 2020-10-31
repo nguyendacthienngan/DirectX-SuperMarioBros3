@@ -1,7 +1,7 @@
 #pragma once
 
 #define KOOPA_STATE_MOVE		"MOVE"
-#define KOOPA_STATE_CROUCH		"CROUCH"
+#define KOOPA_STATE_WITH_DRAW		"WITH-DRAW"
 
 #define KOOPA_SHELL_STATE_IDLE		"IDLE"
 #define KOOPA_SHELL_STATE_RUN		"RUN"

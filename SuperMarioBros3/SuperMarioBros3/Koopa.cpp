@@ -1,12 +1,15 @@
-#include "Koopa.h"
+﻿#include "Koopa.h"
 #include "AnimationManager.h"
 #include "Ultis.h"
 #include "KoopaConst.h"
+#include "MiscConst.h"
 
 CKoopa::CKoopa()
 {
 	LoadAnimation();
 	Init();
+	enemyTag = EnemyTag::Koopa;
+
 }
 
 void CKoopa::Init()
@@ -32,7 +35,7 @@ void CKoopa::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
 	AddAnimation(KOOPA_STATE_MOVE, animationManager->Get("ani-red-koopa-troopa-move"));
-	AddAnimation(KOOPA_STATE_CROUCH, animationManager->Get("ani-red-koopa-troopa-crouch"));
+	AddAnimation(KOOPA_STATE_WITH_DRAW, animationManager->Get("ani-red-koopa-troopa-with-draw"));
 }
 
 void CKoopa::Update(DWORD dt, CCamera* cam)
@@ -59,5 +62,24 @@ void CKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 				physiscBody->SetNormal(normal);
 			}
 		}
+		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && collisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
+		{
+			if (collisionEvent->nx != 0)
+			{
+				CKoopa::OnDie();
+			}
+		}
+		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
+		{
+			// Mario đạp lên đầu
+			if (collisionEvent->ny != 0)
+			{
+				CKoopa::OnDie();
+			}
+		}
 	}
+}
+
+void CKoopa::OnDie()
+{
 }

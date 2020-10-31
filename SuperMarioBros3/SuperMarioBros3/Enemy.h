@@ -7,11 +7,15 @@ protected:
 	D3DXVECTOR2 startPosition; // vị trí mà sau khi di chuyển nó quay trở lại
 	float distanceToMove;
 	std::string enemyType;
-	
+	EnemyTag enemyTag;
+	DWORD startDeadTime;
 public:
 	CEnemy();
 	void SetEnemyType(std::string eT);
 	std::string GetEnemyType();
+
+	void SetEnemyTag(EnemyTag eT);
+	EnemyTag GetEnemyTag();
 
 	void SetStartPosition(D3DXVECTOR2 sT);
 	D3DXVECTOR2 GetStartPosition();
