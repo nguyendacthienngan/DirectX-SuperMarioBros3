@@ -2,6 +2,7 @@
 #include "KoopaConst.h"
 #include "AnimationManager.h"
 #include "Ultis.h"
+#include "MiscConst.h"
 CKoopaShell::CKoopaShell()
 {
 	LoadAnimation();
@@ -41,7 +42,17 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam)
 
 void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
 {
-
+	for (auto collisionEvent : collisionEvents)
+	{
+		auto collisionBox = collisionEvent->obj;
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && collisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
+		{
+			if (collisionEvent->nx != 0)
+			{
+				CKoopaShell::OnDie();
+			}
+		}
+	}
 }
 
 void CKoopaShell::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)

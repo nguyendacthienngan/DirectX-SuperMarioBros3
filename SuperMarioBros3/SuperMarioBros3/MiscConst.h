@@ -1,4 +1,5 @@
 #pragma once
+#define FIRE_BALL_NAME					"fire-ball"
 
 #define FIRE_BALL_ANIMATION				"FIRE-BALL"
 

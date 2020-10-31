@@ -297,9 +297,12 @@ void CPhysicsBody::CalcPotentialCollisions(
 			continue;
 		if (coObjects->at(i) == cO)
 			continue;
-		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Player && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc )
+			continue;
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
 			continue;
 
+		
 		// Chỗ này sai, đã sửa nhưng chưa test lại
 		//if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc) // Chỗ player là tạm thời ! Phải sửa lại là coObject đó có enable hay k mới đúng
 		//	continue;
@@ -309,15 +312,16 @@ void CPhysicsBody::CalcPotentialCollisions(
 		{
 			if (CheckAABB(cO->GetBoundingBox(), coObjects->at(i)->GetBoundingBox()) == true || CheckAABB(coObjects->at(i)->GetBoundingBox(), cO->GetBoundingBox()) == true)
 			{
-				DebugOut(L"Overlapppppp \n");
-				OutputDebugString(ToLPCWSTR("BB: " + cO->GetName() + "over lap " + coObjects->at(i)->GetName() + "\n"));
+				//DebugOut(L"Overlapppppp \n");
+				//OutputDebugString(ToLPCWSTR("BB: " + cO->GetName() + "over lap " + coObjects->at(i)->GetName() + "\n"));
 				cO->GetGameObjectAttach()->OnOverlappedEnter(cO, coObjects->at(i));
 				coObjects->at(i)->GetGameObjectAttach()->OnOverlappedEnter(coObjects->at(i), cO);
 				continue;
 			}
 		}
 		LPCollisionEvent e = SweptAABBEx(cO,coObjects->at(i));
-
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
+			DebugOut(L"Enemy meets Fire Balllll \n");
 		if (e->t > 0 && e->t <= 1.0f)
 		{
 			coEvents.push_back(e);

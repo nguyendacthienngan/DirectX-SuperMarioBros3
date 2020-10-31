@@ -1,6 +1,7 @@
 ﻿#include "Goomba.h"
 #include "AnimationManager.h"
 #include "Ultis.h"
+#include "MiscConst.h"
 
 CGoomba::CGoomba()
 {
@@ -13,7 +14,7 @@ CGoomba::CGoomba()
 void CGoomba::Init()
 {
 	LoadAnimation();
-	isEnabled = false;
+	isEnabled = true;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(GOOMBA_BBOX);
@@ -86,6 +87,13 @@ void CGoomba::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Coll
 				auto normal = physiscBody->GetNormal();
 				normal.x = -1;
 				physiscBody->SetNormal(normal);
+			}
+		}
+		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && collisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
+		{
+			if (collisionEvent->nx != 0)
+			{
+				CGoomba::OnDie();
 			}
 		}
 	}

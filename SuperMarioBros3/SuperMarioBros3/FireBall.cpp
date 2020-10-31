@@ -16,7 +16,7 @@ CFireBall::CFireBall()
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(FIRE_BALL_BBOX);
 	collisionBox->SetGameObjectAttach(this);
-	collisionBox->SetName("Fire-Ball"); 
+	collisionBox->SetName(FIRE_BALL_NAME);
 	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
 	this->collisionBoxs->push_back(collisionBox);
 
@@ -54,11 +54,15 @@ void CFireBall::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Co
 	{
 		auto collisionBox = collisionEvent->obj;
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid
-			&& collisionEvent->nx != 0)
+			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
 		{
-			this->isEnabled = false;
-			auto scene = CSceneManager::GetInstance()->GetActiveScene();
-			scene->RemoveObject(this);
+			if (collisionEvent->nx != 0)
+			{
+				this->isEnabled = false;
+				auto scene = CSceneManager::GetInstance()->GetActiveScene();
+				scene->RemoveObject(this);
+			}
+			
 		}
 	}
 }
