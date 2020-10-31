@@ -20,20 +20,33 @@ void CRaccoonMario::Init()
 	canAttack = true;
 	isJumpAttack = false;
 	isAttackContinious = false;
-	timeToFly = 4000;
-	timeToFloat = 5000;
-	timeToKeyFlyDown = 200;
-	timeToKeyFloatDown = 1000;
+
+#pragma region Các biến flag để xét việc Fly
+	timeToFly = FLYING_TIME;
+	timeToKeyFlyDown = TIME_TO_PRESS_S_TO_FLY;
 	lastFlyTime = 0;
 	lastKeyFlyDown = 0;
 	isFly = false;
-	moreFlyPower = false;
-	moreFloatPower = false;
 	flyDown = false;
+	moreFlyPower = false;
+#pragma endregion
+
+#pragma region Các biến flag để xét việc Float
+	timeToFloat = FLOATING_TIME;
+	timeToKeyFloatDown = TIME_TO_PRESS_S_TO_FLOAT;
+	moreFloatPower = false;
 	feverState = -1;
 	canFloat = false;
 	isFloat = false;
 	lastFloatTime = 0;
+#pragma endregion
+	
+#pragma region  Các biến flag để xét việc Attack (Quay đuôi)
+	timeToAttack = ATTACKING_TIME;
+	beginAttackTime = 0;
+	beginAttackTail = false;
+#pragma endregion
+
 }
 
 void CRaccoonMario::LoadAnimation()
@@ -64,6 +77,7 @@ void CRaccoonMario::EndAnimation()
 			isAttack = false;
 			isJumpAttack = false;
 			raccoonTailBox->Enable(false);
+			beginAttackTail = false;
 
 			if (animations.find(lastState) == animations.end()) // Không kiếm được last state trong animation, đồng nghĩa với việc last state chưa được khởi tạo, còn nếu đc khởi tạo rồi thì mình set state theo cái state trước đó
 				lastState = MARIO_STATE_IDLE;
@@ -78,8 +92,16 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 	CMario::Update(dt, cam);
 	if (isAttack == true) 
 	{
+		// Nếu vừa ấn attack cái enable cái đuôi là sai vì tới frame thứ 3 của Attack Animation mới là cái đuôi giơ ra
+		// Nên mình sẽ set cái time phù hợp để xét va chạm đuôi đúng
+		//raccoonTailBox->Enable(true);
+		if (GetTickCount64() - beginAttackTime > ATTACKING_TIME && beginAttackTime != 0)
+		{
+			raccoonTailBox->Enable(true);
+			beginAttackTail = true;
+		}
+
 #pragma region Xử lý việc quay đuôi với phím tắt
-		raccoonTailBox->Enable(true);
 		currentPhysicsState.move = MoveOnGroundStates::Attack;
 		if (keyboard->GetKeyStateDown(DIK_Z))
 		{
@@ -106,7 +128,6 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 
 	// Bay
 	// Set Gravity = 0 để bé cáo bay thỏa thích trên trời, đến max time (4s) rồi thì hạ xuống từ từ
-	// Lúc bay, ta sẽ set abs(vel.x), abs(vel.y) tăng
 
 	auto velocity = physiscBody->GetVelocity();
 	auto sign = physiscBody->GetNormal().x;
@@ -197,8 +218,9 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 #pragma endregion
 
 
-	// Set vị trí của TailBox ngay trước mặt Mario (overlap 1 khoảng với box của Mario)
 
+
+	// Set vị trí của TailBox ngay trước mặt Mario (overlap 1 khoảng với box của Mario)
 	auto tailPosition = transform.position;
 	auto normal = physiscBody->GetNormal();
 	tailPosition.x += SUPER_MARIO_BBOX.x*0.8f*normal.x ;
@@ -213,7 +235,6 @@ void CRaccoonMario::AddObjectToScene(LPScene scene)
 void CRaccoonMario::OnKeyDown(int KeyCode)
 {
 	CMario::OnKeyDown(KeyCode);
-	
 	if (KeyCode == DIK_S)
 	{
 #pragma region Xử lý việc bay của Mario

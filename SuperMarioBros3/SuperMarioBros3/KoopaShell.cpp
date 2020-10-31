@@ -12,7 +12,7 @@ void CKoopaShell::Init()
 {
 	LoadAnimation();
 	SetState(KOOPA_SHELL_STATE_IDLE);
-	isEnabled = false;
+	isEnabled = true;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(KOOPA_SHELL_BBOX);
@@ -42,4 +42,27 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam)
 void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
 {
 
+}
+
+void CKoopaShell::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
+{
+	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
+	{
+		DebugOut(L"Koopa Shell Died \n");
+		CKoopaShell::OnDie();
+	}
+}
+
+void CKoopaShell::OnDie()
+{
+	auto normal = physiscBody->GetNormal();
+	normal.y = -1;
+	physiscBody->SetNormal(normal);
+}
+
+void CKoopaShell::Render(CCamera* cam)
+{
+	auto normal = physiscBody->GetNormal();
+	SetScale(normal);
+	CGameObject::Render(cam);
 }

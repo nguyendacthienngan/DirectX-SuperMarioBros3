@@ -28,6 +28,13 @@
 #define PMETER_MAX						5
 #define PMETER_STEP						0.005f
 
+#define FLYING_TIME						4000
+#define FLOATING_TIME					5000
+#define ATTACKING_TIME					300
+
+#define TIME_TO_PRESS_S_TO_FLY			200
+#define TIME_TO_PRESS_S_TO_FLOAT		1000
+
 #define MARIO_STATE_IDLE				"IDLE"
 #define MARIO_STATE_WALKING				"WALK"
 #define MARIO_STATE_RUNNING				"RUN"

@@ -27,7 +27,8 @@ protected:
 	bool isJumpAttack;
 	int feverState; // - 1, 0, 1, 2 : -1 là disable đối với Raccoon vì Raccoon bay kiểu khác
 	DWORD feverTime; // Thời gian PMeter giữ giá trị max
-	DWORD lastFeverTime; 
+	DWORD lastFeverTime;
+	DWORD beginAttackTime;
 	float pMeterCounting;
 	float beforeJumpPosition;
 	bool canFly;

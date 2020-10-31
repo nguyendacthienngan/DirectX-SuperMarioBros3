@@ -45,6 +45,7 @@ public:
 	void PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects);
 	void Update(LPGameObject gO);
 
+	bool CheckAABB(RectF selfBox, RectF otherBox);
 	static void SweptAABB(
 		float ml,			// move left 
 		float mt,			// move top

@@ -93,6 +93,18 @@ void CGameObject::OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<Co
 {
 }
 
+void CGameObject::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
+{
+}
+
+void CGameObject::OnDie()
+{
+}
+
+void CGameObject::OnDamage()
+{
+}
+
 void CGameObject::AddAnimation(std::string stateName, LPAnimation animation, bool isLoop)
 {
 	animation->SetLoopAnimation(isLoop);

@@ -11,3 +11,8 @@
 const D3DXVECTOR2 GOOMBA_BBOX(16 * 3, 16 * 3);
 
 #define GOOMBA_GRAVITY			0.00093f
+
+enum class GoombaState
+{
+	Walk, Die
+};

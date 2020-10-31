@@ -45,6 +45,8 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 
 	coEvents.clear();
 
+	//if (cO->GetName() == "Raccoon-Tail")
+	//	DebugOut(L"Raccoon Taillll \n");
 	CalcPotentialCollisions(cO, coObjects, coEvents);
 
 	// No collision occured, proceed normally
@@ -119,6 +121,13 @@ void CPhysicsBody::Update(LPGameObject gameObject)
 	distance.x = physiscBody->GetVelocity().x * dt;
 	distance.y = physiscBody->GetVelocity().y * dt;
 	collisionBoxs->at(0)->SetDistance(distance);
+}
+
+bool CPhysicsBody::CheckAABB(RectF selfBox, RectF otherBox)
+{
+	return 
+		( (selfBox.left <= otherBox.right)	&& (selfBox.right >= otherBox.left) && (selfBox.top <= otherBox.bottom) && (selfBox.bottom >= otherBox.top) // A overlaps B
+		|| (selfBox.left <= otherBox.left) && (selfBox.right >= otherBox.right) && (selfBox.top <= otherBox.top) && (selfBox.bottom >= otherBox.bottom)); // A contains B
 }
 /*
 	Standard sweptAABB implementation
@@ -286,16 +295,27 @@ void CPhysicsBody::CalcPotentialCollisions(
 	{
 		if (coObjects->at(i)->GetGameObjectAttach()->IsEnabled() == false && coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid)
 			continue;
+		if (coObjects->at(i) == cO)
+			continue;
+		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
+			continue;
 
-		// Chỗ này sai
+		// Chỗ này sai, đã sửa nhưng chưa test lại
 		//if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc) // Chỗ player là tạm thời ! Phải sửa lại là coObject đó có enable hay k mới đúng
 		//	continue;
 
-		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc) 
-			continue;
-		if (coObjects->at(i) == cO)
-			continue;
-
+		// Có overlap (Dùng AABB)
+		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && cO->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid)
+		{
+			if (CheckAABB(cO->GetBoundingBox(), coObjects->at(i)->GetBoundingBox()) == true || CheckAABB(coObjects->at(i)->GetBoundingBox(), cO->GetBoundingBox()) == true)
+			{
+				DebugOut(L"Overlapppppp \n");
+				OutputDebugString(ToLPCWSTR("BB: " + cO->GetName() + "over lap " + coObjects->at(i)->GetName() + "\n"));
+				cO->GetGameObjectAttach()->OnOverlappedEnter(cO, coObjects->at(i));
+				coObjects->at(i)->GetGameObjectAttach()->OnOverlappedEnter(coObjects->at(i), cO);
+				continue;
+			}
+		}
 		LPCollisionEvent e = SweptAABBEx(cO,coObjects->at(i));
 
 		if (e->t > 0 && e->t <= 1.0f)

@@ -11,13 +11,14 @@ private:
 
 	bool isSetToPointCenter;
 	bool isAttackContinious;
-	DWORD timeToFly, timeToFloat;
+	DWORD timeToFly, timeToFloat, timeToAttack;
 	DWORD timeToKeyFlyDown, timeToKeyFloatDown;
 	DWORD lastFlyTime; // time để tính từ lúc canFly cho đến khi hết timeToFly
 	DWORD lastKeyFlyDown, lastFloatTime, lastKeyFloatDown;
 	bool moreFlyPower, moreFloatPower;
 	bool flyDown;
 	bool canFloat, isFloat; // Giành cho việc ngay khi bay xong có thẩy quẫy đuôi để rơi chậm
+	bool beginAttackTail;
 public:
 	CRaccoonMario();
 	void Init() override;

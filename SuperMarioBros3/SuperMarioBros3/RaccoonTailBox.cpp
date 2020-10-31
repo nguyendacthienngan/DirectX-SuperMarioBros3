@@ -10,6 +10,7 @@ CRaccoonTailBox::CRaccoonTailBox()
 
 void CRaccoonTailBox::Init()
 {
+	this->tag = GameObjectTags::RaccoonTail;
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(RACCOON_TAIL_BBOX);
 	collisionBox->SetGameObjectAttach(this);

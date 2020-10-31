@@ -7,6 +7,7 @@ protected:
 	D3DXVECTOR2 startPosition; // vị trí mà sau khi di chuyển nó quay trở lại
 	float distanceToMove;
 	std::string enemyType;
+	
 public:
 	CEnemy();
 	void SetEnemyType(std::string eT);

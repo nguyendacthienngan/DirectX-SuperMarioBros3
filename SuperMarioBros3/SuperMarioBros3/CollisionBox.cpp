@@ -24,7 +24,10 @@ CCollisionBox::~CCollisionBox()
 
 void CCollisionBox::Render(CCamera* camera, int distance)
 {
+	//OutputDebugString(ToLPCWSTR("Render BB: " + name + "\n"));
 	auto pos = GetWorldPosition();
+	//DebugOut(L"Position %f, %f \n", pos.x, pos.y);
+
 	auto tex = CTextureManager::GetInstance()->GetTexture(TEXTURE_BBOX);
 	RECT bbRect;
 	bbRect.left = 0;
@@ -103,6 +106,9 @@ RectF CCollisionBox::GetBoundingBox()
 	r.right = pos.x + sizeBox.x*0.5f;
 	r.top =  pos.y - sizeBox.y * 0.5f;
 	r.bottom = pos.y + sizeBox.y * 0.5f;
+	//OutputDebugString(ToLPCWSTR("Render BB: " + name + "\n"));
+
+	//DebugOut(L"Position %f, %f \n", pos.x, pos.y);
 	return r;
 }
 

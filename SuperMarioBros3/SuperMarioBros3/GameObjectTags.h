@@ -8,6 +8,7 @@ enum class GameObjectTags
 	Solid,
 	GhostPlatform,
 	Enemy,
-	Misc
+	Misc,
+	RaccoonTail
 };
 
