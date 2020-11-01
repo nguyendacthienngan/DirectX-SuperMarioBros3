@@ -3,7 +3,7 @@
 #include "CollisionBox.h"
 #include <d3d9.h>
 #include <d3d9.h>
-
+#include "GameObjectTags.h"
 struct CollisionEvent;
 typedef CollisionEvent* LPCollisionEvent;
 
@@ -59,7 +59,8 @@ public:
 		float sb,
 		float& t,
 		float& nx,
-		float& ny);
+		float& ny,
+		GameObjectTags tag);
 
 	LPCollisionEvent SweptAABBEx(LPCollisionBox cO, LPCollisionBox cOOther); // thay vì xét với các gameobject khác, thực chất mình chỉ xét với những collisionbox mà thôi
 	void CalcPotentialCollisions(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects, std::vector<LPCollisionEvent>& coEvents);

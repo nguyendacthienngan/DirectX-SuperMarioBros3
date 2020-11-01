@@ -13,6 +13,7 @@ void CGhostPlatform::Init()
 	this->physiscBody->SetDynamic(false);
 	this->SetTag(GameObjectTags::GhostPlatform);
 	this->SetEffector(Effector::Top);
+	this->isEnabled = true;
 }
 
 CGhostPlatform::~CGhostPlatform()

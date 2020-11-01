@@ -152,7 +152,8 @@ void CPhysicsBody::SweptAABB(
 	float ml, float mt, float mr, float mb,
 	float dx, float dy,
 	float sl, float st, float sr, float sb,
-	float& t, float& nx, float& ny)
+	float& t, float& nx, float& ny,
+	GameObjectTags tag)
 {
 
 	float dx_entry, dx_exit, tx_entry, tx_exit;
@@ -241,12 +242,14 @@ void CPhysicsBody::SweptAABB(
 	if (tx_entry > ty_entry)
 	{
 		ny = 0.0f;
-		dx > 0 ? nx = -1.0f : nx = 1.0f;
+		tag == GameObjectTags::GhostPlatform ? nx = 0.0f : (dx > 0 ? nx = -1.0f : nx = 1.0f);
 	}
 	else
 	{
 		nx = 0.0f;
-		dy > 0 ? ny = -1.0f : ny = 1.0f;
+		//dy > 0 ? ny = -1.0f : ny = 1.0f;
+		// Ghost Platform thì mình k xét ở dưới lên hoặc va chạm ngang
+		dy > 0 ? ny = -1.0f : (tag == GameObjectTags::GhostPlatform ? ny = 0.0f : ny = 1.0f);
 	}
 #pragma endregion
 }
@@ -291,7 +294,7 @@ LPCollisionEvent CPhysicsBody::SweptAABBEx(LPCollisionBox cO, LPCollisionBox cOO
 		ml, mt, mr, mb,
 		dx, dy,
 		sl, st, sr, sb,
-		t, nx, ny
+		t, nx, ny, cOOther->GetGameObjectAttach()->GetTag()
 	);
 
 	CollisionEvent* e = new CollisionEvent(t, nx, ny, dx, dy, cOOther);
@@ -307,7 +310,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		if (coObjects->at(i)->GetGameObjectAttach()->IsEnabled() == false && coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid)
+		if (coObjects->at(i)->GetGameObjectAttach()->IsEnabled() == false && (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid))
 			continue;
 		if (coObjects->at(i) == cO)
 			continue;

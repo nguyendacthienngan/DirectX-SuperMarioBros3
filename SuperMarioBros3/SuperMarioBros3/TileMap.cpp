@@ -164,15 +164,17 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					DebugOut(L"BoxSize: %d, %f,%f,%f,%f\n", id, solid->GetPosition().x, solid->GetPosition().y, size.x, size.y);
 				
 				}
-				/*else if (name.compare("Ghost") == 0)
+				else if (name.compare("Ghost") == 0)
 				{
 					CGhostPlatform* ghostPlatform = new CGhostPlatform();
-					ghostPlatform->SetPosition(position);
+					ghostPlatform->SetPosition(position - translateConst + size * 0.5);
 					ghostPlatform->GetCollisionBox()->at(0)->SetSizeBox(size);
 					ghostPlatform->GetCollisionBox()->at(0)->SetId(id);
 					ghostPlatform->GetCollisionBox()->at(0)->SetName(nameObject);
 					listGameObjects.push_back(ghostPlatform);
-				}*/
+					OutputDebugString(ToLPCWSTR("Name object" + nameObject + "\n"));
+					DebugOut(L"BoxSize: %d, %f,%f,%f,%f\n", id, ghostPlatform->GetPosition().x, ghostPlatform->GetPosition().y, size.x, size.y);
+				}
 				else if (name.compare("Enemy") == 0)
 				{
 					std::string enemyName = object->Attribute("name");
