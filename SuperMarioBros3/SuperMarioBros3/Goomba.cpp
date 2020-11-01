@@ -14,7 +14,7 @@ CGoomba::CGoomba()
 void CGoomba::Init()
 {
 	LoadAnimation();
-	isEnabled = false;
+	isEnabled = true;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(GOOMBA_BBOX);
@@ -38,7 +38,6 @@ void CGoomba::LoadAnimation()
 
 void CGoomba::Update(DWORD dt, CCamera* cam)
 {
-	//DebugOut(L"Goomba Position Y: %f \n", transform.position.y);
 	auto velocity = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
 	if (currentPhysicsState != GoombaState::Die)
@@ -49,11 +48,11 @@ void CGoomba::Update(DWORD dt, CCamera* cam)
 	{
 		this->isEnabled = false;
 		physiscBody->SetDynamic(false);
+		physiscBody->SetGravity(0.0f);
+		velocity.y = 0.0f;
+
 	}
 	physiscBody->SetVelocity(velocity);
-	
-	
-	
 }
 
 void CGoomba::Render(CCamera* cam)
@@ -84,7 +83,7 @@ void CGoomba::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Coll
 			if (collisionEvent->nx != 0)
 			{
 				auto normal = physiscBody->GetNormal();
-				normal.x = -1;
+				normal.x = -normal.x;
 				physiscBody->SetNormal(normal);
 			}
 		}
@@ -95,15 +94,6 @@ void CGoomba::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Coll
 				CGoomba::OnDie();
 			}
 		}
-		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
-		{
-			// Mario đạp lên đầu
-			if (collisionEvent->ny != 0)
-			{
-				CGoomba::OnDie();
-			
-			}
-		}
 	}
 }
 
@@ -112,23 +102,19 @@ void CGoomba::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* 
 	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
 	{
 		CGoomba::OnDie();
-
 	}
 }
 
 void CGoomba::OnDie()
 {
 	currentPhysicsState = GoombaState::Die;
-	// Tạm thời thui, sau này còn xét kiểu chết khác nhau
-	// Và mình sẽ cho nó time để die riêng
-	// Sau khi hết time là nó tự disable
 	auto v = physiscBody->GetVelocity();
 	v.x = 0.0f;
+	v.y = 0.0f;
 	physiscBody->SetVelocity(v);
 	physiscBody->SetGravity(0.0f);
 	startDeadTime = GetTickCount64();
 
 	SetRelativePositionOnScreen(D3DXVECTOR2(0, (GOOMBA_BBOX.y - GOOMBA_DIE_BBOX.y) * 0.5f));
 	collisionBoxs->at(0)->SetSizeBox(GOOMBA_DIE_BBOX);
-
 }

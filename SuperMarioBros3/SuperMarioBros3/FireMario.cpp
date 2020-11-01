@@ -48,6 +48,7 @@ void CFireMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_JUMP_ATTACK, animationManager->Get("ani-fire-mario-jump-throw"), false);
 	AddAnimation(MARIO_STATE_HOLD_MOVE, animationManager->Get("ani-fire-mario-hold"));
 	AddAnimation(MARIO_STATE_HOLD_IDLE, animationManager->Get("ani-fire-mario-hold-idle"));
+	AddAnimation(MARIO_STATE_KICK, animationManager->Get("ani-fire-mario-kick"), false);
 }
 
 void CFireMario::Render(CCamera* cam)
@@ -80,6 +81,7 @@ void CFireMario::Update(DWORD dt, CCamera* cam)
 
 void CFireMario::EndAnimation()
 {
+	CMario::EndAnimation();
 	if (currentState.compare(MARIO_STATE_ATTACK) == 0)
 	{
 		isAttack = false; 
