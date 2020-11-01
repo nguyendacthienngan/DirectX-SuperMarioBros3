@@ -133,6 +133,9 @@
     <Filter Include="Game\GameObject\Mario\MarioStates\RaccoonTail">
       <UniqueIdentifier>{a96c0e5f-441b-4f4f-99b5-c86b9f9e457c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Enemy\Koopa\KoopaShell">
+      <UniqueIdentifier>{355de57c-101d-4356-b49a-7ab715e6e94c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -303,9 +306,6 @@
     <ClInclude Include="KoopaConst.h">
       <Filter>Game\GameObject\Enemy\Koopa</Filter>
     </ClInclude>
-    <ClInclude Include="KoopaShell.h">
-      <Filter>Game\GameObject\Enemy\Koopa</Filter>
-    </ClInclude>
     <ClInclude Include="RaccoonTailBox.h">
       <Filter>Game\GameObject\Mario\MarioStates\RaccoonTail</Filter>
     </ClInclude>
@@ -314,6 +314,12 @@
     </ClInclude>
     <ClInclude Include="RaccoonMario.h">
       <Filter>Game\GameObject\Mario\MarioStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Holdable.h">
+      <Filter>Game\GameObject\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="KoopaShell.h">
+      <Filter>Game\GameObject\Enemy\Koopa\KoopaShell</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -440,14 +446,17 @@
     <ClCompile Include="Koopa.cpp">
       <Filter>Game\GameObject\Enemy\Koopa</Filter>
     </ClCompile>
-    <ClCompile Include="KoopaShell.cpp">
-      <Filter>Game\GameObject\Enemy\Koopa</Filter>
-    </ClCompile>
     <ClCompile Include="RaccoonTailBox.cpp">
       <Filter>Game\GameObject\Mario\MarioStates\RaccoonTail</Filter>
     </ClCompile>
     <ClCompile Include="RaccoonMario.cpp">
       <Filter>Game\GameObject\Mario\MarioStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Holdable.cpp">
+      <Filter>Game\GameObject\Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="KoopaShell.cpp">
+      <Filter>Game\GameObject\Enemy\Koopa\KoopaShell</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

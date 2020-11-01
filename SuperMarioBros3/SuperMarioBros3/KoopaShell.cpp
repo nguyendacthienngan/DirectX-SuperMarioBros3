@@ -39,6 +39,12 @@ void CKoopaShell::LoadAnimation()
 void CKoopaShell::Update(DWORD dt, CCamera* cam)
 {
 	//DebugOut(L"KoopaShell Position.y %f \n", transform.position.y);
+	if (IsHolding() == true && physiscBody->GetGravity() != 0)
+		physiscBody->SetGravity(0);
+	else 
+		physiscBody->SetGravity(KOOPA_GRAVITY);
+
+	DebugOut(L"Koopa'shell's position: (%f, %f) \n", transform.position.x, transform.position.y);
 }
 
 void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
@@ -78,10 +84,30 @@ void CKoopaShell::OnDie()
 	auto normal = physiscBody->GetNormal();
 	normal.y = -1;
 	physiscBody->SetNormal(normal);
-	auto v = physiscBody->GetVelocity();
+
+	// Chỗ này giúp tạo hiệu ứng văng đi => Và có thể giúp k bị rớt khỏi mặt đất
+	/*auto v = physiscBody->GetVelocity();
 	v.y = -1.0f;
-	physiscBody->SetVelocity(v);
+	physiscBody->SetVelocity(v);*/
 	physiscBody->SetGravity(0.0f);
+}
+
+void CKoopaShell::SetHoldablePosition(D3DXVECTOR2 pos)
+{
+	SetPosition(pos);
+}
+
+void CKoopaShell::Release()
+{
+	CHoldable::Release();
+	// Trả lại chuyển động bình thường
+	isEnabled = true;
+	physiscBody->SetNormal(normal); // Sẽ set lại normal theo hướng bị thả ra dựa vào normal bên class cha Holdable giữ
+}
+
+D3DXVECTOR2 CKoopaShell::GetHoldableCollisionBox()
+{
+	return collisionBoxs->at(0)->GetSizeBox();
 }
 
 void CKoopaShell::Render(CCamera* cam)

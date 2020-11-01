@@ -66,6 +66,8 @@ void CRaccoonMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_CROUCH, animationManager->Get("ani-raccoon-mario-crouch"));
 	AddAnimation(MARIO_STATE_ATTACK, animationManager->Get("ani-raccoon-mario-spin"), false);
 	AddAnimation(MARIO_STATE_JUMP_ATTACK, animationManager->Get("ani-raccoon-mario-spin"), false);
+	AddAnimation(MARIO_STATE_HOLD_MOVE, animationManager->Get("ani-raccoon-mario-hold"));
+	AddAnimation(MARIO_STATE_HOLD_IDLE, animationManager->Get("ani-raccoon-mario-hold-idle"));
 }
 
 void CRaccoonMario::EndAnimation()

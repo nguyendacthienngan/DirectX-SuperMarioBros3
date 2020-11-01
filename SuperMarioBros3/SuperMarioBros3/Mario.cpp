@@ -8,6 +8,9 @@
 #include "Sprite.h"
 
 #include "CollisionBox.h"
+#include "Enemy.h"
+#include "KoopaShell.h"
+
 #include <cstdlib>
 #include <cctype> 
 #include <string>
@@ -325,7 +328,8 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 	if (canCrouch == true) // Small Mario k thể crouch
 		CrouchProcess(keyboard);
-	
+	HoldProcess();
+
 }
 
 void CMario::Render(CCamera* cam)
@@ -337,55 +341,70 @@ void CMario::Render(CCamera* cam)
 #pragma region Move On Ground
 	switch (currentPhysicsState.move)
 	{
-	case MoveOnGroundStates::Idle:
-	{
-		SetState(MARIO_STATE_IDLE);
-
-		break;
-	}
-	case MoveOnGroundStates::Walk:
-	{
-		SetState(MARIO_STATE_WALKING);
-		break;
-	}
-	case MoveOnGroundStates::Run:
-	{
-		SetState(MARIO_STATE_RUNNING);
-		break;
-	}
-	case MoveOnGroundStates::Skid:
-	{
-		auto normal = physiscBody->GetNormal();
-		SetScale(D3DXVECTOR2(-normal.x, 1.0f));
-		SetState(MARIO_STATE_SKID);
-		
-		break;
-	}
-	case MoveOnGroundStates::Crouch:
-	{
-		SetState(MARIO_STATE_CROUCH);
-		break;
-	}
-	case MoveOnGroundStates::HighSpeed:
-	{
-		SetState(MARIO_STATE_HIGH_SPEED);
-		break;
-	}
-	case MoveOnGroundStates::Attack:
-	{
-		SetState(MARIO_STATE_ATTACK);
-		break;
-	}
-	case MoveOnGroundStates::JumpAttack:
-	{
-		SetState(MARIO_STATE_JUMP_ATTACK);
-		break;
-	}
+		case MoveOnGroundStates::Idle:
+		{
+			if (isHold == true)
+				SetState(MARIO_STATE_HOLD_IDLE);
+			else
+				SetState(MARIO_STATE_IDLE);
+			break;
+		}
+		case MoveOnGroundStates::Walk:
+		{
+			if (isHold == true)
+				SetState(MARIO_STATE_HOLD_MOVE);
+			else
+				SetState(MARIO_STATE_WALKING);
+			break;
+		}
+		case MoveOnGroundStates::Run:
+		{
+			if (isHold == true)
+				SetState(MARIO_STATE_HOLD_MOVE);
+			else 
+				SetState(MARIO_STATE_RUNNING);
+			break;
+		}
+		case MoveOnGroundStates::Skid:
+		{
+			if (isHold == false)
+			{
+				auto normal = physiscBody->GetNormal();
+				SetScale(D3DXVECTOR2(-normal.x, 1.0f));
+				SetState(MARIO_STATE_SKID);
+				break;
+			}
+			
+		}
+		case MoveOnGroundStates::Crouch:
+		{
+			if (isHold == false)
+				SetState(MARIO_STATE_CROUCH);
+			break;
+		}
+		case MoveOnGroundStates::HighSpeed:
+		{
+			if (isHold == false)
+				SetState(MARIO_STATE_HIGH_SPEED);
+			break;
+		}
+		case MoveOnGroundStates::Attack:
+		{
+			if (isHold == false) // Tạm thời
+				SetState(MARIO_STATE_ATTACK);
+			break;
+		}
+		case MoveOnGroundStates::JumpAttack:
+		{
+			if (isHold == false)
+				SetState(MARIO_STATE_JUMP_ATTACK);
+			break;
+		}
 	}
 #	pragma endregion
 
 #pragma region Jump On Air
-	if (currentPhysicsState.move != MoveOnGroundStates::JumpAttack)
+	if (currentPhysicsState.move != MoveOnGroundStates::JumpAttack && isHold == false)
 	{
 		switch (currentPhysicsState.jump)
 		{
@@ -471,8 +490,38 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 			}
 			else if (collisionEvent->nx != 0)
 			{
-				// TO-DO: Bị damaged
-				OnDamaged();
+				auto otherObject = collisionBox->GetGameObjectAttach();
+				auto otherEnemyObject = static_cast<CEnemy*>(otherObject);
+				switch (otherEnemyObject->GetEnemyTag())
+				{
+					case EnemyTag::KoopaShell:
+					{
+						// Koopa Shell
+						if (CanRun() == true)
+						{
+							// Nếu mario đang chạy => Chạm mai rùa thì có thể cầm được mai rùa
+							// Lúc sau có thể bị đè bởi sự kiện mà set state k đc hay k?
+							auto koopaShell = static_cast<CKoopaShell*>(otherObject);
+							if (koopaShell != NULL)
+							{
+								HoldObject(koopaShell);
+								koopaShell->GetPhysiscBody()->SetGravity(0.0f);
+							}
+						}
+						else
+						{
+							// isKick = true;
+							//currentPhysicsState.move = MoveOnGroundStates::Kick;
+						}
+						break;
+					}
+					default:
+					{
+						// TO-DO: Bị damaged
+						OnDamaged();
+						break;
+					}
+				}
 			}
 		}
 	}
@@ -519,6 +568,29 @@ void CMario::SkidProcess(D3DXVECTOR2 velocity)
 	if (isOnGround == true && velocity.x * sign < 0) 
 	{
 		isSkid = true;
+	}
+}
+
+void CMario::HoldProcess()
+{
+	auto keyboard = CKeyboardManager::GetInstance();
+	auto normal = physiscBody->GetNormal();
+	if (isHold == true && objectHolding != NULL)
+	{
+		if (keyboard->GetKeyStateDown(DIK_A) == true) // Vẫn đang ấn giữ phím A
+		{
+			D3DXVECTOR2 posHoldable = transform.position;
+			// Chưa xét trường hợp small mario
+			posHoldable.x += (SUPER_MARIO_BBOX.x + objectHolding->GetHoldableCollisionBox().x) * normal.x*0.4f;
+			objectHolding->SetHoldablePosition(posHoldable);
+			objectHolding->SetHoldableNormal(normal);
+		}
+		else
+		{
+			objectHolding->Release();
+			objectHolding = NULL;
+			isHold = false;
+		}
 	}
 }
 
@@ -575,6 +647,13 @@ void CMario::OnDamaged()
 
 }
 
+void CMario::HoldObject(CHoldable* holdableObj)
+{
+	this->objectHolding = holdableObj;
+	isHold = true;
+	holdableObj->SetHolder(this);
+}
+
 void CMario::SetMarioStateTag(MarioStates tag)
 {
 	marioStateTag = tag;
@@ -583,6 +662,11 @@ void CMario::SetMarioStateTag(MarioStates tag)
 MarioStates CMario::GettMarioStateTag()
 {
 	return marioStateTag;
+}
+
+bool CMario::CanRun()
+{
+	return currentPhysicsState.move == MoveOnGroundStates::Run;
 }
 
 void CMario::Access()
