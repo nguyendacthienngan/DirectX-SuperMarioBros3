@@ -474,7 +474,7 @@ void CMario::Render(CCamera* cam)
 
 void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
 {
-	physiscBody->SetBounceForce(0);
+	//physiscBody->SetBounceForce(0);
 	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
@@ -500,6 +500,7 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 				// Cần chỉnh lại
 				//physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -0.2f));
 
+				// Mario nhảy lên sau khi nhảy lên đầu quái
 				if (bounceAfterJumpOnEnemy == false && stopBounce == false)
 				{
 					auto normal = physiscBody->GetNormal();
@@ -513,6 +514,27 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 				}
 				if (stopBounce == true)
 					stopBounce = false;
+
+				auto otherObject = collisionBox->GetGameObjectAttach();
+				auto otherEnemyObject = static_cast<CEnemy*>(otherObject);
+				switch (otherEnemyObject->GetEnemyTag())
+				{
+					case EnemyTag::KoopaShell:
+					{
+						auto koopaShell = static_cast<CKoopaShell*>(otherObject);
+						// Koopa Shell
+						if (koopaShell->IsRunning() == false)
+						{
+							koopaShell->SetRun();
+						}
+						else if (collisionEvent->ny <0)
+						{
+							koopaShell->SetStopRun();
+						}
+						break;
+					}
+				}
+				
 				
 			}
 			else if (collisionEvent->nx != 0)
@@ -526,7 +548,7 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 						auto koopaShell = static_cast<CKoopaShell*>(otherObject);
 
 						// Koopa Shell
-						if (CanRun() == true)
+						if (CanRun() == true && koopaShell->IsRunning() == false) // Mario đang chạy
 						{
 							// Nếu mario đang chạy => Chạm mai rùa thì có thể cầm được mai rùa
 							// Lúc sau có thể bị đè bởi sự kiện mà set state k đc hay k?
@@ -538,16 +560,18 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 						}
 						else
 						{
-							if (koopaShell->IsRunning() == false)
+							if (koopaShell->IsRunning() == false) // mai rùa đang chạy thì k kick đc nữa mà mario bị damaged
 							{
 								isKick = true;
 								auto normal = koopaShell->GetPhysiscBody()->GetNormal() ;
 								normal.x = this->physiscBody->GetNormal().x;
 								koopaShell->GetPhysiscBody()->SetNormal(normal);
-								koopaShell->SetRun(true);
+								koopaShell->SetRun();
 							}
-							
-							
+							else
+							{
+								// Mario bị damaged
+							}
 						}
 						break;
 					}

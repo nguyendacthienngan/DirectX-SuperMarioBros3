@@ -20,7 +20,8 @@ CPhysicsBody::CPhysicsBody()
 	dragForce.y = 0;
 	normal.x = 1;
 	normal.y = 1;
-	bounceForce = 0;
+	bounceForce.x = 0;
+	bounceForce.y = 0;
 }
 
 CPhysicsBody::~CPhysicsBody()
@@ -90,16 +91,28 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 		if (ny != 0)
 		{		
 			if (gravity == 0)
+			{
 				velocity.y = isTrigger == true ? velocity.y : 0;
+
+			}
 			else
 			{
 				if (nx == 0)
 				{
-					velocity.y = -bounceForce; // lực nảy
+					velocity.y = -bounceForce.y; // lực nảy
 					distance.y = velocity.y * dt;
 					//distance.y = 0;
 				}
 			}
+			//if (gravity != 0)
+			//{
+			//	velocity.y = -1 * Sign(velocity.y) * bounceForce.y; // lực nảy
+			//	distance.y = (-1) * Sign(distance.y) * velocity.y * dt;
+			//}
+			//else
+			//{
+			//	velocity.y = 0;
+			//}
 		}
 		gameObject->SetPosition(pos);
 	}
@@ -315,6 +328,9 @@ void CPhysicsBody::CalcPotentialCollisions(
 				continue;
 		}
 
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
+			continue;
+
 		// Có overlap (Dùng AABB)
 		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && cO->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid)
 		{
@@ -431,12 +447,12 @@ void CPhysicsBody::SetDynamic(bool isDynamic)
 	this->isDynamic = isDynamic;
 }
 
-float CPhysicsBody::GetBounceForce()
+D3DXVECTOR2 CPhysicsBody::GetBounceForce()
 {
 	return bounceForce;
 }
 
-void CPhysicsBody::SetBounceForce(float bF)
+void CPhysicsBody::SetBounceForce(D3DXVECTOR2 bF)
 {
 	bounceForce = bF;
 }
