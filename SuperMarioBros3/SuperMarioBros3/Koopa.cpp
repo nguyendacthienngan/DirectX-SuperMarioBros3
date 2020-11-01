@@ -16,7 +16,7 @@ void CKoopa::Init()
 {
 	LoadAnimation();
 	SetState(KOOPA_STATE_MOVE);
-	isEnabled = false;
+	isEnabled = true;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(KOOPA_BBOX);
@@ -24,18 +24,22 @@ void CKoopa::Init()
 	collisionBox->SetName("Koopa");
 	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
 	this->collisionBoxs->push_back(collisionBox);
-
-
+	
 	physiscBody->SetDynamic(true);
 	physiscBody->SetGravity(KOOPA_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
+
+	//auto normal = physiscBody->GetNormal();
+	//normal.x = -1.0f;
+	//physiscBody->SetNormal(normal);
+	//SetScale(normal);
 }
 
 void CKoopa::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(KOOPA_STATE_MOVE, animationManager->Get("ani-red-koopa-troopa-move"));
-	AddAnimation(KOOPA_STATE_WITH_DRAW, animationManager->Get("ani-red-koopa-troopa-with-draw"));
+	AddAnimation(KOOPA_STATE_MOVE, animationManager->Clone("ani-red-koopa-troopa-move"));
+	AddAnimation(KOOPA_STATE_WITH_DRAW, animationManager->Clone("ani-red-koopa-troopa-with-draw"));
 }
 
 void CKoopa::Update(DWORD dt, CCamera* cam)
@@ -43,9 +47,20 @@ void CKoopa::Update(DWORD dt, CCamera* cam)
 	auto velocity = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
 
+	/*if (transform.position.x >= boundaryRight - KOOPA_BBOX.x*0.5f|| transform.position.x <= boundaryLeft + KOOPA_BBOX.x *0.5f)
+		normal.x = -normal.x;*/
 	velocity.x = normal.x * KOOPA_SPEED;
 
 	physiscBody->SetVelocity(velocity);
+	physiscBody->SetNormal(normal);
+}
+
+void CKoopa::Render(CCamera* cam)
+{
+	auto normal = physiscBody->GetNormal();
+	
+	SetScale(D3DXVECTOR2(-normal.x, 1.0f));
+	CGameObject::Render(cam);
 }
 
 void CKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
@@ -69,17 +84,58 @@ void CKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 				CKoopa::OnDie();
 			}
 		}
-		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
-		{
-			// Mario đạp lên đầu
-			if (collisionEvent->ny != 0)
-			{
-				CKoopa::OnDie();
-			}
-		}
+	}
+}
+
+void CKoopa::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
+{
+	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
+	{
+		// Chỉ khi bị đuôi quật nó mới set lại -1 r văng đi (chưa văng khỏi ground)
+		// cần xử lý lại việc chết cho hợp lý
+		CKoopa::OnDie();
+	}
+}
+
+void CKoopa::ChangeToShell()
+{
+	this->isEnabled = false;
+	this->physiscBody->SetDynamic(false);
+	if (koopaShell != NULL)
+	{
+		koopaShell->Enable(true);
+		koopaShell->SetPosition(transform.position);
 	}
 }
 
 void CKoopa::OnDie()
 {
+
 }
+
+void CKoopa::SetBoundary(float boundLeft, float boundRight)
+{
+	boundaryLeft = boundLeft;
+	boundaryRight = boundRight;
+}
+
+float CKoopa::GetBoundaryLeft()
+{
+	return 0.0f;
+}
+
+float CKoopa::GetBoundaryRight()
+{
+	return 0.0f;
+}
+
+void CKoopa::SetKoopaShell(CKoopaShell* koopaShell)
+{
+	this->koopaShell = koopaShell;
+}
+
+CKoopaShell* CKoopa::GetKoopaShell()
+{
+	return koopaShell;
+}
+

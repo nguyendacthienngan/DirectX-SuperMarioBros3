@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="15" nextobjectid="52">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="15" nextobjectid="53">
  <editorsettings>
   <export target="world-1-1-map.xml" format="tmx"/>
  </editorsettings>
@@ -432,7 +432,7 @@
   <object id="19" x="6720" y="478" width="96" height="530"/>
   <object id="48" x="4463.5" y="1008.09" width="96.3636" height="47.4091"/>
  </objectgroup>
-<objectgroup id="14" name="Ghost">
+ <objectgroup id="14" name="Ghost">
   <object id="28" x="720.523" y="1104.97" width="142.597" height="47.1135"/>
   <object id="29" x="817.891" y="1008.86" width="140.712" height="47.7417"/>
   <object id="30" x="1200.45" y="1104.34" width="239.337" height="47.1135"/>
@@ -447,11 +447,13 @@
   <object id="39" x="3745.09" y="1152.82" width="333.545" height="46.9245"/>
   <object id="40" x="3841.47" y="1056.44" width="334.813" height="48.1928"/>
   <object id="41" x="3936.59" y="960.051" width="333.545" height="46.9245"/>
-</objectgroup>
+ </objectgroup>
  <objectgroup id="15" name="Enemy">
   <object id="42" name="goomba" type="basic" x="1608" y="1224"/>
   <object id="43" name="goomba" type="basic" x="696" y="1224"/>
-  <object id="44" name="koopa-shell" type="red" x="1318" y="1224"/>
-  <object id="45" name="koopa" type="basic" x="1318" y="1224"/>
+   <object id="44" name="koopa" type="basic" x="1979.5" y="1171" boundaryLeft="720.5" boundaryRight ="864"/>
+   <object id="45" idKoopa ="44" name="koopa-shell" type="red" x="1979.5" y="1171"/>
+  <object id="46" name="koopa" type="basic" x="760" y="1037.5" boundaryLeft="720.5" boundaryRight ="864"/>
+  <object id="47" idKoopa ="46" name="koopa-shell" type="red" x="760" y="1037.5"/>
  </objectgroup>
 </map>

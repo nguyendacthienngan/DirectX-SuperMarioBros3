@@ -15,6 +15,7 @@
 #include <cstdlib>
 #include <cctype> 
 #include <string>
+#include "Koopa.h"
 
 using namespace std;
 
@@ -552,6 +553,12 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 					case EnemyTag::Goomba:
 					{
 						otherEnemyObject->OnDie();
+						break;
+					}
+					case EnemyTag::Koopa:
+					{
+						auto koopa = static_cast<CKoopa*>(otherObject);
+						koopa->ChangeToShell();
 						break;
 					}
 				}
