@@ -14,7 +14,7 @@ CGoomba::CGoomba()
 void CGoomba::Init()
 {
 	LoadAnimation();
-	isEnabled = true;
+	isEnabled = false;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(GOOMBA_BBOX);

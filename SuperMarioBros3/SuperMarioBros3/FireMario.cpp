@@ -46,6 +46,8 @@ void CFireMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_CROUCH, animationManager->Get("ani-fire-mario-crouch"));
 	AddAnimation(MARIO_STATE_ATTACK, animationManager->Get("ani-fire-mario-throw"), false);
 	AddAnimation(MARIO_STATE_JUMP_ATTACK, animationManager->Get("ani-fire-mario-jump-throw"), false);
+	AddAnimation(MARIO_STATE_HOLD_MOVE, animationManager->Get("ani-fire-mario-hold"));
+	AddAnimation(MARIO_STATE_HOLD_IDLE, animationManager->Get("ani-fire-mario-hold-idle"));
 }
 
 void CFireMario::Render(CCamera* cam)

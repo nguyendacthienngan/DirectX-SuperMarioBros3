@@ -7,6 +7,7 @@
 #include "MarioStateSet.h"
 #include "KeyboardManager.h"
 #include "IState.h"
+#include "Holdable.h"
 
 class CMario : public CGameObject, public IState
 {
@@ -15,7 +16,7 @@ class CMario : public CGameObject, public IState
 protected:
 	MarioStates marioStateTag;
 	D3DXVECTOR2 targetVelocity, previousVelocity; 
-	MarioStateSet currentPhysicsState; // state vật lý, còn currentState ở GameObject là state animation
+	MarioStateSet currentPhysicsState, previousPhysicsState; // state vật lý, còn currentState ở GameObject là state animation
 	bool isOnGround;
 	bool isHighSpeed; // horizontal
 	bool canLowJumpContinous;
@@ -34,6 +35,8 @@ protected:
 	bool canFly;
 	bool isFly;
 	bool bounceAfterJumpOnEnemy, stopBounce;
+	CHoldable* objectHolding;
+	bool isHold, isKick;
 public:
 	CMario();
 	void Init() override;
@@ -46,15 +49,18 @@ public:
 	
 	void CrouchProcess(CKeyboardManager* keyboard);
 	void SkidProcess(D3DXVECTOR2 velocity);
+	void HoldProcess();
 
 	void KeyState();
 	void OnKeyDown(int KeyCode);
 	void OnKeyUp(int KeyCode);
 
 	void OnDamaged();
-
+	void HoldObject(CHoldable* holdableObj);
 	void SetMarioStateTag(MarioStates tag);
 	MarioStates GettMarioStateTag();
+
+	bool CanRun();
 
 	virtual void Access()		override;
 	virtual void Process()		override;

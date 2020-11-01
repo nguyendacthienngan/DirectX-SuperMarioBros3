@@ -164,6 +164,7 @@
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="GoombaConst.h" />
     <ClInclude Include="GraphicConst.h" />
+    <ClInclude Include="Holdable.h" />
     <ClInclude Include="IState.h" />
     <ClInclude Include="KeyboardManager.h" />
     <ClInclude Include="KeyEventHandler.h" />
@@ -218,6 +219,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GhostPlatform.cpp" />
     <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="Holdable.cpp" />
     <ClCompile Include="IState.cpp" />
     <ClCompile Include="KeyboardManager.cpp" />
     <ClCompile Include="KeyEventHandler.cpp" />
