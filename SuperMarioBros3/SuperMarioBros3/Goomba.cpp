@@ -111,8 +111,9 @@ void CGoomba::OnDie()
 	currentPhysicsState = GoombaState::Die;
 	auto v = physiscBody->GetVelocity();
 	v.x = 0.0f;
+	v.y = 0.0f;
 	physiscBody->SetVelocity(v);
-	transform.position.y -= 2;
+	//transform.position.y -= 0.4f;
 
 	physiscBody->SetGravity(0.0f);
 	startDeadTime = GetTickCount64();

@@ -114,12 +114,12 @@ void CKoopaShell::OnDie()
 	physiscBody->SetGravity(0.0f);
 
 	// Chỗ này giúp tạo hiệu ứng văng đi 
-	if (headShot)
-	{
-		auto v = physiscBody->GetVelocity();
-		v.y = -0.4f;
-		physiscBody->SetVelocity(v);
-	}
+	//if (headShot)
+	//{
+	//	auto v = physiscBody->GetVelocity();
+	//	v.y = -KOOPA_SHELL_DEFLECT;
+	//	physiscBody->SetVelocity(v);
+	//}
 	isDead = true;
 
 }
