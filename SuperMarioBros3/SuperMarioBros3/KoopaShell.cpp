@@ -55,7 +55,7 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam)
 		vel.x = KOOPA_SHELL_SPEED * normal.x;
 		isRun = true;
 	}
-	else
+	else if (isRun == false)
 	{
 		vel.x = 0.0f;
 	}
@@ -99,7 +99,6 @@ void CKoopaShell::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionB
 	{
 		// Chỉ khi bị đuôi quật nó mới set lại -1 r văng đi (chưa văng khỏi ground)
 		// cần xử lý lại việc chết cho hợp lý
-		//DebugOut(L"Koopa Shell Died \n");
 		CKoopaShell::OnDie();
 		headShot = true;
 

@@ -69,6 +69,7 @@ void CMario::InitProperties()
 	feverState = 0;
 	pMeterCounting = 0.0f;
 	beforeJumpPosition = 0.0f;
+	startDeflectTime = 0;
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 
 }
@@ -498,22 +499,37 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 			if (collisionEvent->ny !=  0) // nhảy lên đầu quái
 			{
 				// Cần chỉnh lại
-				//physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -0.2f));
-
-				// Mario nhảy lên sau khi nhảy lên đầu quái
-				if (bounceAfterJumpOnEnemy == false && stopBounce == false)
+				/*auto normal = physiscBody->GetNormal();
+				physiscBody->SetVelocity(D3DXVECTOR2(normal.x * 0.15f, -0.4f));*/
+				if (GetTickCount64() - startDeflectTime > MARIO_DEFLECT_TIME && startDeflectTime != 0)
 				{
-					auto normal = physiscBody->GetNormal();
-					physiscBody->SetVelocity(D3DXVECTOR2(normal.x * 0.15f, -MARIO_JUMP_FORCE)); // ********************
-					physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -0.2f));
-					isJump = true;
-					isOnGround = false;
-					canHighJump = true;
-					currentPhysicsState.jump = JumpOnAirStates::Jump;
-					bounceAfterJumpOnEnemy = true;
+					startDeflectTime = 0;
+				}
+
+				if (startDeflectTime == 0)
+				{
+					DebugOut(L"DEFLECT \n");
+					// Mario nhảy lên sau khi nhảy lên đầu quái
+					if (bounceAfterJumpOnEnemy == false && stopBounce == false)
+					{
+						auto normal = physiscBody->GetNormal();
+						//physiscBody->SetVelocity(D3DXVECTOR2(normal.x * 0.15f, -MARIO_JUMP_FORCE)); // ********************
+						physiscBody->SetVelocity(D3DXVECTOR2(normal.x * 0.3f, -0.4f));
+						isJump = true;
+						isOnGround = false;
+						canHighJump = true;
+						currentPhysicsState.jump = JumpOnAirStates::Jump;
+						bounceAfterJumpOnEnemy = true;
+					}
+					
+					startDeflectTime = GetTickCount64();
+
 				}
 				if (stopBounce == true)
-					stopBounce = false;
+						stopBounce = false;
+				
+
+				
 
 				auto otherObject = collisionBox->GetGameObjectAttach();
 				auto otherEnemyObject = static_cast<CEnemy*>(otherObject);
@@ -652,9 +668,12 @@ void CMario::HoldProcess()
 		}
 		else
 		{
+			// thả ra => vẫn còn nút A => tưởng bị A
+
 			objectHolding->Release();
 			objectHolding = NULL;
 			isHold = false;
+			isKick = true;
 		}
 	}
 }

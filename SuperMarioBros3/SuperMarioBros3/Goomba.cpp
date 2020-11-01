@@ -102,7 +102,6 @@ void CGoomba::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* 
 	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
 	{
 		CGoomba::OnDie();
-
 	}
 }
 
@@ -113,12 +112,9 @@ void CGoomba::OnDie()
 	v.x = 0.0f;
 	v.y = 0.0f;
 	physiscBody->SetVelocity(v);
-	//transform.position.y -= 0.4f;
-
 	physiscBody->SetGravity(0.0f);
 	startDeadTime = GetTickCount64();
 
 	SetRelativePositionOnScreen(D3DXVECTOR2(0, (GOOMBA_BBOX.y - GOOMBA_DIE_BBOX.y) * 0.5f));
 	collisionBoxs->at(0)->SetSizeBox(GOOMBA_DIE_BBOX);
-
 }

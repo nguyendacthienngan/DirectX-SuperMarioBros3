@@ -30,6 +30,7 @@ protected:
 	DWORD feverTime; // Thời gian PMeter giữ giá trị max
 	DWORD lastFeverTime;
 	DWORD beginAttackTime;
+	DWORD startDeflectTime;
 	float pMeterCounting;
 	float beforeJumpPosition;
 	bool canFly;
