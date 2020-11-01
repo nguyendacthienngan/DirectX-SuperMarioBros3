@@ -58,7 +58,7 @@ void CKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 			if (collisionEvent->nx != 0)
 			{
 				auto normal = physiscBody->GetNormal();
-				normal.x = -1;
+				normal.x = -normal.x;
 				physiscBody->SetNormal(normal);
 			}
 		}

@@ -8,6 +8,8 @@ CKoopaShell::CKoopaShell()
 	LoadAnimation();
 	Init();
 	enemyTag = EnemyTag::KoopaShell;
+	isRun = false;
+	canRun = false;
 }
 
 void CKoopaShell::Init()
@@ -39,12 +41,27 @@ void CKoopaShell::LoadAnimation()
 void CKoopaShell::Update(DWORD dt, CCamera* cam)
 {
 	//DebugOut(L"KoopaShell Position.y %f \n", transform.position.y);
-	if (IsHolding() == true && physiscBody->GetGravity() != 0)
+	auto vel = physiscBody->GetVelocity();
+	auto normal = physiscBody->GetNormal();
+
+	if ((IsHolding() == true && physiscBody->GetGravity() != 0) || isRun == true)
 		physiscBody->SetGravity(0);
 	else 
 		physiscBody->SetGravity(KOOPA_GRAVITY);
 
-	DebugOut(L"Koopa'shell's position: (%f, %f) \n", transform.position.x, transform.position.y);
+	if (canRun == true)
+	{
+		vel.x = KOOPA_SHELL_SPEED * normal.x;
+		isRun = true;
+	}
+	else
+		vel.x = 0.0f;
+
+	vel.y = 0.0f; // để tránh rớt xuống
+	physiscBody->SetVelocity(vel);
+	//DebugOut(L"KoopaShell Gravity  %f \n", physiscBody->GetGravity());
+	//DebugOut(L"KoopaShell Velocity  %f, %f \n", vel.x, vel.y);
+
 }
 
 void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
@@ -52,8 +69,20 @@ void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<
 	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && collisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
 		{
+			if (collisionEvent->nx != 0)
+			{
+				DebugOut(L"Bounce Wall");
+
+				auto normal = physiscBody->GetNormal();
+				normal.x = -normal.x;
+				physiscBody->SetNormal(normal);
+			}
+		}
+		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && collisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
+		{
+			// Nếu mai rùa bị đạn bắn là nó lật lại (-1) r bị văng đi khỏi ground lun : HEADSHOT
 			if (collisionEvent->nx != 0)
 			{
 				CKoopaShell::OnDie();
@@ -62,9 +91,26 @@ void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<
 		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
 		{
 			// Mario đạp lên đầu
+
 			if (collisionEvent->ny != 0)
 			{
-				CKoopaShell::OnDie();
+				auto v = physiscBody->GetVelocity();
+
+				// nếu đạp lên đầu khi chưa chạy thì cho nó chạy lun
+				if (isRun == false)
+				{
+					canRun = true;
+					physiscBody->SetGravity(0.0f);
+					v.y = 0.0f;
+					physiscBody->SetVelocity(v);
+				}
+				else
+				{
+					DebugOut(L"STOP RUN \n");
+					isRun = false;
+					canRun = false;
+
+				}
 			}
 		}
 	}
@@ -74,9 +120,12 @@ void CKoopaShell::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionB
 {
 	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
 	{
-		DebugOut(L"Koopa Shell Died \n");
+		// chỉ khi bị đuôi quật nó mới set lại -1 r văng đi (chưa văng khỏi ground)
+		// cần xử lý lại việc chết cho hợp lý
+		//DebugOut(L"Koopa Shell Died \n");
 		CKoopaShell::OnDie();
 	}
+	// Còn bình thường thì sao?
 }
 
 void CKoopaShell::OnDie()
@@ -90,6 +139,7 @@ void CKoopaShell::OnDie()
 	v.y = -1.0f;
 	physiscBody->SetVelocity(v);*/
 	physiscBody->SetGravity(0.0f);
+	transform.position.y -= 1;
 }
 
 void CKoopaShell::SetHoldablePosition(D3DXVECTOR2 pos)
@@ -115,4 +165,14 @@ void CKoopaShell::Render(CCamera* cam)
 	auto normal = physiscBody->GetNormal();
 	SetScale(normal);
 	CGameObject::Render(cam);
+}
+
+bool CKoopaShell::IsRunning()
+{
+	return isRun || canRun;
+}
+
+void CKoopaShell::SetRun(bool canRun)
+{
+	this->canRun = canRun;
 }

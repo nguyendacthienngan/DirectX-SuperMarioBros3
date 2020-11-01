@@ -10,6 +10,7 @@
 #include "CollisionBox.h"
 #include "Enemy.h"
 #include "KoopaShell.h"
+#include "KoopaConst.h"
 
 #include <cstdlib>
 #include <cctype> 
@@ -61,6 +62,7 @@ void CMario::InitProperties()
 	canFly = false;
 	isFly = false;
 	stopBounce = false;
+	isKick = false;
 	bounceAfterJumpOnEnemy = false;
 	feverTime = MARIO_FEVER_TIME;
 	lastFeverTime = 0;
@@ -73,6 +75,14 @@ void CMario::InitProperties()
 
 void CMario::LoadAnimation()
 {
+}
+
+void CMario::EndAnimation()
+{
+	if (currentState.compare(MARIO_STATE_KICK) == 0)
+	{
+		isKick = false;
+	}
 }
 
 void CMario::Update(DWORD dt, CCamera* cam)
@@ -269,7 +279,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		if ( (keyboard->GetKeyStateDown(DIK_S) && isFly == false) || bounceAfterJumpOnEnemy == true)
 		{
 			float jumpMaxHeight;
-			if ( (feverState == 2 && abs(velocity.x) > MARIO_RUNNING_SPEED * 0.85f))
+			if ( (feverState == 2 && abs(velocity.x) > MARIO_RUNNING_SPEED * 0.85f) || bounceAfterJumpOnEnemy == true)
 			{
 				// SUPER JUMP
 				jumpMaxHeight = MARIO_SUPER_JUMP_HEIGHT;
@@ -329,7 +339,13 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	if (canCrouch == true) // Small Mario k thể crouch
 		CrouchProcess(keyboard);
 	HoldProcess();
-
+	if (isKick == true)
+	{
+		previousPhysicsState.move = currentPhysicsState.move;
+		currentPhysicsState.move = MoveOnGroundStates::Kick;
+	}
+	if (currentPhysicsState.move == MoveOnGroundStates::Kick && isKick == false)
+		currentPhysicsState.move = previousPhysicsState.move;
 }
 
 void CMario::Render(CCamera* cam)
@@ -398,6 +414,13 @@ void CMario::Render(CCamera* cam)
 		{
 			if (isHold == false)
 				SetState(MARIO_STATE_JUMP_ATTACK);
+			break;
+		}
+		case MoveOnGroundStates::Kick:
+		{
+			DebugOut(L"KICK \n");
+			if (isHold == false)
+				SetState(MARIO_STATE_KICK);
 			break;
 		}
 	}
@@ -474,10 +497,14 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 		{
 			if (collisionEvent->ny !=  0) // nhảy lên đầu quái
 			{
+				// Cần chỉnh lại
+				//physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -0.2f));
+
 				if (bounceAfterJumpOnEnemy == false && stopBounce == false)
 				{
 					auto normal = physiscBody->GetNormal();
-					physiscBody->SetVelocity(D3DXVECTOR2(normal.x* 0.21f, -MARIO_JUMP_FORCE)); // làm sao để nảy lên r chạy qua 1 bên
+					physiscBody->SetVelocity(D3DXVECTOR2(normal.x * 0.15f, -MARIO_JUMP_FORCE)); // ********************
+					physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -0.2f));
 					isJump = true;
 					isOnGround = false;
 					canHighJump = true;
@@ -496,12 +523,13 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 				{
 					case EnemyTag::KoopaShell:
 					{
+						auto koopaShell = static_cast<CKoopaShell*>(otherObject);
+
 						// Koopa Shell
 						if (CanRun() == true)
 						{
 							// Nếu mario đang chạy => Chạm mai rùa thì có thể cầm được mai rùa
 							// Lúc sau có thể bị đè bởi sự kiện mà set state k đc hay k?
-							auto koopaShell = static_cast<CKoopaShell*>(otherObject);
 							if (koopaShell != NULL)
 							{
 								HoldObject(koopaShell);
@@ -510,8 +538,16 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 						}
 						else
 						{
-							// isKick = true;
-							//currentPhysicsState.move = MoveOnGroundStates::Kick;
+							if (koopaShell->IsRunning() == false)
+							{
+								isKick = true;
+								auto normal = koopaShell->GetPhysiscBody()->GetNormal() ;
+								normal.x = this->physiscBody->GetNormal().x;
+								koopaShell->GetPhysiscBody()->SetNormal(normal);
+								koopaShell->SetRun(true);
+							}
+							
+							
 						}
 						break;
 					}

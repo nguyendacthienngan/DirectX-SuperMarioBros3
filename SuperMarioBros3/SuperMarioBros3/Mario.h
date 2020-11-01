@@ -42,8 +42,11 @@ public:
 	void Init() override;
 	virtual void InitProperties();
 	void LoadAnimation();
+	void EndAnimation() override;
+
 	void Update(DWORD dt, CCamera* cam) override;
 	void Render(CCamera* cam);
+
 	void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions); // Xử lý riêng sau khi phát hiện va chạm
 	void OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions); // Tạm thời chưa làm
 	

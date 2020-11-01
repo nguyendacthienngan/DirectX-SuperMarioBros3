@@ -4,7 +4,8 @@
 class CKoopaShell : public CEnemy, public CHoldable
 {
 private:
-	bool canHold;
+	bool canHold, canRun;
+	bool isRun;
 public:
 	CKoopaShell();
 	void Init();
@@ -12,6 +13,9 @@ public:
 
 	void Update(DWORD dt, CCamera* cam) override;
 	void Render(CCamera* cam) override;
+
+	bool IsRunning();
+	void SetRun(bool canRun);
 
 	void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents) override;
 	void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox) override;

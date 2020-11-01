@@ -84,7 +84,7 @@ void CGoomba::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Coll
 			if (collisionEvent->nx != 0)
 			{
 				auto normal = physiscBody->GetNormal();
-				normal.x = -1;
+				normal.x = -normal.x;
 				physiscBody->SetNormal(normal);
 			}
 		}
@@ -101,7 +101,11 @@ void CGoomba::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Coll
 			if (collisionEvent->ny != 0)
 			{
 				CGoomba::OnDie();
-			
+				//collisionBox->GetGameObjectAttach()->GetPhysiscBody()->SetVelocity(D3DXVECTOR2(v.x, -0.5f));
+
+				/*auto v = collisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetVelocity();
+				auto n = collisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal();
+				collisionBox->GetGameObjectAttach()->GetPhysiscBody()->SetVelocity(D3DXVECTOR2(n.x*0.15f, -0.5f));*/
 			}
 		}
 	}
@@ -125,6 +129,7 @@ void CGoomba::OnDie()
 	auto v = physiscBody->GetVelocity();
 	v.x = 0.0f;
 	physiscBody->SetVelocity(v);
+	transform.position.y -= 1;
 	physiscBody->SetGravity(0.0f);
 	startDeadTime = GetTickCount64();
 

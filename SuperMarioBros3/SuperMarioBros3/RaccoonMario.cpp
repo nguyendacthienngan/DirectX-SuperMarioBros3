@@ -68,10 +68,14 @@ void CRaccoonMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_JUMP_ATTACK, animationManager->Get("ani-raccoon-mario-spin"), false);
 	AddAnimation(MARIO_STATE_HOLD_MOVE, animationManager->Get("ani-raccoon-mario-hold"));
 	AddAnimation(MARIO_STATE_HOLD_IDLE, animationManager->Get("ani-raccoon-mario-hold-idle"));
+	AddAnimation(MARIO_STATE_KICK, animationManager->Get("ani-raccoon-mario-kick"), false);
+
 }
 
 void CRaccoonMario::EndAnimation()
 {
+	CMario::EndAnimation();
+
 	if (currentState.compare(MARIO_STATE_ATTACK) == 0)
 	{
 		if (isAttackContinious == false)
