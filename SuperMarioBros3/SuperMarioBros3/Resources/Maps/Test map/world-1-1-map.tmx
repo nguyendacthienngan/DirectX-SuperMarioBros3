@@ -432,22 +432,22 @@
   <object id="19" x="6720" y="478" width="96" height="530"/>
   <object id="48" x="4463.5" y="1008.09" width="96.3636" height="47.4091"/>
  </objectgroup>
- <objectgroup id="14" name="Ghost">
-  <object id="34" x="1200.1" y="1103.38" width="239.424" height="48.1212"/>
-  <object id="35" x="815.686" y="1007" width="143.75" height="47.75"/>
-  <object id="36" x="719.474" y="1103.94" width="144.424" height="48.1212"/>
-  <object id="37" x="1391.8" y="1007.06" width="192.007" height="48.1212"/>
-  <object id="38" x="1536.02" y="910.939" width="192.007" height="48.1212"/>
-  <object id="39" x="1536.19" y="1150.94" width="287.007" height="48.1212"/>
-  <object id="42" x="3744.41" y="1152.44" width="336.007" height="48.1212"/>
-  <object id="43" x="3936.91" y="960.773" width="336.007" height="48.1212"/>
-  <object id="44" x="3840.57" y="1056.44" width="336.007" height="48.1212"/>
-  <object id="45" x="3888.66" y="431.273" width="191.34" height="48.1212"/>
-  <object id="46" x="6383.75" y="1104.17" width="143.667" height="47.6667"/>
-  <object id="47" x="6480.17" y="816.167" width="143.667" height="47.6667"/>
-  <object id="50" x="4175.67" y="576" width="191.667" height="48"/>
-  <object id="51" x="4416" y="528.333" width="672" height="47.6667"/>
- </objectgroup>
+<objectgroup id="14" name="Ghost">
+  <object id="28" x="720.523" y="1104.97" width="142.597" height="47.1135"/>
+  <object id="29" x="817.891" y="1008.86" width="140.712" height="47.7417"/>
+  <object id="30" x="1200.45" y="1104.34" width="239.337" height="47.1135"/>
+  <object id="31" x="1392.68" y="1008.23" width="190.967" height="47.1135"/>
+  <object id="32" x="1537.16" y="912.118" width="189.71" height="47.7417"/>
+  <object id="33" x="1537.16" y="1152.71" width="285.194" height="48.3699"/>
+  <object id="34" x="3889.06" y="433.444" width="190.967" height="45.229"/>
+  <object id="35" x="4176.77" y="576.041" width="190.967" height="47.1135"/>
+  <object id="36" x="4418" y="529.339" width="667.487" height="43.7697"/>
+  <object id="37" x="6385.12" y="1104.31" width="142.349" height="47.2642"/>
+  <object id="38" x="6480.76" y="816.281" width="142.349" height="47.2642"/>
+  <object id="39" x="3745.09" y="1152.82" width="333.545" height="46.9245"/>
+  <object id="40" x="3841.47" y="1056.44" width="334.813" height="48.1928"/>
+  <object id="41" x="3936.59" y="960.051" width="333.545" height="46.9245"/>
+</objectgroup>
  <objectgroup id="15" name="Enemy">
   <object id="42" name="goomba" type="basic" x="1608" y="1224"/>
   <object id="43" name="goomba" type="basic" x="696" y="1224"/>
