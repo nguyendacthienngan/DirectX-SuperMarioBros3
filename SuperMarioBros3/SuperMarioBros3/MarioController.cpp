@@ -30,10 +30,10 @@ void CMarioController::Init()
 	CMario* marioStateObject;
 	
 	// SMALL MARIO
-	marioStateObject = new CSmallMario();
+	/*marioStateObject = new CSmallMario();
 	listMarioStates.insert(make_pair(SMALL_MARIO_STATE, marioStateObject));
 	listStateObjects.insert(make_pair(SMALL_MARIO_STATE, marioStateObject));
-	marioStateObject->Enable(false);
+	marioStateObject->Enable(false);*/
 	
 	// SUPER MARIO
 	marioStateObject = new CSuperMario();
@@ -154,11 +154,10 @@ void CMarioController::OnKeyDown(int KeyCode)
 	{
 		SwitchToState(FIRE_MARIO_STATE);
 	}
-	else if (KeyCode == DIK_4)
+	/*else if (KeyCode == DIK_4)
 	{
 		SwitchToState(SMALL_MARIO_STATE);
-
-	}
+	}*/
 }
 
 void CMarioController::SetCurrentStateObject(LPGameObject gO)

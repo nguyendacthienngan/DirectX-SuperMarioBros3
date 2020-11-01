@@ -522,7 +522,7 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 						bounceAfterJumpOnEnemy = true;
 					}
 					
-					startDeflectTime = GetTickCount64();
+					//startDeflectTime = GetTickCount64();
 
 				}
 				if (stopBounce == true)
