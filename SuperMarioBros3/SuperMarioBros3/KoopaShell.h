@@ -3,10 +3,11 @@
 #include "Enemy.h"
 class CKoopaShell : public CEnemy, public CHoldable
 {
-private:
+protected:
 	bool canRun, stopHold;
 	bool isRun;
 	bool headShot;
+
 public:
 	CKoopaShell();
 	void Init();

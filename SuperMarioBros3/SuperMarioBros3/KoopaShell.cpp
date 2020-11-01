@@ -10,6 +10,7 @@ CKoopaShell::CKoopaShell()
 	enemyTag = EnemyTag::KoopaShell;
 	isRun = false;
 	stopHold = false;
+	isDead = false;
 	//physiscBody->SetBounceForce(D3DXVECTOR2(0.0f, KOOPA_SHELL_SPEED));
 }
 
@@ -46,7 +47,7 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam)
 
 	if ((IsHolding() == true))
 		physiscBody->SetGravity(0);
-	else 
+	else
 		physiscBody->SetGravity(KOOPA_GRAVITY);
 
 	if (canRun == true)
@@ -54,10 +55,9 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam)
 		vel.x = KOOPA_SHELL_SPEED * normal.x;
 		isRun = true;
 	}
-	else 
+	else
 	{
 		vel.x = 0.0f;
-		
 	}
 
 	physiscBody->SetVelocity(vel);
@@ -120,7 +120,7 @@ void CKoopaShell::OnDie()
 		v.y = -0.4f;
 		physiscBody->SetVelocity(v);
 	}
-	
+	isDead = true;
 
 }
 

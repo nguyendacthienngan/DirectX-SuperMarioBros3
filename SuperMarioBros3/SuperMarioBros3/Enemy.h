@@ -9,6 +9,7 @@ protected:
 	std::string enemyType;
 	EnemyTag enemyTag;
 	DWORD startDeadTime;
+	bool isDead;
 public:
 	CEnemy();
 	void SetEnemyType(std::string eT);

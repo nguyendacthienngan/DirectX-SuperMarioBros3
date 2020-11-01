@@ -38,7 +38,6 @@ void CGoomba::LoadAnimation()
 
 void CGoomba::Update(DWORD dt, CCamera* cam)
 {
-	//DebugOut(L"Goomba Position Y: %f \n", transform.position.y);
 	auto velocity = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
 	if (currentPhysicsState != GoombaState::Die)
@@ -49,11 +48,11 @@ void CGoomba::Update(DWORD dt, CCamera* cam)
 	{
 		this->isEnabled = false;
 		physiscBody->SetDynamic(false);
+		physiscBody->SetGravity(0.0f);
+		velocity.y = 0.0f;
+
 	}
 	physiscBody->SetVelocity(velocity);
-	
-	
-	
 }
 
 void CGoomba::Render(CCamera* cam)
@@ -95,19 +94,6 @@ void CGoomba::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Coll
 				CGoomba::OnDie();
 			}
 		}
-		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
-		{
-			// Mario đạp lên đầu
-			if (collisionEvent->ny != 0)
-			{
-				CGoomba::OnDie();
-				//collisionBox->GetGameObjectAttach()->GetPhysiscBody()->SetVelocity(D3DXVECTOR2(v.x, -0.5f));
-
-				/*auto v = collisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetVelocity();
-				auto n = collisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal();
-				collisionBox->GetGameObjectAttach()->GetPhysiscBody()->SetVelocity(D3DXVECTOR2(n.x*0.15f, -0.5f));*/
-			}
-		}
 	}
 }
 
@@ -123,13 +109,11 @@ void CGoomba::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* 
 void CGoomba::OnDie()
 {
 	currentPhysicsState = GoombaState::Die;
-	// Tạm thời thui, sau này còn xét kiểu chết khác nhau
-	// Và mình sẽ cho nó time để die riêng
-	// Sau khi hết time là nó tự disable
 	auto v = physiscBody->GetVelocity();
 	v.x = 0.0f;
 	physiscBody->SetVelocity(v);
-	transform.position.y -= 1;
+	transform.position.y -= 2;
+
 	physiscBody->SetGravity(0.0f);
 	startDeadTime = GetTickCount64();
 

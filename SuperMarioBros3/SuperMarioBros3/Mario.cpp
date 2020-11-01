@@ -533,6 +533,11 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 						}
 						break;
 					}
+					case EnemyTag::Goomba:
+					{
+						otherEnemyObject->OnDie();
+						break;
+					}
 				}
 				
 				

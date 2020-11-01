@@ -73,8 +73,11 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 		// block every object first!
 		if (isTrigger == false)
 		{
-			pos.x += min_tx * distance.x + nx * 0.4f; // nx*0.4f : need to push out a bit to avoid overlapping next frame
-			pos.y += min_ty * distance.y + ny * 0.4f;
+			//pos.x += min_tx * distance.x + nx * 0.4f; // nx*0.4f : need to push out a bit to avoid overlapping next frame
+			//pos.y += min_ty * distance.y + ny * 0.4f;
+
+			pos.x += min_tx * distance.x + nx *0.2f; 
+			pos.y += min_ty * distance.y + ny *0.2f;
 		}
 		
 		if (nx != 0 || ny != 0)
