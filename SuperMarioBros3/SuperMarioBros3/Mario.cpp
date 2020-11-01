@@ -515,7 +515,7 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 					{
 						auto normal = physiscBody->GetNormal();
 						//physiscBody->SetVelocity(D3DXVECTOR2(normal.x * 0.15f, -MARIO_JUMP_FORCE)); // ********************
-						physiscBody->SetVelocity(D3DXVECTOR2(normal.x * 0.3f, -0.4f));
+						physiscBody->SetVelocity(D3DXVECTOR2(normal.x * MARIO_DEFLECT_X, -MARIO_DEFLECT_Y));
 						isJump = true;
 						isOnGround = false;
 						canHighJump = true;

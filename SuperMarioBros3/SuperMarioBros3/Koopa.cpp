@@ -28,11 +28,6 @@ void CKoopa::Init()
 	physiscBody->SetDynamic(true);
 	physiscBody->SetGravity(KOOPA_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
-
-	//auto normal = physiscBody->GetNormal();
-	//normal.x = -1.0f;
-	//physiscBody->SetNormal(normal);
-	//SetScale(normal);
 }
 
 void CKoopa::LoadAnimation()
@@ -81,7 +76,8 @@ void CKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 		{
 			if (collisionEvent->nx != 0)
 			{
-				CKoopa::OnDie();
+				ChangeToShell();
+				koopaShell->OnDie();
 			}
 		}
 	}
@@ -93,7 +89,8 @@ void CKoopa::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 	{
 		// Chỉ khi bị đuôi quật nó mới set lại -1 r văng đi (chưa văng khỏi ground)
 		// cần xử lý lại việc chết cho hợp lý
-		CKoopa::OnDie();
+		ChangeToShell();
+		koopaShell->OnDie();
 	}
 }
 

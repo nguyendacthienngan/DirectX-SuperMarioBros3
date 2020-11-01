@@ -26,7 +26,7 @@ void CKoopaShell::Init()
 	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
 	this->collisionBoxs->push_back(collisionBox);
 
-
+	startDeadTime = 0;
 	physiscBody->SetDynamic(true);
 	physiscBody->SetGravity(KOOPA_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
@@ -44,21 +44,38 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam)
 	auto vel = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
 
-	if ((IsHolding() == true))
-		physiscBody->SetGravity(0);
+	
+	if (isDead == true)
+	{
+		this->isEnabled = false;
+		physiscBody->SetDynamic(false);
+		physiscBody->SetGravity(0.0f);
+		vel.y = 0.0f;
+		/*if (GetTickCount64() - startDeadTime > KOOPA_DIE_TIME && startDeadTime != 0)
+		{
+			this->isEnabled = false;
+			physiscBody->SetDynamic(false);
+			physiscBody->SetGravity(0.0f);
+			vel.y = 0.0f;
+		}*/
+	}
 	else
-		physiscBody->SetGravity(KOOPA_GRAVITY);
-
-	if (canRun == true)
 	{
-		vel.x = KOOPA_SHELL_SPEED * normal.x;
-		isRun = true;
-	}
-	else if (isRun == false)
-	{
-		vel.x = 0.0f;
-	}
+		if ((IsHolding() == true))
+			physiscBody->SetGravity(0);
+		else
+			physiscBody->SetGravity(KOOPA_GRAVITY);
 
+		if (canRun == true)
+		{
+			vel.x = KOOPA_SHELL_SPEED * normal.x;
+			isRun = true;
+		}
+		else if (isRun == false)
+		{
+			vel.x = 0.0f;
+		}
+	}
 	physiscBody->SetVelocity(vel);
 	DebugOut(L"KoopaShell Position  %f, %f \n", transform.position.x, transform.position.y);
 	DebugOut(L"KoopaShell Gravity  %f \n", physiscBody->GetGravity());
@@ -121,9 +138,10 @@ void CKoopaShell::OnDie()
 		v.y = -KOOPA_SHELL_DEFLECT;
 		v.x = KOOPA_SHELL_DEFLECT_X * normal.x;
 		physiscBody->SetVelocity(v);
-	}
-	isDead = true;
+		isDead = true;
+		startDeadTime = GetTickCount64();
 
+	}
 }
 
 void CKoopaShell::SetHoldablePosition(D3DXVECTOR2 pos)

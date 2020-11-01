@@ -182,8 +182,8 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					if (enemyName.compare("koopa") == 0)
 					{
 						float boundaryLeft, boundaryRight;
-						object->QueryFloatAttribute("boundaryLeft", &boundaryLeft);
-						object->QueryFloatAttribute("boundaryRight", &boundaryRight);
+						/*object->QueryFloatAttribute("boundaryLeft", &boundaryLeft);
+						object->QueryFloatAttribute("boundaryRight", &boundaryRight);*/
 
 						
 						CKoopaShell* koopaShell = new CKoopaShell();
@@ -195,7 +195,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						koopa->SetEnemyType(enemyType);
 						koopa->SetPosition(position - translateKoopaConst);
 						koopa->SetStartPosition(position - translateKoopaConst);
-						koopa->SetBoundary(boundaryLeft - translateKoopaConst.x, boundaryRight - translateKoopaConst.x);
+						//koopa->SetBoundary(boundaryLeft - translateKoopaConst.x, boundaryRight - translateKoopaConst.x);
 						koopa->SetKoopaShell(koopaShell);
 						listGameObjects.push_back(koopaShell);
 
@@ -210,14 +210,15 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						goomba->SetStartPosition(position - translateGoombaConst);
 						listGameObjects.push_back(goomba);
 					}
-					/*else if (enemyName.compare("koopa-shell") == 0)
+					else if (enemyName.compare("koopa-shell") == 0)
 					{
 						CKoopaShell* koopaShell = new CKoopaShell();
 						koopaShell->SetEnemyType(enemyType);
 						koopaShell->SetPosition(position - translateKoopaShellConst);
 						koopaShell->SetStartPosition(position - translateKoopaShellConst);
+						koopaShell->Enable(true);
 						listGameObjects.push_back(koopaShell);
-					}*/
+					}
 				}
 			}
 		}

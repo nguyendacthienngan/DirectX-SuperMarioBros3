@@ -24,6 +24,8 @@
 #define MARIO_SKID_FORCE				0.001104f
 
 #define MARIO_DEFLECT_TIME				800
+#define MARIO_DEFLECT_Y					0.5f
+#define MARIO_DEFLECT_X					0.3f
 
 #define MARIO_FEVER_TIME				2000
 
