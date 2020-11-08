@@ -31,11 +31,11 @@ void CGameObject::Init()
 
 void CGameObject::Clear()
 {
-	/*if (physiscBody != NULL) delete physiscBody;
+	if (physiscBody != NULL) delete physiscBody;
 	for (auto col : *collisionBoxs)
 		delete col;
 	collisionBoxs->clear();
-	delete collisionBoxs;*/
+	delete collisionBoxs;
 }
 
 void CGameObject::LoadAnimation()
