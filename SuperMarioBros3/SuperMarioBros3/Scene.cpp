@@ -96,18 +96,15 @@ void CScene::Load()
 
 void CScene::Unload()
 {
-	//for (int i = 0; i < gameObjects.size(); i++)
-	//	delete gameObjects[i];
-	////for (auto object : gameObjects)
-	////{
-	////	RemoveObject(object);
-	////	//object->Clear();
-	////	delete object;
-	////	object = NULL;
-	////}
-	//map = NULL;
-	//camera = NULL;
-	//gameObjects.clear();
+	for (int i = 0; i < gameObjects.size()-1 ; i++)
+	{
+		RemoveObject(gameObjects[i]);
+		delete gameObjects[i];
+		gameObjects[i] = NULL;
+	}
+	map = NULL;
+	camera = NULL;
+	gameObjects.clear();
 }
 
 void CScene::Update(DWORD dt)

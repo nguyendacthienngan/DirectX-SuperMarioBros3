@@ -5,6 +5,7 @@
 CSuperMario::CSuperMario()
 {
 	CMario::Init();
+	collisionBoxs->at(0)->SetName("Super-Mario");
 	marioStateTag = MarioStates::SuperMario;
 
 	CSuperMario::LoadAnimation();

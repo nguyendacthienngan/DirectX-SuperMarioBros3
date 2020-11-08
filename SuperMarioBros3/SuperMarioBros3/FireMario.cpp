@@ -9,6 +9,8 @@
 CFireMario::CFireMario()
 {
 	CMario::Init();
+	collisionBoxs->at(0)->SetName("Fire-Mario");
+
 	marioStateTag = MarioStates::FireMario;
 	Init();
 	lastState = currentState;

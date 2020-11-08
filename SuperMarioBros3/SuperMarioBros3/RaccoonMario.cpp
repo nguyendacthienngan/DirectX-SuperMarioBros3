@@ -6,6 +6,7 @@
 CRaccoonMario::CRaccoonMario()
 {
 	CMario::Init();
+	collisionBoxs->at(0)->SetName("Raccoon-Mario");
 	marioStateTag = MarioStates::RacoonMario;
 	raccoonTailBox = new CRaccoonTailBox();
 	CRaccoonMario::Init();
