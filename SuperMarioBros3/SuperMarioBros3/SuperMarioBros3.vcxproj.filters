@@ -237,12 +237,6 @@
     <ClInclude Include="TileMap.h">
       <Filter>Framework\Game\Scene\Map\TileMap</Filter>
     </ClInclude>
-    <ClInclude Include="TileSet.h">
-      <Filter>Framework\Game\Scene\Map\TileMap</Filter>
-    </ClInclude>
-    <ClInclude Include="Layer.h">
-      <Filter>Framework\Game\Scene\Map\TileMap</Filter>
-    </ClInclude>
     <ClInclude Include="GhostPlatform.h">
       <Filter>Game\GameObject\CollisionBox</Filter>
     </ClInclude>
@@ -405,12 +399,6 @@
       <Filter>Game\GameObject\CollisionBox</Filter>
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
-      <Filter>Framework\Game\Scene\Map\TileMap</Filter>
-    </ClCompile>
-    <ClCompile Include="TileSet.cpp">
-      <Filter>Framework\Game\Scene\Map\TileMap</Filter>
-    </ClCompile>
-    <ClCompile Include="Layer.cpp">
       <Filter>Framework\Game\Scene\Map\TileMap</Filter>
     </ClCompile>
     <ClCompile Include="GhostPlatform.cpp">

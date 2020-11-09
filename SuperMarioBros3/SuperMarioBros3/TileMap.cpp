@@ -1,4 +1,6 @@
 ﻿#include "TileMap.h"
+#include "tinyxml.h"
+
 #include "Ultis.h"
 #include "SolidBox.h"
 #include "GhostPlatform.h"
@@ -10,6 +12,8 @@
 
 #include <iostream>
 #include <map>
+#include "TextureManager.h"
+#include "Game.h"
 
 CTileMap::CTileMap()
 {
@@ -27,7 +31,7 @@ CTileMap::CTileMap(int width, int height, int tileWidth, int tileHeight)
 	this->tileWidth = tileWidth;
 }
 
-LPTileset CTileMap::GetTileSetByTileID(int id)
+TileSet* CTileMap::GetTileSetByTileID(int id)
 {
 	// Lưu ý là có 2 khái niệm tileid trong file tilemap
 	// 1 là cái xét trong tileset: luôn bắt đầu bằng 0  (tileID)
@@ -44,29 +48,19 @@ LPTileset CTileMap::GetTileSetByTileID(int id)
 	// Vậy mình cần tìm cái tileset nào có gid lớn nhất (gần với tileset này nhất) và nhỏ hơn 950 *****
 	// 1 nhỏ hơn nhưng nó chưa lớn nhất =>  lấy 900 là gid
 	// Vậy tile có tileid = 950 thuộc về tileset2
-	
-	// Hàm lower_bound của C++ sẽ giúp tìm cái số 900 đó
-	if (listTilesets.size() <= 1)
-		return (*listTilesets.begin()).second;
 
-	auto iterator = listTilesets.lower_bound (id);
+	// Hàm lower_bound của C++ sẽ giúp tìm cái số 900 đó
+	if (tileSets.size() <= 1)
+		return (*tileSets.begin()).second;
+
+	auto iterator = tileSets.lower_bound(id);
 
 	// giá trị trả về của lower_bound functions là 1 bidirectional iterator nên mình có thể --
-	if (iterator != listTilesets.begin() && (*iterator).first != id) // nếu biến iterator k phải biến đầu tiên và id k giống id đã tìm
+	if (iterator != tileSets.begin() && (*iterator).first != id) // nếu biến iterator k phải biến đầu tiên và id k giống id đã tìm
 		--iterator; // lấy cái trước đó
-	
+
 	return iterator->second; // Bản thân cái map trong c++ tổ chức theo binary tree => nên tìm chỉ tốn O(log2(N))
 
-}
-
-void CTileMap::AddTileSet(int firstgid, LPTileset tileSet)
-{
-	this->listTilesets[firstgid] = tileSet;
-}
-
-void CTileMap::AddLayer(LPLayer layer)
-{
-	this->listLayers.push_back(layer);
 }
 
 void CTileMap::Render(CCamera* camera)
@@ -94,10 +88,26 @@ void CTileMap::Render(CCamera* camera)
 			int x = i * tileWidth - camera->GetPositionCam().x; // vị trí mình muốn vẽ lên màn hình của ô đó => theo tọa độ camera
 			int y = j * tileHeight - camera->GetPositionCam().y;
 
-			for (LPLayer layer : listLayers) {
+			for (Layer* layer : layers) {
 				// i % width, j % height: Đây là tọa độ của ô 
-				int id = layer->GetTileID(i % width, j % height); // Từ tọa độ của ô đó ta lấy ra được tileID
-				this->GetTileSetByTileID(id)->Draw(id, D3DXVECTOR2(x, y)); // Từ tileID ta tìm tileset mà tileID đó thuộc về
+				int id = layer->tiles[i % width][j % height]; // Từ tọa độ của ô đó ta lấy ra được tileID
+				auto tileSet = GetTileSetByTileID(id); // Từ tileID ta tìm tileset mà tileID đó thuộc về
+				auto firstGid = tileSet->firstgid;
+
+				if (id >= firstGid)
+				{
+					auto columns = tileSet->columns;
+					auto texture = tileSet->texture;
+					auto tileSize = tileSet->tileSize;
+
+					RECT r;
+					r.left = ((id - firstGid) % columns) * tileSize.x;
+					r.top = ((id - firstGid) / columns) * tileSize.y;
+					r.right = r.left + tileSize.x;
+					r.bottom = r.top + tileSize.y;
+					CGame::GetInstance()->Draw(D3DXVECTOR2(x, y), D3DXVECTOR2(tileSize.x / 2, tileSize.y / 2), texture, r, D3DCOLOR_ARGB(255, 255, 255, 255));
+				}
+				
 			}
 		}
 	}
@@ -121,14 +131,51 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 		//Load tileset
 		for (TiXmlElement* element = root->FirstChildElement("tileset"); element != nullptr; element = element->NextSiblingElement("tileset"))
 		{
-			CTileset* tileSet = new CTileset(element, filePath);
-			gameMap->listTilesets[tileSet->GetFirstgid()] = tileSet;
+			TileSet* tileSet = new TileSet();
+			element->QueryIntAttribute("firstgid", &tileSet->firstgid);
+			element->QueryFloatAttribute("tilewidth", &tileSet->tileSize.x);
+			element->QueryFloatAttribute("tileheight", &tileSet->tileSize.y);
+			element->QueryIntAttribute("tilecount", &tileSet->tileCount);
+			element->QueryIntAttribute("columns", &tileSet->columns);
+
+			TiXmlElement* imgDom = element->FirstChildElement("image");
+			string imgPath = imgDom->Attribute("source");
+			imgPath = filePath + imgPath;
+			CTextureManager::GetInstance()->Add(std::to_string(tileSet->firstgid), imgPath, D3DCOLOR_ARGB(0, 0, 0, 0));
+			tileSet->texture = CTextureManager::GetInstance()->GetTexture(std::to_string(tileSet->firstgid));
+			gameMap->tileSets[tileSet->firstgid] = tileSet;
 		}
 		//Load layer
 		for (TiXmlElement* element = root->FirstChildElement("layer"); element != nullptr; element = element->NextSiblingElement("layer"))
 		{
-			LPLayer layer = new CLayer(element);
-			gameMap->AddLayer(layer);
+			Layer* layer = new Layer();
+			element->QueryIntAttribute("id", &layer->id);
+			element->QueryIntAttribute("width", &layer->width);
+			element->QueryIntAttribute("height", &layer->height);
+
+			auto tiles = new int* [layer->width]; // số tiles theo chiều ngang
+
+			const char* content = element->FirstChildElement()->GetText();
+			vector<string> splitted = split(content, ","); // Trả về chuỗi các tileID trong layer bằng cách tách dấu phẩy ra [ Lúc này chỉ là 1 mảng 1 chiều ]
+
+			for (int i = 0; i < layer->width; i++)
+			{
+				tiles[i] = new int[layer->height];  // số tiles theo chiều dọc
+				for (int j = 0; j < layer->height; j++)
+				{
+					tiles[i][j] = stoi(splitted[i + j * layer->width]); // stoi giúp chuyển từ string sang int
+					// Đem về mảng 2 chiều
+				}
+			}
+			layer->tiles = tiles;
+			// Splitted lưu trữ dưới dạng: 0 1 2 3 4 5 6 7 8 9
+			// Còn ma trận ta muốn lưu nó sẽ như vầy
+			//     0 1 2 3 4 
+			//     5 6 7 8 9
+			// Ta có i = 0, j = 1
+			// Thì muốn lấy 5 ra thì ta phải lấy 0 + 1 * 5 ( i + j * width )
+			splitted.clear();
+			gameMap->layers.push_back(layer);
 		}
 		// Load game objects
 		int count = 0, heightObjectOne = 0;
@@ -181,11 +228,6 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					std::string enemyType = object->Attribute("type");
 					if (enemyName.compare("koopa") == 0)
 					{
-						float boundaryLeft, boundaryRight;
-						/*object->QueryFloatAttribute("boundaryLeft", &boundaryLeft);
-						object->QueryFloatAttribute("boundaryRight", &boundaryRight);*/
-
-						
 						CKoopaShell* koopaShell = new CKoopaShell();
 						koopaShell->SetEnemyType(enemyType);
 						koopaShell->SetPosition(position - translateKoopaShellConst);
@@ -195,11 +237,9 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						koopa->SetEnemyType(enemyType);
 						koopa->SetPosition(position - translateKoopaConst);
 						koopa->SetStartPosition(position - translateKoopaConst);
-						//koopa->SetBoundary(boundaryLeft - translateKoopaConst.x, boundaryRight - translateKoopaConst.x);
 						koopa->SetKoopaShell(koopaShell);
 						listGameObjects.push_back(koopaShell);
 
-						//koopa->SetBoundary(boundaryLeft, boundaryRight);
 						listGameObjects.push_back(koopa);
 					}
 					else if (enemyName.compare("goomba") == 0)
@@ -232,4 +272,18 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 
 CTileMap::~CTileMap()
 {
+	for (auto tileS : tileSets)
+	{
+		tileS.second->Clear();
+		delete tileS.second;
+		tileS.second = NULL;
+	}
+	tileSets.clear();
+	for (auto layer : layers)
+	{
+		layer->Clear();
+		delete layer;
+		layer = NULL;
+	}
+	layers.clear();
 }
