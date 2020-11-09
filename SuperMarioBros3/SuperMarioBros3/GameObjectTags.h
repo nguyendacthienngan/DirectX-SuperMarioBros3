@@ -11,4 +11,3 @@ enum class GameObjectTags
 	Misc,
 	RaccoonTail
 };
-

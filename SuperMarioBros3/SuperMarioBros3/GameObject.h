@@ -73,6 +73,8 @@ public:
 	virtual void Update(DWORD dt, CCamera* cam);
 	virtual void Render(CCamera* cam);
 
+	void FrictionProcess(float& speed, DWORD dt);
+	void ResetTempValues();
 	// Collision
 	// Khi PhysicsBody bắt dược va chạm, nó sẽ tùy thuộc vào biến trigger để truyền về đúng loại callback mình muốn
 	// OnCollisionEnter: Khi bắt đc va chạm => Hàm này sẽ có hiện tượng vật lý xảy ra như khiến cho mario dội ra khỏi cục gạch,.. kèm theo event trả về

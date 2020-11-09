@@ -4,6 +4,7 @@
 #include "TextureManager.h"
 #include "GraphicConst.h"
 #include "Const.h"
+#include "CollisionBoxConst.h"
 
 CCollisionBox::CCollisionBox()
 {
@@ -37,9 +38,9 @@ void CCollisionBox::Render(CCamera* camera, int distance)
 	camPos = camera->GetPositionCam();
 
 	posInCam.x = trunc(pos.x - camPos.x);
-	posInCam.y = trunc(pos.y - camPos.y + 20);
+	posInCam.y = trunc(pos.y - camPos.y + COLLISIONBOX_ALPHA_COLOR);
 
-	CGame::GetInstance()->Draw(posInCam,D3DXVECTOR2(sizeBox.x*0.5f, sizeBox.y*0.5f) ,tex, bbRect, D3DCOLOR_ARGB(32,255,255,255));
+	CGame::GetInstance()->Draw(posInCam,D3DXVECTOR2(sizeBox.x*0.5f, sizeBox.y*0.5f) ,tex, bbRect, D3DCOLOR_ARGB(COLLISIONBOX_ALPHA_COLOR,255,255,255));
 }
 
 void CCollisionBox::SetGameObjectAttach(LPGameObject gO)

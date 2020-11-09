@@ -321,6 +321,12 @@
     <ClInclude Include="KoopaShell.h">
       <Filter>Game\GameObject\Enemy\Koopa\KoopaShell</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionBoxConst.h">
+      <Filter>Framework\Game\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectConst.h">
+      <Filter>Framework\Game\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">

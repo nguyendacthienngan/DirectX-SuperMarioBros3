@@ -148,6 +148,7 @@
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionBox.h" />
+    <ClInclude Include="CollisionBoxConst.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Effector.h" />
     <ClInclude Include="Enemy.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="GameConst.h" />
     <ClInclude Include="GameKeyEventHandler.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectConst.h" />
     <ClInclude Include="GameObjectTags.h" />
     <ClInclude Include="GhostPlatform.h" />
     <ClInclude Include="Goomba.h" />
