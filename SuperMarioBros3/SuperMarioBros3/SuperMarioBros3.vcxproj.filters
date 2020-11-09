@@ -136,6 +136,9 @@
     <Filter Include="Game\GameObject\Enemy\Koopa\KoopaShell">
       <UniqueIdentifier>{355de57c-101d-4356-b49a-7ab715e6e94c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Enemy\Koopa\RedKoopa">
+      <UniqueIdentifier>{d1147070-182c-4013-9aae-9b20d04d76ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -324,6 +327,9 @@
     <ClInclude Include="MarioCollisionBox.h">
       <Filter>Game\GameObject\Mario\BaseMario</Filter>
     </ClInclude>
+    <ClInclude Include="RedKoopa.h">
+      <Filter>Game\GameObject\Enemy\Koopa\RedKoopa</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -457,6 +463,9 @@
     </ClCompile>
     <ClCompile Include="MarioCollisionBox.cpp">
       <Filter>Game\GameObject\Mario\BaseMario</Filter>
+    </ClCompile>
+    <ClCompile Include="RedKoopa.cpp">
+      <Filter>Game\GameObject\Enemy\Koopa\RedKoopa</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

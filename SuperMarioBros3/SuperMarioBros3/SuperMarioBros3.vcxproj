@@ -188,6 +188,7 @@
     <ClInclude Include="RaccoonTailConst.h" />
     <ClInclude Include="RaccoonMario.h" />
     <ClInclude Include="RectF.h" />
+    <ClInclude Include="RedKoopa.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />
@@ -235,6 +236,7 @@
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="RaccoonTailBox.cpp" />
     <ClCompile Include="RaccoonMario.cpp" />
+    <ClCompile Include="RedKoopa.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="SceneManager.cpp" />
