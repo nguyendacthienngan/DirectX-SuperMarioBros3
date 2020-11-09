@@ -91,6 +91,14 @@ void CRaccoonMario::EndAnimation()
 			SetState(lastState);
 		}
 	}
+
+	if (currentState.compare(MARIO_STATE_FLOAT) == 0)
+	{
+		isFloat = false;
+		if (animations.find(lastState) == animations.end())
+			lastState = MARIO_STATE_IDLE;
+		SetState(lastState);
+	}
 }
 
 void CRaccoonMario::Update(DWORD dt, CCamera* cam)
@@ -169,10 +177,8 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 
 #pragma region Xử lý việc sau khi bay mà quẫy đuôi bay chậm
 
-	// BUG: Gravity chưa giảm được
-		//if ((GetTickCount64() - lastFloatTime > timeToFloat || isOnGround == true) && (lastFloatTime != 0.0f && canFloat == true))
-
-	if (( GetTickCount64() - lastFloatTime > timeToFloat || isOnGround == true )  && canFloat == true && canFly == false)
+	if ((GetTickCount64() - lastFloatTime > timeToFloat || isOnGround == true) && canFly == false)
+		//if (( GetTickCount64() - lastFloatTime > timeToFloat || isOnGround == true )  && canFloat == true && canFly == false)
 	{
 		DebugOut(L"End Floattttt \n");
 		canFloat = false;
@@ -180,12 +186,11 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 		moreFloatPower = false;
 		physiscBody->SetGravity(MARIO_GRAVITY);
 	}
-
-	if (canFloat == true && currentPhysicsState.jump == JumpOnAirStates::Fall && isOnGround == false && moreFlyPower == true)
+	if (currentPhysicsState.jump == JumpOnAirStates::Fall && isOnGround == false && moreFlyPower == true)
+		//if (canFloat == true && currentPhysicsState.jump == JumpOnAirStates::Fall && isOnGround == false && moreFlyPower == true)
 	{
 		// Xử lý việc thả nút xong ấn lại liền cho Float
 		currentPhysicsState.jump = JumpOnAirStates::Float;
-		//velocity.y -= MARIO_FLY_FORCE * dt *2; // Nếu cùng trọng lực bthg (0.000093) nhưng rơi chậm hơn, có thể dùng cho float
 		physiscBody->SetGravity(0.0f);
 		isFloat = true;
 		auto velo = physiscBody->GetVelocity();
@@ -203,7 +208,8 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 
 	}
 	// Xử lý việc khi bắt đầu nhấn S cho vẫy đuôi
-	if (isFloat == true && moreFloatPower == true && canFloat == true)
+	if (isFloat == true && moreFloatPower == true)
+		//if (isFloat == true && moreFloatPower == true && canFloat == true)
 	{
 		DebugOut(L"START FLOATING ... \n");
 		physiscBody->SetGravity(0.0f);
@@ -223,9 +229,6 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 	}
 	
 #pragma endregion
-
-
-
 
 	// Set vị trí của TailBox ngay trước mặt Mario (overlap 1 khoảng với box của Mario)
 	auto tailPosition = transform.position;
@@ -285,16 +288,20 @@ void CRaccoonMario::OnKeyDown(int KeyCode)
 #pragma region Xử lý việc sau khi bay mà quẫy đuôi bay chậm
 
 		//// FLOAT
-		if (isFloat == false && canFloat == true)
+		if (isFloat == false)
+			//if (isFloat == false && canFloat == true )
 			lastFloatTime = GetTickCount64();
 
 
-		if (canFly == false && currentPhysicsState.jump == JumpOnAirStates::Fall && isOnGround == false && canFloat == true)
+		if (canFly == false && currentPhysicsState.jump == JumpOnAirStates::Fall && isOnGround == false)
+			//if (canFly == false && currentPhysicsState.jump == JumpOnAirStates::Fall && isOnGround == false && canFloat == true)
 		{
 			isFloat = true;
 			lastKeyFloatDown = GetTickCount64();
 			moreFloatPower = true;
 			physiscBody->SetGravity(0.0f);
+
+			DebugOut(L"START FLOAT \n");
 
 		}
 #pragma endregion

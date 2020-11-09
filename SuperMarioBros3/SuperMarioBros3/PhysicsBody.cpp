@@ -365,16 +365,6 @@ void CPhysicsBody::FilterCollision(
 	if (min_ix >= 0) coEventsResult.push_back(coEvents[min_ix]);
 	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);
 
-	// ****************************** XÉT GHOST PLATFORM ****************************** 
-	// Lưu ý: Vân còn bug nếu gặp trường hợp solid box trong ghost platform => Mario đáng ra phải va chạm với solid box đó nhưng Mario đi xuyên qua nó luôn do effector của ghostplatform :) 
-
-	// Có va chạm 
-	/*if (min_ix >= 0)
-	{
-		coEventsResult.push_back(coEvents[min_ix]);
-	}*/
-
-	// Va chạm phương y
 }
 
 D3DXVECTOR2 CPhysicsBody::GetVelocity()

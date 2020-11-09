@@ -70,7 +70,7 @@ void CKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 		}
 		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && collisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
 		{
-			if (collisionEvent->nx != 0)
+			if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
 			{
 				ChangeToShell();
 				koopaShell->OnDie();
@@ -85,6 +85,11 @@ void CKoopa::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 	{
 		// Chỉ khi bị đuôi quật nó mới set lại -1 r văng đi (chưa văng khỏi ground)
 		// cần xử lý lại việc chết cho hợp lý
+		ChangeToShell();
+		koopaShell->OnDie();
+	}
+	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && otherCollisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
+	{
 		ChangeToShell();
 		koopaShell->OnDie();
 	}

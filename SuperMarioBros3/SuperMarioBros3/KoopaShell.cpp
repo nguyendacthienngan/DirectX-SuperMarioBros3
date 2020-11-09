@@ -96,7 +96,7 @@ void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<
 		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && collisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
 		{
 			// Nếu mai rùa bị đạn bắn là nó lật lại (-1) r bị văng đi khỏi ground lun : HEADSHOT
-			if (collisionEvent->nx != 0)
+			if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
 			{
 				CKoopaShell::OnDie();
 				//headShot = true;
@@ -116,6 +116,10 @@ void CKoopaShell::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionB
 		auto normal = physiscBody->GetNormal();
 		normal.x = otherCollisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal().x;
 		physiscBody->SetNormal(normal);*/
+	}
+	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && otherCollisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
+	{
+		CKoopaShell::OnDie();
 	}
 }
 

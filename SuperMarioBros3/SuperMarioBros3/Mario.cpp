@@ -451,7 +451,7 @@ void CMario::CrouchProcess(CKeyboardManager* keyboard)
 	// Còn đang nhảy (vy != 0) và ấn xuống thì vẫn crouch. Còn 1 lúc bắt k kịp trạng thái bấm qua lại khi đang nhảy (vy != 0 && vx != 0) thì nó có thể vẫn crouch. 
 
 	bool changeAniState = false;
-	if (keyboard->GetKeyStateDown(DIK_LEFT) || keyboard->GetKeyStateDown(DIK_RIGHT)) // thiếu xét trường hợp nhảy ******
+	if (keyboard->GetKeyStateDown(DIK_LEFT) || keyboard->GetKeyStateDown(DIK_RIGHT) || currentState == MARIO_STATE_ATTACK) // thiếu xét trường hợp nhảy ******
 	{
 		// KHÔNG HỤP
 		changeAniState = true;
