@@ -54,6 +54,10 @@ public:
 	void CrouchProcess(CKeyboardManager* keyboard);
 	void SkidProcess(D3DXVECTOR2 velocity);
 	void HoldProcess();
+	void JumpProcess(float jumpForce, bool bounceAfterJumpOnEnemy);
+	void KickProcess(bool isKick);
+	void StopBounce(bool stopBounce);
+	bool StopBounce();
 
 	void KeyState();
 	void OnKeyDown(int KeyCode);

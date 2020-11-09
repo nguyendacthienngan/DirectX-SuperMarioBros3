@@ -55,13 +55,9 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 		pos.x += distance.x;
 		pos.y += distance.y;
 		gameObject->SetPosition(pos);
-		//DebugOut(L"Normal ! \n");
-
 	}
 	else
 	{
-		//DebugOut(L"HIT ! \n");
-
 		// Collision detetion
 		float min_tx, min_ty, nx = 0, ny; 
 
@@ -73,11 +69,10 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 		// block every object first!
 		if (isTrigger == false)
 		{
-			//pos.x += min_tx * distance.x + nx * 0.4f; // nx*0.4f : need to push out a bit to avoid overlapping next frame
-			//pos.y += min_ty * distance.y + ny * 0.4f;
+			pos.x += min_tx * distance.x + nx *0.4f; 
+			pos.y += min_ty * distance.y + ny *0.4f;
 
-			pos.x += min_tx * distance.x + nx *0.2f; 
-			pos.y += min_ty * distance.y + ny *0.2f;
+			cO->CollisionHandle(dt, coEvents, this, velocity, min_tx, min_ty, nx, ny);
 		}
 		
 		if (nx != 0 || ny != 0)
@@ -86,36 +81,6 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 				gameObject->OnTriggerEnter(cO, coEventsResult);
 			else
 				gameObject->OnCollisionEnter(cO, coEventsResult);
-		}
-		if (nx != 0)
-			velocity.x = 0;
-		//velocity.x = isTrigger == true? velocity.x : 0;
-
-		if (ny != 0)
-		{		
-			if (gravity == 0)
-			{
-				velocity.y = isTrigger == true ? velocity.y : 0;
-
-			}
-			else
-			{
-				if (nx == 0)
-				{
-					velocity.y = -bounceForce.y; // lực nảy
-					distance.y = velocity.y * dt;
-					//distance.y = 0;
-				}
-			}
-			//if (gravity != 0)
-			//{
-			//	velocity.y = -1 * Sign(velocity.y) * bounceForce.y; // lực nảy
-			//	distance.y = (-1) * Sign(distance.y) * velocity.y * dt;
-			//}
-			//else
-			//{
-			//	velocity.y = 0;
-			//}
 		}
 		gameObject->SetPosition(pos);
 	}

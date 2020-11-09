@@ -43,6 +43,22 @@ void CCollisionBox::Render(CCamera* camera, int distance)
 	CGame::GetInstance()->Draw(posInCam,D3DXVECTOR2(sizeBox.x*0.5f, sizeBox.y*0.5f) ,tex, bbRect, D3DCOLOR_ARGB(COLLISIONBOX_ALPHA_COLOR,255,255,255));
 }
 
+void CCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>& collisions, LPPhysicsBody phyBody, D3DXVECTOR2 vel, int mintx, int minty, float nx, float ny)
+{
+	if (nx != 0)
+	{
+		vel.x = -1 * Sign(vel.x) * phyBody->GetBounceForce().x;
+		distance.x = -1 * Sign(distance.x) * phyBody->GetBounceForce().x * dt;
+		phyBody->SetVelocity(vel);
+	}
+	if (ny != 0)
+	{
+		vel.y = -1 * Sign(vel.y) * phyBody->GetBounceForce().y;
+		distance.y = -1 * Sign(distance.y) * phyBody->GetBounceForce().y * dt;
+		phyBody->SetVelocity(vel);
+	}
+}
+
 void CCollisionBox::SetGameObjectAttach(LPGameObject gO)
 {
 	this->gameObject = gO;

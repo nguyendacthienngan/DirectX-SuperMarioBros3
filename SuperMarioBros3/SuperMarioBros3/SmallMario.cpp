@@ -3,6 +3,7 @@
 #include "MarioControllerConst.h"
 #include "AnimationManager.h"
 #include "Ultis.h"
+#include "MarioCollisionBox.h"
 CSmallMario::CSmallMario()
 {
 	CSmallMario::Init();
@@ -18,7 +19,8 @@ CSmallMario::CSmallMario()
 void CSmallMario::Init()
 {
 	LoadAnimation();
-	CCollisionBox* collisionBox = new CCollisionBox(); 
+	//CCollisionBox* collisionBox = new CCollisionBox(); 
+	CMarioCollisionBox* collisionBox = new CMarioCollisionBox();
 	collisionBox->SetSizeBox(SMALL_MARIO_BBOX);
 	collisionBox->SetGameObjectAttach(this);
 	collisionBox->SetName("Small-Mario"); // SmallMario

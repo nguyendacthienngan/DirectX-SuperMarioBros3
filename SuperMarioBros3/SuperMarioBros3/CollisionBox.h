@@ -13,6 +13,8 @@ typedef CPhysicsBody* LPPhysicsBody;
 
 class CCamera;
 
+struct CollisionEvent;
+
 class CCollisionBox
 {
 private:
@@ -27,8 +29,9 @@ public:
 	CCollisionBox();
 	~CCollisionBox();
 	void Render(CCamera* camera, int distance);
-	
-	void SetGameObjectAttach(LPGameObject gO);
+	virtual void CollisionHandle(DWORD dt, std::vector<CollisionEvent*>& collisions, LPPhysicsBody phyBody, D3DXVECTOR2 vel, int mintx, int minty, float nx, float ny);
+
+	virtual void SetGameObjectAttach(LPGameObject gO);
 	LPGameObject GetGameObjectAttach();
 	
 	void SetSizeBox(D3DXVECTOR2 size);

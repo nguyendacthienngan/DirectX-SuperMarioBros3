@@ -16,7 +16,7 @@
 #include <cctype> 
 #include <string>
 #include "Koopa.h"
-
+#include "MarioCollisionBox.h"
 using namespace std;
 
 CMario::CMario()
@@ -30,7 +30,8 @@ CMario::CMario()
 void CMario::Init()
 {
 	this->SetState(MARIO_STATE_IDLE); 
-	CCollisionBox* collisionBox = new CCollisionBox();
+	//CCollisionBox* collisionBox = new CCollisionBox();
+	CMarioCollisionBox* collisionBox = new CMarioCollisionBox();
 	collisionBox->SetSizeBox(SUPER_MARIO_BBOX); // Big
 	collisionBox->SetPosition(D3DXVECTOR2(0.0f, 0.0f)); // Local Position
 	collisionBox->SetGameObjectAttach(this);
@@ -250,7 +251,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 			{
 				bounceAfterJumpOnEnemy = false;
 				canHighJump = false;
-				stopBounce = true;
+				stopBounce = true; // ****
 			}
 
 		}
@@ -418,7 +419,6 @@ void CMario::Render(CCamera* cam)
 
 void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
 {
-	//physiscBody->SetBounceForce(0);
 	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
@@ -434,123 +434,6 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 				auto v = physiscBody->GetVelocity();
 				physiscBody->SetVelocity(D3DXVECTOR2(0, v.y));
 				pMeterCounting = 0;
-			}
-		}
-		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy) // xét tổng quát, nhưng thiệt ra có 1 số con mình nhảy lên đầu chưa đúng lắm ?
-		{
-			if (collisionEvent->ny !=  0) // nhảy lên đầu quái
-			{
-				// Cần chỉnh lại
-				/*auto normal = physiscBody->GetNormal();
-				physiscBody->SetVelocity(D3DXVECTOR2(normal.x * 0.15f, -0.4f));*/
-				if (GetTickCount64() - startDeflectTime > MARIO_DEFLECT_TIME && startDeflectTime != 0)
-				{
-					startDeflectTime = 0;
-				}
-
-				if (startDeflectTime == 0)
-				{
-					DebugOut(L"DEFLECT \n");
-					// Mario nhảy lên sau khi nhảy lên đầu quái
-					if (bounceAfterJumpOnEnemy == false && stopBounce == false)
-					{
-						auto normal = physiscBody->GetNormal();
-						//physiscBody->SetVelocity(D3DXVECTOR2(normal.x * 0.15f, -MARIO_JUMP_FORCE)); // ********************
-						physiscBody->SetVelocity(D3DXVECTOR2(normal.x * MARIO_DEFLECT_X, -MARIO_DEFLECT_Y));
-						isJump = true;
-						isOnGround = false;
-						canHighJump = true;
-						currentPhysicsState.jump = JumpOnAirStates::Jump;
-						bounceAfterJumpOnEnemy = true;
-					}
-					
-					//startDeflectTime = GetTickCount64();
-
-				}
-				if (stopBounce == true)
-						stopBounce = false;
-				
-
-				
-
-				auto otherObject = collisionBox->GetGameObjectAttach();
-				auto otherEnemyObject = static_cast<CEnemy*>(otherObject);
-				switch (otherEnemyObject->GetEnemyTag())
-				{
-					case EnemyTag::KoopaShell:
-					{
-						auto koopaShell = static_cast<CKoopaShell*>(otherObject);
-						// Koopa Shell
-						if (koopaShell->IsRunning() == false)
-						{
-							koopaShell->SetRun();
-						}
-						else if (collisionEvent->ny <0)
-						{
-							koopaShell->SetStopRun();
-						}
-						break;
-					}
-					case EnemyTag::Goomba:
-					{
-						otherEnemyObject->OnDie();
-						break;
-					}
-					case EnemyTag::Koopa:
-					{
-						auto koopa = static_cast<CKoopa*>(otherObject);
-						koopa->ChangeToShell();
-						break;
-					}
-				}
-				
-				
-			}
-			else if (collisionEvent->nx != 0)
-			{
-				auto otherObject = collisionBox->GetGameObjectAttach();
-				auto otherEnemyObject = static_cast<CEnemy*>(otherObject);
-				switch (otherEnemyObject->GetEnemyTag())
-				{
-					case EnemyTag::KoopaShell:
-					{
-						auto koopaShell = static_cast<CKoopaShell*>(otherObject);
-
-						// Koopa Shell
-						if (CanRun() == true && koopaShell->IsRunning() == false) // Mario đang chạy
-						{
-							// Nếu mario đang chạy => Chạm mai rùa thì có thể cầm được mai rùa
-							// Lúc sau có thể bị đè bởi sự kiện mà set state k đc hay k?
-							if (koopaShell != NULL)
-							{
-								HoldObject(koopaShell);
-								koopaShell->GetPhysiscBody()->SetGravity(0.0f);
-							}
-						}
-						else
-						{
-							if (koopaShell->IsRunning() == false) // mai rùa đang chạy thì k kick đc nữa mà mario bị damaged
-							{
-								isKick = true;
-								auto normal = koopaShell->GetPhysiscBody()->GetNormal() ;
-								normal.x = this->physiscBody->GetNormal().x;
-								koopaShell->GetPhysiscBody()->SetNormal(normal);
-								koopaShell->SetRun();
-							}
-							else
-							{
-								// Mario bị damaged
-							}
-						}
-						break;
-					}
-					default:
-					{
-						// TO-DO: Bị damaged
-						OnDamaged();
-						break;
-					}
-				}
 			}
 		}
 	}
@@ -626,6 +509,29 @@ void CMario::HoldProcess()
 	}
 }
 
+void CMario::JumpProcess(float jumpForce, bool bounceAfterJumpOnEnemy)
+{
+	physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, jumpForce));
+	isJump = true;
+	isOnGround = false;
+	this->bounceAfterJumpOnEnemy = bounceAfterJumpOnEnemy;
+}
+
+void CMario::KickProcess(bool isKick)
+{
+	this->isKick = isKick;
+}
+
+void CMario::StopBounce(bool stopBounce)
+{
+	this->stopBounce = stopBounce;
+}
+
+bool CMario::StopBounce()
+{
+	return stopBounce;
+}
+
 void CMario::KeyState()
 {
 	
@@ -637,9 +543,7 @@ void CMario::OnKeyDown(int KeyCode)
 	if ((KeyCode == DIK_S || KeyCode == DIK_X) && isOnGround == true && currentPhysicsState.jump == JumpOnAirStates::Stand)
 	{
 		// JUMP
-		physiscBody->SetVelocity(D3DXVECTOR2(physiscBody->GetVelocity().x, -MARIO_JUMP_FORCE));
-		isJump = true;
-		isOnGround = false;
+		JumpProcess(-MARIO_JUMP_FORCE, false);
 		if (KeyCode == DIK_S)
 		{
 			canHighJump = true;
@@ -656,7 +560,6 @@ void CMario::OnKeyDown(int KeyCode)
 		}
 		if (currentPhysicsState.jump == JumpOnAirStates::Stand && KeyCode == DIK_S)
 			currentPhysicsState.jump = JumpOnAirStates::Jump;
-		isOnGround = false;
 	}
 	if ((KeyCode == DIK_Z || KeyCode == DIK_A)&& canAttack == true && isAttack == false && currentPhysicsState.move != MoveOnGroundStates::Attack)
 	{

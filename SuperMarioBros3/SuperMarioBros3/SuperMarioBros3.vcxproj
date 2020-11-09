@@ -176,6 +176,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapConst.h" />
     <ClInclude Include="Mario.h" />
+    <ClInclude Include="MarioCollisionBox.h" />
     <ClInclude Include="MarioConst.h" />
     <ClInclude Include="MarioController.h" />
     <ClInclude Include="MarioControllerConst.h" />
@@ -228,6 +229,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="MarioCollisionBox.cpp" />
     <ClCompile Include="MarioController.cpp" />
     <ClCompile Include="Misc.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />

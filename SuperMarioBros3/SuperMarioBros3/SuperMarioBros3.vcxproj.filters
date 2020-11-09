@@ -321,6 +321,9 @@
     <ClInclude Include="GameObjectConst.h">
       <Filter>Framework\Game\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="MarioCollisionBox.h">
+      <Filter>Game\GameObject\Mario\BaseMario</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -451,6 +454,9 @@
     </ClCompile>
     <ClCompile Include="KoopaShell.cpp">
       <Filter>Game\GameObject\Enemy\Koopa\KoopaShell</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioCollisionBox.cpp">
+      <Filter>Game\GameObject\Mario\BaseMario</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
