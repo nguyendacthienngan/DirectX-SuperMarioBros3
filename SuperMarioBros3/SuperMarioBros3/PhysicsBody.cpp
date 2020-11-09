@@ -288,7 +288,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 			continue;
 
 		// Quái cùng loại gặp nhau sẽ đẩy ra, quái khác loại thì đi qua nhau
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
+		/*if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
 		{
 			auto selfObject = cO->GetGameObjectAttach();
 			auto otherObject = coObjects->at(i)->GetGameObjectAttach();
@@ -296,7 +296,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 			CEnemy* otherEnemyObject = static_cast<CEnemy*>(otherObject);
 			if (selfEnemyObject->GetEnemyTag() != otherEnemyObject->GetEnemyTag() )
 				continue;
-		}
+		}*/
 
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
 			continue;

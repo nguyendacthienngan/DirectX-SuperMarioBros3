@@ -102,6 +102,18 @@ void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<
 				//headShot = true;
 			}
 		}
+		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
+		{
+			if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
+			{
+				if (isRun == true || IsHolding() == true)
+				{
+					auto enemyObj = static_cast<CEnemy*>(collisionBox->GetGameObjectAttach());
+					enemyObj->OnDie();
+				}
+				
+			}
+		}
 	}
 }
 
@@ -112,14 +124,18 @@ void CKoopaShell::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionB
 		// Chỉ khi bị đuôi quật nó mới set lại -1 r văng đi (chưa văng khỏi ground)
 		// cần xử lý lại việc chết cho hợp lý
 		CKoopaShell::OnDie();
-		/*headShot = true;
-		auto normal = physiscBody->GetNormal();
-		normal.x = otherCollisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal().x;
-		physiscBody->SetNormal(normal);*/
 	}
 	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && otherCollisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
 	{
 		CKoopaShell::OnDie();
+	}
+	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
+	{
+		if (isRun == true || IsHolding() == true)
+		{
+			auto enemyObj = static_cast<CEnemy*>(otherCollisionBox->GetGameObjectAttach());
+			enemyObj->OnDie();
+		}
 	}
 }
 
