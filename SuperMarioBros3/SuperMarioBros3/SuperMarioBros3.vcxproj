@@ -148,6 +148,7 @@
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionBox.h" />
+    <ClInclude Include="CollisionBoxConst.h" />
     <ClInclude Include="Const.h" />
     <ClInclude Include="Effector.h" />
     <ClInclude Include="Enemy.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="GameConst.h" />
     <ClInclude Include="GameKeyEventHandler.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectConst.h" />
     <ClInclude Include="GameObjectTags.h" />
     <ClInclude Include="GhostPlatform.h" />
     <ClInclude Include="Goomba.h" />
@@ -171,7 +173,6 @@
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="KoopaConst.h" />
     <ClInclude Include="KoopaShell.h" />
-    <ClInclude Include="Layer.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapConst.h" />
     <ClInclude Include="Mario.h" />
@@ -199,7 +200,6 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TileMap.h" />
-    <ClInclude Include="TileSet.h" />
     <ClInclude Include="tinystr.h" />
     <ClInclude Include="tinyxml.h" />
     <ClInclude Include="Transform.h" />
@@ -225,7 +225,6 @@
     <ClCompile Include="KeyEventHandler.cpp" />
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="KoopaShell.cpp" />
-    <ClCompile Include="Layer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mario.cpp" />
@@ -245,7 +244,6 @@
     <ClCompile Include="SuperMario.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TileMap.cpp" />
-    <ClCompile Include="TileSet.cpp" />
     <ClCompile Include="tinystr.cpp" />
     <ClCompile Include="tinyxml.cpp" />
     <ClCompile Include="tinyxmlerror.cpp" />

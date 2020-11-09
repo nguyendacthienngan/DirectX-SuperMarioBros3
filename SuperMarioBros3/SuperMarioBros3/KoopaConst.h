@@ -8,9 +8,12 @@
 
 #define KOOPA_SPEED					0.039f 
 #define KOOPA_SHELL_SPEED			0.1f 
-#define KOOPA_SHELL_DEFLECT			0.4f 
+#define KOOPA_SHELL_DEFLECT			0.6f 
+#define KOOPA_SHELL_DEFLECT_X		0.4f 
 
 const D3DXVECTOR2 KOOPA_BBOX		(16 * 3, 27 * 3);
 const D3DXVECTOR2 KOOPA_SHELL_BBOX	(16 * 3, 16 * 3);
 
 #define KOOPA_GRAVITY				0.00093f
+
+#define KOOPA_DIE_TIME				100

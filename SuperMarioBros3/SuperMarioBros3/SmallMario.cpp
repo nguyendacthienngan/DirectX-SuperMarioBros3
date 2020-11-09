@@ -21,7 +21,7 @@ void CSmallMario::Init()
 	CCollisionBox* collisionBox = new CCollisionBox(); 
 	collisionBox->SetSizeBox(SMALL_MARIO_BBOX);
 	collisionBox->SetGameObjectAttach(this);
-	collisionBox->SetName("Mario"); // SmallMario
+	collisionBox->SetName("Small-Mario"); // SmallMario
 	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
 	this->collisionBoxs->push_back(collisionBox);
 }

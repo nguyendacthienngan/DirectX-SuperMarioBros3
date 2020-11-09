@@ -1,0 +1,3 @@
+#pragma once
+#define COLLISIONBOX_ALPHA_COLOR	20
+#define COLLISIONBOX_DISTANCE		32

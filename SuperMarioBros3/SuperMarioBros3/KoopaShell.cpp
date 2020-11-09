@@ -11,14 +11,13 @@ CKoopaShell::CKoopaShell()
 	isRun = false;
 	stopHold = false;
 	isDead = false;
-	//physiscBody->SetBounceForce(D3DXVECTOR2(0.0f, KOOPA_SHELL_SPEED));
 }
 
 void CKoopaShell::Init()
 {
 	LoadAnimation();
 	SetState(KOOPA_SHELL_STATE_IDLE);
-	isEnabled = true;
+	isEnabled = false;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(KOOPA_SHELL_BBOX);
@@ -27,7 +26,7 @@ void CKoopaShell::Init()
 	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
 	this->collisionBoxs->push_back(collisionBox);
 
-
+	startDeadTime = 0;
 	physiscBody->SetDynamic(true);
 	physiscBody->SetGravity(KOOPA_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
@@ -45,21 +44,38 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam)
 	auto vel = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
 
-	if ((IsHolding() == true))
-		physiscBody->SetGravity(0);
+	
+	if (isDead == true)
+	{
+		this->isEnabled = false;
+		physiscBody->SetDynamic(false);
+		physiscBody->SetGravity(0.0f);
+		vel.y = 0.0f;
+		/*if (GetTickCount64() - startDeadTime > KOOPA_DIE_TIME && startDeadTime != 0)
+		{
+			this->isEnabled = false;
+			physiscBody->SetDynamic(false);
+			physiscBody->SetGravity(0.0f);
+			vel.y = 0.0f;
+		}*/
+	}
 	else
-		physiscBody->SetGravity(KOOPA_GRAVITY);
-
-	if (canRun == true)
 	{
-		vel.x = KOOPA_SHELL_SPEED * normal.x;
-		isRun = true;
-	}
-	else if (isRun == false)
-	{
-		vel.x = 0.0f;
-	}
+		if ((IsHolding() == true))
+			physiscBody->SetGravity(0);
+		else
+			physiscBody->SetGravity(KOOPA_GRAVITY);
 
+		if (canRun == true)
+		{
+			vel.x = KOOPA_SHELL_SPEED * normal.x;
+			isRun = true;
+		}
+		else if (isRun == false)
+		{
+			vel.x = 0.0f;
+		}
+	}
 	physiscBody->SetVelocity(vel);
 	DebugOut(L"KoopaShell Position  %f, %f \n", transform.position.x, transform.position.y);
 	DebugOut(L"KoopaShell Gravity  %f \n", physiscBody->GetGravity());
@@ -79,6 +95,7 @@ void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<
 				auto normal = physiscBody->GetNormal();
 				normal.x = -normal.x;
 				physiscBody->SetNormal(normal);
+				DebugOut(L"NORMAL : %d, %d \n", normal.x, normal.y);
 			}
 		}
 		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && collisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
@@ -87,7 +104,7 @@ void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<
 			if (collisionEvent->nx != 0)
 			{
 				CKoopaShell::OnDie();
-				headShot = true;
+				//headShot = true;
 			}
 		}
 	}
@@ -101,7 +118,9 @@ void CKoopaShell::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionB
 		// cần xử lý lại việc chết cho hợp lý
 		CKoopaShell::OnDie();
 		headShot = true;
-
+		auto normal = physiscBody->GetNormal();
+		normal.x = otherCollisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal().x;
+		physiscBody->SetNormal(normal);
 	}
 }
 
@@ -113,14 +132,16 @@ void CKoopaShell::OnDie()
 	physiscBody->SetGravity(0.0f);
 
 	// Chỗ này giúp tạo hiệu ứng văng đi 
-	//if (headShot)
-	//{
-	//	auto v = physiscBody->GetVelocity();
-	//	v.y = -KOOPA_SHELL_DEFLECT;
-	//	physiscBody->SetVelocity(v);
-	//}
-	isDead = true;
+	if (headShot)
+	{
+		auto v = physiscBody->GetVelocity();
+		v.y = -KOOPA_SHELL_DEFLECT;
+		v.x = KOOPA_SHELL_DEFLECT_X * normal.x;
+		physiscBody->SetVelocity(v);
+		isDead = true;
+		startDeadTime = GetTickCount64();
 
+	}
 }
 
 void CKoopaShell::SetHoldablePosition(D3DXVECTOR2 pos)

@@ -1,12 +1,5 @@
 ﻿#include "GameObject.h"
-
-// Tạm thời
-#include "Game.h"
-#include "TextureManager.h"
-#include <string>
-#include <vector>
-#include <algorithm>
-
+#include "GameObjectConst.h"
 using namespace std;
 
 CGameObject::CGameObject()
@@ -21,7 +14,11 @@ CGameObject::CGameObject()
 
 CGameObject::~CGameObject()
 {
-
+	if (physiscBody != NULL) delete physiscBody;
+	for (auto col : *collisionBoxs)
+		delete col;
+	collisionBoxs->clear();
+	delete collisionBoxs;
 }
 
 
@@ -31,11 +28,7 @@ void CGameObject::Init()
 
 void CGameObject::Clear()
 {
-	/*if (physiscBody != NULL) delete physiscBody;
-	for (auto col : *collisionBoxs)
-		delete col;
-	collisionBoxs->clear();
-	delete collisionBoxs;*/
+	
 }
 
 void CGameObject::LoadAnimation()
@@ -59,6 +52,8 @@ void CGameObject::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
 		physiscBody->Update(this);
 		physiscBody->PhysicsUpdate(collisionBox, &otherCollisionBoxs);
 	}
+
+	ResetTempValues();
 }
 
 void CGameObject::Update(DWORD dt, CCamera* cam)
@@ -79,9 +74,30 @@ void CGameObject::Render(CCamera* cam)
 
 	if (tag != GameObjectTags::SmallPlayer)
 	{
-		posInCam.y = trunc(posInCam.y) + 18; // Đang hardcode, sẽ fix sau
+		posInCam.y = trunc(posInCam.y) + Small_Player_Distance;
 	}
 	animations.at(currentState)->Render(posInCam);
+}
+
+void CGameObject::FrictionProcess(float& speed, DWORD dt)
+{
+	if (speed > 0)
+	{
+		speed += -ACCELERATION_FRICTION * dt;
+		if (speed < 0)
+			speed = 0;
+	}
+	if (speed < 0)
+	{
+		speed += ACCELERATION_FRICTION * dt;
+		if (speed > 0)
+			speed = 0;
+	}
+}
+
+void CGameObject::ResetTempValues()
+{
+	physiscBody->SetAcceleration(0.0f);
 }
 
 

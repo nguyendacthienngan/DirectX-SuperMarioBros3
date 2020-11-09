@@ -247,7 +247,6 @@ void CPhysicsBody::SweptAABB(
 	else
 	{
 		nx = 0.0f;
-		//dy > 0 ? ny = -1.0f : ny = 1.0f;
 		// Ghost Platform thì mình k xét ở dưới lên hoặc va chạm ngang
 		dy > 0 ? ny = -1.0f : (tag == GameObjectTags::GhostPlatform ? ny = 0.0f : ny = 1.0f);
 	}
