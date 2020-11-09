@@ -6,7 +6,7 @@
 #define GOOMBA_STATE_CROUCH			"CROUCH"
 #define GOOMBA_STATE_DIE			"DIE"
 
-#define GOOMBA_DIE_TIME				800
+#define GOOMBA_DIE_TIME				300
 #define GOOMBA_SPEED				0.039f 
 
 const D3DXVECTOR2 GOOMBA_BBOX		(16 * 3, 16 * 3);

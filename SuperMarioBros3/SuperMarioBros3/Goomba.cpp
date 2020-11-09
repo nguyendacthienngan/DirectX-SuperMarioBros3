@@ -113,7 +113,9 @@ void CGoomba::OnDie()
 	v.y = 0.0f;
 	physiscBody->SetVelocity(v);
 	physiscBody->SetGravity(0.0f);
-	startDeadTime = GetTickCount64();
+	countDeadCallback++;
+	if (countDeadCallback == 1)
+		startDeadTime = GetTickCount64();
 
 	SetRelativePositionOnScreen(D3DXVECTOR2(0, (GOOMBA_BBOX.y - GOOMBA_DIE_BBOX.y) * 0.5f));
 	collisionBoxs->at(0)->SetSizeBox(GOOMBA_DIE_BBOX);

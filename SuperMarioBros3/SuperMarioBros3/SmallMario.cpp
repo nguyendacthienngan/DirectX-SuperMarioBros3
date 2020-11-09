@@ -19,7 +19,6 @@ CSmallMario::CSmallMario()
 void CSmallMario::Init()
 {
 	LoadAnimation();
-	//CCollisionBox* collisionBox = new CCollisionBox(); 
 	CMarioCollisionBox* collisionBox = new CMarioCollisionBox();
 	collisionBox->SetSizeBox(SMALL_MARIO_BBOX);
 	collisionBox->SetGameObjectAttach(this);

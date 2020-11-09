@@ -30,7 +30,6 @@ CMario::CMario()
 void CMario::Init()
 {
 	this->SetState(MARIO_STATE_IDLE); 
-	//CCollisionBox* collisionBox = new CCollisionBox();
 	CMarioCollisionBox* collisionBox = new CMarioCollisionBox();
 	collisionBox->SetSizeBox(SUPER_MARIO_BBOX); // Big
 	collisionBox->SetPosition(D3DXVECTOR2(0.0f, 0.0f)); // Local Position
@@ -515,6 +514,8 @@ void CMario::JumpProcess(float jumpForce, bool bounceAfterJumpOnEnemy)
 	isJump = true;
 	isOnGround = false;
 	this->bounceAfterJumpOnEnemy = bounceAfterJumpOnEnemy;
+	if (bounceAfterJumpOnEnemy == true)
+		currentPhysicsState.jump = JumpOnAirStates::Jump;
 }
 
 void CMario::KickProcess(bool isKick)

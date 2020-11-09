@@ -10,6 +10,7 @@ protected:
 	EnemyTag enemyTag;
 	DWORD startDeadTime;
 	bool isDead;
+	int countDeadCallback;
 public:
 	CEnemy();
 	void SetEnemyType(std::string eT);
