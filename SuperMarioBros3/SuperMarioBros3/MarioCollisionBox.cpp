@@ -76,7 +76,6 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 					{
 						if (koopaShell->IsRunning() == false) // mai rùa đang chạy thì k kick đc nữa mà mario bị damaged
 						{
-							//isKick = true;
 							mario->KickProcess(true);
 							auto normal = koopaShell->GetPhysiscBody()->GetNormal();
 							normal.x = mario->GetPhysiscBody()->GetNormal().x;

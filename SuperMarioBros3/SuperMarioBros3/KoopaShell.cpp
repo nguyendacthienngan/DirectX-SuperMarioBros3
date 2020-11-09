@@ -11,6 +11,7 @@ CKoopaShell::CKoopaShell()
 	isRun = false;
 	stopHold = false;
 	isDead = false;
+	upsideDown = false;
 }
 
 void CKoopaShell::Init()
@@ -43,8 +44,6 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam)
 {
 	auto vel = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
-
-	
 	if (isDead == true)
 	{
 		this->isEnabled = false;
@@ -76,11 +75,8 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam)
 			vel.x = 0.0f;
 		}
 	}
+	physiscBody->SetNormal(normal);
 	physiscBody->SetVelocity(vel);
-	DebugOut(L"KoopaShell Position  %f, %f \n", transform.position.x, transform.position.y);
-	DebugOut(L"KoopaShell Gravity  %f \n", physiscBody->GetGravity());
-	DebugOut(L"KoopaShell Velocity  %f, %f \n", vel.x, vel.y);
-
 }
 
 void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
@@ -90,12 +86,11 @@ void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<
 		auto collisionBox = collisionEvent->obj;
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
 		{
+			auto normal = physiscBody->GetNormal();
 			if (collisionEvent->nx != 0)
 			{
-				auto normal = physiscBody->GetNormal();
 				normal.x = -normal.x;
 				physiscBody->SetNormal(normal);
-				DebugOut(L"NORMAL : %d, %d \n", normal.x, normal.y);
 			}
 		}
 		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && collisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
@@ -117,21 +112,18 @@ void CKoopaShell::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionB
 		// Chỉ khi bị đuôi quật nó mới set lại -1 r văng đi (chưa văng khỏi ground)
 		// cần xử lý lại việc chết cho hợp lý
 		CKoopaShell::OnDie();
-		headShot = true;
+		/*headShot = true;
 		auto normal = physiscBody->GetNormal();
 		normal.x = otherCollisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal().x;
-		physiscBody->SetNormal(normal);
+		physiscBody->SetNormal(normal);*/
 	}
 }
 
 void CKoopaShell::OnDie()
 {
 	auto normal = physiscBody->GetNormal();
-	normal.y = -1;
-	physiscBody->SetNormal(normal);
 	physiscBody->SetGravity(0.0f);
-
-	// Chỗ này giúp tạo hiệu ứng văng đi 
+	upsideDown = true;
 	if (headShot)
 	{
 		auto v = physiscBody->GetVelocity();
@@ -140,7 +132,6 @@ void CKoopaShell::OnDie()
 		physiscBody->SetVelocity(v);
 		isDead = true;
 		startDeadTime = GetTickCount64();
-
 	}
 }
 
@@ -174,7 +165,14 @@ bool CKoopaShell::IsHolding()
 void CKoopaShell::Render(CCamera* cam)
 {
 	auto normal = physiscBody->GetNormal();
-	SetScale(normal);
+	if (upsideDown == true)
+	{
+		normal.y = -1.0f;
+		physiscBody->SetNormal(normal);
+		SetScale(D3DXVECTOR2(1.0f, -1.0f));
+	}
+	else
+		SetScale(D3DXVECTOR2(1.0f, 1.0f));
 	if (isRun == true)
 		SetState(KOOPA_SHELL_STATE_RUN);
 	else

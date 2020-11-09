@@ -499,7 +499,6 @@ void CMario::HoldProcess()
 		else
 		{
 			// thả ra => vẫn còn nút A => tưởng bị A
-
 			objectHolding->Release();
 			objectHolding = NULL;
 			isHold = false;

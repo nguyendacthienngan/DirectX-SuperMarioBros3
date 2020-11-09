@@ -41,20 +41,16 @@ void CKoopa::Update(DWORD dt, CCamera* cam)
 {
 	auto velocity = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
-
-	/*if (transform.position.x >= boundaryRight - KOOPA_BBOX.x*0.5f|| transform.position.x <= boundaryLeft + KOOPA_BBOX.x *0.5f)
-		normal.x = -normal.x;*/
 	velocity.x = normal.x * KOOPA_SPEED;
 
 	physiscBody->SetVelocity(velocity);
-	physiscBody->SetNormal(normal);
 }
 
 void CKoopa::Render(CCamera* cam)
 {
 	auto normal = physiscBody->GetNormal();
 	
-	SetScale(D3DXVECTOR2(-normal.x, 1.0f));
+	SetScale(D3DXVECTOR2(-normal.x, normal.y));
 	CGameObject::Render(cam);
 }
 

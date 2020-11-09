@@ -7,6 +7,7 @@ protected:
 	bool canRun, stopHold;
 	bool isRun;
 	bool headShot;
+	bool upsideDown;
 public:
 	CKoopaShell();
 	void Init();
