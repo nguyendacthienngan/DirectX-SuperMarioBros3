@@ -18,16 +18,19 @@
 #define TEXTURE_BBOX		"tex-bbox"
 #define TEXTURE_MISC		"tex-misc"
 #define TEXTURE_FIRE_BALL	"tex-fire-ball"
+#define TEXTURE_EFFECT		"tex-effect"
 
 #define DB_SPRITE_MARIO		"spr-mario"
 #define DB_SPRITE_ENEMY		"spr-enemy"
 #define DB_SPRITE_MISC		"spr-misc"
 #define DB_SPRITE_FIRE_BALL		"spr-fire-ball"
+#define DB_SPRITE_EFFECT	"spr-effect"
 
 #define DB_ANIMATION_MARIO	"ani-mario"
 #define DB_ANIMATION_ENEMY	"ani-enemy"
 #define DB_ANIMATION_MISC	"ani-misc"
 #define DB_ANIMATION_FIRE_BALL	"ani-fire-ball"
+#define DB_ANIMATION_EFFECT	"ani-effect"
 
 #define SC_WOLRD_1_1		"world-1-1"
 

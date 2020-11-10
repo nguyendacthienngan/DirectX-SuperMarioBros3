@@ -274,6 +274,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
+		// Trừ solidbox ra thì tất cả gameobject bị disable thì k được xét va chạm vật lý
 		if (coObjects->at(i)->GetGameObjectAttach()->IsEnabled() == false && (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid))
 			continue;
 		if (coObjects->at(i) == cO)
@@ -287,7 +288,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
 			continue;
 
-		// Quái cùng loại gặp nhau sẽ đẩy ra, quái khác loại thì đi qua nhau
+		// Quái cùng loại gặp nhau sẽ đẩy ra, quái khác loại thì đi qua nhau (trừ mai rùa)
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
 		{
 			auto selfObject = cO->GetGameObjectAttach();

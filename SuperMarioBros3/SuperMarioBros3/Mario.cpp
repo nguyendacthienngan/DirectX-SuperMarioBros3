@@ -64,23 +64,31 @@ void CMario::InitProperties()
 	isFly = false;
 	stopBounce = false;
 	isKick = false;
+	isDamaged = false;
+	isSmokeEffectAnimation = false;
 	bounceAfterJumpOnEnemy = false;
 	feverTime = MARIO_FEVER_TIME;
 	lastFeverTime = 0;
 	feverState = 0;
 	pMeterCounting = 0.0f;
 	beforeJumpPosition = 0.0f;
-	startDeflectTime = 0;
+	timeStartSmokeEffect = 0;
+	timeStartChangeLevel = 0;
+	timeStartDamaged = 0;
+	countSmokeEffectActivate = 0;
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 
 }
 
 void CMario::LoadAnimation()
 {
+	auto animationManager = CAnimationManager::GetInstance();
+	AddAnimation(MARIO_STATE_DAMAGED, animationManager->Get("ani-mario-damaged"), false);
 }
 
 void CMario::EndAnimation()
 {
+	CGameObject::EndAnimation();
 	if (currentState.compare(MARIO_STATE_KICK) == 0)
 	{
 		isKick = false;
@@ -284,6 +292,13 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	if (canCrouch == true) // Small Mario k thể crouch
 		CrouchProcess(keyboard);
 	HoldProcess();
+
+	DebugOut(isSmokeEffectAnimation == true ? L"SMOKE EFFECT IN UPDATE(1)....\n" : L"NON SMOKE EFFECT IN UPDATE(1).. \n");
+
+	DamageProcess();
+	DebugOut(isSmokeEffectAnimation == true ? L"SMOKE EFFECT IN UPDATE(2)....\n" : L"NON SMOKE EFFECT IN UPDATE(2).. \n");
+
+
 	if (isKick == true)
 	{
 		previousPhysicsState.move = currentPhysicsState.move;
@@ -291,6 +306,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	}
 	if (currentPhysicsState.move == MoveOnGroundStates::Kick && isKick == false)
 		currentPhysicsState.move = previousPhysicsState.move;
+
 }
 
 void CMario::Render(CCamera* cam)
@@ -298,10 +314,11 @@ void CMario::Render(CCamera* cam)
 	SetScale(D3DXVECTOR2(physiscBody->GetNormal().x, 1.0f));
 
 #pragma region Update State
-
-#pragma region Move On Ground
-	switch (currentPhysicsState.move)
+	if (isSmokeEffectAnimation == false)
 	{
+#pragma region Move On Ground
+		switch (currentPhysicsState.move)
+		{
 		case MoveOnGroundStates::Idle:
 		{
 			if (isHold == true)
@@ -322,7 +339,7 @@ void CMario::Render(CCamera* cam)
 		{
 			if (isHold == true)
 				SetState(MARIO_STATE_HOLD_MOVE);
-			else 
+			else
 				SetState(MARIO_STATE_RUNNING);
 			break;
 		}
@@ -335,7 +352,7 @@ void CMario::Render(CCamera* cam)
 				SetState(MARIO_STATE_SKID);
 				break;
 			}
-			
+
 		}
 		case MoveOnGroundStates::Crouch:
 		{
@@ -368,48 +385,63 @@ void CMario::Render(CCamera* cam)
 				SetState(MARIO_STATE_KICK);
 			break;
 		}
-	}
+		case MoveOnGroundStates::Damaged:
+		{
+			SetState(MARIO_STATE_DAMAGED);
+		}
+		}
 #	pragma endregion
 
 #pragma region Jump On Air
-	if (currentPhysicsState.move != MoveOnGroundStates::JumpAttack && isHold == false)
-	{
-		switch (currentPhysicsState.jump)
+		if (currentPhysicsState.move != MoveOnGroundStates::JumpAttack && isHold == false)
 		{
-		case JumpOnAirStates::Jump: case JumpOnAirStates::HighJump:
-		case JumpOnAirStates::LowJump:
-		{
-			SetState(MARIO_STATE_JUMP);
-			break;
-		}
-		case JumpOnAirStates::Fall:
-		{
-			SetState(MARIO_STATE_FALL);
-			break;
-		}
-		case JumpOnAirStates::Fly: //Riêng raccoon
-		{
-			SetState(MARIO_STATE_FLY);
-			break;
-		}
-		case JumpOnAirStates::Float:
-		{
-			SetState(MARIO_STATE_FLOAT);
-			break;
-		}
-		}
-		if (feverState == 2 && isOnGround == false) // Các mario khác
-		{
-			SetState(MARIO_STATE_FLY);
+			switch (currentPhysicsState.jump)
+			{
+			case JumpOnAirStates::Jump: case JumpOnAirStates::HighJump:
+			case JumpOnAirStates::LowJump:
+			{
+				SetState(MARIO_STATE_JUMP);
+				break;
+			}
+			case JumpOnAirStates::Fall:
+			{
+				SetState(MARIO_STATE_FALL);
+				break;
+			}
+			case JumpOnAirStates::Fly: //Riêng raccoon
+			{
+				SetState(MARIO_STATE_FLY);
+				break;
+			}
+			case JumpOnAirStates::Float:
+			{
+				SetState(MARIO_STATE_FLOAT);
+				break;
+			}
+			}
+			if (feverState == 2 && isOnGround == false) // Các mario khác
+			{
+				SetState(MARIO_STATE_FLY);
+
+			}
 
 		}
-		
+
+#pragma endregion
 	}
-	
-#pragma endregion
+	else
+	{
+		OutputDebugString(ToLPCWSTR("Current state before set damaged " + currentState +" \n"));
+		SetState(MARIO_STATE_DAMAGED);
+	}
 
 #pragma endregion
-	if (currentState != "IDLE")
+	/*if (isSmokeEffectAnimation == true)
+	{
+		SetState(MARIO_STATE_DAMAGED);
+	}*/
+	
+	//if (currentState != "IDLE")
 		OutputDebugString(ToLPCWSTR("Current State " + currentState + "\n"));
 
 	SetRelativePositionOnScreen(collisionBoxs->at(0)->GetPosition());
@@ -523,6 +555,41 @@ void CMario::KickProcess(bool isKick)
 	this->isKick = isKick;
 }
 
+void CMario::DamageProcess()
+{
+	if (GetTickCount64() - timeStartDamaged > TIME_TO_BE_DAMAGED && timeStartDamaged != 0)
+	{
+		isDamaged = false;
+		timeStartDamaged = 0;
+		countSmokeEffectActivate = 0;
+		return;
+	}
+	if (isSmokeEffectAnimation == true && GetTickCount64() - timeStartSmokeEffect > TIME_TO_SMOKE_EFFECT)
+	{
+		
+		isSmokeEffectAnimation = false;
+		timeStartSmokeEffect = 0;
+		return;
+	}
+	
+	if (isDamaged == true && isSmokeEffectAnimation == false)
+	{
+		countSmokeEffectActivate++;
+		if (countSmokeEffectActivate == 1)
+		{
+			// CHANGE SMOKE EFFECT
+			timeStartSmokeEffect = GetTickCount64();
+			isSmokeEffectAnimation = true;
+			DebugOut(L"Start Smoke Effect \n");
+		}
+		
+	}
+
+	// CHANGE LEVEL ANIMATION
+
+	// CHANGE LEVEL
+}
+
 void CMario::StopBounce(bool stopBounce)
 {
 	this->stopBounce = stopBounce;
@@ -579,7 +646,8 @@ void CMario::OnKeyUp(int KeyCode)
 
 void CMario::OnDamaged()
 {
-
+	isDamaged = true;
+	timeStartDamaged = GetTickCount64();
 }
 
 void CMario::HoldObject(CHoldable* holdableObj)

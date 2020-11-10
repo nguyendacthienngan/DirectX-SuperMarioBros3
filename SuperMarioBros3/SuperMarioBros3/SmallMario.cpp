@@ -29,6 +29,8 @@ void CSmallMario::Init()
 
 void CSmallMario::LoadAnimation()
 {
+	CMario::LoadAnimation();
+
 	DebugOut(L"Load animation Small Mario \n");
 	auto animationManager = CAnimationManager::GetInstance();
 	AddAnimation(MARIO_STATE_IDLE, animationManager->Get("ani-small-mario-idle"));

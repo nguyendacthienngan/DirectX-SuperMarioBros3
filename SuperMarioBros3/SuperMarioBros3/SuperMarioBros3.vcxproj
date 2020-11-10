@@ -259,6 +259,7 @@
   <ItemGroup>
     <Image Include="Resources\Maps\Test map\world-1-1.png" />
     <Image Include="Resources\Textures\bbox.png" />
+    <Image Include="Resources\Textures\effect_blue_x3.png" />
     <Image Include="Resources\Textures\enemy_x3.png" />
     <Image Include="Resources\Textures\fire-ball-white.png" />
     <Image Include="Resources\Textures\intro_x3.png" />

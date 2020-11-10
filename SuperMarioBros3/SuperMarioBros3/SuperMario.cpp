@@ -20,6 +20,8 @@ void CSuperMario::Init()
 }
 void CSuperMario::LoadAnimation()
 {
+	CMario::LoadAnimation();
+
 	DebugOut(L"Init Super Mario \n");
 	auto animationManager = CAnimationManager::GetInstance();
 	AddAnimation(MARIO_STATE_IDLE, animationManager->Get("ani-big-mario-idle"));

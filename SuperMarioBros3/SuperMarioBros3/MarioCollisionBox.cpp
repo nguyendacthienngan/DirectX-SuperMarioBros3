@@ -54,6 +54,7 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 			if (collisionEvent->ny > 0) // Nhảy từ dưới lên
 			{
 				// Bị damaged
+				mario->OnDamaged();
 			}
 			if (collisionEvent->nx != 0)
 			{
@@ -89,6 +90,7 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 						else
 						{
 							// Mario bị damaged
+							mario->OnDamaged();
 						}
 					}
 					break;
@@ -96,8 +98,6 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 				default:
 				{
 					// TO-DO: Bị damaged
-
-
 					mario->OnDamaged();
 					break;
 				}

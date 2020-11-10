@@ -52,6 +52,8 @@ void CRaccoonMario::Init()
 
 void CRaccoonMario::LoadAnimation()
 {
+	CMario::LoadAnimation();
+
 	auto animationManager = CAnimationManager::GetInstance();
 
 	AddAnimation(MARIO_STATE_IDLE, animationManager->Get("ani-raccoon-mario-idle"));

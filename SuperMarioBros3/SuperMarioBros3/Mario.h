@@ -30,7 +30,6 @@ protected:
 	DWORD feverTime; // Thời gian PMeter giữ giá trị max
 	DWORD lastFeverTime;
 	DWORD beginAttackTime;
-	DWORD startDeflectTime;
 	float pMeterCounting;
 	float beforeJumpPosition;
 	bool canFly;
@@ -38,6 +37,11 @@ protected:
 	bool bounceAfterJumpOnEnemy, stopBounce;
 	CHoldable* objectHolding;
 	bool isHold, isKick;
+	bool isDamaged, isSmokeEffectAnimation;
+	DWORD timeStartSmokeEffect;
+	DWORD timeStartChangeLevel;
+	DWORD timeStartDamaged;
+	int countSmokeEffectActivate;
 public:
 	CMario();
 	void Init() override;
@@ -56,6 +60,8 @@ public:
 	void HoldProcess();
 	void JumpProcess(float jumpForce, bool bounceAfterJumpOnEnemy);
 	void KickProcess(bool isKick);
+	void DamageProcess();
+
 	void StopBounce(bool stopBounce);
 	bool StopBounce();
 

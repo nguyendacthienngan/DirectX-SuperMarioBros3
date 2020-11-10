@@ -504,6 +504,9 @@
     <Image Include="Resources\Textures\bbox.png">
       <Filter>Files\Resouces\Textures</Filter>
     </Image>
+    <Image Include="Resources\Textures\effect_blue_x3.png">
+      <Filter>Files\Resouces\Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Maps\Test map\world-1-1-map.tmx">

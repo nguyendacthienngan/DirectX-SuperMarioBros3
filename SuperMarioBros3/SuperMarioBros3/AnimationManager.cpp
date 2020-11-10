@@ -45,6 +45,11 @@ bool CAnimationManager::Init()
 		DebugOut(L"Cannot Load Fire Ball Animation File \n");
 		return false;
 	}
+	if (InitAnAnimationSet(TEXTURE_EFFECT, root->GetFilePathByCategory(CATEGORY_ANIMATION, DB_ANIMATION_EFFECT)) == false)
+	{
+		DebugOut(L"Cannot Load Effect Animation File \n");
+		return false;
+	}
 	return true;
 }
 

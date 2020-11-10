@@ -117,7 +117,7 @@ void CGameObject::OnDie()
 {
 }
 
-void CGameObject::OnDamage()
+void CGameObject::OnDamaged()
 {
 }
 
