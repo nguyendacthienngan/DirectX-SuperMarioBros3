@@ -35,7 +35,6 @@ struct CollisionEvent;
 class CAnimation;
 typedef CAnimation* LPAnimation;
 
-
 // Mỗi gameobject sẽ lưu animation của riêng nó. Nó sẽ clone animation từ animation gốc chứ k lấy thẳng con trỏ animation bên đó
 // Vì như vậy sẽ làm cho việc animation quá đồng bộ và không tự nhiên
 // Nhưng lưu ý khi cloneanimation và setstate nhớ đặt tên giống nhau !

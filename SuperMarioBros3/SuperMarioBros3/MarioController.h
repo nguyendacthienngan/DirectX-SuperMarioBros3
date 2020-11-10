@@ -7,6 +7,12 @@
 // vừa là 1 game object, vừa là 1 state machine
 
 // Sẽ lưu các states và các objects (đại diện của state đó): Như FireMario, RacoonMario
+class CGameObject;
+typedef CGameObject* LPGameObject;
+
+class CScene;
+typedef CScene* LPScene;
+
 class CMarioController: public CStateMachine, public CGameObject
 {
 private:

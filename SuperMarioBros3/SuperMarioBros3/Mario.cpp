@@ -17,6 +17,9 @@
 #include <string>
 #include "Koopa.h"
 #include "MarioCollisionBox.h"
+#include "SceneManager.h"
+#include "MarioControllerConst.h"
+#include "MarioController.h"
 using namespace std;
 
 CMario::CMario()
@@ -66,6 +69,7 @@ void CMario::InitProperties()
 	isKick = false;
 	isDamaged = false;
 	isSmokeEffectAnimation = false;
+	isChangeLevel = false;
 	bounceAfterJumpOnEnemy = false;
 	feverTime = MARIO_FEVER_TIME;
 	lastFeverTime = 0;
@@ -561,6 +565,7 @@ void CMario::DamageProcess()
 	{
 		isDamaged = false;
 		timeStartDamaged = 0;
+		timeStartChangeLevel = 0;
 		countSmokeEffectActivate = 0;
 		return;
 	}
@@ -569,6 +574,7 @@ void CMario::DamageProcess()
 		
 		isSmokeEffectAnimation = false;
 		timeStartSmokeEffect = 0;
+		timeStartChangeLevel = GetTickCount64();
 		return;
 	}
 	
@@ -581,13 +587,60 @@ void CMario::DamageProcess()
 			timeStartSmokeEffect = GetTickCount64();
 			isSmokeEffectAnimation = true;
 			DebugOut(L"Start Smoke Effect \n");
+
+		}
+		// CHANGE LEVEL ANIMATION - SWITCH ALPHA
+		
+	}
+	
+	// CHANGE LEVEL
+
+	if (isChangeLevel == true && GetTickCount64() - timeStartChangeLevel > TIME_TO_CHANGE_LEVEL)
+	{
+		timeStartChangeLevel = 0;
+		isChangeLevel = false;
+		return;
+	}
+
+	
+	if (isDamaged == true && timeStartChangeLevel != 0 && isChangeLevel == false)
+	{
+		auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+
+		auto objs = activeScene->GetObjects();
+		CMarioController* marioController = NULL;
+
+		for (auto obj : objs)
+		{
+			if (obj->GetTag() == GameObjectTags::PlayerController)
+			{
+				marioController = dynamic_cast<CMarioController*>(obj);
+				break;
+			}
+		}
+		if (marioController != NULL)
+		{
+			isChangeLevel = true;
+			switch (marioStateTag)
+			{
+			case MarioStates::RacoonMario:
+			{
+				marioController->SwitchToState(SUPER_MARIO_STATE);
+				break;
+			}
+			case MarioStates::FireMario:
+			{
+				marioController->SwitchToState(SUPER_MARIO_STATE);
+				break;
+			}
+			/*case MarioStates::SuperMario:
+			{
+				break;
+			}*/
+			}
 		}
 		
 	}
-
-	// CHANGE LEVEL ANIMATION
-
-	// CHANGE LEVEL
 }
 
 void CMario::StopBounce(bool stopBounce)

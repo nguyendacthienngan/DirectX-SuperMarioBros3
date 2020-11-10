@@ -25,7 +25,8 @@ CMarioController::CMarioController()
 }
 void CMarioController::Init()
 {
-	SetTag(GameObjectTags::Player);
+	SetTag(GameObjectTags::PlayerController);
+	//SetTag(GameObjectTags::Player);
 	isEnabled = true;
 	CMario* marioStateObject;
 	
@@ -124,6 +125,23 @@ void CMarioController::SwitchToState(std::string state)
 
 		}
 
+
+		//auto currentMario = dynamic_cast<CMario*>(currentStateObject);
+		//switch (currentMario->GettMarioStateTag())
+		//{
+		//	case MarioStates::RacoonMario:
+		//	{
+		//		break;
+		//	}
+		//	case MarioStates::FireMario:
+		//	{
+		//		break;
+		//	}
+		//	/*case MarioStates::SuperMario:
+		//	{
+		//		break;
+		//	}*/
+		//}
 	}
 
 	// Gán object (OBJECT)

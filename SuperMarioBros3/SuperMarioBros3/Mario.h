@@ -37,7 +37,7 @@ protected:
 	bool bounceAfterJumpOnEnemy, stopBounce;
 	CHoldable* objectHolding;
 	bool isHold, isKick;
-	bool isDamaged, isSmokeEffectAnimation;
+	bool isDamaged, isSmokeEffectAnimation, isChangeLevel;
 	DWORD timeStartSmokeEffect;
 	DWORD timeStartChangeLevel;
 	DWORD timeStartDamaged;

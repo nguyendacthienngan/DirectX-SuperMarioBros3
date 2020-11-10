@@ -68,6 +68,16 @@ void CSprite::SetPointCenter(D3DXVECTOR2 pointCenter)
 	this->pointCenter = pointCenter;
 }
 
+D3DXCOLOR CSprite::GetTranscolor()
+{
+	return transcolor;
+}
+
+void CSprite::SetTranscolor(D3DXCOLOR transcolor)
+{
+	this->transcolor = transcolor;
+}
+
 CSprite::~CSprite()
 {
 	//delete texture;

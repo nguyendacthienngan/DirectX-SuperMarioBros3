@@ -57,6 +57,8 @@ void CScene::Load()
 			player->AddStateObjectsToScene(this);
 			player->GetCurrentStateObject()->SetPosition(startPosition);
 			AddObject(player);
+			//marioController = player;
+
 		}
 		else if (name.compare("Camera") == 0)
 		{
@@ -104,6 +106,7 @@ void CScene::Unload()
 	}
 	map = NULL;
 	camera = NULL;
+	//marioController = NULL;
 	gameObjects.clear();
 }
 
@@ -161,6 +164,16 @@ void CScene::SetObjectPosition(D3DXVECTOR2 distance)
 		}
 	}
 }
+
+//void CScene::SetMarioController(CMarioController* mC)
+//{
+//	marioController = mC;
+//}
+//
+//CMarioController* CScene::GetMarioController()
+//{
+//	return marioController;
+//}
 
 std::vector<LPGameObject> CScene::GetObjects()
 {

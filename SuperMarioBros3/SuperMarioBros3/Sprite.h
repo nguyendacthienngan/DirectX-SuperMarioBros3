@@ -31,6 +31,9 @@ public:
 
 	D3DXVECTOR2 GetPointCenter();
 	void SetPointCenter(D3DXVECTOR2 pointCenter);
+
+	D3DXCOLOR GetTranscolor();
+	void SetTranscolor(D3DXCOLOR transcolor);
 	~CSprite();
 };
 
