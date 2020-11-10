@@ -151,7 +151,8 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		&& abs(velocity.x) > MARIO_RUNNING_SPEED * 0.15f
 		&& pMeterCounting < PMETER_MAX + 1
 		&& currentPhysicsState.jump == JumpOnAirStates::Stand
-		&& feverState != 2)
+		&& feverState != 2
+		&& isHold == false)
 	{
 		if (feverState != -1)
 			feverState = 1;

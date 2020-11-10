@@ -12,7 +12,6 @@ void CGhostPlatform::Init()
 	this->collisionBoxs->push_back(box);
 	this->physiscBody->SetDynamic(false);
 	this->SetTag(GameObjectTags::GhostPlatform);
-	this->SetEffector(Effector::Top);
 	this->isEnabled = true;
 }
 

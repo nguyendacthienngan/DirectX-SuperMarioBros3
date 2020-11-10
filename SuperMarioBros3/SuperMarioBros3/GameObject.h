@@ -13,7 +13,6 @@
 #include "PhysicsBody.h"
 #include "CollisionBox.h"
 #include "GameObjectTags.h"
-#include "Effector.h"
 #include "Scene.h"
 
 class CScene;
@@ -55,7 +54,6 @@ protected:
 	bool isEnabled;
 
 	GameObjectTags tag; // Phân biệt player với eniemies,...
-	Effector effector;
 	std::unordered_map<std::string, LPAnimation> animations;
 	
 	std::vector<LPCollisionBox>* collisionBoxs;
@@ -118,9 +116,6 @@ public:
 
 	GameObjectTags GetTag();
 	void SetTag(GameObjectTags t);
-
-	Effector GetEffector();
-	void SetEffector(Effector e);
 
 	virtual void AddObjectToScene(LPScene scene);
 };

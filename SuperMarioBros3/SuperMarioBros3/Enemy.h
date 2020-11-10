@@ -5,7 +5,6 @@ class CEnemy : public CGameObject
 {
 protected:
 	D3DXVECTOR2 startPosition; // vị trí mà sau khi di chuyển nó quay trở lại
-	float distanceToMove;
 	std::string enemyType;
 	EnemyTag enemyTag;
 	DWORD startDeadTime;
@@ -22,6 +21,8 @@ public:
 	void SetStartPosition(D3DXVECTOR2 sT);
 	D3DXVECTOR2 GetStartPosition();
 
-	void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents) override;
+	virtual void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents) override;
+	virtual void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox) override;
+
 
 };

@@ -13,11 +13,11 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 		auto collisionBox = collisionEvent->obj;
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
 		{
-			if (collisionEvent->ny != 0) // nhảy lên đầu quái
+			if (collisionEvent->ny < 0) // nhảy lên đầu quái
 			{
 				if (mario->StopBounce() == false)
 					mario->JumpProcess(-MARIO_DEFLECT_Y, true);
-				
+
 				auto otherObject = collisionBox->GetGameObjectAttach();
 				auto otherEnemyObject = static_cast<CEnemy*>(otherObject);
 				switch (otherEnemyObject->GetEnemyTag())
@@ -50,6 +50,10 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 				}
 
 
+			}
+			if (collisionEvent->ny > 0) // Nhảy từ dưới lên
+			{
+				// Bị damaged
 			}
 			if (collisionEvent->nx != 0)
 			{
@@ -92,6 +96,8 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 				default:
 				{
 					// TO-DO: Bị damaged
+
+
 					mario->OnDamaged();
 					break;
 				}

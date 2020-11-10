@@ -75,6 +75,7 @@ void CGoomba::Render(CCamera* cam)
 
 void CGoomba::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
 {
+	CEnemy::OnCollisionEnter(selfCollisionBox, collisionEvents);
 	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
@@ -99,6 +100,7 @@ void CGoomba::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Coll
 
 void CGoomba::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
 {
+	CEnemy::OnOverlappedEnter(selfCollisionBox, otherCollisionBox);
 	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
 	{
 		CGoomba::OnDie();

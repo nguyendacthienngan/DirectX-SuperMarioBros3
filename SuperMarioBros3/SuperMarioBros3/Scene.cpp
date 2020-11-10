@@ -96,7 +96,7 @@ void CScene::Load()
 
 void CScene::Unload()
 {
-	for (int i = 0; i < gameObjects.size()-1 ; i++)
+	for (int i = 0; i < gameObjects.size()-2 ; i++)
 	{
 		RemoveObject(gameObjects[i]);
 		delete gameObjects[i];

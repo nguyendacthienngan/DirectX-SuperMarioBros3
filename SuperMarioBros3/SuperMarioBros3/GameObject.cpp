@@ -233,16 +233,6 @@ void CGameObject::SetTag(GameObjectTags t)
 	this->tag = t;
 }
 
-Effector CGameObject::GetEffector()
-{
-	return effector;
-}
-
-void CGameObject::SetEffector(Effector e)
-{
-	this->effector = effector;
-}
-
 void CGameObject::AddObjectToScene(LPScene scene)
 {
 

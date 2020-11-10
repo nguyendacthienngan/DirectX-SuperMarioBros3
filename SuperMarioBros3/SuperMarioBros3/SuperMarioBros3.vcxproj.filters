@@ -243,9 +243,6 @@
     <ClInclude Include="GhostPlatform.h">
       <Filter>Game\GameObject\CollisionBox</Filter>
     </ClInclude>
-    <ClInclude Include="Effector.h">
-      <Filter>Framework\Game\Collision</Filter>
-    </ClInclude>
     <ClInclude Include="StateMachine.h">
       <Filter>Framework\Game\StateMachine</Filter>
     </ClInclude>

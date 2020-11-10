@@ -150,7 +150,6 @@
     <ClInclude Include="CollisionBox.h" />
     <ClInclude Include="CollisionBoxConst.h" />
     <ClInclude Include="Const.h" />
-    <ClInclude Include="Effector.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyConst.h" />
     <ClInclude Include="FireBall.h" />

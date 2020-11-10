@@ -288,15 +288,16 @@ void CPhysicsBody::CalcPotentialCollisions(
 			continue;
 
 		// Quái cùng loại gặp nhau sẽ đẩy ra, quái khác loại thì đi qua nhau
-		/*if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
 		{
 			auto selfObject = cO->GetGameObjectAttach();
 			auto otherObject = coObjects->at(i)->GetGameObjectAttach();
 			CEnemy* selfEnemyObject = static_cast<CEnemy*>(selfObject);
 			CEnemy* otherEnemyObject = static_cast<CEnemy*>(otherObject);
-			if (selfEnemyObject->GetEnemyTag() != otherEnemyObject->GetEnemyTag() )
+			if ( (selfEnemyObject->GetEnemyTag() != otherEnemyObject->GetEnemyTag()) 
+				&& selfEnemyObject->GetEnemyTag() != EnemyTag::KoopaShell && otherEnemyObject->GetEnemyTag() != EnemyTag::KoopaShell)
 				continue;
-		}*/
+		}
 
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
 			continue;

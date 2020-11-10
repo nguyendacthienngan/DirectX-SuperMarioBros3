@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="15" nextobjectid="55">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="15" nextobjectid="58">
  <editorsettings>
   <export target="world-1-1-map.xml" format="tmx"/>
  </editorsettings>
@@ -269,9 +269,10 @@
   <object id="41" x="3936.59" y="960.051" width="333.545" height="46.9245"/>
  </objectgroup>
  <objectgroup id="15" name="Enemy">
-  <object id="42" name="goomba" type="basic" x="1608" y="1224"/>
-  <object id="44" name="koopa" type="basic" x="1255.83" y="1026.67"/>
-  <object id="53" name="goomba" type="basic" x="927" y="1198"/>
-  <object id="54" name="koopa-shell" type="red" x="1909" y="1167"/>
+  <object id="42" name="goomba" type="basic" x="1225.33" y="1202.67"/>
+  <object id="44" name="koopa" type="basic" x="1701.16" y="1078.67"/>
+  <object id="53" name="goomba" type="basic" x="675.667" y="1212.67"/>
+  <object id="54" name="koopa-shell" type="red" x="1900.33" y="1165.67"/>
+  <object id="55" name="goomba" type="basic" x="1510" y="1189.33"/>
  </objectgroup>
 </map>

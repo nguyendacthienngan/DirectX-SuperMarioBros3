@@ -1,4 +1,5 @@
-#include "Enemy.h"
+﻿#include "Enemy.h"
+#include "Ultis.h"
 
 CEnemy::CEnemy()
 {
@@ -42,17 +43,50 @@ void CEnemy::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy )
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
 		{
 			auto otherObject = collisionBox->GetGameObjectAttach();
 			auto otherEnemyObject = static_cast<CEnemy*>(otherObject);
-
-			if (otherEnemyObject->GetEnemyTag() == this->enemyTag && collisionEvent->nx != 0)
+			if (collisionEvent->nx != 0)
 			{
-				auto normal = physiscBody->GetNormal();
-				normal.x = -1;
-				physiscBody->SetNormal(normal);
+				// Nếu 2 quái cùng loại thì đổi chiều hướng đi
+				// Khác loại thì xuyên qua nhưng khác loại mà 1 loại không phải mai rùa, 1 loại là mai rùa thì loại đó phải đi đổi chiều
+				if (otherEnemyObject->GetEnemyTag() == this->enemyTag ||
+					( this->enemyTag != EnemyTag::KoopaShell  && otherEnemyObject->GetEnemyTag() == EnemyTag::KoopaShell))
+				{
+					DebugOut(L"2 enemy gap nhau \n");
+
+					auto normal = physiscBody->GetNormal();
+					auto velocity = physiscBody->GetVelocity();
+					normal.x = -normal.x;
+					velocity.x *= normal.x;
+					transform.position.x = velocity.x * dt;
+					physiscBody->SetNormal(normal);
+					physiscBody->SetVelocity(velocity);
+				}
 			}
+			
 		}
 	}
+}
+
+void CEnemy::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
+{
+	/*if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
+	{
+		auto otherObject = otherCollisionBox->GetGameObjectAttach();
+		auto otherEnemyObject = static_cast<CEnemy*>(otherObject);
+		if (otherEnemyObject->GetEnemyTag() == this->enemyTag)
+		{
+			auto normal = physiscBody->GetNormal();
+			auto velocity = physiscBody->GetVelocity();
+			normal.x = -normal.x;
+			velocity.x *= normal.x;
+			transform.position.x = velocity.x * dt;
+			physiscBody->SetNormal(normal);
+			physiscBody->SetVelocity(velocity);
+			DebugOut(L"2 enemy lai gap nhauuuuuuuuuuu \n");
+		}
+	}*/
+	
 }
