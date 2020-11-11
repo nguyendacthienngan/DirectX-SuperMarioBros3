@@ -81,7 +81,8 @@ public:
 
 	void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions); // Xử lý riêng sau khi phát hiện va chạm
 	void OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions); // Tạm thời chưa làm
-	
+	void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox) override;
+
 	void CrouchProcess(CKeyboardManager* keyboard);
 	void SkidProcess(D3DXVECTOR2 velocity);
 	void HoldProcess();
