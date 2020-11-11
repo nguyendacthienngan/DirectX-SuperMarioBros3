@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "KoopaShell.h"
 
+class CKoopaShell;
 
 class CKoopa: public CEnemy
 {
