@@ -30,6 +30,96 @@ CMario::CMario()
 
 }
 
+void CMario::SetDamageFlag(bool isDamaged)
+{
+	this->isDamaged = isDamaged;
+}
+
+void CMario::SetChangeSmokeEffectFlag(bool isChangeSmokeEffect)
+{
+	this->isSmokeEffectAnimation = isChangeSmokeEffect;
+}
+
+void CMario::SetChangeLevelFlag(bool flag)
+{
+	this->isChangeLevel = flag;
+}
+
+void CMario::SetCountChangeAlpha(int count)
+{
+	countChangeAlpha = count;
+}
+
+void CMario::SetCountSmokeEffectActivate(int count)
+{
+	countSmokeEffectActivate = count;
+}
+
+void CMario::SetTimeStartDamaged(DWORD t)
+{
+	timeStartDamaged = t;
+}
+
+void CMario::SetTimeStartSmokeEffect(DWORD t)
+{
+	timeStartSmokeEffect = t;
+}
+
+void CMario::SetTimeStartChangeLevel(DWORD t)
+{
+	timeStartChangeLevel = t;
+}
+
+void CMario::SetTimeStartChangeAlpha(DWORD t)
+{
+	timeStartChangeAlpha = t;
+}
+
+bool CMario::GetDamageFlag()
+{
+	return isDamaged;
+}
+
+bool CMario::GetChangeSmokeEffectFlag()
+{
+	return isSmokeEffectAnimation;
+}
+
+bool CMario::GetChangeLevelFlag()
+{
+	return isChangeLevel;
+}
+
+bool CMario::GetCountChangeAlpha()
+{
+	return countChangeAlpha;
+}
+
+bool CMario::GetCountSmokeEffectActivate()
+{
+	return countSmokeEffectActivate;
+}
+
+DWORD CMario::GetTimeStartDamaged()
+{
+	return timeStartDamaged;
+}
+
+DWORD CMario::GetTimeStartSmokeEffect()
+{
+	return timeStartSmokeEffect;
+}
+
+DWORD CMario::GetTimeStartChangeLevel()
+{
+	return timeStartChangeLevel;
+}
+
+DWORD CMario::GetTimeStartChangeAlpha()
+{
+	return timeStartChangeAlpha;
+}
+
 void CMario::Init()
 {
 	this->SetState(MARIO_STATE_IDLE); 
@@ -57,6 +147,7 @@ void CMario::InitProperties()
 	targetVelocity.y = 0.0f;
 
 	previousNormal = physiscBody->GetNormal();
+	ignoreTimeScale = true;
 	isEnabled = true;
 	isOnGround = false;
 	canHighJump = false;
@@ -80,6 +171,8 @@ void CMario::InitProperties()
 	timeStartChangeLevel = 0;
 	timeStartDamaged = 0;
 	countSmokeEffectActivate = 0;
+	countChangeAlpha = 0;
+	timeStartChangeAlpha = 0;
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 
 }
@@ -297,11 +390,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		CrouchProcess(keyboard);
 	HoldProcess();
 
-	DebugOut(isSmokeEffectAnimation == true ? L"SMOKE EFFECT IN UPDATE(1)....\n" : L"NON SMOKE EFFECT IN UPDATE(1).. \n");
-
 	DamageProcess();
-	DebugOut(isSmokeEffectAnimation == true ? L"SMOKE EFFECT IN UPDATE(2)....\n" : L"NON SMOKE EFFECT IN UPDATE(2).. \n");
-
 
 	if (isKick == true)
 	{
@@ -313,7 +402,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 }
 
-void CMario::Render(CCamera* cam)
+void CMario::Render(CCamera* cam, int alpha)
 {
 	SetScale(D3DXVECTOR2(physiscBody->GetNormal().x, 1.0f));
 
@@ -384,7 +473,7 @@ void CMario::Render(CCamera* cam)
 		}
 		case MoveOnGroundStates::Kick:
 		{
-			DebugOut(L"KICK \n");
+			//DebugOut(L"KICK \n");
 			if (isHold == false)
 				SetState(MARIO_STATE_KICK);
 			break;
@@ -435,21 +524,24 @@ void CMario::Render(CCamera* cam)
 	}
 	else
 	{
-		OutputDebugString(ToLPCWSTR("Current state before set damaged " + currentState +" \n"));
 		SetState(MARIO_STATE_DAMAGED);
 	}
 
 #pragma endregion
-	/*if (isSmokeEffectAnimation == true)
-	{
-		SetState(MARIO_STATE_DAMAGED);
-	}*/
-	
 	//if (currentState != "IDLE")
 		OutputDebugString(ToLPCWSTR("Current State " + currentState + "\n"));
 
 	SetRelativePositionOnScreen(collisionBoxs->at(0)->GetPosition());
-	CGameObject::Render(cam);
+	countChangeAlpha++;
+
+	if (isDamaged == true && isSmokeEffectAnimation == false)
+	{
+		if ((GetTickCount64() - timeStartChangeAlpha > TIME_TO_CHANGE_ALPHA && timeStartChangeAlpha != 0) || timeStartChangeAlpha == 0)
+		{
+			alpha = (countChangeAlpha % 2 == 0) ? 0 : 255;
+		}
+	}
+	CGameObject::Render(cam, alpha);
 		
 }
 
@@ -561,21 +653,27 @@ void CMario::KickProcess(bool isKick)
 
 void CMario::DamageProcess()
 {
-	if (GetTickCount64() - timeStartDamaged > TIME_TO_BE_DAMAGED && timeStartDamaged != 0)
+	if (timeStartDamaged != 0)
 	{
-		isDamaged = false;
-		timeStartDamaged = 0;
-		timeStartChangeLevel = 0;
-		countSmokeEffectActivate = 0;
-		return;
+		if (GetTickCount64() - timeStartDamaged > TIME_TO_BE_DAMAGED)
+		{
+			isDamaged = false;
+			timeStartDamaged = 0;
+			timeStartChangeLevel = 0;
+			timeStartChangeAlpha = 0;
+			countSmokeEffectActivate = 0;
+			countChangeAlpha = 0;
+		}
 	}
+
 	if (isSmokeEffectAnimation == true && GetTickCount64() - timeStartSmokeEffect > TIME_TO_SMOKE_EFFECT)
 	{
-		
 		isSmokeEffectAnimation = false;
 		timeStartSmokeEffect = 0;
 		timeStartChangeLevel = GetTickCount64();
-		return;
+
+		timeStartChangeAlpha = GetTickCount64();
+		countChangeAlpha++;
 	}
 	
 	if (isDamaged == true && isSmokeEffectAnimation == false)
@@ -586,22 +684,20 @@ void CMario::DamageProcess()
 			// CHANGE SMOKE EFFECT
 			timeStartSmokeEffect = GetTickCount64();
 			isSmokeEffectAnimation = true;
-			DebugOut(L"Start Smoke Effect \n");
-
+			//CGame::GetInstance()->SetTimeScale(0.0f);
 		}
 		// CHANGE LEVEL ANIMATION - SWITCH ALPHA
 		
 	}
 	
 	// CHANGE LEVEL
-
 	if (isChangeLevel == true && GetTickCount64() - timeStartChangeLevel > TIME_TO_CHANGE_LEVEL)
 	{
 		timeStartChangeLevel = 0;
 		isChangeLevel = false;
+		//CGame::GetInstance()->SetTimeScale(1.0f);
 		return;
 	}
-
 	
 	if (isDamaged == true && timeStartChangeLevel != 0 && isChangeLevel == false)
 	{
@@ -641,6 +737,7 @@ void CMario::DamageProcess()
 		}
 		
 	}
+
 }
 
 void CMario::StopBounce(bool stopBounce)

@@ -55,7 +55,7 @@ void CGoomba::Update(DWORD dt, CCamera* cam)
 	physiscBody->SetVelocity(velocity);
 }
 
-void CGoomba::Render(CCamera* cam)
+void CGoomba::Render(CCamera* cam, int alpha)
 {
 	switch (currentPhysicsState)
 	{
@@ -70,7 +70,7 @@ void CGoomba::Render(CCamera* cam)
 			break;
 		}
 	}
-	CGameObject::Render(cam);
+	CGameObject::Render(cam, alpha);
 }
 
 void CGoomba::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)

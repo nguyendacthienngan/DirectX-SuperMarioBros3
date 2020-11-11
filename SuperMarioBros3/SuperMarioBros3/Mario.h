@@ -41,16 +41,43 @@ protected:
 	DWORD timeStartSmokeEffect;
 	DWORD timeStartChangeLevel;
 	DWORD timeStartDamaged;
+	DWORD timeStartChangeAlpha;
 	int countSmokeEffectActivate;
+	int countChangeAlpha;
+
 public:
 	CMario();
+	void SetDamageFlag(bool isDamaged);
+	void SetChangeSmokeEffectFlag(bool isChangeSmokeEffect);
+	void SetChangeLevelFlag(bool flag);
+
+	void SetCountChangeAlpha(int count);
+	void SetCountSmokeEffectActivate(int count);
+
+	void SetTimeStartDamaged(DWORD t);
+	void SetTimeStartSmokeEffect(DWORD t);
+	void SetTimeStartChangeLevel(DWORD t);
+	void SetTimeStartChangeAlpha(DWORD t);
+
+	bool GetDamageFlag();
+	bool GetChangeSmokeEffectFlag();
+	bool GetChangeLevelFlag();
+
+	bool GetCountChangeAlpha();
+	bool GetCountSmokeEffectActivate();
+
+	DWORD GetTimeStartDamaged();
+	DWORD GetTimeStartSmokeEffect();
+	DWORD GetTimeStartChangeLevel();
+	DWORD GetTimeStartChangeAlpha();
+
 	void Init() override;
 	virtual void InitProperties();
 	void LoadAnimation();
 	void EndAnimation() override;
 
 	void Update(DWORD dt, CCamera* cam) override;
-	void Render(CCamera* cam);
+	void Render(CCamera* cam, int alpha = 255) override;
 
 	void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions); // Xử lý riêng sau khi phát hiện va chạm
 	void OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions); // Tạm thời chưa làm

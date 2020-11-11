@@ -54,9 +54,9 @@ void CFireMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_KICK, animationManager->Get("ani-fire-mario-kick"), false);
 }
 
-void CFireMario::Render(CCamera* cam)
+void CFireMario::Render(CCamera* cam, int alpha)
 {
-	CMario::Render(cam);
+	CMario::Render(cam, alpha);
 }
 
 void CFireMario::Update(DWORD dt, CCamera* cam)

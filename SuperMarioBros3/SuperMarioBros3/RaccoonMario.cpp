@@ -182,7 +182,6 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 	if ((GetTickCount64() - lastFloatTime > timeToFloat || isOnGround == true) && canFly == false)
 		//if (( GetTickCount64() - lastFloatTime > timeToFloat || isOnGround == true )  && canFloat == true && canFly == false)
 	{
-		DebugOut(L"End Floattttt \n");
 		canFloat = false;
 		isFloat = false;
 		moreFloatPower = false;
@@ -203,8 +202,6 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 
 	if (GetTickCount64() - lastKeyFloatDown > timeToKeyFloatDown && lastKeyFloatDown != 0 && moreFloatPower == true)
 	{
-		DebugOut(L"END FLOATING KEY... \n");
-
 		moreFloatPower = false;
 		physiscBody->SetGravity(MARIO_GRAVITY);
 
@@ -213,7 +210,6 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 	if (isFloat == true && moreFloatPower == true)
 		//if (isFloat == true && moreFloatPower == true && canFloat == true)
 	{
-		DebugOut(L"START FLOATING ... \n");
 		physiscBody->SetGravity(0.0f);
 		auto velo = physiscBody->GetVelocity();
 		velo.y = RACCOON_FLOAT_VELOCITY;
@@ -224,12 +220,6 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 	if (currentPhysicsState.jump == JumpOnAirStates::Float && isOnGround == true)
 		currentPhysicsState.jump = JumpOnAirStates::Stand;
 		
-	if (isFloat)
-	{
-		DebugOut(L"Gravity: %f \n", physiscBody->GetGravity());
-		DebugOut(L"Velocity.y: %f \n", physiscBody->GetVelocity().y);
-	}
-	
 #pragma endregion
 
 	// Set vị trí của TailBox ngay trước mặt Mario (overlap 1 khoảng với box của Mario)
@@ -266,8 +256,6 @@ void CRaccoonMario::OnKeyDown(int KeyCode)
 			lastFlyTime = 0;
 			feverState = -1;
 			canFloat = true;
-			DebugOut(L"CAN FLOAT ... \n");
-
 			//return;
 		}
 		if (canFly == true)
@@ -302,9 +290,6 @@ void CRaccoonMario::OnKeyDown(int KeyCode)
 			lastKeyFloatDown = GetTickCount64();
 			moreFloatPower = true;
 			physiscBody->SetGravity(0.0f);
-
-			DebugOut(L"START FLOAT \n");
-
 		}
 #pragma endregion
 

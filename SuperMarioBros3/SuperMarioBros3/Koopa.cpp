@@ -46,12 +46,12 @@ void CKoopa::Update(DWORD dt, CCamera* cam)
 	physiscBody->SetVelocity(velocity);
 }
 
-void CKoopa::Render(CCamera* cam)
+void CKoopa::Render(CCamera* cam, int alpha)
 {
 	auto normal = physiscBody->GetNormal();
 	
 	SetScale(D3DXVECTOR2(-normal.x, normal.y));
-	CGameObject::Render(cam);
+	CGameObject::Render(cam, alpha);
 }
 
 void CKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)

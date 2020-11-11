@@ -9,6 +9,7 @@ CGameObject::CGameObject()
 	physiscBody = new CPhysicsBody();
 	collisionBoxs = new vector<CCollisionBox*>();
 	isEnabled = false;
+	ignoreTimeScale = false;
 	currentState = "IDLE";
 }
 
@@ -60,7 +61,7 @@ void CGameObject::Update(DWORD dt, CCamera* cam)
 {
 }
 
-void CGameObject::Render(CCamera* cam)
+void CGameObject::Render(CCamera* cam, int alpha)
 {
 	bool curState = animations.find(currentState) != animations.end();
 	if (curState == false || animations.empty())
@@ -76,7 +77,7 @@ void CGameObject::Render(CCamera* cam)
 	{
 		posInCam.y = trunc(posInCam.y) + Small_Player_Distance;
 	}
-	animations.at(currentState)->Render(posInCam);
+	animations.at(currentState)->Render(posInCam, alpha);
 }
 
 void CGameObject::FrictionProcess(float& speed, DWORD dt)
@@ -157,6 +158,16 @@ bool CGameObject::IsEnabled()
 void CGameObject::Enable(bool isEnabled)
 {
 	this->isEnabled = isEnabled;
+}
+
+bool CGameObject::IsIgnoreTimeScale()
+{
+	return ignoreTimeScale;
+}
+
+void CGameObject::SetIgnoreTimeSCale(bool isIgnoreTimeScale)
+{
+	this->ignoreTimeScale = isIgnoreTimeScale;
 }
 
 D3DXVECTOR2 CGameObject::GetScale()

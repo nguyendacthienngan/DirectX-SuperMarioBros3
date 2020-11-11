@@ -86,6 +86,8 @@ void CMarioController::AddStateObjectsToScene(LPScene scene)
 
 void CMarioController::SwitchToState(std::string state)
 {
+	// Chưa check điều kiện input
+
 	// Đổi trạng thái (STATE)
 		SwitchState(listMarioStates.at(state)); 
 
@@ -125,23 +127,19 @@ void CMarioController::SwitchToState(std::string state)
 
 		}
 
+		auto stateMarioToBeChanged = static_cast<CMario*>(listStateObjects.at(state));
+		auto currentMario = static_cast<CMario*>(currentStateObject);
+		stateMarioToBeChanged->SetDamageFlag(currentMario->GetDamageFlag());
+		stateMarioToBeChanged->SetChangeSmokeEffectFlag(currentMario->GetChangeSmokeEffectFlag());
+		stateMarioToBeChanged->SetChangeLevelFlag(currentMario->GetChangeLevelFlag());
 
-		//auto currentMario = dynamic_cast<CMario*>(currentStateObject);
-		//switch (currentMario->GettMarioStateTag())
-		//{
-		//	case MarioStates::RacoonMario:
-		//	{
-		//		break;
-		//	}
-		//	case MarioStates::FireMario:
-		//	{
-		//		break;
-		//	}
-		//	/*case MarioStates::SuperMario:
-		//	{
-		//		break;
-		//	}*/
-		//}
+		stateMarioToBeChanged->SetCountChangeAlpha(currentMario->GetCountChangeAlpha());
+		stateMarioToBeChanged->SetCountSmokeEffectActivate(currentMario->GetCountSmokeEffectActivate());
+
+		stateMarioToBeChanged->SetTimeStartDamaged(currentMario->GetTimeStartDamaged());
+		stateMarioToBeChanged->SetTimeStartSmokeEffect(currentMario->GetTimeStartSmokeEffect());
+		stateMarioToBeChanged->SetTimeStartChangeLevel(currentMario->GetTimeStartChangeLevel());
+		stateMarioToBeChanged->SetTimeStartChangeAlpha(currentMario->GetTimeStartChangeAlpha());
 	}
 
 	// Gán object (OBJECT)

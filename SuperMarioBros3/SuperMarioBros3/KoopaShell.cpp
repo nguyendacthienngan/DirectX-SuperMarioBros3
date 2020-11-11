@@ -186,7 +186,7 @@ bool CKoopaShell::IsHolding()
 	return CHoldable::IsHolding();
 }
 
-void CKoopaShell::Render(CCamera* cam)
+void CKoopaShell::Render(CCamera* cam, int alpha)
 {
 	auto normal = physiscBody->GetNormal();
 	if (upsideDown == true)
@@ -201,7 +201,7 @@ void CKoopaShell::Render(CCamera* cam)
 		SetState(KOOPA_SHELL_STATE_RUN);
 	else
 		SetState(KOOPA_SHELL_STATE_IDLE);
-	CGameObject::Render(cam);
+	CGameObject::Render(cam, alpha);
 }
 
 bool CKoopaShell::IsRunning()

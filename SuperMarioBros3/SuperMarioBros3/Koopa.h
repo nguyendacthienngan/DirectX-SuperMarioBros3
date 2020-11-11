@@ -13,7 +13,7 @@ public:
 	void Init();
 	void LoadAnimation();
 	virtual void Update(DWORD dt, CCamera* cam) override;
-	void Render(CCamera* cam);
+	void Render(CCamera* cam, int alpha = 255) override;
 
 	virtual void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents) override;
 	void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox) override;

@@ -57,8 +57,6 @@ void CScene::Load()
 			player->AddStateObjectsToScene(this);
 			player->GetCurrentStateObject()->SetPosition(startPosition);
 			AddObject(player);
-			//marioController = player;
-
 		}
 		else if (name.compare("Camera") == 0)
 		{
@@ -106,7 +104,6 @@ void CScene::Unload()
 	}
 	map = NULL;
 	camera = NULL;
-	//marioController = NULL;
 	gameObjects.clear();
 }
 

@@ -51,7 +51,7 @@ protected:
 	std::string currentState, lastState;
 
 	bool isEnabled;
-
+	bool ignoreTimeScale;
 	GameObjectTags tag; // Phân biệt player với eniemies,...
 	std::unordered_map<std::string, LPAnimation> animations;
 	
@@ -68,7 +68,7 @@ public:
 
 	virtual void PhysicsUpdate(std::vector<LPGameObject>* coObjects);
 	virtual void Update(DWORD dt, CCamera* cam);
-	virtual void Render(CCamera* cam);
+	virtual void Render(CCamera* cam, int alpha = 255);
 
 	void FrictionProcess(float& speed, DWORD dt);
 	void ResetTempValues();
@@ -94,6 +94,9 @@ public:
 
 	bool IsEnabled();
 	void Enable(bool isEnabled);
+
+	bool IsIgnoreTimeScale();
+	void SetIgnoreTimeSCale(bool isIgnoreTimeScale);
 
 	D3DXVECTOR2 GetScale();
 	void SetScale(D3DXVECTOR2 s);

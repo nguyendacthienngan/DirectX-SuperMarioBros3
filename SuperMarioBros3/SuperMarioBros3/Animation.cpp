@@ -53,11 +53,12 @@ void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 	else
 	{
 		DWORD t = animFrames[currentFrame]->GetTime();
-		if (now - lastFrameTime > t * CGame::GetTimeScale())
+		if (gameObject->IsIgnoreTimeScale() == false)
+			t *= CGame::GetTimeScale();
+		if (now - lastFrameTime > t )
 		{
 			if (currentFrame == animFrames.size() - 1 && isLoop == false)
 			{
-				DebugOut(L"NOT LOOPING \n");
 				gameObject->EndAnimation();
 				isPlaying = false;
 
