@@ -24,6 +24,8 @@ public:
 	float GetBoundaryLeft();
 	float GetBoundaryRight();
 	
+	void ChangeBackToKoopa();
+
 	void SetKoopaShell(CKoopaShell* koopaShell);
 	CKoopaShell* GetKoopaShell();
 };

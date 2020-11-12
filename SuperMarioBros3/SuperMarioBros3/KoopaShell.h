@@ -14,6 +14,7 @@ protected:
 	bool canWithDraw, isWithDraw;
 	CKoopa* koopa;
 	DWORD timeStartWithDraw, timeStartCanWithDraw;
+	int countWithDraw;
 public:
 	CKoopaShell();
 	void Init();

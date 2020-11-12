@@ -131,6 +131,18 @@ float CKoopa::GetBoundaryRight()
 	return 0.0f;
 }
 
+void CKoopa::ChangeBackToKoopa()
+{
+	this->isEnabled = true;
+	this->physiscBody->SetDynamic(true);
+	if (koopaShell != NULL)
+	{
+		koopaShell->Enable(false);
+		transform.position = koopaShell->GetPosition();
+		transform.position.y -= (collisionBoxs->at(0)->GetSizeBox().y  - koopaShell->GetCollisionBox()->at(0)->GetSizeBox().y )*0.5f;
+	}
+}
+
 void CKoopa::SetKoopaShell(CKoopaShell* koopaShell)
 {
 	this->koopaShell = koopaShell;

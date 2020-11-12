@@ -14,6 +14,7 @@ CKoopaShell::CKoopaShell()
 	upsideDown = false;
 	isWithDraw == false;
 	canWithDraw == false;
+	countWithDraw = 0;
 }
 
 void CKoopaShell::Init()
@@ -228,31 +229,41 @@ void CKoopaShell::Render(CCamera* cam, int alpha)
 
 void CKoopaShell::WithDrawProcess()
 {
+	countWithDraw++;
 	// Chỉ cần mai rùa không chạy thì mai rùa có thể rúc đầu (withdraw) sau KOOPA_MUST_START_WITH_DRAW_TIME
-	canWithDraw = (!IsRunning());
+	// Chỉ withdraw 1 lần sau khi đứng yên thôi, lúc đó chuyển lại cho koopa và khi koopa bị cụng đầu rồi mới tính lại
 
-	// Bị 2 vấn đề, 1 là bị chuyển liền qua with-draw
-	// 2 là k set lai được isWithdraw = false
-	if (canWithDraw == true && timeStartCanWithDraw != 0)
+	if (IsRunning() == false )
 	{
-		timeStartCanWithDraw = GetTickCount64();
+		if (countWithDraw == 1)
+			canWithDraw = true;
+		if (canWithDraw == true && timeStartCanWithDraw == 0)
+		{
+			timeStartCanWithDraw = GetTickCount64();
+		}
 	}
 
+
 	// Kết thúc withdraw animation
-	if (isWithDraw == true && GetTickCount64() - timeStartWithDraw > KOOPA_WITH_DRAW_TIME)
+	if (isWithDraw == true && GetTickCount64() - timeStartWithDraw > KOOPA_WITH_DRAW_TIME && timeStartWithDraw != 0)
 	{
 		isWithDraw = false;
+		canWithDraw = false;
 		timeStartWithDraw = 0;
+		timeStartCanWithDraw = 0;
+		countWithDraw = 0;
+		koopa->ChangeBackToKoopa();
 	}
 
 	// Bắt đầu withdraw animation
 	if (canWithDraw == true && GetTickCount64() - timeStartCanWithDraw > KOOPA_MUST_START_WITH_DRAW_TIME)
 	{
-		timeStartWithDraw = GetTickCount64();
-		timeStartCanWithDraw = 0;
-		isWithDraw = true;
+		if (timeStartWithDraw == 0 && timeStartCanWithDraw != 0)
+		{
+			isWithDraw = true;
+			timeStartWithDraw = GetTickCount64();
+		}
 	}
-
 }
 
 bool CKoopaShell::IsRunning()
