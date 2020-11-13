@@ -15,6 +15,8 @@ CKoopaShell::CKoopaShell()
 	isWithDraw == false;
 	canWithDraw == false;
 	countWithDraw = 0;
+	countShakingTime = 0;
+	centerPosition = D3DXVECTOR2(0.0f, 0.0f);
 }
 
 void CKoopaShell::Init()
@@ -81,10 +83,10 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam)
 		}
 	}
 
-	WithDrawProcess();
-
 	physiscBody->SetNormal(normal);
 	physiscBody->SetVelocity(vel);
+	WithDrawProcess();
+
 }
 
 void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
@@ -239,10 +241,10 @@ void CKoopaShell::WithDrawProcess()
 			canWithDraw = true;
 		if (canWithDraw == true && timeStartCanWithDraw == 0)
 		{
+			centerPosition = transform.position;
 			timeStartCanWithDraw = GetTickCount64();
 		}
 	}
-
 
 	// Kết thúc withdraw animation
 	if (isWithDraw == true && GetTickCount64() - timeStartWithDraw > KOOPA_WITH_DRAW_TIME && timeStartWithDraw != 0)
@@ -252,6 +254,7 @@ void CKoopaShell::WithDrawProcess()
 		timeStartWithDraw = 0;
 		timeStartCanWithDraw = 0;
 		countWithDraw = 0;
+		SetRelativePositionOnScreen(D3DXVECTOR2(0.0f, 0.0f));
 		koopa->ChangeBackToKoopa();
 	}
 
@@ -263,6 +266,15 @@ void CKoopaShell::WithDrawProcess()
 			isWithDraw = true;
 			timeStartWithDraw = GetTickCount64();
 		}
+	}
+
+	if (isWithDraw == true)
+	{
+		countShakingTime++;
+		auto velocity = physiscBody->GetVelocity();
+		D3DXVECTOR2 relPos = D3DXVECTOR2(0.0f, 0.0f);
+		relPos.x = rand() % SHAKING_AMPLITUDE - SHAKING_AMPLITUDE;
+		SetRelativePositionOnScreen(relPos);
 	}
 }
 

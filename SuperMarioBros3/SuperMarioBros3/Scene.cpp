@@ -110,12 +110,17 @@ void CScene::Unload()
 void CScene::Update(DWORD dt)
 {
 	if (gameObjects.size() == 0) return;
+//	DebugOut(L"---------------------(1)---------------- \n");
 	for (auto obj : gameObjects)
 	{
 		if (obj->IsEnabled() == false) continue;
+		/*if (obj->GetTag() != GameObjectTags::PlayerController)
+			OutputDebugString(ToLPCWSTR("Name Object" + obj->GetCollisionBox()->at(0)->GetName() + "\n"));*/
+		//DebugOut(L"GAME OBJECTS SIZE: %d \n", gameObjects.size());
 		obj->Update(dt, camera);
 		obj->PhysicsUpdate(&gameObjects); 
 	}
+//	DebugOut(L"---------------------(2)---------------- \n");
 
 	if (camera != NULL)
 		map->Update(camera, dt);

@@ -133,8 +133,13 @@ void CGame::Run()
 					continue;
 
 				// Call update
+			//	DebugOut(L"Update (1)\n");
 				Update();
+			//	DebugOut(L"Update (2)\n");
+			//	DebugOut(L"Render (1)\n");
+
 				Render();
+			//	DebugOut(L"Render (2)\n");
 
 				if (delta > tickPerFrame) delta = 0.0f;
 			}
@@ -222,12 +227,14 @@ void CGame::Render()
 
 void CGame::Update()
 {
-	
+	//DebugOut(L"Update in Game (1) \n");
 	LPSceneManager sceneManger = CSceneManager::GetInstance();
 	LPScene activeScene = sceneManger->GetActiveScene();
 	// Update Scene. Trong Scene sẽ Update các GameObject. Trong GameObject sẽ update các animation. Các animation sẽ update các animation frame / sprite ?
 	if (activeScene != NULL)
 		activeScene->Update(deltaTime);
+	//DebugOut(L"Update in Game (2) \n");
+
 }
 
 bool CGame::ImportGameSource()
