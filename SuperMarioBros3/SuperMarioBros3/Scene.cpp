@@ -4,6 +4,7 @@
 #include "Mario.h"
 #include "Game.h"
 #include "MarioController.h"
+#include "SceneConst.h"
 #include <string>
 #include "Koopa.h"
 using namespace std;
@@ -136,7 +137,7 @@ void CScene::Render()
 		if (obj->IsEnabled() == false) continue;
 		obj->Render(camera);
 		if (obj->GetCollisionBox()->size() != 0)
-			obj->GetCollisionBox()->at(0)->Render(camera, -24);
+			obj->GetCollisionBox()->at(0)->Render(camera, CollisionBox_Render_Distance);
 	}
 }
 
@@ -166,16 +167,6 @@ void CScene::SetObjectPosition(D3DXVECTOR2 distance)
 		}
 	}
 }
-
-//void CScene::SetMarioController(CMarioController* mC)
-//{
-//	marioController = mC;
-//}
-//
-//CMarioController* CScene::GetMarioController()
-//{
-//	return marioController;
-//}
 
 std::vector<LPGameObject> CScene::GetObjects()
 {

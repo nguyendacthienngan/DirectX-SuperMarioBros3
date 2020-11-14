@@ -2,6 +2,7 @@
 #include "AnimationManager.h"
 #include "Ultis.h"
 #include "MiscConst.h"
+#include "SceneManager.h"
 
 CGoomba::CGoomba()
 {
@@ -57,8 +58,6 @@ void CGoomba::Update(DWORD dt, CCamera* cam)
 		{
 			velocity.y = GOOMBA_HIT_FORCE;
 			isJumpMaxHeight = true;
-			if (velocity.y >= 0)
-				this->collisionBoxs->at(0)->SetEnable(false);
 		}
 	}
 	else if (GetTickCount64() - startDeadTime > GOOMBA_DIE_TIME && currentPhysicsState == GoombaState::Die)
@@ -69,10 +68,6 @@ void CGoomba::Update(DWORD dt, CCamera* cam)
 		velocity.y = 0.0f;
 
 	}
-	
-
-	
-
 	physiscBody->SetVelocity(velocity);
 }
 
@@ -150,15 +145,22 @@ void CGoomba::OnDie()
 
 	if (isHeadShot == true)
 	{
+		this->collisionBoxs->at(0)->SetEnable(false);
+
+		hitFX->SetStartPosition(this->transform.position);
+		hitFX->SetStartHitTime(GetTickCount64());
 		currentPhysicsState = GoombaState::HeadShot;
 		v.x = 0.08f;
 		normal.y = -1;
 		countDeadCallback++;
+
 		if (countDeadCallback == 1)
 		{
 			beforeHitPosition = transform.position;
 			v.y = -GOOMBA_HIT_FORCE;
-
+			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+			activeScene->AddObject(hitFX);
+			hitFX->Enable(true);
 		}
 	}
 	else

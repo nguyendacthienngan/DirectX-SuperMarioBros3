@@ -10,5 +10,6 @@ enum class GameObjectTags
 	GhostPlatform,
 	Enemy,
 	Misc,
-	RaccoonTail
+	RaccoonTail,
+	Effect
 };

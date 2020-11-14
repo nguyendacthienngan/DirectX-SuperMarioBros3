@@ -1,5 +1,6 @@
 ﻿#include "GameObject.h"
 #include "GameObjectConst.h"
+#include "Ultis.h"
 using namespace std;
 
 CGameObject::CGameObject()

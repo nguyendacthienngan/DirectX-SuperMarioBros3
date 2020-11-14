@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "GameObject.h"
 #include "EnemyConst.h"
+#include "HitEffects.h"
+
 class CEnemy : public CGameObject
 {
 protected:
@@ -10,6 +12,7 @@ protected:
 	DWORD startDeadTime;
 	bool isDead, isHeadShot;
 	int countDeadCallback;
+	CHitEffects* hitFX;
 public:
 	CEnemy();
 	void SetEnemyType(std::string eT);
@@ -23,6 +26,5 @@ public:
 
 	virtual void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents) override;
 	virtual void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox) override;
-
-
+	void SetHitFX(CHitEffects* hitFX);
 };

@@ -7,6 +7,7 @@ CEnemy::CEnemy()
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 	countDeadCallback = 0;
 	isHeadShot = false;
+	hitFX = new CHitEffects();
 }
 
 void CEnemy::SetEnemyType(std::string eT)
@@ -73,21 +74,9 @@ void CEnemy::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 
 void CEnemy::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
 {
-	/*if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
-	{
-		auto otherObject = otherCollisionBox->GetGameObjectAttach();
-		auto otherEnemyObject = static_cast<CEnemy*>(otherObject);
-		if (otherEnemyObject->GetEnemyTag() == this->enemyTag)
-		{
-			auto normal = physiscBody->GetNormal();
-			auto velocity = physiscBody->GetVelocity();
-			normal.x = -normal.x;
-			velocity.x *= normal.x;
-			transform.position.x = velocity.x * dt;
-			physiscBody->SetNormal(normal);
-			physiscBody->SetVelocity(velocity);
-			DebugOut(L"2 enemy lai gap nhauuuuuuuuuuu \n");
-		}
-	}*/
-	
+}
+
+void CEnemy::SetHitFX(CHitEffects* hitFX)
+{
+	this->hitFX = hitFX;
 }

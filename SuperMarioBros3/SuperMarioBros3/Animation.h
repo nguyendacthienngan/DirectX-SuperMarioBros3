@@ -50,7 +50,7 @@ public:
 
 	void SetGameObject(LPGameObject gO) { gameObject = gO; }
 	LPGameObject GetGameObject() { return gameObject; }
-
+	void ResetAnimation();
 	~CAnimation();
 };
 

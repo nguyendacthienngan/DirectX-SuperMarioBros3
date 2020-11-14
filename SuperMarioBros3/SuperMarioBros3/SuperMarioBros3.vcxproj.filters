@@ -342,6 +342,9 @@
     <ClInclude Include="EffectConst.h">
       <Filter>Game\GameObject\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="SceneConst.h">
+      <Filter>Framework\Game\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -482,11 +485,8 @@
     <ClCompile Include="EffectObject.cpp">
       <Filter>Framework\Game\VFX</Filter>
     </ClCompile>
-    <ClCompile Include="HitEffects.h.cpp">
-      <Filter>Game\GameObject\Effect</Filter>
-    </ClCompile>
     <ClCompile Include="HitEffects.cpp">
-      <Filter>Files\Source Files</Filter>
+      <Filter>Game\GameObject\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

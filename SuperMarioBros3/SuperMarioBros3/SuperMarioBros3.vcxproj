@@ -194,6 +194,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />
+    <ClInclude Include="SceneConst.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SmallMario.h" />
     <ClInclude Include="SolidBox.h" />
@@ -225,7 +226,6 @@
     <ClCompile Include="GhostPlatform.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="HitEffects.cpp" />
-    <ClCompile Include="HitEffects.h.cpp" />
     <ClCompile Include="Holdable.cpp" />
     <ClCompile Include="IState.cpp" />
     <ClCompile Include="KeyboardManager.cpp" />

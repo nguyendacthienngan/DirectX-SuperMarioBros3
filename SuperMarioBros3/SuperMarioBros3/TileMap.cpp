@@ -10,11 +10,13 @@
 #include "RedKoopa.h"
 #include "KoopaShell.h"
 #include "Goomba.h"
+#include "HitEffects.h"
+
+#include "TextureManager.h"
+#include "Game.h"
 
 #include <iostream>
 #include <map>
-#include "TextureManager.h"
-#include "Game.h"
 
 CTileMap::CTileMap()
 {
@@ -240,7 +242,6 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						koopa->SetPosition(position - translateKoopaConst);
 						koopa->SetStartPosition(position - translateKoopaConst);
 						koopa->SetKoopaShell(koopaShell);
-
 						koopaShell->SetKoopa(koopa);
 						listGameObjects.push_back(koopaShell);
 
@@ -252,17 +253,9 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						goomba->SetEnemyType(enemyType);
 						goomba->SetPosition(position - translateGoombaConst);
 						goomba->SetStartPosition(position - translateGoombaConst);
+
 						listGameObjects.push_back(goomba);
 					}
-					/*else if (enemyName.compare("koopa-shell") == 0)
-					{
-						CKoopaShell* koopaShell = new CKoopaShell();
-						koopaShell->SetEnemyType(enemyType);
-						koopaShell->SetPosition(position - translateKoopaShellConst);
-						koopaShell->SetStartPosition(position - translateKoopaShellConst);
-						koopaShell->Enable(true);
-						listGameObjects.push_back(koopaShell);
-					}*/
 				}
 			}
 		}

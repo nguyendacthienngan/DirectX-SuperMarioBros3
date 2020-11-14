@@ -43,7 +43,7 @@ void CAnimation::Add(LPSprite sprite, D3DXVECTOR2 pos, DWORD frameTime)
 void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 {
 	if (animFrames.size() == 0) return;
-
+	
 	DWORD now = GetTickCount();
 	if (currentFrame == -1)
 	{
@@ -90,6 +90,13 @@ LPAnimationFrame CAnimation::GetAnimFrame()
 	if (currentFrame != -1)
 		return animFrames[currentFrame];
 	return NULL;
+}
+
+void CAnimation::ResetAnimation()
+{
+	DebugOut(L"RESET ANIMATION \n");
+	currentFrame = -1;
+	isPlaying = true;
 }
 
 CAnimation::~CAnimation()
