@@ -74,6 +74,10 @@ void CKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 			if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
 			{
 				ChangeToShell();
+				auto normalPlayer = collisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal();
+				auto normalKS = koopaShell->GetPhysiscBody()->GetNormal();
+				normalKS.x = normalPlayer.x;
+				koopaShell->GetPhysiscBody()->SetNormal(normalKS);
 				koopaShell->SetIsHeadShotByFireball(true);
 				koopaShell->OnDie();
 			}
@@ -90,6 +94,10 @@ void CKoopa::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 		// Chỉ khi bị đuôi quật nó mới set lại -1 r văng đi (chưa văng khỏi ground)
 		// cần xử lý lại việc chết cho hợp lý
 		ChangeToShell();
+		auto normalPlayer = otherCollisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal();
+		auto normalKS = koopaShell->GetPhysiscBody()->GetNormal();
+		normalKS.x = normalPlayer.x;
+		koopaShell->GetPhysiscBody()->SetNormal(normalKS);
 		koopaShell->SetIsHeadShot(true);
 		koopaShell->OnDie();
 	}
@@ -97,6 +105,10 @@ void CKoopa::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 	{
 		// Khi đụng trúng quái fireball có biến mất k?
 		ChangeToShell();
+		auto normalPlayer = otherCollisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal();
+		auto normalKS = koopaShell->GetPhysiscBody()->GetNormal();
+		normalKS.x = normalPlayer.x;
+		koopaShell->GetPhysiscBody()->SetNormal(normalKS);
 		koopaShell->SetIsHeadShotByFireball(true);
 		koopaShell->OnDie();
 	}

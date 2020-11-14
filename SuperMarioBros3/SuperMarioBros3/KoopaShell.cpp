@@ -93,13 +93,13 @@ void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<
 	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
+		auto normal = physiscBody->GetNormal();
+
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
 		{
-			auto normal = physiscBody->GetNormal();
 			if (collisionEvent->nx != 0)
 			{
 				normal.x = -normal.x;
-				physiscBody->SetNormal(normal);
 			}
 		}
 		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && collisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
@@ -108,6 +108,7 @@ void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<
 			if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
 			{
 				isHeadShotByFireBall = true;
+				normal.x = collisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal().x;
 				CKoopaShell::OnDie();
 			}
 		}
@@ -123,23 +124,28 @@ void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<
 				
 			}
 		}
+		physiscBody->SetNormal(normal);
+
 	}
 }
 
 void CKoopaShell::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
 {
 	CEnemy::OnOverlappedEnter(selfCollisionBox, otherCollisionBox);
+	auto normal = physiscBody->GetNormal();
 
 	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
 	{
 		// Chỉ khi bị đuôi quật nó mới set lại -1 r văng đi (chưa văng khỏi ground)
 		// cần xử lý lại việc chết cho hợp lý
 		isHeadShot = true;
+		normal.x = otherCollisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal().x;
 		CKoopaShell::OnDie();
 	}
 	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && otherCollisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
 	{
 		isHeadShotByFireBall = true;
+		normal.x = otherCollisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal().x;
 		CKoopaShell::OnDie();
 	}
 	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
@@ -150,6 +156,8 @@ void CKoopaShell::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionB
 			enemyObj->OnDie();
 		}
 	}
+	physiscBody->SetNormal(normal);
+
 }
 
 void CKoopaShell::OnDie()
