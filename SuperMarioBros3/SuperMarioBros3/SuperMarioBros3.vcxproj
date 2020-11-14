@@ -150,6 +150,8 @@
     <ClInclude Include="CollisionBox.h" />
     <ClInclude Include="CollisionBoxConst.h" />
     <ClInclude Include="Const.h" />
+    <ClInclude Include="EffectConst.h" />
+    <ClInclude Include="EffectObject.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyConst.h" />
     <ClInclude Include="FireBall.h" />
@@ -165,6 +167,7 @@
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="GoombaConst.h" />
     <ClInclude Include="GraphicConst.h" />
+    <ClInclude Include="HitEffects.h" />
     <ClInclude Include="Holdable.h" />
     <ClInclude Include="IState.h" />
     <ClInclude Include="KeyboardManager.h" />
@@ -212,6 +215,7 @@
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionBox.cpp" />
+    <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="FireMario.cpp" />
@@ -220,6 +224,8 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GhostPlatform.cpp" />
     <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="HitEffects.cpp" />
+    <ClCompile Include="HitEffects.h.cpp" />
     <ClCompile Include="Holdable.cpp" />
     <ClCompile Include="IState.cpp" />
     <ClCompile Include="KeyboardManager.cpp" />

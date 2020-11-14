@@ -693,10 +693,7 @@ void CMario::DamageProcess()
 			// CHANGE SMOKE EFFECT
 			timeStartSmokeEffect = GetTickCount64();
 			isSmokeEffectAnimation = true;
-			//CGame::GetInstance()->SetTimeScale(0.0f);
 		}
-		// CHANGE LEVEL ANIMATION - SWITCH ALPHA
-		
 	}
 	
 	// CHANGE LEVEL
@@ -704,7 +701,6 @@ void CMario::DamageProcess()
 	{
 		timeStartChangeLevel = 0;
 		isChangeLevel = false;
-		//CGame::GetInstance()->SetTimeScale(1.0f);
 		return;
 	}
 	

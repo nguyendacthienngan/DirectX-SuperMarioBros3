@@ -17,14 +17,14 @@ struct CollisionEvent;
 
 class CCollisionBox
 {
-private:
+protected:
 	LPGameObject gameObject;
 	D3DXVECTOR2 sizeBox;
 	D3DXVECTOR2 localPosition; 
 	D3DXVECTOR2 distance;  //dx = vx*dt 
 	std::string name;
 	int id;
-
+	bool isEnable;
 public:
 	CCollisionBox();
 	~CCollisionBox();
@@ -46,6 +46,7 @@ public:
 	D3DXVECTOR2 GetWorldPosition();
 
 	bool IsEnabled();
+	void SetEnable(bool isEnable);
 
 	RectF GetBoundingBox();
 

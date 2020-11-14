@@ -168,8 +168,6 @@
       <Sprite id="spr-mario-damaged-effect-3" left="92" top="1"  width="16" height="16"/>
       <Sprite id="spr-mario-damaged-effect-0" left="38" top="1"  width="16" height="16"/>
       <Sprite id="spr-mario-damaged-effect-1" left="56" top="1"  width="16" height="16"/>
-      <!--<Sprite id="spr-mario-damaged-effect-2" left="74" top="1"  width="16" height="16"/>
-      <Sprite id="spr-mario-damaged-effect-3" left="92" top="1"  width="16" height="16"/>-->
     </Animation>
     <Animation aniId="ani-fireball-damaged" frameTime="50" name = "FIRE-BALL-DAMAGED">
       <Sprite id="spr-mario-damaged-effect-0" left="38" top="1"  width="16" height="16"/>

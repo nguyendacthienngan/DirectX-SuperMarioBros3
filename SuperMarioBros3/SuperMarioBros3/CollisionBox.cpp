@@ -17,6 +17,7 @@ CCollisionBox::CCollisionBox()
 	gameObject = NULL;
 	sizeBox.x = 1;
 	sizeBox.y = 1;
+	isEnable = true;
 }
 
 CCollisionBox::~CCollisionBox()
@@ -107,7 +108,17 @@ D3DXVECTOR2 CCollisionBox::GetWorldPosition()
 
 bool CCollisionBox::IsEnabled()
 {
-	return gameObject != NULL;
+	if (gameObject != NULL)
+	{
+		return isEnable;
+	}
+	else
+		return false;
+}
+
+void CCollisionBox::SetEnable(bool isEnable)
+{
+	this->isEnable = isEnable;
 }
 
 RectF CCollisionBox::GetBoundingBox()

@@ -8,7 +8,7 @@ protected:
 	std::string enemyType;
 	EnemyTag enemyTag;
 	DWORD startDeadTime;
-	bool isDead;
+	bool isDead, isHeadShot;
 	int countDeadCallback;
 public:
 	CEnemy();

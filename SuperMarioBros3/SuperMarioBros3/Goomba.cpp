@@ -15,6 +15,7 @@ void CGoomba::Init()
 {
 	LoadAnimation();
 	isEnabled = true;
+	isJumpMaxHeight = false;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(GOOMBA_BBOX);
@@ -27,6 +28,7 @@ void CGoomba::Init()
 	physiscBody->SetDynamic(true);
 	physiscBody->SetGravity(GOOMBA_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
+	beforeHitPosition = D3DXVECTOR2(0.0f, 0.0f);
 }
 
 void CGoomba::LoadAnimation()
@@ -34,17 +36,32 @@ void CGoomba::LoadAnimation()
 	auto animationManager = CAnimationManager::GetInstance();
 	AddAnimation(GOOMBA_STATE_WALK, animationManager->Clone("ani-goomba-walk"));
 	AddAnimation(GOOMBA_STATE_DIE, animationManager->Clone("ani-goomba-die"));
+	AddAnimation(GOOMBA_STATE_IDLE, animationManager->Clone("ani-goomba-idle"));
 }
 
 void CGoomba::Update(DWORD dt, CCamera* cam)
 {
 	auto velocity = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
-	if (currentPhysicsState != GoombaState::Die)
+	if (currentPhysicsState == GoombaState::Walk)
 	{
 		velocity.x = normal.x * GOOMBA_SPEED;
 	}
-	else if (GetTickCount64() - startDeadTime > GOOMBA_DIE_TIME)
+	else if (currentPhysicsState == GoombaState::HeadShot)
+	{
+		if (abs(beforeHitPosition.y) - abs(transform.position.y) <= GOOMBA_HIT_MAX_HEIGHT && isJumpMaxHeight == false)
+		{
+			velocity.y = -GOOMBA_HIT_FORCE;
+		}
+		else
+		{
+			velocity.y = GOOMBA_HIT_FORCE;
+			isJumpMaxHeight = true;
+			if (velocity.y >= 0)
+				this->collisionBoxs->at(0)->SetEnable(false);
+		}
+	}
+	else if (GetTickCount64() - startDeadTime > GOOMBA_DIE_TIME && currentPhysicsState == GoombaState::Die)
 	{
 		this->isEnabled = false;
 		physiscBody->SetDynamic(false);
@@ -52,14 +69,20 @@ void CGoomba::Update(DWORD dt, CCamera* cam)
 		velocity.y = 0.0f;
 
 	}
+	
+
+	
+
 	physiscBody->SetVelocity(velocity);
 }
 
 void CGoomba::Render(CCamera* cam, int alpha)
 {
+	auto normal = physiscBody->GetNormal();
+	SetScale(D3DXVECTOR2(1.0f, normal.y));
 	switch (currentPhysicsState)
 	{
-		case GoombaState::Walk:
+		case GoombaState::Walk: 
 		{
 			SetState(GOOMBA_STATE_WALK);
 			break;
@@ -67,6 +90,11 @@ void CGoomba::Render(CCamera* cam, int alpha)
 		case GoombaState::Die:
 		{
 			SetState(GOOMBA_STATE_DIE);
+			break;
+		}
+		case GoombaState::HeadShot:
+		{
+			SetState(GOOMBA_STATE_HEADSHOT);
 			break;
 		}
 	}
@@ -92,6 +120,7 @@ void CGoomba::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Coll
 		{
 			if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
 			{
+				isHeadShot = true;
 				CGoomba::OnDie();
 			}
 		}
@@ -103,26 +132,51 @@ void CGoomba::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* 
 	CEnemy::OnOverlappedEnter(selfCollisionBox, otherCollisionBox);
 	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
 	{
+		isHeadShot = true;
 		CGoomba::OnDie();
+
 	}
 	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && otherCollisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
 	{
+		isHeadShot = true;
 		CGoomba::OnDie();
 	}
 }
 
 void CGoomba::OnDie()
 {
-	currentPhysicsState = GoombaState::Die;
 	auto v = physiscBody->GetVelocity();
-	v.x = 0.0f;
-	v.y = 0.0f;
-	physiscBody->SetVelocity(v);
-	physiscBody->SetGravity(0.0f);
-	countDeadCallback++;
-	if (countDeadCallback == 1)
-		startDeadTime = GetTickCount64();
+	auto normal = physiscBody->GetNormal();
 
-	SetRelativePositionOnScreen(D3DXVECTOR2(0, (GOOMBA_BBOX.y - GOOMBA_DIE_BBOX.y) * 0.5f));
-	collisionBoxs->at(0)->SetSizeBox(GOOMBA_DIE_BBOX);
+	if (isHeadShot == true)
+	{
+		currentPhysicsState = GoombaState::HeadShot;
+		v.x = 0.08f;
+		normal.y = -1;
+		countDeadCallback++;
+		if (countDeadCallback == 1)
+		{
+			beforeHitPosition = transform.position;
+			v.y = -GOOMBA_HIT_FORCE;
+
+		}
+	}
+	else
+	{
+		currentPhysicsState = GoombaState::Die;
+
+		v.x = 0.0f;
+		v.y = 0.0f;
+		
+		countDeadCallback++;
+		if (countDeadCallback == 1)
+			startDeadTime = GetTickCount64();
+
+		SetRelativePositionOnScreen(D3DXVECTOR2(0, (GOOMBA_BBOX.y - GOOMBA_DIE_BBOX.y) * 0.5f));
+		collisionBoxs->at(0)->SetSizeBox(GOOMBA_DIE_BBOX);
+		physiscBody->SetGravity(0.0f);
+
+	}
+	physiscBody->SetVelocity(v);
+	physiscBody->SetNormal(normal);
 }

@@ -274,6 +274,8 @@ void CPhysicsBody::CalcPotentialCollisions(
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
+		if (cO->IsEnabled() == false || coObjects->at(i)->IsEnabled() == false)
+			continue;
 		// Trừ solidbox ra thì tất cả gameobject bị disable thì k được xét va chạm vật lý
 		if (coObjects->at(i)->GetGameObjectAttach()->IsEnabled() == false && (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid))
 			continue;

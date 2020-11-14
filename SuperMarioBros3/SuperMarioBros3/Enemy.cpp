@@ -6,6 +6,7 @@ CEnemy::CEnemy()
 	this->SetTag(GameObjectTags::Enemy);
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 	countDeadCallback = 0;
+	isHeadShot = false;
 }
 
 void CEnemy::SetEnemyType(std::string eT)

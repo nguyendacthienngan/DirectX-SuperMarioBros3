@@ -5,6 +5,8 @@ class CGoomba : public CEnemy
 {
 private:
 	GoombaState currentPhysicsState;
+	D3DXVECTOR2 beforeHitPosition;
+	bool isJumpMaxHeight;
 public:
 	CGoomba();
 	void Init() override;
