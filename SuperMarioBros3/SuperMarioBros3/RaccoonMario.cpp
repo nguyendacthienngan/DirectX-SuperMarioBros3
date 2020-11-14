@@ -107,7 +107,7 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 {
 	auto keyboard = CKeyboardManager::GetInstance();
 	CMario::Update(dt, cam);
-	if (isAttack == true) 
+	if (isAttack == true && isDamaged == false) 
 	{
 		// Nếu vừa ấn attack cái enable cái đuôi là sai vì tới frame thứ 3 của Attack Animation mới là cái đuôi giơ ra
 		// Nên mình sẽ set cái time phù hợp để xét va chạm đuôi đúng
@@ -298,6 +298,24 @@ void CRaccoonMario::OnKeyUp(int KeyCode)
 	{
 		isAttackContinious = false;
 	}
+}
+
+CRaccoonTailBox* CRaccoonMario::GetRaccoonTailBox()
+{
+	return raccoonTailBox;
+}
+
+void CRaccoonMario::SetRaccoonTailBox(CRaccoonTailBox* racTailBox)
+{
+	this->raccoonTailBox = racTailBox;
+}
+
+void CRaccoonMario::ResetValueAttack()
+{
+	currentPhysicsState.move = MoveOnGroundStates::Idle;
+	isAttack = false;
+	isJumpAttack = false;
+	raccoonTailBox->Enable(false);
 }
 
 CRaccoonMario::~CRaccoonMario()
