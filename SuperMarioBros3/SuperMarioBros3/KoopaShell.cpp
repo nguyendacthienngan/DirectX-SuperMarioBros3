@@ -3,6 +3,7 @@
 #include "AnimationManager.h"
 #include "Ultis.h"
 #include "MiscConst.h"
+#include "SceneManager.h"
 CKoopaShell::CKoopaShell()
 {
 	LoadAnimation();
@@ -51,19 +52,12 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam)
 {
 	auto vel = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
-	if (isDead == true)
+	if (isHeadShot == true || isHeadShotByFireBall == true)
 	{
-		this->isEnabled = false;
-		physiscBody->SetDynamic(false);
-		physiscBody->SetGravity(0.0f);
-		vel.y = 0.0f;
-		/*if (GetTickCount64() - startDeadTime > KOOPA_DIE_TIME && startDeadTime != 0)
+		if (isHeadShotByFireBall == true)
 		{
-			this->isEnabled = false;
-			physiscBody->SetDynamic(false);
-			physiscBody->SetGravity(0.0f);
-			vel.y = 0.0f;
-		}*/
+
+		}
 	}
 	else
 	{
@@ -110,8 +104,8 @@ void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<
 			// Nếu mai rùa bị đạn bắn là nó lật lại (-1) r bị văng đi khỏi ground lun : HEADSHOT
 			if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
 			{
+				isHeadShotByFireBall = true;
 				CKoopaShell::OnDie();
-				//headShot = true;
 			}
 		}
 		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
@@ -137,10 +131,12 @@ void CKoopaShell::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionB
 	{
 		// Chỉ khi bị đuôi quật nó mới set lại -1 r văng đi (chưa văng khỏi ground)
 		// cần xử lý lại việc chết cho hợp lý
+		isHeadShot = true;
 		CKoopaShell::OnDie();
 	}
 	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && otherCollisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
 	{
+		isHeadShotByFireBall = true;
 		CKoopaShell::OnDie();
 	}
 	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
@@ -156,17 +152,33 @@ void CKoopaShell::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionB
 void CKoopaShell::OnDie()
 {
 	auto normal = physiscBody->GetNormal();
-	physiscBody->SetGravity(0.0f);
 	upsideDown = true;
-	if (headShot)
+	if (isHeadShot || isHeadShotByFireBall)
 	{
-		auto v = physiscBody->GetVelocity();
-		v.y = -KOOPA_SHELL_DEFLECT;
-		v.x = KOOPA_SHELL_DEFLECT_X * normal.x;
-		physiscBody->SetVelocity(v);
-		isDead = true;
-		startDeadTime = GetTickCount64();
+		countDeadCallback++;
+
+		if (countDeadCallback == 1)
+		{
+			auto v = physiscBody->GetVelocity();
+			v.y = -KOOPA_SHELL_DEFLECT;
+			v.x = KOOPA_SHELL_DEFLECT_X * normal.x;
+			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+			activeScene->AddObject(hitFX);
+			hitFX->SetStartPosition(this->transform.position);
+			hitFX->SetStartHitTime(GetTickCount64());
+			hitFX->Enable(true);
+
+			if (isHeadShotByFireBall == true)
+			{
+				// Off the cliffs
+				this->collisionBoxs->at(0)->SetEnable(false);
+			}
+			physiscBody->SetVelocity(v);
+		}
 	}
+	else
+		physiscBody->SetGravity(0.0f);
+
 }
 
 void CKoopaShell::SetKoopa(CKoopa* koopa)

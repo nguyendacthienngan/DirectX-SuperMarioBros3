@@ -150,7 +150,7 @@ void CGoomba::OnDie()
 		hitFX->SetStartPosition(this->transform.position);
 		hitFX->SetStartHitTime(GetTickCount64());
 		currentPhysicsState = GoombaState::HeadShot;
-		v.x = 0.08f;
+		v.x = GOOMBA_HIT_FORCE_X;
 		normal.y = -1;
 		countDeadCallback++;
 

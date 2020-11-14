@@ -7,6 +7,7 @@ CEnemy::CEnemy()
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 	countDeadCallback = 0;
 	isHeadShot = false;
+	isHeadShotByFireBall = false;
 	hitFX = new CHitEffects();
 }
 
@@ -79,4 +80,14 @@ void CEnemy::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 void CEnemy::SetHitFX(CHitEffects* hitFX)
 {
 	this->hitFX = hitFX;
+}
+
+void CEnemy::SetIsHeadShot(bool isHeadShot)
+{
+	this->isHeadShot = isHeadShot;
+}
+
+void CEnemy::SetIsHeadShotByFireball(bool isHeadShotByFireball)
+{
+	this->isHeadShotByFireBall = isHeadShotByFireball;
 }

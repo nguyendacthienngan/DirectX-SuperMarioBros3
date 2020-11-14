@@ -9,7 +9,6 @@ CKoopa::CKoopa()
 	LoadAnimation();
 	Init();
 	enemyTag = EnemyTag::Koopa;
-
 }
 
 void CKoopa::Init()
@@ -75,6 +74,7 @@ void CKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 			if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
 			{
 				ChangeToShell();
+				koopaShell->SetIsHeadShotByFireball(true);
 				koopaShell->OnDie();
 			}
 		}
@@ -90,11 +90,14 @@ void CKoopa::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 		// Chỉ khi bị đuôi quật nó mới set lại -1 r văng đi (chưa văng khỏi ground)
 		// cần xử lý lại việc chết cho hợp lý
 		ChangeToShell();
+		koopaShell->SetIsHeadShot(true);
 		koopaShell->OnDie();
 	}
 	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && otherCollisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
 	{
+		// Khi đụng trúng quái fireball có biến mất k?
 		ChangeToShell();
+		koopaShell->SetIsHeadShotByFireball(true);
 		koopaShell->OnDie();
 	}
 }

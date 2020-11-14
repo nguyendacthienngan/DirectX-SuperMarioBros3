@@ -10,7 +10,7 @@ protected:
 	std::string enemyType;
 	EnemyTag enemyTag;
 	DWORD startDeadTime;
-	bool isDead, isHeadShot;
+	bool isDead, isHeadShot, isHeadShotByFireBall;
 	int countDeadCallback;
 	CHitEffects* hitFX;
 public:
@@ -27,4 +27,6 @@ public:
 	virtual void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents) override;
 	virtual void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox) override;
 	void SetHitFX(CHitEffects* hitFX);
+	void SetIsHeadShot(bool isHeadShot);
+	void SetIsHeadShotByFireball(bool isHeadShotByFireball);
 };
