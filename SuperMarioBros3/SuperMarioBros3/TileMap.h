@@ -48,6 +48,7 @@ struct Layer
 	int width;
 	int height;
 	int** tiles; // ma trận
+	bool isVisible;
 	void Clear()
 	{
 		for (int i = 0; i < width; i++)

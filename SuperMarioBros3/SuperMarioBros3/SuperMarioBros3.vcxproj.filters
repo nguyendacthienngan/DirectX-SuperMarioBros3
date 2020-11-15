@@ -372,6 +372,12 @@
     <ClInclude Include="BlockConst.h">
       <Filter>Game\GameObject\Misc\Block</Filter>
     </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Game\GameObject\Misc\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinConst.h">
+      <Filter>Game\GameObject\Misc\Coin</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -520,6 +526,9 @@
     </ClCompile>
     <ClCompile Include="Block.cpp">
       <Filter>Game\GameObject\Misc\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Game\GameObject\Misc\Coin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

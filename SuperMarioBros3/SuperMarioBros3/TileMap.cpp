@@ -18,6 +18,7 @@
 
 #include <iostream>
 #include <map>
+#include "Coin.h"
 
 CTileMap::CTileMap()
 {
@@ -93,6 +94,9 @@ void CTileMap::Render(CCamera* camera)
 			int y = j * tileHeight - camera->GetPositionCam().y;
 
 			for (Layer* layer : layers) {
+				if (layer->isVisible == false)
+					continue;
+
 				// i % width, j % height: Đây là tọa độ của ô 
 				int id = layer->tiles[i % width][j % height]; // Từ tọa độ của ô đó ta lấy ra được tileID
 				auto tileSet = GetTileSetByTileID(id); // Từ tileID ta tìm tileset mà tileID đó thuộc về
@@ -156,6 +160,10 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 			element->QueryIntAttribute("id", &layer->id);
 			element->QueryIntAttribute("width", &layer->width);
 			element->QueryIntAttribute("height", &layer->height);
+
+			int visible;
+			if (element->QueryIntAttribute("visible", &visible) != TIXML_SUCCESS) layer->isVisible = true;
+			else layer->isVisible = visible ? true : false;
 
 			auto tiles = new int* [layer->width]; // số tiles theo chiều ngang
 
@@ -272,6 +280,13 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					{
 
 					}*/
+				}
+				else if (name.compare("Coin") == 0)
+				{
+					CCoin* solid = new CCoin();
+					solid->SetPosition(position - translateQuestionBlockConst);
+					listGameObjects.push_back(solid);
+
 				}
 			}
 		}

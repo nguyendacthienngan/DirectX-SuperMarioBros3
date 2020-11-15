@@ -149,6 +149,8 @@
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockConst.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Coin.h" />
+    <ClInclude Include="CoinConst.h" />
     <ClInclude Include="CollisionBox.h" />
     <ClInclude Include="CollisionBoxConst.h" />
     <ClInclude Include="Const.h" />
@@ -220,6 +222,7 @@
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CollisionBox.cpp" />
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
