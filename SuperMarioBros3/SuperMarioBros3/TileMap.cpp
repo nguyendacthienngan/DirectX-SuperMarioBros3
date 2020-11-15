@@ -264,11 +264,11 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					int type;
 					object->QueryIntAttribute("type", &type); //type thiệt ra là số lượng
 
-					/*CQuestionBlock* solid = new CQuestionBlock();
-					solid->SetPosition(position);
+					CQuestionBlock* solid = new CQuestionBlock();
+					solid->SetPosition(position - translateQuestionBlockConst);
 					listGameObjects.push_back(solid);
 
-					if (name.compare("bcoin") == 0)
+					/*if (name.compare("bcoin") == 0)
 					{
 
 					}*/

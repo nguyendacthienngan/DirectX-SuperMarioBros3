@@ -7,6 +7,7 @@ CQuestionBlock::CQuestionBlock()
 	LoadAnimation();
 	SetState(QB_STATE_SEALED);
 	amountOfCoinCanAchive = 0;
+	isEnabled = true;
 }
 
 void CQuestionBlock::LoadAnimation()
