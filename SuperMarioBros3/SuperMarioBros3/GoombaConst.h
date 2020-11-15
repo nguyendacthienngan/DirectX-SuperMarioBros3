@@ -8,7 +8,7 @@
 #define GOOMBA_DIE_TIME				300
 #define GOOMBA_SPEED				0.039f 
 
-#define GOOMBA_HIT_FORCE			0.2f
+#define GOOMBA_HIT_FORCE			0.5f 
 #define GOOMBA_HIT_MAX_HEIGHT		170.0f
 #define GOOMBA_HIT_FORCE_X			0.08f
 

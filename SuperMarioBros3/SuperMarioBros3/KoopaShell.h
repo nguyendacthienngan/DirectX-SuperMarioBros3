@@ -14,7 +14,8 @@ protected:
 	bool canWithDraw, isWithDraw;
 	CKoopa* koopa;
 	DWORD timeStartWithDraw, timeStartCanWithDraw;
-	int countWithDraw, countShakingTime;
+	int countWithDraw, countShakingTime, isLeftHit;
+	DWORD timeStartHeadShot;
 	D3DXVECTOR2 centerPosition; // Giữ tọa độ ban đầu làm tọa độ tâm. Muốn mai rùa rung lắc khi rúc đầu lên
 	// Việc rung lắc mình sẽ set tọa độ relative position qua lại từ cái tâm
 public:

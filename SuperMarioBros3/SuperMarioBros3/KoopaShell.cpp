@@ -17,6 +17,7 @@ CKoopaShell::CKoopaShell()
 	canWithDraw == false;
 	countWithDraw = 0;
 	countShakingTime = 0;
+	timeStartHeadShot = 0;
 	centerPosition = D3DXVECTOR2(0.0f, 0.0f);
 }
 
@@ -54,9 +55,12 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam)
 	auto normal = physiscBody->GetNormal();
 	if (isHeadShot == true || isHeadShotByFireBall == true)
 	{
-		if (isHeadShotByFireBall == true)
+		if (GetTickCount64() - timeStartHeadShot >= KOOPA_HEAD_SHOT_TIME)
 		{
-
+			isHeadShot = false;
+			isHeadShotByFireBall = false;
+			countDeadCallback = 0;
+			vel.x = 0.0f;
 		}
 	}
 	else
@@ -90,13 +94,13 @@ void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<
 	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
+		auto normal = physiscBody->GetNormal();
+
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
 		{
-			auto normal = physiscBody->GetNormal();
 			if (collisionEvent->nx != 0)
 			{
 				normal.x = -normal.x;
-				physiscBody->SetNormal(normal);
 			}
 		}
 		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && collisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
@@ -105,6 +109,7 @@ void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<
 			if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
 			{
 				isHeadShotByFireBall = true;
+				normal.x = collisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal().x;
 				CKoopaShell::OnDie();
 			}
 		}
@@ -120,18 +125,22 @@ void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<
 				
 			}
 		}
+		physiscBody->SetNormal(normal);
+
 	}
 }
 
 void CKoopaShell::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
 {
 	CEnemy::OnOverlappedEnter(selfCollisionBox, otherCollisionBox);
+	auto normal = physiscBody->GetNormal();
 
 	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
 	{
 		// Chỉ khi bị đuôi quật nó mới set lại -1 r văng đi (chưa văng khỏi ground)
 		// cần xử lý lại việc chết cho hợp lý
 		isHeadShot = true;
+		normal.x = -otherCollisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal().x;
 		CKoopaShell::OnDie();
 	}
 	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && otherCollisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
@@ -147,6 +156,8 @@ void CKoopaShell::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionB
 			enemyObj->OnDie();
 		}
 	}
+	physiscBody->SetNormal(normal);
+
 }
 
 void CKoopaShell::OnDie()
@@ -156,12 +167,14 @@ void CKoopaShell::OnDie()
 	if (isHeadShot || isHeadShotByFireBall)
 	{
 		countDeadCallback++;
-
 		if (countDeadCallback == 1)
 		{
+			timeStartHeadShot = GetTickCount64();
+
 			auto v = physiscBody->GetVelocity();
 			v.y = -KOOPA_SHELL_DEFLECT;
-			v.x = KOOPA_SHELL_DEFLECT_X * normal.x;
+			//v.x = KOOPA_SHELL_DEFLECT_X * normal.x;
+
 			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 			activeScene->AddObject(hitFX);
 			hitFX->SetStartPosition(this->transform.position);
@@ -246,8 +259,9 @@ void CKoopaShell::WithDrawProcess()
 	countWithDraw++;
 	// Chỉ cần mai rùa không chạy thì mai rùa có thể rúc đầu (withdraw) sau KOOPA_MUST_START_WITH_DRAW_TIME
 	// Chỉ withdraw 1 lần sau khi đứng yên thôi, lúc đó chuyển lại cho koopa và khi koopa bị cụng đầu rồi mới tính lại
-
-	if (IsRunning() == false )
+	if (isRun == true || canRun == true)
+		return;
+	if (isRun == false|| canRun == false )
 	{
 		if (countWithDraw == 1)
 			canWithDraw = true;
@@ -308,4 +322,10 @@ void CKoopaShell::SetStopRun()
 	vel.x = 0.0f;
 	physiscBody->SetVelocity(vel);
 	DebugOut(L"Stop run \n");
+
+	isWithDraw = false;
+	canWithDraw = false;
+	timeStartWithDraw = 0;
+	timeStartCanWithDraw = 0;
+	countWithDraw = 0;
 }

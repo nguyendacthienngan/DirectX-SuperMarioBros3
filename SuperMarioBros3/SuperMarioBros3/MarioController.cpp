@@ -94,8 +94,6 @@ void CMarioController::SwitchToState(std::string state)
 	// Nếu object đó đã được khởi tạo trc đó thì mình lấy lại vị trí trc đó đã lưu
 	if (currentStateObject != NULL)
 	{
-		// Current state object sẽ đi theo Mario Controller
-
 		auto controllerPhyBody = currentStateObject->GetPhysiscBody();
 
 		// Của current state object (SuperMario, SmallMario,..)
@@ -127,6 +125,7 @@ void CMarioController::SwitchToState(std::string state)
 
 		}
 
+#pragma region PassParamater For DamageProcess
 		auto stateMarioToBeChanged = static_cast<CMario*>(listStateObjects.at(state));
 		auto currentMario = static_cast<CMario*>(currentStateObject);
 		stateMarioToBeChanged->SetDamageFlag(currentMario->GetDamageFlag());
@@ -140,6 +139,15 @@ void CMarioController::SwitchToState(std::string state)
 		stateMarioToBeChanged->SetTimeStartSmokeEffect(currentMario->GetTimeStartSmokeEffect());
 		stateMarioToBeChanged->SetTimeStartChangeLevel(currentMario->GetTimeStartChangeLevel());
 		stateMarioToBeChanged->SetTimeStartChangeAlpha(currentMario->GetTimeStartChangeAlpha());
+#pragma endregion
+
+		auto curMario = static_cast<CMario*>(currentStateObject);
+		if (curMario->GettMarioStateTag() == MarioStates::RacoonMario)
+		{
+			auto curRacconMario = static_cast<CRaccoonMario*>(curMario);
+			curRacconMario->ResetValueAttack();
+			
+		}
 	}
 
 	// Gán object (OBJECT)

@@ -48,18 +48,6 @@ void CGoomba::Update(DWORD dt, CCamera* cam)
 	{
 		velocity.x = normal.x * GOOMBA_SPEED;
 	}
-	else if (currentPhysicsState == GoombaState::HeadShot)
-	{
-		if (abs(beforeHitPosition.y) - abs(transform.position.y) <= GOOMBA_HIT_MAX_HEIGHT && isJumpMaxHeight == false)
-		{
-			velocity.y = -GOOMBA_HIT_FORCE;
-		}
-		else
-		{
-			velocity.y = GOOMBA_HIT_FORCE;
-			isJumpMaxHeight = true;
-		}
-	}
 	else if (GetTickCount64() - startDeadTime > GOOMBA_DIE_TIME && currentPhysicsState == GoombaState::Die)
 	{
 		this->isEnabled = false;

@@ -29,7 +29,10 @@ public:
 
 	void OnKeyDown(int KeyCode) override;
 	void OnKeyUp(int KeyCode) override;
+	CRaccoonTailBox* GetRaccoonTailBox();
+	void SetRaccoonTailBox(CRaccoonTailBox*);
 
+	void ResetValueAttack();
 	~CRaccoonMario();
 };
 

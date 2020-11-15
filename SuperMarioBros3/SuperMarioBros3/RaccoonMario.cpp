@@ -107,11 +107,10 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 {
 	auto keyboard = CKeyboardManager::GetInstance();
 	CMario::Update(dt, cam);
-	if (isAttack == true) 
+	if (isAttack == true && isDamaged == false) 
 	{
 		// Nếu vừa ấn attack cái enable cái đuôi là sai vì tới frame thứ 3 của Attack Animation mới là cái đuôi giơ ra
 		// Nên mình sẽ set cái time phù hợp để xét va chạm đuôi đúng
-		//raccoonTailBox->Enable(true);
 		if (GetTickCount64() - beginAttackTime > ATTACKING_TIME && beginAttackTime != 0)
 		{
 			raccoonTailBox->Enable(true);
@@ -180,7 +179,6 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 #pragma region Xử lý việc sau khi bay mà quẫy đuôi bay chậm
 
 	if ((GetTickCount64() - lastFloatTime > timeToFloat || isOnGround == true) && canFly == false)
-		//if (( GetTickCount64() - lastFloatTime > timeToFloat || isOnGround == true )  && canFloat == true && canFly == false)
 	{
 		canFloat = false;
 		isFloat = false;
@@ -188,7 +186,6 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 		physiscBody->SetGravity(MARIO_GRAVITY);
 	}
 	if (currentPhysicsState.jump == JumpOnAirStates::Fall && isOnGround == false && moreFlyPower == true)
-		//if (canFloat == true && currentPhysicsState.jump == JumpOnAirStates::Fall && isOnGround == false && moreFlyPower == true)
 	{
 		// Xử lý việc thả nút xong ấn lại liền cho Float
 		currentPhysicsState.jump = JumpOnAirStates::Float;
@@ -256,7 +253,6 @@ void CRaccoonMario::OnKeyDown(int KeyCode)
 			lastFlyTime = 0;
 			feverState = -1;
 			canFloat = true;
-			//return;
 		}
 		if (canFly == true)
 		{
@@ -279,12 +275,10 @@ void CRaccoonMario::OnKeyDown(int KeyCode)
 
 		//// FLOAT
 		if (isFloat == false)
-			//if (isFloat == false && canFloat == true )
 			lastFloatTime = GetTickCount64();
 
 
 		if (canFly == false && currentPhysicsState.jump == JumpOnAirStates::Fall && isOnGround == false)
-			//if (canFly == false && currentPhysicsState.jump == JumpOnAirStates::Fall && isOnGround == false && canFloat == true)
 		{
 			isFloat = true;
 			lastKeyFloatDown = GetTickCount64();
@@ -304,6 +298,24 @@ void CRaccoonMario::OnKeyUp(int KeyCode)
 	{
 		isAttackContinious = false;
 	}
+}
+
+CRaccoonTailBox* CRaccoonMario::GetRaccoonTailBox()
+{
+	return raccoonTailBox;
+}
+
+void CRaccoonMario::SetRaccoonTailBox(CRaccoonTailBox* racTailBox)
+{
+	this->raccoonTailBox = racTailBox;
+}
+
+void CRaccoonMario::ResetValueAttack()
+{
+	currentPhysicsState.move = MoveOnGroundStates::Idle;
+	isAttack = false;
+	isJumpAttack = false;
+	raccoonTailBox->Enable(false);
 }
 
 CRaccoonMario::~CRaccoonMario()
