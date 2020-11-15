@@ -11,6 +11,7 @@
 #include "KoopaShell.h"
 #include "Goomba.h"
 #include "HitEffects.h"
+#include "QuestionBlock.h"
 
 #include "TextureManager.h"
 #include "Game.h"
@@ -256,6 +257,21 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 
 						listGameObjects.push_back(goomba);
 					}
+				}
+				else if (name.compare("QuestionBlocks") == 0)
+				{
+					std::string name = object->Attribute("name");
+					int type;
+					object->QueryIntAttribute("type", &type); //type thiệt ra là số lượng
+
+					/*CQuestionBlock* solid = new CQuestionBlock();
+					solid->SetPosition(position);
+					listGameObjects.push_back(solid);
+
+					if (name.compare("bcoin") == 0)
+					{
+
+					}*/
 				}
 			}
 		}

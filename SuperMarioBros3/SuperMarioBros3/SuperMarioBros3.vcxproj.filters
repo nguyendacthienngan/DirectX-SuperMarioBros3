@@ -145,6 +145,21 @@
     <Filter Include="Game\GameObject\Effect">
       <UniqueIdentifier>{0b1ec37c-7d28-4108-8e5d-b095413b195d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Misc\Block">
+      <UniqueIdentifier>{416ff218-1889-4a08-b37a-ac0221e388a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Misc\Block\QuestionBlock">
+      <UniqueIdentifier>{99b848fc-858c-49cc-bd30-42f1372cc828}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Misc\FireBall">
+      <UniqueIdentifier>{ed8b8f4d-be96-464c-ab37-c8e039d43633}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Misc\Holdable">
+      <UniqueIdentifier>{0fca7be1-e3d1-4516-ac67-5250d180db61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Misc\Coin">
+      <UniqueIdentifier>{f6668661-d863-4785-b317-6d8de19fac31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -282,9 +297,6 @@
     <ClInclude Include="Misc.h">
       <Filter>Game\GameObject\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="FireBall.h">
-      <Filter>Game\GameObject\Misc</Filter>
-    </ClInclude>
     <ClInclude Include="MiscConst.h">
       <Filter>Game\GameObject\Misc</Filter>
     </ClInclude>
@@ -315,9 +327,6 @@
     <ClInclude Include="RaccoonMario.h">
       <Filter>Game\GameObject\Mario\MarioStates</Filter>
     </ClInclude>
-    <ClInclude Include="Holdable.h">
-      <Filter>Game\GameObject\Misc</Filter>
-    </ClInclude>
     <ClInclude Include="KoopaShell.h">
       <Filter>Game\GameObject\Enemy\Koopa\KoopaShell</Filter>
     </ClInclude>
@@ -344,6 +353,24 @@
     </ClInclude>
     <ClInclude Include="SceneConst.h">
       <Filter>Framework\Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="FireBall.h">
+      <Filter>Game\GameObject\Misc\FireBall</Filter>
+    </ClInclude>
+    <ClInclude Include="Holdable.h">
+      <Filter>Game\GameObject\Misc\Holdable</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestionBlock.h">
+      <Filter>Game\GameObject\Misc\Block\QuestionBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestionBlockConst.h">
+      <Filter>Game\GameObject\Misc\Block\QuestionBlock</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Game\GameObject\Misc\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockConst.h">
+      <Filter>Game\GameObject\Misc\Block</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -452,9 +479,6 @@
     <ClCompile Include="Misc.cpp">
       <Filter>Game\GameObject\Misc</Filter>
     </ClCompile>
-    <ClCompile Include="FireBall.cpp">
-      <Filter>Game\GameObject\Misc</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Game\GameObject\Enemy</Filter>
     </ClCompile>
@@ -470,9 +494,6 @@
     <ClCompile Include="RaccoonMario.cpp">
       <Filter>Game\GameObject\Mario\MarioStates</Filter>
     </ClCompile>
-    <ClCompile Include="Holdable.cpp">
-      <Filter>Game\GameObject\Misc</Filter>
-    </ClCompile>
     <ClCompile Include="KoopaShell.cpp">
       <Filter>Game\GameObject\Enemy\Koopa\KoopaShell</Filter>
     </ClCompile>
@@ -487,6 +508,18 @@
     </ClCompile>
     <ClCompile Include="HitEffects.cpp">
       <Filter>Game\GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBall.cpp">
+      <Filter>Game\GameObject\Misc\FireBall</Filter>
+    </ClCompile>
+    <ClCompile Include="Holdable.cpp">
+      <Filter>Game\GameObject\Misc\Holdable</Filter>
+    </ClCompile>
+    <ClCompile Include="QuestionBlock.cpp">
+      <Filter>Game\GameObject\Misc\Block\QuestionBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Game\GameObject\Misc\Block</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

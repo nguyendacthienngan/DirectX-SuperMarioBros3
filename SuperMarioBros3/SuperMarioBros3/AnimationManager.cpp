@@ -32,22 +32,27 @@ bool CAnimationManager::Init()
 	auto root = CGame::GetInstance();
 	if (InitAnAnimationSet(TEXTURE_MARIO, root->GetFilePathByCategory(CATEGORY_ANIMATION, DB_ANIMATION_MARIO)) == false)
 	{
-		DebugOut(L"Cannot Load Mario Animation File \n");
+		DebugOut(L"[ERROR] Cannot Load Mario Animation File \n");
 		return false;
 	}
 	if (InitAnAnimationSet(TEXTURE_FIRE_BALL, root->GetFilePathByCategory(CATEGORY_ANIMATION, DB_ANIMATION_FIRE_BALL)) == false)
 	{
-		DebugOut(L"Cannot Load Fire Ball Animation File \n");
+		DebugOut(L"[ERROR] Cannot Load Fire Ball Animation File \n");
 		return false;
 	}
 	if (InitAnAnimationSet(TEXTURE_ENEMY, root->GetFilePathByCategory(CATEGORY_ANIMATION, DB_ANIMATION_ENEMY)) == false)
 	{
-		DebugOut(L"Cannot Load Fire Ball Animation File \n");
+		DebugOut(L"[ERROR] Cannot Load Fire Ball Animation File \n");
 		return false;
 	}
 	if (InitAnAnimationSet(TEXTURE_EFFECT, root->GetFilePathByCategory(CATEGORY_ANIMATION, DB_ANIMATION_EFFECT)) == false)
 	{
-		DebugOut(L"Cannot Load Effect Animation File \n");
+		DebugOut(L"[ERROR] Cannot Load Effect Animation File \n");
+		return false;
+	}
+	if (InitAnAnimationSet(TEXTURE_MISC, root->GetFilePathByCategory(CATEGORY_ANIMATION, DB_ANIMATION_MISC)) == false)
+	{
+		DebugOut(L"[ERROR] Cannot Load Misc Animation File \n");
 		return false;
 	}
 	return true;
@@ -57,7 +62,7 @@ bool CAnimationManager::InitAnAnimationSet(std::string textureName, std::string 
 {
 	if (LoadAnimation(textureName, filePath) == false)
 	{
-		DebugOut(L"Cannot Load", textureName + "Animation File \n");
+		DebugOut(L"[ERROR] Cannot Load", textureName + "Animation File \n");
 		return false;
 	}
 	return true;
