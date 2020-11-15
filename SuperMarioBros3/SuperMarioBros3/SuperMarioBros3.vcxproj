@@ -151,6 +151,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="CoinConst.h" />
+    <ClInclude Include="CoinEffect.h" />
     <ClInclude Include="CollisionBox.h" />
     <ClInclude Include="CollisionBoxConst.h" />
     <ClInclude Include="Const.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="HitEffects.h" />
     <ClInclude Include="Holdable.h" />
     <ClInclude Include="IState.h" />
+    <ClInclude Include="ItemInfo.h" />
     <ClInclude Include="KeyboardManager.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koopa.h" />
@@ -223,6 +225,7 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="CoinEffect.cpp" />
     <ClCompile Include="CollisionBox.cpp" />
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Enemy.cpp" />

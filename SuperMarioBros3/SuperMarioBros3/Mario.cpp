@@ -20,6 +20,7 @@
 #include "SceneManager.h"
 #include "MarioControllerConst.h"
 #include "MarioController.h"
+#include "QuestionBlock.h"
 using namespace std;
 
 CMario::CMario()
@@ -563,6 +564,12 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 				physiscBody->SetVelocity(D3DXVECTOR2(0, v.y));
 				pMeterCounting = 0;
 			}
+		}
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock && collisionEvent->ny > 0)
+		{
+			// Mario cụng đầu lên question block
+			auto questionBlock = dynamic_cast<CQuestionBlock*>(collisionBox->GetGameObjectAttach());
+			questionBlock->Bounce();
 		}
 	}
 }

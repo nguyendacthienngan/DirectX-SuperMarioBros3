@@ -268,18 +268,17 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				}
 				else if (name.compare("QuestionBlocks") == 0)
 				{
-					std::string name = object->Attribute("name");
 					int type;
+					std::string name = object->Attribute("name");
 					object->QueryIntAttribute("type", &type); //type thiệt ra là số lượng
-
 					CQuestionBlock* solid = new CQuestionBlock();
 					solid->SetPosition(position - translateQuestionBlockConst);
+					if (name.compare("bcoin") == 0)
+					{
+						solid->SetItemInfo({ItemTag::Coin, type});
+					}
 					listGameObjects.push_back(solid);
 
-					/*if (name.compare("bcoin") == 0)
-					{
-
-					}*/
 				}
 				else if (name.compare("Coin") == 0)
 				{
