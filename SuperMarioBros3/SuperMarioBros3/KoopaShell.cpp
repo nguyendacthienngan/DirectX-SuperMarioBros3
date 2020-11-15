@@ -60,6 +60,7 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam)
 			isHeadShot = false;
 			isHeadShotByFireBall = false;
 			countDeadCallback = 0;
+			vel.x = 0.0f;
 		}
 	}
 	else
@@ -139,13 +140,12 @@ void CKoopaShell::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionB
 		// Chỉ khi bị đuôi quật nó mới set lại -1 r văng đi (chưa văng khỏi ground)
 		// cần xử lý lại việc chết cho hợp lý
 		isHeadShot = true;
-		normal.x = otherCollisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal().x;
+		normal.x = -otherCollisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal().x;
 		CKoopaShell::OnDie();
 	}
 	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && otherCollisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
 	{
 		isHeadShotByFireBall = true;
-		normal.x = otherCollisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal().x;
 		CKoopaShell::OnDie();
 	}
 	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
@@ -173,7 +173,7 @@ void CKoopaShell::OnDie()
 
 			auto v = physiscBody->GetVelocity();
 			v.y = -KOOPA_SHELL_DEFLECT;
-			v.x = KOOPA_SHELL_DEFLECT_X * normal.x;
+			//v.x = KOOPA_SHELL_DEFLECT_X * normal.x;
 
 			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 			activeScene->AddObject(hitFX);
@@ -259,8 +259,9 @@ void CKoopaShell::WithDrawProcess()
 	countWithDraw++;
 	// Chỉ cần mai rùa không chạy thì mai rùa có thể rúc đầu (withdraw) sau KOOPA_MUST_START_WITH_DRAW_TIME
 	// Chỉ withdraw 1 lần sau khi đứng yên thôi, lúc đó chuyển lại cho koopa và khi koopa bị cụng đầu rồi mới tính lại
-
-	if (isRun == false|| canRun == false)
+	if (isRun == true || canRun == true)
+		return;
+	if (isRun == false|| canRun == false )
 	{
 		if (countWithDraw == 1)
 			canWithDraw = true;
@@ -321,4 +322,10 @@ void CKoopaShell::SetStopRun()
 	vel.x = 0.0f;
 	physiscBody->SetVelocity(vel);
 	DebugOut(L"Stop run \n");
+
+	isWithDraw = false;
+	canWithDraw = false;
+	timeStartWithDraw = 0;
+	timeStartCanWithDraw = 0;
+	countWithDraw = 0;
 }
