@@ -5,6 +5,7 @@
 #include "SceneManager.h"
 #include "Ultis.h"
 #include "Game.h"
+#include "LeafEffect.h"
 CQuestionBlock::CQuestionBlock()
 {
 	CBlock::CBlock();
@@ -51,6 +52,16 @@ void CQuestionBlock::Bounce()
 					coinObtainedFX->SetStartPosition(transform.position);
 					auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 					activeScene->AddObject(coinObtainedFX);
+					break;
+				}
+				case ItemTag::SuperLeaf:
+				{
+					DebugOut(L"Super Leaf \n");
+					CLeafEffect* leafObtainedFX = new CLeafEffect();
+					leafObtainedFX->SetStartPosition(transform.position);
+					leafObtainedFX->StartEffect();
+					auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+					activeScene->AddObject(leafObtainedFX);
 					break;
 				}
 			}

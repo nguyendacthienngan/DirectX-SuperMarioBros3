@@ -384,6 +384,9 @@
     <ClInclude Include="CoinEffect.h">
       <Filter>Game\GameObject\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="LeafEffect.h">
+      <Filter>Game\GameObject\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -537,6 +540,9 @@
       <Filter>Game\GameObject\Misc\Coin</Filter>
     </ClCompile>
     <ClCompile Include="CoinEffect.cpp">
+      <Filter>Game\GameObject\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="LeafEffect.cpp">
       <Filter>Game\GameObject\Effect</Filter>
     </ClCompile>
   </ItemGroup>

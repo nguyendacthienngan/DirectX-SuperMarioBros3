@@ -181,6 +181,7 @@
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="KoopaConst.h" />
     <ClInclude Include="KoopaShell.h" />
+    <ClInclude Include="LeafEffect.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapConst.h" />
     <ClInclude Include="Mario.h" />
@@ -243,6 +244,7 @@
     <ClCompile Include="KeyEventHandler.cpp" />
     <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="KoopaShell.cpp" />
+    <ClCompile Include="LeafEffect.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mario.cpp" />

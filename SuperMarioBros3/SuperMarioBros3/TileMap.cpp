@@ -277,6 +277,11 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					{
 						solid->SetItemInfo({ItemTag::Coin, type});
 					}
+					if (name.compare("sleaf") == 0)
+					{
+						solid->SetItemInfo({ ItemTag::SuperLeaf, type });
+
+					}
 					listGameObjects.push_back(solid);
 
 				}

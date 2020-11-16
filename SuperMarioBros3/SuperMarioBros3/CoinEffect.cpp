@@ -33,9 +33,3 @@ void CCoinEffect::Update(DWORD dt, CCamera* cam)
 	if (transform.position.y > startPosition.y && physiscBody->GetVelocity() > 0)
 		isEnabled = false;
 }
-
-void CCoinEffect::SetStartPosition(D3DXVECTOR2 sP)
-{
-	this->startPosition = sP;
-	this->transform.position = sP;
-}
