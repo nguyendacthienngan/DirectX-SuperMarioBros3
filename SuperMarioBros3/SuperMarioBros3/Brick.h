@@ -6,5 +6,6 @@ public:
 	CBrick();
 	void LoadAnimation();
 	void Init();
+	void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox) override;
 };
 

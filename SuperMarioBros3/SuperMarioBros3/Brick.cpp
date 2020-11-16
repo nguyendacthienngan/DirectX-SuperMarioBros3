@@ -26,3 +26,11 @@ void CBrick::Init()
 	this->physiscBody->SetDynamic(false);
 }
 
+void CBrick::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
+{
+	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
+	{
+		isEnabled = false;
+	}
+}
+
