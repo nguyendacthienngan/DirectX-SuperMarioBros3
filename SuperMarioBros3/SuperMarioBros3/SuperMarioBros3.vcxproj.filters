@@ -166,6 +166,9 @@
     <Filter Include="Game\GameObject\Misc\Effect\Gift\SuperLeafEffect">
       <UniqueIdentifier>{7e54899e-0f2d-4fd8-acb8-b399410167e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Misc\Effect\Gift\SuperMushroomEffect">
+      <UniqueIdentifier>{d272ab0d-a862-4a8a-96ab-0873603f8225}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -399,6 +402,12 @@
     <ClInclude Include="Gift.h">
       <Filter>Game\GameObject\Misc\Effect\Gift</Filter>
     </ClInclude>
+    <ClInclude Include="MushroomEffect.h">
+      <Filter>Game\GameObject\Misc\Effect\Gift\SuperMushroomEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="MushroomConst.h">
+      <Filter>Game\GameObject\Misc\Effect\Gift\SuperMushroomEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -559,6 +568,9 @@
     </ClCompile>
     <ClCompile Include="Gift.cpp">
       <Filter>Game\GameObject\Misc\Effect\Gift</Filter>
+    </ClCompile>
+    <ClCompile Include="MushroomEffect.cpp">
+      <Filter>Game\GameObject\Misc\Effect\Gift\SuperMushroomEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

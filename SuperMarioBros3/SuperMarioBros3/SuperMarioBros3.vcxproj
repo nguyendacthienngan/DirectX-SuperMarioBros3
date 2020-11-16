@@ -194,6 +194,8 @@
     <ClInclude Include="MarioStateSet.h" />
     <ClInclude Include="Misc.h" />
     <ClInclude Include="MiscConst.h" />
+    <ClInclude Include="MushroomConst.h" />
+    <ClInclude Include="MushroomEffect.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="QuestionBlockConst.h" />
@@ -254,6 +256,7 @@
     <ClCompile Include="MarioCollisionBox.cpp" />
     <ClCompile Include="MarioController.cpp" />
     <ClCompile Include="Misc.cpp" />
+    <ClCompile Include="MushroomEffect.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RaccoonTailBox.cpp" />

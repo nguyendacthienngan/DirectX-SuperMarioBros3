@@ -2,6 +2,10 @@
 #include "Ultis.h"
 #include "Mario.h"
 
+CGift::CGift()
+{
+}
+
 void CGift::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
 {
 	for (auto collisionEvent : collisionEvents)
@@ -12,8 +16,39 @@ void CGift::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Collis
 			// Đụng trúng lá đỏ là đổi level và disable lá
 			PowerUp(collisionBox);
 		}
+		if (itemTag == ItemTag::SuperMushroom && collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
+		{
+			if (collisionEvent->nx != 0)
+			{
+				auto normal = physiscBody->GetNormal();
+				normal.x = -normal.x;
+				physiscBody->SetNormal(normal);
+			}
+		}
 	}
 	
+}
+
+void CGift::OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
+{
+	for (auto collisionEvent : collisionEvents)
+	{
+		auto collisionBox = collisionEvent->obj;
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
+		{
+			// Đụng trúng lá đỏ là đổi level và disable lá
+			PowerUp(collisionBox);
+		}
+		if (itemTag == ItemTag::SuperMushroom && collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
+		{
+			if (collisionEvent->nx != 0)
+			{
+				auto normal = physiscBody->GetNormal();
+				normal.x = -normal.x;
+				physiscBody->SetNormal(normal);
+			}
+		}
+	}
 }
 
 void CGift::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)

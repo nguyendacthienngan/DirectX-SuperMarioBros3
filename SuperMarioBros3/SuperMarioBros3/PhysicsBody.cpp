@@ -307,7 +307,13 @@ void CPhysicsBody::CalcPotentialCollisions(
 			continue;
 
 		// Các loại liên quan tới gift như coin, superleaf, supermushroom,. chỉ có xử lý va chạm với mario thui. K ai xử lý va chạm với nó hết
-		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Gift)
+		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Gift || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::SuperMushroom)
+			continue;
+
+		// Riêng mushroom có xử lý va chạm với solid, ghost platform, questionblock
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::SuperMushroom && 
+			( coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::GhostPlatform 
+				&& coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::QuestionBlock && coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Player) )
 			continue;
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Gift && coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Player)
 			continue;
@@ -416,6 +422,16 @@ void CPhysicsBody::SetVelocity(D3DXVECTOR2 s)
 void CPhysicsBody::SetDynamic(bool isDynamic)
 {
 	this->isDynamic = isDynamic;
+}
+
+bool CPhysicsBody::IsTrigger()
+{
+	return isTrigger;
+}
+
+void CPhysicsBody::SetTrigger(bool isTrigg)
+{
+	this->isTrigger = isTrigg;
 }
 
 D3DXVECTOR2 CPhysicsBody::GetBounceForce()

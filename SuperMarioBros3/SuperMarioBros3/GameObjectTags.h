@@ -14,6 +14,7 @@ enum class GameObjectTags
 	QuestionBlock,
 	Coin,
 	Gift,
+	SuperMushroom,
 	RaccoonTail,
 	Effect
 };

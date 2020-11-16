@@ -90,6 +90,9 @@ public:
 	bool IsDynamic();
 	void SetDynamic(bool isDynamic);
 
+	bool IsTrigger();
+	void SetTrigger(bool isTrigg);
+
 	D3DXVECTOR2 GetBounceForce();
 	void SetBounceForce(D3DXVECTOR2 bF);
 };

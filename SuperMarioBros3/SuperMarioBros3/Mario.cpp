@@ -778,6 +778,11 @@ void CMario::ChangeLevelProcess()
 					marioController->SwitchToState(RACOON_MARIO_STATE);
 				break;
 			}
+			case ItemTag::SuperMushroom:
+			{
+				//if (marioStateTag == MarioStates::SuperMario)
+				break;
+			}
 		}
 	}
 }

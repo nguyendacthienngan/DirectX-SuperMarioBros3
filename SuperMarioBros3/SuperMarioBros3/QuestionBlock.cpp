@@ -6,6 +6,7 @@
 #include "Ultis.h"
 #include "Game.h"
 #include "LeafEffect.h"
+#include "MushroomEffect.h"
 CQuestionBlock::CQuestionBlock()
 {
 	CBlock::CBlock();
@@ -56,12 +57,20 @@ void CQuestionBlock::Bounce()
 				}
 				case ItemTag::SuperLeaf:
 				{
-					DebugOut(L"Super Leaf \n");
 					CLeafEffect* leafObtainedFX = new CLeafEffect();
 					leafObtainedFX->SetStartPosition(transform.position);
 					leafObtainedFX->StartEffect();
 					auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 					activeScene->AddObject(leafObtainedFX);
+					break;
+				}
+				case ItemTag::SuperMushroom:
+				{
+					CMushroomEffect* mushroomObtainedFX = new CMushroomEffect();
+					mushroomObtainedFX->SetStartPosition(transform.position);
+					mushroomObtainedFX->StartEffect();
+					auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+					activeScene->AddObject(mushroomObtainedFX);
 					break;
 				}
 			}
