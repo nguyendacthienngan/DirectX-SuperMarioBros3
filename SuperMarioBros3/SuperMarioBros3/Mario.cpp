@@ -574,6 +574,7 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 		}
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Coin)
 		{
+			// Đụng trúng tiền là tăng tiền và disbale tiền
 			collisionBox->GetGameObjectAttach()->Enable(false);
 		}
 	}

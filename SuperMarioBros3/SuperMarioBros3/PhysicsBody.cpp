@@ -302,7 +302,14 @@ void CPhysicsBody::CalcPotentialCollisions(
 				continue;
 		}
 
+		// Enemy sẽ không xét va chạm với Mario mà Mario tự xét => Ngăn việc Mario nhảy lên quái làm Quái bị vy tăng đột ngột => Off the cliff
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
+			continue;
+
+		// Các loại liên quan tới gift như coin, superleaf, supermushroom,. chỉ có xử lý va chạm với mario thui. K ai xử lý va chạm với nó hết
+		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Gift)
+			continue;
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Gift && coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Player)
 			continue;
 
 		// Có overlap (Dùng AABB)

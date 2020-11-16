@@ -142,9 +142,6 @@
     <Filter Include="Framework\Game\VFX">
       <UniqueIdentifier>{52b40978-34c4-470c-8291-1d6cbd204daf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameObject\Effect">
-      <UniqueIdentifier>{0b1ec37c-7d28-4108-8e5d-b095413b195d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\GameObject\Misc\Block">
       <UniqueIdentifier>{416ff218-1889-4a08-b37a-ac0221e388a0}</UniqueIdentifier>
     </Filter>
@@ -159,6 +156,15 @@
     </Filter>
     <Filter Include="Game\GameObject\Misc\Coin">
       <UniqueIdentifier>{f6668661-d863-4785-b317-6d8de19fac31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Misc\Effect">
+      <UniqueIdentifier>{0b1ec37c-7d28-4108-8e5d-b095413b195d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Misc\Effect\Gift">
+      <UniqueIdentifier>{3e28dfb2-4080-4525-ad2e-2fc90b94084a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Misc\Effect\Gift\SuperLeafEffect">
+      <UniqueIdentifier>{7e54899e-0f2d-4fd8-acb8-b399410167e8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -346,10 +352,10 @@
       <Filter>Framework\Game\VFX</Filter>
     </ClInclude>
     <ClInclude Include="HitEffects.h">
-      <Filter>Game\GameObject\Effect</Filter>
+      <Filter>Game\GameObject\Misc\Effect</Filter>
     </ClInclude>
     <ClInclude Include="EffectConst.h">
-      <Filter>Game\GameObject\Effect</Filter>
+      <Filter>Game\GameObject\Misc\Effect</Filter>
     </ClInclude>
     <ClInclude Include="SceneConst.h">
       <Filter>Framework\Game\Scene</Filter>
@@ -382,10 +388,16 @@
       <Filter>Game\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="CoinEffect.h">
-      <Filter>Game\GameObject\Effect</Filter>
+      <Filter>Game\GameObject\Misc\Effect</Filter>
     </ClInclude>
     <ClInclude Include="LeafEffect.h">
-      <Filter>Game\GameObject\Effect</Filter>
+      <Filter>Game\GameObject\Misc\Effect\Gift\SuperLeafEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="LeafConst.h">
+      <Filter>Game\GameObject\Misc\Effect\Gift\SuperLeafEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Gift.h">
+      <Filter>Game\GameObject\Misc\Effect\Gift</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -522,7 +534,7 @@
       <Filter>Framework\Game\VFX</Filter>
     </ClCompile>
     <ClCompile Include="HitEffects.cpp">
-      <Filter>Game\GameObject\Effect</Filter>
+      <Filter>Game\GameObject\Misc\Effect</Filter>
     </ClCompile>
     <ClCompile Include="FireBall.cpp">
       <Filter>Game\GameObject\Misc\FireBall</Filter>
@@ -540,10 +552,13 @@
       <Filter>Game\GameObject\Misc\Coin</Filter>
     </ClCompile>
     <ClCompile Include="CoinEffect.cpp">
-      <Filter>Game\GameObject\Effect</Filter>
+      <Filter>Game\GameObject\Misc\Effect</Filter>
     </ClCompile>
     <ClCompile Include="LeafEffect.cpp">
-      <Filter>Game\GameObject\Effect</Filter>
+      <Filter>Game\GameObject\Misc\Effect\Gift\SuperLeafEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Gift.cpp">
+      <Filter>Game\GameObject\Misc\Effect\Gift</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

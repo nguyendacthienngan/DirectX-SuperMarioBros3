@@ -13,6 +13,7 @@ enum class GameObjectTags
 	Misc,
 	QuestionBlock,
 	Coin,
+	Gift,
 	RaccoonTail,
 	Effect
 };

@@ -169,6 +169,7 @@
     <ClInclude Include="GameObjectConst.h" />
     <ClInclude Include="GameObjectTags.h" />
     <ClInclude Include="GhostPlatform.h" />
+    <ClInclude Include="Gift.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="GoombaConst.h" />
     <ClInclude Include="GraphicConst.h" />
@@ -181,6 +182,7 @@
     <ClInclude Include="Koopa.h" />
     <ClInclude Include="KoopaConst.h" />
     <ClInclude Include="KoopaShell.h" />
+    <ClInclude Include="LeafConst.h" />
     <ClInclude Include="LeafEffect.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapConst.h" />
@@ -236,6 +238,7 @@
     <ClCompile Include="GameKeyEventHandler.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GhostPlatform.cpp" />
+    <ClCompile Include="Gift.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="HitEffects.cpp" />
     <ClCompile Include="Holdable.cpp" />

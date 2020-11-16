@@ -1,6 +1,6 @@
 #pragma once
-#include "EffectObject.h"
-class CLeafEffect :  public CEffectObject
+#include "Gift.h"
+class CLeafEffect :  public CGift
 {
 private:
 	bool isBounce;

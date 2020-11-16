@@ -1,18 +1,19 @@
 ﻿#include "LeafEffect.h"
 #include "AnimationManager.h"
-#include "EffectConst.h"
+#include "LeafConst.h"
 #include "Ultis.h"
 
 CLeafEffect::CLeafEffect()
 {
+	tag = GameObjectTags::Gift;
 	LoadAnimation();
 	SetState(SUPER_LEAF_FALL_EFFECT);
 	isEnabled = true;
 
 	CCollisionBox* box = new CCollisionBox();
-	box->SetSizeBox(D3DXVECTOR2(0.0f, 0.0f));
+	box->SetSizeBox(LEAF_BBOX);
 	box->SetGameObjectAttach(this);
-	box->SetEnable(false);
+	box->SetEnable(true);
 	this->collisionBoxs->push_back(box);
 	physiscBody->SetGravity(LEAF_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, -LEAF_BOUNCE_FORCE));
@@ -38,8 +39,6 @@ void CLeafEffect::Update(DWORD dt, CCamera* cam)
 
 	if (isBounce == true && isFall == false)
 	{
-		DebugOut(L"LEAF UPDATE BOUNCE \n");
-
 		if (abs(startPosition.y) - abs(transform.position.y) <= BOUNCE_MAX_HEIGHT)
 		{
 			physiscBody->SetVelocity(D3DXVECTOR2(0.0f, -LEAF_BOUNCE_FORCE));
@@ -48,12 +47,10 @@ void CLeafEffect::Update(DWORD dt, CCamera* cam)
 		{
 			isBounce = false;
 			isFall = true;
-			//startFallTime = GetTickCount64();
 		}
 	}
 	if (isFall == true && isBounce == false)
 	{
-		DebugOut(L"LEAF FALL \n");
 		physiscBody->SetVelocity(D3DXVECTOR2(0.0f, LEAF_BOUNCE_FORCE/2));
 		// Chiếc lá khi rơi xuống sẽ rơi theo dao động điều hòa (Harmonic Motion)
 		// Dùng công thức x = Acos(omega*t) với omega = 2 * pi * f
@@ -62,7 +59,7 @@ void CLeafEffect::Update(DWORD dt, CCamera* cam)
 		int time = GetTickCount64() - startFallTime;
 		transform.position.x = startPosition.x + LEAF_AMPLITUDE * cos(LEAF_SPEED * time);
 
-		// Tính vctor để scale
+		// Tính vận tốc để scale chuyển hướng
 		float relativeVel = -2 * LEAF_SPEED * LEAF_AMPLITUDE * sin(LEAF_SPEED * time);
 		auto normal = physiscBody->GetNormal();
 		normal.x = relativeVel >= 0 ? -1 : 1;
