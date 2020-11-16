@@ -13,7 +13,6 @@ CQuestionBlock::CQuestionBlock()
 	SetState(QB_STATE_SEALED);
 	isEnabled = true;
 	bounceState = 0;
-	countBounceTime = 0;
 	startBounceTime = 0;
 	bounceDelta = 0.0f;
 }
@@ -40,15 +39,29 @@ void CQuestionBlock::Bounce()
 {
 	if (bounceState == 0)
 	{
+		startBounceTime = GetTickCount64();
 		bounceState = 1;
-		countBounceTime++;
-		if (countBounceTime == 1) // Tạm thời
+		if (itemInfo.quantity >= 0) // Tạm thời
 		{
-			CCoinEffect* coinObtainedFX = new CCoinEffect();
-			coinObtainedFX->SetStartPosition(transform.position);
-			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
-			activeScene->AddObject(coinObtainedFX);
-			startBounceTime = GetTickCount64();
+			switch (itemInfo.tag)
+			{
+				case ItemTag::Coin:
+				{
+					CCoinEffect* coinObtainedFX = new CCoinEffect();
+					coinObtainedFX->SetStartPosition(transform.position);
+					auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+					activeScene->AddObject(coinObtainedFX);
+					break;
+				}
+			}
+			itemInfo.quantity--;
+			if (itemInfo.quantity <= 0)
+			{
+				if (itemInfo.quantity < 0)
+					itemInfo.quantity = 0;
+				if (currentState != QB_STATE_EMPTY)
+					SetState(QB_STATE_EMPTY);
+			}
 		}
 	}
 }
@@ -57,19 +70,19 @@ void CQuestionBlock::Update(DWORD dt, CCamera* cam)
 {
 	if (bounceState == 2)
 	{
-		DebugOut(L"BOUNCESTATE 2 \n");
 		bounceDelta = BOUNCE_VEL;
 
 		if (GetTickCount64() - startBounceTime > BOUNCE_TIME && startBounceTime != 0)
 		{
-			bounceState = -1;
 			bounceDelta = 0.0f;
 			startBounceTime = 0;
+			bounceState = 0;
+			if (itemInfo.quantity <= 0)
+				bounceState = -1;
 		}
 	}
 	if (bounceState == 1)
 	{
-		DebugOut(L"BOUNCESTATE 1 \n");
 		bounceDelta = -BOUNCE_VEL;
 
 		if (GetTickCount64() - startBounceTime > BOUNCE_TIME && startBounceTime != 0)
@@ -84,9 +97,5 @@ void CQuestionBlock::Update(DWORD dt, CCamera* cam)
 void CQuestionBlock::Render(CCamera* cam, int alpha)
 {
 	relativePositionOnScreen.y += bounceDelta;
-	if (bounceState != 0)
-		SetState(QB_STATE_EMPTY); 
-	else
-		SetState(QB_STATE_SEALED);
 	CGameObject::Render(cam, alpha);
 }

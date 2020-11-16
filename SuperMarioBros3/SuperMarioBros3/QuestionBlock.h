@@ -5,7 +5,6 @@ class CQuestionBlock :  public CBlock
 {
 private:
 	ItemInfo itemInfo;
-	int countBounceTime;
 	int bounceState;
 	float bounceDelta;
 	DWORD startBounceTime;
