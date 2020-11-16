@@ -530,7 +530,7 @@ void CMario::Render(CCamera* cam, int alpha)
 
 #pragma endregion
 	//if (currentState != "IDLE")
-		OutputDebugString(ToLPCWSTR("Current State " + currentState + "\n"));
+		//OutputDebugString(ToLPCWSTR("Current State " + currentState + "\n"));
 
 	SetRelativePositionOnScreen(collisionBoxs->at(0)->GetPosition());
 	countChangeAlpha++;
@@ -551,7 +551,8 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::GhostPlatform)
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::GhostPlatform 
+			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock)
 		{
 			if (collisionEvent->ny < 0 && isOnGround == false)
 			{

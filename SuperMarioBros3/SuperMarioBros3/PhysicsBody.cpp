@@ -321,7 +321,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 			coEvents.push_back(e);
 			std::string name = coObjects->at(i)->GetName();
 			
-			OutputDebugString(ToLPCWSTR("Hit Name: " + name + "\n"));
+			//OutputDebugString(ToLPCWSTR("Hit Name: " + name + "\n"));
 		}
 		else
 			delete e;
