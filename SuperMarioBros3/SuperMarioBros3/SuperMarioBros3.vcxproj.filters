@@ -169,6 +169,9 @@
     <Filter Include="Game\GameObject\Misc\Effect\Gift\SuperMushroomEffect">
       <UniqueIdentifier>{d272ab0d-a862-4a8a-96ab-0873603f8225}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Misc\Brick">
+      <UniqueIdentifier>{0cf146a4-d71b-43bc-87a9-fd971350924e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -408,6 +411,15 @@
     <ClInclude Include="MushroomConst.h">
       <Filter>Game\GameObject\Misc\Effect\Gift\SuperMushroomEffect</Filter>
     </ClInclude>
+    <ClInclude Include="BrickEffect.h">
+      <Filter>Game\GameObject\Misc\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Game\GameObject\Misc\Brick</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickConst.h">
+      <Filter>Game\GameObject\Misc\Brick</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -571,6 +583,12 @@
     </ClCompile>
     <ClCompile Include="MushroomEffect.cpp">
       <Filter>Game\GameObject\Misc\Effect\Gift\SuperMushroomEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="BrickEffect.cpp">
+      <Filter>Game\GameObject\Misc\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Game\GameObject\Misc\Brick</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

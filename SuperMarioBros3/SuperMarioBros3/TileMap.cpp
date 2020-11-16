@@ -19,6 +19,7 @@
 #include <iostream>
 #include <map>
 #include "Coin.h"
+#include "Brick.h"
 
 CTileMap::CTileMap()
 {
@@ -294,6 +295,12 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					solid->SetPosition(position - translateQuestionBlockConst);
 					listGameObjects.push_back(solid);
 
+				}
+				else if (name.compare("Brick") == 0)
+				{
+					CBrick* solid = new CBrick();
+					solid->SetPosition(position - translateQuestionBlockConst);
+					listGameObjects.push_back(solid);
 				}
 			}
 		}

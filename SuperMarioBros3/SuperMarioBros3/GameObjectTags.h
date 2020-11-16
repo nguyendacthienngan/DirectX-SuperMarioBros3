@@ -13,6 +13,7 @@ enum class GameObjectTags
 	Misc,
 	QuestionBlock,
 	Coin,
+	Brick,
 	Gift,
 	SuperMushroom,
 	RaccoonTail,

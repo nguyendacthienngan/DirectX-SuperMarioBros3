@@ -148,6 +148,9 @@
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockConst.h" />
+    <ClInclude Include="Brick.h" />
+    <ClInclude Include="BrickConst.h" />
+    <ClInclude Include="BrickEffect.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="CoinConst.h" />
@@ -228,6 +231,8 @@
     <ClCompile Include="AnimationFrame.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="BrickEffect.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CoinEffect.cpp" />
