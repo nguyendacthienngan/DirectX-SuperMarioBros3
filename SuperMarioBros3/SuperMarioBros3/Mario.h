@@ -8,6 +8,7 @@
 #include "KeyboardManager.h"
 #include "IState.h"
 #include "Holdable.h"
+#include "ItemInfo.h"
 
 class CMario : public CGameObject, public IState
 {
@@ -44,12 +45,15 @@ protected:
 	DWORD timeStartChangeAlpha;
 	int countSmokeEffectActivate;
 	int countChangeAlpha;
-
+	bool isPowerUp; 
+	ItemTag powerupItem; // Item Mario ăn được để power-up
 public:
 	CMario();
 	void SetDamageFlag(bool isDamaged);
 	void SetChangeSmokeEffectFlag(bool isChangeSmokeEffect);
 	void SetChangeLevelFlag(bool flag);
+	void SetPowerUp(bool pU);
+	void SetPowerUpItem(ItemTag powerupItem);
 
 	void SetCountChangeAlpha(int count);
 	void SetCountSmokeEffectActivate(int count);
@@ -65,6 +69,9 @@ public:
 
 	bool GetCountChangeAlpha();
 	bool GetCountSmokeEffectActivate();
+
+	bool IsPowerUp();
+	ItemTag GetPowerupItem();
 
 	DWORD GetTimeStartDamaged();
 	DWORD GetTimeStartSmokeEffect();
@@ -89,6 +96,7 @@ public:
 	void JumpProcess(float jumpForce, bool bounceAfterJumpOnEnemy);
 	void KickProcess(bool isKick);
 	void DamageProcess();
+	void ChangeLevelProcess();
 
 	void StopBounce(bool stopBounce);
 	bool StopBounce();

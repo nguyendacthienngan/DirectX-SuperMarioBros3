@@ -46,6 +46,16 @@ void CMario::SetChangeLevelFlag(bool flag)
 	this->isChangeLevel = flag;
 }
 
+void CMario::SetPowerUp(bool pU)
+{
+	this->isPowerUp = pU;
+}
+
+void CMario::SetPowerUpItem(ItemTag powerupItem)
+{
+	this->powerupItem = powerupItem;
+}
+
 void CMario::SetCountChangeAlpha(int count)
 {
 	countChangeAlpha = count;
@@ -99,6 +109,16 @@ bool CMario::GetCountChangeAlpha()
 bool CMario::GetCountSmokeEffectActivate()
 {
 	return countSmokeEffectActivate;
+}
+
+bool CMario::IsPowerUp()
+{
+	return isPowerUp;
+}
+
+ItemTag CMario::GetPowerupItem()
+{
+	return powerupItem;
 }
 
 DWORD CMario::GetTimeStartDamaged()
@@ -174,6 +194,8 @@ void CMario::InitProperties()
 	countSmokeEffectActivate = 0;
 	countChangeAlpha = 0;
 	timeStartChangeAlpha = 0;
+	isPowerUp = false;
+	powerupItem = ItemTag::None;
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 
 }
@@ -535,7 +557,7 @@ void CMario::Render(CCamera* cam, int alpha)
 	SetRelativePositionOnScreen(collisionBoxs->at(0)->GetPosition());
 	countChangeAlpha++;
 
-	if (isDamaged == true && isSmokeEffectAnimation == false)
+	if (isDamaged == true && isSmokeEffectAnimation == false && isPowerUp == false)
 	{
 		if ((GetTickCount64() - timeStartChangeAlpha > TIME_TO_CHANGE_ALPHA && timeStartChangeAlpha != 0) || timeStartChangeAlpha == 0)
 		{
@@ -719,43 +741,45 @@ void CMario::DamageProcess()
 	
 	if (isDamaged == true && timeStartChangeLevel != 0 && isChangeLevel == false)
 	{
-		auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
-
-		auto objs = activeScene->GetObjects();
-		CMarioController* marioController = NULL;
-
-		for (auto obj : objs)
-		{
-			if (obj->GetTag() == GameObjectTags::PlayerController)
-			{
-				marioController = dynamic_cast<CMarioController*>(obj);
-				break;
-			}
-		}
-		if (marioController != NULL)
-		{
-			isChangeLevel = true;
-			switch (marioStateTag)
-			{
-			case MarioStates::RacoonMario:
-			{
-				marioController->SwitchToState(SUPER_MARIO_STATE);
-				break;
-			}
-			case MarioStates::FireMario:
-			{
-				marioController->SwitchToState(SUPER_MARIO_STATE);
-				break;
-			}
-			/*case MarioStates::SuperMario:
-			{
-				break;
-			}*/
-			}
-		}
-		
+		ChangeLevelProcess();
 	}
+}
 
+void CMario::ChangeLevelProcess()
+{
+	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	auto objs = activeScene->GetObjects();
+	CMarioController* marioController = NULL;
+
+	for (auto obj : objs)
+	{
+		if (obj->GetTag() == GameObjectTags::PlayerController)
+		{
+			marioController = dynamic_cast<CMarioController*>(obj);
+			break;
+		}
+	}
+	if (marioController != NULL)
+	{
+		isChangeLevel = true;
+		switch (powerupItem)
+		{
+			case ItemTag::None:
+			{
+				// Damaged
+				if (marioStateTag == MarioStates::RacoonMario || marioStateTag == MarioStates::FireMario)
+					marioController->SwitchToState(SUPER_MARIO_STATE);
+				//else if (marioStateTag == MarioStates::SuperMario)
+				break;
+			}
+			case ItemTag::SuperLeaf:
+			{
+				if (marioStateTag == MarioStates::SuperMario)
+					marioController->SwitchToState(RACOON_MARIO_STATE);
+				break;
+			}
+		}
+	}
 }
 
 void CMario::StopBounce(bool stopBounce)

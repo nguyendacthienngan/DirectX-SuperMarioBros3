@@ -139,6 +139,7 @@ void CMarioController::SwitchToState(std::string state)
 		stateMarioToBeChanged->SetTimeStartSmokeEffect(currentMario->GetTimeStartSmokeEffect());
 		stateMarioToBeChanged->SetTimeStartChangeLevel(currentMario->GetTimeStartChangeLevel());
 		stateMarioToBeChanged->SetTimeStartChangeAlpha(currentMario->GetTimeStartChangeAlpha());
+		stateMarioToBeChanged->SetPowerUp(currentMario->IsPowerUp());
 #pragma endregion
 
 		auto curMario = static_cast<CMario*>(currentStateObject);

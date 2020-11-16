@@ -4,7 +4,8 @@ enum class ItemTag
 	Coin,
 	SuperMushroom,
 	SuperLeaf,
-	FireFlower
+	FireFlower,
+	None
 };
 
 struct ItemInfo
