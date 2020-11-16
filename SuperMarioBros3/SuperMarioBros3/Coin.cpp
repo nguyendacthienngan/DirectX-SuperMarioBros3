@@ -4,6 +4,7 @@
 CCoin::CCoin()
 {
 	LoadAnimation();
+	Init();
 	SetState(COIN_STATE_SPIN);
 	isEnabled = true;
 }
@@ -16,7 +17,7 @@ void CCoin::LoadAnimation()
 
 void CCoin::Init()
 {
-	tag = GameObjectTags::Solid;
+	tag = GameObjectTags::Coin;
 	CCollisionBox* box = new CCollisionBox();
 	box->SetSizeBox(COIN_BBOX);
 	box->SetGameObjectAttach(this);

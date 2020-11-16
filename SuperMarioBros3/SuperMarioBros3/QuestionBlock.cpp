@@ -41,7 +41,7 @@ void CQuestionBlock::Bounce()
 	{
 		startBounceTime = GetTickCount64();
 		bounceState = 1;
-		if (itemInfo.quantity >= 0) // Tạm thời
+		if (itemInfo.quantity >= 0)
 		{
 			switch (itemInfo.tag)
 			{

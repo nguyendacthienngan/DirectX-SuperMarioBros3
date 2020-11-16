@@ -572,6 +572,10 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 			auto questionBlock = dynamic_cast<CQuestionBlock*>(collisionBox->GetGameObjectAttach());
 			questionBlock->Bounce();
 		}
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Coin)
+		{
+			collisionBox->GetGameObjectAttach()->Enable(false);
+		}
 	}
 }
 
