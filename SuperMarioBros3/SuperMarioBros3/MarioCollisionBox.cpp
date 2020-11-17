@@ -4,6 +4,7 @@
 #include "Koopa.h"
 #include "MarioConst.h"
 #include "Ultis.h"
+#include "ParaKoopa.h"
 
 void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>& collisionEvents, LPPhysicsBody phyBody, D3DXVECTOR2 vel, int mintx, int minty, float nx, float ny)
 {
@@ -22,31 +23,37 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 				auto otherEnemyObject = static_cast<CEnemy*>(otherObject);
 				switch (otherEnemyObject->GetEnemyTag())
 				{
-				case EnemyTag::KoopaShell:
-				{
-					auto koopaShell = static_cast<CKoopaShell*>(otherObject);
-					// Koopa Shell
-					if (koopaShell->IsRunning() == false)
+					case EnemyTag::KoopaShell:
 					{
-						koopaShell->SetRun();
+						auto koopaShell = static_cast<CKoopaShell*>(otherObject);
+						// Koopa Shell
+						if (koopaShell->IsRunning() == false)
+						{
+							koopaShell->SetRun();
+						}
+						else if (collisionEvent->ny < 0)
+						{
+							koopaShell->SetStopRun();
+						}
+						break;
 					}
-					else if (collisionEvent->ny < 0)
+					case EnemyTag::Goomba:
 					{
-						koopaShell->SetStopRun();
+						otherEnemyObject->OnDie();
+						break;
 					}
-					break;
-				}
-				case EnemyTag::Goomba:
-				{
-					otherEnemyObject->OnDie();
-					break;
-				}
-				case EnemyTag::Koopa:
-				{
-					auto koopa = static_cast<CKoopa*>(otherObject);
-					koopa->ChangeToShell();
-					break;
-				}
+					case EnemyTag::Koopa:
+					{
+						auto koopa = static_cast<CKoopa*>(otherObject);
+						koopa->ChangeToShell();
+						break;
+					}
+					case EnemyTag::ParaKoopa:
+					{
+						auto paraKoopa = static_cast<CParaKoopa*>(otherObject);
+						paraKoopa->ChangeToKoopa();
+						break;
+					}
 				}
 
 

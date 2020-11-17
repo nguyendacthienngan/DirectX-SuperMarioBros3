@@ -246,7 +246,6 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					{
 						if (enemyType.compare("green") == 0)
 						{
-							DebugOut(L"Load green koopa \n");
 							CGreenKoopaShell* koopaShell = new CGreenKoopaShell();
 							koopaShell->SetEnemyType(enemyType);
 							koopaShell->SetPosition(position - translateKoopaShellConst);
@@ -291,10 +290,28 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					}
 					else if (enemyName.compare("para-koopa") == 0)
 					{
+						CGreenKoopaShell* koopaShell = new CGreenKoopaShell();
+						koopaShell->SetEnemyType(enemyType);
+						koopaShell->SetPosition(position - translateKoopaShellConst);
+						koopaShell->SetStartPosition(position - translateKoopaShellConst);
+
+						CGreenKoopa* koopa = new CGreenKoopa();
+						koopa->SetEnemyType(enemyType);
+						koopa->SetPosition(position - translateKoopaConst);
+						koopa->SetStartPosition(position - translateKoopaConst);
+						koopa->SetKoopaShell(koopaShell);
+						koopaShell->SetKoopa(koopa);
+						listGameObjects.push_back(koopaShell);
+						listGameObjects.push_back(koopa);
+
 						CParaKoopa* parakoopa = new CParaKoopa();
 						parakoopa->SetPosition(position - translateKoopaConst);
 						parakoopa->SetStartPosition(position - translateKoopaConst);
+						parakoopa->SetKoopa(koopa);
+
 						listGameObjects.push_back(parakoopa);
+
+
 					}
 				}
 				else if (name.compare("QuestionBlocks") == 0)
