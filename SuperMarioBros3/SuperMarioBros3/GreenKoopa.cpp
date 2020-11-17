@@ -6,6 +6,7 @@ CGreenKoopa::CGreenKoopa()
 {
 	CGreenKoopa::LoadAnimation();
 	Init();
+	isEnabled = false;
 }
 
 void CGreenKoopa::LoadAnimation()
