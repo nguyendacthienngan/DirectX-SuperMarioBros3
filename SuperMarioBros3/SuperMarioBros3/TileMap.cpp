@@ -23,6 +23,7 @@
 #include "Coin.h"
 #include "Brick.h"
 #include "Piranha.h"
+#include "CVenus.h"
 
 CTileMap::CTileMap()
 {
@@ -282,6 +283,13 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						piranha->SetPosition(position - translatePiranhaConst);
 						piranha->SetStartPosition(position - translatePiranhaConst);
 						listGameObjects.push_back(piranha);
+					}
+					else if (enemyName.compare("venus") == 0)
+					{
+						CVenus* venus = new CVenus();
+						venus->SetPosition(position - translateVenusConst);
+						venus->SetStartPosition(position - translateVenusConst);
+						listGameObjects.push_back(venus);
 					}
 				}
 				else if (name.compare("QuestionBlocks") == 0)

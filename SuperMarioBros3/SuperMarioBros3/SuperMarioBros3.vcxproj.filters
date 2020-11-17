@@ -462,6 +462,9 @@
     <ClInclude Include="PiranhaConst.h">
       <Filter>Game\GameObject\Enemy\Piranha</Filter>
     </ClInclude>
+    <ClInclude Include="VenusConst.h">
+      <Filter>Game\GameObject\Enemy\Venus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">

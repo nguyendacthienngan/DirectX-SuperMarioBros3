@@ -234,6 +234,7 @@
     <ClInclude Include="tinyxml.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Ultis.h" />
+    <ClInclude Include="VenusConst.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />

@@ -5,3 +5,4 @@ const D3DXVECTOR2 translateKoopaConst = D3DXVECTOR2(24, 60); // 60 hoặc 59
 const D3DXVECTOR2 translateKoopaShellConst = D3DXVECTOR2(24, 45); // 43 hoặc 45 (1181)
 const D3DXVECTOR2 translateQuestionBlockConst = D3DXVECTOR2(24, 41.5);
 const D3DXVECTOR2 translatePiranhaConst = D3DXVECTOR2(24, 66);
+const D3DXVECTOR2 translateVenusConst = D3DXVECTOR2(24, 66);
