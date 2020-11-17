@@ -25,6 +25,8 @@ void CParaKoopa::Init()
 	physiscBody->SetDynamic(true);
 	physiscBody->SetGravity(KOOPA_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(KOOPA_SPEED, 0.0f));
+
+	isJump = false;
 }
 
 void CParaKoopa::LoadAnimation()
@@ -45,7 +47,30 @@ void CParaKoopa::Update(DWORD dt, CCamera* cam)
 	auto velocity = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
 	velocity.x = normal.x * KOOPA_SPEED;
+	
+	if (isJump == false && IsOnGround() == true)
+	{
+		if (abs(jumpStartPosition) - abs(transform.position.y) <= KOOPA_HEIGHT)
+		{
+			jumpStartPosition = transform.position.y;
+			velocity.y = -KOOPA_FORCE_Y;
+			isJump = true;
+		}
+	}
 
+	if (isJump == true)
+	{
+		isOnGround = false;
+
+		if (abs(jumpStartPosition) - abs(transform.position.y) > KOOPA_HEIGHT)
+		{
+			velocity.y = KOOPA_FORCE_Y / 2;
+		}
+		if (velocity.y > 0)
+		{
+			isJump = false;
+		}
+	}
 	physiscBody->SetVelocity(velocity);
 }
 
@@ -65,6 +90,7 @@ void CParaKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<C
 				physiscBody->SetNormal(normal);
 			}
 		}
+		
 		//else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && collisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
 		//{
 		//	if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
@@ -107,4 +133,9 @@ CGreenKoopa* CParaKoopa::GetKoopa()
 void CParaKoopa::SetKoopa(CGreenKoopa* koopa)
 {
 	this->koopa = koopa;
+}
+
+bool CParaKoopa::IsOnGround()
+{
+	return isOnGround;
 }

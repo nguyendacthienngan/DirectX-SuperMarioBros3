@@ -4,6 +4,8 @@
 class CParaKoopa : public CEnemy
 {
 	CGreenKoopa* koopa;
+	float jumpStartPosition;
+	bool isJump;
 public:
 	CParaKoopa();
 	void Init() override;
@@ -15,5 +17,6 @@ public:
 	void ChangeToKoopa();
 	CGreenKoopa* GetKoopa();
 	void SetKoopa(CGreenKoopa* koopa);
+	bool IsOnGround();
 };
 
