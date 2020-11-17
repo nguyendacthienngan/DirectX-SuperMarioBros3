@@ -21,7 +21,7 @@ protected:
 public:
 	CKoopaShell();
 	void Init();
-	void LoadAnimation();
+	virtual void LoadAnimation();
 
 	void Update(DWORD dt, CCamera* cam) override;
 	void Render(CCamera* cam, int alpha = 255) override;

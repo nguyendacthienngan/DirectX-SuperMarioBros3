@@ -6,14 +6,13 @@
 
 CKoopa::CKoopa()
 {
-	LoadAnimation();
-	Init();
+	//LoadAnimation();
+	//Init();
 	enemyTag = EnemyTag::Koopa;
 }
 
 void CKoopa::Init()
 {
-	LoadAnimation();
 	SetState(KOOPA_STATE_MOVE);
 	isEnabled = true;
 
@@ -31,9 +30,6 @@ void CKoopa::Init()
 
 void CKoopa::LoadAnimation()
 {
-	auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(KOOPA_STATE_MOVE, animationManager->Clone("ani-red-koopa-troopa-move"));
-	AddAnimation(KOOPA_STATE_WITH_DRAW, animationManager->Clone("ani-red-koopa-troopa-with-draw"));
 }
 
 void CKoopa::Update(DWORD dt, CCamera* cam)

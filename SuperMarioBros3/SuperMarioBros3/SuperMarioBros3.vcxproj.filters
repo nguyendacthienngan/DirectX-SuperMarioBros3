@@ -172,6 +172,21 @@
     <Filter Include="Game\GameObject\Misc\Brick">
       <UniqueIdentifier>{0cf146a4-d71b-43bc-87a9-fd971350924e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Enemy\ParaGoomba">
+      <UniqueIdentifier>{05cb8d54-5722-4d03-8d7a-6de42deefc91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Enemy\ParaKoopa">
+      <UniqueIdentifier>{07a034fa-b626-4547-a8d2-f79dc50cbbba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Enemy\Venus">
+      <UniqueIdentifier>{3c5d3087-6651-47a0-88b2-057d9bbb1086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Enemy\Piranha">
+      <UniqueIdentifier>{3fa8055d-d271-4529-9892-4677bee21d1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Enemy\Koopa\GreenKoopa">
+      <UniqueIdentifier>{d542f995-8bc1-4c2b-b695-e68e46e1a7ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -420,6 +435,30 @@
     <ClInclude Include="BrickConst.h">
       <Filter>Game\GameObject\Misc\Brick</Filter>
     </ClInclude>
+    <ClInclude Include="ParaGoomba.h">
+      <Filter>Game\GameObject\Enemy\ParaGoomba</Filter>
+    </ClInclude>
+    <ClInclude Include="ParaKoopa.h">
+      <Filter>Game\GameObject\Enemy\ParaKoopa</Filter>
+    </ClInclude>
+    <ClInclude Include="CVenus.h">
+      <Filter>Game\GameObject\Enemy\Venus</Filter>
+    </ClInclude>
+    <ClInclude Include="Piranha.h">
+      <Filter>Game\GameObject\Enemy\Piranha</Filter>
+    </ClInclude>
+    <ClInclude Include="ParaKoopaConst.h">
+      <Filter>Game\GameObject\Enemy\ParaKoopa</Filter>
+    </ClInclude>
+    <ClInclude Include="RedKoopaShell.h">
+      <Filter>Game\GameObject\Enemy\Koopa\RedKoopa</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenKoopa.h">
+      <Filter>Game\GameObject\Enemy\Koopa\GreenKoopa</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenKoopaShell.h">
+      <Filter>Game\GameObject\Enemy\Koopa\GreenKoopa</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -589,6 +628,27 @@
     </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>Game\GameObject\Misc\Brick</Filter>
+    </ClCompile>
+    <ClCompile Include="ParaGoomba.cpp">
+      <Filter>Game\GameObject\Enemy\ParaGoomba</Filter>
+    </ClCompile>
+    <ClCompile Include="ParaKoopa.cpp">
+      <Filter>Game\GameObject\Enemy\ParaKoopa</Filter>
+    </ClCompile>
+    <ClCompile Include="CVenus.cpp">
+      <Filter>Game\GameObject\Enemy\Venus</Filter>
+    </ClCompile>
+    <ClCompile Include="Piranha.cpp">
+      <Filter>Game\GameObject\Enemy\Piranha</Filter>
+    </ClCompile>
+    <ClCompile Include="RedKoopaShell.cpp">
+      <Filter>Game\GameObject\Enemy\Koopa\RedKoopa</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenKoopa.cpp">
+      <Filter>Game\GameObject\Enemy\Koopa\GreenKoopa</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenKoopaShell.cpp">
+      <Filter>Game\GameObject\Enemy\Koopa\GreenKoopa</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

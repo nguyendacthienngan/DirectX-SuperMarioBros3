@@ -6,7 +6,6 @@
 #include "SceneManager.h"
 CKoopaShell::CKoopaShell()
 {
-	LoadAnimation();
 	Init();
 	enemyTag = EnemyTag::KoopaShell;
 	isRun = false;
@@ -23,7 +22,6 @@ CKoopaShell::CKoopaShell()
 
 void CKoopaShell::Init()
 {
-	LoadAnimation();
 	SetState(KOOPA_SHELL_STATE_IDLE);
 	isEnabled = false;
 	timeStartWithDraw = 0;
@@ -43,10 +41,10 @@ void CKoopaShell::Init()
 
 void CKoopaShell::LoadAnimation()
 {
-	auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(KOOPA_SHELL_STATE_IDLE, animationManager->Get("ani-red-koopa-troopa-shell-idle"));
-	AddAnimation(KOOPA_SHELL_STATE_RUN, animationManager->Get("ani-red-koopa-troopa-shell-run"));
-	AddAnimation(KOOPA_SHELL_STATE_WITHDRAW, animationManager->Get("ani-red-koopa-troopa-with-draw"));
+	/*auto animationManager = CAnimationManager::GetInstance();
+	AddAnimation(KOOPA_SHELL_STATE_IDLE, animationManager->Get("ani-green-koopa-troopa-shell-idle"));
+	AddAnimation(KOOPA_SHELL_STATE_RUN, animationManager->Get("ani-green-koopa-troopa-shell-run"));
+	AddAnimation(KOOPA_SHELL_STATE_WITHDRAW, animationManager->Get("ani-green-koopa-troopa-with-draw"));*/
 }
 
 void CKoopaShell::Update(DWORD dt, CCamera* cam)

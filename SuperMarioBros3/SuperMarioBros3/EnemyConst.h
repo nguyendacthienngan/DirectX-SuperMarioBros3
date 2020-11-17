@@ -7,5 +7,5 @@ enum class EnemyType
 
 enum class EnemyTag
 {
-	Goomba, Koopa, KoopaShell
+	Goomba, Koopa, KoopaShell, ParaKoopa
 };

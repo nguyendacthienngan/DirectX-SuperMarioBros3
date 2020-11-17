@@ -6,9 +6,10 @@
 #include "GhostPlatform.h"
 #include "MapConst.h"
 
-#include "Koopa.h"
+#include "GreenKoopa.h"
 #include "RedKoopa.h"
-#include "KoopaShell.h"
+#include "RedKoopaShell.h"
+#include "GreenKoopaShell.h"
 #include "Goomba.h"
 #include "HitEffects.h"
 #include "QuestionBlock.h"
@@ -241,21 +242,41 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					std::string enemyType = object->Attribute("type");
 					if (enemyName.compare("koopa") == 0)
 					{
-						CKoopaShell* koopaShell = new CKoopaShell();
-						koopaShell->SetEnemyType(enemyType);
-						koopaShell->SetPosition(position - translateKoopaShellConst);
-						koopaShell->SetStartPosition(position - translateKoopaShellConst);
+						if (enemyType.compare("green") == 0)
+						{
+							DebugOut(L"Load green koopa \n");
+							CGreenKoopaShell* koopaShell = new CGreenKoopaShell();
+							koopaShell->SetEnemyType(enemyType);
+							koopaShell->SetPosition(position - translateKoopaShellConst);
+							koopaShell->SetStartPosition(position - translateKoopaShellConst);
+							
+							CGreenKoopa* koopa = new CGreenKoopa();
+							koopa->SetEnemyType(enemyType);
+							koopa->SetPosition(position - translateKoopaConst);
+							koopa->SetStartPosition(position - translateKoopaConst);
+							koopa->SetKoopaShell(koopaShell);
+							koopaShell->SetKoopa(koopa);
+							listGameObjects.push_back(koopaShell);
+							listGameObjects.push_back(koopa);
+						}
+						if (enemyType.compare("red") == 0)
+						{
+							CRedKoopaShell* koopaShell = new CRedKoopaShell();
+							koopaShell->SetEnemyType(enemyType);
+							koopaShell->SetPosition(position - translateKoopaShellConst);
+							koopaShell->SetStartPosition(position - translateKoopaShellConst);
 
-						CRedKoopa* koopa = new CRedKoopa();
-						//CKoopa* koopa = new CKoopa();
-						koopa->SetEnemyType(enemyType);
-						koopa->SetPosition(position - translateKoopaConst);
-						koopa->SetStartPosition(position - translateKoopaConst);
-						koopa->SetKoopaShell(koopaShell);
-						koopaShell->SetKoopa(koopa);
-						listGameObjects.push_back(koopaShell);
+							CRedKoopa* koopa = new CRedKoopa();
+							koopa->SetEnemyType(enemyType);
+							koopa->SetPosition(position - translateKoopaConst);
+							koopa->SetStartPosition(position - translateKoopaConst);
+							koopa->SetKoopaShell(koopaShell);
+							koopaShell->SetKoopa(koopa);
 
-						listGameObjects.push_back(koopa);
+							listGameObjects.push_back(koopaShell);
+							listGameObjects.push_back(koopa);
+						}
+						
 					}
 					else if (enemyName.compare("goomba") == 0)
 					{

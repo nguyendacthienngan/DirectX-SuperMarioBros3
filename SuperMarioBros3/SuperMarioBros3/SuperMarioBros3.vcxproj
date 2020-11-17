@@ -158,6 +158,7 @@
     <ClInclude Include="CollisionBox.h" />
     <ClInclude Include="CollisionBoxConst.h" />
     <ClInclude Include="Const.h" />
+    <ClInclude Include="CVenus.h" />
     <ClInclude Include="EffectConst.h" />
     <ClInclude Include="EffectObject.h" />
     <ClInclude Include="Enemy.h" />
@@ -176,6 +177,8 @@
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="GoombaConst.h" />
     <ClInclude Include="GraphicConst.h" />
+    <ClInclude Include="GreenKoopa.h" />
+    <ClInclude Include="GreenKoopaShell.h" />
     <ClInclude Include="HitEffects.h" />
     <ClInclude Include="Holdable.h" />
     <ClInclude Include="IState.h" />
@@ -199,7 +202,11 @@
     <ClInclude Include="MiscConst.h" />
     <ClInclude Include="MushroomConst.h" />
     <ClInclude Include="MushroomEffect.h" />
+    <ClInclude Include="ParaGoomba.h" />
+    <ClInclude Include="ParaKoopa.h" />
+    <ClInclude Include="ParaKoopaConst.h" />
     <ClInclude Include="PhysicsBody.h" />
+    <ClInclude Include="Piranha.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="QuestionBlockConst.h" />
     <ClInclude Include="RaccoonTailBox.h" />
@@ -207,6 +214,7 @@
     <ClInclude Include="RaccoonMario.h" />
     <ClInclude Include="RectF.h" />
     <ClInclude Include="RedKoopa.h" />
+    <ClInclude Include="RedKoopaShell.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />
@@ -237,6 +245,7 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CoinEffect.cpp" />
     <ClCompile Include="CollisionBox.cpp" />
+    <ClCompile Include="CVenus.cpp" />
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FireBall.cpp" />
@@ -247,6 +256,8 @@
     <ClCompile Include="GhostPlatform.cpp" />
     <ClCompile Include="Gift.cpp" />
     <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="GreenKoopa.cpp" />
+    <ClCompile Include="GreenKoopaShell.cpp" />
     <ClCompile Include="HitEffects.cpp" />
     <ClCompile Include="Holdable.cpp" />
     <ClCompile Include="IState.cpp" />
@@ -262,11 +273,15 @@
     <ClCompile Include="MarioController.cpp" />
     <ClCompile Include="Misc.cpp" />
     <ClCompile Include="MushroomEffect.cpp" />
+    <ClCompile Include="ParaGoomba.cpp" />
+    <ClCompile Include="ParaKoopa.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
+    <ClCompile Include="Piranha.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RaccoonTailBox.cpp" />
     <ClCompile Include="RaccoonMario.cpp" />
     <ClCompile Include="RedKoopa.cpp" />
+    <ClCompile Include="RedKoopaShell.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="SceneManager.cpp" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Textures>
     <!--	Texture Enemy	-->
-	<Textures gameObjectId= 0 textureId="tex-enemy">
+	<Textures gameObjectId= "0" textureId="tex-enemy">
 
 		<!--		GOOMBA		-->
 		

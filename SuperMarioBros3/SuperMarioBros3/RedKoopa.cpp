@@ -1,9 +1,16 @@
 #include "RedKoopa.h"
+#include "AnimationManager.h"
+#include "KoopaConst.h"
+#include "Ultis.h"
+CRedKoopa::CRedKoopa()
+{
+	LoadAnimation();
+	Init();
+}
 
 void CRedKoopa::Update(DWORD dt, CCamera* cam)
 {
 	CKoopa::Update(dt, cam);
-
 }
 
 void CRedKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
@@ -36,3 +43,11 @@ void CRedKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Co
 		}
 	}
 }
+
+void CRedKoopa::LoadAnimation()
+{
+	auto animationManager = CAnimationManager::GetInstance();
+	AddAnimation(KOOPA_STATE_MOVE, animationManager->Clone("ani-red-koopa-troopa-move"));
+	AddAnimation(KOOPA_STATE_WITH_DRAW, animationManager->Clone("ani-red-koopa-troopa-with-draw"));
+}
+
