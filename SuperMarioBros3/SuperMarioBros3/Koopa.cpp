@@ -6,8 +6,6 @@
 
 CKoopa::CKoopa()
 {
-	//LoadAnimation();
-	//Init();
 	enemyTag = EnemyTag::Koopa;
 }
 

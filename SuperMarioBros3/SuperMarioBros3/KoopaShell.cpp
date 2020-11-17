@@ -41,10 +41,6 @@ void CKoopaShell::Init()
 
 void CKoopaShell::LoadAnimation()
 {
-	/*auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(KOOPA_SHELL_STATE_IDLE, animationManager->Get("ani-green-koopa-troopa-shell-idle"));
-	AddAnimation(KOOPA_SHELL_STATE_RUN, animationManager->Get("ani-green-koopa-troopa-shell-run"));
-	AddAnimation(KOOPA_SHELL_STATE_WITHDRAW, animationManager->Get("ani-green-koopa-troopa-with-draw"));*/
 }
 
 void CKoopaShell::Update(DWORD dt, CCamera* cam)
