@@ -146,7 +146,7 @@ void CGame::Run()
 			else // chưa tới tickperframe nên cho ngủ vì xong việc cho 1 frame ròi
 			{
 				Sleep(tickPerFrame - delta);
-				delta = tickPerFrame;
+				//delta = tickPerFrame;
 			}
 		}
 		
