@@ -1,5 +1,4 @@
 ﻿#include "TileMap.h"
-#include "tinyxml.h"
 
 #include "Ultis.h"
 #include "SolidBox.h"
@@ -30,6 +29,7 @@ CTileMap::CTileMap()
 	tileHeight = 1;
 	width = 1;
 	height = 1;
+	foreground = NULL;
 }
 
 CTileMap::CTileMap(int width, int height, int tileWidth, int tileHeight)
@@ -38,6 +38,7 @@ CTileMap::CTileMap(int width, int height, int tileWidth, int tileHeight)
 	this->height = height;
 	this->tileHeight = tileHeight;
 	this->tileWidth = tileWidth;
+	foreground = NULL;
 }
 
 TileSet* CTileMap::GetTileSetByTileID(int id)
@@ -72,7 +73,7 @@ TileSet* CTileMap::GetTileSetByTileID(int id)
 
 }
 
-void CTileMap::Render(CCamera* camera)
+void CTileMap::Render(CCamera* camera, bool isRenderForeground)
 {
 	//DebugOut(L"Render tilemap.. \n");
 	// Từ một tọa độ bất kỳ nằm bên trg map
@@ -97,30 +98,18 @@ void CTileMap::Render(CCamera* camera)
 			int x = i * tileWidth - camera->GetPositionCam().x; // vị trí mình muốn vẽ lên màn hình của ô đó => theo tọa độ camera
 			int y = j * tileHeight - camera->GetPositionCam().y;
 
-			for (Layer* layer : layers) {
-				if (layer->isVisible == false)
-					continue;
-
-				// i % width, j % height: Đây là tọa độ của ô 
-				int id = layer->tiles[i % width][j % height]; // Từ tọa độ của ô đó ta lấy ra được tileID
-				auto tileSet = GetTileSetByTileID(id); // Từ tileID ta tìm tileset mà tileID đó thuộc về
-				auto firstGid = tileSet->firstgid;
-
-				if (id >= firstGid)
-				{
-					auto columns = tileSet->columns;
-					auto texture = tileSet->texture;
-					auto tileSize = tileSet->tileSize;
-
-					RECT r;
-					r.left = ((id - firstGid) % columns) * tileSize.x;
-					r.top = ((id - firstGid) / columns) * tileSize.y;
-					r.right = r.left + tileSize.x;
-					r.bottom = r.top + tileSize.y;
-					CGame::GetInstance()->Draw(D3DXVECTOR2(x, y), D3DXVECTOR2(tileSize.x / 2, tileSize.y / 2), texture, r, D3DCOLOR_ARGB(255, 255, 255, 255));
-				}
-				
+			if (isRenderForeground == true)
+			{
+				RenderLayer(foreground, i, j, x, y);
 			}
+			else
+			{
+				for (Layer* layer : layers)
+				{
+					RenderLayer(layer, i, j, x, y);
+				}
+			}
+			
 		}
 	}
 }
@@ -160,38 +149,11 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 		//Load layer
 		for (TiXmlElement* element = root->FirstChildElement("layer"); element != nullptr; element = element->NextSiblingElement("layer"))
 		{
-			Layer* layer = new Layer();
-			element->QueryIntAttribute("id", &layer->id);
-			element->QueryIntAttribute("width", &layer->width);
-			element->QueryIntAttribute("height", &layer->height);
-
-			int visible;
-			if (element->QueryIntAttribute("visible", &visible) != TIXML_SUCCESS) layer->isVisible = true;
-			else layer->isVisible = visible ? true : false;
-
-			auto tiles = new int* [layer->width]; // số tiles theo chiều ngang
-
-			const char* content = element->FirstChildElement()->GetText();
-			vector<string> splitted = split(content, ","); // Trả về chuỗi các tileID trong layer bằng cách tách dấu phẩy ra [ Lúc này chỉ là 1 mảng 1 chiều ]
-
-			for (int i = 0; i < layer->width; i++)
-			{
-				tiles[i] = new int[layer->height];  // số tiles theo chiều dọc
-				for (int j = 0; j < layer->height; j++)
-				{
-					tiles[i][j] = stoi(splitted[i + j * layer->width]); // stoi giúp chuyển từ string sang int
-					// Đem về mảng 2 chiều
-				}
-			}
-			layer->tiles = tiles;
-			// Splitted lưu trữ dưới dạng: 0 1 2 3 4 5 6 7 8 9
-			// Còn ma trận ta muốn lưu nó sẽ như vầy
-			//     0 1 2 3 4 
-			//     5 6 7 8 9
-			// Ta có i = 0, j = 1
-			// Thì muốn lấy 5 ra thì ta phải lấy 0 + 1 * 5 ( i + j * width )
-			splitted.clear();
-			gameMap->layers.push_back(layer);
+			std::string name = element->Attribute("name");
+			if (name.compare("Foreground") == 0)
+				gameMap->foreground = gameMap->LoadLayer(element);
+			else
+				gameMap->layers.push_back(gameMap->LoadLayer(element));
 		}
 		// Load game objects
 		int count = 0, heightObjectOne = 0;
@@ -361,6 +323,66 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 	return nullptr;
 }
 
+Layer* CTileMap::LoadLayer(TiXmlElement* element)
+{
+	Layer* layer = new Layer();
+	element->QueryIntAttribute("id", &layer->id);
+	element->QueryIntAttribute("width", &layer->width);
+	element->QueryIntAttribute("height", &layer->height);
+
+	int visible;
+	if (element->QueryIntAttribute("visible", &visible) != TIXML_SUCCESS) layer->isVisible = true;
+	else layer->isVisible = visible ? true : false;
+
+	auto tiles = new int* [layer->width]; // số tiles theo chiều ngang
+
+	const char* content = element->FirstChildElement()->GetText();
+	vector<string> splitted = split(content, ","); // Trả về chuỗi các tileID trong layer bằng cách tách dấu phẩy ra [ Lúc này chỉ là 1 mảng 1 chiều ]
+
+	for (int i = 0; i < layer->width; i++)
+	{
+		tiles[i] = new int[layer->height];  // số tiles theo chiều dọc
+		for (int j = 0; j < layer->height; j++)
+		{
+			tiles[i][j] = stoi(splitted[i + j * layer->width]); // stoi giúp chuyển từ string sang int
+			// Đem về mảng 2 chiều
+		}
+	}
+	layer->tiles = tiles;
+	// Splitted lưu trữ dưới dạng: 0 1 2 3 4 5 6 7 8 9
+	// Còn ma trận ta muốn lưu nó sẽ như vầy
+	//     0 1 2 3 4 
+	//     5 6 7 8 9
+	// Ta có i = 0, j = 1
+	// Thì muốn lấy 5 ra thì ta phải lấy 0 + 1 * 5 ( i + j * width )
+	splitted.clear();
+	return layer;
+}
+
+void CTileMap::RenderLayer(Layer* layer, int i, int j, int x, int y)
+{
+	if (layer->isVisible == false)
+		return;
+	// i % width, j % height: Đây là tọa độ của ô 
+	int id = layer->tiles[i % width][j % height]; // Từ tọa độ của ô đó ta lấy ra được tileID
+	auto tileSet = GetTileSetByTileID(id); // Từ tileID ta tìm tileset mà tileID đó thuộc về
+	auto firstGid = tileSet->firstgid;
+
+	if (id >= firstGid)
+	{
+		auto columns = tileSet->columns;
+		auto texture = tileSet->texture;
+		auto tileSize = tileSet->tileSize;
+
+		RECT r;
+		r.left = ((id - firstGid) % columns) * tileSize.x;
+		r.top = ((id - firstGid) / columns) * tileSize.y;
+		r.right = r.left + tileSize.x;
+		r.bottom = r.top + tileSize.y;
+		CGame::GetInstance()->Draw(D3DXVECTOR2(x, y), D3DXVECTOR2(tileSize.x / 2, tileSize.y / 2), texture, r, D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
+}
+
 CTileMap::~CTileMap()
 {
 	for (auto tileS : tileSets)
@@ -377,4 +399,5 @@ CTileMap::~CTileMap()
 		layer = NULL;
 	}
 	layers.clear();
+	delete foreground;
 }

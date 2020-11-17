@@ -36,7 +36,7 @@ void CMap::Update(CCamera* camera, DWORD dt)
 	camera->Update();
 }
 
-void CMap::Render(CCamera* camera)
+void CMap::Render(CCamera* camera, bool isRenderForeground)
 {
 	if (camera == NULL)
 	{
@@ -44,7 +44,7 @@ void CMap::Render(CCamera* camera)
 		return;
 	}
 
-	tileMap->Render(camera);
+	tileMap->Render(camera, isRenderForeground);
 }
 
 std::vector<LPGameObject> CMap::GetListGameObjects()

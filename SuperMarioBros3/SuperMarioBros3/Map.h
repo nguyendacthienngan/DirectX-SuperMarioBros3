@@ -25,7 +25,7 @@ public:
 	void LoadTilemap(std::string filePath, std::string fileMap);
 	
 	void Update(CCamera* camera, DWORD dt);
-	void Render(CCamera* camera);
+	void Render(CCamera* camera, bool isRenderForeground);
 
 	std::vector<LPGameObject> GetListGameObjects();
 };

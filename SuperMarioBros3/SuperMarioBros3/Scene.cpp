@@ -129,7 +129,7 @@ void CScene::Update(DWORD dt)
 
 void CScene::Render()
 {
-	map->Render(camera);
+	map->Render(camera, false);
 	if (gameObjects.size() == 0) return;
 
 	for (auto obj : gameObjects)
@@ -139,6 +139,7 @@ void CScene::Render()
 		if (obj->GetCollisionBox()->size() != 0)
 			obj->GetCollisionBox()->at(0)->Render(camera, CollisionBox_Render_Distance);
 	}
+	map->Render(camera, true);
 }
 
 void CScene::AddObject(LPGameObject gameObject)
