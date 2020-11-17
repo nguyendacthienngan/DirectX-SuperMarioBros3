@@ -608,11 +608,11 @@ void CMario::OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<Collisi
 
 void CMario::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
 {
-	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
-	{
-		// Nếu overlap thì không xét hướng được, chỉ khi theo chiều ngang hoặc quái trên đầu mario mario mới bị damage thôi
-		OnDamaged();
-	}
+	//if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
+	//{
+	//	// Nếu overlap thì không xét hướng được, chỉ khi theo chiều ngang hoặc quái trên đầu mario mario mới bị damage thôi
+	//	OnDamaged();
+	//}
 }
 
 void CMario::CrouchProcess(CKeyboardManager* keyboard)

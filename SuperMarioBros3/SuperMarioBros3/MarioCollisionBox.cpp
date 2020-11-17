@@ -94,7 +94,7 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 							koopaShell->GetPhysiscBody()->SetNormal(normal);
 							koopaShell->SetRun();
 						}
-						else
+						else if (koopaShell->IsHolding() == false)
 						{
 							// Mario bị damaged
 							mario->OnDamaged();

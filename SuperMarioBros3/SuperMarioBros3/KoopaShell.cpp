@@ -251,9 +251,9 @@ void CKoopaShell::Render(CCamera* cam, int alpha)
 void CKoopaShell::WithDrawProcess()
 {
 	countWithDraw++;
-	// Chỉ cần mai rùa không chạy thì mai rùa có thể rúc đầu (withdraw) sau KOOPA_MUST_START_WITH_DRAW_TIME
+	// Chỉ cần mai rùa không chạy VÀ ĐANG KHÔNG BỊ CẦM thì mai rùa có thể rúc đầu (withdraw) sau KOOPA_MUST_START_WITH_DRAW_TIME
 	// Chỉ withdraw 1 lần sau khi đứng yên thôi, lúc đó chuyển lại cho koopa và khi koopa bị cụng đầu rồi mới tính lại
-	if (isRun == true || canRun == true)
+	if (isRun == true || canRun == true || IsHolding() == true)
 		return;
 	if (isRun == false|| canRun == false )
 	{
