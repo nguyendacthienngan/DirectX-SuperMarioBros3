@@ -28,7 +28,6 @@ void CPiranha::Init()
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 
 	timeStopDartOut = GetTickCount64();
-	isDartOut = false;
 	canDartOut = false;
 }
 
@@ -59,7 +58,7 @@ void CPiranha::Update(DWORD dt, CCamera* cam)
 	}
 	if (GetTickCount64() - timeStopDartOut > DART_OUT_TIME && timeStopDartOut != 0)
 	{
-		// MỚi vô đợi 0.8s để được ngoi lên
+		// Mới vô đợi 0.8s để được ngoi lên
 		canDartOut = true;
 		physiscBody->SetVelocity(D3DXVECTOR2(0.0f, -PIRANHA_PUSH_FORCE));
 		return;

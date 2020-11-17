@@ -3,7 +3,6 @@
 class CPiranha :  public CEnemy
 {
 protected:
-	bool isDartOut; // ngoi ra khỏi ống cống (pipe)
 	bool canDartOut;
 	DWORD timeStopDartOut;
 public:
