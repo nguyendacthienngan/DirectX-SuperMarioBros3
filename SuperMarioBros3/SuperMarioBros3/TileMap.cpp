@@ -10,6 +10,8 @@
 #include "RedKoopa.h"
 #include "RedKoopaShell.h"
 #include "GreenKoopaShell.h"
+
+#include "ParaKoopa.h"
 #include "Goomba.h"
 #include "HitEffects.h"
 #include "QuestionBlock.h"
@@ -286,6 +288,13 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						goomba->SetStartPosition(position - translateGoombaConst);
 
 						listGameObjects.push_back(goomba);
+					}
+					else if (enemyName.compare("para-koopa") == 0)
+					{
+						CParaKoopa* parakoopa = new CParaKoopa();
+						parakoopa->SetPosition(position - translateKoopaConst);
+						parakoopa->SetStartPosition(position - translateKoopaConst);
+						listGameObjects.push_back(parakoopa);
 					}
 				}
 				else if (name.compare("QuestionBlocks") == 0)

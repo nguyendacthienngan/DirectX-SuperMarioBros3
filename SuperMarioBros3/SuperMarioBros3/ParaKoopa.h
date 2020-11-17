@@ -1,12 +1,13 @@
 #pragma once
 #include "Enemy.h"
-#include "Koopa.h"
-class ParaKoopa : public CEnemy
+#include "GreenKoopa.h"
+class CParaKoopa : public CEnemy
 {
-	CKoopa* koopa;
+	CGreenKoopa* koopa;
 public:
-	ParaKoopa();
+	CParaKoopa();
 	void Init() override;
 	void LoadAnimation() override;
+	void Render(CCamera* cam, int alpha);
 };
 
