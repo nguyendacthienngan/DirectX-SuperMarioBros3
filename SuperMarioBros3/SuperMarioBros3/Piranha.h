@@ -1,7 +1,12 @@
 #pragma once
 #include "Enemy.h"
-class Piranha :
+class CPiranha :
     public CEnemy
 {
+
+public:
+	CPiranha();
+	void Init();
+	virtual void LoadAnimation();
 };
 

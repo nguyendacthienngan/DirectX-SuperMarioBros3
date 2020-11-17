@@ -22,6 +22,7 @@
 #include <map>
 #include "Coin.h"
 #include "Brick.h"
+#include "Piranha.h"
 
 CTileMap::CTileMap()
 {
@@ -274,8 +275,14 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						parakoopa->SetKoopa(koopa);
 
 						listGameObjects.push_back(parakoopa);
+					}
+					else if (enemyName.compare("piranha") == 0)
+					{
+						CPiranha* piranha = new CPiranha();
+						piranha->SetPosition(position - translatePiranhaConst);
+						piranha->SetStartPosition(position - translatePiranhaConst);
 
-
+						listGameObjects.push_back(piranha);
 					}
 				}
 				else if (name.compare("QuestionBlocks") == 0)

@@ -459,6 +459,9 @@
     <ClInclude Include="GreenKoopaShell.h">
       <Filter>Game\GameObject\Enemy\Koopa\GreenKoopa</Filter>
     </ClInclude>
+    <ClInclude Include="PiranhaConst.h">
+      <Filter>Game\GameObject\Enemy\Piranha</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">

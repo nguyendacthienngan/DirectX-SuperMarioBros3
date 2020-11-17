@@ -207,6 +207,7 @@
     <ClInclude Include="ParaKoopaConst.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="Piranha.h" />
+    <ClInclude Include="PiranhaConst.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="QuestionBlockConst.h" />
     <ClInclude Include="RaccoonTailBox.h" />
