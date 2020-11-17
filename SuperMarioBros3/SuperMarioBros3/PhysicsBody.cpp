@@ -290,16 +290,26 @@ void CPhysicsBody::CalcPotentialCollisions(
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
 			continue;
 
-		// Quái cùng loại gặp nhau sẽ đẩy ra, quái khác loại thì đi qua nhau (trừ mai rùa)
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
 		{
+			// Quái cùng loại gặp nhau sẽ đẩy ra, quái khác loại thì đi qua nhau (trừ mai rùa)
 			auto selfObject = cO->GetGameObjectAttach();
-			auto otherObject = coObjects->at(i)->GetGameObjectAttach();
 			CEnemy* selfEnemyObject = static_cast<CEnemy*>(selfObject);
-			CEnemy* otherEnemyObject = static_cast<CEnemy*>(otherObject);
-			if ( (selfEnemyObject->GetEnemyTag() != otherEnemyObject->GetEnemyTag()) 
-				&& selfEnemyObject->GetEnemyTag() != EnemyTag::KoopaShell && otherEnemyObject->GetEnemyTag() != EnemyTag::KoopaShell)
-				continue;
+
+			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
+			{
+				auto otherObject = coObjects->at(i)->GetGameObjectAttach();
+				CEnemy* otherEnemyObject = static_cast<CEnemy*>(otherObject);
+				if ((selfEnemyObject->GetEnemyTag() != otherEnemyObject->GetEnemyTag())
+					&& selfEnemyObject->GetEnemyTag() != EnemyTag::KoopaShell && otherEnemyObject->GetEnemyTag() != EnemyTag::KoopaShell)
+					continue;
+			}
+			// Piranha sẽ không xử lý va chạm với solid
+			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::GhostPlatform || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock)
+			{
+				if (selfEnemyObject->GetEnemyTag() == EnemyTag::Piranha)
+					continue;
+			}
 		}
 
 		// Enemy sẽ không xét va chạm với Mario mà Mario tự xét => Ngăn việc Mario nhảy lên quái làm Quái bị vy tăng đột ngột => Off the cliff
@@ -317,6 +327,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 			continue;
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Gift && coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Player)
 			continue;
+
 
 		// Có overlap (Dùng AABB)
 		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && cO->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid)

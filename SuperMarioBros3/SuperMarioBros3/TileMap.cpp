@@ -281,7 +281,6 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						CPiranha* piranha = new CPiranha();
 						piranha->SetPosition(position - translatePiranhaConst);
 						piranha->SetStartPosition(position - translatePiranhaConst);
-
 						listGameObjects.push_back(piranha);
 					}
 				}
