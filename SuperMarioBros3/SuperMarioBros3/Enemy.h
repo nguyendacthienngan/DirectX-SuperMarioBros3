@@ -13,6 +13,8 @@ protected:
 	bool isDead, isHeadShot, isHeadShotByFireBall;
 	int countDeadCallback;
 	CHitEffects* hitFX;
+	bool isOnGround;
+
 public:
 	CEnemy();
 	void SetEnemyType(std::string eT);

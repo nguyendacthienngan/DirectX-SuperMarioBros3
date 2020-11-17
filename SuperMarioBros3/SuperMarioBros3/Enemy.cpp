@@ -46,6 +46,14 @@ void CEnemy::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::GhostPlatform
+			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick)
+		{
+			if (collisionEvent->ny < 0 && isOnGround == false)
+			{
+				isOnGround = true;
+			}
+		}
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
 		{
 			auto otherObject = collisionBox->GetGameObjectAttach();
