@@ -131,22 +131,13 @@ void CGame::Run()
 				keyboardManger->ProcessKeyboard();
 				if (keyboardManger->CheckESCKey() == true)
 					continue;
-
-				// Call update
-			//	DebugOut(L"Update (1)\n");
 				Update();
-			//	DebugOut(L"Update (2)\n");
-			//	DebugOut(L"Render (1)\n");
-
 				Render();
-			//	DebugOut(L"Render (2)\n");
-
 				if (delta > tickPerFrame) delta = 0.0f;
 			}
 			else // chưa tới tickperframe nên cho ngủ vì xong việc cho 1 frame ròi
 			{
 				Sleep(tickPerFrame - delta);
-				//delta = tickPerFrame;
 			}
 		}
 		
