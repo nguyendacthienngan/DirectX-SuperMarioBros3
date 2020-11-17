@@ -112,6 +112,7 @@ void CKoopa::ChangeToShell()
 {
 	this->isEnabled = false;
 	this->physiscBody->SetDynamic(false);
+	this->collisionBoxs->at(0)->SetEnable(false);
 	if (koopaShell != NULL)
 	{
 		koopaShell->Enable(true);
@@ -144,6 +145,7 @@ void CKoopa::ChangeBackToKoopa()
 {
 	this->isEnabled = true;
 	this->physiscBody->SetDynamic(true);
+	this->collisionBoxs->at(0)->SetEnable(true);
 	if (koopaShell != NULL)
 	{
 		koopaShell->Enable(false);

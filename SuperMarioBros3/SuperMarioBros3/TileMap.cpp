@@ -294,6 +294,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						koopaShell->SetEnemyType(enemyType);
 						koopaShell->SetPosition(position - translateKoopaShellConst);
 						koopaShell->SetStartPosition(position - translateKoopaShellConst);
+						koopaShell->Enable(false);
 
 						CGreenKoopa* koopa = new CGreenKoopa();
 						koopa->SetEnemyType(enemyType);
@@ -301,6 +302,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						koopa->SetStartPosition(position - translateKoopaConst);
 						koopa->SetKoopaShell(koopaShell);
 						koopaShell->SetKoopa(koopa);
+						koopa->Enable(false);
 						listGameObjects.push_back(koopaShell);
 						listGameObjects.push_back(koopa);
 

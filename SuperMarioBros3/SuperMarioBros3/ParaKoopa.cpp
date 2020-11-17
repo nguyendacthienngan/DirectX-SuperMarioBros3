@@ -90,6 +90,8 @@ void CParaKoopa::ChangeToKoopa()
 {
 	this->isEnabled = false;
 	this->physiscBody->SetDynamic(false);
+	this->collisionBoxs->at(0)->SetEnable(false);
+
 	if (koopa != NULL)
 	{
 		koopa->Enable(true);
