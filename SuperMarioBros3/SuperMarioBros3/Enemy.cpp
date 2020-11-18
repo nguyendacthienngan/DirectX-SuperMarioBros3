@@ -104,3 +104,4 @@ void CEnemy::SetTarget(CGameObject* target)
 {
 	this->target = target;
 }
+

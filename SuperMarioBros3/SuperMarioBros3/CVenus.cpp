@@ -3,6 +3,7 @@
 #include "VenusConst.h"
 #include "FireBall.h"
 #include "SceneManager.h"
+#include "Ultis.h"
 CVenus::CVenus()
 {
 	LoadAnimation();
@@ -32,6 +33,8 @@ void CVenus::Init()
 
 	countFireBalls = 0;
 	vectorShootFireBall = D3DXVECTOR2(0.0f, 0.0f);
+	physiscBody->SetNormal(D3DXVECTOR2(-1.0f, 1.0f));
+
 }
 
 void CVenus::LoadAnimation()
@@ -48,26 +51,29 @@ void CVenus::Update(DWORD dt, CCamera* cam)
 	if (isIdle == true)
 	{
 		countFireBalls++;
-		if (countFireBalls == 1)
+		if (countFireBalls == 5)
 		{
 			CFireBall* currentFireBall;
 			currentFireBall = new CFireBall();
 			currentFireBall->Enable(true);
 			currentFireBall->SetPosition(transform.position);
 
-
-			/*auto posVenus = transform.position + relativePositionOnScreen;
-			posMario.x += SUPER_MARIO_BBOX.x * 0.5f * normal.x;
-			currentFireBall->SetPosition(posMario);*/
-
-			vectorShootFireBall.x = cos(SHOOT_FIRE_BALL_ANGLE);
-			vectorShootFireBall.x = -sin(SHOOT_FIRE_BALL_ANGLE);
-
 			auto firePhyBody = currentFireBall->GetPhysiscBody();
-			auto normal = firePhyBody->GetNormal();
+			firePhyBody->SetGravity(0.0f);
+
+			auto normal = physiscBody->GetNormal();
+
+			auto posVenus = transform.position + relativePositionOnScreen;
+			/*posVenus.x += VENUS_BBOX.x * 0.5f * normal.x ;
+			posVenus.y -= VENUS_BBOX.y * 0.5f;*/
+			currentFireBall->SetPosition(posVenus);
+
+			currentFireBall->SetCheckCollisionWithSolid(false);
+			vectorShootFireBall.x = cos(SHOOT_FIRE_BALL_ANGLE); // - 0.25
+			vectorShootFireBall.y = sin(SHOOT_FIRE_BALL_ANGLE); // 0
+			
 
 			firePhyBody->SetVelocity(D3DXVECTOR2(FIRE_BALL_SPEED * normal.x * vectorShootFireBall.x, FIRE_BALL_SPEED * vectorShootFireBall.y));
-			//firePhyBody->SetVelocity(D3DXVECTOR2(FIRE_BALL_SPEED * normal.x * vectorShootFireBall.x, 0.0f));
 
 			auto scene = CSceneManager::GetInstance()->GetActiveScene();
 			scene->AddObject(currentFireBall);
@@ -75,4 +81,11 @@ void CVenus::Update(DWORD dt, CCamera* cam)
 	
 
 	}
+}
+
+void CVenus::Render(CCamera* cam, int alpha)
+{
+	auto normal = physiscBody->GetNormal();
+	SetScale(D3DXVECTOR2(-normal.x, 1.0f));
+	CGameObject::Render(cam, alpha);
 }

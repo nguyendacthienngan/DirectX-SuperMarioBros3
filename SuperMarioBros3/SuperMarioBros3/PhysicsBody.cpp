@@ -289,6 +289,12 @@ void CPhysicsBody::CalcPotentialCollisions(
 			continue;
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
 			continue;
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && cO->GetGameObjectAttach()->CheckCollisionWithSolid() == false)
+		{
+			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::GhostPlatform || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock)
+				continue;
+		}
+
 
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
 		{
@@ -327,6 +333,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 			continue;
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Gift && coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Player)
 			continue;
+
 
 
 		// Có overlap (Dùng AABB)

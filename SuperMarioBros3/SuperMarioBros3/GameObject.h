@@ -57,7 +57,7 @@ protected:
 	
 	std::vector<LPCollisionBox>* collisionBoxs;
 	LPPhysicsBody physiscBody;
-	
+	bool isCheckWithCollision;
 public:
 	CGameObject();
 	~CGameObject();
@@ -120,6 +120,8 @@ public:
 	void SetTag(GameObjectTags t);
 
 	virtual void AddObjectToScene(LPScene scene);
+	bool CheckCollisionWithSolid();
+	void SetCheckCollisionWithSolid(bool canCheck);
 };
 
 #endif
