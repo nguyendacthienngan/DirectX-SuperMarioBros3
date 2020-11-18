@@ -2,7 +2,6 @@
 #include "Piranha.h"
 class CVenus :  public CPiranha
 {
-	CGameObject* target;
 	int countFireBalls;
 	D3DXVECTOR2 vectorShootFireBall;
 public:

@@ -51,7 +51,9 @@ void CScene::Load()
 				{
 					auto enemy = static_cast<CEnemy*>(obj);
 					if (player != NULL)
-					enemy->SetTarget(player);
+					{
+						enemy->SetTarget(player);
+					}
 				}
 				AddObject(obj);
 			}

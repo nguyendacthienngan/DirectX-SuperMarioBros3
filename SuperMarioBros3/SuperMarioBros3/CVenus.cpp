@@ -33,7 +33,7 @@ void CVenus::Init()
 
 	countFireBalls = 0;
 	vectorShootFireBall = D3DXVECTOR2(0.0f, 0.0f);
-	physiscBody->SetNormal(D3DXVECTOR2(-1.0f, 1.0f));
+	physiscBody->SetNormal(D3DXVECTOR2(1.0f, 1.0f));
 
 }
 
@@ -51,6 +51,10 @@ void CVenus::Update(DWORD dt, CCamera* cam)
 	if (isIdle == true)
 	{
 		countFireBalls++;
+		auto normal = physiscBody->GetNormal();
+		if (target != NULL)
+			normal.x = (target->GetPosition() < this->transform.position) ? -1 : 1;
+
 		if (countFireBalls == 1) // Còn test
 		{
 			CFireBall* currentFireBall;
@@ -61,7 +65,6 @@ void CVenus::Update(DWORD dt, CCamera* cam)
 			auto firePhyBody = currentFireBall->GetPhysiscBody();
 			firePhyBody->SetGravity(0.0f);
 
-			auto normal = physiscBody->GetNormal();
 
 			auto posVenus = transform.position + relativePositionOnScreen;
 			posVenus.x += VENUS_BBOX.x * 0.5f * normal.x ;
@@ -75,6 +78,8 @@ void CVenus::Update(DWORD dt, CCamera* cam)
 
 			auto scene = CSceneManager::GetInstance()->GetActiveScene();
 			scene->AddObject(currentFireBall);
+
+			physiscBody->SetNormal(normal);
 		}
 	}
 }
