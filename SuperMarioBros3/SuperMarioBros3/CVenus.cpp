@@ -51,7 +51,7 @@ void CVenus::Update(DWORD dt, CCamera* cam)
 	if (isIdle == true)
 	{
 		countFireBalls++;
-		if (countFireBalls == 5)
+		if (countFireBalls == 1) // Còn test
 		{
 			CFireBall* currentFireBall;
 			currentFireBall = new CFireBall();
@@ -64,22 +64,18 @@ void CVenus::Update(DWORD dt, CCamera* cam)
 			auto normal = physiscBody->GetNormal();
 
 			auto posVenus = transform.position + relativePositionOnScreen;
-			/*posVenus.x += VENUS_BBOX.x * 0.5f * normal.x ;
-			posVenus.y -= VENUS_BBOX.y * 0.5f;*/
+			posVenus.x += VENUS_BBOX.x * 0.5f * normal.x ;
 			currentFireBall->SetPosition(posVenus);
 
 			currentFireBall->SetCheckCollisionWithSolid(false);
-			vectorShootFireBall.x = cos(SHOOT_FIRE_BALL_ANGLE); // - 0.25
-			vectorShootFireBall.y = sin(SHOOT_FIRE_BALL_ANGLE); // 0
+			vectorShootFireBall.x = cos(SHOOT_FIRE_BALL_ANGLE);
+			vectorShootFireBall.y = sin(SHOOT_FIRE_BALL_ANGLE);
 			
-
 			firePhyBody->SetVelocity(D3DXVECTOR2(FIRE_BALL_SPEED * normal.x * vectorShootFireBall.x, FIRE_BALL_SPEED * vectorShootFireBall.y));
 
 			auto scene = CSceneManager::GetInstance()->GetActiveScene();
 			scene->AddObject(currentFireBall);
 		}
-	
-
 	}
 }
 
