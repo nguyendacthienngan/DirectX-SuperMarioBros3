@@ -4,7 +4,7 @@ class CPiranha :  public CEnemy
 {
 protected:
 	bool canDartOut;
-	DWORD timeStopDartOut;
+	DWORD timeStopDartOut, timeToIdle;
 public:
 	CPiranha();
 	void Init();

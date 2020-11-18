@@ -1,6 +1,6 @@
 #pragma once
-#include "Enemy.h"
-class CVenus :  public CEnemy
+#include "Piranha.h"
+class CVenus :  public CPiranha
 {
 public:
 	CVenus();

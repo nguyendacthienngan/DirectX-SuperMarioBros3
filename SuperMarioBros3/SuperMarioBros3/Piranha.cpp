@@ -24,10 +24,10 @@ void CPiranha::Init()
 	this->collisionBoxs->push_back(collisionBox);
 
 	physiscBody->SetDynamic(true);
-	//physiscBody->SetGravity(PIRANHA_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 
 	timeStopDartOut = GetTickCount64();
+	timeToIdle = 0;
 	canDartOut = false;
 }
 
@@ -48,7 +48,14 @@ void CPiranha::Update(DWORD dt, CCamera* cam)
 		// Khi chưa đạt max height thì cung cấp vy, không thì trả lại vy
 		if (abs(startPosition.y) - abs(transform.position.y) > PIRANHA_HEIGHT || abs(transform.position.y) - abs(startPosition.y)  > PIRANHA_HEIGHT)
 		{
-			physiscBody->SetVelocity(D3DXVECTOR2(0.0f, PIRANHA_PUSH_FORCE));
+			if (timeToIdle == 0)
+			{
+				timeToIdle = GetTickCount64();
+				physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
+
+			}
+			if (GetTickCount64() - timeToIdle > DART_OUT_TIME)
+				physiscBody->SetVelocity(D3DXVECTOR2(0.0f, PIRANHA_PUSH_FORCE));
 		}
 		else if (transform.position.y >= startPosition.y)
 		{
@@ -67,6 +74,7 @@ void CPiranha::Update(DWORD dt, CCamera* cam)
 	{
 		// Ở dưới cái pipe
 		timeStopDartOut = GetTickCount64();
+		timeToIdle = 0;
 		physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 		return;
 	}
