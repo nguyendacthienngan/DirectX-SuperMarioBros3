@@ -32,6 +32,7 @@ void CPiranha::Init()
 	maxHeight = PIRANHA_HEIGHT;
 	timeToStopDartOut = DART_OUT_TIME;
 	timeToIdle = DART_OUT_TIME;
+	isIdle = false;
 }
 
 void CPiranha::LoadAnimation()
@@ -55,10 +56,13 @@ void CPiranha::Update(DWORD dt, CCamera* cam)
 			{
 				timeStartIdle = GetTickCount64();
 				physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
-
+				isIdle = true;
 			}
 			if (GetTickCount64() - timeStartIdle > timeToIdle)
+			{
 				physiscBody->SetVelocity(D3DXVECTOR2(0.0f, PIRANHA_PUSH_FORCE));
+				isIdle = false;
+			}
 		}
 		else if (transform.position.y >= startPosition.y)
 		{

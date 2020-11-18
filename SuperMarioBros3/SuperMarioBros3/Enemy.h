@@ -14,6 +14,7 @@ protected:
 	int countDeadCallback;
 	CHitEffects* hitFX;
 	bool isOnGround;
+	CGameObject* target;
 
 public:
 	CEnemy();
@@ -31,4 +32,6 @@ public:
 	void SetHitFX(CHitEffects* hitFX);
 	void SetIsHeadShot(bool isHeadShot);
 	void SetIsHeadShotByFireball(bool isHeadShotByFireball);
+
+	void SetTarget(CGameObject* target);
 };

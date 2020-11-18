@@ -3,7 +3,7 @@
 class CPiranha :  public CEnemy
 {
 protected:
-	bool canDartOut;
+	bool canDartOut, isIdle;
 	float maxHeight;
 	DWORD timeStopDartOut, timeStartIdle;
 	DWORD timeToStopDartOut, timeToIdle;

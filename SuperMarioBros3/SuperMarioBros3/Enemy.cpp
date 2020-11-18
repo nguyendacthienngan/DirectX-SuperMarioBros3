@@ -99,3 +99,8 @@ void CEnemy::SetIsHeadShotByFireball(bool isHeadShotByFireball)
 {
 	this->isHeadShotByFireBall = isHeadShotByFireball;
 }
+
+void CEnemy::SetTarget(CGameObject* target)
+{
+	this->target = target;
+}

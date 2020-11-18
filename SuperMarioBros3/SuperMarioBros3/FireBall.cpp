@@ -24,7 +24,6 @@ CFireBall::CFireBall()
 	physiscBody->SetDynamic(true);
 	physiscBody->SetGravity(FIRE_BALL_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
-	physiscBody->SetBounceForce(FIRE_BALL_BOUNCE_FORCE);
 }
 
 CFireBall::~CFireBall()

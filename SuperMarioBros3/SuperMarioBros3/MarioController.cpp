@@ -53,6 +53,12 @@ void CMarioController::Init()
 	listMarioStates.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
 	listStateObjects.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
+
+	collisionBoxs->clear();
+	//collisionBoxs = NULL;
+
+	physiscBody->SetDynamic(false);
+
 }
 
 void CMarioController::Process()
@@ -95,7 +101,6 @@ void CMarioController::SwitchToState(std::string state)
 	if (currentStateObject != NULL)
 	{
 		auto controllerPhyBody = currentStateObject->GetPhysiscBody();
-
 		// Của current state object (SuperMario, SmallMario,..)
 		auto currentObj = listStateObjects.at(state);
 		auto currentPhyBody = currentObj->GetPhysiscBody();
@@ -105,6 +110,7 @@ void CMarioController::SwitchToState(std::string state)
 		currentPhyBody->SetAcceleration(controllerPhyBody->GetAcceleration());
 
 		listStateObjects.at(state)->SetPosition(currentStateObject->GetPosition());
+
 		D3DXVECTOR2 transform = D3DXVECTOR2(0.0f, 0.0f);
 		transform.y = SUPER_MARIO_BBOX.y - SMALL_MARIO_BBOX.y; // Tính lại
 
@@ -160,6 +166,7 @@ void CMarioController::SwitchToState(std::string state)
 		{
 			auto camera = scene->GetCamera();
 			camera->SetGameObject(currentStateObject);
+
 		}
 	}
 		
@@ -183,6 +190,12 @@ void CMarioController::OnKeyDown(int KeyCode)
 	{
 		SwitchToState(SMALL_MARIO_STATE);
 	}*/
+}
+
+void CMarioController::Update(DWORD dt, CCamera* cam)
+{
+	this->transform.position = currentStateObject->GetPosition();
+	this->physiscBody->SetVelocity(currentStateObject->GetPhysiscBody()->GetVelocity());
 }
 
 void CMarioController::SetCurrentStateObject(LPGameObject gO)

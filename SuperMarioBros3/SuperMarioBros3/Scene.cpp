@@ -26,28 +26,7 @@ void CScene::Load()
 	for (TiXmlElement* scene = root->FirstChildElement(); scene != NULL; scene = scene->NextSiblingElement())
 	{
 		string name = scene->Attribute("name");
-		if (name.compare("Map") == 0)
-		{
-			DebugOut(L"[INFO] Load map \n");
-			string sourceMap = scene->Attribute("source");
-			string fileMap = scene->Attribute("fileName");
-			this->map = new CMap(sourceMap, fileMap); // Ham nay tu load map
-			auto mapSolidBoxs = map->GetListGameObjects();
-			for (auto obj : mapSolidBoxs)
-			{
-				AddObject(obj);
-			}
-			DebugOut(L"[INFO] Load background color \n");
-			for (TiXmlElement* color = scene->FirstChildElement(); color != NULL ; color = color->NextSiblingElement() )
-			{
-				int R, G, B;
-				color->QueryIntAttribute("R", &R);
-				color->QueryIntAttribute("G", &G);
-				color->QueryIntAttribute("B", &B);
-				backgroundColor = D3DCOLOR_XRGB(R, G, B);
-			}
-		}
-		else if (name.compare("Player") == 0)
+		if (name.compare("Player") == 0)
 		{
 			DebugOut(L"[INFO] Load player \n");
 			D3DXVECTOR2 startPosition;
@@ -58,6 +37,33 @@ void CScene::Load()
 			player->AddStateObjectsToScene(this);
 			player->GetCurrentStateObject()->SetPosition(startPosition);
 			AddObject(player);
+		}
+		if (name.compare("Map") == 0)
+		{
+			DebugOut(L"[INFO] Load map \n");
+			string sourceMap = scene->Attribute("source");
+			string fileMap = scene->Attribute("fileName");
+			this->map = new CMap(sourceMap, fileMap); // Ham nay tu load map
+			auto mapSolidBoxs = map->GetListGameObjects();
+			for (auto obj : mapSolidBoxs)
+			{
+				if (obj->GetTag() == GameObjectTags::Enemy)
+				{
+					auto enemy = static_cast<CEnemy*>(obj);
+					if (player != NULL)
+					enemy->SetTarget(player);
+				}
+				AddObject(obj);
+			}
+			DebugOut(L"[INFO] Load background color \n");
+			for (TiXmlElement* color = scene->FirstChildElement(); color != NULL; color = color->NextSiblingElement())
+			{
+				int R, G, B;
+				color->QueryIntAttribute("R", &R);
+				color->QueryIntAttribute("G", &G);
+				color->QueryIntAttribute("B", &B);
+				backgroundColor = D3DCOLOR_XRGB(R, G, B);
+			}
 		}
 		else if (name.compare("Camera") == 0)
 		{
