@@ -100,7 +100,7 @@ void CGame::Run()
 	MSG msg;
 	bool done = false;
 
-	float prevTime, currentTime = GetTickCount();
+	float prevTime, currentTime = GetTickCount64();
 	float delta = 0;
 	float tickPerFrame = 1000.0f / fps;
 
@@ -120,7 +120,7 @@ void CGame::Run()
 		else
 		{
 			prevTime = currentTime; // framestart?
-			currentTime = GetTickCount(); // now
+			currentTime = GetTickCount64(); // now
 			delta += (currentTime - prevTime);
 			deltaTime = delta;
 
