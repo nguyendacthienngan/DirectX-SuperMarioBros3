@@ -24,6 +24,9 @@ void CVenus::Init()
 	physiscBody->SetDynamic(true);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 
+	maxHeight = VENUS_HEIGHT;
+	timeToStopDartOut = DART_OUT_TIME;
+	timeToIdle = TIME_TO_IDLE;
 }
 
 void CVenus::LoadAnimation()

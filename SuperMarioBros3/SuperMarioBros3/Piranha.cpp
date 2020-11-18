@@ -27,8 +27,11 @@ void CPiranha::Init()
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 
 	timeStopDartOut = GetTickCount64();
-	timeToIdle = 0;
+	timeStartIdle = 0;
 	canDartOut = false;
+	maxHeight = PIRANHA_HEIGHT;
+	timeToStopDartOut = DART_OUT_TIME;
+	timeToIdle = DART_OUT_TIME;
 }
 
 void CPiranha::LoadAnimation()
@@ -46,15 +49,15 @@ void CPiranha::Update(DWORD dt, CCamera* cam)
 		// Trong trạng thái ngoi lên
 		timeStopDartOut = 0;
 		// Khi chưa đạt max height thì cung cấp vy, không thì trả lại vy
-		if (abs(startPosition.y) - abs(transform.position.y) > PIRANHA_HEIGHT || abs(transform.position.y) - abs(startPosition.y)  > PIRANHA_HEIGHT)
+		if (abs(startPosition.y) - abs(transform.position.y) > maxHeight || abs(transform.position.y) - abs(startPosition.y)  > maxHeight)
 		{
-			if (timeToIdle == 0)
+			if (timeStartIdle == 0)
 			{
-				timeToIdle = GetTickCount64();
+				timeStartIdle = GetTickCount64();
 				physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 
 			}
-			if (GetTickCount64() - timeToIdle > DART_OUT_TIME)
+			if (GetTickCount64() - timeStartIdle > timeToIdle)
 				physiscBody->SetVelocity(D3DXVECTOR2(0.0f, PIRANHA_PUSH_FORCE));
 		}
 		else if (transform.position.y >= startPosition.y)
@@ -63,7 +66,7 @@ void CPiranha::Update(DWORD dt, CCamera* cam)
 		}
 		return;
 	}
-	if (GetTickCount64() - timeStopDartOut > DART_OUT_TIME && timeStopDartOut != 0)
+	if (GetTickCount64() - timeStopDartOut > timeToStopDartOut && timeStopDartOut != 0)
 	{
 		// Mới vô đợi 0.8s để được ngoi lên
 		canDartOut = true;
@@ -74,7 +77,7 @@ void CPiranha::Update(DWORD dt, CCamera* cam)
 	{
 		// Ở dưới cái pipe
 		timeStopDartOut = GetTickCount64();
-		timeToIdle = 0;
+		timeStartIdle = 0;
 		physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 		return;
 	}
