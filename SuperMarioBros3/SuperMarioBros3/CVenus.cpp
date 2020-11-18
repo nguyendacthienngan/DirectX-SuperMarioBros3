@@ -54,8 +54,9 @@ void CVenus::Update(DWORD dt, CCamera* cam)
 		auto normal = physiscBody->GetNormal();
 		if (target != NULL)
 			normal.x = (target->GetPosition() < this->transform.position) ? -1 : 1;
+		physiscBody->SetNormal(normal);
 
-		if (countFireBalls == 1) // Còn test
+		if (countFireBalls == 1) 
 		{
 			CFireBall* currentFireBall;
 			currentFireBall = new CFireBall();
@@ -79,9 +80,10 @@ void CVenus::Update(DWORD dt, CCamera* cam)
 			auto scene = CSceneManager::GetInstance()->GetActiveScene();
 			scene->AddObject(currentFireBall);
 
-			physiscBody->SetNormal(normal);
 		}
 	}
+	if (isIdle == false)
+		countFireBalls = 0;
 }
 
 void CVenus::Render(CCamera* cam, int alpha)
