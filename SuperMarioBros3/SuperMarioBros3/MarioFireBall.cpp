@@ -1,11 +1,10 @@
-﻿#include "FireBall.h"
+﻿#include "MarioFireBall.h"
 #include "MiscConst.h"
 #include "AnimationManager.h"
 #include "Ultis.h"
 #include "SceneManager.h"
-#include "FireMario.h"
 
-CFireBall::CFireBall()
+CMarioFireBall::CMarioFireBall()
 {
 	this->SetTag(GameObjectTags::Misc);
 
@@ -24,38 +23,38 @@ CFireBall::CFireBall()
 	physiscBody->SetDynamic(true);
 	physiscBody->SetGravity(FIRE_BALL_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
+	physiscBody->SetBounceForce(FIRE_BALL_BOUNCE_FORCE);
 
 	pool = NULL;
 }
 
-CFireBall::~CFireBall()
+CMarioFireBall::~CMarioFireBall()
 {
 	CGameObject::~CGameObject();
 }
 
-void CFireBall::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
+void CMarioFireBall::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
 {
 	CGameObject::PhysicsUpdate(coObjects);
 }
 
-void CFireBall::Update(DWORD dt, CCamera* cam)
+void CMarioFireBall::Update(DWORD dt, CCamera* cam)
 {
 	CGameObject::Update(dt, cam);
 	if (transform.position.y > cam->GetBoundary().bottom)
 	{
-		this->Enable(false);
 		if (pool != NULL)
 			pool->Revoke(this);
 	}
 }
 
-void CFireBall::LoadAnimation()
+void CMarioFireBall::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
 	AddAnimation(FIRE_BALL_ANIMATION, animationManager->Get("ani-fire-ball"));
 }
 
-void CFireBall::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
+void CMarioFireBall::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
 {
 	for (auto collisionEvent : collisionEvents)
 	{
@@ -65,9 +64,6 @@ void CFireBall::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Co
 		{
 			if (collisionEvent->nx != 0)
 			{
-				this->isEnabled = false;
-				auto scene = CSceneManager::GetInstance()->GetActiveScene();
-				scene->RemoveObject(this);
 				if (pool != NULL)
 					pool->Revoke(this);
 			}
@@ -76,7 +72,7 @@ void CFireBall::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Co
 	}
 }
 
-void CFireBall::LinkToPool(CObjectPool* pool)
+void CMarioFireBall::LinkToPool(CObjectPool* pool)
 {
 	this->pool = pool;
 }

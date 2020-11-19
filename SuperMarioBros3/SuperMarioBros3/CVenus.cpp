@@ -3,7 +3,7 @@
 #include "VenusConst.h"
 #include "SceneManager.h"
 #include "Ultis.h"
-#include "FireBall.h"
+#include "VenusFireBall.h"
 
 CVenus::CVenus()
 {
@@ -14,8 +14,6 @@ CVenus::CVenus()
 void CVenus::Init()
 {
 	isEnabled = true;
-	//SetState(VENUS_STATE_HEAD_DOWN);
-
 	enemyTag = EnemyTag::Venus;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
@@ -38,7 +36,7 @@ void CVenus::Init()
 
 	for (int i = 0; i < 10; i++)
 	{
-		CFireBall* fireBall = new CFireBall();
+		CVenusFireBall* fireBall = new CVenusFireBall();
 		fireBall->LinkToPool(&fireBalls);
 		fireBalls.Add(fireBall);
 	}

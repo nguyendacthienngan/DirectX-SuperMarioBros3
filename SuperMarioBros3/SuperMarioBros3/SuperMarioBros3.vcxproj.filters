@@ -387,9 +387,6 @@
     <ClInclude Include="SceneConst.h">
       <Filter>Framework\Game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="FireBall.h">
-      <Filter>Game\GameObject\Misc\FireBall</Filter>
-    </ClInclude>
     <ClInclude Include="Holdable.h">
       <Filter>Game\GameObject\Misc\Holdable</Filter>
     </ClInclude>
@@ -476,6 +473,12 @@
     </ClInclude>
     <ClInclude Include="ObjectPool.h">
       <Filter>Framework\Game\Pool</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioFireBall.h">
+      <Filter>Game\GameObject\Misc\FireBall</Filter>
+    </ClInclude>
+    <ClInclude Include="VenusFireBall.h">
+      <Filter>Game\GameObject\Misc\FireBall</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -614,9 +617,6 @@
     <ClCompile Include="HitEffects.cpp">
       <Filter>Game\GameObject\Misc\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="FireBall.cpp">
-      <Filter>Game\GameObject\Misc\FireBall</Filter>
-    </ClCompile>
     <ClCompile Include="Holdable.cpp">
       <Filter>Game\GameObject\Misc\Holdable</Filter>
     </ClCompile>
@@ -673,6 +673,12 @@
     </ClCompile>
     <ClCompile Include="ObjectPool.cpp">
       <Filter>Framework\Game\Pool</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioFireBall.cpp">
+      <Filter>Game\GameObject\Misc\FireBall</Filter>
+    </ClCompile>
+    <ClCompile Include="VenusFireBall.cpp">
+      <Filter>Game\GameObject\Misc\FireBall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,15 +1,15 @@
 #pragma once
 #include "Mario.h"
-#include "FireBall.h"
 #include "Scene.h"
+#include "ObjectPool.h"
 
 class CScene;
 class CFireMario : public CMario
 {
 private:
-	//bool isJumpAttack;
 	int countFireBall;
 	DWORD timeToNextAttack, lastAttackTime;
+	CObjectPool fireBalls;
 public:
 	CFireMario();
 	void Init() override;
@@ -20,6 +20,7 @@ public:
 	void EndAnimation();
 	void OnKeyDown(int KeyCode) override;
 	
+	void AddObjectToScene(LPScene scene);
 	~CFireMario();
 };
 

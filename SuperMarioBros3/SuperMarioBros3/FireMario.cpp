@@ -5,14 +5,22 @@
 #include "MiscConst.h"
 #include "SceneManager.h"
 #include "Ultis.h"
+#include "MarioFireBall.h"
 
 CFireMario::CFireMario()
 {
 	CMario::Init();
+	CFireMario::Init();
+	CFireMario::LoadAnimation();
+}
+
+void CFireMario::Init()
+{
+	this->SetState(MARIO_STATE_IDLE); // Để tên đồng nhất với animation
+
 	collisionBoxs->at(0)->SetName("Fire-Mario");
 
 	marioStateTag = MarioStates::FireMario;
-	Init();
 	lastState = currentState;
 	canCrouch = true;
 	canAttack = true;
@@ -22,12 +30,13 @@ CFireMario::CFireMario()
 	timeToNextAttack = 1000; // milisecond
 	lastAttackTime = 0;
 	isJumpAttack = false;
-}
 
-void CFireMario::Init()
-{
-	LoadAnimation();
-	this->SetState(MARIO_STATE_IDLE); // Để tên đồng nhất với animation
+	for (int i = 0; i < 2; i++)
+	{
+		CMarioFireBall* fireBall = new CMarioFireBall();
+		fireBall->LinkToPool(&fireBalls);
+		fireBalls.Add(fireBall);
+	}
 }
 
 void CFireMario::Clear()
@@ -127,17 +136,15 @@ void CFireMario::OnKeyDown(int KeyCode)
 			
 		if (countFireBall <= 2)
 		{
-			CFireBall* currentFireBall;
-			currentFireBall = new CFireBall();
+			auto currentFireBall = fireBalls.Init();
+			currentFireBall->Enable(true);
+
+			auto normal = physiscBody->GetNormal();
 
 			auto scene = CSceneManager::GetInstance()->GetActiveScene();
 			scene->AddObject(currentFireBall);
 
 			auto firePhyBody = currentFireBall->GetPhysiscBody();
-
-			currentFireBall->Enable(true);
-			auto normal = physiscBody->GetNormal();
-			firePhyBody->SetBounceForce(FIRE_BALL_BOUNCE_FORCE);
 
 			auto posMario = transform.position + relativePositionOnScreen;
 			posMario.x += SUPER_MARIO_BBOX.x * 0.5f * normal.x;
@@ -149,6 +156,11 @@ void CFireMario::OnKeyDown(int KeyCode)
 
 		}
 	}
+}
+
+void CFireMario::AddObjectToScene(LPScene scene)
+{
+	this->fireBalls.AddPoolToScene(scene);
 }
 
 CFireMario::~CFireMario()

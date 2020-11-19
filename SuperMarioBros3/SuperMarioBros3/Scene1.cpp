@@ -6,13 +6,11 @@
 #include "MarioConst.h"
 #include "Game.h"
 
-#include "FireBall.h"
 CScene1::CScene1()
 {
 	this->id = "PlayScene";
 	this->filePath = CGame::GetInstance()->GetFilePathByCategory(CATEGORY_SCENE, SC_WOLRD_1_1);
 }
-
 
 void CScene1::Load()
 {

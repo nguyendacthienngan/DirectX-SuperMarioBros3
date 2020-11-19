@@ -1,14 +1,13 @@
 #pragma once
 #include "Misc.h"
 #include "ObjectPool.h"
-class CFireBall : public CMisc
+class CMarioFireBall : public CMisc
 {
 private:
-	CGameObject* fireMario;
 	CObjectPool* pool;
 public:
-	CFireBall();
-	~CFireBall();
+	CMarioFireBall();
+	~CMarioFireBall();
 	void PhysicsUpdate(std::vector<LPGameObject>* coObjects) override;
 
 	void Update(DWORD dt, CCamera* cam) override;

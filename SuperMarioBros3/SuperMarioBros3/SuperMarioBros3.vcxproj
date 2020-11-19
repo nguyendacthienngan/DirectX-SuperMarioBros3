@@ -164,7 +164,7 @@
     <ClInclude Include="EffectObject.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyConst.h" />
-    <ClInclude Include="FireBall.h" />
+    <ClInclude Include="MarioFireBall.h" />
     <ClInclude Include="FireMario.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Game.h" />
@@ -238,6 +238,7 @@
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Ultis.h" />
     <ClInclude Include="VenusConst.h" />
+    <ClInclude Include="VenusFireBall.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
@@ -253,7 +254,7 @@
     <ClCompile Include="CVenus.cpp" />
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="FireBall.cpp" />
+    <ClCompile Include="MarioFireBall.cpp" />
     <ClCompile Include="FireMario.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameKeyEventHandler.cpp" />
@@ -305,6 +306,7 @@
     <ClCompile Include="tinyxmlerror.cpp" />
     <ClCompile Include="tinyxmlparser.cpp" />
     <ClCompile Include="Ultis.cpp" />
+    <ClCompile Include="VenusFireBall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SuperMarioBros3.rc" />
