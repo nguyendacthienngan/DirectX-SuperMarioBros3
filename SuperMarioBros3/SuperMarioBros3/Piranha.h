@@ -1,12 +1,7 @@
 ﻿#pragma once
-#include "Enemy.h"
-class CPiranha :  public CEnemy
+#include "Plant.h"
+class CPiranha :  public CPlant
 {
-protected:
-	bool canDartOut;
-	float maxHeight;
-	DWORD timeStopDartOut, timeStartIdle;
-	DWORD timeToStopDartOut, timeToIdle;
 public:
 	CPiranha();
 	void Init();

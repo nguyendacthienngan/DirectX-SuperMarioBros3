@@ -26,6 +26,8 @@ public:
 	void AddStateObjectsToScene(LPScene scene);
 	void SwitchToState(std::string state);
 	void OnKeyDown(int KeyCode) override;
+	void Update(DWORD dt, CCamera* cam);
+
 	void SetCurrentStateObject(LPGameObject gO);
 	LPGameObject GetCurrentStateObject();
 	~CMarioController();

@@ -53,26 +53,17 @@ void CMarioController::Init()
 	listMarioStates.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
 	listStateObjects.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
+
+	collisionBoxs->clear();
+	//collisionBoxs = NULL;
+
+	physiscBody->SetDynamic(false);
+
 }
 
 void CMarioController::Process()
 {
 	CStateMachine::Process();
-	if (currentStateObject == NULL)
-		return;
-
-	// Lấy ra position của current object, MarioController đi theo
-	SetPosition(currentStateObject->GetPosition());
-
-	for (auto stateObj : listStateObjects)
-	{
-		auto obj = (stateObj).second; // Lấy ra obj của stateobj
-
-		if (obj == currentStateObject)
-			continue;
-		D3DXVECTOR2 transform = D3DXVECTOR2(0.0f, 0.0f);
-	}
-	
 }
 
 void CMarioController::AddStateObjectsToScene(LPScene scene)
@@ -95,7 +86,6 @@ void CMarioController::SwitchToState(std::string state)
 	if (currentStateObject != NULL)
 	{
 		auto controllerPhyBody = currentStateObject->GetPhysiscBody();
-
 		// Của current state object (SuperMario, SmallMario,..)
 		auto currentObj = listStateObjects.at(state);
 		auto currentPhyBody = currentObj->GetPhysiscBody();
@@ -104,7 +94,9 @@ void CMarioController::SwitchToState(std::string state)
 		currentPhyBody->SetGravity(controllerPhyBody->GetGravity());
 		currentPhyBody->SetAcceleration(controllerPhyBody->GetAcceleration());
 
+		DebugOut(L"When switch state, currentStateObj %f, %f \n", currentStateObject->GetPosition().x, currentStateObject->GetPosition().y);
 		listStateObjects.at(state)->SetPosition(currentStateObject->GetPosition());
+
 		D3DXVECTOR2 transform = D3DXVECTOR2(0.0f, 0.0f);
 		transform.y = SUPER_MARIO_BBOX.y - SMALL_MARIO_BBOX.y; // Tính lại
 
@@ -114,8 +106,6 @@ void CMarioController::SwitchToState(std::string state)
 			listStateObjects.at(state)->SetPosition(listStateObjects.at(state)->GetPosition() + transform);
 			listStateObjects.at(state)->GetCollisionBox()->at(0)->SetPosition(D3DXVECTOR2(0.0f, 0.0f));
 			listStateObjects.at(state)->SetRelativePositionOnScreen(listStateObjects.at(state)->GetCollisionBox()->at(0)->GetPosition());
-
-
 		}
 		else
 		{
@@ -162,7 +152,6 @@ void CMarioController::SwitchToState(std::string state)
 			camera->SetGameObject(currentStateObject);
 		}
 	}
-		
 }
 
 void CMarioController::OnKeyDown(int KeyCode)
@@ -183,6 +172,15 @@ void CMarioController::OnKeyDown(int KeyCode)
 	{
 		SwitchToState(SMALL_MARIO_STATE);
 	}*/
+}
+
+void CMarioController::Update(DWORD dt, CCamera* cam)
+{
+	Process();
+	if (currentStateObject == NULL)
+		return;
+	this->transform.position = currentStateObject->GetPosition();
+	this->physiscBody->SetVelocity(currentStateObject->GetPhysiscBody()->GetVelocity());
 }
 
 void CMarioController::SetCurrentStateObject(LPGameObject gO)

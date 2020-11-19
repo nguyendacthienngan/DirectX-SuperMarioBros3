@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Scene>
+  <Scene name="Player" pos_x="130" pos_y="1000"/>
   <Scene name="Map" source="Resources/Maps/Test map/" fileName = "world-1-1-map.tmx">
     <BackgroundColor R="156" G="252" B="240"/>
   </Scene>
-  <Scene name="Player" pos_x="130" pos_y="1000"/>
   <Scene name="Camera" start="0" main="1">
   <!--Camera-->
   <!--X,Y: Mario.x, Mario.y - ScreenHeight/2-->

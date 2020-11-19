@@ -285,10 +285,19 @@ void CPhysicsBody::CalcPotentialCollisions(
 		// Lửa không xét với Mario, và không xét với chính nó
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Player && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc )
 			continue;
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player && cO->GetGameObjectAttach()->CheckCollisionWithSolid() == true)
 			continue;
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
 			continue;
+		// Lửa khi từ miệng Venus thì k xét va chạm với bất cứ thứ gì trừ mario
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && cO->GetGameObjectAttach()->CheckCollisionWithSolid() == false)
+		{
+			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::GhostPlatform || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock)
+				continue;
+			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
+				continue;
+		}
+
 
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
 		{
@@ -327,6 +336,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 			continue;
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Gift && coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Player)
 			continue;
+
 
 
 		// Có overlap (Dùng AABB)

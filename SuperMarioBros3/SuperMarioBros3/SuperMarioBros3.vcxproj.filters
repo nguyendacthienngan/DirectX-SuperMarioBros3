@@ -178,14 +178,20 @@
     <Filter Include="Game\GameObject\Enemy\ParaKoopa">
       <UniqueIdentifier>{07a034fa-b626-4547-a8d2-f79dc50cbbba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameObject\Enemy\Venus">
-      <UniqueIdentifier>{3c5d3087-6651-47a0-88b2-057d9bbb1086}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameObject\Enemy\Piranha">
-      <UniqueIdentifier>{3fa8055d-d271-4529-9892-4677bee21d1c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\GameObject\Enemy\Koopa\GreenKoopa">
       <UniqueIdentifier>{d542f995-8bc1-4c2b-b695-e68e46e1a7ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Enemy\Plant">
+      <UniqueIdentifier>{921c9b7b-f688-40e4-b752-ef98cbe269fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Enemy\Plant\Piranha">
+      <UniqueIdentifier>{3fa8055d-d271-4529-9892-4677bee21d1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Enemy\Plant\Venus">
+      <UniqueIdentifier>{3c5d3087-6651-47a0-88b2-057d9bbb1086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Pool">
+      <UniqueIdentifier>{341faef7-a66d-4992-9ccd-fe27b6c854de}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -442,10 +448,10 @@
       <Filter>Game\GameObject\Enemy\ParaKoopa</Filter>
     </ClInclude>
     <ClInclude Include="CVenus.h">
-      <Filter>Game\GameObject\Enemy\Venus</Filter>
+      <Filter>Game\GameObject\Enemy\Plant\Venus</Filter>
     </ClInclude>
     <ClInclude Include="Piranha.h">
-      <Filter>Game\GameObject\Enemy\Piranha</Filter>
+      <Filter>Game\GameObject\Enemy\Plant\Piranha</Filter>
     </ClInclude>
     <ClInclude Include="ParaKoopaConst.h">
       <Filter>Game\GameObject\Enemy\ParaKoopa</Filter>
@@ -459,11 +465,17 @@
     <ClInclude Include="GreenKoopaShell.h">
       <Filter>Game\GameObject\Enemy\Koopa\GreenKoopa</Filter>
     </ClInclude>
-    <ClInclude Include="PiranhaConst.h">
-      <Filter>Game\GameObject\Enemy\Piranha</Filter>
-    </ClInclude>
     <ClInclude Include="VenusConst.h">
-      <Filter>Game\GameObject\Enemy\Venus</Filter>
+      <Filter>Game\GameObject\Enemy\Plant\Venus</Filter>
+    </ClInclude>
+    <ClInclude Include="Plant.h">
+      <Filter>Game\GameObject\Enemy\Plant</Filter>
+    </ClInclude>
+    <ClInclude Include="PiranhaConst.h">
+      <Filter>Game\GameObject\Enemy\Plant</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>Framework\Game\Pool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -642,10 +654,10 @@
       <Filter>Game\GameObject\Enemy\ParaKoopa</Filter>
     </ClCompile>
     <ClCompile Include="CVenus.cpp">
-      <Filter>Game\GameObject\Enemy\Venus</Filter>
+      <Filter>Game\GameObject\Enemy\Plant\Venus</Filter>
     </ClCompile>
     <ClCompile Include="Piranha.cpp">
-      <Filter>Game\GameObject\Enemy\Piranha</Filter>
+      <Filter>Game\GameObject\Enemy\Plant\Piranha</Filter>
     </ClCompile>
     <ClCompile Include="RedKoopaShell.cpp">
       <Filter>Game\GameObject\Enemy\Koopa\RedKoopa</Filter>
@@ -655,6 +667,12 @@
     </ClCompile>
     <ClCompile Include="GreenKoopaShell.cpp">
       <Filter>Game\GameObject\Enemy\Koopa\GreenKoopa</Filter>
+    </ClCompile>
+    <ClCompile Include="Plant.cpp">
+      <Filter>Game\GameObject\Enemy\Plant</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool.cpp">
+      <Filter>Framework\Game\Pool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

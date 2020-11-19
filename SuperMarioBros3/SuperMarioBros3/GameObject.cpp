@@ -12,6 +12,7 @@ CGameObject::CGameObject()
 	isEnabled = false;
 	ignoreTimeScale = false;
 	currentState = "IDLE";
+	isCheckWithCollision = true;
 }
 
 CGameObject::~CGameObject()
@@ -249,6 +250,17 @@ void CGameObject::AddObjectToScene(LPScene scene)
 {
 
 }
+
+bool CGameObject::CheckCollisionWithSolid()
+{
+	return isCheckWithCollision;
+}
+
+void CGameObject::SetCheckCollisionWithSolid(bool canCheck)
+{
+	isCheckWithCollision = canCheck;
+}
+
 
 LPAnimation CGameObject::GetAnimationByState(std::string state)
 {

@@ -137,6 +137,7 @@ void CFireMario::OnKeyDown(int KeyCode)
 
 			currentFireBall->Enable(true);
 			auto normal = physiscBody->GetNormal();
+			firePhyBody->SetBounceForce(FIRE_BALL_BOUNCE_FORCE);
 
 			auto posMario = transform.position + relativePositionOnScreen;
 			posMario.x += SUPER_MARIO_BBOX.x * 0.5f * normal.x;

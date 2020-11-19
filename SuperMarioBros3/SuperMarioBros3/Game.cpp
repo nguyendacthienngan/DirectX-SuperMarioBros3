@@ -11,7 +11,7 @@
 #include "tinyxml.h"
 #include <string>
 CGame* CGame::instance = NULL;
-float CGame::deltaTime = 0.0f;
+DWORD CGame::deltaTime = 0;
 float CGame::timeScale = 1.0f;
 
 CGame* CGame::GetInstance()
@@ -100,9 +100,8 @@ void CGame::Run()
 	MSG msg;
 	bool done = false;
 
-	float prevTime, currentTime = GetTickCount64();
-	float delta = 0;
-	float tickPerFrame = 1000.0f / fps;
+	DWORD frameStart = GetTickCount64();
+	DWORD tickPerFrame = 1000 / fps;
 
 	// Game Loop
 	while (!done)
@@ -119,13 +118,12 @@ void CGame::Run()
 		}
 		else
 		{
-			prevTime = currentTime; // framestart?
-			currentTime = GetTickCount64(); // now
-			delta += (currentTime - prevTime);
-			deltaTime = delta;
+			DWORD currentTime = GetTickCount64(); // now
+			deltaTime = currentTime - frameStart;
 
-			if (delta >= tickPerFrame) // chuyển frame mới
+			if (deltaTime >= tickPerFrame) // chuyển frame mới
 			{
+				frameStart = currentTime;
 				// Process key
 				auto keyboardManger = CKeyboardManager::GetInstance();
 				keyboardManger->ProcessKeyboard();
@@ -133,11 +131,11 @@ void CGame::Run()
 					continue;
 				Update();
 				Render();
-				if (delta > tickPerFrame) delta = 0.0f;
+				if (deltaTime > tickPerFrame) deltaTime = 0;
 			}
 			else // chưa tới tickperframe nên cho ngủ vì xong việc cho 1 frame ròi
 			{
-				Sleep(tickPerFrame - delta);
+				Sleep(tickPerFrame - deltaTime);
 			}
 		}
 		
