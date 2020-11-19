@@ -24,6 +24,8 @@ CFireBall::CFireBall()
 	physiscBody->SetDynamic(true);
 	physiscBody->SetGravity(FIRE_BALL_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
+
+	pool = NULL;
 }
 
 CFireBall::~CFireBall()
@@ -39,6 +41,12 @@ void CFireBall::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
 void CFireBall::Update(DWORD dt, CCamera* cam)
 {
 	CGameObject::Update(dt, cam);
+	if (transform.position.y > cam->GetBoundary().bottom)
+	{
+		this->Enable(false);
+		if (pool != NULL)
+			pool->Revoke(this);
+	}
 }
 
 void CFireBall::LoadAnimation()
@@ -60,8 +68,15 @@ void CFireBall::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Co
 				this->isEnabled = false;
 				auto scene = CSceneManager::GetInstance()->GetActiveScene();
 				scene->RemoveObject(this);
+				if (pool != NULL)
+					pool->Revoke(this);
 			}
 			
 		}
 	}
+}
+
+void CFireBall::LinkToPool(CObjectPool* pool)
+{
+	this->pool = pool;
 }

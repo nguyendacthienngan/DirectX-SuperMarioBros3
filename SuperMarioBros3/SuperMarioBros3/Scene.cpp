@@ -7,6 +7,8 @@
 #include "SceneConst.h"
 #include <string>
 #include "Koopa.h"
+#include "CVenus.h"
+#include "ObjectPool.h"
 using namespace std;
 
 CScene::CScene()
@@ -44,8 +46,8 @@ void CScene::Load()
 			string sourceMap = scene->Attribute("source");
 			string fileMap = scene->Attribute("fileName");
 			this->map = new CMap(sourceMap, fileMap); // Ham nay tu load map
-			auto mapSolidBoxs = map->GetListGameObjects();
-			for (auto obj : mapSolidBoxs)
+			auto mapObjs = map->GetListGameObjects();
+			for (auto obj : mapObjs)
 			{
 				if (obj->GetTag() == GameObjectTags::Enemy)
 				{
@@ -53,6 +55,12 @@ void CScene::Load()
 					if (player != NULL)
 					{
 						enemy->SetTarget(player);
+					}
+					if (enemy->GetEnemyTag() == EnemyTag::Venus)
+					{
+						DebugOut(L"Add fireballs to scene \n");
+						auto venus = static_cast<CVenus*>(enemy);
+						venus->GetObjectPool().AddPoolToScene(this);
 					}
 				}
 				AddObject(obj);
@@ -119,18 +127,15 @@ void CScene::Unload()
 void CScene::Update(DWORD dt)
 {
 	if (gameObjects.size() == 0) return;
-//	DebugOut(L"---------------------(1)---------------- \n");
 	for (auto obj : gameObjects)
 	{
-		if (obj->IsEnabled() == false) continue;
+		//DebugOut(L"Update obj ");
 		/*if (obj->GetTag() != GameObjectTags::PlayerController)
-			OutputDebugString(ToLPCWSTR("Name Object" + obj->GetCollisionBox()->at(0)->GetName() + "\n"));*/
-		//DebugOut(L"GAME OBJECTS SIZE: %d \n", gameObjects.size());
+			OutputDebugString(ToLPCWSTR(obj->GetCollisionBox()->at(0)->GetName() + "\n"));*/
+		if (obj->IsEnabled() == false) continue;
 		obj->Update(dt, camera);
 		obj->PhysicsUpdate(&gameObjects); 
 	}
-//	DebugOut(L"---------------------(2)---------------- \n");
-
 	if (camera != NULL)
 		map->Update(camera, dt);
 }

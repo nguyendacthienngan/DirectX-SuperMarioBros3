@@ -287,6 +287,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					else if (enemyName.compare("venus") == 0)
 					{
 						CVenus* venus = new CVenus();
+						OutputDebugString(ToLPCWSTR(venus->GetCollisionBox()->at(0)->GetName() + "\n"));
 						venus->SetPosition(position - translateVenusConst);
 						venus->SetStartPosition(position - translateVenusConst);
 						listGameObjects.push_back(venus);
