@@ -58,7 +58,6 @@ void CScene::Load()
 					}
 					if (enemy->GetEnemyTag() == EnemyTag::Venus)
 					{
-						DebugOut(L"Add fireballs to scene \n");
 						auto venus = static_cast<CVenus*>(enemy);
 						venus->GetObjectPool().AddPoolToScene(this);
 					}

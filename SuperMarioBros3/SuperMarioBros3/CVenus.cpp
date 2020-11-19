@@ -68,8 +68,6 @@ void CVenus::Update(DWORD dt, CCamera* cam)
 			if (currentFireBall != NULL)
 			{
 				currentFireBall->SetPosition(transform.position);
-				//currentFireBall->Enable(true);
-
 				auto firePhyBody = currentFireBall->GetPhysiscBody();
 				firePhyBody->SetGravity(0.0f);
 
