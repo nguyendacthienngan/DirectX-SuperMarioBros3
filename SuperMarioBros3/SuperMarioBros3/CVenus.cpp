@@ -14,7 +14,7 @@ CVenus::CVenus()
 void CVenus::Init()
 {
 	isEnabled = true;
-	SetState(VENUS_STATE_STAND);
+	//SetState(VENUS_STATE_HEAD_DOWN);
 
 	enemyTag = EnemyTag::Venus;
 
@@ -47,7 +47,8 @@ void CVenus::Init()
 void CVenus::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(VENUS_STATE_STAND, animationManager->Clone("ani-red-venus-fire-trap-stand"));
+	AddAnimation(VENUS_STATE_HEAD_UP, animationManager->Clone("ani-red-venus-fire-trap-headup"));
+	AddAnimation(VENUS_STATE_HEAD_DOWN, animationManager->Clone("ani-red-venus-fire-trap-headdown"));
 }
 
 void CVenus::Update(DWORD dt, CCamera* cam)
@@ -56,7 +57,10 @@ void CVenus::Update(DWORD dt, CCamera* cam)
 	// Nếu đang freeze thì quăng lửa
 	auto normal = physiscBody->GetNormal();
 	if (target != NULL)
+	{
 		normal.x = (target->GetPosition().x < this->transform.position.x) ? -1 : 1;
+		normal.y = (target->GetPosition().y < this->transform.position.y) ? -1 : 1;
+	}
 	physiscBody->SetNormal(normal);
 	if (isIdle == true)
 	{
@@ -78,7 +82,7 @@ void CVenus::Update(DWORD dt, CCamera* cam)
 				vectorShootFireBall.x = cos(SHOOT_FIRE_BALL_ANGLE);
 				vectorShootFireBall.y = sin(SHOOT_FIRE_BALL_ANGLE);
 
-				firePhyBody->SetVelocity(D3DXVECTOR2(FIRE_BALL_SPEED * normal.x * vectorShootFireBall.x, FIRE_BALL_SPEED * vectorShootFireBall.y));
+				firePhyBody->SetVelocity(D3DXVECTOR2(FIRE_BALL_SPEED * normal.x * vectorShootFireBall.x, FIRE_BALL_SPEED * vectorShootFireBall.y * normal.y));
 			}
 		}
 	}
@@ -90,6 +94,11 @@ void CVenus::Render(CCamera* cam, int alpha)
 {
 	auto normal = physiscBody->GetNormal();
 	SetScale(D3DXVECTOR2(-normal.x, 1.0f));
+	if (normal.y == 1)
+		SetState(VENUS_STATE_HEAD_DOWN);
+	else 
+		SetState(VENUS_STATE_HEAD_UP);
+
 	CGameObject::Render(cam, alpha);
 }
 
