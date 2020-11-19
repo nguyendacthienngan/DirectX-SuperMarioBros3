@@ -404,17 +404,6 @@
   <object id="40" x="3841.47" y="1056.44" width="334.813" height="48.1928"/>
   <object id="41" x="3936.59" y="960.051" width="333.545" height="46.9245"/>
  </objectgroup>
- <objectgroup id="15" name="Enemy">
-  <object id="42" name="goomba" type="basic" x="1225.33" y="1202.67"/>
-  <object id="55" name="goomba" type="basic" x="1510" y="1189.33"/>
-  <object id="90" name="para-koopa" type="basic" x="248" y="1141.33"/>
-  <object id="91" name="koopa" type="red" x="1641.33" y="1034.66"/>
-  <object id="93" name="koopa" type="green" x="1309.33" y="1200.67"/>
-  <object id="95" name="piranha" type="basic" x="5375" y="1211.53"/>
-  <object id="96" name="venus" type="basic" x="5568" y="1180.64"/>
-  <object id="98" name="venus" type="basic" x="1103.82" y="1180.64"/>
-  <object id="102" name="venus" type="basic" x="670" y="1180.64"/>
- </objectgroup>
  <objectgroup id="18" name="QuestionBlocks">
   <object id="47" name="bcoin" type="3" x="552" y="1080"/>
   <object id="49" name="smushroom" type="1" x="600" y="1080"/>
@@ -478,5 +467,16 @@
   <object id="88" x="6071.67" y="1126">
    <point/>
   </object>
+ </objectgroup>
+ <objectgroup id="15" name="Enemy">
+  <object id="42" name="goomba" type="basic" x="1225.33" y="1202.67"/>
+  <object id="55" name="goomba" type="basic" x="1510" y="1189.33"/>
+  <object id="90" name="para-koopa" type="basic" x="248" y="1141.33"/>
+  <object id="91" name="koopa" type="red" x="1641.33" y="1034.66"/>
+  <object id="93" name="koopa" type="green" x="1309.33" y="1200.67"/>
+  <object id="95" name="piranha" type="basic" x="5375" y="1211.53"/>
+  <object id="96" name="venus" type="basic" x="5568" y="1180.64"/>
+  <object id="98" name="venus" type="basic" x="1103.82" y="1180.64"/>
+  <object id="102" name="venus" type="basic" x="670" y="1180.64"/>
  </objectgroup>
 </map>
