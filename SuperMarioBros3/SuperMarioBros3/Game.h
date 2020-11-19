@@ -22,7 +22,7 @@ private:
 
 	static CGame* instance;
 	static float timeScale;
-	static float deltaTime;
+	static DWORD deltaTime;
 
 	HWND hWnd; // Window Handle
 
@@ -66,7 +66,7 @@ public:
 	static void SetTimeScale(float time) { timeScale = time; }
 
 	float GetFixedDeltaTime() { return 20; }
-	float GetDeltaTime() { return deltaTime;  }
+	DWORD GetDeltaTime() { return deltaTime;  }
 
 	bool ImportGameSource();
 	std::string GetFilePathByCategory(std::string category, std::string id);
