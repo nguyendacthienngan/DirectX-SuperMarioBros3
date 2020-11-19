@@ -54,14 +54,13 @@ void CVenus::Update(DWORD dt, CCamera* cam)
 {
 	CPlant::Update(dt, cam);
 	// Nếu đang freeze thì quăng lửa
+	auto normal = physiscBody->GetNormal();
+	if (target != NULL)
+		normal.x = (target->GetPosition().x < this->transform.position.x) ? -1 : 1;
+	physiscBody->SetNormal(normal);
 	if (isIdle == true)
 	{
 		countFireBalls++;
-		auto normal = physiscBody->GetNormal();
-		if (target != NULL)
-			normal.x = (target->GetPosition() < this->transform.position) ? -1 : 1;
-		physiscBody->SetNormal(normal);
-
 		if (countFireBalls == 1) 
 		{
 			auto currentFireBall = fireBalls.Init();
