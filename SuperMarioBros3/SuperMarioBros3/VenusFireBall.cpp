@@ -6,7 +6,7 @@
 
 CVenusFireBall::CVenusFireBall()
 {
-	this->SetTag(GameObjectTags::Misc);
+	this->SetTag(GameObjectTags::VenusFireBall);
 
 	LoadAnimation();
 	SetState(FIRE_BALL_ANIMATION);

@@ -85,73 +85,11 @@ void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<
 {
 	CEnemy::OnCollisionEnter(selfCollisionBox, collisionEvents);
 
-	for (auto collisionEvent : collisionEvents)
-	{
-		auto collisionBox = collisionEvent->obj;
-		auto normal = physiscBody->GetNormal();
-
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
-		{
-			if (collisionEvent->nx != 0)
-			{
-				normal.x = -normal.x;
-			}
-		}
-		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && collisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
-		{
-			// Nếu mai rùa bị đạn bắn là nó lật lại (-1) r bị văng đi khỏi ground lun : HEADSHOT
-			if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
-			{
-				isHeadShotByFireBall = true;
-				normal.x = collisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal().x;
-				CKoopaShell::OnDie();
-			}
-		}
-		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
-		{
-			if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
-			{
-				if (isRun == true || IsHolding() == true)
-				{
-					auto enemyObj = static_cast<CEnemy*>(collisionBox->GetGameObjectAttach());
-					enemyObj->OnDie();
-				}
-				
-			}
-		}
-		physiscBody->SetNormal(normal);
-
-	}
 }
 
 void CKoopaShell::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
 {
 	CEnemy::OnOverlappedEnter(selfCollisionBox, otherCollisionBox);
-	auto normal = physiscBody->GetNormal();
-
-	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
-	{
-		// Chỉ khi bị đuôi quật nó mới set lại -1 r văng đi (chưa văng khỏi ground)
-		// cần xử lý lại việc chết cho hợp lý
-		isHeadShot = true;
-		normal.x = -otherCollisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal().x;
-		CKoopaShell::OnDie();
-	}
-	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && otherCollisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
-	{
-		isHeadShotByFireBall = true;
-		CKoopaShell::OnDie();
-	}
-	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
-	{
-		if (isRun == true || IsHolding() == true)
-		{
-			auto enemyObj = static_cast<CEnemy*>(otherCollisionBox->GetGameObjectAttach());
-			enemyObj->OnDie();
-		}
-	}
-	physiscBody->SetNormal(normal);
-
 }
 
 void CKoopaShell::OnDie()
@@ -186,6 +124,33 @@ void CKoopaShell::OnDie()
 	else
 		physiscBody->SetGravity(0.0f);
 
+}
+
+void CKoopaShell::CollisionWithRaccoonTail(CGameObject* gO)
+{
+	isHeadShot = true;
+	auto normal = physiscBody->GetNormal();
+	normal.x = -gO->GetPhysiscBody()->GetNormal().x;
+	physiscBody->SetNormal(normal);
+	CKoopaShell::OnDie();
+}
+
+void CKoopaShell::CollisionWithFireBall()
+{
+	isHeadShotByFireBall = true;
+	CKoopaShell::OnDie();
+}
+
+void CKoopaShell::CollisionWithOtherEnemy(CollisionEvent* cE, CCollisionBox* cO)
+{
+	if (cE->nx != 0 || cE->ny != 0)
+	{
+		if (isRun == true || IsHolding() == true)
+		{
+			auto enemyObj = static_cast<CEnemy*>(cO->GetGameObjectAttach());
+			enemyObj->OnDie();
+		}
+	}
 }
 
 void CKoopaShell::SetKoopa(CKoopa* koopa)

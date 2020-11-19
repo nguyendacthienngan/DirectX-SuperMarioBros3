@@ -1,7 +1,6 @@
 ﻿#include "Koopa.h"
 #include "AnimationManager.h"
 #include "Ultis.h"
-#include "KoopaConst.h"
 #include "MiscConst.h"
 
 CKoopa::CKoopa()
@@ -50,62 +49,11 @@ void CKoopa::Render(CCamera* cam, int alpha)
 void CKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
 {
 	CEnemy::OnCollisionEnter(selfCollisionBox, collisionEvents);
-
-	for (auto collisionEvent : collisionEvents)
-	{
-		auto collisionBox = collisionEvent->obj;
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
-		{
-			if (collisionEvent->nx != 0)
-			{
-				auto normal = physiscBody->GetNormal();
-				normal.x = -normal.x;
-				physiscBody->SetNormal(normal);
-			}
-		}
-		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && collisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
-		{
-			if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
-			{
-				ChangeToShell();
-				auto normalPlayer = collisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal();
-				auto normalKS = koopaShell->GetPhysiscBody()->GetNormal();
-				normalKS.x = normalPlayer.x;
-				koopaShell->GetPhysiscBody()->SetNormal(normalKS);
-				koopaShell->SetIsHeadShotByFireball(true);
-				koopaShell->OnDie();
-			}
-		}
-	}
 }
 
 void CKoopa::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
 {
 	CEnemy::OnOverlappedEnter(selfCollisionBox, otherCollisionBox);
-
-	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
-	{
-		// Chỉ khi bị đuôi quật nó mới set lại -1 r văng đi (chưa văng khỏi ground)
-		// cần xử lý lại việc chết cho hợp lý
-		ChangeToShell();
-		auto normalPlayer = otherCollisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal();
-		auto normalKS = koopaShell->GetPhysiscBody()->GetNormal();
-		normalKS.x = normalPlayer.x;
-		koopaShell->GetPhysiscBody()->SetNormal(normalKS);
-		koopaShell->SetIsHeadShot(true);
-		koopaShell->OnDie();
-	}
-	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && otherCollisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
-	{
-		// Khi đụng trúng quái fireball có biến mất k?
-		ChangeToShell();
-		auto normalPlayer = otherCollisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal();
-		auto normalKS = koopaShell->GetPhysiscBody()->GetNormal();
-		normalKS.x = normalPlayer.x;
-		koopaShell->GetPhysiscBody()->SetNormal(normalKS);
-		koopaShell->SetIsHeadShotByFireball(true);
-		koopaShell->OnDie();
-	}
 }
 
 void CKoopa::ChangeToShell()
@@ -122,24 +70,20 @@ void CKoopa::ChangeToShell()
 
 void CKoopa::OnDie()
 {
-
+	
 }
 
-void CKoopa::SetBoundary(float boundLeft, float boundRight)
+void CKoopa::OnDamaged(CGameObject* otherGO)
 {
-	boundaryLeft = boundLeft;
-	boundaryRight = boundRight;
+	ChangeToShell();
+	auto normalPlayer = otherGO->GetPhysiscBody()->GetNormal();
+	auto normalKS = koopaShell->GetPhysiscBody()->GetNormal();
+	normalKS.x = normalPlayer.x;
+	koopaShell->GetPhysiscBody()->SetNormal(normalKS);
+	koopaShell->SetIsHeadShotByFireball(true);
+	koopaShell->OnDie();
 }
 
-float CKoopa::GetBoundaryLeft()
-{
-	return 0.0f;
-}
-
-float CKoopa::GetBoundaryRight()
-{
-	return 0.0f;
-}
 
 void CKoopa::ChangeBackToKoopa()
 {
@@ -162,5 +106,10 @@ void CKoopa::SetKoopaShell(CKoopaShell* koopaShell)
 CKoopaShell* CKoopa::GetKoopaShell()
 {
 	return koopaShell;
+}
+
+KoopaType CKoopa::GetKoopaType()
+{
+	return koopaType;
 }
 

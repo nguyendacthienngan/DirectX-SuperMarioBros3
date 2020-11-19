@@ -613,7 +613,7 @@ void CMario::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 	//	// Nếu overlap thì không xét hướng được, chỉ khi theo chiều ngang hoặc quái trên đầu mario mario mới bị damage thôi
 	//	OnDamaged();
 	//}
-	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
+	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::VenusFireBall)
 	{
 		OnDamaged();
 		otherCollisionBox->GetGameObjectAttach()->Enable(false);

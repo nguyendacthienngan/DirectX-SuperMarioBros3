@@ -10,7 +10,8 @@ enum class GameObjectTags
 	GhostPlatform,
 	Enemy,
 
-	Misc,
+	MarioFireBall,
+	VenusFireBall,
 	QuestionBlock,
 	Coin,
 	Brick,

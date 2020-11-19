@@ -18,5 +18,7 @@ public:
 	CGreenKoopa* GetKoopa();
 	void SetKoopa(CGreenKoopa* koopa);
 	bool IsOnGround();
+	void OnDamaged(CGameObject* otherGO) override;
+
 };
 

@@ -1,5 +1,6 @@
 ﻿#include "Plant.h"
 #include "PiranhaConst.h"
+#include "SceneManager.h"
 
 CPlant::CPlant()
 {
@@ -56,4 +57,16 @@ void CPlant::Update(DWORD dt, CCamera* cam)
 		physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 		return;
 	}
+}
+
+void CPlant::OnDie()
+{
+	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	activeScene->AddObject(hitFX);
+	hitFX->SetStartPosition(this->transform.position);
+	hitFX->SetStartHitTime(GetTickCount64());
+	hitFX->Enable(true);
+	this->isEnabled = false;
+	this->physiscBody->SetDynamic(false);
+	this->collisionBoxs->at(0)->SetEnable(false);
 }

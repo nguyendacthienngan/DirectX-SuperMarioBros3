@@ -87,43 +87,11 @@ void CGoomba::Render(CCamera* cam, int alpha)
 void CGoomba::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
 {
 	CEnemy::OnCollisionEnter(selfCollisionBox, collisionEvents);
-	for (auto collisionEvent : collisionEvents)
-	{
-		auto collisionBox = collisionEvent->obj;
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
-		{
-			if (collisionEvent->nx != 0)
-			{
-				auto normal = physiscBody->GetNormal();
-				normal.x = -normal.x;
-				physiscBody->SetNormal(normal);
-			}
-		}
-		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && collisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
-		{
-			if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
-			{
-				isHeadShot = true;
-				CGoomba::OnDie();
-			}
-		}
-	}
 }
 
 void CGoomba::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
 {
 	CEnemy::OnOverlappedEnter(selfCollisionBox, otherCollisionBox);
-	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
-	{
-		isHeadShot = true;
-		CGoomba::OnDie();
-
-	}
-	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && otherCollisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
-	{
-		isHeadShot = true;
-		CGoomba::OnDie();
-	}
 }
 
 void CGoomba::OnDie()

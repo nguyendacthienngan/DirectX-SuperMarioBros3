@@ -1,4 +1,4 @@
-#include "ParaKoopa.h"
+﻿#include "ParaKoopa.h"
 #include "AnimationManager.h"
 #include "ParaKoopaConst.h"
 #include "MiscConst.h"
@@ -12,7 +12,7 @@ CParaKoopa::CParaKoopa()
 void CParaKoopa::Init()
 {
 	SetState(PARAKOOPA_STATE_FLY);
-	isEnabled = false;
+	isEnabled = true;
 	enemyTag = EnemyTag::ParaKoopa;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
@@ -50,10 +50,10 @@ void CParaKoopa::Update(DWORD dt, CCamera* cam)
 	
 	if (isJump == false && IsOnGround() == true)
 	{
-		if (abs(jumpStartPosition) - abs(transform.position.y) <= KOOPA_HEIGHT)
+		if (abs(jumpStartPosition) - abs(transform.position.y) <= PARA_KOOPA_HEIGHT)
 		{
 			jumpStartPosition = transform.position.y;
-			velocity.y = -KOOPA_FORCE_Y;
+			velocity.y = -PARA_KOOPA_FORCE_Y;
 			isJump = true;
 		}
 	}
@@ -62,9 +62,9 @@ void CParaKoopa::Update(DWORD dt, CCamera* cam)
 	{
 		isOnGround = false;
 
-		if (abs(jumpStartPosition) - abs(transform.position.y) > KOOPA_HEIGHT)
+		if (abs(jumpStartPosition) - abs(transform.position.y) > PARA_KOOPA_HEIGHT)
 		{
-			velocity.y = KOOPA_FORCE_Y / 2;
+			velocity.y = PARA_KOOPA_FORCE_Y / 2;
 		}
 		if (velocity.y > 0)
 		{
@@ -77,39 +77,10 @@ void CParaKoopa::Update(DWORD dt, CCamera* cam)
 void CParaKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
 {
 	CEnemy::OnCollisionEnter(selfCollisionBox, collisionEvents);
-
-	for (auto collisionEvent : collisionEvents)
-	{
-		auto collisionBox = collisionEvent->obj;
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
-		{
-			if (collisionEvent->nx != 0)
-			{
-				auto normal = physiscBody->GetNormal();
-				normal.x = -normal.x;
-				physiscBody->SetNormal(normal);
-			}
-		}
-		
-		//else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && collisionBox->GetName().compare(FIRE_BALL_NAME) == 0)
-		//{
-		//	if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
-		//	{
-		//		/*ChangeToShell();
-		//		auto normalPlayer = collisionBox->GetGameObjectAttach()->GetPhysiscBody()->GetNormal();
-		//		auto normalKS = koopaShell->GetPhysiscBody()->GetNormal();
-		//		normalKS.x = normalPlayer.x;
-		//		koopaShell->GetPhysiscBody()->SetNormal(normalKS);
-		//		koopaShell->SetIsHeadShotByFireball(true);
-		//		koopaShell->OnDie();*/
-		//	}
-		//}
-	}
 }
 
 void CParaKoopa::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
 {
-	
 }
 
 void CParaKoopa::ChangeToKoopa()
@@ -138,4 +109,13 @@ void CParaKoopa::SetKoopa(CGreenKoopa* koopa)
 bool CParaKoopa::IsOnGround()
 {
 	return isOnGround;
+}
+
+void CParaKoopa::OnDamaged(CGameObject* otherGO)
+{
+	this->isEnabled = false;
+	this->physiscBody->SetDynamic(false);
+	this->collisionBoxs->at(0)->SetEnable(false);
+	koopa->SetPosition(transform.position);
+	koopa->OnDamaged(otherGO);
 }

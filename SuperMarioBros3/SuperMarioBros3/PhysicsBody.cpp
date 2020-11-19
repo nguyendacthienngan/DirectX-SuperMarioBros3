@@ -283,21 +283,24 @@ void CPhysicsBody::CalcPotentialCollisions(
 			continue;
 
 		// Lửa không xét với Mario, và không xét với chính nó
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Player && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc )
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Player && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::MarioFireBall)
 			continue;
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player && cO->GetGameObjectAttach()->CheckCollisionWithSolid() == true)
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::MarioFireBall && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player && cO->GetGameObjectAttach()->CheckCollisionWithSolid() == true)
 			continue;
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::MarioFireBall && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::MarioFireBall)
+			continue;
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::MarioFireBall && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::VenusFireBall)
 			continue;
 		// Lửa khi từ miệng Venus thì k xét va chạm với bất cứ thứ gì trừ mario
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc && cO->GetGameObjectAttach()->CheckCollisionWithSolid() == false)
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::VenusFireBall)
 		{
 			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::GhostPlatform || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock)
 				continue;
-			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
+			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::VenusFireBall || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
+				continue;
+			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::MarioFireBall)
 				continue;
 		}
-
 
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
 		{

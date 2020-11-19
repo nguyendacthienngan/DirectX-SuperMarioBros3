@@ -1,6 +1,7 @@
 #pragma once
 #include "Enemy.h"
 #include "KoopaShell.h"
+#include "KoopaConst.h"
 
 class CKoopaShell;
 
@@ -8,7 +9,7 @@ class CKoopa: public CEnemy
 {
 protected:
 	CKoopaShell* koopaShell;
-	float boundaryLeft, boundaryRight;
+	KoopaType koopaType;
 public:
 	CKoopa();
 	void Init();
@@ -20,13 +21,12 @@ public:
 	void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox) override;
 	void ChangeToShell();
 	void OnDie() override;
-	void SetBoundary(float boundLeft, float boundRight);
-	float GetBoundaryLeft();
-	float GetBoundaryRight();
+	void OnDamaged(CGameObject* otherGO) override;
 	
 	void ChangeBackToKoopa();
 
 	void SetKoopaShell(CKoopaShell* koopaShell);
 	CKoopaShell* GetKoopaShell();
+	KoopaType GetKoopaType();
 };
 

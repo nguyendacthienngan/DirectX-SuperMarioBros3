@@ -21,3 +21,9 @@ const int SHAKING_AMPLITUDE = 5;
 
 const D3DXVECTOR2 KOOPA_BBOX(16 * 3, 27 * 3);
 const D3DXVECTOR2 KOOPA_SHELL_BBOX(16 * 3, 16 * 3);
+
+enum class KoopaType
+{
+	Red,
+	Green
+};

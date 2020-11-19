@@ -6,7 +6,7 @@
 
 CMarioFireBall::CMarioFireBall()
 {
-	this->SetTag(GameObjectTags::Misc);
+	this->SetTag(GameObjectTags::MarioFireBall);
 
 	LoadAnimation();
 	SetState(FIRE_BALL_ANIMATION);

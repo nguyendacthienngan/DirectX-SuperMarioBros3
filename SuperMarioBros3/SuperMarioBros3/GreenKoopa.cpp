@@ -7,6 +7,7 @@ CGreenKoopa::CGreenKoopa()
 	CGreenKoopa::LoadAnimation();
 	Init();
 	isEnabled = false;
+	koopaType = KoopaType::Green;
 }
 
 void CGreenKoopa::LoadAnimation()

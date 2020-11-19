@@ -111,7 +111,7 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 				}
 			}
 		}
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Misc)
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::VenusFireBall)
 		{
 			mario->OnDamaged();
 			collisionBox->GetGameObjectAttach()->Enable(false);

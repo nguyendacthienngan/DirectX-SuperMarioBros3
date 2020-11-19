@@ -33,6 +33,10 @@ public:
 	void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents) override;
 	void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox) override;
 	void OnDie();
+	void CollisionWithRaccoonTail(CGameObject* gO);
+	void CollisionWithFireBall();
+	void CollisionWithOtherEnemy(CollisionEvent* cE, CCollisionBox* cO);
+
 	void SetKoopa(CKoopa* koopa);
 	CKoopa* GetKoopa();
 

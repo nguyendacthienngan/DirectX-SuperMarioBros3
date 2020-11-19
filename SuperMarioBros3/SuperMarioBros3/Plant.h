@@ -11,5 +11,6 @@ protected:
 public:
 	CPlant();
 	void Update(DWORD dt, CCamera* cam) override;
+	void OnDie() override;
 };
 

@@ -1,5 +1,8 @@
 ﻿#include "Enemy.h"
 #include "Ultis.h"
+#include "Koopa.h"
+#include "ParaKoopa.h"
+#include "KoopaConst.h"
 
 CEnemy::CEnemy()
 {
@@ -53,6 +56,38 @@ void CEnemy::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 			{
 				isOnGround = true;
 			}
+			if (collisionEvent->nx != 0)
+			{
+				auto normal = physiscBody->GetNormal();
+				normal.x = -normal.x;
+				physiscBody->SetNormal(normal);
+			}
+			if (this->enemyTag == EnemyTag::Koopa)
+			{
+				auto koopa = static_cast<CKoopa*>(this);
+				if (koopa->GetKoopaType() == KoopaType::Red)
+				{
+					if (collisionEvent->ny >= 0 || collisionEvent->nx != 0)
+						continue;
+					auto otherBBox = collisionBox->GetBoundingBox();
+					auto normal = physiscBody->GetNormal();
+					auto velocity = physiscBody->GetVelocity();
+					if (transform.position.x > otherBBox.right)
+					{
+						normal.x = -1;
+						velocity.x = -velocity.x;
+						transform.position.x = otherBBox.right - 1;
+					}
+					if (transform.position.x < otherBBox.left)
+					{
+						transform.position.x = otherBBox.left + 1;
+						normal.x = 1;
+						velocity.x = -velocity.x;
+					}
+					physiscBody->SetNormal(normal);
+					physiscBody->SetVelocity(velocity);
+				}
+			}
 		}
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
 		{
@@ -76,12 +111,76 @@ void CEnemy::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 					physiscBody->SetVelocity(velocity);
 				}
 			}
-			
+			if (enemyTag == EnemyTag::KoopaShell)
+			{
+				auto koopaShell = static_cast<CKoopaShell*>(this);
+				koopaShell->CollisionWithOtherEnemy(collisionEvent, collisionBox);
+			}
+		}
+		else if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::MarioFireBall)
+		{
+			if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
+			{
+				isHeadShot = true;
+				if (enemyTag == EnemyTag::Koopa || enemyTag == EnemyTag::ParaKoopa)
+				{
+					this->OnDamaged(collisionBox->GetGameObjectAttach());
+				}
+				else if (enemyTag == EnemyTag::KoopaShell)
+				{
+					auto koopaShell = static_cast<CKoopaShell*>(this);
+					koopaShell->CollisionWithFireBall();
+				}
+				else
+				{
+					OnDie();
+				}
+			}
 		}
 	}
 }
 
 void CEnemy::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
+{
+	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
+	{
+		isHeadShot = true;
+		if (enemyTag == EnemyTag::Koopa)
+		{
+			auto koopa = static_cast<CKoopa*>(this);
+			koopa->OnDamaged(otherCollisionBox->GetGameObjectAttach());
+		}
+		else if (enemyTag == EnemyTag::KoopaShell)
+		{
+			auto koopaShell = static_cast<CKoopaShell*>(this);
+			koopaShell->CollisionWithRaccoonTail(otherCollisionBox->GetGameObjectAttach());
+		}
+		else
+		{
+			OnDie();
+		}
+	}
+	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::MarioFireBall)
+	{
+		isHeadShot = true;
+
+		if (enemyTag == EnemyTag::Koopa || enemyTag == EnemyTag::ParaKoopa)
+		{
+			this->OnDamaged(otherCollisionBox->GetGameObjectAttach());
+		}
+		else if (enemyTag == EnemyTag::KoopaShell)
+		{
+			auto koopaShell = static_cast<CKoopaShell*>(this);
+			koopaShell->CollisionWithFireBall();
+		}
+		else
+		{
+			OnDie();
+		}
+	}
+}
+
+void CEnemy::OnDamaged(CGameObject* otherGO)
 {
 }
 
