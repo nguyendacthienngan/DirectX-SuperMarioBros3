@@ -48,7 +48,6 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 	coEvents.clear();
 
 	CalcPotentialCollisions(cO, coObjects, coEvents);
-
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
@@ -71,16 +70,18 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 		{
 			pos.x += min_tx * distance.x + nx *0.4f; 
 			pos.y += min_ty * distance.y + ny *0.4f;
-
-			cO->CollisionHandle(dt, coEvents, this, velocity, min_tx, min_ty, nx, ny);
+			//cO->CollisionHandle(dt, coEvents, this, velocity, min_tx, min_ty, nx, ny);
 		}
-		
+		cO->CollisionHandle(dt, coEvents, this, velocity, min_tx, min_ty, nx, ny);
+
 		if (nx != 0 || ny != 0)
 		{
-			if (isTrigger == true)
+			gameObject->OnCollisionEnter(cO, coEventsResult);
+
+			/*if (isTrigger == true)
 				gameObject->OnTriggerEnter(cO, coEventsResult);
 			else
-				gameObject->OnCollisionEnter(cO, coEventsResult);
+				gameObject->OnCollisionEnter(cO, coEventsResult);*/
 		}
 		gameObject->SetPosition(pos);
 	}
@@ -300,7 +301,14 @@ void CPhysicsBody::CalcPotentialCollisions(
 		{
 			coEvents.push_back(e);
 			std::string name = coObjects->at(i)->GetName();
-			
+			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
+			{
+				SetTrigger(true);
+			}
+			else
+			{
+				SetTrigger(false);
+			}
 			//OutputDebugString(ToLPCWSTR("Hit Name: " + name + "\n"));
 		}
 		else
@@ -345,7 +353,6 @@ void CPhysicsBody::FilterCollision(
 		}
 	}
 
-	// Cách cũ của thầy: Chưa xét ghost platform (Xét 4 hướng)
 	if (min_ix >= 0) coEventsResult.push_back(coEvents[min_ix]);
 	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);
 
