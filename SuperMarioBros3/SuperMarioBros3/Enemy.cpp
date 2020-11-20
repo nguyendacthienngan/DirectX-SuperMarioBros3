@@ -145,10 +145,9 @@ void CEnemy::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
 	{
 		isHeadShot = true;
-		if (enemyTag == EnemyTag::Koopa)
+		if (enemyTag == EnemyTag::Koopa || enemyTag == EnemyTag::ParaKoopa)
 		{
-			auto koopa = static_cast<CKoopa*>(this);
-			koopa->OnDamaged(otherCollisionBox->GetGameObjectAttach());
+			this->OnDamaged(otherCollisionBox->GetGameObjectAttach());
 		}
 		else if (enemyTag == EnemyTag::KoopaShell)
 		{

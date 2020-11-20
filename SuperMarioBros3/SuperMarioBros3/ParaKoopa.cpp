@@ -16,10 +16,11 @@ void CParaKoopa::Init()
 	enemyTag = EnemyTag::ParaKoopa;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
-	collisionBox->SetSizeBox(KOOPA_BBOX);
+	collisionBox->SetSizeBox(KOOPA_SHELL_BBOX);
 	collisionBox->SetGameObjectAttach(this);
 	collisionBox->SetName("Para-Koopa");
 	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
+	collisionBox->SetPosition(D3DXVECTOR2(0.0f, KOOPA_SHELL_BBOX.y /2 - DISTANCE_BETWEEN_PARA_KOOPA_PIVOT_AND_KOOPA_SHELL_PIVOT));
 	this->collisionBoxs->push_back(collisionBox);
 
 	physiscBody->SetDynamic(true);
@@ -81,6 +82,7 @@ void CParaKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<C
 
 void CParaKoopa::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
 {
+	CEnemy::OnOverlappedEnter(selfCollisionBox, otherCollisionBox);
 }
 
 void CParaKoopa::ChangeToKoopa()
