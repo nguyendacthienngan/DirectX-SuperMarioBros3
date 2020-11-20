@@ -282,72 +282,9 @@ void CPhysicsBody::CalcPotentialCollisions(
 		if (coObjects->at(i) == cO)
 			continue;
 
-		// Lửa không xét với Mario, và không xét với chính nó
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Player && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::MarioFireBall)
+		if (cO->GetGameObjectAttach()->CanCollisionWithThisObject(coObjects->at(i)->GetGameObjectAttach(), coObjects->at(i)->GetGameObjectAttach()->GetTag())
+			== false)
 			continue;
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::MarioFireBall && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player && cO->GetGameObjectAttach()->CheckCollisionWithSolid() == true)
-			continue;
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::MarioFireBall && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::MarioFireBall)
-			continue;
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::MarioFireBall && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::VenusFireBall)
-			continue;
-		// Lửa khi từ miệng Venus thì k xét va chạm với bất cứ thứ gì trừ mario
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::VenusFireBall)
-		{
-			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::GhostPlatform || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock)
-				continue;
-			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::VenusFireBall || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
-				continue;
-			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::MarioFireBall)
-				continue;
-		}
-
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
-		{
-			// Quái k xét với cục lửa của Venus
-			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::VenusFireBall)
-				continue;
-				// Quái cùng loại gặp nhau sẽ đẩy ra, quái khác loại thì đi qua nhau (trừ mai rùa)
-
-			auto selfObject = cO->GetGameObjectAttach();
-			CEnemy* selfEnemyObject = static_cast<CEnemy*>(selfObject);
-
-			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
-			{
-				auto otherObject = coObjects->at(i)->GetGameObjectAttach();
-				CEnemy* otherEnemyObject = static_cast<CEnemy*>(otherObject);
-				if ((selfEnemyObject->GetEnemyTag() != otherEnemyObject->GetEnemyTag())
-					&& selfEnemyObject->GetEnemyTag() != EnemyTag::KoopaShell && otherEnemyObject->GetEnemyTag() != EnemyTag::KoopaShell)
-					continue;
-			}
-			// Piranha sẽ không xử lý va chạm với solid
-			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::GhostPlatform || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock)
-			{
-				if (selfEnemyObject->GetEnemyTag() == EnemyTag::Piranha)
-					continue;
-			}
-		}
-
-		// Enemy sẽ không xét va chạm với Mario mà Mario tự xét => Ngăn việc Mario nhảy lên quái làm Quái bị vy tăng đột ngột => Off the cliff
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy && coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
-			continue;
-
-		// Các loại liên quan tới gift như coin, superleaf, supermushroom,. chỉ có xử lý va chạm với mario thui. K ai xử lý va chạm với nó hết
-		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Gift || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::SuperMushroom)
-			continue;
-
-		// Riêng mushroom có xử lý va chạm với solid, ghost platform, questionblock
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::SuperMushroom && 
-			( coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::GhostPlatform 
-				&& coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::QuestionBlock && coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Player) )
-			continue;
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Gift && coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Player)
-			continue;
-
-		// Question block, coin k xét va chạm với thứ gì luôn
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock || cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Coin)
-			continue;
-
 		// Có overlap (Dùng AABB)
 		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && cO->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid)
 		{

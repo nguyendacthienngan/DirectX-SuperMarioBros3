@@ -44,3 +44,10 @@ void CMushroomEffect::StartEffect()
 {
 	transform.position.y -= 60;
 }
+
+bool CMushroomEffect::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
+{
+	if (StaticTag(tag) == true || MarioTag(tag) == true || tag == GameObjectTags::GhostPlatform)
+		return true;
+	return false;
+}

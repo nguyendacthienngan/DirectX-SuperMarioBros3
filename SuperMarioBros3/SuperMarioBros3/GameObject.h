@@ -120,8 +120,12 @@ public:
 	void SetTag(GameObjectTags t);
 
 	virtual void AddObjectToScene(LPScene scene);
-	bool CheckCollisionWithSolid();
-	void SetCheckCollisionWithSolid(bool canCheck);
+
+	virtual bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag);
+	bool MarioTag(GameObjectTags tag);
+	bool StaticTag(GameObjectTags tag);
+	bool GiftTag(GameObjectTags tag);
+	bool PlayerAttackItemTag(GameObjectTags tag);
 };
 
 #endif

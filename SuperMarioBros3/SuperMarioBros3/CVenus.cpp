@@ -76,7 +76,6 @@ void CVenus::Update(DWORD dt, CCamera* cam)
 				posVenus.x += VENUS_BBOX.x * 0.5f * normal.x;
 				currentFireBall->SetPosition(posVenus);
 
-				currentFireBall->SetCheckCollisionWithSolid(false);
 				vectorShootFireBall.x = cos(SHOOT_FIRE_BALL_ANGLE);
 				vectorShootFireBall.y = sin(SHOOT_FIRE_BALL_ANGLE);
 

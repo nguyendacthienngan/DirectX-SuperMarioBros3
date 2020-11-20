@@ -246,14 +246,37 @@ void CGameObject::AddObjectToScene(LPScene scene)
 
 }
 
-bool CGameObject::CheckCollisionWithSolid()
+bool CGameObject::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
-	return isCheckWithCollision;
+	return true;
 }
 
-void CGameObject::SetCheckCollisionWithSolid(bool canCheck)
+bool CGameObject::MarioTag(GameObjectTags tag)
 {
-	isCheckWithCollision = canCheck;
+	if (tag == GameObjectTags::Player || tag == GameObjectTags::SmallPlayer)
+		return true;
+	return false;
+}
+
+bool CGameObject::StaticTag(GameObjectTags tag)
+{
+	if (tag == GameObjectTags::Solid || tag == GameObjectTags::QuestionBlock || tag == GameObjectTags::Brick)
+		return true;
+	return false;
+}
+
+bool CGameObject::GiftTag(GameObjectTags tag)
+{
+	if (tag == GameObjectTags::Gift || tag == GameObjectTags::SuperMushroom || tag == GameObjectTags::Coin)
+		return true;
+	return false;
+}
+
+bool CGameObject::PlayerAttackItemTag(GameObjectTags tag)
+{
+	if (tag == GameObjectTags::RaccoonTail || tag == GameObjectTags::MarioFireBall) // And Koopa Shell 
+		return true;
+	return false;
 }
 
 

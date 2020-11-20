@@ -13,3 +13,8 @@ void CBlock::Init()
 	this->collisionBoxs->push_back(box);
 	this->physiscBody->SetDynamic(false);
 }
+
+bool CBlock::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
+{
+	return false;
+}

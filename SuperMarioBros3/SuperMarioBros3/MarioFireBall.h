@@ -13,7 +13,7 @@ public:
 	void Update(DWORD dt, CCamera* cam) override;
 	void LoadAnimation() override;
 	void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions);
-
+	bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag) override;
 	void LinkToPool(CObjectPool* pool);
 };
 

@@ -7,6 +7,7 @@ class CSolidBox : public CGameObject
 public:
 	CSolidBox();
 	void Init();
+	bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag) override;
 	~CSolidBox();
 };
 

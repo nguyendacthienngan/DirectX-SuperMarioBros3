@@ -30,6 +30,7 @@ public:
 	virtual void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents) override;
 	virtual void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox) override;
 	virtual void OnDamaged(CGameObject* otherGO);
+	bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag) override;
 
 	void SetHitFX(CHitEffects* hitFX);
 	void SetIsHeadShot(bool isHeadShot);

@@ -19,15 +19,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Framework\Game">
-      <UniqueIdentifier>{2a2f1a66-68cd-49de-ad18-0a978ab00f87}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Game\Scene">
-      <UniqueIdentifier>{617195c5-aa3e-4a9f-9a48-0d9efc1a7761}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Game\GameObject">
-      <UniqueIdentifier>{9ce244ff-2527-4c9c-859f-81b6f0ec5865}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\Ultis">
       <UniqueIdentifier>{5c4e554e-5d4a-49b9-ae1c-89fff7d3cf46}</UniqueIdentifier>
     </Filter>
@@ -49,44 +40,11 @@
     <Filter Include="Framework\Ultis\TinyXML">
       <UniqueIdentifier>{e2574ecd-2ede-4833-a1a9-2ec79b8ee270}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Game\Keyboard">
-      <UniqueIdentifier>{902ad6ee-294e-440d-aed1-769e27328a89}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Game\Keyboard\KeyEventHandler">
-      <UniqueIdentifier>{deb27a5d-6497-434a-ae65-716646434d84}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Game\Scene\Map">
-      <UniqueIdentifier>{b2813993-c029-4101-988d-5109473f905b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Game\Scene\Camera">
-      <UniqueIdentifier>{50acab06-5761-4285-b2f8-e9704f980e18}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Game\Collision">
-      <UniqueIdentifier>{4b538b71-ec2c-4c4c-91b5-16901a313e5c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\GameObject\CollisionBox">
       <UniqueIdentifier>{c55b5a15-d0ea-49b8-8a98-80bd952db53e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Game\Graphic">
-      <UniqueIdentifier>{ecdd5d90-07b2-4290-9725-e94dd3c30f8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Game\Graphic\Animation">
-      <UniqueIdentifier>{053545b2-8efe-4987-972c-d24f9c593d8a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Game\Graphic\Sprite">
-      <UniqueIdentifier>{63ca36de-8fbe-4ece-abc7-b9c2930ca084}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Game\Graphic\Texture">
-      <UniqueIdentifier>{33fd8397-e3a2-48b9-bdc8-f7bd39d3a9aa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\GameObject\Mario\MarioStates">
       <UniqueIdentifier>{07d4ad0e-9d3f-4e31-b6f8-755314ffe08d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Game\Scene\Map\TileMap">
-      <UniqueIdentifier>{d9af06e8-a2c4-4db4-a48f-efc3c2b0e1ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Game\StateMachine">
-      <UniqueIdentifier>{4d1ab083-fdb4-4c9a-9d9e-9f055f6780cd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\GameObject\Mario\MarioController">
       <UniqueIdentifier>{13e89d4f-d62c-416d-8af0-72e94bc1f130}</UniqueIdentifier>
@@ -139,9 +97,6 @@
     <Filter Include="Game\Resouces\Textures">
       <UniqueIdentifier>{7802115c-478e-4aa2-a3eb-a4adaf19c594}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Game\VFX">
-      <UniqueIdentifier>{52b40978-34c4-470c-8291-1d6cbd204daf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\GameObject\Misc\Block">
       <UniqueIdentifier>{416ff218-1889-4a08-b37a-ac0221e388a0}</UniqueIdentifier>
     </Filter>
@@ -189,6 +144,51 @@
     </Filter>
     <Filter Include="Game\GameObject\Enemy\Plant\Venus">
       <UniqueIdentifier>{3c5d3087-6651-47a0-88b2-057d9bbb1086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game">
+      <UniqueIdentifier>{2a2f1a66-68cd-49de-ad18-0a978ab00f87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Scene">
+      <UniqueIdentifier>{617195c5-aa3e-4a9f-9a48-0d9efc1a7761}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Scene\Map">
+      <UniqueIdentifier>{b2813993-c029-4101-988d-5109473f905b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Scene\Map\TileMap">
+      <UniqueIdentifier>{d9af06e8-a2c4-4db4-a48f-efc3c2b0e1ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Scene\Camera">
+      <UniqueIdentifier>{50acab06-5761-4285-b2f8-e9704f980e18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\GameObject">
+      <UniqueIdentifier>{9ce244ff-2527-4c9c-859f-81b6f0ec5865}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Keyboard">
+      <UniqueIdentifier>{902ad6ee-294e-440d-aed1-769e27328a89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Keyboard\KeyEventHandler">
+      <UniqueIdentifier>{deb27a5d-6497-434a-ae65-716646434d84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Collision">
+      <UniqueIdentifier>{4b538b71-ec2c-4c4c-91b5-16901a313e5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Graphic">
+      <UniqueIdentifier>{ecdd5d90-07b2-4290-9725-e94dd3c30f8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Graphic\Animation">
+      <UniqueIdentifier>{053545b2-8efe-4987-972c-d24f9c593d8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Graphic\Sprite">
+      <UniqueIdentifier>{63ca36de-8fbe-4ece-abc7-b9c2930ca084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Graphic\Texture">
+      <UniqueIdentifier>{33fd8397-e3a2-48b9-bdc8-f7bd39d3a9aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\StateMachine">
+      <UniqueIdentifier>{4d1ab083-fdb4-4c9a-9d9e-9f055f6780cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\VFX">
+      <UniqueIdentifier>{52b40978-34c4-470c-8291-1d6cbd204daf}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\Game\Pool">
       <UniqueIdentifier>{341faef7-a66d-4992-9ccd-fe27b6c854de}</UniqueIdentifier>

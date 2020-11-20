@@ -8,5 +8,6 @@ protected:
 public:
 	CEffectObject();
 	void SetStartPosition(D3DXVECTOR2 pos);
+	bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag) override;
 };
 

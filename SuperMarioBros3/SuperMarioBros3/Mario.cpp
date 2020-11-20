@@ -620,6 +620,15 @@ void CMario::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 	}
 }
 
+bool CMario::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
+{
+	if (tag == GameObjectTags::Player || tag == GameObjectTags::SmallPlayer || tag == GameObjectTags::MarioFireBall)
+		return false;
+	if (GiftTag(tag) == true)
+		return false;
+	return true;
+}
+
 void CMario::CrouchProcess(CKeyboardManager* keyboard)
 {
 	// Khi chuyển qua Crouch, chiều cao của Crouch nhỏ lại => Ta phải thay dổi lại boxsize và localposition
