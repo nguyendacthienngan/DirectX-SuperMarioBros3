@@ -10,7 +10,6 @@ CMarioFireBall::CMarioFireBall()
 
 	LoadAnimation();
 	SetState(FIRE_BALL_ANIMATION);
-	isEnabled = false;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(FIRE_BALL_BBOX);
@@ -46,6 +45,11 @@ void CMarioFireBall::Update(DWORD dt, CCamera* cam)
 		if (pool != NULL)
 			pool->Revoke(this);
 	}
+	if (transform.position.x < cam->GetPositionCam().x || transform.position.x > cam->GetPositionCam().x + cam->GetWidthCam())
+	{
+		if (pool != NULL)
+			pool->Revoke(this);
+	}
 }
 
 void CMarioFireBall::LoadAnimation()
@@ -59,8 +63,8 @@ void CMarioFireBall::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vect
 	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid
-			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock
+			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick)
 		{
 			if (collisionEvent->nx != 0)
 			{

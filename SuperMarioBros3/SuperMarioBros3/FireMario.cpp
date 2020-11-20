@@ -103,14 +103,6 @@ void CFireMario::EndAnimation()
 			lastState = MARIO_STATE_IDLE;
 		}
 		SetState(lastState); 
-		if (countFireBall > 2)
-		{
-			DWORD now = GetTickCount();
-			if (now - lastAttackTime >= timeToNextAttack) // Được attack típ
-			{
-				countFireBall = 0;
-			}
-		}
 	}
 }
 
@@ -119,41 +111,18 @@ void CFireMario::OnKeyDown(int KeyCode)
 	CMario::OnKeyDown(KeyCode);
 	if (isAttack == true)
 	{
-		countFireBall++; 
 
-		DWORD now = GetTickCount();
-		if (now - lastAttackTime < timeToNextAttack && countFireBall > 2)  
+		auto currentFireBall = fireBalls.Init();
+		auto normal = physiscBody->GetNormal();
+
+		if (currentFireBall != NULL)
 		{
-			// Cannot attack until 1 second (lần thứ 3)
-			isAttack = false; 
-			return;
-		}
-		if (now - lastAttackTime >= timeToNextAttack)
-		{
-			//do đến lần thứ 4, now > lastAttackTime rất nhiều và fireBall cx lớn hơn 2. Đáng ra nó phải quăng đc bóng. Nhưng, k có chỗ reset lại số bóng của nó
-			countFireBall = 1; 
-		}
-			
-		if (countFireBall <= 2)
-		{
-			auto currentFireBall = fireBalls.Init();
-			currentFireBall->Enable(true);
-
-			auto normal = physiscBody->GetNormal();
-
-			auto scene = CSceneManager::GetInstance()->GetActiveScene();
-			scene->AddObject(currentFireBall);
-
 			auto firePhyBody = currentFireBall->GetPhysiscBody();
 
 			auto posMario = transform.position + relativePositionOnScreen;
 			posMario.x += SUPER_MARIO_BBOX.x * 0.5f * normal.x;
 			currentFireBall->SetPosition(posMario);
-
 			firePhyBody->SetVelocity(D3DXVECTOR2(FIRE_BALL_SPEED * normal.x, 0));
-			
-			lastAttackTime = GetTickCount();
-
 		}
 	}
 }
