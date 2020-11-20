@@ -56,7 +56,6 @@ void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 		{
 			DWORD t = animFrames[currentFrame]->GetTime();
 			auto timeScale = (gameObject->IsIgnoreTimeScale() == false) ? CGame::GetTimeScale() : 1.0f;
-			DebugOut(L"Time Scale %f \n", CGame::GetTimeScale());
 			t = t / timeScale;
 			if (now - lastFrameTime > t)
 			{

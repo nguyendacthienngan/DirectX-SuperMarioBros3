@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "LeafEffect.h"
 #include "MushroomEffect.h"
+#include "Mario.h"
 CQuestionBlock::CQuestionBlock()
 {
 	CBlock::CBlock();
@@ -37,7 +38,7 @@ void CQuestionBlock::SetItemInfo(ItemInfo info)
 	this->itemInfo = info;
 }
 
-void CQuestionBlock::Bounce()
+void CQuestionBlock::Bounce(CGameObject* gO)
 {
 	if (bounceState == 0)
 	{
@@ -55,22 +56,33 @@ void CQuestionBlock::Bounce()
 					activeScene->AddObject(coinObtainedFX);
 					break;
 				}
-				case ItemTag::SuperLeaf:
+				case ItemTag::PowerUp:
 				{
-					CLeafEffect* leafObtainedFX = new CLeafEffect();
-					leafObtainedFX->SetStartPosition(transform.position);
-					leafObtainedFX->StartEffect();
-					auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
-					activeScene->AddObject(leafObtainedFX);
-					break;
-				}
-				case ItemTag::SuperMushroom:
-				{
-					CMushroomEffect* mushroomObtainedFX = new CMushroomEffect();
-					mushroomObtainedFX->SetStartPosition(transform.position);
-					mushroomObtainedFX->StartEffect();
-					auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
-					activeScene->AddObject(mushroomObtainedFX);
+					if (MarioTag(gO->GetTag()) && gO != NULL)
+					{
+						auto mario = static_cast<CMario*>(gO);
+						switch (mario->GettMarioStateTag())
+						{
+							case MarioStates::SmallMario:
+							{
+								CMushroomEffect* mushroomObtainedFX = new CMushroomEffect();
+								mushroomObtainedFX->SetStartPosition(transform.position);
+								mushroomObtainedFX->StartEffect();
+								auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+								activeScene->AddObject(mushroomObtainedFX);
+								break;
+							}
+							case MarioStates::SuperMario: case MarioStates::FireMario: case MarioStates::RacoonMario:
+							{
+								CLeafEffect* leafObtainedFX = new CLeafEffect();
+								leafObtainedFX->SetStartPosition(transform.position);
+								leafObtainedFX->StartEffect();
+								auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+								activeScene->AddObject(leafObtainedFX);
+							}
+						}
+					}
+					
 					break;
 				}
 			}

@@ -6,7 +6,9 @@
 CLeafEffect::CLeafEffect()
 {
 	tag = GameObjectTags::Gift;
-	itemTag = ItemTag::SuperLeaf;
+	itemTag = ItemTag::PowerUp;
+	powerupTag = PowerupTag::SuperLeaf;
+
 	LoadAnimation();
 	SetState(SUPER_LEAF_FALL_EFFECT);
 	isEnabled = true;

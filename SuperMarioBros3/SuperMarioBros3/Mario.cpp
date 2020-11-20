@@ -51,7 +51,7 @@ void CMario::SetPowerUp(bool pU)
 	this->isPowerUp = pU;
 }
 
-void CMario::SetPowerUpItem(ItemTag powerupItem)
+void CMario::SetPowerUpItem(PowerupTag powerupItem)
 {
 	this->powerupItem = powerupItem;
 }
@@ -116,7 +116,7 @@ bool CMario::IsPowerUp()
 	return isPowerUp;
 }
 
-ItemTag CMario::GetPowerupItem()
+PowerupTag CMario::GetPowerupItem()
 {
 	return powerupItem;
 }
@@ -194,7 +194,7 @@ void CMario::InitProperties()
 	countChangeAlpha = 0;
 	timeStartChangeAlpha = 0;
 	isPowerUp = false;
-	powerupItem = ItemTag::None;
+	powerupItem = PowerupTag::None;
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 
 }
@@ -591,7 +591,7 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 		{
 			// Mario cụng đầu lên question block
 			auto questionBlock = dynamic_cast<CQuestionBlock*>(collisionBox->GetGameObjectAttach());
-			questionBlock->Bounce();
+			questionBlock->Bounce(this);
 		}
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Coin)
 		{
@@ -782,7 +782,7 @@ void CMario::ChangeLevelProcess()
 		isChangeLevel = true;
 		switch (powerupItem)
 		{
-			case ItemTag::None:
+			case PowerupTag::None:
 			{
 				// Damaged
 				if (marioStateTag == MarioStates::RacoonMario || marioStateTag == MarioStates::FireMario)
@@ -791,13 +791,13 @@ void CMario::ChangeLevelProcess()
 					marioController->SwitchToState(SMALL_MARIO_STATE);
 				break;
 			}
-			case ItemTag::SuperLeaf:
+			case PowerupTag::SuperLeaf:
 			{
 				if (marioStateTag == MarioStates::SuperMario)
 					marioController->SwitchToState(RACOON_MARIO_STATE);
 				break;
 			}
-			case ItemTag::SuperMushroom:
+			case PowerupTag::SuperMushroom:
 			{
 				if (marioStateTag == MarioStates::SmallMario)
 					marioController->SwitchToState(SUPER_MARIO_STATE);

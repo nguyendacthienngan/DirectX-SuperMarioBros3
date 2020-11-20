@@ -2,9 +2,7 @@
 enum class ItemTag
 {
 	Coin,
-	SuperMushroom,
-	SuperLeaf,
-	FireFlower,
+	PowerUp,
 	None
 };
 
@@ -12,4 +10,12 @@ struct ItemInfo
 {
 	ItemTag tag;
 	int quantity;
+};
+
+enum class PowerupTag
+{
+	SuperMushroom,
+	SuperLeaf,
+	FireFlower,
+	None
 };

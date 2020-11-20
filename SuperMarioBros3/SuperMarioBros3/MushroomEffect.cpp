@@ -8,7 +8,8 @@ CMushroomEffect::CMushroomEffect()
 	SetState(MUSHROOM_EFFECT);
 	SetScale(D3DXVECTOR2(0.4f, 1.0f));
 	SetTag(GameObjectTags::SuperMushroom);
-	itemTag = ItemTag::SuperMushroom;
+	itemTag = ItemTag::PowerUp;
+	powerupTag = PowerupTag::SuperMushroom;
 	isEnabled = true;
 
 	CCollisionBox* box = new CCollisionBox();

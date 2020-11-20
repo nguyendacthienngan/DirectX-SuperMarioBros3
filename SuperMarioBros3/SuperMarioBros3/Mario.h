@@ -46,14 +46,14 @@ protected:
 	int countSmokeEffectActivate;
 	int countChangeAlpha;
 	bool isPowerUp; 
-	ItemTag powerupItem; // Item Mario ăn được để power-up
+	PowerupTag powerupItem; // Item Mario ăn được để power-up
 public:
 	CMario();
 	void SetDamageFlag(bool isDamaged);
 	void SetChangeSmokeEffectFlag(bool isChangeSmokeEffect);
 	void SetChangeLevelFlag(bool flag);
 	void SetPowerUp(bool pU);
-	void SetPowerUpItem(ItemTag powerupItem);
+	void SetPowerUpItem(PowerupTag powerupItem);
 
 	void SetCountChangeAlpha(int count);
 	void SetCountSmokeEffectActivate(int count);
@@ -71,7 +71,7 @@ public:
 	bool GetCountSmokeEffectActivate();
 
 	bool IsPowerUp();
-	ItemTag GetPowerupItem();
+	PowerupTag GetPowerupItem();
 
 	DWORD GetTimeStartDamaged();
 	DWORD GetTimeStartSmokeEffect();

@@ -16,7 +16,7 @@ void CGift::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Collis
 			// Đụng trúng lá đỏ là đổi level và disable lá
 			PowerUp(collisionBox);
 		}
-		if (itemTag == ItemTag::SuperMushroom && collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
+		if (powerupTag == PowerupTag::SuperMushroom && collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
 		{
 			if (collisionEvent->nx != 0)
 			{
@@ -30,24 +30,24 @@ void CGift::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Collis
 
 void CGift::OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
 {
-	for (auto collisionEvent : collisionEvents)
-	{
-		auto collisionBox = collisionEvent->obj;
-		if (MarioTag(collisionBox->GetGameObjectAttach()->GetTag()))
-		{
-			// Đụng trúng lá đỏ là đổi level và disable lá
-			PowerUp(collisionBox);
-		}
-		if (itemTag == ItemTag::SuperMushroom && collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
-		{
-			if (collisionEvent->nx != 0)
-			{
-				auto normal = physiscBody->GetNormal();
-				normal.x = -normal.x;
-				physiscBody->SetNormal(normal);
-			}
-		}
-	}
+	//for (auto collisionEvent : collisionEvents)
+	//{
+	//	auto collisionBox = collisionEvent->obj;
+	//	if (MarioTag(collisionBox->GetGameObjectAttach()->GetTag()))
+	//	{
+	//		// Đụng trúng lá đỏ là đổi level và disable lá
+	//		PowerUp(collisionBox);
+	//	}
+	//	if (powerupTag == PowerupTag::SuperMushroom && collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid)
+	//	{
+	//		if (collisionEvent->nx != 0)
+	//		{
+	//			auto normal = physiscBody->GetNormal();
+	//			normal.x = -normal.x;
+	//			physiscBody->SetNormal(normal);
+	//		}
+	//	}
+	//}
 }
 
 void CGift::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
@@ -73,6 +73,6 @@ void CGift::PowerUp(CCollisionBox* otherCollisionBox)
 	auto gO = otherCollisionBox->GetGameObjectAttach();
 	auto mario = static_cast<CMario*>(gO);
 	mario->OnDamaged();
-	mario->SetPowerUpItem(itemTag);
+	mario->SetPowerUpItem(powerupTag);
 	mario->SetPowerUp(true);
 }
