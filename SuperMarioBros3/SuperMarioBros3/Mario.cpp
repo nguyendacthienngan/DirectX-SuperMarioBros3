@@ -774,7 +774,8 @@ void CMario::ChangeLevelProcess()
 				// Damaged
 				if (marioStateTag == MarioStates::RacoonMario || marioStateTag == MarioStates::FireMario)
 					marioController->SwitchToState(SUPER_MARIO_STATE);
-				//else if (marioStateTag == MarioStates::SuperMario)
+				else if (marioStateTag == MarioStates::SuperMario)
+					marioController->SwitchToState(SMALL_MARIO_STATE);
 				break;
 			}
 			case ItemTag::SuperLeaf:
@@ -785,7 +786,8 @@ void CMario::ChangeLevelProcess()
 			}
 			case ItemTag::SuperMushroom:
 			{
-				//if (marioStateTag == MarioStates::SuperMario)
+				if (marioStateTag == MarioStates::SmallMario)
+					marioController->SwitchToState(SUPER_MARIO_STATE);
 				break;
 			}
 		}

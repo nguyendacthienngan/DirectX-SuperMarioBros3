@@ -19,22 +19,21 @@ CMarioController::CMarioController()
 	Init();
 	currentStateObject = NULL;
 	//SwitchToState(FIRE_MARIO_STATE);
-	SwitchToState(RACOON_MARIO_STATE);
+	//SwitchToState(RACOON_MARIO_STATE);
 	//SwitchToState(SUPER_MARIO_STATE);
-	//SwitchToState(SMALL_MARIO_STATE);
+	SwitchToState(SMALL_MARIO_STATE);
 }
 void CMarioController::Init()
 {
 	SetTag(GameObjectTags::PlayerController);
-	//SetTag(GameObjectTags::Player);
 	isEnabled = true;
 	CMario* marioStateObject;
 	
 	// SMALL MARIO
-	/*marioStateObject = new CSmallMario();
+	marioStateObject = new CSmallMario();
 	listMarioStates.insert(make_pair(SMALL_MARIO_STATE, marioStateObject));
 	listStateObjects.insert(make_pair(SMALL_MARIO_STATE, marioStateObject));
-	marioStateObject->Enable(false);*/
+	marioStateObject->Enable(false);
 	
 	// SUPER MARIO
 	marioStateObject = new CSuperMario();
@@ -94,25 +93,17 @@ void CMarioController::SwitchToState(std::string state)
 		currentPhyBody->SetGravity(controllerPhyBody->GetGravity());
 		currentPhyBody->SetAcceleration(controllerPhyBody->GetAcceleration());
 
-		DebugOut(L"When switch state, currentStateObj %f, %f \n", currentStateObject->GetPosition().x, currentStateObject->GetPosition().y);
 		listStateObjects.at(state)->SetPosition(currentStateObject->GetPosition());
 
 		D3DXVECTOR2 transform = D3DXVECTOR2(0.0f, 0.0f);
 		transform.y = SUPER_MARIO_BBOX.y - SMALL_MARIO_BBOX.y; // Tính lại
 
 		// hoặc boxsize coi của nhỏ hay lớn
-		if (listStateObjects.at(state)->GetTag() == GameObjectTags::SmallPlayer)
-		{
-			listStateObjects.at(state)->SetPosition(listStateObjects.at(state)->GetPosition() + transform);
-			listStateObjects.at(state)->GetCollisionBox()->at(0)->SetPosition(D3DXVECTOR2(0.0f, 0.0f));
-			listStateObjects.at(state)->SetRelativePositionOnScreen(listStateObjects.at(state)->GetCollisionBox()->at(0)->GetPosition());
-		}
-		else
+		if (listStateObjects.at(state)->GetTag() != GameObjectTags::SmallPlayer)
 		{
 			listStateObjects.at(state)->SetPosition(listStateObjects.at(state)->GetPosition() - transform);
 			 listStateObjects.at(state)->GetCollisionBox()->at(0)->SetPosition(transform);
 			listStateObjects.at(state)->SetRelativePositionOnScreen(listStateObjects.at(state)->GetCollisionBox()->at(0)->GetPosition());
-
 		}
 
 #pragma region PassParamater For DamageProcess
@@ -168,10 +159,10 @@ void CMarioController::OnKeyDown(int KeyCode)
 	{
 		SwitchToState(FIRE_MARIO_STATE);
 	}
-	/*else if (KeyCode == DIK_4)
+	else if (KeyCode == DIK_4)
 	{
 		SwitchToState(SMALL_MARIO_STATE);
-	}*/
+	}
 }
 
 void CMarioController::Update(DWORD dt, CCamera* cam)

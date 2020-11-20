@@ -73,12 +73,7 @@ void CGameObject::Render(CCamera* cam, int alpha)
 
 	D3DXVECTOR2 posInCam = cam->Transform(transform.position + relativePositionOnScreen);
 	posInCam.x = trunc(posInCam.x);
-	posInCam.y = trunc(posInCam.y);
-
-	if (tag != GameObjectTags::SmallPlayer)
-	{
-		posInCam.y = trunc(posInCam.y) + Small_Player_Distance;
-	}
+	posInCam.y = trunc(posInCam.y) + Small_Player_Distance;
 	animations.at(currentState)->Render(posInCam, alpha);
 }
 
