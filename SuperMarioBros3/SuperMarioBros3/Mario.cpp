@@ -623,7 +623,7 @@ bool CMario::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
 	if (tag == GameObjectTags::Player || tag == GameObjectTags::SmallPlayer || tag == GameObjectTags::MarioFireBall)
 		return false;
-	if (GiftTag(tag) == true)
+	if (GiftTag(tag) == true && tag != GameObjectTags::Coin)
 		return false;
 	return true;
 }
