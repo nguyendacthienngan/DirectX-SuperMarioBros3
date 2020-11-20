@@ -304,7 +304,11 @@ void CPhysicsBody::CalcPotentialCollisions(
 
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
 		{
-			// Quái cùng loại gặp nhau sẽ đẩy ra, quái khác loại thì đi qua nhau (trừ mai rùa)
+			// Quái k xét với cục lửa của Venus
+			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::VenusFireBall)
+				continue;
+				// Quái cùng loại gặp nhau sẽ đẩy ra, quái khác loại thì đi qua nhau (trừ mai rùa)
+
 			auto selfObject = cO->GetGameObjectAttach();
 			CEnemy* selfEnemyObject = static_cast<CEnemy*>(selfObject);
 
