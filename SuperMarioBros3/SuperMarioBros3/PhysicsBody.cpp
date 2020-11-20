@@ -344,7 +344,9 @@ void CPhysicsBody::CalcPotentialCollisions(
 		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Gift && coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Player)
 			continue;
 
-
+		// Question block k xét va chạm với thứ gì luôn
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock)
+			continue;
 
 		// Có overlap (Dùng AABB)
 		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && cO->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid)

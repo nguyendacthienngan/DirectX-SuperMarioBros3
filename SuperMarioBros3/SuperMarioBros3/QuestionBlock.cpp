@@ -90,7 +90,7 @@ void CQuestionBlock::Update(DWORD dt, CCamera* cam)
 {
 	if (bounceState == 2)
 	{
-		bounceDelta = BOUNCE_VEL;
+		bounceDelta += BOUNCE_VEL * dt;
 
 		if (GetTickCount64() - startBounceTime > BOUNCE_TIME && startBounceTime != 0)
 		{
@@ -103,7 +103,7 @@ void CQuestionBlock::Update(DWORD dt, CCamera* cam)
 	}
 	if (bounceState == 1)
 	{
-		bounceDelta = -BOUNCE_VEL;
+		bounceDelta += -BOUNCE_VEL * dt;
 
 		if (GetTickCount64() - startBounceTime > BOUNCE_TIME && startBounceTime != 0)
 		{
@@ -116,6 +116,6 @@ void CQuestionBlock::Update(DWORD dt, CCamera* cam)
 
 void CQuestionBlock::Render(CCamera* cam, int alpha)
 {
-	relativePositionOnScreen.y += bounceDelta;
+	relativePositionOnScreen.y = bounceDelta;
 	CGameObject::Render(cam, alpha);
 }

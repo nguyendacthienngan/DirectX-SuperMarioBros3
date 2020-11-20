@@ -152,10 +152,15 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 		for (TiXmlElement* element = root->FirstChildElement("layer"); element != nullptr; element = element->NextSiblingElement("layer"))
 		{
 			std::string name = element->Attribute("name");
-			if (name.compare("Foreground") == 0)
-				gameMap->foreground = gameMap->LoadLayer(element);
-			else
-				gameMap->layers.push_back(gameMap->LoadLayer(element));
+			auto layer = gameMap->LoadLayer(element);
+			if (layer != NULL)
+			{
+				if (name.compare("Foreground") == 0)
+					gameMap->foreground = layer;
+				else
+					gameMap->layers.push_back(layer);
+			}
+			
 		}
 		// Load game objects
 		int count = 0, heightObjectOne = 0;
@@ -348,7 +353,12 @@ Layer* CTileMap::LoadLayer(TiXmlElement* element)
 	int visible;
 	if (element->QueryIntAttribute("visible", &visible) != TIXML_SUCCESS) layer->isVisible = true;
 	else layer->isVisible = visible ? true : false;
-
+	if (layer->isVisible == false)
+	{
+		delete layer;
+		layer = NULL;
+		return NULL;
+	}
 	auto tiles = new int* [layer->width]; // số tiles theo chiều ngang
 
 	const char* content = element->FirstChildElement()->GetText();

@@ -12,7 +12,7 @@ CParaKoopa::CParaKoopa()
 void CParaKoopa::Init()
 {
 	SetState(PARAKOOPA_STATE_FLY);
-	isEnabled = true;
+	isEnabled = false;
 	enemyTag = EnemyTag::ParaKoopa;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
