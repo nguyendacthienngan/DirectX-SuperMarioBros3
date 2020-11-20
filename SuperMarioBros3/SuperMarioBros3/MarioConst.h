@@ -27,6 +27,8 @@ const float  MARIO_DEFLECT_TIME = 800;
 const float  MARIO_DEFLECT_Y = 0.4f;
 const float  MARIO_DEFLECT_X = 0.3f;
 
+const float MARIO_DEFLECT_BLOCK = 0.2f;
+
 const int  MARIO_FEVER_TIME	=			2000;
 
 const int  PMETER_MAX = 5;
