@@ -52,24 +52,29 @@ void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 	}
 	else
 	{
-		DWORD t = animFrames[currentFrame]->GetTime();
-		if (gameObject->IsIgnoreTimeScale() == false)
-			t *= CGame::GetTimeScale();
-		if (now - lastFrameTime > t )
+	if (CGame::GetTimeScale() != 0.0f || gameObject->IsIgnoreTimeScale() == true)
 		{
-			if (currentFrame == animFrames.size() - 1 && isLoop == false)
+			DWORD t = animFrames[currentFrame]->GetTime();
+			auto timeScale = (gameObject->IsIgnoreTimeScale() == false) ? CGame::GetTimeScale() : 1.0f;
+			DebugOut(L"Time Scale %f \n", CGame::GetTimeScale());
+			t = t / timeScale;
+			if (now - lastFrameTime > t)
 			{
-				gameObject->EndAnimation();
-				isPlaying = false;
+				if (currentFrame == animFrames.size() - 1 && isLoop == false)
+				{
+					gameObject->EndAnimation();
+					isPlaying = false;
 
-			}
-			else if (isPlaying == true)
-			{
-				currentFrame++;
-				lastFrameTime = now;
-				if (currentFrame >= animFrames.size()) currentFrame = 0;
+				}
+				else if (isPlaying == true)
+				{
+					currentFrame++;
+					lastFrameTime = now;
+					if (currentFrame >= animFrames.size()) currentFrame = 0;
+				}
 			}
 		}
+		
 	}
 	animFrames[currentFrame]->GetSprite()->Draw(position, transform.scale, transform.rotationAngle, D3DXCOLOR(255,255,255,alpha));
 }

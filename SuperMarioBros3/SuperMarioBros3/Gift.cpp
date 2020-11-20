@@ -11,7 +11,7 @@ void CGift::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Collis
 	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
+		if (MarioTag(collisionBox->GetGameObjectAttach()->GetTag()))
 		{
 			// Đụng trúng lá đỏ là đổi level và disable lá
 			PowerUp(collisionBox);
@@ -26,7 +26,6 @@ void CGift::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Collis
 			}
 		}
 	}
-	
 }
 
 void CGift::OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
@@ -34,7 +33,7 @@ void CGift::OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<Collisio
 	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
+		if (MarioTag(collisionBox->GetGameObjectAttach()->GetTag()))
 		{
 			// Đụng trúng lá đỏ là đổi level và disable lá
 			PowerUp(collisionBox);
@@ -53,7 +52,7 @@ void CGift::OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<Collisio
 
 void CGift::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
 {
-	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Player)
+	if (MarioTag(otherCollisionBox->GetGameObjectAttach()->GetTag()))
 	{
 		PowerUp(otherCollisionBox);
 	}

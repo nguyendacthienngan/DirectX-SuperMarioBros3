@@ -143,6 +143,10 @@ void CMarioController::SwitchToState(std::string state)
 			camera->SetGameObject(currentStateObject);
 		}
 	}
+
+	CGame::SetTimeScale(1.0f);
+	//DebugOut(L"Time Scale In Mario Controller %f \n", CGame::GetTimeScale());
+
 }
 
 void CMarioController::OnKeyDown(int KeyCode)

@@ -128,9 +128,8 @@ void CScene::Update(DWORD dt)
 	if (gameObjects.size() == 0) return;
 	for (auto obj : gameObjects)
 	{
-		//DebugOut(L"Update obj ");
-		/*if (obj->GetTag() != GameObjectTags::PlayerController)
-			OutputDebugString(ToLPCWSTR(obj->GetCollisionBox()->at(0)->GetName() + "\n"));*/
+		if (obj->IsIgnoreTimeScale() == false && CGame::GetTimeScale() == 0)
+			continue;
 		if (obj->IsEnabled() == false) continue;
 		obj->Update(dt, camera);
 		obj->PhysicsUpdate(&gameObjects); 

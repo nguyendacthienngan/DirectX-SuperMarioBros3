@@ -172,8 +172,7 @@ void CMario::InitProperties()
 	isEnabled = true;
 	isOnGround = false;
 	canHighJump = false;
-	isJump = false;
-	isSkid = false;
+	isJump = false;	isSkid = false;
 	isAttack = false;
 	canFly = false;
 	isFly = false;
@@ -741,6 +740,7 @@ void CMario::DamageProcess()
 		{
 			// CHANGE SMOKE EFFECT
 			timeStartSmokeEffect = GetTickCount64();
+			CGame::SetTimeScale(0.0f);
 			isSmokeEffectAnimation = true;
 		}
 	}
@@ -748,6 +748,7 @@ void CMario::DamageProcess()
 	// CHANGE LEVEL
 	if (isChangeLevel == true && GetTickCount64() - timeStartChangeLevel > TIME_TO_CHANGE_LEVEL)
 	{
+
 		timeStartChangeLevel = 0;
 		isChangeLevel = false;
 		return;
@@ -775,6 +776,9 @@ void CMario::ChangeLevelProcess()
 	}
 	if (marioController != NULL)
 	{
+		CGame::SetTimeScale(1.0f);
+		DebugOut(L"Time Scale In Mario Controller %f \n", CGame::GetTimeScale());
+
 		isChangeLevel = true;
 		switch (powerupItem)
 		{
@@ -801,6 +805,7 @@ void CMario::ChangeLevelProcess()
 			}
 		}
 	}
+
 }
 
 void CMario::StopBounce(bool stopBounce)
