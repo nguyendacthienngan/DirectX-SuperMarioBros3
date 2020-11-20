@@ -59,6 +59,11 @@ void CGift::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* ot
 	}
 }
 
+bool CGift::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
+{
+	return MarioTag(tag);
+}
+
 void CGift::PowerUp(CCollisionBox* otherCollisionBox)
 {
 	isEnabled = false;

@@ -90,6 +90,8 @@ public:
 	void OnTriggerEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions); // Tạm thời chưa làm
 	void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox) override;
 
+	bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag) override;
+
 	void CrouchProcess(CKeyboardManager* keyboard);
 	void SkidProcess(D3DXVECTOR2 velocity);
 	void HoldProcess();

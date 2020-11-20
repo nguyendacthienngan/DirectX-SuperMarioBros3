@@ -24,3 +24,8 @@ void CCoin::Init()
 	this->collisionBoxs->push_back(box);
 	this->physiscBody->SetDynamic(false);
 }
+
+bool CCoin::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
+{
+	return false;
+}

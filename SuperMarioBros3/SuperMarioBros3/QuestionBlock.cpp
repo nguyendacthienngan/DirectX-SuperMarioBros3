@@ -119,3 +119,8 @@ void CQuestionBlock::Render(CCamera* cam, int alpha)
 	relativePositionOnScreen.y = bounceDelta;
 	CGameObject::Render(cam, alpha);
 }
+
+bool CQuestionBlock::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
+{
+	return false;
+}

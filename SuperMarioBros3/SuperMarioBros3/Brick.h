@@ -7,5 +7,6 @@ public:
 	void LoadAnimation();
 	void Init();
 	void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox) override;
+	bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag) override;
 };
 

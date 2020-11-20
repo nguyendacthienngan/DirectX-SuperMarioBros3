@@ -95,7 +95,7 @@ void CKoopa::ChangeBackToKoopa()
 	{
 		koopaShell->Enable(false);
 		transform.position = koopaShell->GetPosition();
-		transform.position.y -= (collisionBoxs->at(0)->GetSizeBox().y  - koopaShell->GetCollisionBox()->at(0)->GetSizeBox().y )*0.5f;
+		transform.position.y -= (KOOPA_BBOX.y - koopaShell->GetCollisionBox()->at(0)->GetSizeBox().y )*0.5f;
 	}
 }
 

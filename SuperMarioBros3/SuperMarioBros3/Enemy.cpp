@@ -183,6 +183,33 @@ void CEnemy::OnDamaged(CGameObject* otherGO)
 {
 }
 
+bool CEnemy::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
+{
+	if (tag == GameObjectTags::VenusFireBall || tag == GameObjectTags::Gift )
+		return false;
+	if (MarioTag(tag) == true) // Mario tự xét với Enemy, chứ Enemy k xét với Mario
+		return false;
+	if (GiftTag(tag) == true || tag == GameObjectTags::Coin)
+		return false;
+	if (tag == GameObjectTags::Enemy)
+	{
+		auto enemy = static_cast<CEnemy*>(gO);
+		// Enemy khác loại thì k xét (Trừ với koopa shell)
+		if (enemyTag != EnemyTag::KoopaShell && enemy->GetEnemyTag() != EnemyTag::KoopaShell)
+		{
+			if (enemyTag != enemy->GetEnemyTag())
+				return false;
+		}
+		// Plant vs Static: Không xét
+		if (enemyTag == EnemyTag::Piranha || enemyTag == EnemyTag::Venus)
+		{
+			if (StaticTag(tag) == true || tag == GameObjectTags::GhostPlatform)
+				return false;
+		}
+	}
+	return true;
+}
+
 void CEnemy::SetHitFX(CHitEffects* hitFX)
 {
 	this->hitFX = hitFX;

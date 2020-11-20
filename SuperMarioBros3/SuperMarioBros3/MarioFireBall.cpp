@@ -76,6 +76,17 @@ void CMarioFireBall::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vect
 	}
 }
 
+bool CMarioFireBall::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
+{
+	if (tag == GameObjectTags::MarioFireBall || tag == GameObjectTags::VenusFireBall)
+		return false;
+	if (MarioTag(tag) == true)
+		return false;
+	if (GiftTag(tag) == true)
+		return false;
+	return true;
+}
+
 void CMarioFireBall::LinkToPool(CObjectPool* pool)
 {
 	this->pool = pool;

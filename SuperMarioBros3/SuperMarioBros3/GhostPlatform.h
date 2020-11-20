@@ -8,6 +8,7 @@ class CGhostPlatform: public CGameObject
 public:
 	CGhostPlatform();
 	void Init() override;
+	bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag) override;
 	~CGhostPlatform();
 };
 

@@ -35,3 +35,8 @@ void CBrick::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 	}
 }
 
+bool CBrick::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
+{
+	return false;
+}
+
