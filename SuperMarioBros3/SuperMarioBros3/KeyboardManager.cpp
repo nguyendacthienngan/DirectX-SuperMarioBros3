@@ -106,12 +106,14 @@ void CKeyboardManager::ProcessKeyboard()
 	hr = dInputDevice->GetDeviceState(sizeof(keyStates), keyStates);
 	if (FAILED(hr))
 	{
+		CGame::SetTimeScale(0.0f);
 		// If the keyboard lost focus or was not acquired then try to get control back.
 		if ((hr == DIERR_INPUTLOST) || (hr == DIERR_NOTACQUIRED))
 		{
 			HRESULT h = dInputDevice->Acquire();
 			if (h == DI_OK)
 			{
+				CGame::SetTimeScale(1.0f);
 				DebugOut(L"[INFO] Keyboard re-acquired!\n");
 			}
 			else return;
