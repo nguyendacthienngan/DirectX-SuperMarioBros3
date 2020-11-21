@@ -116,13 +116,6 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 			mario->OnDamaged();
 			collisionBox->GetGameObjectAttach()->Enable(false);
 		}
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick)
-		{
-			auto vel = phyBody->GetVelocity();
-			if (ny > 0)
-				vel.y += MARIO_DEFLECT_BLOCK;
-			phyBody->SetVelocity(vel);
-		}
 	}
 }
 

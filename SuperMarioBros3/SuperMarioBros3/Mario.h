@@ -99,6 +99,7 @@ public:
 	void KickProcess(bool isKick);
 	void DamageProcess();
 	void ChangeLevelProcess();
+	void FallProces();
 
 	void StopBounce(bool stopBounce);
 	bool StopBounce();

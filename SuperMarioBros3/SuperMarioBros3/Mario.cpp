@@ -590,8 +590,13 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock && collisionEvent->ny > 0)
 		{
 			// Mario cụng đầu lên question block
+			FallProcess();
 			auto questionBlock = dynamic_cast<CQuestionBlock*>(collisionBox->GetGameObjectAttach());
 			questionBlock->Bounce(this);
+		}
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick && collisionEvent->ny > 0)
+		{
+			FallProcess();
 		}
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Coin)
 		{
@@ -806,6 +811,17 @@ void CMario::ChangeLevelProcess()
 		}
 	}
 
+}
+
+void CMario::FallProcess()
+{
+	auto vel = physiscBody->GetVelocity();
+	vel.y += MARIO_DEFLECT_BLOCK;
+	physiscBody->SetVelocity(vel);
+	currentPhysicsState.jump = JumpOnAirStates::Fall;
+	isJump = false;
+	canHighJump = false;
+	isHighJump = false;
 }
 
 void CMario::StopBounce(bool stopBounce)
