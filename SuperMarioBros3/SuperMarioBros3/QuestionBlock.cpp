@@ -67,7 +67,7 @@ void CQuestionBlock::Bounce(CGameObject* gO)
 							{
 								CMushroomEffect* mushroomObtainedFX = new CMushroomEffect();
 								mushroomObtainedFX->SetStartPosition(transform.position);
-								mushroomObtainedFX->StartEffect();
+								mushroomObtainedFX->StartEffect(gO->GetPhysiscBody()->GetNormal().x);
 								auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 								activeScene->AddObject(mushroomObtainedFX);
 								break;

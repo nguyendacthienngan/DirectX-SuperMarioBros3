@@ -2,6 +2,7 @@
 #include "AnimationManager.h"
 #include "EffectConst.h"
 #include "MushroomConst.h"
+#include "Ultis.h"
 CMushroomEffect::CMushroomEffect()
 {
 	LoadAnimation();
@@ -18,7 +19,7 @@ CMushroomEffect::CMushroomEffect()
 	box->SetEnable(true);
 	this->collisionBoxs->push_back(box);
 	physiscBody->SetGravity(MUSHROOM_GRAVITY);
-	physiscBody->SetVelocity(D3DXVECTOR2(MUSHROOM_SPEED, 0.0f));
+	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 	physiscBody->SetDynamic(true);
 }
 
@@ -30,9 +31,18 @@ void CMushroomEffect::LoadAnimation()
 
 void CMushroomEffect::Update(DWORD dt, CCamera* cam)
 {
-	auto normal = physiscBody->GetNormal();
+	DebugOut(L"Gravity Mushroom: %f \n", physiscBody->GetGravity());
 	auto velocity = physiscBody->GetVelocity();
-	velocity.x = normal.x * MUSHROOM_SPEED;
+	if (isAppearing == true)
+	{
+		velocity.y = -MUSHROOM_PUSH_FORCE;
+		if (abs(startPosition.y) - abs(transform.position.y) > GROW_MAX_HEIGHT)
+			isAppearing = false;
+	}
+	else
+	{
+		velocity.x = marioFacing * MUSHROOM_SPEED;
+	}
 	physiscBody->SetVelocity(velocity);
 }
 
@@ -41,13 +51,16 @@ void CMushroomEffect::Render(CCamera* cam, int alpha)
 	CGameObject::Render(cam, alpha);
 }
 
-void CMushroomEffect::StartEffect()
+void CMushroomEffect::StartEffect(float MarioFacing)
 {
-	transform.position.y -= 60;
+	isAppearing = true;
+	this->marioFacing = MarioFacing;
 }
 
 bool CMushroomEffect::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
+	if (isAppearing == true && ( StaticTag(tag) == true || tag == GameObjectTags::GhostPlatform))
+		return false;
 	if (StaticTag(tag) == true || MarioTag(tag) == true || tag == GameObjectTags::GhostPlatform)
 		return true;
 	return false;
