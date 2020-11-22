@@ -36,10 +36,8 @@ void CCamera::Update()
     
      // follow Mario
     posCam.x = x - widthCam * 0.5f;
-    DebugOut(L"X: %f \n", x);
-    DebugOut(L"Widthcam: %f \n", widthCam);
-    /*if (isDisablePosY == false)
-        posCam.y = y - heightCam * 0.1f;*/
+    if (isDisablePosY == false)
+        posCam.y = y - heightCam * 0.1f;
 
     // Ở đầu scene và cuối scene ta sẽ đặt ra boundary => Mario k được vượt quá boundary này
     if (posCam.x < currentBoundary.left)
@@ -54,9 +52,9 @@ void CCamera::Update()
     if (posCam.y > currentBoundary.bottom - heightCam)
         posCam.y = currentBoundary.bottom - heightCam;
     
-    /*if (isDisablePosY == false)
-        if (posCam.y < boundaryBottom - heightCam && y >= boundaryBottom - heightCam*0.75)
-            posCam.y = boundaryBottom - heightCam;*/
+    if (isDisablePosY == false)
+        if (posCam.y < currentBoundary.bottom - heightCam && y >= currentBoundary.bottom - heightCam*0.75)
+            posCam.y = currentBoundary.bottom - heightCam;
 
     //	Xét biên để chỉnh lại camera k thoát khỏi camera
     if (x > currentBoundary.right + widthCam - 24)

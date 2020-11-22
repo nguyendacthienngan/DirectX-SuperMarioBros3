@@ -85,7 +85,7 @@ void CScene::Load()
 
 			for (TiXmlElement* boundary = scene->FirstChildElement(); boundary != NULL; boundary = boundary->NextSiblingElement())
 			{
-				int id;
+				int id, disX, disY;
 				RectF bound;
 				D3DXVECTOR2 pos;
 				boundary->QueryIntAttribute("id", &id);
@@ -97,16 +97,17 @@ void CScene::Load()
 				boundary->QueryFloatAttribute("right", &bound.right);
 				boundary->QueryFloatAttribute("bottom", &bound.bottom);
 
-				camera->AddCameraProperties(id, pos, bound);
+				boundary->QueryIntAttribute("disX", &disX);
+				boundary->QueryIntAttribute("disY", &disY);
 
-				DebugOut(L"Pos cam %f, %f, Rect %f %f %f %f \n", pos.x, pos.y, bound.left, bound.top, bound.right, bound.bottom);
+				camera->AddCameraProperties(id, pos, bound);
+				camera->SetDisablePosX(disX);
+				camera->SetDisablePosY(disY);
 
 				if (start == id)
 				{
 					camera->SetCurrentBoundary(bound);
 					camera->SetPositionCam(pos);
-					DebugOut(L"Pos cam %f, %f, Rect %f %f %f %f (2)\n", pos.x, pos.y, bound.left, bound.top, bound.right, bound.bottom);
-
 				}
 			}
 			if (player != NULL)
