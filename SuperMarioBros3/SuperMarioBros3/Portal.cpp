@@ -2,6 +2,8 @@
 
 CPortal::CPortal(D3DXVECTOR2 size)
 {
+	this->SetTag(GameObjectTags::Portal);
+
 	CCollisionBox* box = new CCollisionBox();
 	box->SetSizeBox(size);
 	box->SetGameObjectAttach(this);

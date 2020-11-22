@@ -21,6 +21,7 @@
 #include "MarioControllerConst.h"
 #include "MarioController.h"
 #include "QuestionBlock.h"
+#include "Label.h"
 using namespace std;
 
 CMario::CMario()
@@ -626,7 +627,7 @@ void CMario::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 
 bool CMario::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
-	if (tag == GameObjectTags::Player || tag == GameObjectTags::SmallPlayer || tag == GameObjectTags::MarioFireBall)
+	if (tag == GameObjectTags::Player || tag == GameObjectTags::SmallPlayer || tag == GameObjectTags::MarioFireBall || tag == GameObjectTags::Label)
 		return false;
 	if (GiftTag(tag) == true && tag != GameObjectTags::Coin)
 		return false;

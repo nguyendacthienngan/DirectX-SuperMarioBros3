@@ -2,6 +2,8 @@
 
 CLabel::CLabel(D3DXVECTOR2 size)
 {
+	this->SetTag(GameObjectTags::Label);
+
 	CCollisionBox* box = new CCollisionBox();
 	box->SetSizeBox(size);
 	box->SetGameObjectAttach(this);
@@ -10,6 +12,7 @@ CLabel::CLabel(D3DXVECTOR2 size)
 	this->collisionBoxs->push_back(box);
 	this->isEnabled = true;
 
+	physiscBody->SetTrigger(true);
 	physiscBody->SetDynamic(false);
 }
 
