@@ -15,8 +15,6 @@ CCamera::CCamera(int wid, int hei)
 {
     widthCam = wid;
     heightCam = hei;
-    boundaryLeft = 0;
-    boundaryRight = 0;
     vx = 0.0f;
     isDisablePosX = false;
     isDisablePosY = false;
@@ -41,7 +39,7 @@ void CCamera::Update()
         posCam.y = y - heightCam * 0.1f;*/
 
     // Ở đầu scene và cuối scene ta sẽ đặt ra boundary => Mario k được vượt quá boundary này
-    if (posCam.x < boundaryLeft)
+   /* if (posCam.x < boundaryLeft)
         posCam.x = boundaryLeft;
 
     if (posCam.x > boundaryRight - widthCam)
@@ -52,16 +50,16 @@ void CCamera::Update()
 
     if (posCam.y > boundaryBottom - heightCam)
         posCam.y = boundaryBottom - heightCam;
-    
+    */
     /*if (isDisablePosY == false)
         if (posCam.y < boundaryBottom - heightCam && y >= boundaryBottom - heightCam*0.75)
             posCam.y = boundaryBottom - heightCam;*/
 
     //	Xét biên để chỉnh lại camera k thoát khỏi camera
-    if (x > boundaryRight + widthCam - 24)
+  /*  if (x > boundaryRight + widthCam - 24)
         x = boundaryRight + widthCam - 24;
     else if (x < boundaryLeft + 24)
-        x = boundaryLeft + 24;
+        x = boundaryLeft + 24;*/
     gameObject->SetPosition(D3DXVECTOR2(x, y));
 
 }
@@ -121,24 +119,9 @@ float CCamera::GetHeightCam()
     return heightCam;
 }
 
-float CCamera::GetBoundaryLeft()
+RectF CCamera::GetCurrentBoundary()
 {
-    return boundaryLeft;
-}
-
-float CCamera::GetBoundaryRight()
-{
-    return boundaryRight;
-}
-
-RectF CCamera::GetBoundary()
-{
-    RectF r;
-    r.left = boundaryLeft;
-    r.right = boundaryRight;
-    r.top = boundaryTop;
-    r.bottom = boundaryBottom;
-    return RectF(r);
+    return currentBoundary;
 }
 
 LPGameObject CCamera::GetGameObject()
@@ -179,18 +162,27 @@ void CCamera::SetHeightCam(float h)
     heightCam = h;
 }
 
-void CCamera::SetBoundary(float left, float right)
+void CCamera::SetCurrentBoundary(RectF bound)
 {
-    boundaryLeft = left;
-    boundaryRight = right;
+    currentBoundary = bound;
 }
 
-void CCamera::SetBoundary(float left, float right, float top, float bottom)
+CameraPropertieSet CCamera::GetCameraProperties(int id)
 {
-    boundaryLeft = left;
-    boundaryRight = right;
-    boundaryTop= top;
-    boundaryBottom = bottom;
+    if (cameraPropertieSets.find(id) != cameraPropertieSets.end())
+        return cameraPropertieSets.at(id);
+    return CameraPropertieSet::Empty();
+}
+
+void CCamera::AddCameraProperties(int id, D3DXVECTOR2 pos, RectF boundary)
+{
+    this->cameraPropertieSets.insert(make_pair(id, CameraPropertieSet{ pos, boundary }));
+}
+
+void CCamera::AddCameraProperties(int id, CameraPropertieSet camProps)
+{
+    this->cameraPropertieSets.insert(make_pair(id, camProps));
+
 }
 
 void CCamera::SetGameObject(LPGameObject gO)

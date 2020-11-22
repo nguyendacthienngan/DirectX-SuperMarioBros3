@@ -5,6 +5,9 @@
 // là 1 object đặc biệt, có thể có nhiều camera (onGround, underGround)
 class CGameObject;
 typedef CGameObject* LPGameObject;
+
+struct CameraPropertieSet;
+
 class CCamera 
 {
 private:
@@ -14,14 +17,12 @@ private:
 	float widthCam;
 	float heightCam;
 
-	float boundaryLeft; // set biên camera dựa vào kích thước map: boundary.left = 0
-	float boundaryRight; // VD: boundary.right =  map.width - cam.width => Tùy theo cách mình xét, đây chỉ là ví dụ
-	float boundaryTop; // VD: boundary.right =  map.width - cam.width => Tùy theo cách mình xét, đây chỉ là ví dụ
-	float boundaryBottom; // VD: boundary.right =  map.width - cam.width => Tùy theo cách mình xét, đây chỉ là ví dụ
-
 	LPGameObject gameObject; // lưu cái gameobject mà camera follow: Mario
 	bool isDisablePosX;
 	bool isDisablePosY;
+
+	RectF currentBoundary;
+	map<int, CameraPropertieSet> cameraPropertieSets;
 public:
 	CCamera(int wid, int hei);
 	~CCamera();
@@ -35,29 +36,46 @@ public:
 	bool CheckRectInCamera(RECT rect);
 
 	int GetSpeedXCam();
-	D3DXVECTOR2 GetPositionCam();
-	float GetWidthCam();
-	float GetHeightCam();
-	float GetBoundaryLeft();
-	float GetBoundaryRight();
-	RectF GetBoundary();
-	LPGameObject GetGameObject();
-	bool GetDisablePosX();
-	bool GetDisablePosY();
-
 	void SetSpeedXCam(float v);
+
+	D3DXVECTOR2 GetPositionCam();
 	void SetPositionCam(D3DXVECTOR2 pos);
+
+	float GetWidthCam();
 	void SetWidthCam(float w);
+
+	float GetHeightCam();
 	void SetHeightCam(float h);
-	void SetBoundary(float left, float right);
-	void SetBoundary(float left, float right, float top, float bottom);
+
+	RectF GetCurrentBoundary();
+	void SetCurrentBoundary(RectF bound);
+
+	CameraPropertieSet GetCameraProperties(int id);
+	void AddCameraProperties(int id, D3DXVECTOR2 pos, RectF boundary);
+	void AddCameraProperties(int id, CameraPropertieSet camProps);
+
+	LPGameObject GetGameObject();
 	void SetGameObject(LPGameObject gO);
+
+	bool GetDisablePosX();
 	void SetDisablePosX(bool isDisableX);
+
+	bool GetDisablePosY();
 	void SetDisablePosY(bool isDisableY);
 };
 
-struct CameraProperties
+struct CameraPropertieSet
 {
 	D3DXVECTOR2 camPosition; // tọa độ trái trên
 	RectF boundarySet;
+	static CameraPropertieSet Empty()
+	{
+		D3DXVECTOR2 pos(-1, -1);
+		RectF rect;
+		rect.left = -1;
+		rect.right = -1;
+		rect.top = -1;
+		rect.bottom = -1;
+		return CameraPropertieSet{ pos, rect };
+	}
 };
