@@ -164,6 +164,7 @@
     <ClInclude Include="EffectObject.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyConst.h" />
+    <ClInclude Include="Label.h" />
     <ClInclude Include="MarioFireBall.h" />
     <ClInclude Include="FireMario.h" />
     <ClInclude Include="framework.h" />
@@ -211,6 +212,7 @@
     <ClInclude Include="Piranha.h" />
     <ClInclude Include="PiranhaConst.h" />
     <ClInclude Include="Plant.h" />
+    <ClInclude Include="Portal.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="QuestionBlockConst.h" />
     <ClInclude Include="RaccoonTailBox.h" />
@@ -254,6 +256,7 @@
     <ClCompile Include="CVenus.cpp" />
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Label.cpp" />
     <ClCompile Include="MarioFireBall.cpp" />
     <ClCompile Include="FireMario.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -285,6 +288,7 @@
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="Piranha.cpp" />
     <ClCompile Include="Plant.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RaccoonTailBox.cpp" />
     <ClCompile Include="RaccoonMario.cpp" />
