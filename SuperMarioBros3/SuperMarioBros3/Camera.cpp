@@ -8,6 +8,7 @@
 #include "MarioConst.h"
 
 #include <vector>
+#include <map>
 #include "Ultis.h"
 #include "Const.h"
 using namespace std;

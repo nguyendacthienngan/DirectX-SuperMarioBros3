@@ -2,12 +2,12 @@
 #include <d3dx9.h>
 #include "GameObject.h"
 #include "RectF.h"
+
 // là 1 object đặc biệt, có thể có nhiều camera (onGround, underGround)
 class CGameObject;
 typedef CGameObject* LPGameObject;
 
 struct CameraPropertieSet;
-
 class CCamera 
 {
 private:
@@ -22,7 +22,7 @@ private:
 	bool isDisablePosY;
 
 	RectF currentBoundary;
-	map<int, CameraPropertieSet> cameraPropertieSets;
+	std::unordered_map<int, CameraPropertieSet> cameraPropertieSets;
 public:
 	CCamera(int wid, int hei);
 	~CCamera();
