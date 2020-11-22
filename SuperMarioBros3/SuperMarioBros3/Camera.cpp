@@ -18,7 +18,8 @@ CCamera::CCamera(int wid, int hei)
     boundaryLeft = 0;
     boundaryRight = 0;
     vx = 0.0f;
-    
+    isDisablePosX = false;
+    isDisablePosY = false;
 }
 
 CCamera::~CCamera()
@@ -36,7 +37,8 @@ void CCamera::Update()
     
      // follow Mario
     posCam.x = x - widthCam * 0.5f;
-    //posCam.y = y - heightCam * 0.1f;
+    /*if (isDisablePosY == false)
+        posCam.y = y - heightCam * 0.1f;*/
 
     // Ở đầu scene và cuối scene ta sẽ đặt ra boundary => Mario k được vượt quá boundary này
     if (posCam.x < boundaryLeft)
@@ -51,8 +53,9 @@ void CCamera::Update()
     if (posCam.y > boundaryBottom - heightCam)
         posCam.y = boundaryBottom - heightCam;
     
-   /* if (posCam.y < boundaryBottom - heightCam && y >= boundaryBottom - heightCam*0.75)
-        posCam.y = boundaryBottom - heightCam;*/
+    /*if (isDisablePosY == false)
+        if (posCam.y < boundaryBottom - heightCam && y >= boundaryBottom - heightCam*0.75)
+            posCam.y = boundaryBottom - heightCam;*/
 
     //	Xét biên để chỉnh lại camera k thoát khỏi camera
     if (x > boundaryRight + widthCam - 24)
@@ -143,6 +146,16 @@ LPGameObject CCamera::GetGameObject()
     return gameObject;
 }
 
+bool CCamera::GetDisablePosX()
+{
+    return isDisablePosX;
+}
+
+bool CCamera::GetDisablePosY()
+{
+    return isDisablePosY;
+}
+
 
 
 void CCamera::SetSpeedXCam(float v)
@@ -183,6 +196,16 @@ void CCamera::SetBoundary(float left, float right, float top, float bottom)
 void CCamera::SetGameObject(LPGameObject gO)
 {
     gameObject = gO;
+}
+
+void CCamera::SetDisablePosX(bool isDisableX)
+{
+    this->isDisablePosX = isDisableX;
+}
+
+void CCamera::SetDisablePosY(bool isDisableY)
+{
+    this->isDisablePosY = isDisableY;
 }
 
 

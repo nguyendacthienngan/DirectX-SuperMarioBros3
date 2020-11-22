@@ -7,8 +7,6 @@
 
 #include "Map.h"
 #include "Camera.h"
-//#include "MarioController.h"
-
 class CScene;
 typedef CScene* LPScene;
 
@@ -17,21 +15,17 @@ typedef CGameObject* LPGameObject;
 
 class CMap;
 
-//class CMarioController;
 class CScene
 {
 protected:
 	std::vector<LPGameObject> gameObjects;
 	std::string id;
-	//LPCWSTR filePath;
 	D3DCOLOR backgroundColor;
 	CMap *map;
 	CCamera *camera;
-	//CMarioController* marioController;
 	std::string filePath;
 public:
 	CScene();
-	//CScene(std::string filePath);
 
 	virtual void Load();
 	virtual void Unload();
@@ -49,8 +43,6 @@ public:
 	void RemoveObject(LPGameObject gameObject);
 
 	void SetObjectPosition(D3DXVECTOR2 distance);
-	/*void SetMarioController(CMarioController* mC);
-	CMarioController* GetMarioController();*/
 
 	virtual ~CScene();
 };

@@ -20,7 +20,8 @@ private:
 	float boundaryBottom; // VD: boundary.right =  map.width - cam.width => Tùy theo cách mình xét, đây chỉ là ví dụ
 
 	LPGameObject gameObject; // lưu cái gameobject mà camera follow: Mario
-
+	bool isDisablePosX;
+	bool isDisablePosY;
 public:
 	CCamera(int wid, int hei);
 	~CCamera();
@@ -41,6 +42,8 @@ public:
 	float GetBoundaryRight();
 	RectF GetBoundary();
 	LPGameObject GetGameObject();
+	bool GetDisablePosX();
+	bool GetDisablePosY();
 
 	void SetSpeedXCam(float v);
 	void SetPositionCam(D3DXVECTOR2 pos);
@@ -49,5 +52,12 @@ public:
 	void SetBoundary(float left, float right);
 	void SetBoundary(float left, float right, float top, float bottom);
 	void SetGameObject(LPGameObject gO);
+	void SetDisablePosX(bool isDisableX);
+	void SetDisablePosY(bool isDisableY);
 };
 
+struct CameraProperties
+{
+	D3DXVECTOR2 camPosition; // tọa độ trái trên
+	RectF boundarySet;
+};
