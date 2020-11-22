@@ -99,10 +99,14 @@ void CScene::Load()
 
 				camera->AddCameraProperties(id, pos, bound);
 
+				DebugOut(L"Pos cam %f, %f, Rect %f %f %f %f \n", pos.x, pos.y, bound.left, bound.top, bound.right, bound.bottom);
+
 				if (start == id)
 				{
 					camera->SetCurrentBoundary(bound);
 					camera->SetPositionCam(pos);
+					DebugOut(L"Pos cam %f, %f, Rect %f %f %f %f (2)\n", pos.x, pos.y, bound.left, bound.top, bound.right, bound.bottom);
+
 				}
 			}
 			if (player != NULL)

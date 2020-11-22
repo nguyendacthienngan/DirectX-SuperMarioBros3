@@ -83,8 +83,8 @@ void CTileMap::Render(CCamera* camera, bool isRenderForeground)
 	// Bằng cách chia cho số tileWidth và tileHeight (Bởi vì 1 tile có size là  tileWidth,tileHeight)
 
 	// Do đó ta sẽ quy tọa đọ của camera về dạng grid
-	int col = camera->GetPositionCam().x / tileWidth; 
-	int row = camera->GetPositionCam().y / tileHeight;
+	int col = abs(camera->GetPositionCam().x / tileWidth); 
+	int row = abs (camera->GetPositionCam().y / tileHeight);
 
 	// Lấy ra viewport theo dạng grid (số ô)
 	D3DXVECTOR2 camSize = D3DXVECTOR2(camera->GetWidthCam() / tileWidth, camera->GetHeightCam() / tileHeight);
