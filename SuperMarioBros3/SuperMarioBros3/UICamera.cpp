@@ -33,4 +33,5 @@ void CUICamera::SetHUD(CHUD* hud)
 
 CUICamera::~CUICamera()
 {
+
 }
