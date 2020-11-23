@@ -11,7 +11,7 @@ struct CameraPropertieSet;
 
 class CCamera 
 {
-private:
+protected:
 	DWORD dt; // deltatime
 	float vx;
 	D3DXVECTOR2 posCam;
@@ -41,7 +41,7 @@ public:
 	void SetSpeedXCam(float v);
 
 	D3DXVECTOR2 GetPositionCam();
-	void SetPositionCam(D3DXVECTOR2 pos);
+	virtual void SetPositionCam(D3DXVECTOR2 pos);
 
 	float GetWidthCam();
 	void SetWidthCam(float w);

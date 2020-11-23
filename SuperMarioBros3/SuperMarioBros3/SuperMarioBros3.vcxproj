@@ -164,6 +164,7 @@
     <ClInclude Include="EffectObject.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyConst.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="MarioFireBall.h" />
@@ -258,6 +259,7 @@
     <ClCompile Include="CVenus.cpp" />
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="MarioFireBall.cpp" />

@@ -72,6 +72,7 @@ void CGame::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
 
 	d3ddv->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backBuffer);
 
+	
 	D3DXCreateSprite(d3ddv, &spriteHandler);
 
 	if (!spriteHandler)
@@ -79,6 +80,14 @@ void CGame::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
 		MessageBox(hWnd, L"Creating sprite handler failed!", L"Error", MB_OK | MB_ICONERROR);
 		return;
 	}
+	//d3ddv->CreateOffscreenPlainSurface(
+	//	600, // width
+	//	600, // height
+	//	D3DFMT_X8R8G8B8,
+	//	D3DPOOL_DEFAULT,
+	//	&surface,
+	//	NULL
+	//);
 	DebugOut(L"[INFO] Init DirectX Done \n");
 }
 
@@ -193,6 +202,7 @@ void CGame::DrawFlipY(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DT
 void CGame::Render()
 {
 	D3DCOLOR bgColor = D3DCOLOR_XRGB(0, 0, 0);
+	RECT rect = {0, 0, 600, 600};
 	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 	if (activeScene != nullptr)
 		bgColor = activeScene->GetBackgroundColor();
@@ -201,10 +211,8 @@ void CGame::Render()
 	if (d3ddv->BeginScene())
 	{
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-
 		if (activeScene != nullptr)
 			activeScene->Render();
-
 		spriteHandler->End();
 
 		d3ddv->EndScene();

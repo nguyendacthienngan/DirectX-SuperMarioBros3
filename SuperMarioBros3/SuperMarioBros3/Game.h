@@ -33,6 +33,7 @@ private:
 	LPDIRECT3DSURFACE9 backBuffer = NULL;
 	LPD3DXSPRITE spriteHandler = NULL; // Sprite helper libar
 
+	LPDIRECT3DSURFACE9 surface = NULL;
 	// Sau khi đọc file root.xml, ta sẽ lưu các thông tin file đó dưới dạng 1 map chứa 1 map
 	// Mỗi category (Textures, Sprites, Animations, Scenes, Config) sẽ có các bucket
 	// các bucket sẽ giữ id và source (filePath)
@@ -61,7 +62,9 @@ public:
 	LPDIRECT3DDEVICE9 GetDirect3DDevice() { return this->d3ddv; }
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; }
+	LPDIRECT3DSURFACE9 GetSurface() { return this->surface; }
 
+	void SetSurface(LPDIRECT3DSURFACE9 s) { this->surface = s; }
 	static float GetTimeScale() { return timeScale; }
 	static void SetTimeScale(float time) { timeScale = time; }
 
