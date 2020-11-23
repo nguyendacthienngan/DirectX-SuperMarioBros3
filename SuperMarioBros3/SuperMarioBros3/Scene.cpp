@@ -5,14 +5,19 @@
 #include "Game.h"
 #include "MarioController.h"
 #include "SceneConst.h"
-#include <string>
 #include "Koopa.h"
 #include "CVenus.h"
 #include "ObjectPool.h"
+#include "UICamera.h"
+
+#include <string>
+
 using namespace std;
 
 CScene::CScene()
 {
+	uiCamera = NULL;
+	camera = NULL;
 }
 
 void CScene::Load()
@@ -116,6 +121,30 @@ void CScene::Load()
 			}
 			
 		}
+		else if (name.compare("UICamera") == 0)
+		{
+			DebugOut(L"[INFO] Load UI camera \n");
+			int screenWidth = CGame::GetInstance()->GetScreenWidth();
+			int screenHeight = CGame::GetInstance()->GetScreenHeight();
+			
+			D3DXVECTOR2 pos, posHUD;
+			scene->QueryFloatAttribute("pos_x", &pos.x);
+			scene->QueryFloatAttribute("pos_y", &pos.y);
+
+			this->uiCamera = new CUICamera(screenWidth, screenHeight);
+			this->uiCamera->SetPositionCam(pos);
+
+			TiXmlElement* uiCam = scene->FirstChildElement();
+			std::string nameUICam = uiCam->Attribute("name");
+
+			if (nameUICam.compare("HUD") == 0)
+			{
+				uiCam->QueryFloatAttribute("pos_x", &posHUD.x);
+				uiCam->QueryFloatAttribute("pos_y", &posHUD.y);
+				auto uiCam = static_cast<CUICamera*>(uiCamera);
+				uiCam->GetHUD()->SetPosition(posHUD);
+			}
+		}
 	}
 }
 
@@ -162,6 +191,8 @@ void CScene::Render()
 			obj->GetCollisionBox()->at(0)->Render(camera, CollisionBox_Render_Distance);
 	}
 	map->Render(camera, true);
+	if (uiCamera != NULL)
+		uiCamera->Render();
 }
 
 void CScene::AddObject(LPGameObject gameObject)

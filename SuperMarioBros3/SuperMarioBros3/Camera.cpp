@@ -12,6 +12,9 @@
 #include "Ultis.h"
 #include "Const.h"
 using namespace std;
+CCamera::CCamera()
+{
+}
 CCamera::CCamera(int wid, int hei)
 {
     widthCam = wid;
@@ -67,6 +70,7 @@ void CCamera::Update()
 
 void CCamera::Render()
 {
+    
 }
 
 

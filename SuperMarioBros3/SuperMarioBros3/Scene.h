@@ -13,6 +13,7 @@ typedef CScene* LPScene;
 class CGameObject;
 typedef CGameObject* LPGameObject;
 
+class CCamera;
 class CMap;
 
 class CScene
@@ -23,6 +24,7 @@ protected:
 	D3DCOLOR backgroundColor;
 	CMap *map;
 	CCamera *camera;
+	CCamera *uiCamera;
 	std::string filePath;
 public:
 	CScene();

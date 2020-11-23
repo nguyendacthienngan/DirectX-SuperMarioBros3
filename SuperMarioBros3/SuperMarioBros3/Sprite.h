@@ -20,7 +20,7 @@ class CSprite
 	
 public:
 	CSprite(std::string id, int xPivot, RECT rect = RECT(), LPDIRECT3DTEXTURE9 tex = NULL, D3DXCOLOR transcolor = D3DCOLOR_XRGB(255, 0, 255)); // texture là bên Texture manager giữ
-	void Draw(D3DXVECTOR2 position, D3DXVECTOR2 scale, float rotation, D3DXCOLOR transcolor = D3DXCOLOR(255, 255, 255, 255));
+	void Draw(D3DXVECTOR2 position, D3DXVECTOR2 scale, float rotation, D3DXCOLOR transcolor = D3DXCOLOR(254, 255, 255, 255));
 
 	RECT GetRect();
 	void SetRect(RECT rect);

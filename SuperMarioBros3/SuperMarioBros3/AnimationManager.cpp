@@ -55,6 +55,11 @@ bool CAnimationManager::Init()
 		DebugOut(L"[ERROR] Cannot Load Misc Animation File \n");
 		return false;
 	}
+	if (InitAnAnimationSet(TEXTURE_UI, root->GetFilePathByCategory(CATEGORY_ANIMATION, DB_ANIMATION_UI)) == false)
+	{
+		DebugOut(L"[ERROR] Cannot Load UI Animation File \n");
+		return false;
+	}
 	return true;
 }
 

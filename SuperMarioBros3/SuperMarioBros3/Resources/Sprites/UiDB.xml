@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Textures>
-	<Textures textureId="tex-ui">
+	<Textures id="tex-ui">
         <Sprite id="spr-font-0" left="31" top="24"  width="9" height="8"/>
         <Sprite id="spr-font-1" left="54" top="24"  width="7" height="7"/>
         <Sprite id="spr-font-2" left="71" top="24"  width="9" height="8"/>

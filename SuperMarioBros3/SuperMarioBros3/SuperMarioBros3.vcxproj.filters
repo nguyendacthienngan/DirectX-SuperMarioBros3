@@ -199,6 +199,15 @@
     <Filter Include="Framework\Game\Portal\Label">
       <UniqueIdentifier>{d86026b8-af42-4dcd-9af5-6906c0053b24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\UI">
+      <UniqueIdentifier>{bbcf641f-88ba-4532-b36d-d8c116d78fd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Scene\Camera\UICamera">
+      <UniqueIdentifier>{15ef686e-903d-4d43-a0aa-94e24946b49f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Scene\Camera\UICamera\HUD">
+      <UniqueIdentifier>{1f7d6085-9ac2-475e-86ee-66fc0cae8d55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -492,6 +501,12 @@
     <ClInclude Include="Label.h">
       <Filter>Framework\Game\Portal\Label</Filter>
     </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Framework\Game\Scene\Camera\UICamera\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="UICamera.h">
+      <Filter>Framework\Game\Scene\Camera\UICamera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -697,6 +712,12 @@
     </ClCompile>
     <ClCompile Include="Label.cpp">
       <Filter>Framework\Game\Portal\Label</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Framework\Game\Scene\Camera\UICamera\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="UICamera.cpp">
+      <Filter>Framework\Game\Scene\Camera\UICamera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

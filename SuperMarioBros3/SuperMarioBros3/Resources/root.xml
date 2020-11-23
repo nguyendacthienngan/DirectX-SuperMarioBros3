@@ -7,6 +7,7 @@
     <Texture id="tex-fire-ball" source="Resources/Textures/fire-ball-white.png"/>
     <Texture id="tex-bbox" source="Resources/Textures/bbox.png"/>
     <Texture id="tex-effect" source="Resources/Textures/effect_white_254_x3.png"/>
+    <Texture id="tex-ui" source="Resources/Textures/UI_x3.png"/>
   </Root>
   <Root name="Sprites">
     <Sprite id="spr-mario" source="Resources/Sprites/MarioDB.xml"/>
@@ -14,6 +15,7 @@
     <Sprite id="spr-misc" source="Resources/Sprites/MiscDB.xml"/>
     <Sprite id="spr-fire-ball" source="Resources/Sprites/MiscDB.xml"/>
     <Sprite id="spr-effect" source="Resources/Sprites/MiscDB.xml"/>
+    <Sprite id="spr-ui" source="Resources/Sprites/UiDB.xml"/>
   </Root>
   <Root name="Animations">
     <Animation id="ani-mario" source="Resources/Animations/MarioAnim.xml"/>
@@ -21,6 +23,7 @@
     <Animation id="ani-misc" source="Resources/Animations/MiscAnim.xml"/>
     <Animation id="ani-fire-ball" source="Resources/Animations/MiscAnim.xml"/>
     <Animation id="ani-effect" source="Resources/Animations/MiscAnim.xml"/>
+    <Animation id="ani-ui" source="Resources/Animations/UiAnim.xml"/>
   </Root>
   <Root name="Scenes">
     <Scene id="world-1-1" source="Resources/Scenes/World1-1.xml"/> 

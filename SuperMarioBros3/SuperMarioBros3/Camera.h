@@ -8,6 +8,7 @@ class CGameObject;
 typedef CGameObject* LPGameObject;
 
 struct CameraPropertieSet;
+
 class CCamera 
 {
 private:
@@ -24,6 +25,7 @@ private:
 	RectF currentBoundary;
 	std::unordered_map<int, CameraPropertieSet> cameraPropertieSets;
 public:
+	CCamera();
 	CCamera(int wid, int hei);
 	~CCamera();
 
