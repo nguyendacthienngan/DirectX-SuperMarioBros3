@@ -2,6 +2,9 @@
 
 const float MARIO_GRAVITY =					0.00093f *2;
 
+const float  MARIO_VENT_SPEED = 0.02f;
+
+
 const float  MARIO_WALKING_SPEED = 0.24f * 2; 
 const float  MARIO_RUNNING_SPEED = 0.38f * 2;
 const float  MARIO_HIGHSPEED_SPEED = 0.53f * 2;

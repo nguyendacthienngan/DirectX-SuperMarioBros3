@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="22" nextobjectid="141">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="22" nextobjectid="147">
  <editorsettings>
   <export target="world-1-1-map.xml" format="tmx"/>
  </editorsettings>
@@ -397,6 +397,8 @@
   <object id="116" x="6864" y="1581" width="153" height="55"/>
   <object id="117" x="6336" y="1390" width="575" height="50"/>
   <object id="130" x="624.045" y="1103.47" width="95.9091" height="144.394"/>
+  <object id="145" x="6912.33" y="1390" width="97.6667" height="99"/>
+  <object id="146" x="6238.67" y="1390.17" width="97.6667" height="99"/>
  </objectgroup>
  <objectgroup id="14" name="Ghost">
   <object id="28" x="720.523" y="1104.97" width="142.597" height="47.1135"/>
@@ -508,7 +510,7 @@
     <property name="direction" value="down"/>
    </properties>
   </object>
-  <object id="140" name="warp-pipe" type="up" x="6912" y="1469" width="96" height="28">
+  <object id="140" name="warp-pipe" type="up" x="6912.67" y="1477.67" width="96" height="28">
    <properties>
     <property name="direction" value="up"/>
    </properties>
@@ -521,7 +523,7 @@
     <property name="sceneID" value="-1"/>
    </properties>
   </object>
-  <object id="139" name="hidden-scene" type="0" x="6913.67" y="1391.33" width="95.3333" height="33.3333">
+  <object id="139" name="scene1-1" type="0" x="6913.67" y="1391.33" width="95.3333" height="33.3333">
    <properties>
     <property name="cameraID" type="int" value="0"/>
     <property name="sceneID" value="-1"/>

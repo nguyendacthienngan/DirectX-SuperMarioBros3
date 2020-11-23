@@ -198,6 +198,7 @@ void CScene::SetCamera(int id)
 	{
 		camera->SetCurrentBoundary(camProps.boundarySet);
 		camera->SetPositionCam(camProps.camPosition);
+		DebugOut(L"Camera %f, %f \n", camera->GetPositionCam().x, camera->GetPositionCam().y);
 	}
 }
 

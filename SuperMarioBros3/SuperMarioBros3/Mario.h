@@ -104,7 +104,7 @@ public:
 	void ChangeLevelProcess();
 	void FallProcess();
 	void GoToWarpPipeProcess(); // chui xuống cống để chuyển scene
-	void WarpPipeProcess();
+	void WarpPipeProcess(CCamera* cam);
 
 	void StopBounce(bool stopBounce);
 	bool StopBounce();

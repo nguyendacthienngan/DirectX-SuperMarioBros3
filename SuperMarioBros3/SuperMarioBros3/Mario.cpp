@@ -430,7 +430,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	}
 	else
 	{
-		WarpPipeProcess();
+		WarpPipeProcess(cam);
 	}	
 }
 
@@ -910,21 +910,24 @@ void CMario::GoToWarpPipeProcess()
 	
 }
 
-void CMario::WarpPipeProcess()
+void CMario::WarpPipeProcess(CCamera* cam)
 {
 	if (isGoToWarpPipe == true)
 	{
 		this->physiscBody->SetGravity(0.0f);
 		this->physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 		if (ventDirection.bottom == 1)
-			transform.position.y += 0.02f * CGame::GetInstance()->GetDeltaTime();
+			transform.position.y += MARIO_VENT_SPEED * CGame::GetInstance()->GetDeltaTime();
 		if (ventDirection.top == 1)
-			transform.position.y -= 0.02f * CGame::GetInstance()->GetDeltaTime();
+			transform.position.y -= MARIO_VENT_SPEED * CGame::GetInstance()->GetDeltaTime();
 	}
 	else
 	{
 		isAutogo = false;
-		//this->transform.position = D3DXVECTOR2(6260, 1366);
+		//this->transform.position = D3DXVECTOR2(6237, 1366);
+		auto camPos = cam->GetPositionCam();
+		camPos.x += cam->GetWidthCam() / 2;
+		SetPosition(camPos);
 		this->physiscBody->SetGravity(MARIO_GRAVITY);
 	}
 }
