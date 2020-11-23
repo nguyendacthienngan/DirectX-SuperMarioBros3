@@ -180,6 +180,8 @@ void CMario::InitProperties()
 	stopBounce = false;
 	isKick = false;
 	isDamaged = false;
+	isGoDownWarpPipe = false;
+	canGoDownWarpPipe = false;
 	isSmokeEffectAnimation = false;
 	isChangeLevel = false;
 	bounceAfterJumpOnEnemy = false;
@@ -197,7 +199,7 @@ void CMario::InitProperties()
 	isPowerUp = false;
 	powerupItem = PowerupTag::None;
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
-
+	ventDirection = { 0, 0, 0, 0 };
 }
 
 void CMario::LoadAnimation()
@@ -415,6 +417,8 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 	DamageProcess();
 
+	GoDownWarpPipeProcess();
+
 	if (isKick == true)
 	{
 		previousPhysicsState.move = currentPhysicsState.move;
@@ -430,7 +434,7 @@ void CMario::Render(CCamera* cam, int alpha)
 	SetScale(D3DXVECTOR2(physiscBody->GetNormal().x, 1.0f));
 
 #pragma region Update State
-	if (isSmokeEffectAnimation == false)
+	if (isSmokeEffectAnimation == false && isGoDownWarpPipe == false)
 	{
 #pragma region Move On Ground
 		switch (currentPhysicsState.move)
@@ -545,9 +549,13 @@ void CMario::Render(CCamera* cam, int alpha)
 
 #pragma endregion
 	}
-	else
+	else if (isGoDownWarpPipe == false)
 	{
 		SetState(MARIO_STATE_DAMAGED);
+	}
+	else
+	{
+		SetState(MARIO_STATE_IDLE_FRONT);
 	}
 
 #pragma endregion
@@ -623,11 +631,23 @@ void CMario::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 		OnDamaged();
 		otherCollisionBox->GetGameObjectAttach()->Enable(false);
 	}
+	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Label)
+	{
+		// Khi mario đụng trúng object label
+		// Nó sẽ lấy cái push direction ra và di chuyển theo hướng đó 
+		// Autogo => Disable trạng thái vật lý update, chỉ render và thay đổi relative position
+		auto label = static_cast<CLabel*>(otherCollisionBox->GetGameObjectAttach());
+		auto direction = label->GetPushDirection();
+		ventDirection = direction;
+		OnGoDownWarpPipe();
+	}
 }
 
 bool CMario::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
-	if (tag == GameObjectTags::Player || tag == GameObjectTags::SmallPlayer || tag == GameObjectTags::MarioFireBall || tag == GameObjectTags::Label)
+	if (MarioTag(tag) || tag == GameObjectTags::MarioFireBall || tag == GameObjectTags::Label)
+		return false;
+	if (tag == GameObjectTags::Label)
 		return false;
 	if (GiftTag(tag) == true && tag != GameObjectTags::Coin)
 		return false;
@@ -643,7 +663,7 @@ void CMario::CrouchProcess(CKeyboardManager* keyboard)
 	// Còn đang nhảy (vy != 0) và ấn xuống thì vẫn crouch. Còn 1 lúc bắt k kịp trạng thái bấm qua lại khi đang nhảy (vy != 0 && vx != 0) thì nó có thể vẫn crouch. 
 
 	bool changeAniState = false;
-	if (keyboard->GetKeyStateDown(DIK_LEFT) || keyboard->GetKeyStateDown(DIK_RIGHT) || currentState == MARIO_STATE_ATTACK) // thiếu xét trường hợp nhảy ******
+	if (keyboard->GetKeyStateDown(DIK_LEFT) || keyboard->GetKeyStateDown(DIK_RIGHT) || currentState == MARIO_STATE_ATTACK || currentState == MARIO_STATE_IDLE_FRONT) // thiếu xét trường hợp nhảy ******
 	{
 		// KHÔNG HỤP
 		changeAniState = true;
@@ -825,6 +845,28 @@ void CMario::FallProcess()
 	isHighJump = false;
 }
 
+void CMario::GoDownWarpPipeProcess()
+{
+	auto keyboard = CKeyboardManager::GetInstance();
+	if (canGoDownWarpPipe == true)
+	{
+		if (keyboard->GetKeyStateDown(DIK_DOWN) && ventDirection.bottom == 1)
+		{
+			isGoDownWarpPipe = true;
+		}
+	}
+	if (isGoDownWarpPipe == true)
+	{
+		this->physiscBody->SetDynamic(false);
+		this->collisionBoxs->at(0)->SetEnable(false);
+	}
+	else
+	{
+		this->physiscBody->SetDynamic(true);
+		this->collisionBoxs->at(0)->SetEnable(true);
+	}
+}
+
 void CMario::StopBounce(bool stopBounce)
 {
 	this->stopBounce = stopBounce;
@@ -883,6 +925,11 @@ void CMario::OnDamaged()
 {
 	isDamaged = true;
 	timeStartDamaged = GetTickCount64();
+}
+
+void CMario::OnGoDownWarpPipe()
+{
+	canGoDownWarpPipe = true;
 }
 
 void CMario::HoldObject(CHoldable* holdableObj)

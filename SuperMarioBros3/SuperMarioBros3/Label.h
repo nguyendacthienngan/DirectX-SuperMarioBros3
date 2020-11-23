@@ -8,5 +8,6 @@ public:
     CLabel(D3DXVECTOR2 size);
     void SetPushDirection(RectF pushDirect);
     RectF GetPushDirection();
+    bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag) override;
 };
 

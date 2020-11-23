@@ -1,9 +1,9 @@
 #include "Label.h"
+#include "Ultis.h"
 
 CLabel::CLabel(D3DXVECTOR2 size)
 {
 	this->SetTag(GameObjectTags::Label);
-
 	CCollisionBox* box = new CCollisionBox();
 	box->SetSizeBox(size);
 	box->SetGameObjectAttach(this);
@@ -24,4 +24,9 @@ void CLabel::SetPushDirection(RectF pushDirect)
 RectF CLabel::GetPushDirection()
 {
 	return pushDirection;
+}
+
+bool CLabel::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
+{
+	return MarioTag(tag);
 }
