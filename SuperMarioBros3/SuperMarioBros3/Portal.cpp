@@ -13,6 +13,9 @@ CPortal::CPortal(D3DXVECTOR2 size)
 	this->isEnabled = true;
 
 	physiscBody->SetDynamic(false);
+
+	sceneID = -1;
+	cameraID = -1;
 }
 
 void CPortal::SetSceneID(int id)

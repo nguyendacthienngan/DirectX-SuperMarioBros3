@@ -36,6 +36,7 @@ public:
 	std::string GetSceneId() { return this->id; }
 	D3DCOLOR GetBackgroundColor() { return backgroundColor; }
 
+	void SetCamera(int id);
 	CCamera* GetCamera() { return camera; }
 	std::vector<LPGameObject> GetObjects();
 	LPGameObject GetPlayer();

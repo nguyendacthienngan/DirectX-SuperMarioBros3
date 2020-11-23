@@ -78,4 +78,11 @@ struct CameraPropertieSet
 		rect.bottom = -1;
 		return CameraPropertieSet{ pos, rect };
 	}
+	static bool IsEmpty(CameraPropertieSet x)
+	{
+		if (x.boundarySet.bottom == -1 && x.boundarySet.left == -1 && x.boundarySet.top == -1 && x.boundarySet.right == -1)
+			if (x.camPosition.x == -1 && x.camPosition.y == -1)
+				return true;
+		return false;
+	}
 };

@@ -47,8 +47,9 @@ protected:
 	int countChangeAlpha;
 	bool isPowerUp; 
 	PowerupTag powerupItem; // Item Mario ăn được để power-up
-	bool isGoDownWarpPipe, canGoDownWarpPipe;
+	bool isGoToWarpPipe, canGoToWarpPipe;
 	RectF ventDirection;
+	bool isAutogo;
 public:
 	CMario();
 	void SetDamageFlag(bool isDamaged);
@@ -102,7 +103,8 @@ public:
 	void DamageProcess();
 	void ChangeLevelProcess();
 	void FallProcess();
-	void GoDownWarpPipeProcess(); // chui xuống cống để chuyển scene
+	void GoToWarpPipeProcess(); // chui xuống cống để chuyển scene
+	void WarpPipeProcess();
 
 	void StopBounce(bool stopBounce);
 	bool StopBounce();
@@ -112,7 +114,7 @@ public:
 	void OnKeyUp(int KeyCode);
 
 	void OnDamaged();
-	void OnGoDownWarpPipe();
+	void OnGoToWarpPipe();
 	void HoldObject(CHoldable* holdableObj);
 	void SetMarioStateTag(MarioStates tag);
 	MarioStates GettMarioStateTag();

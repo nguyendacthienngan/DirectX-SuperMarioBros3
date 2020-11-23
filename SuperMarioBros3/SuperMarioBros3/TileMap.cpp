@@ -335,7 +335,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				}
 				else if (name.compare("Portal") == 0)
 				{
-					int cameraID, sceneID;
+					int cameraID = -1, sceneID = -1;
 					
 					CPortal* portal = new CPortal(size);
 					portal->SetPosition(position - translateConst + size * 0.5);
@@ -346,12 +346,12 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						std::string propName = property->Attribute("name");
 						if (propName.compare("cameraID") == 0)
 						{
-							object->QueryIntAttribute("value", &cameraID);
+							property->QueryIntAttribute("value", &cameraID);
 							portal->SetCameraID(cameraID);
 						}
 						if (propName.compare("sceneID") == 0)
 						{
-							object->QueryIntAttribute("value", &sceneID);
+							property->QueryIntAttribute("value", &sceneID);
 							portal->SetSceneID(sceneID);
 						}
 					}

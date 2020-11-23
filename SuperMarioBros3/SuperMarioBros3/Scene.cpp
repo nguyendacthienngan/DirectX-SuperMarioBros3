@@ -191,6 +191,16 @@ void CScene::SetObjectPosition(D3DXVECTOR2 distance)
 	}
 }
 
+void CScene::SetCamera(int id)
+{
+	auto camProps = camera->GetCameraProperties(id);
+	if (CameraPropertieSet::IsEmpty(camProps) == false)
+	{
+		camera->SetCurrentBoundary(camProps.boundarySet);
+		camera->SetPositionCam(camProps.camPosition);
+	}
+}
+
 std::vector<LPGameObject> CScene::GetObjects()
 {
 	return gameObjects;
