@@ -24,6 +24,8 @@
 #include "Brick.h"
 #include "Piranha.h"
 #include "CVenus.h"
+#include "Portal.h"
+#include "Label.h"
 
 CTileMap::CTileMap()
 {
@@ -83,8 +85,8 @@ void CTileMap::Render(CCamera* camera, bool isRenderForeground)
 	// Bằng cách chia cho số tileWidth và tileHeight (Bởi vì 1 tile có size là  tileWidth,tileHeight)
 
 	// Do đó ta sẽ quy tọa đọ của camera về dạng grid
-	int col = camera->GetPositionCam().x / tileWidth; 
-	int row = camera->GetPositionCam().y / tileHeight;
+	int col = abs(camera->GetPositionCam().x / tileWidth); 
+	int row = abs (camera->GetPositionCam().y / tileHeight);
 
 	// Lấy ra viewport theo dạng grid (số ô)
 	D3DXVECTOR2 camSize = D3DXVECTOR2(camera->GetWidthCam() / tileWidth, camera->GetHeightCam() / tileHeight);
@@ -102,6 +104,8 @@ void CTileMap::Render(CCamera* camera, bool isRenderForeground)
 
 			if (isRenderForeground == true)
 			{
+				if (foreground == NULL)
+					continue;
 				RenderLayer(foreground, i, j, x, y);
 			}
 			else
@@ -329,6 +333,60 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					solid->SetPosition(position - translateQuestionBlockConst);
 					listGameObjects.push_back(solid);
 				}
+				else if (name.compare("Portal") == 0)
+				{
+					int cameraID = -1, sceneID = -1;
+					
+					CPortal* portal = new CPortal(size);
+					portal->SetPosition(position - translateConst + size * 0.5);
+					
+					TiXmlElement* properties = object->FirstChildElement();
+					for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
+					{
+						std::string propName = property->Attribute("name");
+						if (propName.compare("cameraID") == 0)
+						{
+							property->QueryIntAttribute("value", &cameraID);
+							portal->SetCameraID(cameraID);
+						}
+						if (propName.compare("sceneID") == 0)
+						{
+							property->QueryIntAttribute("value", &sceneID);
+							portal->SetSceneID(sceneID);
+						}
+					}
+
+					listGameObjects.push_back(portal);
+				}
+				else if (name.compare("Label") == 0)
+				{
+					std::string labelName = object->Attribute("name");
+					if (labelName.compare("warp-pipe") == 0)
+					{
+						CLabel* label = new CLabel(size);
+						label->SetPosition(position - translateConst + size * 0.5);
+						
+						TiXmlElement* properties = object->FirstChildElement();
+						for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
+						{
+							std::string propName = property->Attribute("name");
+							if (propName.compare("direction") == 0)
+							{
+								std::string direction = property->Attribute("value");
+								if (direction.compare("up") == 0)
+									label->SetPushDirection({ 0, 1, 0, 0 });
+								if (direction.compare("down") == 0)
+									label->SetPushDirection({ 0, 0, 0, 1 });
+								if (direction.compare("right") == 0)
+									label->SetPushDirection({ 0, 0, 1, 0 });
+								if (direction.compare("left") == 0)
+									label->SetPushDirection({ 1, 0, 0, 0 });
+							}
+						}
+						listGameObjects.push_back(label);
+
+					}
+				}
 			}
 		}
 		if (listGameObjects.size() == 0)
@@ -342,19 +400,20 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 Layer* CTileMap::LoadLayer(TiXmlElement* element)
 {
 	Layer* layer = new Layer();
-	element->QueryIntAttribute("id", &layer->id);
-	element->QueryIntAttribute("width", &layer->width);
-	element->QueryIntAttribute("height", &layer->height);
 
 	int visible;
 	if (element->QueryIntAttribute("visible", &visible) != TIXML_SUCCESS) layer->isVisible = true;
-	else layer->isVisible = visible ? true : false;
-	if (layer->isVisible == false)
+	else layer->isVisible = visible;
+	if (visible == 0)
 	{
 		delete layer;
 		layer = NULL;
 		return NULL;
 	}
+	element->QueryIntAttribute("id", &layer->id);
+	element->QueryIntAttribute("width", &layer->width);
+	element->QueryIntAttribute("height", &layer->height);
+
 	auto tiles = new int* [layer->width]; // số tiles theo chiều ngang
 
 	const char* content = element->FirstChildElement()->GetText();
@@ -382,7 +441,7 @@ Layer* CTileMap::LoadLayer(TiXmlElement* element)
 
 void CTileMap::RenderLayer(Layer* layer, int i, int j, int x, int y)
 {
-	if (layer->isVisible == false)
+	if (layer->isVisible == false || layer == NULL)
 		return;
 	// i % width, j % height: Đây là tọa độ của ô 
 	int id = layer->tiles[i % width][j % height]; // Từ tọa độ của ô đó ta lấy ra được tileID

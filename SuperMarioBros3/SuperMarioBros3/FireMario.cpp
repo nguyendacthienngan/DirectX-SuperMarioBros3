@@ -61,6 +61,7 @@ void CFireMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_HOLD_MOVE, animationManager->Get("ani-fire-mario-hold"));
 	AddAnimation(MARIO_STATE_HOLD_IDLE, animationManager->Get("ani-fire-mario-hold-idle"));
 	AddAnimation(MARIO_STATE_KICK, animationManager->Get("ani-fire-mario-kick"), false);
+	AddAnimation(MARIO_STATE_IDLE_FRONT, animationManager->Get("ani-fire-mario-idle-front"));
 }
 
 void CFireMario::Render(CCamera* cam, int alpha)

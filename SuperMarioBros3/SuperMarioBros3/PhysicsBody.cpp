@@ -282,10 +282,8 @@ void CPhysicsBody::CalcPotentialCollisions(
 			continue;
 		if (coObjects->at(i) == cO)
 			continue;
+		
 
-		if (cO->GetGameObjectAttach()->CanCollisionWithThisObject(coObjects->at(i)->GetGameObjectAttach(), coObjects->at(i)->GetGameObjectAttach()->GetTag())
-			== false)
-			continue;
 		// Có overlap (Dùng AABB)
 		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && cO->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid)
 		{
@@ -296,6 +294,12 @@ void CPhysicsBody::CalcPotentialCollisions(
 				continue;
 			}
 		}
+
+
+		if (cO->GetGameObjectAttach()->CanCollisionWithThisObject(coObjects->at(i)->GetGameObjectAttach(), coObjects->at(i)->GetGameObjectAttach()->GetTag())
+			== false)
+			continue;
+
 		LPCollisionEvent e = SweptAABBEx(cO,coObjects->at(i));
 		if (e->t > 0 && e->t <= 1.0f)
 		{

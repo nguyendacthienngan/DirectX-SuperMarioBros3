@@ -193,6 +193,12 @@
     <Filter Include="Framework\Game\Pool">
       <UniqueIdentifier>{341faef7-a66d-4992-9ccd-fe27b6c854de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Game\Portal">
+      <UniqueIdentifier>{37990828-776d-41cf-879a-fe63c219da45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Game\Portal\Label">
+      <UniqueIdentifier>{d86026b8-af42-4dcd-9af5-6906c0053b24}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -480,6 +486,12 @@
     <ClInclude Include="VenusFireBall.h">
       <Filter>Game\GameObject\Misc\FireBall</Filter>
     </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Framework\Game\Portal</Filter>
+    </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>Framework\Game\Portal\Label</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -679,6 +691,12 @@
     </ClCompile>
     <ClCompile Include="VenusFireBall.cpp">
       <Filter>Game\GameObject\Misc\FireBall</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Framework\Game\Portal</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>Framework\Game\Portal\Label</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

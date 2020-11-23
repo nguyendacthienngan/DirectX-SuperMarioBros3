@@ -44,7 +44,7 @@ void CSmallMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_HOLD_MOVE, animationManager->Get("ani-small-mario-hold"));
 	AddAnimation(MARIO_STATE_HOLD_IDLE, animationManager->Get("ani-small-mario-hold-idle"));
 	AddAnimation(MARIO_STATE_KICK, animationManager->Get("ani-small-mario-kick"), false);
-
+	AddAnimation(MARIO_STATE_IDLE_FRONT, animationManager->Get("ani-small-mario-idle-front"));
 }
 
 CSmallMario::~CSmallMario()

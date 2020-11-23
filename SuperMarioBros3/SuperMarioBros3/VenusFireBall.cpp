@@ -40,7 +40,7 @@ void CVenusFireBall::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
 void CVenusFireBall::Update(DWORD dt, CCamera* cam)
 {
 	CGameObject::Update(dt, cam);
-	if (transform.position.y > cam->GetBoundary().bottom)
+	if (transform.position.y > cam->GetCurrentBoundary().bottom)
 	{
 		if (pool != NULL)
 			pool->Revoke(this);

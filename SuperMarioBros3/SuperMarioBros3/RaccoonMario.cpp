@@ -72,7 +72,7 @@ void CRaccoonMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_HOLD_MOVE, animationManager->Get("ani-raccoon-mario-hold"));
 	AddAnimation(MARIO_STATE_HOLD_IDLE, animationManager->Get("ani-raccoon-mario-hold-idle"));
 	AddAnimation(MARIO_STATE_KICK, animationManager->Get("ani-raccoon-mario-kick"), false);
-
+	AddAnimation(MARIO_STATE_IDLE_FRONT, animationManager->Get("ani-raccoon-mario-idle-front"));
 }
 
 void CRaccoonMario::EndAnimation()

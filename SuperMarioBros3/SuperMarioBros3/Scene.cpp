@@ -85,20 +85,29 @@ void CScene::Load()
 
 			for (TiXmlElement* boundary = scene->FirstChildElement(); boundary != NULL; boundary = boundary->NextSiblingElement())
 			{
-				int id;
-				float pos_x, pos_y, left, top, right, bottom;
+				int id, disX, disY;
+				RectF bound;
+				D3DXVECTOR2 pos;
 				boundary->QueryIntAttribute("id", &id);
+
+				boundary->QueryFloatAttribute("pos_x", &pos.x);
+				boundary->QueryFloatAttribute("pos_y", &pos.y);
+				boundary->QueryFloatAttribute("left", &bound.left);
+				boundary->QueryFloatAttribute("top", &bound.top);
+				boundary->QueryFloatAttribute("right", &bound.right);
+				boundary->QueryFloatAttribute("bottom", &bound.bottom);
+
+				boundary->QueryIntAttribute("disX", &disX);
+				boundary->QueryIntAttribute("disY", &disY);
+
+				camera->AddCameraProperties(id, pos, bound);
+				camera->SetDisablePosX(disX);
+				camera->SetDisablePosY(disY);
+
 				if (start == id)
 				{
-					boundary->QueryFloatAttribute("pos_x", &pos_x);
-					boundary->QueryFloatAttribute("pos_y", &pos_y);
-					boundary->QueryFloatAttribute("left", &left);
-					boundary->QueryFloatAttribute("top", &top);
-					boundary->QueryFloatAttribute("right", &right);
-					boundary->QueryFloatAttribute("bottom", &bottom);
-
-					camera->SetBoundary(left, right, top, bottom);
-					camera->SetPositionCam(D3DXVECTOR2(pos_x, pos_y));
+					camera->SetCurrentBoundary(bound);
+					camera->SetPositionCam(pos);
 				}
 			}
 			if (player != NULL)
@@ -112,12 +121,14 @@ void CScene::Load()
 
 void CScene::Unload()
 {
-	/*for (int i = 0; i < gameObjects.size()-2 ; i++)
+	for (int i = 0; i < gameObjects.size()-1 ; i++)
 	{
+		if (gameObjects[i]->GetTag() == GameObjectTags::MarioFireBall ||  gameObjects[i]->GetTag() == GameObjectTags::PlayerController)
+			continue;
 		RemoveObject(gameObjects[i]);
 		delete gameObjects[i];
 		gameObjects[i] = NULL;
-	}*/
+	}
 	map = NULL;
 	camera = NULL;
 	gameObjects.clear();
@@ -177,6 +188,17 @@ void CScene::SetObjectPosition(D3DXVECTOR2 distance)
 			auto pos = obj->GetCollisionBox()->at(0)->GetPosition();
 			obj->GetCollisionBox()->at(0)->SetPosition(pos + distance);
 		}
+	}
+}
+
+void CScene::SetCamera(int id)
+{
+	auto camProps = camera->GetCameraProperties(id);
+	if (CameraPropertieSet::IsEmpty(camProps) == false)
+	{
+		camera->SetCurrentBoundary(camProps.boundarySet);
+		camera->SetPositionCam(camProps.camPosition);
+		DebugOut(L"Camera %f, %f \n", camera->GetPositionCam().x, camera->GetPositionCam().y);
 	}
 }
 

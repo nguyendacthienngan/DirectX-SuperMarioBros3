@@ -21,6 +21,8 @@
 #include "MarioControllerConst.h"
 #include "MarioController.h"
 #include "QuestionBlock.h"
+#include "Label.h"
+#include "Portal.h"
 using namespace std;
 
 CMario::CMario()
@@ -179,6 +181,8 @@ void CMario::InitProperties()
 	stopBounce = false;
 	isKick = false;
 	isDamaged = false;
+	isGoToWarpPipe = false;
+	canGoToWarpPipe = false;
 	isSmokeEffectAnimation = false;
 	isChangeLevel = false;
 	bounceAfterJumpOnEnemy = false;
@@ -194,9 +198,10 @@ void CMario::InitProperties()
 	countChangeAlpha = 0;
 	timeStartChangeAlpha = 0;
 	isPowerUp = false;
+	isAutogo = false;
 	powerupItem = PowerupTag::None;
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
-
+	ventDirection = { 0, 0, 0, 0 };
 }
 
 void CMario::LoadAnimation()
@@ -224,100 +229,101 @@ void CMario::Update(DWORD dt, CCamera* cam)
 	float acceleration = 0.0f;
 
 	D3DXVECTOR2 drag = physiscBody->GetDragForce();
-
-	// Horizontal Movement: Walk, Run, Idle
-	if (keyboard->GetKeyStateDown(DIK_RIGHT) || keyboard->GetKeyStateDown(DIK_LEFT))
+	if (isAutogo == false)
 	{
-		// Nhấn nút A chạy ! RUN
-		if (keyboard->GetKeyStateDown(DIK_A))
+		// Horizontal Movement: Walk, Run, Idle
+		if (keyboard->GetKeyStateDown(DIK_RIGHT) || keyboard->GetKeyStateDown(DIK_LEFT))
 		{
-			currentPhysicsState.move = MoveOnGroundStates::Run;
-			acceleration = MARIO_RUNNING_ACCELERATION;
-			targetVelocity.x = MARIO_RUNNING_SPEED;
+			// Nhấn nút A chạy ! RUN
+			if (keyboard->GetKeyStateDown(DIK_A))
+			{
+				currentPhysicsState.move = MoveOnGroundStates::Run;
+				acceleration = MARIO_RUNNING_ACCELERATION;
+				targetVelocity.x = MARIO_RUNNING_SPEED;
+			}
+			else
+			{
+				// Không chạy -> Đi bộ bình thường: WALK
+				currentPhysicsState.move = MoveOnGroundStates::Walk;
+				acceleration = MARIO_WALKING_ACCELERATION;
+				targetVelocity.x = MARIO_WALKING_SPEED;
+			}
+
+			normal.x = (keyboard->GetKeyStateDown(DIK_RIGHT)) ? 1 : -1;
+			physiscBody->SetNormal(normal);
+			physiscBody->SetAcceleration(acceleration * normal.x);
+
+			if (abs(velocity.x) < targetVelocity.x)
+				velocity.x += physiscBody->GetAcceleration() * dt;
+
+			FrictionProcess(velocity.x, dt); // Kèm lực ma sát kéo lại vận tốc
+			physiscBody->SetVelocity(velocity);
+
+			if (abs(velocity.x) > MARIO_RUNNING_SPEED * 0.95f)
+				currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
+
+			SkidProcess(velocity);
+			if (previousVelocity.x * velocity.x <= 0)
+				isSkid = false;
+			if (isSkid == true)
+				currentPhysicsState.move = MoveOnGroundStates::Skid;
 		}
 		else
 		{
-			// Không chạy -> Đi bộ bình thường: WALK
-			currentPhysicsState.move = MoveOnGroundStates::Walk;
-			acceleration = MARIO_WALKING_ACCELERATION;
-			targetVelocity.x = MARIO_WALKING_SPEED;
-		}
+			FrictionProcess(velocity.x, dt);
+			physiscBody->SetVelocity(velocity);
 
-		normal.x = (keyboard->GetKeyStateDown(DIK_RIGHT)) ? 1 : -1;
-		physiscBody->SetNormal(normal);
-		physiscBody->SetAcceleration(acceleration * normal.x);
-
-		if (abs(velocity.x) < targetVelocity.x)
-			velocity.x += physiscBody->GetAcceleration() * dt;
-
-		FrictionProcess(velocity.x, dt); // Kèm lực ma sát kéo lại vận tốc
-		physiscBody->SetVelocity(velocity);
-
-		if (abs(velocity.x) > MARIO_RUNNING_SPEED * 0.95f)
-			currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
-
-		SkidProcess(velocity);
-		if (previousVelocity.x * velocity.x <= 0)
+			if (velocity.x == 0)
+				if (currentPhysicsState.move != MoveOnGroundStates::Idle)
+					currentPhysicsState.move = MoveOnGroundStates::Idle;
 			isSkid = false;
-		if (isSkid == true)
-			currentPhysicsState.move = MoveOnGroundStates::Skid;
-	}
-	else
-	{
-		FrictionProcess(velocity.x, dt);
-		physiscBody->SetVelocity(velocity);
-
-		if (velocity.x == 0)
-			if (currentPhysicsState.move != MoveOnGroundStates::Idle)
-				currentPhysicsState.move = MoveOnGroundStates::Idle;
-		isSkid = false;
-	}
-	
-#pragma region P-METER
-	if (currentPhysicsState.move == MoveOnGroundStates::Run
-		&& abs(velocity.x) > MARIO_RUNNING_SPEED * 0.15f
-		&& pMeterCounting < PMETER_MAX + 1
-		&& currentPhysicsState.jump == JumpOnAirStates::Stand
-		&& feverState != 2
-		&& isHold == false)
-	{
-		if (feverState != -1)
-			feverState = 1;
-		pMeterCounting += PMETER_STEP * dt;
-		if (pMeterCounting > PMETER_MAX + 1)
-		{
-			pMeterCounting = PMETER_MAX + 1;
 		}
-	}
-	else if (feverState != 2 && feverState != -1) // nếu feverState đang = 1 mà k thỏa những điều kiện trên thì reset lại
-		feverState = 0;
+
+#pragma region P-METER
+		if (currentPhysicsState.move == MoveOnGroundStates::Run
+			&& abs(velocity.x) > MARIO_RUNNING_SPEED * 0.15f
+			&& pMeterCounting < PMETER_MAX + 1
+			&& currentPhysicsState.jump == JumpOnAirStates::Stand
+			&& feverState != 2
+			&& isHold == false)
+		{
+			if (feverState != -1)
+				feverState = 1;
+			pMeterCounting += PMETER_STEP * dt;
+			if (pMeterCounting > PMETER_MAX + 1)
+			{
+				pMeterCounting = PMETER_MAX + 1;
+			}
+		}
+		else if (feverState != 2 && feverState != -1) // nếu feverState đang = 1 mà k thỏa những điều kiện trên thì reset lại
+			feverState = 0;
 
 #pragma region FEVER STATE
-	if (pMeterCounting >= PMETER_MAX && feverState == 0)
-	{
-		feverState = 2;
-		lastFeverTime = GetTickCount();
-	}
-	else if (pMeterCounting > 0 && feverState == -1) // feverState = -1 là con raccoon
-	{
-		if (pMeterCounting >= PMETER_MAX)
+		if (pMeterCounting >= PMETER_MAX && feverState == 0)
 		{
-			canFly = true;
+			feverState = 2;
+			lastFeverTime = GetTickCount();
 		}
-	}
-	if (feverState == 2)
-	{
-		pMeterCounting = PMETER_MAX; // giữ giá trị max 1 thời gian
-		if (GetTickCount() - lastFeverTime > MARIO_FEVER_TIME)
+		else if (pMeterCounting > 0 && feverState == -1) // feverState = -1 là con raccoon
 		{
-			feverState = 0;
-			pMeterCounting = 0.0f;
+			if (pMeterCounting >= PMETER_MAX)
+			{
+				canFly = true;
+			}
 		}
-	}
+		if (feverState == 2)
+		{
+			pMeterCounting = PMETER_MAX; // giữ giá trị max 1 thời gian
+			if (GetTickCount() - lastFeverTime > MARIO_FEVER_TIME)
+			{
+				feverState = 0;
+				pMeterCounting = 0.0f;
+			}
+		}
 #pragma endregion
 
 #pragma endregion
-	// Vertical Movement: Jump, High Jump, Super Jump
+		// Vertical Movement: Jump, High Jump, Super Jump
 
 #pragma region STATE JUMP
 
@@ -328,100 +334,104 @@ void CMario::Update(DWORD dt, CCamera* cam)
 
 // Đối với ấn nút X giữ lâu => Mario sẽ nhảy liên tục
 // Ấn S giữ lâu thì chỉ nhảy cao hơn thôi
-	if (keyboard->GetKeyStateDown(DIK_X) && isOnGround == true)
-	{
-		// Nhảy liên tục: Chỉ cần cung cấp dy < 0 và có gravity thì ta tạo cảm giác nó nhảy liên tục chuyển động đều
-
-		if (canLowJumpContinous == true)
+		if (keyboard->GetKeyStateDown(DIK_X) && isOnGround == true)
 		{
-			velocity.y -= MARIO_JUMP_SPEED_Y;
-			isOnGround = false;
+			// Nhảy liên tục: Chỉ cần cung cấp dy < 0 và có gravity thì ta tạo cảm giác nó nhảy liên tục chuyển động đều
+
+			if (canLowJumpContinous == true)
+			{
+				velocity.y -= MARIO_JUMP_SPEED_Y;
+				isOnGround = false;
+			}
+			currentPhysicsState.jump = JumpOnAirStates::LowJump;
 		}
-		currentPhysicsState.jump = JumpOnAirStates::LowJump;
-	}
-	else if (currentPhysicsState.jump == JumpOnAirStates::LowJump)
-	{
-		if (velocity.y > 0) // Hướng xuống 
+		else if (currentPhysicsState.jump == JumpOnAirStates::LowJump)
+		{
+			if (velocity.y > 0) // Hướng xuống 
+			{
+				currentPhysicsState.jump = JumpOnAirStates::Fall;
+			}
+			else
+				currentPhysicsState.jump = JumpOnAirStates::LowJump;
+		}
+		if (currentPhysicsState.jump == JumpOnAirStates::Jump && canLowJumpContinous == false && canHighJump == true)
+		{
+			if ((keyboard->GetKeyStateDown(DIK_S) && isFly == false) || bounceAfterJumpOnEnemy == true)
+			{
+				float jumpMaxHeight;
+				if ((feverState == 2 && abs(velocity.x) > MARIO_RUNNING_SPEED * 0.85f) || bounceAfterJumpOnEnemy == true)
+				{
+					// SUPER JUMP
+					jumpMaxHeight = MARIO_SUPER_JUMP_HEIGHT;
+				}
+				else
+				{
+					// HIGH - JUMP
+					jumpMaxHeight = MARIO_HIGH_JUMP_HEIGHT;
+
+				}
+				if (abs(beforeJumpPosition) - abs(transform.position.y) <= jumpMaxHeight)
+				{
+					velocity.y = -MARIO_PUSH_FORCE;
+				}
+				else
+				{
+					// EndJump
+					velocity.y = -MARIO_PUSH_FORCE / 2;
+					canHighJump = false;
+				}
+				if (bounceAfterJumpOnEnemy == true)
+				{
+					bounceAfterJumpOnEnemy = false;
+					canHighJump = false;
+					stopBounce = true; // ****
+				}
+
+			}
+		}
+		if (velocity.y > 0)
 		{
 			currentPhysicsState.jump = JumpOnAirStates::Fall;
 		}
-		else
-			currentPhysicsState.jump = JumpOnAirStates::LowJump;
-	}
-	if (currentPhysicsState.jump == JumpOnAirStates::Jump && canLowJumpContinous == false && canHighJump == true)
-	{
-		if ( (keyboard->GetKeyStateDown(DIK_S) && isFly == false) || bounceAfterJumpOnEnemy == true)
+		if (currentPhysicsState.jump == JumpOnAirStates::Fly) // Có thể lỗi ở đây
 		{
-			float jumpMaxHeight;
-			if ( (feverState == 2 && abs(velocity.x) > MARIO_RUNNING_SPEED * 0.85f) || bounceAfterJumpOnEnemy == true)
-			{
-				// SUPER JUMP
-				jumpMaxHeight = MARIO_SUPER_JUMP_HEIGHT;
-			}
-			else
-			{
-				// HIGH - JUMP
-				jumpMaxHeight = MARIO_HIGH_JUMP_HEIGHT;
-
-			}
-			if (abs(beforeJumpPosition) - abs(transform.position.y) <= jumpMaxHeight)
-			{
-				velocity.y = -MARIO_PUSH_FORCE;
-			}
-			else
-			{
-				// EndJump
-				velocity.y = -MARIO_PUSH_FORCE / 2;
-				canHighJump = false;
-			}
-			if (bounceAfterJumpOnEnemy == true)
-			{
-				bounceAfterJumpOnEnemy = false;
-				canHighJump = false;
-				stopBounce = true; // ****
-			}
-
+			if (isOnGround == true)
+				currentPhysicsState.jump = JumpOnAirStates::Stand;
+			feverState = 0;
+			pMeterCounting = 0;
 		}
-	}
-	if (velocity.y > 0)
-	{
-		currentPhysicsState.jump = JumpOnAirStates::Fall;
-	}
-	if (currentPhysicsState.jump == JumpOnAirStates::Fly) // Có thể lỗi ở đây
-	{
-		if (isOnGround == true)
-			currentPhysicsState.jump = JumpOnAirStates::Stand;
-		feverState = 0;
-		pMeterCounting = 0;
-	}
-	if (currentPhysicsState.jump == JumpOnAirStates::Fall)
-	{
-		if (isOnGround == true)
-			currentPhysicsState.jump = JumpOnAirStates::Stand;
-		isJump = false;
-	}
+		if (currentPhysicsState.jump == JumpOnAirStates::Fall)
+		{
+			if (isOnGround == true)
+				currentPhysicsState.jump = JumpOnAirStates::Stand;
+			isJump = false;
+		}
 
 
 #pragma endregion
 
-	physiscBody->SetVelocity(velocity);
-	physiscBody->SetNormal(normal);
+		physiscBody->SetVelocity(velocity);
+		physiscBody->SetNormal(normal);
 
 
-	if (canCrouch == true) // Small Mario k thể crouch
-		CrouchProcess(keyboard);
-	HoldProcess();
+		if (canCrouch == true) // Small Mario k thể crouch
+			CrouchProcess(keyboard);
+		HoldProcess();
+		GoToWarpPipeProcess();
 
-	DamageProcess();
-
-	if (isKick == true)
-	{
-		previousPhysicsState.move = currentPhysicsState.move;
-		currentPhysicsState.move = MoveOnGroundStates::Kick;
+		DamageProcess();
+		if (isKick == true)
+		{
+			previousPhysicsState.move = currentPhysicsState.move;
+			currentPhysicsState.move = MoveOnGroundStates::Kick;
+		}
+		if (currentPhysicsState.move == MoveOnGroundStates::Kick && isKick == false)
+			currentPhysicsState.move = previousPhysicsState.move;
 	}
-	if (currentPhysicsState.move == MoveOnGroundStates::Kick && isKick == false)
-		currentPhysicsState.move = previousPhysicsState.move;
-
+	else
+	{
+		WarpPipeProcess(cam);
+	}	
 }
 
 void CMario::Render(CCamera* cam, int alpha)
@@ -429,7 +439,7 @@ void CMario::Render(CCamera* cam, int alpha)
 	SetScale(D3DXVECTOR2(physiscBody->GetNormal().x, 1.0f));
 
 #pragma region Update State
-	if (isSmokeEffectAnimation == false)
+	if (isSmokeEffectAnimation == false && isGoToWarpPipe == false)
 	{
 #pragma region Move On Ground
 		switch (currentPhysicsState.move)
@@ -544,9 +554,13 @@ void CMario::Render(CCamera* cam, int alpha)
 
 #pragma endregion
 	}
-	else
+	else if (isGoToWarpPipe == false)
 	{
 		SetState(MARIO_STATE_DAMAGED);
+	}
+	else
+	{
+		SetState(MARIO_STATE_IDLE_FRONT);
 	}
 
 #pragma endregion
@@ -603,6 +617,26 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 			// Đụng trúng tiền là tăng tiền và disbale tiền
 			collisionBox->GetGameObjectAttach()->Enable(false);
 		}
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Portal)
+		{
+			isGoToWarpPipe = false;
+			canGoToWarpPipe = false;
+			auto portal = static_cast<CPortal*>(collisionBox->GetGameObjectAttach());
+			auto sceneID = portal->GetSceneID();
+			auto cameraID = portal->GetCameraID();
+			if (cameraID != -1)
+			{
+				// Đổi camera
+				DebugOut(L"Cameraaaa %d\n", cameraID);
+				auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+				activeScene->SetCamera(cameraID);
+			}
+			if (sceneID != -1)
+			{
+				// Đổi scene
+			}
+		}
+
 	}
 }
 
@@ -622,13 +656,46 @@ void CMario::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 		OnDamaged();
 		otherCollisionBox->GetGameObjectAttach()->Enable(false);
 	}
+	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Label)
+	{
+		// Khi mario đụng trúng object label
+		// Nó sẽ lấy cái push direction ra và di chuyển theo hướng đó 
+		// Autogo => Disable trạng thái vật lý update, chỉ render và thay đổi relative position
+		auto label = static_cast<CLabel*>(otherCollisionBox->GetGameObjectAttach());
+		auto direction = label->GetPushDirection();
+		ventDirection = direction;
+		OnGoToWarpPipe();
+	}
+	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Portal)
+	{
+		isGoToWarpPipe = false;
+		canGoToWarpPipe = false;
+		auto portal = static_cast<CPortal*>(otherCollisionBox->GetGameObjectAttach());
+		auto sceneID = portal->GetSceneID();
+		auto cameraID = portal->GetCameraID();
+		if (cameraID != -1)
+		{
+			// Đổi camera
+			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+			activeScene->SetCamera(cameraID);
+		}
+		if (sceneID != -1)
+		{
+			// Đổi scene
+		}
+			
+	}
 }
 
 bool CMario::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
-	if (tag == GameObjectTags::Player || tag == GameObjectTags::SmallPlayer || tag == GameObjectTags::MarioFireBall)
+	if (MarioTag(tag) || tag == GameObjectTags::MarioFireBall || tag == GameObjectTags::Label)
+		return false;
+	if (tag == GameObjectTags::Label)
 		return false;
 	if (GiftTag(tag) == true && tag != GameObjectTags::Coin)
+		return false;
+	if (isGoToWarpPipe == true && StaticTag(tag))
 		return false;
 	return true;
 }
@@ -642,7 +709,7 @@ void CMario::CrouchProcess(CKeyboardManager* keyboard)
 	// Còn đang nhảy (vy != 0) và ấn xuống thì vẫn crouch. Còn 1 lúc bắt k kịp trạng thái bấm qua lại khi đang nhảy (vy != 0 && vx != 0) thì nó có thể vẫn crouch. 
 
 	bool changeAniState = false;
-	if (keyboard->GetKeyStateDown(DIK_LEFT) || keyboard->GetKeyStateDown(DIK_RIGHT) || currentState == MARIO_STATE_ATTACK) // thiếu xét trường hợp nhảy ******
+	if (keyboard->GetKeyStateDown(DIK_LEFT) || keyboard->GetKeyStateDown(DIK_RIGHT) || currentState == MARIO_STATE_ATTACK || currentState == MARIO_STATE_IDLE_FRONT) // thiếu xét trường hợp nhảy ******
 	{
 		// KHÔNG HỤP
 		changeAniState = true;
@@ -824,6 +891,47 @@ void CMario::FallProcess()
 	isHighJump = false;
 }
 
+void CMario::GoToWarpPipeProcess()
+{
+	auto keyboard = CKeyboardManager::GetInstance();
+	if (canGoToWarpPipe == true)
+	{
+		if (keyboard->GetKeyStateDown(DIK_DOWN) && ventDirection.bottom == 1)
+		{
+			isGoToWarpPipe = true;
+			isAutogo = true;
+		}
+		if (keyboard->GetKeyStateDown(DIK_UP) && ventDirection.top == 1)
+		{
+			isGoToWarpPipe = true;
+			isAutogo = true;
+		}
+	}
+	
+}
+
+void CMario::WarpPipeProcess(CCamera* cam)
+{
+	if (isGoToWarpPipe == true)
+	{
+		this->physiscBody->SetGravity(0.0f);
+		this->physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
+		if (ventDirection.bottom == 1)
+			transform.position.y += MARIO_VENT_SPEED * CGame::GetInstance()->GetDeltaTime();
+		if (ventDirection.top == 1)
+			transform.position.y -= MARIO_VENT_SPEED * CGame::GetInstance()->GetDeltaTime();
+	}
+	else
+	{
+		isAutogo = false;
+		//this->transform.position = D3DXVECTOR2(6237, 1366);
+		auto camPos = cam->GetPositionCam();
+		camPos.x += cam->GetWidthCam() / 2;
+		SetPosition(camPos);
+		this->physiscBody->SetGravity(MARIO_GRAVITY);
+	}
+}
+
 void CMario::StopBounce(bool stopBounce)
 {
 	this->stopBounce = stopBounce;
@@ -882,6 +990,11 @@ void CMario::OnDamaged()
 {
 	isDamaged = true;
 	timeStartDamaged = GetTickCount64();
+}
+
+void CMario::OnGoToWarpPipe()
+{
+	canGoToWarpPipe = true;
 }
 
 void CMario::HoldObject(CHoldable* holdableObj)

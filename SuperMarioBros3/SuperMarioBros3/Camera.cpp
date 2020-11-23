@@ -8,6 +8,7 @@
 #include "MarioConst.h"
 
 #include <vector>
+#include <map>
 #include "Ultis.h"
 #include "Const.h"
 using namespace std;
@@ -15,10 +16,9 @@ CCamera::CCamera(int wid, int hei)
 {
     widthCam = wid;
     heightCam = hei;
-    boundaryLeft = 0;
-    boundaryRight = 0;
     vx = 0.0f;
-    
+    isDisablePosX = false;
+    isDisablePosY = false;
 }
 
 CCamera::~CCamera()
@@ -36,29 +36,31 @@ void CCamera::Update()
     
      // follow Mario
     posCam.x = x - widthCam * 0.5f;
-    posCam.y = y - heightCam * 0.1f;
+    if (isDisablePosY == false)
+        posCam.y = y - heightCam * 0.1f;
 
     // Ở đầu scene và cuối scene ta sẽ đặt ra boundary => Mario k được vượt quá boundary này
-    if (posCam.x < boundaryLeft)
-        posCam.x = boundaryLeft;
+    if (posCam.x < currentBoundary.left)
+        posCam.x = currentBoundary.left;
 
-    if (posCam.x > boundaryRight - widthCam)
-        posCam.x = boundaryRight - widthCam;
+    if (posCam.x > currentBoundary.right - widthCam)
+        posCam.x = currentBoundary.right - widthCam;
 
-    if (posCam.y < boundaryTop)
-        posCam.y = boundaryTop;
+    if (posCam.y < currentBoundary.top)
+        posCam.y = currentBoundary.top;
 
-    if (posCam.y > boundaryBottom - heightCam)
-        posCam.y = boundaryBottom - heightCam;
+    if (posCam.y > currentBoundary.bottom - heightCam)
+        posCam.y = currentBoundary.bottom - heightCam;
     
-    if (posCam.y < boundaryBottom - heightCam && y >= boundaryBottom - heightCam*0.75)
-        posCam.y = boundaryBottom - heightCam;
+    if (isDisablePosY == false)
+        if (posCam.y < currentBoundary.bottom - heightCam && y >= currentBoundary.bottom - heightCam*0.75)
+            posCam.y = currentBoundary.bottom - heightCam;
 
     //	Xét biên để chỉnh lại camera k thoát khỏi camera
-    if (x > boundaryRight + widthCam - 24)
-        x = boundaryRight + widthCam - 24;
-    else if (x < boundaryLeft + 24)
-        x = boundaryLeft + 24;
+    if (x > currentBoundary.right- 24)
+        x = currentBoundary.right- 24;
+    else if (x < currentBoundary.left + 24)
+        x = currentBoundary.left + 24;
     gameObject->SetPosition(D3DXVECTOR2(x, y));
 
 }
@@ -118,29 +120,24 @@ float CCamera::GetHeightCam()
     return heightCam;
 }
 
-float CCamera::GetBoundaryLeft()
+RectF CCamera::GetCurrentBoundary()
 {
-    return boundaryLeft;
-}
-
-float CCamera::GetBoundaryRight()
-{
-    return boundaryRight;
-}
-
-RectF CCamera::GetBoundary()
-{
-    RectF r;
-    r.left = boundaryLeft;
-    r.right = boundaryRight;
-    r.top = boundaryTop;
-    r.bottom = boundaryBottom;
-    return RectF(r);
+    return currentBoundary;
 }
 
 LPGameObject CCamera::GetGameObject()
 {
     return gameObject;
+}
+
+bool CCamera::GetDisablePosX()
+{
+    return isDisablePosX;
+}
+
+bool CCamera::GetDisablePosY()
+{
+    return isDisablePosY;
 }
 
 
@@ -166,23 +163,42 @@ void CCamera::SetHeightCam(float h)
     heightCam = h;
 }
 
-void CCamera::SetBoundary(float left, float right)
+void CCamera::SetCurrentBoundary(RectF bound)
 {
-    boundaryLeft = left;
-    boundaryRight = right;
+    currentBoundary = bound;
 }
 
-void CCamera::SetBoundary(float left, float right, float top, float bottom)
+CameraPropertieSet CCamera::GetCameraProperties(int id)
 {
-    boundaryLeft = left;
-    boundaryRight = right;
-    boundaryTop= top;
-    boundaryBottom = bottom;
+    if (cameraPropertieSets.find(id) != cameraPropertieSets.end())
+        return cameraPropertieSets.at(id);
+    return CameraPropertieSet::Empty();
+}
+
+void CCamera::AddCameraProperties(int id, D3DXVECTOR2 pos, RectF boundary)
+{
+    this->cameraPropertieSets.insert(make_pair(id, CameraPropertieSet{ pos, boundary }));
+}
+
+void CCamera::AddCameraProperties(int id, CameraPropertieSet camProps)
+{
+    this->cameraPropertieSets.insert(make_pair(id, camProps));
+
 }
 
 void CCamera::SetGameObject(LPGameObject gO)
 {
     gameObject = gO;
+}
+
+void CCamera::SetDisablePosX(bool isDisableX)
+{
+    this->isDisablePosX = isDisableX;
+}
+
+void CCamera::SetDisablePosY(bool isDisableY)
+{
+    this->isDisablePosY = isDisableY;
 }
 
 
