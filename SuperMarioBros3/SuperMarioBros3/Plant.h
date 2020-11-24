@@ -10,7 +10,7 @@ protected:
 	DWORD timeToStopDartOut, timeToIdle;
 public:
 	CPlant();
-	void Update(DWORD dt, CCamera* cam) override;
+	void Update(DWORD dt, CCamera* cam, CCamera* uiCam) override;
 	void OnDie() override;
 };
 

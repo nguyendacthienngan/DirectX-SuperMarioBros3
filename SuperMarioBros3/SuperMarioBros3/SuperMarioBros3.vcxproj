@@ -352,6 +352,7 @@
     <Xml Include="Resources\Animations\UiAnim.xml" />
     <Xml Include="Resources\config.xml" />
     <Xml Include="Resources\root.xml" />
+    <Xml Include="Resources\Scenes\UICamera.xml" />
     <Xml Include="Resources\Scenes\World1-1.xml" />
     <Xml Include="Resources\Sprites\EnemyDB.xml" />
     <Xml Include="Resources\Sprites\MarioDB.xml" />

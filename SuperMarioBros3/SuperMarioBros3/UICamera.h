@@ -6,7 +6,6 @@ class CCamera;
 class CUICamera :  public CCamera
 {
     CHUD* hud;
-    // LPDIRECT3DSURFACE9 surface = NULL;
     RECT surfaceRect;
 public:
     CUICamera();

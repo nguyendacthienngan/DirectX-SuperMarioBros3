@@ -24,7 +24,6 @@ protected:
 	D3DCOLOR backgroundColor;
 	CMap *map;
 	CCamera *camera;
-	CCamera *uiCamera;
 	std::string filePath;
 public:
 	CScene();

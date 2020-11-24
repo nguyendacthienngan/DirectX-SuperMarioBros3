@@ -30,7 +30,7 @@ void CKoopa::LoadAnimation()
 {
 }
 
-void CKoopa::Update(DWORD dt, CCamera* cam)
+void CKoopa::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	auto velocity = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();

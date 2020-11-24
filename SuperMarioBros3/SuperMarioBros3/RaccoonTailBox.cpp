@@ -23,7 +23,7 @@ void CRaccoonTailBox::Init()
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 }
 
-void CRaccoonTailBox::Update(DWORD dt, CCamera* cam)
+void CRaccoonTailBox::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	// Di chuyển theo mario
 	// Nhưng đặt phía trước mario như thế nào

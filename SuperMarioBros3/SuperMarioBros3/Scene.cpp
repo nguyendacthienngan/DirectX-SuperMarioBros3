@@ -11,12 +11,12 @@
 #include "UICamera.h"
 
 #include <string>
+#include "SceneManager.h"
 
 using namespace std;
 
 CScene::CScene()
 {
-	uiCamera = NULL;
 	camera = NULL;
 }
 
@@ -121,27 +121,6 @@ void CScene::Load()
 			}
 			
 		}
-		else if (name.compare("UICamera") == 0)
-		{
-			DebugOut(L"[INFO] Load UI camera \n");
-			int screenWidth = CGame::GetInstance()->GetScreenWidth();
-			int screenHeight = CGame::GetInstance()->GetScreenHeight();
-			
-			D3DXVECTOR2 pos, posHUD;
-			scene->QueryFloatAttribute("pos_x", &pos.x);
-			scene->QueryFloatAttribute("pos_y", &pos.y);
-
-			TiXmlElement* uiCam = scene->FirstChildElement();
-			std::string nameUICam = uiCam->Attribute("name");
-
-			if (nameUICam.compare("HUD") == 0)
-			{
-				uiCam->QueryFloatAttribute("pos_x", &posHUD.x);
-				uiCam->QueryFloatAttribute("pos_y", &posHUD.y);
-				this->uiCamera = new CUICamera(screenWidth, screenHeight, posHUD);
-				this->uiCamera->SetPositionCam(pos);
-			}
-		}
 	}
 }
 
@@ -162,13 +141,15 @@ void CScene::Unload()
 
 void CScene::Update(DWORD dt)
 {
+	auto uiCam = CSceneManager::GetInstance()->GetUICamera();
 	if (gameObjects.size() == 0) return;
 	for (auto obj : gameObjects)
 	{
 		if (obj->IsIgnoreTimeScale() == false && CGame::GetTimeScale() == 0)
 			continue;
 		if (obj->IsEnabled() == false) continue;
-		obj->Update(dt, camera);
+		if (uiCam != NULL)
+			obj->Update(dt, camera, uiCam);
 		obj->PhysicsUpdate(&gameObjects); 
 	}
 	if (camera != NULL)
@@ -188,8 +169,6 @@ void CScene::Render()
 			obj->GetCollisionBox()->at(0)->Render(camera, CollisionBox_Render_Distance);
 	}
 	map->Render(camera, true);
-	if (uiCamera != NULL)
-		uiCamera->Render();
 }
 
 void CScene::AddObject(LPGameObject gameObject)

@@ -59,7 +59,7 @@ void CGameObject::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
 	ResetTempValues();
 }
 
-void CGameObject::Update(DWORD dt, CCamera* cam)
+void CGameObject::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 }
 

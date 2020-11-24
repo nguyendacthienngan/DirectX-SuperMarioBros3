@@ -43,7 +43,7 @@ void CParaKoopa::Render(CCamera* cam, int alpha)
 	CGameObject::Render(cam, alpha);
 }
 
-void CParaKoopa::Update(DWORD dt, CCamera* cam)
+void CParaKoopa::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	auto velocity = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();

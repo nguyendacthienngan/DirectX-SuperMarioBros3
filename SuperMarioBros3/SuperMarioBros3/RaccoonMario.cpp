@@ -103,10 +103,10 @@ void CRaccoonMario::EndAnimation()
 	}
 }
 
-void CRaccoonMario::Update(DWORD dt, CCamera* cam)
+void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	auto keyboard = CKeyboardManager::GetInstance();
-	CMario::Update(dt, cam);
+	CMario::Update(dt, cam, uiCam);
 	if (isAttack == true && isDamaged == false) 
 	{
 		// Nếu vừa ấn attack cái enable cái đuôi là sai vì tới frame thứ 3 của Attack Animation mới là cái đuôi giơ ra

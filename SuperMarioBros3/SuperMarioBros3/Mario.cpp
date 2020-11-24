@@ -219,9 +219,9 @@ void CMario::EndAnimation()
 	}
 }
 
-void CMario::Update(DWORD dt, CCamera* cam)
+void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
-	CGameObject::Update(dt, cam);
+	CGameObject::Update(dt, cam, uiCam);
 	auto keyboard = CKeyboardManager::GetInstance();
 	auto velocity = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();

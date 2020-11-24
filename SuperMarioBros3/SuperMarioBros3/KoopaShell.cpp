@@ -43,7 +43,7 @@ void CKoopaShell::LoadAnimation()
 {
 }
 
-void CKoopaShell::Update(DWORD dt, CCamera* cam)
+void CKoopaShell::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	auto vel = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();

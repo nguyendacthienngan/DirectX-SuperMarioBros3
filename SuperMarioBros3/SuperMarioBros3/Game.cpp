@@ -30,6 +30,7 @@ void CGame::Init()
 	CTextureManager::GetInstance()->Init();
 	CSpriteManager::GetInstance()->Init();
 	CAnimationManager::GetInstance()->Init();
+	CSceneManager::GetInstance()->Init();
 
 	CGameKeyEventHandler *keyEventHandler = new CGameKeyEventHandler();
 	auto keyboardManager = CKeyboardManager::GetInstance();
@@ -196,6 +197,7 @@ void CGame::Render()
 	D3DCOLOR bgColor = D3DCOLOR_XRGB(0, 0, 0);
 	RECT rect = {0, 0, 600, 600};
 	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	auto uiCamera = CSceneManager::GetInstance()->GetUICamera();
 	if (activeScene != nullptr)
 		bgColor = activeScene->GetBackgroundColor();
 	d3ddv->Clear(0, NULL, D3DCLEAR_TARGET, bgColor, 1.0f, 0);
@@ -205,6 +207,8 @@ void CGame::Render()
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 		if (activeScene != nullptr)
 			activeScene->Render();
+		if (uiCamera != nullptr)
+			uiCamera->Render();
 		spriteHandler->End();
 
 		d3ddv->EndScene();

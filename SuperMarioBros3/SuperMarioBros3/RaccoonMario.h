@@ -24,7 +24,7 @@ public:
 	void Init() override;
 	void LoadAnimation() override;
 	void EndAnimation() override;
-	void Update(DWORD dt, CCamera* cam) override;
+	void Update(DWORD dt, CCamera* cam, CCamera* uiCam) override;
 	void AddObjectToScene(LPScene scene);
 
 	void OnKeyDown(int KeyCode) override;

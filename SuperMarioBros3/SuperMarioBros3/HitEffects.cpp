@@ -22,7 +22,7 @@ void CHitEffects::EndAnimation()
 {
 }
 
-void CHitEffects::Update(DWORD dt, CCamera* cam)
+void CHitEffects::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	if (GetTickCount64() - startHitTime > TIME_HEAD_SHOT_ANIMATION && startHitTime != 0)
 		isEnabled = false;

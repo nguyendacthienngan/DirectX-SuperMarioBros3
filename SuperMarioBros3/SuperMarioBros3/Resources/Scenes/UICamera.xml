@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UICamera>
+  <UICamera name="UICamera" pos_x="0" pos_y="0">
+    <HUD name ="HUD" pos_x="250" pos_y="590"/>
+  </UICamera>
+</UICamera>  

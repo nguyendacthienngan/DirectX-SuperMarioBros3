@@ -17,6 +17,7 @@ CUICamera::CUICamera(int wid, int hei, D3DXVECTOR2 hudPos)
 
 void CUICamera::Update()
 {
+
 }
 
 void CUICamera::Render()

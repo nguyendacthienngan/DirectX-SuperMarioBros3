@@ -841,5 +841,8 @@
     <Xml Include="Resources\root.xml">
       <Filter>Game\Resouces</Filter>
     </Xml>
+    <Xml Include="Resources\Scenes\UICamera.xml">
+      <Filter>Game\Resouces\Scenes</Filter>
+    </Xml>
   </ItemGroup>
 </Project>
