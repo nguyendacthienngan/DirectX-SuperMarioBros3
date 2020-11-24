@@ -20,6 +20,6 @@
 
   </Scene>
   <Scene name="UICamera" pos_x="0" pos_y="0">
-    <HUD name ="HUD" pos_x="240" pos_y="570"/>
+    <HUD name ="HUD" pos_x="250" pos_y="590"/>
   </Scene>
 </Scene>

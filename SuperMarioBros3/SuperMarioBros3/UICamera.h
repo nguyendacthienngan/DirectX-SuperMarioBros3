@@ -10,7 +10,7 @@ class CUICamera :  public CCamera
     RECT surfaceRect;
 public:
     CUICamera();
-    CUICamera(int wid, int hei);
+    CUICamera(int wid, int hei, D3DXVECTOR2 hudPos);
     void Update();
     void Render();
 

@@ -211,6 +211,15 @@
     <Filter Include="Game\GameObject\UI\Font">
       <UniqueIdentifier>{129b1121-236f-4d68-88e5-601a20e18132}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\UI\HUD\P-meter">
+      <UniqueIdentifier>{59a60539-8f54-407b-abb3-378157a253b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\HUD\P-meter\ArrowItem">
+      <UniqueIdentifier>{65d3fde8-4806-40bc-95cd-d97e69756477}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\HUD\P-meter\P-icon">
+      <UniqueIdentifier>{aa309ae4-24d2-4cd9-b8c9-3c212782f96f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -516,6 +525,15 @@
     <ClInclude Include="UICameraConst.h">
       <Filter>Game\GameObject\UI\UICamera</Filter>
     </ClInclude>
+    <ClInclude Include="PMeter.h">
+      <Filter>Game\GameObject\UI\HUD\P-meter</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrowItemIcon.h">
+      <Filter>Game\GameObject\UI\HUD\P-meter\ArrowItem</Filter>
+    </ClInclude>
+    <ClInclude Include="PIcon.h">
+      <Filter>Game\GameObject\UI\HUD\P-meter\P-icon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -730,6 +748,15 @@
     </ClCompile>
     <ClCompile Include="Font.cpp">
       <Filter>Game\GameObject\UI\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="PMeter.cpp">
+      <Filter>Game\GameObject\UI\HUD\P-meter</Filter>
+    </ClCompile>
+    <ClCompile Include="ArrowItemIcon.cpp">
+      <Filter>Game\GameObject\UI\HUD\P-meter\ArrowItem</Filter>
+    </ClCompile>
+    <ClCompile Include="PIcon.cpp">
+      <Filter>Game\GameObject\UI\HUD\P-meter\P-icon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

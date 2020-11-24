@@ -131,9 +131,6 @@ void CScene::Load()
 			scene->QueryFloatAttribute("pos_x", &pos.x);
 			scene->QueryFloatAttribute("pos_y", &pos.y);
 
-			this->uiCamera = new CUICamera(screenWidth, screenHeight);
-			this->uiCamera->SetPositionCam(pos);
-
 			TiXmlElement* uiCam = scene->FirstChildElement();
 			std::string nameUICam = uiCam->Attribute("name");
 
@@ -141,8 +138,8 @@ void CScene::Load()
 			{
 				uiCam->QueryFloatAttribute("pos_x", &posHUD.x);
 				uiCam->QueryFloatAttribute("pos_y", &posHUD.y);
-				auto uiCam = static_cast<CUICamera*>(uiCamera);
-				uiCam->GetHUD()->SetPosition(posHUD);
+				this->uiCamera = new CUICamera(screenWidth, screenHeight, posHUD);
+				this->uiCamera->SetPositionCam(pos);
 			}
 		}
 	}

@@ -1,15 +1,34 @@
 #include "HUD.h"
-#include "AnimationManager.h"
+#include "SpriteManager.h"
 
-CHUD::CHUD()
+CHUD::CHUD(D3DXVECTOR2 hudPos)
 {
-	LoadAnimation();
-	SetState("HUD");
-	isEnabled = true;
+	this->pos = hudPos;
+	auto pMeterPos = hudPos;
+	pMeterPos.x -= 60;
+	pMeterPos.y -= 11;
+	pMeter = new CPMeter(pMeterPos);
+	LoadSprite();
 }
 
-void CHUD::LoadAnimation()
+void CHUD::LoadSprite()
 {
-	auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation("HUD", animationManager->Get("ani-hud"));
+	auto spriteManager = CSpriteManager::GetInstance();
+	hudSprite = spriteManager->Get("spr-hud-0");
+}
+
+void CHUD::Render()
+{
+	hudSprite->Draw(pos, D3DXVECTOR2(1.0f, 1.0f), 0.0f);
+	pMeter->Render();
+}
+
+void CHUD::SetPosition(D3DXVECTOR2 pos)
+{
+	this->pos = pos;
+}
+
+D3DXVECTOR2 CHUD::GetPosition()
+{
+	return pos;
 }

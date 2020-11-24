@@ -147,6 +147,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationFrame.h" />
     <ClInclude Include="AnimationManager.h" />
+    <ClInclude Include="ArrowItemIcon.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockConst.h" />
     <ClInclude Include="Brick.h" />
@@ -211,9 +212,11 @@
     <ClInclude Include="ParaKoopa.h" />
     <ClInclude Include="ParaKoopaConst.h" />
     <ClInclude Include="PhysicsBody.h" />
+    <ClInclude Include="PIcon.h" />
     <ClInclude Include="Piranha.h" />
     <ClInclude Include="PiranhaConst.h" />
     <ClInclude Include="Plant.h" />
+    <ClInclude Include="PMeter.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="QuestionBlockConst.h" />
@@ -250,6 +253,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationFrame.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="ArrowItemIcon.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BrickEffect.cpp" />
@@ -292,8 +296,10 @@
     <ClCompile Include="ParaGoomba.cpp" />
     <ClCompile Include="ParaKoopa.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
+    <ClCompile Include="PIcon.cpp" />
     <ClCompile Include="Piranha.cpp" />
     <ClCompile Include="Plant.cpp" />
+    <ClCompile Include="PMeter.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RaccoonTailBox.cpp" />

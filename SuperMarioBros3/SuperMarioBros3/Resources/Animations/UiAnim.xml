@@ -63,10 +63,14 @@
 		<Animation aniId="ani-m-tag" frameTime="100" name = "M-TAG">
 			<Sprite id="spr-m-tag-0" left="15" top="160"  width="18" height="9"/>
 		</Animation>
-		<Animation aniId="ani-p-icon" frameTime="100"  name = "P-ICON">
-			<Sprite id="spr-p-icon-0" left="63" top="161"  width="26" height="9"/>
-			<Sprite id="spr-p-icon-1" left="90" top="161"  width="26" height="9"/>
+		<Animation aniId="ani-arrow-icon" frameTime="100"  name = "P-ICON">
+      <Sprite id="spr-arrow-icon-white" left="64" top="162"  width="8" height="7"/>
+      <Sprite id="spr-arrow-icon-black" left="91" top="162"  width="9" height="7"/>
 		</Animation>
+    <Animation aniId="ani-p-icon" frameTime="100"  name = "P-ICON">
+      <Sprite id="spr-p-icon-white" left="73" top="162"  width="15" height="7"/>
+      <Sprite id="spr-p-icon-black" left="100" top="162"  width="15" height="7"/>
+    </Animation>
 
 		<!-- CARD -->
 		<Animation aniId="ani-empty-card" frameTime="100"  name = "EMPTY-CARD">

@@ -1,10 +1,16 @@
 #pragma once
-#include "GameObject.h"
-class CHUD :
-    public CGameObject
+#include "PMeter.h"
+class CHUD
 {
+private:
+    CPMeter* pMeter;
+    CSprite* hudSprite;
+    D3DXVECTOR2 pos;
 public:
-    CHUD();
-    void LoadAnimation();
+    CHUD(D3DXVECTOR2 hudPos);
+    void LoadSprite();
+    void Render();
+    void SetPosition(D3DXVECTOR2 pos);
+    D3DXVECTOR2 GetPosition();
 };
 
