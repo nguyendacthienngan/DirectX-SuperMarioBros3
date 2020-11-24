@@ -10,8 +10,10 @@ private:
 	// p button
 	CPIcon* pIcon;
 	D3DXVECTOR2 pos;
+	float pMeterCounting;
 public:
 	CPMeter(D3DXVECTOR2 pos);
+	void Update();
 	void Render();
 };
 

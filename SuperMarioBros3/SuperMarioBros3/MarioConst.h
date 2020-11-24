@@ -34,7 +34,7 @@ const float MARIO_DEFLECT_BLOCK = 0.2f;
 
 const int  MARIO_FEVER_TIME	=			2000;
 
-const int  PMETER_MAX = 5;
+const int  PMETER_MAX = 6;
 const float  PMETER_STEP = 0.005f;
 
 const int  FLYING_TIME = 4000;

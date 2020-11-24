@@ -534,6 +534,9 @@
     <ClInclude Include="PIcon.h">
       <Filter>Game\GameObject\UI\HUD\P-meter\P-icon</Filter>
     </ClInclude>
+    <ClInclude Include="PMeterConst.h">
+      <Filter>Game\GameObject\UI\HUD\P-meter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">

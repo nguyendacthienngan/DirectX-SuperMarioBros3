@@ -237,6 +237,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			// Nhấn nút A chạy ! RUN
 			if (keyboard->GetKeyStateDown(DIK_A))
 			{
+				if (currentPhysicsState.move != MoveOnGroundStates::HighSpeed)
 				currentPhysicsState.move = MoveOnGroundStates::Run;
 				acceleration = MARIO_RUNNING_ACCELERATION;
 				targetVelocity.x = MARIO_RUNNING_SPEED;
@@ -256,17 +257,17 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			if (abs(velocity.x) < targetVelocity.x)
 				velocity.x += physiscBody->GetAcceleration() * dt;
 
+			
 			FrictionProcess(velocity.x, dt); // Kèm lực ma sát kéo lại vận tốc
 			physiscBody->SetVelocity(velocity);
-
-			if (abs(velocity.x) > MARIO_RUNNING_SPEED * 0.95f)
-				currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
 
 			SkidProcess(velocity);
 			if (previousVelocity.x * velocity.x <= 0)
 				isSkid = false;
 			if (isSkid == true)
 				currentPhysicsState.move = MoveOnGroundStates::Skid;
+			if (abs(velocity.x) >= targetVelocity.x *0.7f && currentPhysicsState.move == MoveOnGroundStates::Run)
+				currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
 		}
 		else
 		{
@@ -427,6 +428,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		}
 		if (currentPhysicsState.move == MoveOnGroundStates::Kick && isKick == false)
 			currentPhysicsState.move = previousPhysicsState.move;
+		
 	}
 	else
 	{
@@ -547,9 +549,7 @@ void CMario::Render(CCamera* cam, int alpha)
 			if (feverState == 2 && isOnGround == false) // Các mario khác
 			{
 				SetState(MARIO_STATE_FLY);
-
 			}
-
 		}
 
 #pragma endregion

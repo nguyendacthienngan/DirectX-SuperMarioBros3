@@ -17,6 +17,10 @@ CPMeter::CPMeter(D3DXVECTOR2 pos)
 	pIcon->SetPosition(startPos);
 }
 
+void CPMeter::Update()
+{
+}
+
 void CPMeter::Render()
 {
 	for (int i = 0; i < 6; i++)

@@ -150,6 +150,8 @@ void CScene::Update(DWORD dt)
 		if (obj->IsEnabled() == false) continue;
 		if (uiCam != NULL)
 			obj->Update(dt, camera, uiCam);
+		else 
+			obj->Update(dt, camera, NULL);
 		obj->PhysicsUpdate(&gameObjects); 
 	}
 	if (camera != NULL)

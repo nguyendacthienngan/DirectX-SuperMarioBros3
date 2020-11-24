@@ -217,6 +217,7 @@
     <ClInclude Include="PiranhaConst.h" />
     <ClInclude Include="Plant.h" />
     <ClInclude Include="PMeter.h" />
+    <ClInclude Include="PMeterConst.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="QuestionBlockConst.h" />
