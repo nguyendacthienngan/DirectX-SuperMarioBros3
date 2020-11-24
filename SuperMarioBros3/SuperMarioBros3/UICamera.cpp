@@ -27,7 +27,7 @@ void CUICamera::Render()
 	posInCam.y = trunc(hud->GetPosition().y - this->posCam.y) + BLACK_RECTANGLE_HEIGHT;
     float surfaceWidth = surfaceRect.right - surfaceRect.left;
     float surfaceHeight = surfaceRect.bottom - surfaceRect.top;
-	//CGame::GetInstance()->Draw(posInCam, D3DXVECTOR2(surfaceWidth * 0.5f, surfaceHeight * 0.5f), tex, surfaceRect, D3DCOLOR_XRGB(0,0,0));
+	CGame::GetInstance()->Draw(posInCam, D3DXVECTOR2(surfaceWidth * 0.5f, surfaceHeight * 0.5f), tex, surfaceRect, D3DCOLOR_XRGB(0,0,0));
     if (hud != NULL)
     {
        hud->Render();

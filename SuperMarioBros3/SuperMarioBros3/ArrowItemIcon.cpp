@@ -12,7 +12,7 @@ void CArrowItemIcon::LoadSprite()
 {
 	auto spriteManager = CSpriteManager::GetInstance();
 	blackArrowSprite = spriteManager->Get("spr-arrow-icon-black");
-	whiteArrowSprite = spriteManager->Get("spr-arrow-icon-black");
+	whiteArrowSprite = spriteManager->Get("spr-arrow-icon-white");
 	size.x = blackArrowSprite->GetWidth();
 	size.y = blackArrowSprite->GetHeight();
 }
