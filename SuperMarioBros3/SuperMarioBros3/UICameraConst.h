@@ -1,0 +1,3 @@
+#pragma once
+#define BLACK_RECTANGLE_WIDTH 300
+#define BLACK_RECTANGLE_HEIGHT 300

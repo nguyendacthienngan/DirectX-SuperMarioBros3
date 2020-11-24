@@ -241,6 +241,7 @@
     <ClInclude Include="tinyxml.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UICamera.h" />
+    <ClInclude Include="UICameraConst.h" />
     <ClInclude Include="Ultis.h" />
     <ClInclude Include="VenusConst.h" />
     <ClInclude Include="VenusFireBall.h" />

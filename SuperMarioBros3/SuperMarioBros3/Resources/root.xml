@@ -8,6 +8,7 @@
     <Texture id="tex-bbox" source="Resources/Textures/bbox.png"/>
     <Texture id="tex-effect" source="Resources/Textures/effect_white_254_x3.png"/>
     <Texture id="tex-ui" source="Resources/Textures/UI_x3.png"/>
+    <Texture id="tex-black" source="Resources/Textures/black.png"/>
   </Root>
   <Root name="Sprites">
     <Sprite id="spr-mario" source="Resources/Sprites/MarioDB.xml"/>

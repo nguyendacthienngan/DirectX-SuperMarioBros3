@@ -513,6 +513,9 @@
     <ClInclude Include="Font.h">
       <Filter>Game\GameObject\UI\Font</Filter>
     </ClInclude>
+    <ClInclude Include="UICameraConst.h">
+      <Filter>Game\GameObject\UI\UICamera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">

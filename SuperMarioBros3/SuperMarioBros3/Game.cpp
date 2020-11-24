@@ -80,14 +80,6 @@ void CGame::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
 		MessageBox(hWnd, L"Creating sprite handler failed!", L"Error", MB_OK | MB_ICONERROR);
 		return;
 	}
-	//d3ddv->CreateOffscreenPlainSurface(
-	//	600, // width
-	//	600, // height
-	//	D3DFMT_X8R8G8B8,
-	//	D3DPOOL_DEFAULT,
-	//	&surface,
-	//	NULL
-	//);
 	DebugOut(L"[INFO] Init DirectX Done \n");
 }
 
