@@ -307,7 +307,12 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 				}
 			}
 			else if (feverState != 2 && feverState != -1) // nếu feverState đang = 1 mà k thỏa những điều kiện trên thì reset lại
+			{
 				feverState = 0;
+				pMeterCounting -= PMETER_STEP * dt;
+				if (pMeterCounting < 0)
+					pMeterCounting = 0;
+			}
 #pragma endregion
 
 #pragma region FEVER STATE
@@ -629,9 +634,12 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 			{
 				auto v = physiscBody->GetVelocity();
 				physiscBody->SetVelocity(D3DXVECTOR2(0, v.y));
-				pMeterCounting = 0;
-				if (uiCamera != NULL)
-					uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(pMeterCounting);
+				if (canFly == false)
+				{
+					pMeterCounting = 0;
+					if (uiCamera != NULL)
+						uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(pMeterCounting);
+				}
 			}
 		}
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock && collisionEvent->ny > 0)
