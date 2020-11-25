@@ -13,6 +13,7 @@ CUICamera::CUICamera(int wid, int hei, D3DXVECTOR2 hudPos)
 	hud = new CHUD(hudPos);
     this->widthCam = wid;
     this->heightCam = hei;
+    font = new CFont();
 }
 
 void CUICamera::Update()
@@ -33,6 +34,7 @@ void CUICamera::Render()
     {
        hud->Render();
     }
+    font->Render();
 }
 
 CHUD* CUICamera::GetHUD()
