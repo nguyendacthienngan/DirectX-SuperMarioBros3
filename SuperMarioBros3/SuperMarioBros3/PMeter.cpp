@@ -1,4 +1,4 @@
-#include "PMeter.h"
+﻿#include "PMeter.h"
 #include "Ultis.h"
 #include "UICameraConst.h"
 CPMeter::CPMeter(D3DXVECTOR2 pos)
@@ -17,14 +17,19 @@ CPMeter::CPMeter(D3DXVECTOR2 pos)
 	pIcon->SetPosition(startPos);
 	pMeterCounting = 0.0f;
 	pMeterState = -1;
-	feverState = -1;
+	feverState = -2;
+	isRaccoonMario = false;
 }
 
 void CPMeter::Update()
 {
-	if (pMeterCounting <= 0.1f)
-		pMeterState = -1;
+	// -2 : Mario bthg ban đầu
+	// -1: Raccoon Mario ban đầu
+	// 0: Bắt đầu 
 
+	if (pMeterCounting <= 0.1f)
+		pMeterState = -2;
+	
 	if (InRange(pMeterCounting, 0.1f, 1.0f) == true)
 		pMeterState = 0;
 
@@ -43,14 +48,24 @@ void CPMeter::Update()
 	if (InRange(pMeterCounting, 5.0f, 6.0f) == true)
 		pMeterState = 5;
 
-	if (pMeterState != -1)
+	if (pMeterState >= 0)
 	{
-		if (feverState == 1 || feverState == 2)
+		// Nếu là mario bình thường không phải là raccoon thì là 1,2
+		// Nếu là raccoon mario thì 4,5
+		if (isRaccoonMario == false && (feverState == 1 || feverState == 2))
 			arrowItemIcons[pMeterState]->SetCharged(true);
-		if (feverState == 3)
+		if (isRaccoonMario == true && (feverState == 4 || feverState == 5))
+			arrowItemIcons[pMeterState]->SetCharged(true);
+		if (feverState == 3 || feverState == 6)
 			arrowItemIcons[pMeterState]->SetCharged(false);
 	}
-	pIcon->SetCharged((feverState == 2));
+
+	if (pMeterCounting == 0)
+	{
+		for (int i = 0; i < 6; i++)
+			arrowItemIcons[i]->SetCharged(false);
+	}
+	pIcon->SetCharged((feverState == 2 || canfly == true));
 }
 
 void CPMeter::Render()
@@ -78,4 +93,14 @@ void CPMeter::SetFeverState(int feverState)
 int CPMeter::GetFeverState()
 {
 	return feverState;
+}
+
+void CPMeter::SetIsRaccoonMario(bool isRaccoonMario)
+{
+	this->isRaccoonMario = isRaccoonMario;
+}
+
+void CPMeter::SetCanFly(bool canfly)
+{
+	this->canfly = canfly;
 }

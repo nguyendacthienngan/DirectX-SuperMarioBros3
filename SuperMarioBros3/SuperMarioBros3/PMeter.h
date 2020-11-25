@@ -13,13 +13,21 @@ private:
 	float pMeterCounting;
 	int pMeterState;
 	int feverState;
+	bool isRaccoonMario;
+	bool canfly;
 public:
 	CPMeter(D3DXVECTOR2 pos);
 	void Update();
 	void Render();
+
 	void SetPMeterCounting(float pMeterCounting);
 	float GetPMeterCounting();
+
 	void SetFeverState(int feverstate);
 	int GetFeverState();
+
+	void SetIsRaccoonMario(bool isRaccoonMario);
+
+	void SetCanFly(bool canfly);
 };
 

@@ -223,6 +223,12 @@ void CMario::EndAnimation()
 
 void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
+	if (uiCamera == NULL)
+	{
+		uiCamera = static_cast<CUICamera*>(uiCam);
+	}
+	uiCamera->GetHUD()->GetPMeter()->SetIsRaccoonMario(false);
+
 	CGameObject::Update(dt, cam, uiCam);
 	auto keyboard = CKeyboardManager::GetInstance();
 	auto velocity = physiscBody->GetVelocity();
@@ -239,7 +245,6 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			// Nhấn nút A chạy ! RUN
 			if (keyboard->GetKeyStateDown(DIK_A))
 			{
-				if (currentPhysicsState.move != MoveOnGroundStates::HighSpeed)
 				currentPhysicsState.move = MoveOnGroundStates::Run;
 				acceleration = MARIO_RUNNING_ACCELERATION;
 				targetVelocity.x = MARIO_RUNNING_SPEED;
@@ -281,10 +286,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		}
 
 		
-		if (uiCamera == NULL)
-		{
-			uiCamera = static_cast<CUICamera*>(uiCam);
-		}
+		
 #pragma region P-METER
 		if (feverState != 3)
 		{
@@ -344,7 +346,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(pMeterCounting);
 		uiCamera->GetHUD()->GetPMeter()->SetFeverState(feverState);
 
-		if (pMeterCounting >= PMETER_MAX)
+		if (pMeterCounting >= PMETER_MAX && ( velocity.x > 0))
 			currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
 
 
@@ -418,12 +420,15 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		{
 			currentPhysicsState.jump = JumpOnAirStates::Fall;
 		}
-		if (currentPhysicsState.jump == JumpOnAirStates::Fly) // Có thể lỗi ở đây
+		if (currentPhysicsState.jump == JumpOnAirStates::Fly)
 		{
 			if (isOnGround == true)
 				currentPhysicsState.jump = JumpOnAirStates::Stand;
-			feverState = 0;
-			pMeterCounting = 0;
+			if (marioStateTag != MarioStates::RacoonMario)
+			{
+				feverState = 0;
+				pMeterCounting = 0;
+			}
 			if (uiCamera != NULL)
 				uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(pMeterCounting);
 		}
