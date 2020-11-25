@@ -32,15 +32,16 @@ CCamera::~CCamera()
 void CCamera::Update()
 {
     this->dt = CGame::GetInstance()->GetFixedDeltaTime(); 
-    
     float x, y;
     x = gameObject->GetPosition().x;
     y = gameObject->GetPosition().y;
     
      // follow Mario
     posCam.x = x - widthCam * 0.5f;
+
     if (isDisablePosY == false)
         posCam.y = y - heightCam * 0.1f;
+
 
     // Ở đầu scene và cuối scene ta sẽ đặt ra boundary => Mario k được vượt quá boundary này
     if (posCam.x < currentBoundary.left)

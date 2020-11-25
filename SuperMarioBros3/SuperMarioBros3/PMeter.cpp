@@ -27,6 +27,7 @@ void CPMeter::Update()
 
 	if (InRange(pMeterCounting, 0.1f, 1.0f) == true)
 		pMeterState = 0;
+
 	if (InRange(pMeterCounting, 1.0f, 2.0f) == true)
 		pMeterState = 1;
 
@@ -40,9 +41,8 @@ void CPMeter::Update()
 		pMeterState = 4;
 
 	if (InRange(pMeterCounting, 5.0f, 6.0f) == true)
-	{
 		pMeterState = 5;
-	}
+
 	if (pMeterState != -1)
 	{
 		if (feverState == 1 || feverState == 2)

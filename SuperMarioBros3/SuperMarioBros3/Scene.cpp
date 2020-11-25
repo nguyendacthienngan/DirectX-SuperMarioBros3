@@ -106,13 +106,12 @@ void CScene::Load()
 				boundary->QueryIntAttribute("disY", &disY);
 
 				camera->AddCameraProperties(id, pos, bound);
-				camera->SetDisablePosX(disX);
-				camera->SetDisablePosY(disY);
-
 				if (start == id)
 				{
 					camera->SetCurrentBoundary(bound);
 					camera->SetPositionCam(pos);
+					camera->SetDisablePosX(disX);
+					camera->SetDisablePosY(disY);
 				}
 			}
 			if (player != NULL)
