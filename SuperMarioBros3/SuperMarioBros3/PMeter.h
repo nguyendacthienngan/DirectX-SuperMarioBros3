@@ -15,6 +15,7 @@ private:
 	int feverState;
 	bool isRaccoonMario;
 	bool canfly;
+	int maxArrowPositionIsCharging;
 public:
 	CPMeter(D3DXVECTOR2 pos);
 	void Update();

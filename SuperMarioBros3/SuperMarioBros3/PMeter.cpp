@@ -19,6 +19,7 @@ CPMeter::CPMeter(D3DXVECTOR2 pos)
 	pMeterState = -1;
 	feverState = -2;
 	isRaccoonMario = false;
+	maxArrowPositionIsCharging = 5;
 }
 
 void CPMeter::Update()
@@ -26,7 +27,7 @@ void CPMeter::Update()
 	// -2 : Mario bthg ban đầu
 	// -1: Raccoon Mario ban đầu
 	// 0: Bắt đầu 
-
+	
 	if (pMeterCounting <= 0.1f)
 		pMeterState = -2;
 	
@@ -60,12 +61,27 @@ void CPMeter::Update()
 			arrowItemIcons[pMeterState]->SetCharged(false);
 	}
 
+	
+	pIcon->SetCharged((feverState == 2 || canfly == true));
+
 	if (pMeterCounting == 0)
 	{
-		for (int i = 0; i < 6; i++)
-			arrowItemIcons[i]->SetCharged(false);
+		// Chỗ này phải xử lý lại cho mượt vì mình tắt nhanh quó
+		for (; maxArrowPositionIsCharging >= 0; maxArrowPositionIsCharging--)
+		{
+			if (arrowItemIcons[maxArrowPositionIsCharging]->IsCharged() == true)
+			{
+				break;
+			}
+		}
+		if (maxArrowPositionIsCharging >= 0)
+		{
+			arrowItemIcons[maxArrowPositionIsCharging]->SetCharged(false);
+			Sleep(300);
+		}
+		else
+			maxArrowPositionIsCharging = 5;
 	}
-	pIcon->SetCharged((feverState == 2 || canfly == true));
 }
 
 void CPMeter::Render()
