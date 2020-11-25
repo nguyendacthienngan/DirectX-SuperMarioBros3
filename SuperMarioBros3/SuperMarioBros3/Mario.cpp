@@ -281,60 +281,73 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		}
 
 		
-
-#pragma region P-METER
-		if (currentPhysicsState.move == MoveOnGroundStates::Run
-			&& abs(velocity.x) > MARIO_RUNNING_SPEED * 0.15f
-			&& pMeterCounting < PMETER_MAX + 1
-			&& currentPhysicsState.jump == JumpOnAirStates::Stand
-			&& feverState != 2
-			&& isHold == false)
-		{
-			if (feverState != -1)
-				feverState = 1;
-			
-			pMeterCounting += PMETER_STEP * dt;
-			if (pMeterCounting > PMETER_MAX + 1)
-			{
-				pMeterCounting = PMETER_MAX + 1;
-			}
-		}
-		else if (feverState != 2 && feverState != -1) // nếu feverState đang = 1 mà k thỏa những điều kiện trên thì reset lại
-			feverState = 0;
-
-#pragma region FEVER STATE
-		if (pMeterCounting >= PMETER_MAX && feverState == 0)
-		{
-			feverState = 2;
-			lastFeverTime = GetTickCount();
-		}
-		else if (pMeterCounting > 0 && feverState == -1) // feverState = -1 là con raccoon
-		{
-			if (pMeterCounting >= PMETER_MAX)
-			{
-				canFly = true;
-			}
-		}
-		if (feverState == 2)
-		{
-			pMeterCounting = PMETER_MAX; // giữ giá trị max 1 thời gian
-			if (GetTickCount() - lastFeverTime > MARIO_FEVER_TIME)
-			{
-				feverState = 0;
-				pMeterCounting = 0.0f;
-			}
-		}
 		if (uiCamera == NULL)
 		{
 			uiCamera = static_cast<CUICamera*>(uiCam);
 		}
+#pragma region P-METER
+		if (feverState != 3)
+		{
+			if (currentPhysicsState.move == MoveOnGroundStates::Run
+				&& abs(velocity.x) > MARIO_RUNNING_SPEED * 0.15f
+				&& pMeterCounting < PMETER_MAX + 1
+				&& currentPhysicsState.jump == JumpOnAirStates::Stand
+				&& feverState != 2
+				&& isHold == false)
+			{
+				if (feverState != -1)
+					feverState = 1;
+
+				pMeterCounting += PMETER_STEP * dt;
+				if (pMeterCounting > PMETER_MAX + 1)
+				{
+					pMeterCounting = PMETER_MAX + 1;
+				}
+			}
+			else if (feverState != 2 && feverState != -1) // nếu feverState đang = 1 mà k thỏa những điều kiện trên thì reset lại
+				feverState = 0;
+#pragma endregion
+
+#pragma region FEVER STATE
+			if (pMeterCounting >= PMETER_MAX && feverState == 0)
+			{
+				feverState = 2;
+				lastFeverTime = GetTickCount();
+			}
+			else if (pMeterCounting > 0 && feverState == -1) // feverState = -1 là con raccoon
+			{
+				if (pMeterCounting >= PMETER_MAX)
+				{
+					canFly = true;
+				}
+			}
+			if (feverState == 2)
+			{
+				pMeterCounting = PMETER_MAX; // giữ giá trị max 1 thời gian
+				if (GetTickCount() - lastFeverTime > MARIO_FEVER_TIME)
+				{
+					feverState = 3;
+					pMeterCounting -= PMETER_STEP * dt;// Khi hết feverstate, nó sẽ giảm xuống 0 rồi mới được tăng tiếp
+				}
+			}
+#pragma endregion
+
+		}
+		else
+		{
+			pMeterCounting -= PMETER_STEP * dt;
+			if (pMeterCounting <= 0)
+				feverState = 0;
+		}
+
+		
 		uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(pMeterCounting);
+		uiCamera->GetHUD()->GetPMeter()->SetFeverState(feverState);
+
 		if (pMeterCounting >= PMETER_MAX)
 			currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
 
-#pragma endregion
 
-#pragma endregion
 		// Vertical Movement: Jump, High Jump, Super Jump
 
 #pragma region STATE JUMP

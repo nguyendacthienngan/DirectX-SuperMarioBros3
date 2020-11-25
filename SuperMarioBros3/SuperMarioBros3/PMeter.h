@@ -11,6 +11,7 @@ private:
 	CPIcon* pIcon;
 	D3DXVECTOR2 pos;
 	float pMeterCounting;
+	int pMeterState;
 	int feverState;
 public:
 	CPMeter(D3DXVECTOR2 pos);
@@ -18,5 +19,7 @@ public:
 	void Render();
 	void SetPMeterCounting(float pMeterCounting);
 	float GetPMeterCounting();
+	void SetFeverState(int feverstate);
+	int GetFeverState();
 };
 

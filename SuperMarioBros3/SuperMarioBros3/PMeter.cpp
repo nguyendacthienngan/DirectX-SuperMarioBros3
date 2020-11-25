@@ -16,29 +16,41 @@ CPMeter::CPMeter(D3DXVECTOR2 pos)
 	pIcon = new CPIcon();
 	pIcon->SetPosition(startPos);
 	pMeterCounting = 0.0f;
-	feverState = 0;
+	pMeterState = -1;
+	feverState = -1;
 }
 
 void CPMeter::Update()
 {
-	if (InRange(pMeterCounting, 0.1f, 1.0f) == true)
-		arrowItemIcons[0]->SetCharged(true);
-	//else if ()
-	//	arrowItemIcons[0]->SetCharged(false);
+	if (pMeterCounting <= 0.1f)
+		pMeterState = -1;
 
+	if (InRange(pMeterCounting, 0.1f, 1.0f) == true)
+		pMeterState = 0;
 	if (InRange(pMeterCounting, 1.0f, 2.0f) == true)
-		arrowItemIcons[1]->SetCharged(true);
+		pMeterState = 1;
+
 	if (InRange(pMeterCounting, 2.0f, 3.0f) == true)
-		arrowItemIcons[2]->SetCharged(true);
+		pMeterState = 2;
+
 	if (InRange(pMeterCounting, 3.0f, 4.0f) == true)
-		arrowItemIcons[3]->SetCharged(true);
+		pMeterState = 3;
+
 	if (InRange(pMeterCounting, 4.0f, 5.0f) == true)
-		arrowItemIcons[4]->SetCharged(true);
+		pMeterState = 4;
+
 	if (InRange(pMeterCounting, 5.0f, 6.0f) == true)
 	{
-		arrowItemIcons[5]->SetCharged(true);
-		pIcon->SetCharged(true);
+		pMeterState = 5;
 	}
+	if (pMeterState != -1)
+	{
+		if (feverState == 1 || feverState == 2)
+			arrowItemIcons[pMeterState]->SetCharged(true);
+		if (feverState == 3)
+			arrowItemIcons[pMeterState]->SetCharged(false);
+	}
+	pIcon->SetCharged((feverState == 2));
 }
 
 void CPMeter::Render()
@@ -56,4 +68,14 @@ void CPMeter::SetPMeterCounting(float pMeterCounting)
 float CPMeter::GetPMeterCounting()
 {
 	return pMeterCounting;
+}
+
+void CPMeter::SetFeverState(int feverState)
+{
+	this->feverState = feverState;
+}
+
+int CPMeter::GetFeverState()
+{
+	return feverState;
 }
