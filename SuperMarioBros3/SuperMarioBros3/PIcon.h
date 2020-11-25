@@ -13,5 +13,7 @@ public:
 	void LoadSprite();
 	void Render();
 	void SetPosition(D3DXVECTOR2 pos);
+	void SetCharged(bool isCharged);
+	bool IsCharged();
 };
 

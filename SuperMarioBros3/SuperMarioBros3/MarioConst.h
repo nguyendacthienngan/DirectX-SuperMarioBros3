@@ -32,11 +32,6 @@ const float  MARIO_DEFLECT_X = 0.3f;
 
 const float MARIO_DEFLECT_BLOCK = 0.2f;
 
-const int  MARIO_FEVER_TIME	=			2000;
-
-const int  PMETER_MAX = 6;
-const float  PMETER_STEP = 0.005f;
-
 const int  FLYING_TIME = 4000;
 const int FLOATING_TIME = 5000;
 const int ATTACKING_TIME = 300;

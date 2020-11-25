@@ -220,14 +220,14 @@ void CGame::Render()
 
 void CGame::Update()
 {
-	//DebugOut(L"Update in Game (1) \n");
 	LPSceneManager sceneManger = CSceneManager::GetInstance();
 	LPScene activeScene = sceneManger->GetActiveScene();
+	auto uiCamera = CSceneManager::GetInstance()->GetUICamera();
 	// Update Scene. Trong Scene sẽ Update các GameObject. Trong GameObject sẽ update các animation. Các animation sẽ update các animation frame / sprite ?
 	if (activeScene != NULL)
 		activeScene->Update(deltaTime);
-	//DebugOut(L"Update in Game (2) \n");
-
+	if (uiCamera != nullptr)
+		uiCamera->Update();
 }
 
 bool CGame::ImportGameSource()

@@ -9,6 +9,9 @@
 #include "IState.h"
 #include "Holdable.h"
 #include "ItemInfo.h"
+#include "UICamera.h"
+
+class CUICamera;
 
 class CMario : public CGameObject, public IState
 {
@@ -50,6 +53,7 @@ protected:
 	bool isGoToWarpPipe, canGoToWarpPipe;
 	RectF ventDirection;
 	bool isAutogo;
+	CUICamera* uiCamera;
 public:
 	CMario();
 	void SetDamageFlag(bool isDamaged);

@@ -17,6 +17,11 @@ void CHUD::LoadSprite()
 	hudSprite = spriteManager->Get("spr-hud-0");
 }
 
+void CHUD::Update()
+{
+	pMeter->Update();
+}
+
 void CHUD::Render()
 {
 	hudSprite->Draw(pos, D3DXVECTOR2(1.0f, 1.0f), 0.0f);
@@ -31,4 +36,14 @@ void CHUD::SetPosition(D3DXVECTOR2 pos)
 D3DXVECTOR2 CHUD::GetPosition()
 {
 	return pos;
+}
+
+void CHUD::SetPMeter(CPMeter* pMeter)
+{
+	this->pMeter = pMeter;
+}
+
+CPMeter* CHUD::GetPMeter()
+{
+	return pMeter;
 }

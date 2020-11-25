@@ -26,3 +26,13 @@ void CPIcon::SetPosition(D3DXVECTOR2 pos)
 {
 	this->pos = pos;
 }
+
+void CPIcon::SetCharged(bool isCharged)
+{
+	this->isCharged = isCharged;
+}
+
+bool CPIcon::IsCharged()
+{
+	return isCharged;
+}

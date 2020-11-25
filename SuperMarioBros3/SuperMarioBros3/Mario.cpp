@@ -5,6 +5,7 @@
 #include "Ultis.h"
 #include "MarioConst.h"
 #include "Const.h"
+#include "PMeterConst.h"
 #include "Sprite.h"
 
 #include "CollisionBox.h"
@@ -202,6 +203,7 @@ void CMario::InitProperties()
 	powerupItem = PowerupTag::None;
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 	ventDirection = { 0, 0, 0, 0 };
+	uiCamera = NULL;
 }
 
 void CMario::LoadAnimation()
@@ -266,8 +268,6 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 				isSkid = false;
 			if (isSkid == true)
 				currentPhysicsState.move = MoveOnGroundStates::Skid;
-			if (abs(velocity.x) >= targetVelocity.x *0.7f && currentPhysicsState.move == MoveOnGroundStates::Run)
-				currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
 		}
 		else
 		{
@@ -280,6 +280,8 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			isSkid = false;
 		}
 
+		
+
 #pragma region P-METER
 		if (currentPhysicsState.move == MoveOnGroundStates::Run
 			&& abs(velocity.x) > MARIO_RUNNING_SPEED * 0.15f
@@ -290,6 +292,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		{
 			if (feverState != -1)
 				feverState = 1;
+			
 			pMeterCounting += PMETER_STEP * dt;
 			if (pMeterCounting > PMETER_MAX + 1)
 			{
@@ -321,6 +324,14 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 				pMeterCounting = 0.0f;
 			}
 		}
+		if (uiCamera == NULL)
+		{
+			uiCamera = static_cast<CUICamera*>(uiCam);
+		}
+		uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(pMeterCounting);
+		if (pMeterCounting >= PMETER_MAX)
+			currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
+
 #pragma endregion
 
 #pragma endregion
@@ -400,6 +411,8 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 				currentPhysicsState.jump = JumpOnAirStates::Stand;
 			feverState = 0;
 			pMeterCounting = 0;
+			if (uiCamera != NULL)
+				uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(pMeterCounting);
 		}
 		if (currentPhysicsState.jump == JumpOnAirStates::Fall)
 		{
@@ -599,6 +612,8 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 				auto v = physiscBody->GetVelocity();
 				physiscBody->SetVelocity(D3DXVECTOR2(0, v.y));
 				pMeterCounting = 0;
+				if (uiCamera != NULL)
+					uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(pMeterCounting);
 			}
 		}
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock && collisionEvent->ny > 0)
