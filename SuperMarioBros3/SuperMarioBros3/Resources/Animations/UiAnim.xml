@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Textures>
 	<!--	Texture UI  	-->
-	<Textures gameObjectId=0 textureId=0>
+	<Textures gameObjectId="0" textureId="tex-ui">
 
 		<!-- FONT -->
-		<Animation aniId="ani-font" frameTime="100">
+		<Animation aniId="ani-font" frameTime="100" name = "FONT">
 			<Sprite id="spr-font-0" left="31" top="24"  width="9" height="8"/>
 			<Sprite id="spr-font-1" left="54" top="24"  width="7" height="7"/>
 			<Sprite id="spr-font-2" left="71" top="24"  width="9" height="8"/>
@@ -44,7 +44,7 @@
 		</Animation>
 
 		<!-- POINTS IN LEVEL -->
-		<Animation aniId="ani-points-in-level" frameTime="100">
+		<Animation aniId="ani-points-in-level" frameTime="100"  name = "POINTS">
 			<Sprite id="spr-points-in-level-100" left="60" top="88"  width="12" height="9"/>
 			<Sprite id="spr-points-in-level-200" left="74" top="88"  width="13" height="9"/>
 			<Sprite id="spr-points-in-level-400" left="89" top="88"  width="13" height="10"/>
@@ -57,28 +57,32 @@
 		</Animation>
 
 		<!-- HUD -->
-		<Animation aniId="ani-hud" frameTime="100">
+		<Animation aniId="ani-hud" frameTime="100" name = "HUD">
 			<Sprite id="spr-hud-0" left="11" top="127"  width="153" height="30"/>
 		</Animation>
-		<Animation aniId="ani-m-tag" frameTime="100">
+		<Animation aniId="ani-m-tag" frameTime="100" name = "M-TAG">
 			<Sprite id="spr-m-tag-0" left="15" top="160"  width="18" height="9"/>
 		</Animation>
-		<Animation aniId="ani-p-icon" frameTime="100">
-			<Sprite id="spr-p-icon-0" left="63" top="161"  width="26" height="9"/>
-			<Sprite id="spr-p-icon-1" left="90" top="161"  width="26" height="9"/>
+		<Animation aniId="ani-arrow-icon" frameTime="100"  name = "P-ICON">
+      <Sprite id="spr-arrow-icon-white" left="64" top="162"  width="8" height="7"/>
+      <Sprite id="spr-arrow-icon-black" left="91" top="162"  width="9" height="7"/>
 		</Animation>
+    <Animation aniId="ani-p-icon" frameTime="100"  name = "P-ICON">
+      <Sprite id="spr-p-icon-white" left="73" top="162"  width="15" height="7"/>
+      <Sprite id="spr-p-icon-black" left="100" top="162"  width="15" height="7"/>
+    </Animation>
 
 		<!-- CARD -->
-		<Animation aniId="ani-empty-card" frameTime="100">
+		<Animation aniId="ani-empty-card" frameTime="100"  name = "EMPTY-CARD">
 			<Sprite id="spr-empty-card-0" left="139" top="158"  width="25" height="29"/>
 		</Animation>
-		<Animation aniId="ani-super-mushroom-card" frameTime="100">
+		<Animation aniId="ani-super-mushroom-card" frameTime="100"  name = "MUSHROOM-CARD">
 			<Sprite id="spr-super-mushroom-card-0" left="171" top="158"  width="24" height="29"/>
 		</Animation>
-		<Animation aniId="ani-fire-flower-card" frameTime="100">
+		<Animation aniId="ani-fire-flower-card" frameTime="100" name = "FIRE-FLOWER-CARD">
 			<Sprite id="spr-fire-flower-card-0" left="202" top="158"  width="24" height="29"/>
 		</Animation>
-		<Animation aniId="ani-star-man-card" frameTime="100">
+		<Animation aniId="ani-star-man-card" frameTime="100" name = "STAR-MAN-CARD">
 			<Sprite id="spr-star-man-card-0" left="232" top="158"  width="24" height="30"/>
 		</Animation>
 	</Textures>

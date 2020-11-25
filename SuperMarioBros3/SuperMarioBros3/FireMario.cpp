@@ -69,9 +69,9 @@ void CFireMario::Render(CCamera* cam, int alpha)
 	CMario::Render(cam, alpha);
 }
 
-void CFireMario::Update(DWORD dt, CCamera* cam)
+void CFireMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
-	CMario::Update(dt, cam);
+	CMario::Update(dt, cam, uiCam);
 	if (isAttack == true) 
 	{
 		if (isOnGround == true && isJump == false) 

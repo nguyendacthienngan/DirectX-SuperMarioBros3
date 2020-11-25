@@ -3,6 +3,7 @@
 #include "AnimationManager.h"
 #include "Ultis.h"
 #include "MarioStateSet.h"
+#include "PMeterConst.h"
 CRaccoonMario::CRaccoonMario()
 {
 	CMario::Init();
@@ -103,10 +104,10 @@ void CRaccoonMario::EndAnimation()
 	}
 }
 
-void CRaccoonMario::Update(DWORD dt, CCamera* cam)
+void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	auto keyboard = CKeyboardManager::GetInstance();
-	CMario::Update(dt, cam);
+	CMario::Update(dt, cam, uiCam);
 	if (isAttack == true && isDamaged == false) 
 	{
 		// Nếu vừa ấn attack cái enable cái đuôi là sai vì tới frame thứ 3 của Attack Animation mới là cái đuôi giơ ra
@@ -144,12 +145,13 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 
 	// Bay
 	// Set Gravity = 0 để bé cáo bay thỏa thích trên trời, đến max time (4s) rồi thì hạ xuống từ từ
-
+	//DebugOut(L"pMeterCounting %f \n", pMeterCounting);
+	//DebugOut(L"feverState %d \n", feverState);
 	auto velocity = physiscBody->GetVelocity();
 	auto sign = physiscBody->GetNormal().x;
 
 #pragma region Xử lý việc bay của Mario
-
+	
 	if (currentPhysicsState.jump == JumpOnAirStates::Fly)
 	{
 		// Xử lý việc khi đang bay mà chạm đất
@@ -160,7 +162,6 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 	{
 		// Xử lý việc thả nút xong ấn lại liền cho Fly
 		currentPhysicsState.jump = JumpOnAirStates::Fly;
-		//velocity.y -= MARIO_FLY_FORCE * dt *2; // Nếu cùng trọng lực bthg (0.000093) nhưng rơi chậm hơn, có thể dùng cho float
 		physiscBody->SetGravity(0.0f);
 		lastKeyFlyDown = GetTickCount64();
 		isFly = true;
@@ -174,7 +175,39 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam)
 			physiscBody->SetGravity(MARIO_GRAVITY / 2);
 		flyDown = true;
 	}
+	
+#pragma region FEVER STATE
+	
+	if (uiCamera != NULL)
+	{
+		// 4: Bắt đầu bước vào tính pMetercounting
+		if (pMeterCounting >= 0 && pMeterCounting <= PMETER_MAX)
+			if (uiCamera->GetHUD()->GetPMeter()->GetFeverState() < 5)
+				uiCamera->GetHUD()->GetPMeter()->SetFeverState(4);
+		
+		// 5: Cất cánh bayyyy
+		if (canFly == true || isFly == true)
+		{
+			uiCamera->GetHUD()->GetPMeter()->SetFeverState(5);
+			uiCamera->GetHUD()->GetPMeter()->SetCanFly(true);
+		}
+
+		// 6: Hạ cánh an toàn
+		if (GetTickCount64() - lastFlyTime > timeToFly && lastFlyTime != 0 && isFly == true)
+		{
+			uiCamera->GetHUD()->GetPMeter()->SetFeverState(-1);
+			uiCamera->GetHUD()->GetPMeter()->SetCanFly(false);
+			pMeterCounting = 0.0f;
+		}
+
+		uiCamera->GetHUD()->GetPMeter()->SetIsRaccoonMario(true);
+	}
+
 #pragma endregion
+
+#pragma endregion
+
+	
 
 #pragma region Xử lý việc sau khi bay mà quẫy đuôi bay chậm
 
@@ -242,17 +275,22 @@ void CRaccoonMario::OnKeyDown(int KeyCode)
 			lastFlyTime = GetTickCount64();
 		if (GetTickCount() - lastFlyTime > timeToFly && lastFlyTime != 0 && isFly == true) 
 		{
+			if (uiCamera != NULL)
+			{
+				uiCamera->GetHUD()->GetPMeter()->SetFeverState(-1);
+				uiCamera->GetHUD()->GetPMeter()->SetCanFly(false);
+			}
 			isFly = false;
 			physiscBody->SetGravity(MARIO_GRAVITY);
 			if (isOnGround == false)
 				currentPhysicsState.jump = JumpOnAirStates::Fall;
 			else
 				currentPhysicsState.jump = JumpOnAirStates::Stand;
-			pMeterCounting = 0;
 			canFly = false; 
 			lastFlyTime = 0;
-			feverState = -1;
 			canFloat = true;
+			pMeterCounting = 0.0f;
+			feverState = -1;
 		}
 		if (canFly == true)
 		{
@@ -277,7 +315,6 @@ void CRaccoonMario::OnKeyDown(int KeyCode)
 		if (isFloat == false)
 			lastFloatTime = GetTickCount64();
 
-
 		if (canFly == false && currentPhysicsState.jump == JumpOnAirStates::Fall && isOnGround == false)
 		{
 			isFloat = true;
@@ -288,7 +325,6 @@ void CRaccoonMario::OnKeyDown(int KeyCode)
 #pragma endregion
 
 	}
-
 }
 
 void CRaccoonMario::OnKeyUp(int KeyCode)

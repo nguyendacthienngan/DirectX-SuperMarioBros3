@@ -33,7 +33,7 @@ void CPiranha::LoadAnimation()
 	AddAnimation(PIRANHA_STATE_ATTACK, animationManager->Clone("ani-green-piranha-plant-attack"));
 }
 
-void CPiranha::Update(DWORD dt, CCamera* cam)
+void CPiranha::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
-	CPlant::Update(dt, cam);
+	CPlant::Update(dt, cam, uiCam);
 }

@@ -49,9 +49,9 @@ void CVenus::LoadAnimation()
 	AddAnimation(VENUS_STATE_HEAD_DOWN, animationManager->Clone("ani-red-venus-fire-trap-headdown"));
 }
 
-void CVenus::Update(DWORD dt, CCamera* cam)
+void CVenus::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
-	CPlant::Update(dt, cam);
+	CPlant::Update(dt, cam, uiCam);
 	// Nếu đang freeze thì quăng lửa
 	auto normal = physiscBody->GetNormal();
 	if (target != NULL)

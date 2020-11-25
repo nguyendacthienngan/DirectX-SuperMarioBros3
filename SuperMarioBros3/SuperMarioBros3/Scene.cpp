@@ -5,14 +5,19 @@
 #include "Game.h"
 #include "MarioController.h"
 #include "SceneConst.h"
-#include <string>
 #include "Koopa.h"
 #include "CVenus.h"
 #include "ObjectPool.h"
+#include "UICamera.h"
+
+#include <string>
+#include "SceneManager.h"
+
 using namespace std;
 
 CScene::CScene()
 {
+	camera = NULL;
 }
 
 void CScene::Load()
@@ -101,13 +106,12 @@ void CScene::Load()
 				boundary->QueryIntAttribute("disY", &disY);
 
 				camera->AddCameraProperties(id, pos, bound);
-				camera->SetDisablePosX(disX);
-				camera->SetDisablePosY(disY);
-
 				if (start == id)
 				{
 					camera->SetCurrentBoundary(bound);
 					camera->SetPositionCam(pos);
+					camera->SetDisablePosX(disX);
+					camera->SetDisablePosY(disY);
 				}
 			}
 			if (player != NULL)
@@ -136,13 +140,17 @@ void CScene::Unload()
 
 void CScene::Update(DWORD dt)
 {
+	auto uiCam = CSceneManager::GetInstance()->GetUICamera();
 	if (gameObjects.size() == 0) return;
 	for (auto obj : gameObjects)
 	{
 		if (obj->IsIgnoreTimeScale() == false && CGame::GetTimeScale() == 0)
 			continue;
 		if (obj->IsEnabled() == false) continue;
-		obj->Update(dt, camera);
+		if (uiCam != NULL)
+			obj->Update(dt, camera, uiCam);
+		else 
+			obj->Update(dt, camera, NULL);
 		obj->PhysicsUpdate(&gameObjects); 
 	}
 	if (camera != NULL)

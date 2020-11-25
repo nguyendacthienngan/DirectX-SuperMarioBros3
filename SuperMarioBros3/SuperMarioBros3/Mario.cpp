@@ -5,6 +5,7 @@
 #include "Ultis.h"
 #include "MarioConst.h"
 #include "Const.h"
+#include "PMeterConst.h"
 #include "Sprite.h"
 
 #include "CollisionBox.h"
@@ -202,6 +203,7 @@ void CMario::InitProperties()
 	powerupItem = PowerupTag::None;
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 	ventDirection = { 0, 0, 0, 0 };
+	uiCamera = NULL;
 }
 
 void CMario::LoadAnimation()
@@ -219,9 +221,15 @@ void CMario::EndAnimation()
 	}
 }
 
-void CMario::Update(DWORD dt, CCamera* cam)
+void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
-	CGameObject::Update(dt, cam);
+	if (uiCamera == NULL)
+	{
+		uiCamera = static_cast<CUICamera*>(uiCam);
+	}
+	uiCamera->GetHUD()->GetPMeter()->SetIsRaccoonMario(false);
+
+	CGameObject::Update(dt, cam, uiCam);
 	auto keyboard = CKeyboardManager::GetInstance();
 	auto velocity = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
@@ -256,11 +264,9 @@ void CMario::Update(DWORD dt, CCamera* cam)
 			if (abs(velocity.x) < targetVelocity.x)
 				velocity.x += physiscBody->GetAcceleration() * dt;
 
+			
 			FrictionProcess(velocity.x, dt); // Kèm lực ma sát kéo lại vận tốc
 			physiscBody->SetVelocity(velocity);
-
-			if (abs(velocity.x) > MARIO_RUNNING_SPEED * 0.95f)
-				currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
 
 			SkidProcess(velocity);
 			if (previousVelocity.x * velocity.x <= 0)
@@ -279,50 +285,76 @@ void CMario::Update(DWORD dt, CCamera* cam)
 			isSkid = false;
 		}
 
+		
+		
 #pragma region P-METER
-		if (currentPhysicsState.move == MoveOnGroundStates::Run
-			&& abs(velocity.x) > MARIO_RUNNING_SPEED * 0.15f
-			&& pMeterCounting < PMETER_MAX + 1
-			&& currentPhysicsState.jump == JumpOnAirStates::Stand
-			&& feverState != 2
-			&& isHold == false)
+		if (feverState != 3)
 		{
-			if (feverState != -1)
-				feverState = 1;
-			pMeterCounting += PMETER_STEP * dt;
-			if (pMeterCounting > PMETER_MAX + 1)
+			if (currentPhysicsState.move == MoveOnGroundStates::Run
+				&& abs(velocity.x) > MARIO_RUNNING_SPEED * 0.15f
+				&& pMeterCounting < PMETER_MAX + 1
+				&& currentPhysicsState.jump == JumpOnAirStates::Stand
+				&& feverState != 2
+				&& isHold == false)
 			{
-				pMeterCounting = PMETER_MAX + 1;
-			}
-		}
-		else if (feverState != 2 && feverState != -1) // nếu feverState đang = 1 mà k thỏa những điều kiện trên thì reset lại
-			feverState = 0;
+				if (feverState != -1)
+					feverState = 1;
 
-#pragma region FEVER STATE
-		if (pMeterCounting >= PMETER_MAX && feverState == 0)
-		{
-			feverState = 2;
-			lastFeverTime = GetTickCount();
-		}
-		else if (pMeterCounting > 0 && feverState == -1) // feverState = -1 là con raccoon
-		{
-			if (pMeterCounting >= PMETER_MAX)
-			{
-				canFly = true;
+				pMeterCounting += PMETER_STEP * dt;
+				if (pMeterCounting > PMETER_MAX + 1)
+				{
+					pMeterCounting = PMETER_MAX + 1;
+				}
 			}
-		}
-		if (feverState == 2)
-		{
-			pMeterCounting = PMETER_MAX; // giữ giá trị max 1 thời gian
-			if (GetTickCount() - lastFeverTime > MARIO_FEVER_TIME)
+			else if (feverState != 2 && feverState != -1) // nếu feverState đang = 1 mà k thỏa những điều kiện trên thì reset lại
 			{
 				feverState = 0;
-				pMeterCounting = 0.0f;
+				pMeterCounting -= PMETER_STEP * dt;
+				if (pMeterCounting < 0)
+					pMeterCounting = 0;
 			}
-		}
 #pragma endregion
 
+#pragma region FEVER STATE
+			if (pMeterCounting >= PMETER_MAX && feverState == 0)
+			{
+				feverState = 2;
+				lastFeverTime = GetTickCount();
+			}
+			else if (pMeterCounting > 0 && feverState == -1) // feverState = -1 là con raccoon
+			{
+				if (pMeterCounting >= PMETER_MAX)
+				{
+					canFly = true;
+				}
+			}
+			if (feverState == 2)
+			{
+				pMeterCounting = PMETER_MAX; // giữ giá trị max 1 thời gian
+				if (GetTickCount() - lastFeverTime > MARIO_FEVER_TIME)
+				{
+					feverState = 3;
+					pMeterCounting -= PMETER_STEP * dt;// Khi hết feverstate, nó sẽ giảm xuống 0 rồi mới được tăng tiếp
+				}
+			}
 #pragma endregion
+
+		}
+		else
+		{
+			pMeterCounting -= PMETER_STEP * dt;
+			if (pMeterCounting <= 0)
+				feverState = 0;
+		}
+
+		
+		uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(pMeterCounting);
+		uiCamera->GetHUD()->GetPMeter()->SetFeverState(feverState);
+
+		if (pMeterCounting >= PMETER_MAX && ( velocity.x > 0))
+			currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
+
+
 		// Vertical Movement: Jump, High Jump, Super Jump
 
 #pragma region STATE JUMP
@@ -393,12 +425,17 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		{
 			currentPhysicsState.jump = JumpOnAirStates::Fall;
 		}
-		if (currentPhysicsState.jump == JumpOnAirStates::Fly) // Có thể lỗi ở đây
+		if (currentPhysicsState.jump == JumpOnAirStates::Fly)
 		{
 			if (isOnGround == true)
 				currentPhysicsState.jump = JumpOnAirStates::Stand;
-			feverState = 0;
-			pMeterCounting = 0;
+			if (marioStateTag != MarioStates::RacoonMario)
+			{
+				feverState = 0;
+				pMeterCounting = 0;
+			}
+			if (uiCamera != NULL)
+				uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(pMeterCounting);
 		}
 		if (currentPhysicsState.jump == JumpOnAirStates::Fall)
 		{
@@ -427,6 +464,7 @@ void CMario::Update(DWORD dt, CCamera* cam)
 		}
 		if (currentPhysicsState.move == MoveOnGroundStates::Kick && isKick == false)
 			currentPhysicsState.move = previousPhysicsState.move;
+		
 	}
 	else
 	{
@@ -547,9 +585,7 @@ void CMario::Render(CCamera* cam, int alpha)
 			if (feverState == 2 && isOnGround == false) // Các mario khác
 			{
 				SetState(MARIO_STATE_FLY);
-
 			}
-
 		}
 
 #pragma endregion
@@ -598,7 +634,12 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 			{
 				auto v = physiscBody->GetVelocity();
 				physiscBody->SetVelocity(D3DXVECTOR2(0, v.y));
-				pMeterCounting = 0;
+				if (canFly == false)
+				{
+					pMeterCounting = 0;
+					if (uiCamera != NULL)
+						uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(pMeterCounting);
+				}
 			}
 		}
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock && collisionEvent->ny > 0)

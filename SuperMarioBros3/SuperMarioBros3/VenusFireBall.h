@@ -11,7 +11,7 @@ public:
 	~CVenusFireBall();
 	void PhysicsUpdate(std::vector<LPGameObject>* coObjects) override;
 
-	void Update(DWORD dt, CCamera* cam) override;
+	void Update(DWORD dt, CCamera* cam, CCamera* uiCam) override;
 	void LoadAnimation() override;
 	void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions);
 	bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag) override;

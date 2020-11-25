@@ -40,7 +40,7 @@ void CGoomba::LoadAnimation()
 	AddAnimation(GOOMBA_STATE_IDLE, animationManager->Clone("ani-goomba-idle"));
 }
 
-void CGoomba::Update(DWORD dt, CCamera* cam)
+void CGoomba::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	auto velocity = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();

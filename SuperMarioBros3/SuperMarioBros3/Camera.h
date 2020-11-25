@@ -8,9 +8,10 @@ class CGameObject;
 typedef CGameObject* LPGameObject;
 
 struct CameraPropertieSet;
+
 class CCamera 
 {
-private:
+protected:
 	DWORD dt; // deltatime
 	float vx;
 	D3DXVECTOR2 posCam;
@@ -24,6 +25,7 @@ private:
 	RectF currentBoundary;
 	std::unordered_map<int, CameraPropertieSet> cameraPropertieSets;
 public:
+	CCamera();
 	CCamera(int wid, int hei);
 	~CCamera();
 
@@ -39,7 +41,7 @@ public:
 	void SetSpeedXCam(float v);
 
 	D3DXVECTOR2 GetPositionCam();
-	void SetPositionCam(D3DXVECTOR2 pos);
+	virtual void SetPositionCam(D3DXVECTOR2 pos);
 
 	float GetWidthCam();
 	void SetWidthCam(float w);

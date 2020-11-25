@@ -9,9 +9,9 @@ CRedKoopa::CRedKoopa()
 	koopaType = KoopaType::Red;
 }
 
-void CRedKoopa::Update(DWORD dt, CCamera* cam)
+void CRedKoopa::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
-	CKoopa::Update(dt, cam);
+	CKoopa::Update(dt, cam, uiCam);
 }
 
 void CRedKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)

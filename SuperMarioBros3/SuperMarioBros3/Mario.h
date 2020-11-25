@@ -9,6 +9,9 @@
 #include "IState.h"
 #include "Holdable.h"
 #include "ItemInfo.h"
+#include "UICamera.h"
+
+class CUICamera;
 
 class CMario : public CGameObject, public IState
 {
@@ -50,6 +53,7 @@ protected:
 	bool isGoToWarpPipe, canGoToWarpPipe;
 	RectF ventDirection;
 	bool isAutogo;
+	CUICamera* uiCamera;
 public:
 	CMario();
 	void SetDamageFlag(bool isDamaged);
@@ -86,7 +90,7 @@ public:
 	void LoadAnimation();
 	void EndAnimation() override;
 
-	void Update(DWORD dt, CCamera* cam) override;
+	void Update(DWORD dt, CCamera* cam, CCamera* uiCam) override;
 	void Render(CCamera* cam, int alpha = 255) override;
 
 	void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions); // Xử lý riêng sau khi phát hiện va chạm

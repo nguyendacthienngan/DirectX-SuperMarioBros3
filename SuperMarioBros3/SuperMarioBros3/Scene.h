@@ -13,6 +13,7 @@ typedef CScene* LPScene;
 class CGameObject;
 typedef CGameObject* LPGameObject;
 
+class CCamera;
 class CMap;
 
 class CScene

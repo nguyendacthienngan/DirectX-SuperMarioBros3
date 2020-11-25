@@ -30,6 +30,7 @@ void CGame::Init()
 	CTextureManager::GetInstance()->Init();
 	CSpriteManager::GetInstance()->Init();
 	CAnimationManager::GetInstance()->Init();
+	CSceneManager::GetInstance()->Init();
 
 	CGameKeyEventHandler *keyEventHandler = new CGameKeyEventHandler();
 	auto keyboardManager = CKeyboardManager::GetInstance();
@@ -72,6 +73,7 @@ void CGame::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
 
 	d3ddv->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &backBuffer);
 
+	
 	D3DXCreateSprite(d3ddv, &spriteHandler);
 
 	if (!spriteHandler)
@@ -193,7 +195,9 @@ void CGame::DrawFlipY(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DT
 void CGame::Render()
 {
 	D3DCOLOR bgColor = D3DCOLOR_XRGB(0, 0, 0);
+	RECT rect = {0, 0, 600, 600};
 	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	auto uiCamera = CSceneManager::GetInstance()->GetUICamera();
 	if (activeScene != nullptr)
 		bgColor = activeScene->GetBackgroundColor();
 	d3ddv->Clear(0, NULL, D3DCLEAR_TARGET, bgColor, 1.0f, 0);
@@ -201,10 +205,10 @@ void CGame::Render()
 	if (d3ddv->BeginScene())
 	{
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-
 		if (activeScene != nullptr)
 			activeScene->Render();
-
+		if (uiCamera != nullptr)
+			uiCamera->Render();
 		spriteHandler->End();
 
 		d3ddv->EndScene();
@@ -216,14 +220,14 @@ void CGame::Render()
 
 void CGame::Update()
 {
-	//DebugOut(L"Update in Game (1) \n");
 	LPSceneManager sceneManger = CSceneManager::GetInstance();
 	LPScene activeScene = sceneManger->GetActiveScene();
+	auto uiCamera = CSceneManager::GetInstance()->GetUICamera();
 	// Update Scene. Trong Scene sẽ Update các GameObject. Trong GameObject sẽ update các animation. Các animation sẽ update các animation frame / sprite ?
 	if (activeScene != NULL)
 		activeScene->Update(deltaTime);
-	//DebugOut(L"Update in Game (2) \n");
-
+	if (uiCamera != nullptr)
+		uiCamera->Update();
 }
 
 bool CGame::ImportGameSource()

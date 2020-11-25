@@ -147,6 +147,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationFrame.h" />
     <ClInclude Include="AnimationManager.h" />
+    <ClInclude Include="ArrowItemIcon.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockConst.h" />
     <ClInclude Include="Brick.h" />
@@ -164,6 +165,8 @@
     <ClInclude Include="EffectObject.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyConst.h" />
+    <ClInclude Include="Font.h" />
+    <ClInclude Include="HUD.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="MarioFireBall.h" />
     <ClInclude Include="FireMario.h" />
@@ -209,9 +212,12 @@
     <ClInclude Include="ParaKoopa.h" />
     <ClInclude Include="ParaKoopaConst.h" />
     <ClInclude Include="PhysicsBody.h" />
+    <ClInclude Include="PIcon.h" />
     <ClInclude Include="Piranha.h" />
     <ClInclude Include="PiranhaConst.h" />
     <ClInclude Include="Plant.h" />
+    <ClInclude Include="PMeter.h" />
+    <ClInclude Include="PMeterConst.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="QuestionBlockConst.h" />
@@ -238,6 +244,8 @@
     <ClInclude Include="tinystr.h" />
     <ClInclude Include="tinyxml.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="UICamera.h" />
+    <ClInclude Include="UICameraConst.h" />
     <ClInclude Include="Ultis.h" />
     <ClInclude Include="VenusConst.h" />
     <ClInclude Include="VenusFireBall.h" />
@@ -246,6 +254,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationFrame.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
+    <ClCompile Include="ArrowItemIcon.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BrickEffect.cpp" />
@@ -256,6 +265,8 @@
     <ClCompile Include="CVenus.cpp" />
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Font.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="MarioFireBall.cpp" />
     <ClCompile Include="FireMario.cpp" />
@@ -286,8 +297,10 @@
     <ClCompile Include="ParaGoomba.cpp" />
     <ClCompile Include="ParaKoopa.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
+    <ClCompile Include="PIcon.cpp" />
     <ClCompile Include="Piranha.cpp" />
     <ClCompile Include="Plant.cpp" />
+    <ClCompile Include="PMeter.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RaccoonTailBox.cpp" />
@@ -309,6 +322,7 @@
     <ClCompile Include="tinyxml.cpp" />
     <ClCompile Include="tinyxmlerror.cpp" />
     <ClCompile Include="tinyxmlparser.cpp" />
+    <ClCompile Include="UICamera.cpp" />
     <ClCompile Include="Ultis.cpp" />
     <ClCompile Include="VenusFireBall.cpp" />
   </ItemGroup>
@@ -339,6 +353,7 @@
     <Xml Include="Resources\Animations\UiAnim.xml" />
     <Xml Include="Resources\config.xml" />
     <Xml Include="Resources\root.xml" />
+    <Xml Include="Resources\Scenes\UICamera.xml" />
     <Xml Include="Resources\Scenes\World1-1.xml" />
     <Xml Include="Resources\Sprites\EnemyDB.xml" />
     <Xml Include="Resources\Sprites\MarioDB.xml" />

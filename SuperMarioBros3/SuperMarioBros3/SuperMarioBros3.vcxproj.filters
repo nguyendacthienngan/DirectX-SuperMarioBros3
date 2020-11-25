@@ -199,6 +199,27 @@
     <Filter Include="Framework\Game\Portal\Label">
       <UniqueIdentifier>{d86026b8-af42-4dcd-9af5-6906c0053b24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\UI">
+      <UniqueIdentifier>{bbcf641f-88ba-4532-b36d-d8c116d78fd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\UICamera">
+      <UniqueIdentifier>{15ef686e-903d-4d43-a0aa-94e24946b49f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\HUD">
+      <UniqueIdentifier>{1f7d6085-9ac2-475e-86ee-66fc0cae8d55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\Font">
+      <UniqueIdentifier>{129b1121-236f-4d68-88e5-601a20e18132}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\HUD\P-meter">
+      <UniqueIdentifier>{59a60539-8f54-407b-abb3-378157a253b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\HUD\P-meter\ArrowItem">
+      <UniqueIdentifier>{65d3fde8-4806-40bc-95cd-d97e69756477}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\HUD\P-meter\P-icon">
+      <UniqueIdentifier>{aa309ae4-24d2-4cd9-b8c9-3c212782f96f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -492,6 +513,30 @@
     <ClInclude Include="Label.h">
       <Filter>Framework\Game\Portal\Label</Filter>
     </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Game\GameObject\UI\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="UICamera.h">
+      <Filter>Game\GameObject\UI\UICamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Game\GameObject\UI\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="UICameraConst.h">
+      <Filter>Game\GameObject\UI\UICamera</Filter>
+    </ClInclude>
+    <ClInclude Include="PMeter.h">
+      <Filter>Game\GameObject\UI\HUD\P-meter</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrowItemIcon.h">
+      <Filter>Game\GameObject\UI\HUD\P-meter\ArrowItem</Filter>
+    </ClInclude>
+    <ClInclude Include="PIcon.h">
+      <Filter>Game\GameObject\UI\HUD\P-meter\P-icon</Filter>
+    </ClInclude>
+    <ClInclude Include="PMeterConst.h">
+      <Filter>Game\GameObject\UI\HUD\P-meter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -698,6 +743,24 @@
     <ClCompile Include="Label.cpp">
       <Filter>Framework\Game\Portal\Label</Filter>
     </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Game\GameObject\UI\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="UICamera.cpp">
+      <Filter>Game\GameObject\UI\UICamera</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Game\GameObject\UI\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="PMeter.cpp">
+      <Filter>Game\GameObject\UI\HUD\P-meter</Filter>
+    </ClCompile>
+    <ClCompile Include="ArrowItemIcon.cpp">
+      <Filter>Game\GameObject\UI\HUD\P-meter\ArrowItem</Filter>
+    </ClCompile>
+    <ClCompile Include="PIcon.cpp">
+      <Filter>Game\GameObject\UI\HUD\P-meter\P-icon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SuperMarioBros3.rc">
@@ -780,6 +843,9 @@
     </Xml>
     <Xml Include="Resources\root.xml">
       <Filter>Game\Resouces</Filter>
+    </Xml>
+    <Xml Include="Resources\Scenes\UICamera.xml">
+      <Filter>Game\Resouces\Scenes</Filter>
     </Xml>
   </ItemGroup>
 </Project>

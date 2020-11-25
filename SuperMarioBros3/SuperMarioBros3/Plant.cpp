@@ -13,7 +13,7 @@ CPlant::CPlant()
 	isIdle = false;
 }
 
-void CPlant::Update(DWORD dt, CCamera* cam)
+void CPlant::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	auto velocity = physiscBody->GetVelocity();
 

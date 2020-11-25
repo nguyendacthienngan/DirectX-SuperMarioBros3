@@ -10,7 +10,7 @@
     <!--Camera-->
     <!--X,Y: Mario.x, Mario.y - ScreenHeight/2-->
 
-    <Boundary id="0" pos_x="94" pos_y="814.5" left="94" top="0" right="8420" bottom="1485.5" disX ="0" disY="0"/>
+    <Boundary id="0" pos_x="94" pos_y="735" left="94" top="0" right="8420" bottom="1400.5" disX ="0" disY="0"/>
 
     <!--Width, height (720, 671)-->
     <!--<Boundary id="0" pos_x="5877" pos_y="1366" left="5877" top="1366" right="6600" bottom="1944"/> Đã trừ width, height cam (Đầu scene) -->

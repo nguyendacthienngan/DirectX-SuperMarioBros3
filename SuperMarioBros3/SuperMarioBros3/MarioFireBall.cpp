@@ -37,9 +37,9 @@ void CMarioFireBall::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
 	CGameObject::PhysicsUpdate(coObjects);
 }
 
-void CMarioFireBall::Update(DWORD dt, CCamera* cam)
+void CMarioFireBall::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
-	CGameObject::Update(dt, cam);
+	CGameObject::Update(dt, cam, uiCam);
 	if (transform.position.y > cam->GetCurrentBoundary().bottom)
 	{
 		if (pool != NULL)
