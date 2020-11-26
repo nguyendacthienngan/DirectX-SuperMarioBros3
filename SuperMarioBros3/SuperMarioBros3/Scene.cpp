@@ -55,6 +55,7 @@ void CScene::Load()
 
 			CMarioMap* marioMap = new CMarioMap();
 			marioMap->SetPosition(startPosition);
+			AddObject(marioMap);
 		}
 		if (name.compare("Map") == 0)
 		{

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="5" nextobjectid="1">
- <tileset  firstgid="1" version="1.4" tiledversion="1.4.2" name="tileset(x3)" tilewidth="48" tileheight="48" tilecount="32" columns="8">
- <image source="tileset(x3).png" width="384" height="192"/>
+ <tileset firstgid="1" name="tileset(x3)" tilewidth="48" tileheight="48" tilecount="32" columns="8">
+  <image source="tileset(x3).png" width="384" height="192"/>
  </tileset>
  <layer id="1" name="black" width="16" height="14">
   <data encoding="csv">
@@ -33,7 +33,7 @@
 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,
 0,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -51,8 +51,8 @@
 21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,
 21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,
 21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,
+21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,
 31,30,30,30,30,30,30,30,30,30,30,30,30,30,30,32,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
