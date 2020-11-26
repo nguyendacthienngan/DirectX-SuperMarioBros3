@@ -1,6 +1,7 @@
 #include "WorldMap1.h"
 #include "Game.h"
 #include "Const.h"
+#include "SceneManager.h"
 CWorldMap1::CWorldMap1()
 {
 	this->id = "World-Map-1";
@@ -10,6 +11,7 @@ CWorldMap1::CWorldMap1()
 void CWorldMap1::Load()
 {
 	CScene::Load();
+	CSceneManager::GetInstance()->GetUICamera()->SetDisableBlackTexture(true);
 }
 
 void CWorldMap1::Unload()
