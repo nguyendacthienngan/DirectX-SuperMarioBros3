@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Scene>
+  <Scene name="Player" pos_x="0" pos_y="0"/>
+
+  <Scene name="Map" source="Resources/Maps/Test map/" fileName = "world-map-1(x3).tmx">
+    <BackgroundColor R="248" G="236" B="160"/>
+  </Scene>
+  <Scene name="Camera" start="0" main="0">
+    <Boundary id="0" pos_x="0" pos_y="0" left="0" top="0" right="650" bottom="650" disX ="1" disY="1"/>
+  </Scene>
+</Scene>

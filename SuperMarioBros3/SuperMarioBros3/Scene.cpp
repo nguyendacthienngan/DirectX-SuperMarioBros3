@@ -125,14 +125,18 @@ void CScene::Load()
 
 void CScene::Unload()
 {
-	for (int i = 0; i < gameObjects.size()-1 ; i++)
+	if (gameObjects.size() > 0)
 	{
-		if (gameObjects[i]->GetTag() == GameObjectTags::MarioFireBall ||  gameObjects[i]->GetTag() == GameObjectTags::PlayerController)
-			continue;
-		RemoveObject(gameObjects[i]);
-		delete gameObjects[i];
-		gameObjects[i] = NULL;
+		for (int i = 0; i < gameObjects.size() - 1 && (gameObjects.size() - 1 >= 0); i++)
+		{
+			if (gameObjects[i]->GetTag() == GameObjectTags::MarioFireBall || gameObjects[i]->GetTag() == GameObjectTags::PlayerController)
+				continue;
+			RemoveObject(gameObjects[i]);
+			delete gameObjects[i];
+			gameObjects[i] = NULL;
+		}
 	}
+	
 	map = NULL;
 	camera = NULL;
 	gameObjects.clear();

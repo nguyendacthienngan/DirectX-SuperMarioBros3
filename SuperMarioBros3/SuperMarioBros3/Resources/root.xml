@@ -27,8 +27,9 @@
     <Animation id="ani-ui" source="Resources/Animations/UiAnim.xml"/>
   </Root>
   <Root name="Scenes">
-    <Scene id="world-1-1" source="Resources/Scenes/World1-1.xml"/> 
-    <Scene id="ui-camera" source="Resources/Scenes/UICamera.xml"/> 
+    <Scene id="world-1-1" source="Resources/Scenes/World1-1.xml"/>
+    <Scene id="ui-camera" source="Resources/Scenes/UICamera.xml"/>
+    <Scene id="world-1" source="Resources/Scenes/World1.xml"/> 
   </Root>
   <Root name="Config">
     <Config id="global-config" source="Resources/config.xml"/> 

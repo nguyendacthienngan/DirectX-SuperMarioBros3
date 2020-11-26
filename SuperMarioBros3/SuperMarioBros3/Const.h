@@ -36,6 +36,7 @@
 #define DB_ANIMATION_EFFECT		"ani-effect"
 #define DB_ANIMATION_UI			"ani-ui"
 
+#define SC_WOLRD_1			"world-1"
 #define SC_WOLRD_1_1		"world-1-1"
 #define SC_UI_CAMERA		"ui-camera"
 

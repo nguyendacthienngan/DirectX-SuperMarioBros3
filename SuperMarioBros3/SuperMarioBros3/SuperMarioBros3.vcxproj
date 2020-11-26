@@ -249,6 +249,7 @@
     <ClInclude Include="Ultis.h" />
     <ClInclude Include="VenusConst.h" />
     <ClInclude Include="VenusFireBall.h" />
+    <ClInclude Include="WorldMap1.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
@@ -325,6 +326,7 @@
     <ClCompile Include="UICamera.cpp" />
     <ClCompile Include="Ultis.cpp" />
     <ClCompile Include="VenusFireBall.cpp" />
+    <ClCompile Include="WorldMap1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SuperMarioBros3.rc" />
@@ -355,6 +357,7 @@
     <Xml Include="Resources\root.xml" />
     <Xml Include="Resources\Scenes\UICamera.xml" />
     <Xml Include="Resources\Scenes\World1-1.xml" />
+    <Xml Include="Resources\Scenes\World1.xml" />
     <Xml Include="Resources\Sprites\EnemyDB.xml" />
     <Xml Include="Resources\Sprites\MarioDB.xml" />
     <Xml Include="Resources\Sprites\MiscDB.xml" />
