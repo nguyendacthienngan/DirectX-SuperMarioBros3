@@ -79,6 +79,7 @@ TileSet* CTileMap::GetTileSetByTileID(int id)
 
 void CTileMap::Render(CCamera* camera, bool isRenderForeground)
 {
+	
 	//DebugOut(L"Render tilemap.. \n");
 	// Từ một tọa độ bất kỳ nằm bên trg map
 	// Ta sẽ có thể biết được tọa độ nằm trong ô nào của map (Chuyển từ dạng tọa độ về dạng grid)
@@ -94,14 +95,12 @@ void CTileMap::Render(CCamera* camera, bool isRenderForeground)
 	// việc +2 là do trừ hao cho khỏi bị flick ở cạnh màn hình
 	// vì sẽ có lúc tính toán làm tròn sao sao đó mà sẽ có ô mình k vẽ
 	// do đó mình trừ hao để chắc chắn vẽ hết các ô
-	for (int i = col; i < camSize.x + col + 2; i++) 
+	for (int i = col; i < camSize.x + col + 4; i++) 
 	{
-		for (int j = row; j < camSize.y + row + 2; j++) 
+		for (int j = row; j < camSize.y + row + 4; j++) 
 		{
-
 			int x = i * tileWidth - camera->GetPositionCam().x; // vị trí mình muốn vẽ lên màn hình của ô đó => theo tọa độ camera
 			int y = j * tileHeight - camera->GetPositionCam().y;
-
 			if (isRenderForeground == true)
 			{
 				if (foreground == NULL)
@@ -118,6 +117,7 @@ void CTileMap::Render(CCamera* camera, bool isRenderForeground)
 			
 		}
 	}
+	
 }
 
 CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects)
@@ -125,7 +125,8 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 	string fullPath = filePath + fileMap;
 	TiXmlDocument doc(fullPath.c_str());
 
-	if (doc.LoadFile()) {
+	if (doc.LoadFile()) 
+	{
 		OutputDebugString(L"Loading TMX \n");
 		TiXmlElement* root = doc.RootElement();
 		CTileMap* gameMap = new CTileMap();

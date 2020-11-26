@@ -10,7 +10,6 @@ CWorldMap1::CWorldMap1()
 void CWorldMap1::Load()
 {
 	CScene::Load();
-
 }
 
 void CWorldMap1::Unload()

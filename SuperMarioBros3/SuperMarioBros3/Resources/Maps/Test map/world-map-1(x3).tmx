@@ -3,7 +3,7 @@
  <tileset firstgid="1" name="world-map-1-tileset(x3)" tilewidth="48" tileheight="48" tilecount="24" columns="8">
   <image source="world-map-1-tileset(x3).png" width="384" height="144"/>
  </tileset>
- <layer id="1" name="Tile Layer 1" width="14" height="9">
+ <layer id="1" name="Yellow" width="14" height="9">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -16,7 +16,7 @@
 1,1,1,1,1,1,1,1,1,1,1,1,1,1
 </data>
  </layer>
- <layer id="2" name="Tile Layer 2" width="14" height="9">
+ <layer id="2" name="Background" width="14" height="9">
   <data encoding="csv">
 0,0,0,0,19,6,19,19,19,0,19,6,0,0,
 0,0,0,20,0,0,0,20,0,0,0,20,0,0,

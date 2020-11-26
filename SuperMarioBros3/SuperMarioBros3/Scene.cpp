@@ -12,6 +12,7 @@
 
 #include <string>
 #include "SceneManager.h"
+#include "MarioMap.h"
 
 using namespace std;
 
@@ -44,6 +45,16 @@ void CScene::Load()
 			player->AddStateObjectsToScene(this);
 			player->GetCurrentStateObject()->SetPosition(startPosition);
 			AddObject(player);
+		}
+		if (name.compare("Player-Map") == 0)
+		{
+			DebugOut(L"[INFO] Load player in map\n");
+			D3DXVECTOR2 startPosition;
+			scene->QueryFloatAttribute("pos_x", &startPosition.x);
+			scene->QueryFloatAttribute("pos_y", &startPosition.y);
+
+			CMarioMap* marioMap = new CMarioMap();
+			marioMap->SetPosition(startPosition);
 		}
 		if (name.compare("Map") == 0)
 		{
@@ -82,11 +93,12 @@ void CScene::Load()
 		else if (name.compare("Camera") == 0)
 		{
 			DebugOut(L"[INFO] Load camera \n");
-			int screenWidth = CGame::GetInstance()->GetScreenWidth();
-			int screenHeight = CGame::GetInstance()->GetScreenHeight();
-			this->camera = new CCamera(screenWidth, screenHeight);
-			int start;
+			int viewportWidth, viewportHeight, start;
 			scene->QueryIntAttribute("start", &start);
+			scene->QueryIntAttribute("width", &viewportWidth);
+			scene->QueryIntAttribute("height", &viewportHeight);
+
+			this->camera = new CCamera(viewportWidth, viewportHeight);
 
 			for (TiXmlElement* boundary = scene->FirstChildElement(); boundary != NULL; boundary = boundary->NextSiblingElement())
 			{

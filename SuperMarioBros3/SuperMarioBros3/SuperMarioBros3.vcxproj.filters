@@ -223,6 +223,9 @@
     <Filter Include="Game\GameObject\UI\Font">
       <UniqueIdentifier>{129b1121-236f-4d68-88e5-601a20e18132}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Mario\MarioMap">
+      <UniqueIdentifier>{7621f308-d259-4aa1-b866-6b7e535f72de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -543,6 +546,12 @@
     <ClInclude Include="WorldMap1.h">
       <Filter>Game\Scene\World-map-1</Filter>
     </ClInclude>
+    <ClInclude Include="MarioMap.h">
+      <Filter>Game\GameObject\Mario\MarioMap</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioMapConst.h">
+      <Filter>Game\GameObject\Mario\MarioMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -770,6 +779,9 @@
     <ClCompile Include="WorldMap1.cpp">
       <Filter>Game\Scene\World-map-1</Filter>
     </ClCompile>
+    <ClCompile Include="MarioMap.cpp">
+      <Filter>Game\GameObject\Mario\MarioMap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SuperMarioBros3.rc">
@@ -813,9 +825,15 @@
     <Image Include="Resources\Textures\effect_blue_x3.png">
       <Filter>Game\Resouces\Textures</Filter>
     </Image>
+    <Image Include="Resources\Maps\Test map\world-map-1-tileset(x3).png">
+      <Filter>Game\Resouces\Maps\Test map</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Maps\Test map\world-1-1-map.tmx">
+      <Filter>Game\Resouces\Maps\Test map</Filter>
+    </None>
+    <None Include="Resources\Maps\Test map\world-map-1(x3).tmx">
       <Filter>Game\Resouces\Maps\Test map</Filter>
     </None>
   </ItemGroup>

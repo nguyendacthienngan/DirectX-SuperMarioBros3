@@ -202,6 +202,8 @@
     <ClInclude Include="MarioConst.h" />
     <ClInclude Include="MarioController.h" />
     <ClInclude Include="MarioControllerConst.h" />
+    <ClInclude Include="MarioMap.h" />
+    <ClInclude Include="MarioMapConst.h" />
     <ClInclude Include="MarioStateSet.h" />
     <ClInclude Include="Misc.h" />
     <ClInclude Include="MiscConst.h" />
@@ -292,6 +294,7 @@
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="MarioCollisionBox.cpp" />
     <ClCompile Include="MarioController.cpp" />
+    <ClCompile Include="MarioMap.cpp" />
     <ClCompile Include="Misc.cpp" />
     <ClCompile Include="MushroomEffect.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
@@ -333,6 +336,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Maps\Test map\world-1-1.png" />
+    <Image Include="Resources\Maps\Test map\world-map-1-tileset(x3).png" />
     <Image Include="Resources\Textures\bbox.png" />
     <Image Include="Resources\Textures\effect_blue_x3.png" />
     <Image Include="Resources\Textures\enemy_x3.png" />
@@ -347,6 +351,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Maps\Test map\world-1-1-map.tmx" />
+    <None Include="Resources\Maps\Test map\world-map-1(x3).tmx" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resources\Animations\EnemyAnim.xml" />
