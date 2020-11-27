@@ -13,7 +13,6 @@ CPortal::CPortal(D3DXVECTOR2 size)
 void CPortal::Init(D3DXVECTOR2 size)
 {
 	this->SetTag(GameObjectTags::Portal);
-	DebugOut(L"AAA \n");
 
 	CCollisionBox* box = new CCollisionBox();
 	box->SetSizeBox(size);

@@ -30,6 +30,7 @@
 #include "HelpItem.h"
 #include "StartItem.h"
 #include "SceneGate.h"
+#include "WorldItemConst.h"
 
 CTileMap::CTileMap()
 {
@@ -419,26 +420,54 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				{
 					int cameraID = -1;
 					std::string sceneID = "";
-					CSceneGate* portal = new CSceneGate(size);
-					portal->SetPosition(position - translateConst + size * 0.5);
-
-					TiXmlElement* properties = object->FirstChildElement();
-					for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
+					std::string type = object->Attribute("type");
+					std::string sceneName = object->Attribute("name");
+					CPortal* portal = NULL;
+					if (type.compare("scene") == 0)
 					{
-						std::string propName = property->Attribute("name");
-						if (propName.compare("cameraID") == 0)
+						portal = new CSceneGate(size);
+						portal->SetPosition(position - translateConst + size * 0.5);
+						if (sceneName.compare("scene-1") == 0)
+							portal->SetState(SCENE_1_ANIMATION);
+						if (sceneName.compare("scene-2") == 0)
+							portal->SetState(SCENE_2_ANIMATION);
+						if (sceneName.compare("scene-3") == 0)
+							portal->SetState(SCENE_1_ANIMATION);
+						if (sceneName.compare("scene-3") == 0)
+							portal->SetState(SCENE_3_ANIMATION);
+						if (sceneName.compare("scene-4") == 0)
+							portal->SetState(SCENE_4_ANIMATION);
+						if (sceneName.compare("scene-5") == 0)
+							portal->SetState(SCENE_5_ANIMATION);
+						if (sceneName.compare("scene-6") == 0)
+							portal->SetState(SCENE_6_ANIMATION);
+						if (sceneName.compare("spade") == 0)
+							portal->SetState(SPADE_ANIMATION);
+						if (sceneName.compare("castle") == 0)
+							portal->SetState(CASTLE_ANIMATION);
+						if (sceneName.compare("domed-gate") == 0)
+							portal->SetState(DOMED_ANIMATION);
+						if (sceneName.compare("mushroom-gate") == 0)
+							portal->SetState(MUSHROOM_ANIMATION);
+						TiXmlElement* properties = object->FirstChildElement();
+						for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
 						{
-							property->QueryIntAttribute("value", &cameraID);
-							portal->SetCameraID(cameraID);
+							std::string propName = property->Attribute("name");
+							if (propName.compare("cameraID") == 0)
+							{
+								property->QueryIntAttribute("value", &cameraID);
+								portal->SetCameraID(cameraID);
+							}
+							if (propName.compare("sceneID") == 0)
+							{
+								sceneID = property->Attribute("value");
+								portal->SetSceneID(sceneID);
+							}
 						}
-						if (propName.compare("sceneID") == 0)
-						{
-							sceneID = property->Attribute("value");
-							portal->SetSceneID(sceneID);
-						}
+						if (portal != NULL)
+							listGameObjects.push_back(portal);
+						
 					}
-					listGameObjects.push_back(portal);
-
 				}
 			}
 		}

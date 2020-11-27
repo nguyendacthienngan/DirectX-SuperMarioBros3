@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="8" nextobjectid="113">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="9" nextobjectid="113">
  <tileset firstgid="1" name="tileset(x3)" tilewidth="48" tileheight="48" tilecount="32" columns="8">
   <image source="tileset(x3).png" width="384" height="192"/>
  </tileset>
@@ -27,7 +27,7 @@
 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
 0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,
 0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,
-0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
 0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,
 0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,
 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -57,16 +57,34 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <layer id="8" name="Hidden" width="16" height="14" visible="0">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,17,0,0,0,
+0,0,0,0,18,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,17,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
  <layer id="4" name="Background" width="16" height="14">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,19,6,19,0,19,0,19,6,0,0,0,
 0,0,0,0,20,0,0,0,20,0,0,0,20,0,0,0,
-0,19,0,19,8,0,0,0,7,19,0,19,17,0,0,0,
-0,0,0,0,18,0,0,0,20,0,0,0,0,0,0,0,
-0,0,0,0,7,19,4,19,0,0,0,12,10,11,0,0,
+0,19,0,19,8,0,0,0,7,19,0,19,0,0,0,0,
+0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,
+0,0,0,0,7,19,0,19,0,0,0,12,10,11,0,0,
 0,0,0,0,20,0,0,0,0,12,10,14,2,9,0,0,
-0,0,0,16,7,16,17,19,6,13,6,19,3,9,0,0,
+0,0,0,16,7,16,0,19,6,13,6,19,3,9,0,0,
 0,0,16,16,20,16,16,0,20,9,0,0,0,9,0,0,
 0,0,16,16,0,19,6,19,0,15,10,10,10,14,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -75,7 +93,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="6" name="World-Item">
+ <objectgroup id="6" name="World-Item" visible="0">
   <object id="1" name="grass" x="70.6667" y="69.3333">
    <point/>
   </object>
@@ -222,57 +240,57 @@
   </object>
  </objectgroup>
  <objectgroup id="7" name="Portal-Scene">
-  <object id="102" name="scene-1" x="192" y="48" width="47" height="48">
+  <object id="102" name="scene-1" type="scene" x="192" y="48" width="47" height="48">
    <properties>
     <property name="sceneID" value="world-1-1"/>
    </properties>
   </object>
-  <object id="103" name="scene-2" x="384.667" y="48" width="47" height="48">
+  <object id="103" name="scene-2" type="scene" x="384.667" y="48" width="47" height="48">
    <properties>
     <property name="sceneID" value="world-1-1"/>
    </properties>
   </object>
-  <object id="104" name="scene-3" x="480.333" y="47" width="47" height="48">
+  <object id="104" name="scene-3" type="scene" x="480.333" y="47" width="47" height="48">
    <properties>
     <property name="sceneID" value="world-1-1"/>
    </properties>
   </object>
-  <object id="105" name="scene-4" x="480" y="143" width="47" height="48">
+  <object id="105" name="scene-4" type="scene" x="480" y="143" width="47" height="48">
    <properties>
     <property name="sceneID" value="world-1-1"/>
    </properties>
   </object>
-  <object id="106" name="mushroom-gate" x="576.667" y="144.667" width="47" height="48">
+  <object id="106" name="mushroom-gate" type="scene" x="576.667" y="144.667" width="47" height="48">
    <properties>
     <property name="sceneID" value="world-1-1"/>
    </properties>
   </object>
-  <object id="107" name="spade" x="385" y="240.333" width="47" height="48">
+  <object id="107" name="spade" type="scene" x="385" y="240.333" width="47" height="48">
    <properties>
     <property name="sceneID" value="world-1-1"/>
    </properties>
   </object>
-  <object id="108" name="castle" x="288.333" y="240" width="47" height="48">
+  <object id="108" name="castle" type="scene" x="288.333" y="240" width="47" height="48">
    <properties>
     <property name="sceneID" value="world-1-1"/>
    </properties>
   </object>
-  <object id="109" name="domed-gate" x="192" y="192.667" width="47" height="48">
+  <object id="109" name="domed-gate" type="scene" x="192" y="192.667" width="47" height="48">
    <properties>
     <property name="sceneID" value="world-1-1"/>
    </properties>
   </object>
-  <object id="110" name="mushroom-gate" x="287.667" y="336" width="47" height="48">
+  <object id="110" name="mushroom-gate" type="scene" x="287.667" y="336" width="47" height="48">
    <properties>
     <property name="sceneID" value="world-1-1"/>
    </properties>
   </object>
-  <object id="111" name="scene-5" x="191.667" y="431" width="47" height="48">
+  <object id="111" name="scene-5" type="scene" x="191.667" y="431" width="47" height="48">
    <properties>
     <property name="sceneID" value="world-1-1"/>
    </properties>
   </object>
-  <object id="112" name="scene-6" x="384" y="431.667" width="47" height="48">
+  <object id="112" name="scene-6" type="scene" x="384" y="431.667" width="47" height="48">
    <properties>
     <property name="sceneID" value="world-1-1"/>
    </properties>
