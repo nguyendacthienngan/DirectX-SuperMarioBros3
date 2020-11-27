@@ -26,6 +26,7 @@
 #include "CVenus.h"
 #include "Portal.h"
 #include "Label.h"
+#include "Grass.h"
 
 CTileMap::CTileMap()
 {
@@ -386,6 +387,16 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						}
 						listGameObjects.push_back(label);
 
+					}
+				}
+				else if (name.compare("World-Item") == 0)
+				{
+				std::string itemName = object->Attribute("name");
+					if (itemName.compare("grass") == 0)
+					{
+						CGrass* grass = new CGrass();
+						grass->SetPosition(position - translateGrassConst);
+						listGameObjects.push_back(grass);
 					}
 				}
 			}

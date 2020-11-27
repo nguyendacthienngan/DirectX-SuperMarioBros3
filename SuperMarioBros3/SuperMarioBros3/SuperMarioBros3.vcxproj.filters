@@ -226,6 +226,9 @@
     <Filter Include="Game\GameObject\Mario\MarioMap">
       <UniqueIdentifier>{7621f308-d259-4aa1-b866-6b7e535f72de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\World-Item">
+      <UniqueIdentifier>{60bad5f3-4431-47f4-9b50-b49a9109f1a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -552,6 +555,12 @@
     <ClInclude Include="MarioMapConst.h">
       <Filter>Game\GameObject\Mario\MarioMap</Filter>
     </ClInclude>
+    <ClInclude Include="Grass.h">
+      <Filter>Game\GameObject\World-Item</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldItemConst.h">
+      <Filter>Game\GameObject\World-Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -782,6 +791,9 @@
     <ClCompile Include="MarioMap.cpp">
       <Filter>Game\GameObject\Mario\MarioMap</Filter>
     </ClCompile>
+    <ClCompile Include="Grass.cpp">
+      <Filter>Game\GameObject\World-Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SuperMarioBros3.rc">
@@ -825,7 +837,10 @@
     <Image Include="Resources\Textures\effect_blue_x3.png">
       <Filter>Game\Resouces\Textures</Filter>
     </Image>
-    <Image Include="Resources\Maps\Test map\world-map-1-tileset(x3).png">
+    <Image Include="Resources\Textures\MapSelection(x3).png">
+      <Filter>Game\Resouces\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Maps\Test map\tileset(x3).png">
       <Filter>Game\Resouces\Maps\Test map</Filter>
     </Image>
   </ItemGroup>
@@ -833,7 +848,7 @@
     <None Include="Resources\Maps\Test map\world-1-1-map.tmx">
       <Filter>Game\Resouces\Maps\Test map</Filter>
     </None>
-    <None Include="Resources\Maps\Test map\world-map-1(x3).tmx">
+    <None Include="Resources\Maps\Test map\world-map-1(x3)(2).tmx">
       <Filter>Game\Resouces\Maps\Test map</Filter>
     </None>
   </ItemGroup>
@@ -876,6 +891,12 @@
     </Xml>
     <Xml Include="Resources\Scenes\World1.xml">
       <Filter>Game\Resouces\Scenes</Filter>
+    </Xml>
+    <Xml Include="Resources\Sprites\MapSelectionDB.xml">
+      <Filter>Game\Resouces\Sprites</Filter>
+    </Xml>
+    <Xml Include="Resources\Animations\MapSelectionAnim.xml">
+      <Filter>Game\Resouces\Animations</Filter>
     </Xml>
   </ItemGroup>
 </Project>

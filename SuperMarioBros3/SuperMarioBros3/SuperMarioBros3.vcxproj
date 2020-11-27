@@ -166,6 +166,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyConst.h" />
     <ClInclude Include="Font.h" />
+    <ClInclude Include="Grass.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="MarioFireBall.h" />
@@ -251,6 +252,7 @@
     <ClInclude Include="Ultis.h" />
     <ClInclude Include="VenusConst.h" />
     <ClInclude Include="VenusFireBall.h" />
+    <ClInclude Include="WorldItemConst.h" />
     <ClInclude Include="WorldMap1.h" />
   </ItemGroup>
   <ItemGroup>
@@ -269,6 +271,7 @@
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Font.cpp" />
+    <ClCompile Include="Grass.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="MarioFireBall.cpp" />
@@ -335,13 +338,14 @@
     <ResourceCompile Include="SuperMarioBros3.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Maps\Test map\tileset(x3).png" />
     <Image Include="Resources\Maps\Test map\world-1-1.png" />
-    <Image Include="Resources\Maps\Test map\world-map-1-tileset(x3).png" />
     <Image Include="Resources\Textures\bbox.png" />
     <Image Include="Resources\Textures\effect_blue_x3.png" />
     <Image Include="Resources\Textures\enemy_x3.png" />
     <Image Include="Resources\Textures\fire-ball-white.png" />
     <Image Include="Resources\Textures\intro_x3.png" />
+    <Image Include="Resources\Textures\MapSelection(x3).png" />
     <Image Include="Resources\Textures\mariox3(1).png" />
     <Image Include="Resources\Textures\misc_x3.png" />
     <Image Include="Resources\Textures\UI_x3.png" />
@@ -351,10 +355,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Maps\Test map\world-1-1-map.tmx" />
-    <None Include="Resources\Maps\Test map\world-map-1(x3).tmx" />
+    <None Include="Resources\Maps\Test map\world-map-1(x3)(2).tmx" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resources\Animations\EnemyAnim.xml" />
+    <Xml Include="Resources\Animations\MapSelectionAnim.xml" />
     <Xml Include="Resources\Animations\MarioAnim.xml" />
     <Xml Include="Resources\Animations\MiscAnim.xml" />
     <Xml Include="Resources\Animations\UiAnim.xml" />
@@ -364,6 +369,7 @@
     <Xml Include="Resources\Scenes\World1-1.xml" />
     <Xml Include="Resources\Scenes\World1.xml" />
     <Xml Include="Resources\Sprites\EnemyDB.xml" />
+    <Xml Include="Resources\Sprites\MapSelectionDB.xml" />
     <Xml Include="Resources\Sprites\MarioDB.xml" />
     <Xml Include="Resources\Sprites\MiscDB.xml" />
     <Xml Include="Resources\Sprites\UiDB.xml" />
