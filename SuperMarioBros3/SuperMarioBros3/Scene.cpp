@@ -46,17 +46,6 @@ void CScene::Load()
 			player->GetCurrentStateObject()->SetPosition(startPosition);
 			AddObject(player);
 		}
-		if (name.compare("Player-Map") == 0)
-		{
-			DebugOut(L"[INFO] Load player in map\n");
-			D3DXVECTOR2 startPosition;
-			scene->QueryFloatAttribute("pos_x", &startPosition.x);
-			scene->QueryFloatAttribute("pos_y", &startPosition.y);
-
-			CMarioMap* marioMap = new CMarioMap();
-			marioMap->SetPosition(startPosition);
-			AddObject(marioMap);
-		}
 		if (name.compare("Map") == 0)
 		{
 			DebugOut(L"[INFO] Load map \n");
@@ -132,6 +121,17 @@ void CScene::Load()
 				camera->SetGameObject(player->GetCurrentStateObject());
 			}
 			
+		}
+		if (name.compare("Player-Map") == 0)
+		{
+			DebugOut(L"[INFO] Load player in map\n");
+			D3DXVECTOR2 startPosition;
+			scene->QueryFloatAttribute("pos_x", &startPosition.x);
+			scene->QueryFloatAttribute("pos_y", &startPosition.y);
+
+			CMarioMap* marioMap = new CMarioMap();
+			marioMap->SetPosition(startPosition);
+			AddObject(marioMap);
 		}
 	}
 }

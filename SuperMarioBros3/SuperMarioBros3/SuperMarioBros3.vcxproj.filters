@@ -588,6 +588,9 @@
     <ClInclude Include="HelpItem.h">
       <Filter>Game\GameObject\World-Item\Item</Filter>
     </ClInclude>
+    <ClInclude Include="StartItem.h">
+      <Filter>Game\GameObject\World-Item\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -822,6 +825,9 @@
       <Filter>Game\GameObject\World-Item\Item</Filter>
     </ClCompile>
     <ClCompile Include="HelpItem.cpp">
+      <Filter>Game\GameObject\World-Item\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="StartItem.cpp">
       <Filter>Game\GameObject\World-Item\Item</Filter>
     </ClCompile>
   </ItemGroup>

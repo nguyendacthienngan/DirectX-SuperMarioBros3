@@ -28,6 +28,7 @@
 #include "Label.h"
 #include "Grass.h"
 #include "HelpItem.h"
+#include "StartItem.h"
 
 CTileMap::CTileMap()
 {
@@ -406,11 +407,16 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						listGameObjects.push_back(help);
 					}
 				}
-				/*else if (name.compare("Item") == 0)
+				else if (name.compare("Item") == 0)
 				{
-				std::string itemName = object->Attribute("name");
-				
-				}*/
+					std::string itemName = object->Attribute("name");
+					if (itemName.compare("start") == 0)
+					{
+						CStartItem* startItem = new CStartItem();
+						startItem->SetPosition(position - translateGrassConst);
+						listGameObjects.push_back(startItem);
+					}
+				}
 			}
 		}
 		if (listGameObjects.size() == 0)

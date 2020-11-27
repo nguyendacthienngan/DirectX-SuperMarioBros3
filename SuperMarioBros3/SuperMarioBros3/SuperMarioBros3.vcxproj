@@ -240,6 +240,7 @@
     <ClInclude Include="SolidBox.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteManager.h" />
+    <ClInclude Include="StartItem.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="SuperMario.h" />
     <ClInclude Include="targetver.h" />
@@ -323,6 +324,7 @@
     <ClCompile Include="SolidBox.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
+    <ClCompile Include="StartItem.cpp" />
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="SuperMario.cpp" />
     <ClCompile Include="TextureManager.cpp" />
