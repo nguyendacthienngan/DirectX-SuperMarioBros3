@@ -1,3 +1,4 @@
 #pragma once
 
 #define GRASS_STATE_ANIMATION "TREE"
+#define HELP_STATE_ANIMATION "HELP"

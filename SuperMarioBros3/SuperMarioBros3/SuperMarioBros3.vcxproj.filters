@@ -229,6 +229,30 @@
     <Filter Include="Game\GameObject\World-Item">
       <UniqueIdentifier>{60bad5f3-4431-47f4-9b50-b49a9109f1a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\World-Item\Gate">
+      <UniqueIdentifier>{82a85443-ef03-4d04-b398-0766305e977f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\World-Item\Gate\MushroomGate">
+      <UniqueIdentifier>{213f6c9f-15a2-41d8-9784-103073403098}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\World-Item\Gate\SceneGate">
+      <UniqueIdentifier>{cbc79cbc-c623-49d6-b63e-66f7a488270a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\World-Item\Gate\SpadeGate">
+      <UniqueIdentifier>{62af0609-e4e1-415b-a8d4-1125c170b31c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\World-Item\Gate\DoomedGate">
+      <UniqueIdentifier>{02779e43-abf2-4275-b9d4-849c2e382901}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\World-Item\Gate\CastleGate">
+      <UniqueIdentifier>{fda1454c-27bf-4472-87fd-bbca3b889f4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\World-Item\Item">
+      <UniqueIdentifier>{1540373e-7cc3-4592-b42a-bb78151cf939}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\World-Item\SlaveMonkey">
+      <UniqueIdentifier>{0eaee216-c3c8-4c2a-b198-09def02448b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -555,11 +579,14 @@
     <ClInclude Include="MarioMapConst.h">
       <Filter>Game\GameObject\Mario\MarioMap</Filter>
     </ClInclude>
-    <ClInclude Include="Grass.h">
-      <Filter>Game\GameObject\World-Item</Filter>
-    </ClInclude>
     <ClInclude Include="WorldItemConst.h">
       <Filter>Game\GameObject\World-Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Grass.h">
+      <Filter>Game\GameObject\World-Item\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="HelpItem.h">
+      <Filter>Game\GameObject\World-Item\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -792,7 +819,10 @@
       <Filter>Game\GameObject\Mario\MarioMap</Filter>
     </ClCompile>
     <ClCompile Include="Grass.cpp">
-      <Filter>Game\GameObject\World-Item</Filter>
+      <Filter>Game\GameObject\World-Item\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="HelpItem.cpp">
+      <Filter>Game\GameObject\World-Item\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

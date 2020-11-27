@@ -27,6 +27,7 @@
 #include "Portal.h"
 #include "Label.h"
 #include "Grass.h"
+#include "HelpItem.h"
 
 CTileMap::CTileMap()
 {
@@ -398,7 +399,18 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						grass->SetPosition(position - translateGrassConst);
 						listGameObjects.push_back(grass);
 					}
+					if (itemName.compare("help") == 0)
+					{
+						CHelpItem* help = new CHelpItem();
+						help->SetPosition(position - translateGrassConst);
+						listGameObjects.push_back(help);
+					}
 				}
+				/*else if (name.compare("Item") == 0)
+				{
+				std::string itemName = object->Attribute("name");
+				
+				}*/
 			}
 		}
 		if (listGameObjects.size() == 0)

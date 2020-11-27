@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="7" nextobjectid="85">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="8" nextobjectid="100">
  <tileset firstgid="1" name="tileset(x3)" tilewidth="48" tileheight="48" tilecount="32" columns="8">
   <image source="tileset(x3).png" width="384" height="192"/>
  </tileset>
@@ -66,7 +66,7 @@
 0,0,0,0,18,0,0,0,20,0,0,0,0,0,0,0,
 0,0,0,0,7,19,4,19,0,0,0,12,10,11,0,0,
 0,0,0,0,20,0,0,0,0,12,10,14,2,9,0,0,
-0,0,0,16,7,16,17,19,6,13,19,19,3,9,0,0,
+0,0,0,16,7,16,17,19,6,13,6,19,3,9,0,0,
 0,0,16,16,20,16,16,0,20,9,0,0,0,9,0,0,
 0,0,16,16,0,19,6,19,0,15,10,10,10,14,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -209,6 +209,50 @@
    <point/>
   </object>
   <object id="84" name="grass" x="696" y="505.333">
+   <point/>
+  </object>
+  <object id="85" name="help" x="647" y="314.66">
+   <point/>
+  </object>
+  <object id="86" name="slave" x="493" y="374">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="Item">
+  <object id="87" name="scene-1" x="214" y="69.33">
+   <point/>
+  </object>
+  <object id="88" name="scene-2" x="407" y="70">
+   <point/>
+  </object>
+  <object id="89" name="scene-3" x="504" y="69.33">
+   <point/>
+  </object>
+  <object id="90" name="scene-4" x="504" y="170">
+   <point/>
+  </object>
+  <object id="91" name="scene-5" x="217" y="456">
+   <point/>
+  </object>
+  <object id="92" name="scene-6" x="410" y="457">
+   <point/>
+  </object>
+  <object id="93" name="spade" x="408" y="266">
+   <point/>
+  </object>
+  <object id="94" name="domed-gate" x="214" y="213">
+   <point/>
+  </object>
+  <object id="95" name="mushroom-gate" x="599" y="170">
+   <point/>
+  </object>
+  <object id="96" name="start" x="119" y="167">
+   <point/>
+  </object>
+  <object id="97" name="castle" x="312" y="266">
+   <point/>
+  </object>
+  <object id="99" name="mushroom-gate" x="310" y="360">
    <point/>
   </object>
  </objectgroup>

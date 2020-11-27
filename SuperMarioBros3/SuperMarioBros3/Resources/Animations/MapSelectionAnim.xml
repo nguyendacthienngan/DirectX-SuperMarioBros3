@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Textures>
 	<Textures gameObjectId="0" textureId="tex-world-map-1">
+    <Animation aniId="ani-help-bubble" frameTime="100" name="HELP">
+      <Sprite id="spr-help-bubble-0" left="1" top="2"  width="16" height="13"/>
+    </Animation>
 		<Animation aniId="ani-castle-normal" frameTime="100" name="CASTLE">
 			<Sprite id="spr-castle-normal-0" left="52" top="1"  width="16" height="15"/>
 			<Sprite id="spr-castle-normal-1" left="69" top="17"  width="16" height="15"/>
