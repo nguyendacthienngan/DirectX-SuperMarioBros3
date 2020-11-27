@@ -30,6 +30,7 @@ public:
 	std::string GetActiveSceneId();
 	LPScene GetActiveScene();
 
+	void SwitchScene(LPScene scene);
 	~CSceneManager();
 };
 

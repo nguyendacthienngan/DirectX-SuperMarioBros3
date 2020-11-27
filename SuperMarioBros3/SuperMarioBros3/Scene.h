@@ -25,6 +25,7 @@ protected:
 	CMap *map;
 	CCamera *camera;
 	std::string filePath;
+	bool loaded;
 public:
 	CScene();
 
@@ -46,6 +47,7 @@ public:
 
 	void SetObjectPosition(D3DXVECTOR2 distance);
 
+	bool IsLoaded();
 	virtual ~CScene();
 };
 #endif

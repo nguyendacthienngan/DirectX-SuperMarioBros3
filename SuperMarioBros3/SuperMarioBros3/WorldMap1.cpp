@@ -17,7 +17,6 @@ void CWorldMap1::Load()
 void CWorldMap1::Unload()
 {
 	CScene::Unload();
-	mario = NULL;
 }
 
 CWorldMap1::~CWorldMap1()

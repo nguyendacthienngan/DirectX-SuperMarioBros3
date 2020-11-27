@@ -23,7 +23,6 @@ void CScene1::Load()
 void CScene1::Unload()
 {
 	CScene::Unload();
-	mario = NULL;
 }
 
 CScene1::~CScene1()

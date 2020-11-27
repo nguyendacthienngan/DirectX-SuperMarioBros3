@@ -94,6 +94,15 @@ LPScene CSceneManager::GetActiveScene()
 	return nullptr;
 }
 
+void CSceneManager::SwitchScene(LPScene scene)
+{
+	auto activeScene = GetActiveScene();
+	if (activeScene == NULL)
+		return;
+	Unload(activeSceneId);
+	Load(scene);
+}
+
 CSceneManager::~CSceneManager()
 {
 	for (auto s : loadedScenes)

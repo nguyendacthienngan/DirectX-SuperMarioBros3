@@ -7,8 +7,6 @@
 
 class CScene1: public CScene
 {
-private:
-	CMario* mario;
 public:
 	CScene1();
 

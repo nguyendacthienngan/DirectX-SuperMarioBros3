@@ -67,6 +67,8 @@ void CMarioController::Process()
 
 void CMarioController::AddStateObjectsToScene(LPScene scene)
 {
+	int i = 0;
+	DebugOut(L"Add mario to scene %d", i++);
 	for (auto obj : listStateObjects)
 	{
 		scene->AddObject(obj.second);
@@ -140,7 +142,8 @@ void CMarioController::SwitchToState(std::string state)
 		if (scene != NULL)
 		{
 			auto camera = scene->GetCamera();
-			camera->SetGameObject(currentStateObject);
+			if (camera != NULL)
+				camera->SetGameObject(currentStateObject);
 		}
 	}
 

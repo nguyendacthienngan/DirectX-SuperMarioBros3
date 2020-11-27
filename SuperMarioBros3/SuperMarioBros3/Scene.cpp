@@ -19,6 +19,7 @@ using namespace std;
 CScene::CScene()
 {
 	camera = NULL;
+	loaded = true;
 }
 
 void CScene::Load()
@@ -31,8 +32,10 @@ void CScene::Load()
 	}
 	TiXmlElement* root = sceneFile.RootElement();
 	CMarioController* player = NULL;
+	int i = 0;
 	for (TiXmlElement* scene = root->FirstChildElement(); scene != NULL; scene = scene->NextSiblingElement())
 	{
+		DebugOut(L"Thu tu %d \n", i++);
 		string name = scene->Attribute("name");
 		if (name.compare("Player") == 0)
 		{
@@ -134,13 +137,16 @@ void CScene::Load()
 			AddObject(marioMap);
 		}
 	}
+	loaded = true;
 }
 
 void CScene::Unload()
 {
-	if (gameObjects.size() > 0)
+	loaded = false;
+	DebugOut(L"AAAAAAAAA \n");
+	/*if (gameObjects.size() > 0)
 	{
-		for (int i = 0; i < gameObjects.size() - 1 && (gameObjects.size() - 1 >= 0); i++)
+		for (int i = 0; i < gameObjects.size() -1 ; i++)
 		{
 			if (gameObjects[i]->GetTag() == GameObjectTags::MarioFireBall || gameObjects[i]->GetTag() == GameObjectTags::PlayerController)
 				continue;
@@ -148,8 +154,8 @@ void CScene::Unload()
 			delete gameObjects[i];
 			gameObjects[i] = NULL;
 		}
-	}
-	
+	}*/
+	delete map;
 	map = NULL;
 	camera = NULL;
 	gameObjects.clear();
@@ -157,6 +163,8 @@ void CScene::Unload()
 
 void CScene::Update(DWORD dt)
 {
+	if (loaded == false)
+		return;
 	auto uiCam = CSceneManager::GetInstance()->GetUICamera();
 	if (gameObjects.size() == 0) return;
 	for (auto obj : gameObjects)
@@ -176,6 +184,8 @@ void CScene::Update(DWORD dt)
 
 void CScene::Render()
 {
+	if (loaded == false)
+		return;
 	map->Render(camera, false);
 	if (gameObjects.size() == 0) return;
 
@@ -239,6 +249,11 @@ LPGameObject CScene::GetPlayer()
 		if (obj->GetTag() == GameObjectTags::Player) 
 			player = obj;
 	return player;
+}
+
+bool CScene::IsLoaded()
+{
+	return loaded;
 }
 
 CScene::~CScene()

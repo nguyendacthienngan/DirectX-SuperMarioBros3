@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="9" nextobjectid="113">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="10" nextobjectid="124">
  <tileset firstgid="1" name="tileset(x3)" tilewidth="48" tileheight="48" tilecount="32" columns="8">
   <image source="tileset(x3).png" width="384" height="192"/>
  </tileset>
@@ -93,6 +93,18 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="9" name="Solid-Test" visible="0">
+  <object id="114" x="40" y="36" width="152" height="108"/>
+  <object id="115" x="46.6667" y="191.333" width="144" height="345.333"/>
+  <object id="116" x="240" y="96" width="144" height="142.667"/>
+  <object id="117" x="38.6667" y="-0.666667" width="680" height="48"/>
+  <object id="118" x="192" y="480.667" width="542.667" height="65.3333"/>
+  <object id="119" x="239.333" y="383.333" width="143.333" height="48"/>
+  <object id="120" x="240.667" y="287.333" width="191.333" height="48.6667"/>
+  <object id="121" x="624" y="37.3333" width="95.3333" height="453.333"/>
+  <object id="122" x="432.667" y="192.667" width="190.667" height="142.667"/>
+  <object id="123" x="431.333" y="382.667" width="201.333" height="112"/>
+ </objectgroup>
  <objectgroup id="6" name="World-Item" visible="0">
   <object id="1" name="grass" x="70.6667" y="69.3333">
    <point/>
