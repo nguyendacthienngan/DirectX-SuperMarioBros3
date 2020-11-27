@@ -520,13 +520,11 @@
   <object id="135" name="hidden-scene" type="1" x="624" y="1161" width="95.3333" height="33.3333">
    <properties>
     <property name="cameraID" type="int" value="1"/>
-    <property name="sceneID" value="-1"/>
    </properties>
   </object>
   <object id="139" name="scene1-1" type="0" x="6913.67" y="1391.33" width="95.3333" height="33.3333">
    <properties>
     <property name="cameraID" type="int" value="0"/>
-    <property name="sceneID" value="-1"/>
    </properties>
   </object>
  </objectgroup>

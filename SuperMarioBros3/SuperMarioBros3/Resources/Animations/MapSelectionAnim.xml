@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Textures>
 	<Textures gameObjectId="0" textureId="tex-world-map-1">
+    <Animation aniId="ani-gate-1" frameTime="100" name="GATE-1">
+      <Sprite id="spr-gate-1" left="1" top="33"  width="16" height="16"/>
+    </Animation>
     <Animation aniId="ani-start" frameTime="100" name="START">
       <Sprite id="spr-start-0" left="1" top="33"  width="16" height="16"/>
     </Animation>

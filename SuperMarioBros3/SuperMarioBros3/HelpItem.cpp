@@ -31,10 +31,8 @@ void CHelpItem::Render(CCamera* cam, int alpha)
 	if (alpha == 0 && countChangeAlpha == 1)
 		timeStopChangeAlpha = GetTickCount64();
 
-	DebugOut(L"TimeStopChangeAlpha %d \n", timeStopChangeAlpha);
 	if (timeStopChangeAlpha != 0 && GetTickCount64() - timeStopChangeAlpha > timeToChangeAlpha)
 	{
-		DebugOut(L"AAAA\n");
 		timeStartChangeAlpha = 0;
 		timeStopChangeAlpha = 0;
 		countChangeAlpha = 0;

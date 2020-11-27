@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="8" nextobjectid="100">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="8" nextobjectid="113">
  <tileset firstgid="1" name="tileset(x3)" tilewidth="48" tileheight="48" tilecount="32" columns="8">
   <image source="tileset(x3).png" width="384" height="192"/>
  </tileset>
@@ -217,43 +217,65 @@
   <object id="86" name="slave" x="493" y="374">
    <point/>
   </object>
+  <object id="100" name="start" x="119" y="167">
+   <point/>
+  </object>
  </objectgroup>
- <objectgroup id="7" name="Item">
-  <object id="87" name="scene-1" x="214" y="69.33">
-   <point/>
+ <objectgroup id="7" name="Portal-Scene">
+  <object id="102" name="scene-1" x="192" y="48" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
   </object>
-  <object id="88" name="scene-2" x="407" y="70">
-   <point/>
+  <object id="103" name="scene-2" x="384.667" y="48" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
   </object>
-  <object id="89" name="scene-3" x="504" y="69.33">
-   <point/>
+  <object id="104" name="scene-3" x="480.333" y="47" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
   </object>
-  <object id="90" name="scene-4" x="504" y="170">
-   <point/>
+  <object id="105" name="scene-4" x="480" y="143" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
   </object>
-  <object id="91" name="scene-5" x="217" y="456">
-   <point/>
+  <object id="106" name="mushroom-gate" x="576.667" y="144.667" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
   </object>
-  <object id="92" name="scene-6" x="410" y="457">
-   <point/>
+  <object id="107" name="spade" x="385" y="240.333" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
   </object>
-  <object id="93" name="spade" x="408" y="266">
-   <point/>
+  <object id="108" name="castle" x="288.333" y="240" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
   </object>
-  <object id="94" name="domed-gate" x="214" y="213">
-   <point/>
+  <object id="109" name="domed-gate" x="192" y="192.667" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
   </object>
-  <object id="95" name="mushroom-gate" x="599" y="170">
-   <point/>
+  <object id="110" name="mushroom-gate" x="287.667" y="336" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
   </object>
-  <object id="96" name="start" x="119" y="167">
-   <point/>
+  <object id="111" name="scene-5" x="191.667" y="431" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
   </object>
-  <object id="97" name="castle" x="312" y="266">
-   <point/>
-  </object>
-  <object id="99" name="mushroom-gate" x="310" y="360">
-   <point/>
+  <object id="112" name="scene-6" x="384" y="431.667" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
   </object>
  </objectgroup>
 </map>

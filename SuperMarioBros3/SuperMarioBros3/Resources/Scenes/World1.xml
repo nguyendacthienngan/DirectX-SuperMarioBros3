@@ -8,5 +8,4 @@
     <Boundary id="0" pos_x="-25" pos_y="-30" left="0" top="0" right="705" bottom="489" disX ="1" disY="1"/>
   </Scene>
   <Scene name="Player-Map" pos_x="95" pos_y="125"/>
-
 </Scene>

@@ -591,6 +591,9 @@
     <ClInclude Include="StartItem.h">
       <Filter>Game\GameObject\World-Item\Item</Filter>
     </ClInclude>
+    <ClInclude Include="SceneGate.h">
+      <Filter>Game\GameObject\World-Item\Gate\SceneGate</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -829,6 +832,9 @@
     </ClCompile>
     <ClCompile Include="StartItem.cpp">
       <Filter>Game\GameObject\World-Item\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneGate.cpp">
+      <Filter>Game\GameObject\World-Item\Gate\SceneGate</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

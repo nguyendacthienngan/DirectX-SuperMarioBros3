@@ -672,10 +672,6 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 				auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 				activeScene->SetCamera(cameraID);
 			}
-			if (sceneID != -1)
-			{
-				// Đổi scene
-			}
 		}
 
 	}
@@ -720,11 +716,6 @@ void CMario::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 			activeScene->SetCamera(cameraID);
 		}
-		if (sceneID != -1)
-		{
-			// Đổi scene
-		}
-			
 	}
 }
 

@@ -29,6 +29,7 @@
 #include "Grass.h"
 #include "HelpItem.h"
 #include "StartItem.h"
+#include "SceneGate.h"
 
 CTileMap::CTileMap()
 {
@@ -339,7 +340,8 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				}
 				else if (name.compare("Portal") == 0)
 				{
-					int cameraID = -1, sceneID = -1;
+					int cameraID = -1;
+					std::string sceneID = "";
 					
 					CPortal* portal = new CPortal(size);
 					portal->SetPosition(position - translateConst + size * 0.5);
@@ -355,7 +357,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						}
 						if (propName.compare("sceneID") == 0)
 						{
-							property->QueryIntAttribute("value", &sceneID);
+							sceneID = property->Attribute("value");
 							portal->SetSceneID(sceneID);
 						}
 					}
@@ -406,16 +408,37 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						help->SetPosition(position - translateGrassConst);
 						listGameObjects.push_back(help);
 					}
-				}
-				else if (name.compare("Item") == 0)
-				{
-					std::string itemName = object->Attribute("name");
 					if (itemName.compare("start") == 0)
 					{
 						CStartItem* startItem = new CStartItem();
 						startItem->SetPosition(position - translateGrassConst);
 						listGameObjects.push_back(startItem);
 					}
+				}
+				else if (name.compare("Portal-Scene") == 0)
+				{
+					int cameraID = -1;
+					std::string sceneID = "";
+					CSceneGate* portal = new CSceneGate(size);
+					portal->SetPosition(position - translateConst + size * 0.5);
+
+					TiXmlElement* properties = object->FirstChildElement();
+					for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
+					{
+						std::string propName = property->Attribute("name");
+						if (propName.compare("cameraID") == 0)
+						{
+							property->QueryIntAttribute("value", &cameraID);
+							portal->SetCameraID(cameraID);
+						}
+						if (propName.compare("sceneID") == 0)
+						{
+							sceneID = property->Attribute("value");
+							portal->SetSceneID(sceneID);
+						}
+					}
+					listGameObjects.push_back(portal);
+
 				}
 			}
 		}
