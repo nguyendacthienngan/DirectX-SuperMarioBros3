@@ -26,6 +26,11 @@
 #include "CVenus.h"
 #include "Portal.h"
 #include "Label.h"
+#include "Grass.h"
+#include "HelpItem.h"
+#include "StartItem.h"
+#include "SceneGate.h"
+#include "WorldItemConst.h"
 
 CTileMap::CTileMap()
 {
@@ -79,6 +84,7 @@ TileSet* CTileMap::GetTileSetByTileID(int id)
 
 void CTileMap::Render(CCamera* camera, bool isRenderForeground)
 {
+	
 	//DebugOut(L"Render tilemap.. \n");
 	// Từ một tọa độ bất kỳ nằm bên trg map
 	// Ta sẽ có thể biết được tọa độ nằm trong ô nào của map (Chuyển từ dạng tọa độ về dạng grid)
@@ -94,14 +100,12 @@ void CTileMap::Render(CCamera* camera, bool isRenderForeground)
 	// việc +2 là do trừ hao cho khỏi bị flick ở cạnh màn hình
 	// vì sẽ có lúc tính toán làm tròn sao sao đó mà sẽ có ô mình k vẽ
 	// do đó mình trừ hao để chắc chắn vẽ hết các ô
-	for (int i = col; i < camSize.x + col + 2; i++) 
+	for (int i = col; i < camSize.x + col + 4; i++) 
 	{
-		for (int j = row; j < camSize.y + row + 2; j++) 
+		for (int j = row; j < camSize.y + row + 4; j++) 
 		{
-
 			int x = i * tileWidth - camera->GetPositionCam().x; // vị trí mình muốn vẽ lên màn hình của ô đó => theo tọa độ camera
 			int y = j * tileHeight - camera->GetPositionCam().y;
-
 			if (isRenderForeground == true)
 			{
 				if (foreground == NULL)
@@ -118,6 +122,7 @@ void CTileMap::Render(CCamera* camera, bool isRenderForeground)
 			
 		}
 	}
+	
 }
 
 CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects)
@@ -125,7 +130,8 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 	string fullPath = filePath + fileMap;
 	TiXmlDocument doc(fullPath.c_str());
 
-	if (doc.LoadFile()) {
+	if (doc.LoadFile()) 
+	{
 		OutputDebugString(L"Loading TMX \n");
 		TiXmlElement* root = doc.RootElement();
 		CTileMap* gameMap = new CTileMap();
@@ -148,6 +154,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 			TiXmlElement* imgDom = element->FirstChildElement("image");
 			string imgPath = imgDom->Attribute("source");
 			imgPath = filePath + imgPath;
+			tileSet->textureID = std::to_string(tileSet->firstgid);
 			CTextureManager::GetInstance()->Add(std::to_string(tileSet->firstgid), imgPath, D3DCOLOR_ARGB(0, 0, 0, 0));
 			tileSet->texture = CTextureManager::GetInstance()->GetTexture(std::to_string(tileSet->firstgid));
 			gameMap->tileSets[tileSet->firstgid] = tileSet;
@@ -335,7 +342,8 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				}
 				else if (name.compare("Portal") == 0)
 				{
-					int cameraID = -1, sceneID = -1;
+					int cameraID = -1;
+					std::string sceneID = "";
 					
 					CPortal* portal = new CPortal(size);
 					portal->SetPosition(position - translateConst + size * 0.5);
@@ -351,7 +359,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						}
 						if (propName.compare("sceneID") == 0)
 						{
-							property->QueryIntAttribute("value", &sceneID);
+							sceneID = property->Attribute("value");
 							portal->SetSceneID(sceneID);
 						}
 					}
@@ -385,6 +393,81 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						}
 						listGameObjects.push_back(label);
 
+					}
+				}
+				else if (name.compare("World-Item") == 0)
+				{
+				std::string itemName = object->Attribute("name");
+					if (itemName.compare("grass") == 0)
+					{
+						CGrass* grass = new CGrass();
+						grass->SetPosition(position - translateGrassConst);
+						listGameObjects.push_back(grass);
+					}
+					if (itemName.compare("help") == 0)
+					{
+						CHelpItem* help = new CHelpItem();
+						help->SetPosition(position - translateGrassConst);
+						listGameObjects.push_back(help);
+					}
+					if (itemName.compare("start") == 0)
+					{
+						CStartItem* startItem = new CStartItem();
+						startItem->SetPosition(position - translateGrassConst);
+						listGameObjects.push_back(startItem);
+					}
+				}
+				else if (name.compare("Portal-Scene") == 0)
+				{
+					int cameraID = -1;
+					std::string sceneID = "";
+					std::string type = object->Attribute("type");
+					std::string sceneName = object->Attribute("name");
+					CPortal* portal = NULL;
+					if (type.compare("scene") == 0)
+					{
+						portal = new CSceneGate(size);
+						portal->SetPosition(position - translateConst + size * 0.5);
+						if (sceneName.compare("scene-1") == 0)
+							portal->SetState(SCENE_1_ANIMATION);
+						if (sceneName.compare("scene-2") == 0)
+							portal->SetState(SCENE_2_ANIMATION);
+						if (sceneName.compare("scene-3") == 0)
+							portal->SetState(SCENE_1_ANIMATION);
+						if (sceneName.compare("scene-3") == 0)
+							portal->SetState(SCENE_3_ANIMATION);
+						if (sceneName.compare("scene-4") == 0)
+							portal->SetState(SCENE_4_ANIMATION);
+						if (sceneName.compare("scene-5") == 0)
+							portal->SetState(SCENE_5_ANIMATION);
+						if (sceneName.compare("scene-6") == 0)
+							portal->SetState(SCENE_6_ANIMATION);
+						if (sceneName.compare("spade") == 0)
+							portal->SetState(SPADE_ANIMATION);
+						if (sceneName.compare("castle") == 0)
+							portal->SetState(CASTLE_ANIMATION);
+						if (sceneName.compare("domed-gate") == 0)
+							portal->SetState(DOMED_ANIMATION);
+						if (sceneName.compare("mushroom-gate") == 0)
+							portal->SetState(MUSHROOM_ANIMATION);
+						TiXmlElement* properties = object->FirstChildElement();
+						for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
+						{
+							std::string propName = property->Attribute("name");
+							if (propName.compare("cameraID") == 0)
+							{
+								property->QueryIntAttribute("value", &cameraID);
+								portal->SetCameraID(cameraID);
+							}
+							if (propName.compare("sceneID") == 0)
+							{
+								sceneID = property->Attribute("value");
+								portal->SetSceneID(sceneID);
+							}
+						}
+						if (portal != NULL)
+							listGameObjects.push_back(portal);
+						
 					}
 				}
 			}

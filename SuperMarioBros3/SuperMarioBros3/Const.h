@@ -21,6 +21,7 @@
 #define TEXTURE_EFFECT		"tex-effect"
 #define TEXTURE_UI			"tex-ui"
 #define TEXTURE_BLACK		"tex-black"
+#define TEXTURE_WORLD_1		"tex-world-map-1"
 
 #define DB_SPRITE_MARIO			"spr-mario"
 #define DB_SPRITE_ENEMY			"spr-enemy"
@@ -28,6 +29,7 @@
 #define DB_SPRITE_FIRE_BALL		"spr-fire-ball"
 #define DB_SPRITE_EFFECT		"spr-effect"
 #define DB_SPRITE_UI			"spr-ui"
+#define DB_SPRITE_WORLD_1		"spr-world-map-1"
 
 #define DB_ANIMATION_MARIO		"ani-mario"
 #define DB_ANIMATION_ENEMY		"ani-enemy"
@@ -35,7 +37,9 @@
 #define DB_ANIMATION_FIRE_BALL	"ani-fire-ball"
 #define DB_ANIMATION_EFFECT		"ani-effect"
 #define DB_ANIMATION_UI			"ani-ui"
+#define DB_ANIMATION_WORLD_1	"ani-world-map-1"
 
+#define SC_WOLRD_1			"world-1"
 #define SC_WOLRD_1_1		"world-1-1"
 #define SC_UI_CAMERA		"ui-camera"
 

@@ -14,7 +14,7 @@ class CSceneManager
 	std::unordered_map<std::string, LPScene> loadedScenes;
 	std::string activeSceneId;
 	CUICamera* uiCamera;
-
+	std::vector<LPScene> requestedLoadScene;
 public:
 	CSceneManager();
 	static LPSceneManager GetInstance();
@@ -30,6 +30,8 @@ public:
 	std::string GetActiveSceneId();
 	LPScene GetActiveScene();
 
+	void LoadRequestScene();
+	void SwitchScene(LPScene scene);
 	~CSceneManager();
 };
 

@@ -20,6 +20,7 @@ public:
 	static LPTextureManager GetInstance();
 	void Init();
 	void Clear();
+	void ClearTextureById(std::string texname);
 	void LoadTexture(std::string texName, std::string texPath);
 	LPDIRECT3DTEXTURE9 GetTexture(std::string id);
 	void Add(std::string id, std::string filePath, D3DCOLOR transparentColor);

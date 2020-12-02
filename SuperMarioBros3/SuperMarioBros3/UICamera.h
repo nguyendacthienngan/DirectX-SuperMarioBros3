@@ -9,6 +9,7 @@ class CUICamera :  public CCamera
     CHUD* hud;
     RECT surfaceRect;
     CFont* font;
+    bool disableBlackTexture;
 public:
     CUICamera();
     CUICamera(int wid, int hei, D3DXVECTOR2 hudPos);
@@ -19,6 +20,7 @@ public:
     void SetHUD(CHUD* hud);
 
     void SetPositionCam(D3DXVECTOR2 pos) override;
+    void SetDisableBlackTexture(bool disT);
     ~CUICamera();
 };
 

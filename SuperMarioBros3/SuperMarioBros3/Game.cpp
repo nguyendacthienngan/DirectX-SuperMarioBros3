@@ -10,6 +10,7 @@
 #include "Scene1.h"
 #include "tinyxml.h"
 #include <string>
+#include "WorldMap1.h"
 CGame* CGame::instance = NULL;
 DWORD CGame::deltaTime = 0;
 float CGame::timeScale = 1.0f;
@@ -37,10 +38,23 @@ void CGame::Init()
 	keyboardManager->SetHWND(hWnd);
 	keyboardManager->InitKeyboard(keyEventHandler);
 	
-	CScene1* scene1 = new CScene1();
-	CSceneManager::GetInstance()->Load(scene1);
+	/*CScene1* scene1 = new CScene1();
+	CSceneManager::GetInstance()->Load(scene1);*/
+
+	CWorldMap1* sceneWorld1 = new CWorldMap1();
+	CSceneManager::GetInstance()->Load(sceneWorld1);
 	DebugOut(L"[INFO] Init Manager Sucessfully \n");
 
+}
+
+void CGame::Request()
+{
+	CSceneManager::GetInstance()->LoadRequestScene();
+	/*auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	if (activeScene != nullptr)
+	{
+		auto 
+	}*/
 }
 
 void CGame::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
@@ -126,6 +140,7 @@ void CGame::Run()
 			if (deltaTime >= tickPerFrame) // chuyển frame mới
 			{
 				frameStart = currentTime;
+				Request();
 				// Process key
 				auto keyboardManger = CKeyboardManager::GetInstance();
 				keyboardManger->ProcessKeyboard();
@@ -133,6 +148,8 @@ void CGame::Run()
 					continue;
 				Update();
 				Render();
+				Clean();
+				
 				if (deltaTime > tickPerFrame) deltaTime = 0;
 			}
 			else // chưa tới tickperframe nên cho ngủ vì xong việc cho 1 frame ròi
@@ -149,6 +166,7 @@ void CGame::End()
 	DebugOut(L"[INFO] This game is about to end \n");
 
 	CSceneManager::GetInstance()->GetActiveScene()->Unload();
+	CSceneManager::GetInstance()->GetActiveScene()->DestroyObject();
 	CTextureManager::GetInstance()->Clear();
 	CSpriteManager::GetInstance()->Clear();
 	CAnimationManager::GetInstance()->Clear();
@@ -158,6 +176,13 @@ void CGame::End()
 	if (d3ddv != NULL) d3ddv->Release();
 	if (d3d != NULL) d3d->Release();
 	DebugOut(L"[INFO] Bye bye \n");
+}
+
+void CGame::Clean()
+{
+	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	if (activeScene != nullptr)
+		activeScene->DestroyObject();
 }
 
 void CGame::DrawFlipX(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, D3DXCOLOR transcolor)

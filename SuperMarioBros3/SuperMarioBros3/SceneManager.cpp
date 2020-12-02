@@ -17,7 +17,6 @@ LPSceneManager CSceneManager::GetInstance()
 void CSceneManager::Init()
 {
 	auto filePath = CGame::GetInstance()->GetFilePathByCategory(CATEGORY_SCENE, SC_UI_CAMERA);
-
 	TiXmlDocument sceneFile(filePath.c_str());
 	if (!sceneFile.LoadFile())
 	{
@@ -92,6 +91,26 @@ LPScene CSceneManager::GetActiveScene()
 		return loadedScenes.at(activeSceneId);
 	}
 	return nullptr;
+}
+
+void CSceneManager::LoadRequestScene()
+{
+	if (requestedLoadScene.size() > 0)
+	{
+		auto scene = requestedLoadScene.at(0);
+		requestedLoadScene.erase(requestedLoadScene.begin());
+		Load(scene);
+	}
+}
+
+void CSceneManager::SwitchScene(LPScene scene)
+{
+	auto activeScene = GetActiveScene();
+	if (activeScene == NULL)
+		return;
+	Unload(activeSceneId);
+	requestedLoadScene.push_back(scene);
+	//Load(scene);
 }
 
 CSceneManager::~CSceneManager()

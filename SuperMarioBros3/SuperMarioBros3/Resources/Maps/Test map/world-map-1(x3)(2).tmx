@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="48" tileheight="48" infinite="0" nextlayerid="10" nextobjectid="124">
+ <tileset firstgid="1" name="tileset(x3)" tilewidth="48" tileheight="48" tilecount="32" columns="8">
+  <image source="tileset(x3).png" width="384" height="192"/>
+ </tileset>
+ <layer id="1" name="Black" width="16" height="14">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,
+28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,
+28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28
+</data>
+ </layer>
+ <layer id="2" name="Yellow" width="16" height="14">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,
+0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,
+0,1,1,1,1,1,1,1,1,1,1,0,1,0,1,0,
+0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="3" name="Border" width="16" height="14">
+  <data encoding="csv">
+23,29,29,29,29,29,29,29,29,29,29,29,29,29,29,24,
+21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,
+21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,
+21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,
+21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,
+21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,
+21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,
+21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,
+21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,
+21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,
+21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,22,
+31,30,30,30,30,30,30,30,30,30,30,30,30,30,30,32,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="8" name="Hidden" width="16" height="14" visible="0">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,17,0,0,0,
+0,0,0,0,18,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,17,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="4" name="Background" width="16" height="14">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,19,6,19,0,19,0,19,6,0,0,0,
+0,0,0,0,20,0,0,0,20,0,0,0,20,0,0,0,
+0,19,0,19,8,0,0,0,7,19,0,19,0,0,0,0,
+0,0,0,0,0,0,0,0,20,0,0,0,0,0,0,0,
+0,0,0,0,7,19,0,19,0,0,0,12,10,11,0,0,
+0,0,0,0,20,0,0,0,0,12,10,14,2,9,0,0,
+0,0,0,16,7,16,0,19,6,13,6,19,3,9,0,0,
+0,0,16,16,20,16,16,0,20,9,0,0,0,9,0,0,
+0,0,16,16,0,19,6,19,0,15,10,10,10,14,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="9" name="Solid-Test" visible="0">
+  <object id="114" x="40" y="36" width="152" height="108"/>
+  <object id="115" x="46.6667" y="191.333" width="144" height="345.333"/>
+  <object id="116" x="240" y="96" width="144" height="142.667"/>
+  <object id="117" x="38.6667" y="-0.666667" width="680" height="48"/>
+  <object id="118" x="192" y="480.667" width="542.667" height="65.3333"/>
+  <object id="119" x="239.333" y="383.333" width="143.333" height="48"/>
+  <object id="120" x="240.667" y="287.333" width="191.333" height="48.6667"/>
+  <object id="121" x="624" y="37.3333" width="95.3333" height="453.333"/>
+  <object id="122" x="432.667" y="192.667" width="190.667" height="142.667"/>
+  <object id="123" x="431.333" y="382.667" width="201.333" height="112"/>
+ </objectgroup>
+ <objectgroup id="6" name="World-Item" visible="0">
+  <object id="1" name="grass" x="70.6667" y="69.3333">
+   <point/>
+  </object>
+  <object id="4" name="grass" x="119.333" y="69.3333">
+   <point/>
+  </object>
+  <object id="5" name="grass" x="167.333" y="69.33">
+   <point/>
+  </object>
+  <object id="7" name="grass" x="70" y="120">
+   <point/>
+  </object>
+  <object id="8" name="grass" x="118.667" y="120">
+   <point/>
+  </object>
+  <object id="9" name="grass" x="168" y="120">
+   <point/>
+  </object>
+  <object id="34" name="grass" x="71.3334" y="214">
+   <point/>
+  </object>
+  <object id="35" name="grass" x="120" y="214">
+   <point/>
+  </object>
+  <object id="36" name="grass" x="168" y="213.997">
+   <point/>
+  </object>
+  <object id="37" name="grass" x="70.6667" y="264.667">
+   <point/>
+  </object>
+  <object id="38" name="grass" x="119.334" y="264.667">
+   <point/>
+  </object>
+  <object id="39" name="grass" x="168.667" y="264.667">
+   <point/>
+  </object>
+  <object id="40" name="grass" x="262.667" y="120">
+   <point/>
+  </object>
+  <object id="41" name="grass" x="311.333" y="120">
+   <point/>
+  </object>
+  <object id="42" name="grass" x="359.333" y="120">
+   <point/>
+  </object>
+  <object id="43" name="grass" x="262" y="170">
+   <point/>
+  </object>
+  <object id="44" name="grass" x="310.667" y="170">
+   <point/>
+  </object>
+  <object id="45" name="grass" x="360" y="170">
+   <point/>
+  </object>
+  <object id="46" name="grass" x="262" y="216.667">
+   <point/>
+  </object>
+  <object id="47" name="grass" x="310.667" y="216.667">
+   <point/>
+  </object>
+  <object id="48" name="grass" x="360" y="216.667">
+   <point/>
+  </object>
+  <object id="52" name="grass" x="454.667" y="120">
+   <point/>
+  </object>
+  <object id="53" name="grass" x="503.334" y="120">
+   <point/>
+  </object>
+  <object id="54" name="grass" x="552.667" y="120">
+   <point/>
+  </object>
+  <object id="58" name="grass" x="454" y="214">
+   <point/>
+  </object>
+  <object id="59" name="grass" x="502.667" y="214">
+   <point/>
+  </object>
+  <object id="60" name="grass" x="552" y="214">
+   <point/>
+  </object>
+  <object id="61" name="grass" x="596" y="214">
+   <point/>
+  </object>
+  <object id="62" name="grass" x="644.667" y="214">
+   <point/>
+  </object>
+  <object id="64" name="grass" x="310" y="313.333">
+   <point/>
+  </object>
+  <object id="65" name="grass" x="358.667" y="313.333">
+   <point/>
+  </object>
+  <object id="66" name="grass" x="408" y="313.333">
+   <point/>
+  </object>
+  <object id="67" name="grass" x="70.67" y="313.333">
+   <point/>
+  </object>
+  <object id="68" name="grass" x="454.667" y="264.667">
+   <point/>
+  </object>
+  <object id="69" name="grass" x="504" y="264.667">
+   <point/>
+  </object>
+  <object id="70" name="grass" x="694" y="120">
+   <point/>
+  </object>
+  <object id="71" name="grass" x="694" y="69.33">
+   <point/>
+  </object>
+  <object id="72" name="grass" x="694" y="170">
+   <point/>
+  </object>
+  <object id="74" name="grass" x="694" y="214">
+   <point/>
+  </object>
+  <object id="79" name="grass" x="694.667" y="314.663">
+   <point/>
+  </object>
+  <object id="80" name="grass" x="694.667" y="269.663">
+   <point/>
+  </object>
+  <object id="81" name="grass" x="694.667" y="361.33">
+   <point/>
+  </object>
+  <object id="82" name="grass" x="694.667" y="408">
+   <point/>
+  </object>
+  <object id="83" name="grass" x="696" y="458.663">
+   <point/>
+  </object>
+  <object id="84" name="grass" x="696" y="505.333">
+   <point/>
+  </object>
+  <object id="85" name="help" x="647" y="314.66">
+   <point/>
+  </object>
+  <object id="86" name="slave" x="493" y="374">
+   <point/>
+  </object>
+  <object id="100" name="start" x="119" y="167">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="Portal-Scene">
+  <object id="102" name="scene-1" type="scene" x="192" y="48" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
+  </object>
+  <object id="103" name="scene-2" type="scene" x="384.667" y="48" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
+  </object>
+  <object id="104" name="scene-3" type="scene" x="480.333" y="47" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
+  </object>
+  <object id="105" name="scene-4" type="scene" x="480" y="143" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
+  </object>
+  <object id="106" name="mushroom-gate" type="scene" x="576.667" y="144.667" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
+  </object>
+  <object id="107" name="spade" type="scene" x="385" y="240.333" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
+  </object>
+  <object id="108" name="castle" type="scene" x="288.333" y="240" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
+  </object>
+  <object id="109" name="domed-gate" type="scene" x="192" y="192.667" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
+  </object>
+  <object id="110" name="mushroom-gate" type="scene" x="287.667" y="336" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
+  </object>
+  <object id="111" name="scene-5" type="scene" x="191.667" y="431" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
+  </object>
+  <object id="112" name="scene-6" type="scene" x="384" y="431.667" width="47" height="48">
+   <properties>
+    <property name="sceneID" value="world-1-1"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

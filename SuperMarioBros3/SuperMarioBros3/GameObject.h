@@ -52,6 +52,8 @@ protected:
 
 	bool isEnabled;
 	bool ignoreTimeScale;
+	bool isDestroyed;
+
 	GameObjectTags tag; // Phân biệt player với eniemies,...
 	std::unordered_map<std::string, LPAnimation> animations;
 	
@@ -63,6 +65,8 @@ public:
 	~CGameObject();
 
 	virtual void Init();
+	bool IsDestroyed();
+	void SetDestroy(bool isDes);
 	virtual void Clear();
 	virtual void LoadAnimation();
 

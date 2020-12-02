@@ -6,7 +6,7 @@
   <Scene name="Map" source="Resources/Maps/Test map/" fileName = "world-1-1-map.tmx">
     <BackgroundColor R="156" G="252" B="240"/>
   </Scene>
-  <Scene name="Camera" start="0" main="0">
+  <Scene name="Camera" start="0" main="0" width="720" height="671">
     <!--Camera-->
     <!--X,Y: Mario.x, Mario.y - ScreenHeight/2-->
 

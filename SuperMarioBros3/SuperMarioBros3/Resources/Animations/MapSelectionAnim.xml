@@ -1,21 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Textures>
 	<Textures gameObjectId="0" textureId="tex-world-map-1">
-		<Animation aniId="ani-castle" frameTime="100">
-			<Sprite id="spr-castle-0" left="52" top="1"  width="16" height="15"/>
-			<Sprite id="spr-castle-1" left="69" top="17"  width="16" height="15"/>
+    <Animation aniId="ani-musroom-gate" frameTime="100" name="MUSHROOM-GATE">
+      <Sprite id="spr-mushroom-gate-0" left="69" top="17"  width="16" height="15"/>
+    </Animation>
+    <Animation aniId="ani-domed-gate" frameTime="100" name="DOMED-GATE">
+      <Sprite id="spr-domed-gate-0" left="86" top="17"  width="16" height="15"/>
+    </Animation>
+    <Animation aniId="ani-spade" frameTime="100" name="SPADE">
+      <Sprite id="spr-spade-0" left="120" top="0"  width="16" height="15"/>
+    </Animation>
+    <Animation aniId="ani-castle" frameTime="100" name="CASTLE">
+      <Sprite id="spr-castle-0" left="52" top="1"  width="16" height="15"/>
+    </Animation>
+    
+    <Animation aniId="ani-gate-1" frameTime="100" name="GATE-1">
+      <Sprite id="spr-gate-1" left="1" top="33"  width="16" height="16"/>
+    </Animation>
+    <Animation aniId="ani-gate-2" frameTime="100" name="GATE-2">
+      <Sprite id="spr-gate-2" left="52" top="33"  width="16" height="15"/>
+    </Animation>
+    <Animation aniId="ani-gate-3" frameTime="100" name="GATE-3">
+      <Sprite id="spr-gate-3" left="69" top="33"  width="16" height="15"/>
+    </Animation>
+    <Animation aniId="ani-gate-4" frameTime="100" name="GATE-4">
+      <Sprite id="spr-gate-4" left="86" top="33"  width="16" height="15"/>
+    </Animation>
+    <Animation aniId="ani-gate-5" frameTime="100" name="GATE-5">
+      <Sprite id="spr-gate-5" left="103" top="33"  width="16" height="15"/>
+    </Animation>
+    <Animation aniId="ani-gate-6" frameTime="100" name="GATE-6">
+      <Sprite id="spr-gate-6" left="120" top="33"  width="16" height="15"/>
+    </Animation>
+    <Animation aniId="ani-start" frameTime="100" name="START">
+      <Sprite id="spr-start-0" left="1" top="33"  width="16" height="16"/>
+    </Animation>
+    <Animation aniId="ani-help-bubble" frameTime="100" name="HELP">
+      <Sprite id="spr-help-bubble-0" left="1" top="2"  width="16" height="13"/>
+    </Animation>
+		<Animation aniId="ani-castle-normal" frameTime="100" name="CASTLE">
+			<Sprite id="spr-castle-normal-0" left="52" top="1"  width="16" height="15"/>
+			<Sprite id="spr-castle-normal-1" left="69" top="17"  width="16" height="15"/>
 		</Animation>
-		<Animation aniId="ani-ship" frameTime="100">
+    <Animation aniId="ani-castle-crash" frameTime="100" name="CASTLE-CRASH">
+      <Sprite id="spr-castle-crash-0" left="52" top="1"  width="16" height="15"/>
+      <Sprite id="spr-castle-crash-1" left="69" top="17"  width="16" height="15"/>
+    </Animation>
+		<Animation aniId="ani-ship" frameTime="100" name="SHIP">
 			<Sprite id="spr-ship-0" left="86" top="1"  width="16" height="15"/>
 	    	<Sprite id="spr-ship-1" left="103" top="17"  width="16" height="15"/>
 		</Animation>
-		<Animation aniId="ani-tree" frameTime="100">
+		<Animation aniId="ani-tree" frameTime="250" name="TREE">
 			<Sprite id="spr-tree-0" left="1" top="17"  width="16" height="15"/>
 			<Sprite id="spr-tree-1" left="18" top="17"  width="16" height="15"/>
 			<Sprite id="spr-tree-2" left="35" top="17"  width="16" height="15"/>
 			<Sprite id="spr-tree-3" left="52" top="17"  width="16" height="15"/>
 		</Animation>
-		<Animation aniId="ani-slave" frameTime="100">
+		<Animation aniId="ani-slave" frameTime="100" name="SLAVE">
 			<Sprite id="spr-slave-0" left="103" top="17"  width="16" height="15"/>
 	    	<Sprite id="spr-slave-1" left="120" top="18"  width="16" height="14"/>
 		</Animation>

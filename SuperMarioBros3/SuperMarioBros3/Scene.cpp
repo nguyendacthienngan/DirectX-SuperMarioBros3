@@ -12,12 +12,14 @@
 
 #include <string>
 #include "SceneManager.h"
+#include "MarioMap.h"
 
 using namespace std;
 
 CScene::CScene()
 {
 	camera = NULL;
+	loaded = true;
 }
 
 void CScene::Load()
@@ -30,8 +32,10 @@ void CScene::Load()
 	}
 	TiXmlElement* root = sceneFile.RootElement();
 	CMarioController* player = NULL;
+	int i = 0;
 	for (TiXmlElement* scene = root->FirstChildElement(); scene != NULL; scene = scene->NextSiblingElement())
 	{
+		DebugOut(L"Thu tu %d \n", i++);
 		string name = scene->Attribute("name");
 		if (name.compare("Player") == 0)
 		{
@@ -50,6 +54,7 @@ void CScene::Load()
 			DebugOut(L"[INFO] Load map \n");
 			string sourceMap = scene->Attribute("source");
 			string fileMap = scene->Attribute("fileName");
+			this->map = NULL;
 			this->map = new CMap(sourceMap, fileMap); // Ham nay tu load map
 			auto mapObjs = map->GetListGameObjects();
 			for (auto obj : mapObjs)
@@ -82,11 +87,12 @@ void CScene::Load()
 		else if (name.compare("Camera") == 0)
 		{
 			DebugOut(L"[INFO] Load camera \n");
-			int screenWidth = CGame::GetInstance()->GetScreenWidth();
-			int screenHeight = CGame::GetInstance()->GetScreenHeight();
-			this->camera = new CCamera(screenWidth, screenHeight);
-			int start;
+			int viewportWidth, viewportHeight, start;
 			scene->QueryIntAttribute("start", &start);
+			scene->QueryIntAttribute("width", &viewportWidth);
+			scene->QueryIntAttribute("height", &viewportHeight);
+
+			this->camera = new CCamera(viewportWidth, viewportHeight);
 
 			for (TiXmlElement* boundary = scene->FirstChildElement(); boundary != NULL; boundary = boundary->NextSiblingElement())
 			{
@@ -120,26 +126,58 @@ void CScene::Load()
 			}
 			
 		}
+		if (name.compare("Player-Map") == 0)
+		{
+			DebugOut(L"[INFO] Load player in map\n");
+			D3DXVECTOR2 startPosition;
+			scene->QueryFloatAttribute("pos_x", &startPosition.x);
+			scene->QueryFloatAttribute("pos_y", &startPosition.y);
+
+			CMarioMap* marioMap = new CMarioMap();
+			marioMap->SetPosition(startPosition);
+			AddObject(marioMap);
+		}
 	}
+	loaded = true;
+	DebugOut(L"AAAAAAAAAAAAAA LOAD DUOC ROI ! \n");
 }
 
 void CScene::Unload()
 {
-	for (int i = 0; i < gameObjects.size()-1 ; i++)
+	loaded = false;
+	if (gameObjects.size() > 0)
 	{
-		if (gameObjects[i]->GetTag() == GameObjectTags::MarioFireBall ||  gameObjects[i]->GetTag() == GameObjectTags::PlayerController)
-			continue;
-		RemoveObject(gameObjects[i]);
-		delete gameObjects[i];
-		gameObjects[i] = NULL;
+		for (int i = 0; i < gameObjects.size(); i++)
+		{
+			gameObjects[i]->SetDestroy(true);
+		}
 	}
-	map = NULL;
-	camera = NULL;
-	gameObjects.clear();
+}
+
+void CScene::DestroyObject()
+{
+	if (loaded == false)
+	{
+		for (auto gO : gameObjects)
+		{
+			if (gO->IsDestroyed() == true)
+			{
+				RemoveObject(gO);
+				delete gO;
+				gO = NULL;
+			}
+		}
+		gameObjects.clear();
+		delete map;
+		map = NULL;
+		camera = NULL;
+	}
 }
 
 void CScene::Update(DWORD dt)
 {
+	if (loaded == false)
+		return;
 	auto uiCam = CSceneManager::GetInstance()->GetUICamera();
 	if (gameObjects.size() == 0) return;
 	for (auto obj : gameObjects)
@@ -159,6 +197,8 @@ void CScene::Update(DWORD dt)
 
 void CScene::Render()
 {
+	if (loaded == false)
+		return;
 	map->Render(camera, false);
 	if (gameObjects.size() == 0) return;
 
@@ -170,6 +210,16 @@ void CScene::Render()
 			obj->GetCollisionBox()->at(0)->Render(camera, CollisionBox_Render_Distance);
 	}
 	map->Render(camera, true);
+}
+
+std::vector<LPGameObject> CScene::GetDestroyObjects()
+{
+	return destroyObjects;
+}
+
+std::vector<LPGameObject> CScene::GetInitObjects()
+{
+	return std::vector<LPGameObject>();
 }
 
 void CScene::AddObject(LPGameObject gameObject)
@@ -222,6 +272,11 @@ LPGameObject CScene::GetPlayer()
 		if (obj->GetTag() == GameObjectTags::Player) 
 			player = obj;
 	return player;
+}
+
+bool CScene::IsLoaded()
+{
+	return loaded;
 }
 
 CScene::~CScene()

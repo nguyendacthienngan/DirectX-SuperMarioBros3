@@ -49,9 +49,10 @@ public:
 	void DrawFlipY(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, D3DXCOLOR transcolor = D3DCOLOR_XRGB(255, 0, 255));
 	
 	void Init();
+	void Request();
 	void Run(); // while-loop game
 	void End();
-	
+	void Clean();
 	void Render();
 	void Update();
 

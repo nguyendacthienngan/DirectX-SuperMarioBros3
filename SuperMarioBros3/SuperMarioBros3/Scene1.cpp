@@ -5,6 +5,7 @@
 #include "Const.h"
 #include "MarioConst.h"
 #include "Game.h"
+#include "SceneManager.h"
 
 CScene1::CScene1()
 {
@@ -15,13 +16,13 @@ CScene1::CScene1()
 void CScene1::Load()
 {
 	CScene::Load();
+	CSceneManager::GetInstance()->GetUICamera()->SetDisableBlackTexture(false);
 	DebugOut(L"[INFO] Loaded Scene \n");
 }
 
 void CScene1::Unload()
 {
 	CScene::Unload();
-	mario = NULL;
 }
 
 CScene1::~CScene1()

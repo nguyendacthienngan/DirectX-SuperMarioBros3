@@ -1,6 +1,7 @@
 ﻿#include "GameObject.h"
 #include "GameObjectConst.h"
 #include "Ultis.h"
+#include "SceneManager.h"
 using namespace std;
 
 CGameObject::CGameObject()
@@ -17,16 +18,26 @@ CGameObject::CGameObject()
 
 CGameObject::~CGameObject()
 {
-	/*if (physiscBody != NULL) delete physiscBody;
+	if (physiscBody != NULL) delete physiscBody;
 	for (auto col : *collisionBoxs)
 		delete col;
 	collisionBoxs->clear();
-	delete collisionBoxs;*/
+	delete collisionBoxs;
 }
 
 
 void CGameObject::Init()
 {
+}
+
+bool CGameObject::IsDestroyed()
+{
+	return isDestroyed;
+}
+
+void CGameObject::SetDestroy(bool isDes)
+{
+	this->isDestroyed = isDes;
 }
 
 void CGameObject::Clear()
@@ -61,10 +72,16 @@ void CGameObject::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
 
 void CGameObject::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
+	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	if (activeScene->IsLoaded() == false)
+		return;
 }
 
 void CGameObject::Render(CCamera* cam, int alpha)
 {
+	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	if (activeScene->IsLoaded() == false)
+		return;
 	bool curState = animations.find(currentState) != animations.end();
 	if (curState == false || animations.empty())
 		return;

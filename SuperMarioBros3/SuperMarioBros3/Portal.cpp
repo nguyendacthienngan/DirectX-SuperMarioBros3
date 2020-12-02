@@ -1,6 +1,16 @@
 #include "Portal.h"
+#include "Ultis.h"
+
+CPortal::CPortal()
+{
+}
 
 CPortal::CPortal(D3DXVECTOR2 size)
+{
+	Init(size);
+}
+
+void CPortal::Init(D3DXVECTOR2 size)
 {
 	this->SetTag(GameObjectTags::Portal);
 
@@ -14,16 +24,16 @@ CPortal::CPortal(D3DXVECTOR2 size)
 
 	physiscBody->SetDynamic(false);
 
-	sceneID = -1;
+	sceneID = "";
 	cameraID = -1;
 }
 
-void CPortal::SetSceneID(int id)
+void CPortal::SetSceneID(std::string id)
 {
 	sceneID = id;
 }
 
-int CPortal::GetSceneID()
+std::string CPortal::GetSceneID()
 {
 	return sceneID;
 }

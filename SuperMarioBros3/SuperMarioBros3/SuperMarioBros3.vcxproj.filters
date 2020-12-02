@@ -199,6 +199,9 @@
     <Filter Include="Framework\Game\Portal\Label">
       <UniqueIdentifier>{d86026b8-af42-4dcd-9af5-6906c0053b24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Scene\World-map-1">
+      <UniqueIdentifier>{fc00be8a-53f1-40e4-a77b-2e1e56799e05}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Game\GameObject\UI">
       <UniqueIdentifier>{bbcf641f-88ba-4532-b36d-d8c116d78fd4}</UniqueIdentifier>
     </Filter>
@@ -208,9 +211,6 @@
     <Filter Include="Game\GameObject\UI\HUD">
       <UniqueIdentifier>{1f7d6085-9ac2-475e-86ee-66fc0cae8d55}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameObject\UI\Font">
-      <UniqueIdentifier>{129b1121-236f-4d68-88e5-601a20e18132}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\GameObject\UI\HUD\P-meter">
       <UniqueIdentifier>{59a60539-8f54-407b-abb3-378157a253b8}</UniqueIdentifier>
     </Filter>
@@ -219,6 +219,27 @@
     </Filter>
     <Filter Include="Game\GameObject\UI\HUD\P-meter\P-icon">
       <UniqueIdentifier>{aa309ae4-24d2-4cd9-b8c9-3c212782f96f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\Font">
+      <UniqueIdentifier>{129b1121-236f-4d68-88e5-601a20e18132}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Mario\MarioMap">
+      <UniqueIdentifier>{7621f308-d259-4aa1-b866-6b7e535f72de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\World-Item">
+      <UniqueIdentifier>{60bad5f3-4431-47f4-9b50-b49a9109f1a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\World-Item\Gate">
+      <UniqueIdentifier>{82a85443-ef03-4d04-b398-0766305e977f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\World-Item\Gate\SceneGate">
+      <UniqueIdentifier>{cbc79cbc-c623-49d6-b63e-66f7a488270a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\World-Item\Item">
+      <UniqueIdentifier>{1540373e-7cc3-4592-b42a-bb78151cf939}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\World-Item\SlaveMonkey">
+      <UniqueIdentifier>{0eaee216-c3c8-4c2a-b198-09def02448b5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -537,6 +558,30 @@
     <ClInclude Include="PMeterConst.h">
       <Filter>Game\GameObject\UI\HUD\P-meter</Filter>
     </ClInclude>
+    <ClInclude Include="WorldMap1.h">
+      <Filter>Game\Scene\World-map-1</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioMap.h">
+      <Filter>Game\GameObject\Mario\MarioMap</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioMapConst.h">
+      <Filter>Game\GameObject\Mario\MarioMap</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldItemConst.h">
+      <Filter>Game\GameObject\World-Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Grass.h">
+      <Filter>Game\GameObject\World-Item\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="HelpItem.h">
+      <Filter>Game\GameObject\World-Item\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="StartItem.h">
+      <Filter>Game\GameObject\World-Item\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneGate.h">
+      <Filter>Game\GameObject\World-Item\Gate\SceneGate</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -761,6 +806,24 @@
     <ClCompile Include="PIcon.cpp">
       <Filter>Game\GameObject\UI\HUD\P-meter\P-icon</Filter>
     </ClCompile>
+    <ClCompile Include="WorldMap1.cpp">
+      <Filter>Game\Scene\World-map-1</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioMap.cpp">
+      <Filter>Game\GameObject\Mario\MarioMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Grass.cpp">
+      <Filter>Game\GameObject\World-Item\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="HelpItem.cpp">
+      <Filter>Game\GameObject\World-Item\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="StartItem.cpp">
+      <Filter>Game\GameObject\World-Item\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneGate.cpp">
+      <Filter>Game\GameObject\World-Item\Gate\SceneGate</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SuperMarioBros3.rc">
@@ -804,9 +867,18 @@
     <Image Include="Resources\Textures\effect_blue_x3.png">
       <Filter>Game\Resouces\Textures</Filter>
     </Image>
+    <Image Include="Resources\Textures\MapSelection(x3).png">
+      <Filter>Game\Resouces\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Maps\Test map\tileset(x3).png">
+      <Filter>Game\Resouces\Maps\Test map</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Maps\Test map\world-1-1-map.tmx">
+      <Filter>Game\Resouces\Maps\Test map</Filter>
+    </None>
+    <None Include="Resources\Maps\Test map\world-map-1(x3)(2).tmx">
       <Filter>Game\Resouces\Maps\Test map</Filter>
     </None>
   </ItemGroup>
@@ -846,6 +918,15 @@
     </Xml>
     <Xml Include="Resources\Scenes\UICamera.xml">
       <Filter>Game\Resouces\Scenes</Filter>
+    </Xml>
+    <Xml Include="Resources\Scenes\World1.xml">
+      <Filter>Game\Resouces\Scenes</Filter>
+    </Xml>
+    <Xml Include="Resources\Sprites\MapSelectionDB.xml">
+      <Filter>Game\Resouces\Sprites</Filter>
+    </Xml>
+    <Xml Include="Resources\Animations\MapSelectionAnim.xml">
+      <Filter>Game\Resouces\Animations</Filter>
     </Xml>
   </ItemGroup>
 </Project>

@@ -60,6 +60,11 @@ bool CAnimationManager::Init()
 		DebugOut(L"[ERROR] Cannot Load UI Animation File \n");
 		return false;
 	}
+	if (InitAnAnimationSet(TEXTURE_WORLD_1, root->GetFilePathByCategory(CATEGORY_ANIMATION, DB_ANIMATION_WORLD_1)) == false)
+	{
+		DebugOut(L"[ERROR] Cannot Load UI Animation File \n");
+		return false;
+	}
 	return true;
 }
 
