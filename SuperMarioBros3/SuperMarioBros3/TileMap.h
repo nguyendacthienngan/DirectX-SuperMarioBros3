@@ -40,7 +40,7 @@ struct TileSet
 	LPDIRECT3DTEXTURE9 texture;
 	void Clear()
 	{
-		if (texture != NULL) delete texture;
+		if (texture != NULL) texture->Release();
 		texture = NULL;
 	}
 };

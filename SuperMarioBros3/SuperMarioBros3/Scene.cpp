@@ -155,8 +155,8 @@ void CScene::Unload()
 			gameObjects[i] = NULL;
 		}
 	}*/
-	delete map;
-	map = NULL;
+	//delete map;
+	//map = NULL;
 	camera = NULL;
 	gameObjects.clear();
 }
