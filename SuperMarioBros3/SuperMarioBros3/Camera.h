@@ -53,7 +53,7 @@ public:
 	void SetCurrentBoundary(RectF bound);
 
 	CameraPropertieSet GetCameraProperties(int id);
-	void AddCameraProperties(int id, D3DXVECTOR2 pos, RectF boundary);
+	void AddCameraProperties(int id, D3DXVECTOR2 pos, RectF boundary, bool isDisableX, bool isDiableY);
 	void AddCameraProperties(int id, CameraPropertieSet camProps);
 
 	LPGameObject GetGameObject();
@@ -70,6 +70,8 @@ struct CameraPropertieSet
 {
 	D3DXVECTOR2 camPosition; // tọa độ trái trên
 	RectF boundarySet;
+	bool disableX;
+	bool disableY;
 	static CameraPropertieSet Empty()
 	{
 		D3DXVECTOR2 pos(-1, -1);

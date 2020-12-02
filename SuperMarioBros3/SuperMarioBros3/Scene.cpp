@@ -32,10 +32,8 @@ void CScene::Load()
 	}
 	TiXmlElement* root = sceneFile.RootElement();
 	CMarioController* player = NULL;
-	int i = 0;
 	for (TiXmlElement* scene = root->FirstChildElement(); scene != NULL; scene = scene->NextSiblingElement())
 	{
-		DebugOut(L"Thu tu %d \n", i++);
 		string name = scene->Attribute("name");
 		if (name.compare("Player") == 0)
 		{
@@ -111,7 +109,7 @@ void CScene::Load()
 				boundary->QueryIntAttribute("disX", &disX);
 				boundary->QueryIntAttribute("disY", &disY);
 
-				camera->AddCameraProperties(id, pos, bound);
+				camera->AddCameraProperties(id, pos, bound, disX, disY);
 				if (start == id)
 				{
 					camera->SetCurrentBoundary(bound);
@@ -124,7 +122,6 @@ void CScene::Load()
 			{
 				camera->SetGameObject(player->GetCurrentStateObject());
 			}
-			
 		}
 		if (name.compare("Player-Map") == 0)
 		{
@@ -256,7 +253,8 @@ void CScene::SetCamera(int id)
 	{
 		camera->SetCurrentBoundary(camProps.boundarySet);
 		camera->SetPositionCam(camProps.camPosition);
-		DebugOut(L"Camera %f, %f \n", camera->GetPositionCam().x, camera->GetPositionCam().y);
+		camera->SetDisablePosX(camProps.disableX);
+		camera->SetDisablePosY(camProps.disableY);
 	}
 }
 

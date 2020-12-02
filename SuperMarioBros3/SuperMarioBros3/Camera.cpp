@@ -182,9 +182,9 @@ CameraPropertieSet CCamera::GetCameraProperties(int id)
     return CameraPropertieSet::Empty();
 }
 
-void CCamera::AddCameraProperties(int id, D3DXVECTOR2 pos, RectF boundary)
+void CCamera::AddCameraProperties(int id, D3DXVECTOR2 pos, RectF boundary, bool isDisableX, bool isDiableY)
 {
-    this->cameraPropertieSets.insert(make_pair(id, CameraPropertieSet{ pos, boundary }));
+    this->cameraPropertieSets.insert(make_pair(id, CameraPropertieSet{ pos, boundary, isDisableX, isDiableY }));
 }
 
 void CCamera::AddCameraProperties(int id, CameraPropertieSet camProps)
