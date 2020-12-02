@@ -54,6 +54,7 @@ void CScene::Load()
 			DebugOut(L"[INFO] Load map \n");
 			string sourceMap = scene->Attribute("source");
 			string fileMap = scene->Attribute("fileName");
+			this->map = NULL;
 			this->map = new CMap(sourceMap, fileMap); // Ham nay tu load map
 			auto mapObjs = map->GetListGameObjects();
 			for (auto obj : mapObjs)
@@ -138,27 +139,39 @@ void CScene::Load()
 		}
 	}
 	loaded = true;
+	DebugOut(L"AAAAAAAAAAAAAA LOAD DUOC ROI ! \n");
 }
 
 void CScene::Unload()
 {
 	loaded = false;
-	DebugOut(L"AAAAAAAAA \n");
-	/*if (gameObjects.size() > 0)
+	if (gameObjects.size() > 0)
 	{
-		for (int i = 0; i < gameObjects.size() -1 ; i++)
+		for (int i = 0; i < gameObjects.size(); i++)
 		{
-			if (gameObjects[i]->GetTag() == GameObjectTags::MarioFireBall || gameObjects[i]->GetTag() == GameObjectTags::PlayerController)
-				continue;
-			RemoveObject(gameObjects[i]);
-			delete gameObjects[i];
-			gameObjects[i] = NULL;
+			gameObjects[i]->SetDestroy(true);
 		}
-	}*/
-	//delete map;
-	//map = NULL;
-	camera = NULL;
-	gameObjects.clear();
+	}
+}
+
+void CScene::DestroyObject()
+{
+	if (loaded == false)
+	{
+		for (auto gO : gameObjects)
+		{
+			if (gO->IsDestroyed() == true)
+			{
+				RemoveObject(gO);
+				delete gO;
+				gO = NULL;
+			}
+		}
+		gameObjects.clear();
+		delete map;
+		map = NULL;
+		camera = NULL;
+	}
 }
 
 void CScene::Update(DWORD dt)
@@ -197,6 +210,16 @@ void CScene::Render()
 			obj->GetCollisionBox()->at(0)->Render(camera, CollisionBox_Render_Distance);
 	}
 	map->Render(camera, true);
+}
+
+std::vector<LPGameObject> CScene::GetDestroyObjects()
+{
+	return destroyObjects;
+}
+
+std::vector<LPGameObject> CScene::GetInitObjects()
+{
+	return std::vector<LPGameObject>();
 }
 
 void CScene::AddObject(LPGameObject gameObject)

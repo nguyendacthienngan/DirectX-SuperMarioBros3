@@ -78,7 +78,6 @@ void CMarioMap::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox
 		if (sceneID.compare("") != 0)
 		{
 			this->sceneID = sceneID;
-			
 		}
 	}
 }

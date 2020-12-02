@@ -47,6 +47,16 @@ void CGame::Init()
 
 }
 
+void CGame::Request()
+{
+	CSceneManager::GetInstance()->LoadRequestScene();
+	/*auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	if (activeScene != nullptr)
+	{
+		auto 
+	}*/
+}
+
 void CGame::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
 {
 	this->fps = fps;
@@ -130,6 +140,7 @@ void CGame::Run()
 			if (deltaTime >= tickPerFrame) // chuyển frame mới
 			{
 				frameStart = currentTime;
+				Request();
 				// Process key
 				auto keyboardManger = CKeyboardManager::GetInstance();
 				keyboardManger->ProcessKeyboard();
@@ -137,6 +148,8 @@ void CGame::Run()
 					continue;
 				Update();
 				Render();
+				Clean();
+				
 				if (deltaTime > tickPerFrame) deltaTime = 0;
 			}
 			else // chưa tới tickperframe nên cho ngủ vì xong việc cho 1 frame ròi
@@ -153,6 +166,7 @@ void CGame::End()
 	DebugOut(L"[INFO] This game is about to end \n");
 
 	CSceneManager::GetInstance()->GetActiveScene()->Unload();
+	CSceneManager::GetInstance()->GetActiveScene()->DestroyObject();
 	CTextureManager::GetInstance()->Clear();
 	CSpriteManager::GetInstance()->Clear();
 	CAnimationManager::GetInstance()->Clear();
@@ -162,6 +176,13 @@ void CGame::End()
 	if (d3ddv != NULL) d3ddv->Release();
 	if (d3d != NULL) d3d->Release();
 	DebugOut(L"[INFO] Bye bye \n");
+}
+
+void CGame::Clean()
+{
+	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	if (activeScene != nullptr)
+		activeScene->DestroyObject();
 }
 
 void CGame::DrawFlipX(D3DXVECTOR2 position, D3DXVECTOR2 pointCenter, LPDIRECT3DTEXTURE9 texture, RECT rect, D3DXCOLOR transcolor)

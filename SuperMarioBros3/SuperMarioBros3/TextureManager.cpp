@@ -41,6 +41,17 @@ void CTextureManager::Clear()
 	textures.clear();
 }
 
+void CTextureManager::ClearTextureById(std::string texname)
+{
+	auto tex = GetTexture(texname);
+	if (tex != nullptr)
+	{
+		textures.erase(texname);
+		tex->Release();
+		tex = NULL;
+	}
+}
+
 void CTextureManager::LoadTexture(string  texName, string texPath)
 {
 	Add(texName, texPath, D3DCOLOR_XRGB(255, 255, 255));

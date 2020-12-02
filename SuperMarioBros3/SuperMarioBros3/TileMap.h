@@ -4,7 +4,7 @@
 #include "tinyxml.h"
 #include <map>
 #include <vector>
-
+#include "TextureManager.h"
 struct TileSet;
 struct Layer;
 
@@ -38,10 +38,10 @@ struct TileSet
 	int tileCount;
 	int columns;
 	LPDIRECT3DTEXTURE9 texture;
+	std::string textureID;
 	void Clear()
 	{
-		if (texture != NULL) texture->Release();
-		texture = NULL;
+		CTextureManager::GetInstance()->ClearTextureById(textureID);
 	}
 };
 

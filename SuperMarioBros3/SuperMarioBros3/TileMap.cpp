@@ -154,6 +154,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 			TiXmlElement* imgDom = element->FirstChildElement("image");
 			string imgPath = imgDom->Attribute("source");
 			imgPath = filePath + imgPath;
+			tileSet->textureID = std::to_string(tileSet->firstgid);
 			CTextureManager::GetInstance()->Add(std::to_string(tileSet->firstgid), imgPath, D3DCOLOR_ARGB(0, 0, 0, 0));
 			tileSet->texture = CTextureManager::GetInstance()->GetTexture(std::to_string(tileSet->firstgid));
 			gameMap->tileSets[tileSet->firstgid] = tileSet;

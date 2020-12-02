@@ -18,16 +18,26 @@ CGameObject::CGameObject()
 
 CGameObject::~CGameObject()
 {
-	/*if (physiscBody != NULL) delete physiscBody;
+	if (physiscBody != NULL) delete physiscBody;
 	for (auto col : *collisionBoxs)
 		delete col;
 	collisionBoxs->clear();
-	delete collisionBoxs;*/
+	delete collisionBoxs;
 }
 
 
 void CGameObject::Init()
 {
+}
+
+bool CGameObject::IsDestroyed()
+{
+	return isDestroyed;
+}
+
+void CGameObject::SetDestroy(bool isDes)
+{
+	this->isDestroyed = isDes;
 }
 
 void CGameObject::Clear()
