@@ -244,6 +244,12 @@
     <Filter Include="Framework\Game\Portal\BasePortal">
       <UniqueIdentifier>{7ec28254-5b0f-489d-bad3-1a4e9682ba47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Game\Graph">
+      <UniqueIdentifier>{b0251d67-0cca-41d1-9257-19238c6157e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\World-Item\Node">
+      <UniqueIdentifier>{1f351b00-1cb9-44ff-8bc4-70ac95c4bf4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -588,6 +594,15 @@
     <ClInclude Include="BasePortal.h">
       <Filter>Framework\Game\Portal\BasePortal</Filter>
     </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Framework\Game\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph.h">
+      <Filter>Framework\Game\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeMap.h">
+      <Filter>Files\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -832,6 +847,15 @@
     </ClCompile>
     <ClCompile Include="BasePortal.cpp">
       <Filter>Framework\Game\Portal\BasePortal</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Framework\Game\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Graph.cpp">
+      <Filter>Framework\Game\Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeMap.cpp">
+      <Filter>Files\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

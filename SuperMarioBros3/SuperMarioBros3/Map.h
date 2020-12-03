@@ -28,6 +28,7 @@ public:
 	void Render(CCamera* camera, bool isRenderForeground);
 
 	std::vector<LPGameObject> GetListGameObjects();
+	CTileMap* GetTileMap();
 };
 
 #endif

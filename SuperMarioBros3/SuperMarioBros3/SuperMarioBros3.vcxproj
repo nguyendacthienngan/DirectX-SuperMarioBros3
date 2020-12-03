@@ -167,6 +167,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyConst.h" />
     <ClInclude Include="Font.h" />
+    <ClInclude Include="Graph.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="HelpItem.h" />
     <ClInclude Include="HUD.h" />
@@ -212,6 +213,8 @@
     <ClInclude Include="MiscConst.h" />
     <ClInclude Include="MushroomConst.h" />
     <ClInclude Include="MushroomEffect.h" />
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="NodeMap.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="ParaGoomba.h" />
     <ClInclude Include="ParaKoopa.h" />
@@ -276,6 +279,7 @@
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Font.cpp" />
+    <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="HelpItem.cpp" />
     <ClCompile Include="HUD.cpp" />
@@ -306,6 +310,8 @@
     <ClCompile Include="MarioMap.cpp" />
     <ClCompile Include="Misc.cpp" />
     <ClCompile Include="MushroomEffect.cpp" />
+    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="NodeMap.cpp" />
     <ClCompile Include="ObjectPool.cpp" />
     <ClCompile Include="ParaGoomba.cpp" />
     <ClCompile Include="ParaKoopa.cpp" />

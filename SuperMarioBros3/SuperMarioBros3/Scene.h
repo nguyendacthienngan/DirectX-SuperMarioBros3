@@ -41,6 +41,7 @@ public:
 
 	void SetCamera(int id);
 	CCamera* GetCamera() { return camera; }
+	CMap* GetMap() { return map; }
 	std::vector<LPGameObject> GetObjects();
 	LPGameObject GetPlayer();
 	void AddObject(LPGameObject gameObject);

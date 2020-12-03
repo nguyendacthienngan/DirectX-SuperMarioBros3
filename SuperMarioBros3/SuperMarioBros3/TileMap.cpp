@@ -31,6 +31,7 @@
 #include "StartItem.h"
 #include "SceneGate.h"
 #include "WorldItemConst.h"
+#include "NodeMap.h"
 
 CTileMap::CTileMap()
 {
@@ -135,6 +136,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 		OutputDebugString(L"Loading TMX \n");
 		TiXmlElement* root = doc.RootElement();
 		CTileMap* gameMap = new CTileMap();
+		gameMap->graph = new CGraph();
 
 		root->QueryIntAttribute("width", &gameMap->width);
 		root->QueryIntAttribute("height", &gameMap->height);
@@ -419,58 +421,197 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				}
 				else if (name.compare("Portal-Scene") == 0)
 				{
-					int cameraID = -1;
-					std::string sceneID = "";
-					std::string type = object->Attribute("type");
-					std::string sceneName = object->Attribute("name");
-					if (type.compare("scene") == 0)
+				int cameraID = -1;
+				std::string sceneID = "";
+				std::string type = object->Attribute("type");
+				std::string sceneName = object->Attribute("name");
+				if (type.compare("scene") == 0)
+				{
+					CSceneGate* portal = new CSceneGate(size);
+					portal->SetPosition(position - translateConst + size * 0.5);
+					if (sceneName.compare("scene-1") == 0)
 					{
-						CSceneGate* portal = new CSceneGate(size);
-						portal->SetPosition(position - translateConst + size * 0.5);
-						if (sceneName.compare("scene-1") == 0)
-							portal->SetState(SCENE_1_ANIMATION);
-						if (sceneName.compare("scene-2") == 0)
-							portal->SetState(SCENE_2_ANIMATION);
-						if (sceneName.compare("scene-3") == 0)
-							portal->SetState(SCENE_1_ANIMATION);
-						if (sceneName.compare("scene-3") == 0)
-							portal->SetState(SCENE_3_ANIMATION);
-						if (sceneName.compare("scene-4") == 0)
-							portal->SetState(SCENE_4_ANIMATION);
-						if (sceneName.compare("scene-5") == 0)
-							portal->SetState(SCENE_5_ANIMATION);
-						if (sceneName.compare("scene-6") == 0)
-							portal->SetState(SCENE_6_ANIMATION);
-						if (sceneName.compare("spade") == 0)
-							portal->SetState(SPADE_ANIMATION);
-						if (sceneName.compare("castle") == 0)
-							portal->SetState(CASTLE_ANIMATION);
-						if (sceneName.compare("domed-gate") == 0)
-							portal->SetState(DOMED_ANIMATION);
-						if (sceneName.compare("mushroom-gate") == 0)
-							portal->SetState(MUSHROOM_ANIMATION);
-						TiXmlElement* properties = object->FirstChildElement();
-						if (properties != NULL)
+						portal->SetState(SCENE_1_ANIMATION);
+						portal->AddAdjacencyNode(1);
+						portal->AddAdjacencyNode(3);
+					}
+					if (sceneName.compare("scene-2") == 0)
+					{
+						portal->SetState(SCENE_2_ANIMATION);
+						portal->AddAdjacencyNode(3);
+						portal->AddAdjacencyNode(5);
+					}
+					if (sceneName.compare("scene-3") == 0)
+					{
+						portal->SetState(SCENE_3_ANIMATION);
+						portal->AddAdjacencyNode(4);
+						portal->AddAdjacencyNode(6);
+					}
+					if (sceneName.compare("scene-4") == 0)
+					{
+						portal->SetState(SCENE_4_ANIMATION);
+						portal->AddAdjacencyNode(7);
+						portal->AddAdjacencyNode(9);
+
+					}
+					if (sceneName.compare("scene-5") == 0)
+					{
+						portal->SetState(SCENE_5_ANIMATION);
+						portal->AddAdjacencyNode(14);
+						portal->AddAdjacencyNode(15);
+
+					}
+					if (sceneName.compare("scene-6") == 0)
+					{
+						portal->SetState(SCENE_6_ANIMATION);
+						portal->AddAdjacencyNode(16);
+						portal->AddAdjacencyNode(18);
+
+					}
+					if (sceneName.compare("spade") == 0)
+					{
+						portal->SetState(SPADE_ANIMATION);
+						portal->AddAdjacencyNode(9);
+						portal->AddAdjacencyNode(11);
+
+					}
+					if (sceneName.compare("castle") == 0)
+					{
+						portal->SetState(CASTLE_ANIMATION);
+						portal->AddAdjacencyNode(10);
+						portal->AddAdjacencyNode(12);
+
+					}
+					if (sceneName.compare("domed-gate") == 0)
+					{
+						portal->SetState(DOMED_ANIMATION);
+						portal->AddAdjacencyNode(1);
+						portal->AddAdjacencyNode(12);
+
+					}
+					if (sceneName.compare("mushroom-gate-1") == 0)
+					{
+						portal->SetState(MUSHROOM_ANIMATION);
+						portal->AddAdjacencyNode(6);
+						portal->AddAdjacencyNode(8);
+
+					}
+					if (sceneName.compare("mushroom-gate-2") == 0)
+					{
+						portal->SetState(MUSHROOM_ANIMATION);
+						portal->AddAdjacencyNode(18);
+					}
+					TiXmlElement* properties = object->FirstChildElement();
+					if (properties != NULL)
+					{
+						for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
 						{
-							for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
+							std::string propName = property->Attribute("name");
+							if (propName.compare("cameraID") == 0)
 							{
-								std::string propName = property->Attribute("name");
-								if (propName.compare("cameraID") == 0)
+								property->QueryIntAttribute("value", &cameraID);
+								portal->SetCameraID(cameraID);
+							}
+							if (propName.compare("sceneID") == 0)
+							{
+								sceneID = property->Attribute("value");
+								portal->SetSceneID(sceneID);
+							}
+							if (propName.compare("nodeID") == 0)
+							{
+								int nodeID;
+								property->QueryIntAttribute("value", &nodeID);
+								portal->SetNodeID(nodeID);
+							}
+						}
+						if (portal != NULL)
+						{
+							gameMap->graph->AddNode(portal);
+							listGameObjects.push_back(portal);
+						}
+
+					}
+
+				}
+				if (type.compare("node") == 0)
+				{
+					CNodeMap* node = new CNodeMap(size);
+					node->SetPosition(position - translateConst + size * 0.5);
+					TiXmlElement* properties = object->FirstChildElement();
+					if (properties != NULL)
+					{
+						for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
+						{
+							std::string propName = property->Attribute("name");
+							if (propName.compare("nodeID") == 0)
+							{
+								int nodeID;
+								property->QueryIntAttribute("value", &nodeID);
+								node->SetNodeID(nodeID);
+								if (nodeID == 0)
 								{
-									property->QueryIntAttribute("value", &cameraID);
-									portal->SetCameraID(cameraID);
+									node->AddAdjacencyNode(1);
+									node->AddAdjacencyNode(2);
 								}
-								if (propName.compare("sceneID") == 0)
+								if (nodeID == 1)
 								{
-									sceneID = property->Attribute("value");
-									portal->SetSceneID(sceneID);
+									node->AddAdjacencyNode(0);
+									node->AddAdjacencyNode(2);
+								}
+								if (nodeID == 3)
+								{
+									node->AddAdjacencyNode(2);
+									node->AddAdjacencyNode(4);
+								}
+								if (nodeID == 6)
+								{
+									node->AddAdjacencyNode(5);
+									node->AddAdjacencyNode(7);
+								}
+								if (nodeID == 9)
+								{
+									node->AddAdjacencyNode(8);
+									node->AddAdjacencyNode(10);
+									node->AddAdjacencyNode(4);
+
+								}
+								if (nodeID == 12)
+								{
+									node->AddAdjacencyNode(11);
+									node->AddAdjacencyNode(13);
+									node->AddAdjacencyNode(14);
+								}
+								if (nodeID == 14)
+								{
+									node->AddAdjacencyNode(12);
+									node->AddAdjacencyNode(15);
+								}
+								if (nodeID == 16)
+								{
+									node->AddAdjacencyNode(15);
+									node->AddAdjacencyNode(17);
+								}
+								if (nodeID == 18)
+								{
+									node->AddAdjacencyNode(17);
+									node->AddAdjacencyNode(19);
+									node->AddAdjacencyNode(20);
+								}
+								if (nodeID == 20)
+								{
+									node->AddAdjacencyNode(18);
+									node->AddAdjacencyNode(21);
+								}
+								if (nodeID == 21)
+								{
+									node->AddAdjacencyNode(10);
 								}
 							}
-							if (portal != NULL)
-								listGameObjects.push_back(portal);
 						}
-						
-						
+					}
+					if (node != NULL)
+						gameMap->graph->AddNode(node);
+
 					}
 				}
 			}
@@ -547,6 +688,11 @@ void CTileMap::RenderLayer(Layer* layer, int i, int j, int x, int y)
 		r.bottom = r.top + tileSize.y;
 		CGame::GetInstance()->Draw(D3DXVECTOR2(x, y), D3DXVECTOR2(tileSize.x / 2, tileSize.y / 2), texture, r, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
+}
+
+CGraph* CTileMap::GetGraph()
+{
+	return graph;
 }
 
 CTileMap::~CTileMap()

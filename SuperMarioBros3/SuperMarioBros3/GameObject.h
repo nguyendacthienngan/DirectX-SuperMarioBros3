@@ -14,6 +14,7 @@
 #include "CollisionBox.h"
 #include "GameObjectTags.h"
 #include "Scene.h"
+#include "Node.h"
 
 class CScene;
 typedef CScene* LPScene;
@@ -39,7 +40,7 @@ typedef CAnimation* LPAnimation;
 // Vì như vậy sẽ làm cho việc animation quá đồng bộ và không tự nhiên
 // Nhưng lưu ý khi cloneanimation và setstate nhớ đặt tên giống nhau !
 
-class CGameObject
+class CGameObject: public CNode
 {
 protected:
 	int id;

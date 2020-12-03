@@ -51,3 +51,8 @@ std::vector<LPGameObject> CMap::GetListGameObjects()
 {
 	return listGameObjects;
 }
+
+CTileMap* CMap::GetTileMap()
+{
+	return tileMap;
+}

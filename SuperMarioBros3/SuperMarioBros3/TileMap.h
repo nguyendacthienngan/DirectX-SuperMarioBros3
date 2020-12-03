@@ -5,9 +5,10 @@
 #include <map>
 #include <vector>
 #include "TextureManager.h"
+#include "Graph.h"
 struct TileSet;
 struct Layer;
-
+class CGraph;
 class CTileMap
 {
 private:
@@ -19,6 +20,7 @@ private:
 	std::map<int, TileSet*> tileSets;
 	std::vector<Layer*> layers;
 	Layer* foreground;
+	CGraph* graph;
 public:
 	CTileMap();
 	CTileMap(int width, int height, int tileWidth, int tileHeight);
@@ -28,6 +30,7 @@ public:
 	static CTileMap* LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects);
 	Layer* LoadLayer(TiXmlElement* layerElement);
 	void RenderLayer(Layer* layer, int i, int j, int x, int y);
+	CGraph* GetGraph();
 	~CTileMap();
 };
 
