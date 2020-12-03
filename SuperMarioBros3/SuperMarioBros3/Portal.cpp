@@ -27,23 +27,3 @@ void CPortal::Init(D3DXVECTOR2 size)
 	sceneID = "";
 	cameraID = -1;
 }
-
-void CPortal::SetSceneID(std::string id)
-{
-	sceneID = id;
-}
-
-std::string CPortal::GetSceneID()
-{
-	return sceneID;
-}
-
-void CPortal::SetCameraID(int id)
-{
-	cameraID = id;
-}
-
-int CPortal::GetCameraID()
-{
-	return cameraID;
-}

@@ -2,6 +2,10 @@
 #include "AnimationManager.h"
 #include "Ultis.h"
 
+CSceneGate::CSceneGate()
+{
+}
+
 CSceneGate::CSceneGate(D3DXVECTOR2 size)
 {
 	Init(size);
@@ -22,10 +26,28 @@ void CSceneGate::LoadAnimation()
 	AddAnimation("MUSHROOM-GATE", animationManager->Get("ani-musroom-gate"));
 	AddAnimation("DOMED-GATE", animationManager->Get("ani-domed-gate"));
 	AddAnimation("SPADE", animationManager->Get("ani-spade"));
-	AddAnimation("CASTLE",animationManager->Get("ani-castle"));
+	AddAnimation("CASTLE", animationManager->Get("ani-castle"));
 }
 
 void CSceneGate::Render(CCamera* cam, int alpha)
 {
 	CGameObject::Render(cam, alpha);
+}
+
+void CSceneGate::Init(D3DXVECTOR2 size)
+{
+	this->SetTag(GameObjectTags::Portal);
+
+	CCollisionBox* box = new CCollisionBox();
+	box->SetSizeBox(size);
+	box->SetGameObjectAttach(this);
+	box->SetName("Portal");
+	box->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
+	this->collisionBoxs->push_back(box);
+	this->isEnabled = true;
+
+	physiscBody->SetDynamic(false);
+
+	sceneID = "";
+	cameraID = -1;
 }

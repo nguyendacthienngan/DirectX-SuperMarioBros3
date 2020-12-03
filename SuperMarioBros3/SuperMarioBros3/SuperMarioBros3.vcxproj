@@ -148,6 +148,7 @@
     <ClInclude Include="AnimationFrame.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="ArrowItemIcon.h" />
+    <ClInclude Include="BasePortal.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockConst.h" />
     <ClInclude Include="Brick.h" />
@@ -263,6 +264,7 @@
     <ClCompile Include="AnimationFrame.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="ArrowItemIcon.cpp" />
+    <ClCompile Include="BasePortal.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BrickEffect.cpp" />
