@@ -423,10 +423,9 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					std::string sceneID = "";
 					std::string type = object->Attribute("type");
 					std::string sceneName = object->Attribute("name");
-					CPortal* portal = NULL;
 					if (type.compare("scene") == 0)
 					{
-						portal = new CSceneGate(size);
+						CSceneGate* portal = new CSceneGate(size);
 						portal->SetPosition(position - translateConst + size * 0.5);
 						if (sceneName.compare("scene-1") == 0)
 							portal->SetState(SCENE_1_ANIMATION);
@@ -451,22 +450,26 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						if (sceneName.compare("mushroom-gate") == 0)
 							portal->SetState(MUSHROOM_ANIMATION);
 						TiXmlElement* properties = object->FirstChildElement();
-						for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
+						if (properties != NULL)
 						{
-							std::string propName = property->Attribute("name");
-							if (propName.compare("cameraID") == 0)
+							for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
 							{
-								property->QueryIntAttribute("value", &cameraID);
-								portal->SetCameraID(cameraID);
+								std::string propName = property->Attribute("name");
+								if (propName.compare("cameraID") == 0)
+								{
+									property->QueryIntAttribute("value", &cameraID);
+									portal->SetCameraID(cameraID);
+								}
+								if (propName.compare("sceneID") == 0)
+								{
+									sceneID = property->Attribute("value");
+									portal->SetSceneID(sceneID);
+								}
 							}
-							if (propName.compare("sceneID") == 0)
-							{
-								sceneID = property->Attribute("value");
-								portal->SetSceneID(sceneID);
-							}
+							if (portal != NULL)
+								listGameObjects.push_back(portal);
 						}
-						if (portal != NULL)
-							listGameObjects.push_back(portal);
+						
 						
 					}
 				}

@@ -36,9 +36,6 @@ public:
 	virtual void Update(DWORD dt); // dt để xác định t va chạm 
 	virtual void Render();
 
-	std::vector<LPGameObject> GetDestroyObjects();
-	std::vector<LPGameObject> GetInitObjects();
-
 	std::string GetSceneId() { return this->id; }
 	D3DCOLOR GetBackgroundColor() { return backgroundColor; }
 

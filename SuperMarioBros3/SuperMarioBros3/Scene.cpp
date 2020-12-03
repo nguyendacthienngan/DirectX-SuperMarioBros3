@@ -136,7 +136,6 @@ void CScene::Load()
 		}
 	}
 	loaded = true;
-	DebugOut(L"AAAAAAAAAAAAAA LOAD DUOC ROI ! \n");
 }
 
 void CScene::Unload()
@@ -207,16 +206,6 @@ void CScene::Render()
 			obj->GetCollisionBox()->at(0)->Render(camera, CollisionBox_Render_Distance);
 	}
 	map->Render(camera, true);
-}
-
-std::vector<LPGameObject> CScene::GetDestroyObjects()
-{
-	return destroyObjects;
-}
-
-std::vector<LPGameObject> CScene::GetInitObjects()
-{
-	return std::vector<LPGameObject>();
 }
 
 void CScene::AddObject(LPGameObject gameObject)
