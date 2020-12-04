@@ -216,6 +216,7 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="NodeMap.h" />
     <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="ParaGoombaConst.h" />
     <ClInclude Include="ParaKoopa.h" />
     <ClInclude Include="ParaKoopaConst.h" />
     <ClInclude Include="PhysicsBody.h" />

@@ -618,6 +618,9 @@
     <ClInclude Include="TanGoomba.h">
       <Filter>Game\GameObject\Enemy\Goomba\TanGoomba</Filter>
     </ClInclude>
+    <ClInclude Include="ParaGoombaConst.h">
+      <Filter>Game\GameObject\Enemy\ParaGoomba</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">

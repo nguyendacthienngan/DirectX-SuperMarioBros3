@@ -279,6 +279,14 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 							listGameObjects.push_back(goomba);
 						}
 					}
+					else if (enemyName.compare("para-goomba") == 0)
+					{
+						CRedParaGoomba* goomba = new CRedParaGoomba();
+						goomba->SetPosition(position - translateGoombaConst);
+						goomba->SetStartPosition(position - translateGoombaConst);
+
+						listGameObjects.push_back(goomba);
+					}
 					else if (enemyName.compare("para-koopa") == 0)
 					{
 						CGreenKoopaShell* koopaShell = new CGreenKoopaShell();
