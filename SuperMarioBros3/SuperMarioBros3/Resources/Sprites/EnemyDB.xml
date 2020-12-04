@@ -15,8 +15,8 @@
 		<Sprite id="spr-tan-para-goomba-flap-0" left="75" top="6"  width="20" height="24" frameTime="100"/>
 		<Sprite id="spr-tan-para-goomba-flap-1" left="99" top="6"  width="20" height="24" frameTime="100"/>
 		<Sprite id="spr-tiny-goomba-fall-0" left="174" top="21"  width="8" height="9" frameTime="100"/>
-		<Sprite id="spr-red-para-goomba-idle-0" left="116" top="40"  width="20" height="19" frameTime="100"/>
-		<Sprite id="spr-red-para-goomba-idle-1" left="140" top="40"  width="20" height="19" frameTime="100"/>
+		<Sprite id="spr-red-para-goomba-idle-0" left="116" top="35"  width="20" height="24" frameTime="100"/>
+		<Sprite id="spr-red-para-goomba-idle-1" left="140" top="35"  width="20" height="24" frameTime="100"/>
 		<Sprite id="spr-red-para-goomba-flap-0" left="66" top="35"  width="20" height="24" frameTime="100"/>
 		<Sprite id="spr-red-para-goomba-flap-1" left="90" top="35"  width="20" height="24" frameTime="100"/>
 		<Sprite id="spr-red-venus-fire-trap-headdown-0" left="7" top="33"  width="16" height="32" frameTime="100"/>

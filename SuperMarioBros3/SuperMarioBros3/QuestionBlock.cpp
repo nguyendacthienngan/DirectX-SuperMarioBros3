@@ -98,7 +98,7 @@ void CQuestionBlock::Bounce(CGameObject* gO)
 	}
 }
 
-void CQuestionBlock::Update(DWORD dt, CCamera* cam)
+void CQuestionBlock::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	if (bounceState == 2)
 	{

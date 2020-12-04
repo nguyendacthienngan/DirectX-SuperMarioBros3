@@ -7,14 +7,11 @@
 CGoomba::CGoomba()
 {
 	CGoomba::Init();
-	SetState(GOOMBA_STATE_WALK);
-	currentPhysicsState = GoombaState::Walk;
-	enemyTag = EnemyTag::Goomba;
 }
 
 void CGoomba::Init()
 {
-	LoadAnimation();
+	//LoadAnimation();
 	isEnabled = true;
 	isJumpMaxHeight = false;
 
@@ -30,14 +27,14 @@ void CGoomba::Init()
 	physiscBody->SetGravity(GOOMBA_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 	beforeHitPosition = D3DXVECTOR2(0.0f, 0.0f);
+
+	currentPhysicsState = GoombaState::Walk;
+	enemyTag = EnemyTag::Goomba;
 }
 
 void CGoomba::LoadAnimation()
 {
-	auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(GOOMBA_STATE_WALK, animationManager->Clone("ani-goomba-walk"));
-	AddAnimation(GOOMBA_STATE_DIE, animationManager->Clone("ani-goomba-die"));
-	AddAnimation(GOOMBA_STATE_IDLE, animationManager->Clone("ani-goomba-idle"));
+	
 }
 
 void CGoomba::Update(DWORD dt, CCamera* cam, CCamera* uiCam)

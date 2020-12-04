@@ -1,4 +1,4 @@
-#include "MushroomEffect.h"
+﻿#include "MushroomEffect.h"
 #include "AnimationManager.h"
 #include "EffectConst.h"
 #include "MushroomConst.h"
@@ -21,6 +21,8 @@ CMushroomEffect::CMushroomEffect()
 	physiscBody->SetGravity(MUSHROOM_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 	physiscBody->SetDynamic(true);
+
+	appearingCounting = 0;
 }
 
 void CMushroomEffect::LoadAnimation()
@@ -29,10 +31,10 @@ void CMushroomEffect::LoadAnimation()
 	AddAnimation(MUSHROOM_EFFECT, animations->Get("ani-super-mushroom"));
 }
 
-void CMushroomEffect::Update(DWORD dt, CCamera* cam)
+void CMushroomEffect::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
-	DebugOut(L"Gravity Mushroom: %f \n", physiscBody->GetGravity());
 	auto velocity = physiscBody->GetVelocity();
+	auto normal = physiscBody->GetNormal();
 	if (isAppearing == true)
 	{
 		velocity.y = -MUSHROOM_PUSH_FORCE;
@@ -41,7 +43,10 @@ void CMushroomEffect::Update(DWORD dt, CCamera* cam)
 	}
 	else
 	{
-		velocity.x = marioFacing * MUSHROOM_SPEED;
+		appearingCounting++;
+		if (appearingCounting == 1) // Lần đầu xuất hiện sẽ xuất hiện theo mario facing, sau đó thì dựa theo facing của chính cục nấm 
+			normal.x = marioFacing;
+		velocity.x = normal.x * MUSHROOM_SPEED;
 	}
 	physiscBody->SetVelocity(velocity);
 }

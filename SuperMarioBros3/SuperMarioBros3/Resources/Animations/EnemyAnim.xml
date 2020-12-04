@@ -35,37 +35,41 @@
 		<Animation aniId="ani-red-goomba-die" frameTime="100" name = "DIE">
 			<Sprite id="spr-red-goomba-die-0" left="145" top="77"  width="16" height="9"/>
 		</Animation>
-		
-		<!--Tan Para Goomba (Goomba nâu có cánh) --> 
-	 	<!-- Animation IDLE-->
-		 	<Animation aniId="ani-tan-para-goomba-idle" frameTime="100" name = "IDLE">
-			<Sprite id="spr-tan-para-goomba-idle-0" left="75" top="6"  width="20" height="24"/>
-		</Animation>
-		<!-- Animation FLY-->
-		<Animation aniId="ani-tan-para-goomba-fly" frameTime="100" name = "FLY">
-			<Sprite id="spr-tan-para-goomba-fly-0" left="75" top="6"  width="20" height="24"/>
-			<Sprite id="spr-tan-para-goomba-fly-1" left="99" top="6"  width="20" height="24"/>
-			<Sprite id="spr-tan-para-goomba-fly-2" left="125" top="11"  width="20" height="19"/>
-			<Sprite id="spr-tan-para-goomba-fly-3" left="149" top="11"  width="20" height="19"/>
-		</Animation>
+
+    <!--Tan Para Goomba -->
+    <!-- Animation IDLE-->
+    <Animation aniId="ani-tan-para-goomba-idle" frameTime="100" name = "IDLE">
+      <Sprite id="spr-tan-para-goomba-idle-0" left="125" top="11"  width="20" height="19"/>
+      <Sprite id="spr-tan-para-goomba-idle-1" left="149" top="11"  width="20" height="19"/>
+    </Animation>
+    <!-- Animation FLAP-->
+    <Animation aniId="ani-tan-para-goomba-flap" frameTime="100" name = "FLAP">
+      <Sprite id="spr-tan-para-goomba-flap-0" left="75" top="6"  width="20" height="24"/>
+      <Sprite id="spr-tan-para-goomba-flap-1" left="99" top="6"  width="20" height="24"/>
+    </Animation>
 
 		<!--Tiny Goomba (Goomba con) --> 
 		<Animation aniId="ani-tiny-goomba-fall" frameTime="100" name = "FALL">
 			<Sprite id="spr-tiny-goomba-fall-0" left="174" top="21"  width="8" height="9"/>
 		</Animation>
 
-		<!--Red Para Goomba (Goomba nâu có cánh) --> 
-	 	<!-- Animation IDLE-->
-		 <Animation aniId="ani-red-para-goomba-idle" frameTime="100" name = "IDLE">
-			<Sprite id="spr-red-para-goomba-idle-0" left="66" top="35"  width="20" height="24"/>
-		</Animation>
-		<!-- Animation FLY-->
-		<Animation aniId="ani-red-para-goomba-fly" frameTime="100" name = "FLY">
-			<Sprite id="spr-red-para-goomba-fly-0" left="66" top="35"  width="20" height="24"/>
-			<Sprite id="spr-red-para-goomba-fly-1" left="90" top="35"  width="20" height="24"/>
-			<Sprite id="spr-red-para-goomba-fly-2" left="116" top="40"  width="20" height="19"/>
-			<Sprite id="spr-red-para-goomba-fly-3" left="140" top="40"  width="20" height="19"/>
-		</Animation>
+    <!--Red Para Goomba-->
+    <!-- Animation IDLE-->
+    <Animation aniId="ani-red-para-goomba-idle" frameTime="150" name = "IDLE">
+      <Sprite id="spr-red-para-goomba-idle-0" left="116" top="40"  width="20" height="19"/>
+    </Animation>
+
+    <Animation aniId="ani-red-para-goomba-walk" frameTime="150" name = "WALK">
+      <Sprite id="spr-red-para-goomba-idle-0" left="116" top="40"  width="20" height="19" yPivot="12"/>
+      <Sprite id="spr-red-para-goomba-idle-1" left="140" top="40"  width="20" height="19" yPivot="12"/>
+    </Animation>
+    <!-- Animation FLAP-->
+    <Animation aniId="ani-red-para-goomba-fly" frameTime="150" name = "FLY">
+      <Sprite id="spr-red-para-goomba-flap-0" left="66" top="35"  width="20" height="24"/>
+      <Sprite id="spr-red-para-goomba-idle-1" left="140" top="40"  width="20" height="19" yPivot="12"/>
+      <Sprite id="spr-red-para-goomba-flap-1" left="90" top="35"  width="20" height="24"/>
+      <Sprite id="spr-red-para-goomba-idle-0" left="116" top="40"  width="20" height="19" yPivot="12"/>
+    </Animation>
 		
 		<!--		VENUS		-->
 

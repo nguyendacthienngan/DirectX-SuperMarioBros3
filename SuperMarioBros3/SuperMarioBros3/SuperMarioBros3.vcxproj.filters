@@ -70,9 +70,6 @@
     <Filter Include="Game\GameObject\Mario\MarioStates\RaccoonTail">
       <UniqueIdentifier>{a96c0e5f-441b-4f4f-99b5-c86b9f9e457c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameObject\Enemy\Koopa\KoopaShell">
-      <UniqueIdentifier>{355de57c-101d-4356-b49a-7ab715e6e94c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\GameObject\Enemy\Koopa\RedKoopa">
       <UniqueIdentifier>{d1147070-182c-4013-9aae-9b20d04d76ad}</UniqueIdentifier>
     </Filter>
@@ -250,6 +247,18 @@
     <Filter Include="Game\GameObject\World-Item\Node">
       <UniqueIdentifier>{1f351b00-1cb9-44ff-8bc4-70ac95c4bf4e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Enemy\KoopaShell">
+      <UniqueIdentifier>{355de57c-101d-4356-b49a-7ab715e6e94c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Enemy\Goomba\TanGoomba">
+      <UniqueIdentifier>{8623abe7-6eac-4dce-8baa-926ee4ae84e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Enemy\Goomba\RedGoomba">
+      <UniqueIdentifier>{fdc8bd3f-4b6b-4b04-a0c5-e3da4755a2eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Enemy\ParaGoomba\RedParaGoomba">
+      <UniqueIdentifier>{74843606-372e-4586-9ab4-b91ec3a222dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -418,7 +427,7 @@
       <Filter>Game\GameObject\Mario\MarioStates</Filter>
     </ClInclude>
     <ClInclude Include="KoopaShell.h">
-      <Filter>Game\GameObject\Enemy\Koopa\KoopaShell</Filter>
+      <Filter>Game\GameObject\Enemy\KoopaShell</Filter>
     </ClInclude>
     <ClInclude Include="CollisionBoxConst.h">
       <Filter>Framework\Game\Collision</Filter>
@@ -494,9 +503,6 @@
     </ClInclude>
     <ClInclude Include="BrickConst.h">
       <Filter>Game\GameObject\Misc\Brick</Filter>
-    </ClInclude>
-    <ClInclude Include="ParaGoomba.h">
-      <Filter>Game\GameObject\Enemy\ParaGoomba</Filter>
     </ClInclude>
     <ClInclude Include="ParaKoopa.h">
       <Filter>Game\GameObject\Enemy\ParaKoopa</Filter>
@@ -602,6 +608,18 @@
     </ClInclude>
     <ClInclude Include="NodeMap.h">
       <Filter>Game\GameObject\World-Item\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="RedGoomba.h">
+      <Filter>Game\GameObject\Enemy\Goomba\RedGoomba</Filter>
+    </ClInclude>
+    <ClInclude Include="RedParaGoomba.h">
+      <Filter>Game\GameObject\Enemy\ParaGoomba\RedParaGoomba</Filter>
+    </ClInclude>
+    <ClInclude Include="TanGoomba.h">
+      <Filter>Game\GameObject\Enemy\Goomba\TanGoomba</Filter>
+    </ClInclude>
+    <ClInclude Include="ParaGoombaConst.h">
+      <Filter>Game\GameObject\Enemy\ParaGoomba</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -726,7 +744,7 @@
       <Filter>Game\GameObject\Mario\MarioStates</Filter>
     </ClCompile>
     <ClCompile Include="KoopaShell.cpp">
-      <Filter>Game\GameObject\Enemy\Koopa\KoopaShell</Filter>
+      <Filter>Game\GameObject\Enemy\KoopaShell</Filter>
     </ClCompile>
     <ClCompile Include="MarioCollisionBox.cpp">
       <Filter>Game\GameObject\Mario\BaseMario</Filter>
@@ -769,9 +787,6 @@
     </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>Game\GameObject\Misc\Brick</Filter>
-    </ClCompile>
-    <ClCompile Include="ParaGoomba.cpp">
-      <Filter>Game\GameObject\Enemy\ParaGoomba</Filter>
     </ClCompile>
     <ClCompile Include="ParaKoopa.cpp">
       <Filter>Game\GameObject\Enemy\ParaKoopa</Filter>
@@ -856,6 +871,15 @@
     </ClCompile>
     <ClCompile Include="NodeMap.cpp">
       <Filter>Game\GameObject\World-Item\Node</Filter>
+    </ClCompile>
+    <ClCompile Include="TanGoomba.cpp">
+      <Filter>Game\GameObject\Enemy\Goomba\TanGoomba</Filter>
+    </ClCompile>
+    <ClCompile Include="RedGoomba.cpp">
+      <Filter>Game\GameObject\Enemy\Goomba\RedGoomba</Filter>
+    </ClCompile>
+    <ClCompile Include="RedParaGoomba.cpp">
+      <Filter>Game\GameObject\Enemy\ParaGoomba\RedParaGoomba</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -77,7 +77,6 @@ void CPMeter::Update()
 		if (maxArrowPositionIsCharging >= 0)
 		{
 			arrowItemIcons[maxArrowPositionIsCharging]->SetCharged(false);
-			Sleep(300);
 		}
 		else
 			maxArrowPositionIsCharging = 5;

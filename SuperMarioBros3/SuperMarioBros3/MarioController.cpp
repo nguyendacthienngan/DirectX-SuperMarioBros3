@@ -172,7 +172,7 @@ void CMarioController::OnKeyDown(int KeyCode)
 	}
 }
 
-void CMarioController::Update(DWORD dt, CCamera* cam)
+void CMarioController::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	Process();
 	if (currentStateObject == NULL)

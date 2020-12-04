@@ -5,6 +5,6 @@ class CCoinEffect : public CEffectObject
 public:
 	CCoinEffect();
 	void LoadAnimation();
-	virtual void Update(DWORD dt, CCamera* cam);
+	virtual void Update(DWORD dt, CCamera* cam, CCamera* uiCam) override;
 };
 

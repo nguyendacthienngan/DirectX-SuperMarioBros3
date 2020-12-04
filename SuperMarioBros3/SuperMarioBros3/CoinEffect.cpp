@@ -28,7 +28,7 @@ void CCoinEffect::LoadAnimation()
 	AddAnimation(COIN_STATE_SPIN, animations->Get("ani-coin"));
 }
 
-void CCoinEffect::Update(DWORD dt, CCamera* cam)
+void CCoinEffect::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	if (transform.position.y > startPosition.y && physiscBody->GetVelocity() > 0)
 		isEnabled = false;
