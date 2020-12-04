@@ -87,6 +87,7 @@ void CRedParaGoomba::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	auto vel = physiscBody->GetVelocity();
 	vel.x = RED_PARAGOOMBA_SPEED * normal.x;
 	physiscBody->SetVelocity(vel);
+	DebugOut(L"VEL GOOMBA %f, %f \n", vel.x, vel.y);
 }
 
 bool CRedParaGoomba::IsOnGround()

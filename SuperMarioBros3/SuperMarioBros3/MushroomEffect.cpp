@@ -21,6 +21,8 @@ CMushroomEffect::CMushroomEffect()
 	physiscBody->SetGravity(MUSHROOM_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 	physiscBody->SetDynamic(true);
+
+	appearingCounting = 0;
 }
 
 void CMushroomEffect::LoadAnimation()
@@ -29,19 +31,23 @@ void CMushroomEffect::LoadAnimation()
 	AddAnimation(MUSHROOM_EFFECT, animations->Get("ani-super-mushroom"));
 }
 
-void CMushroomEffect::Update(DWORD dt, CCamera* cam)
+void CMushroomEffect::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
-	DebugOut(L"Gravity Mushroom: %f \n", physiscBody->GetGravity());
 	auto velocity = physiscBody->GetVelocity();
+	auto normal = physiscBody->GetNormal();
 	if (isAppearing == true)
 	{
+
 		velocity.y = -MUSHROOM_PUSH_FORCE;
 		if (abs(startPosition.y) - abs(transform.position.y) > GROW_MAX_HEIGHT)
 			isAppearing = false;
 	}
 	else
 	{
-		velocity.x = marioFacing * MUSHROOM_SPEED;
+		appearingCounting++;
+		if (appearingCounting == 1)
+			normal.x = marioFacing;
+		velocity.x = normal.x * MUSHROOM_SPEED;
 	}
 	physiscBody->SetVelocity(velocity);
 }

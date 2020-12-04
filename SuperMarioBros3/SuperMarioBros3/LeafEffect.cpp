@@ -35,7 +35,7 @@ void CLeafEffect::LoadAnimation()
 	AddAnimation(SUPER_LEAF_FALL_EFFECT, animations->Get("ani-super-leaf-red"));
 }
 
-void CLeafEffect::Update(DWORD dt, CCamera* cam)
+void CLeafEffect::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	// Chiếc lá khi tưng lên 1 khoảng vy
 	auto vel = physiscBody->GetVelocity();

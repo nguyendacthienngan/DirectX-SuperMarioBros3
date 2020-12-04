@@ -14,7 +14,7 @@ public:
 	void Init() override;
 	void SetItemInfo(ItemInfo info);
 	void Bounce(CGameObject* gO);
-	virtual void Update(DWORD dt, CCamera* cam);
+	virtual void Update(DWORD dt, CCamera* cam, CCamera* uiCam) override;
 	virtual void Render(CCamera* cam, int alpha = 255);
 	bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag) override;
 };
