@@ -39,7 +39,6 @@ RECT CNodeMap::DirectionMarioCanMove(D3DXVECTOR2 posMario)
 	{
 		for (auto nodeIndex : adjacencyNodes)
 		{
-			DebugOut(L"NODE INDEX %d \n", nodeIndex);
 			auto node = graph->GetNodeByID(nodeIndex);
 			if (node != NULL)
 			{
@@ -55,6 +54,6 @@ RECT CNodeMap::DirectionMarioCanMove(D3DXVECTOR2 posMario)
 			}
 		}
 	}
-	DebugOut(L" DIRECTION %d %d %d %d \n", direction.left, direction.top, direction.right, direction.bottom);
+	//DebugOut(L" DIRECTION %d %d %d %d \n", direction.left, direction.top, direction.right, direction.bottom);
 	return direction;
 }

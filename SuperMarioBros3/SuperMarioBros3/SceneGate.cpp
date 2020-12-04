@@ -50,6 +50,7 @@ void CSceneGate::Init(D3DXVECTOR2 size)
 	this->isEnabled = true;
 
 	physiscBody->SetDynamic(false);
+	physiscBody->SetTrigger(true);
 
 	sceneID = "";
 	cameraID = -1;

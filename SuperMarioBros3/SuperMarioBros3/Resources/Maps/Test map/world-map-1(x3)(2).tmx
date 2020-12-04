@@ -318,7 +318,7 @@
     <property name="top" type="int" value="0"/>
    </properties>
   </object>
-  <object id="106" name="mushroom-gate" type="scene" x="575.5" y="143" width="48" height="48">
+  <object id="106" name="mushroom-gate-1" type="scene" x="575.5" y="143" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="0"/>
     <property name="left" type="int" value="1"/>
@@ -367,7 +367,7 @@
     <property name="top" type="int" value="0"/>
    </properties>
   </object>
-  <object id="130" name="node-12" type="node" x="192" y="240" width="48" height="48">
+  <object id="130" name="node-12" type="node" x="192" y="241.364" width="48" height="46.6364">
    <properties>
     <property name="bottom" type="int" value="1"/>
     <property name="left" type="int" value="0"/>
@@ -376,7 +376,7 @@
     <property name="top" type="int" value="1"/>
    </properties>
   </object>
-  <object id="109" name="domed-gate" type="scene" x="192" y="192.667" width="48" height="48">
+  <object id="109" name="domed-gate" type="scene" x="192" y="192.667" width="48" height="45.8182">
    <properties>
     <property name="bottom" type="int" value="1"/>
     <property name="left" type="int" value="0"/>
@@ -433,7 +433,7 @@
     <property name="top" type="int" value="0"/>
    </properties>
   </object>
-  <object id="110" name="mushroom-gate" type="scene" x="287.5" y="335.5" width="48" height="48">
+  <object id="110" name="mushroom-gate-2" type="scene" x="287.5" y="335.5" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="0"/>
     <property name="left" type="int" value="0"/>

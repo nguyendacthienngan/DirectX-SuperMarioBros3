@@ -10,12 +10,14 @@
 CMarioMap::CMarioMap()
 {
 	LoadAnimation();
-	//SetTag(GameObjectTags::SmallPlayer);
 	SetState(SMALL_MARIO_MAP_STATE);
 	isEnabled = true;
 	physiscBody->SetDynamic(true);
-	//physiscBody->SetGravity(0.0f);
-	direction = { 0, 0, 0, 0 };
+	physiscBody->SetGravity(0.0f);
+	physiscBody->SetTrigger(true);
+
+	canGoDirection = { 0, 0, 0, 0 };
+	currentDirection = { 0, 0, 0, 0 };
 
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(D3DXVECTOR2(14*3,16*3));
@@ -28,6 +30,7 @@ CMarioMap::CMarioMap()
 	sceneID = "";
 	graph = NULL;
 	currentNode = NULL;
+	moveState = 0; 
 }
 
 void CMarioMap::LoadAnimation()
@@ -55,37 +58,107 @@ void CMarioMap::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 				currentNode = nodes.at(0);
 		}
 	}
-	if (currentNode != NULL)
-	{
-		if (currentNode->GetNodeTag() == NodeTag::Normal)
-		{
-			auto normalNode = static_cast<CNodeMap*>(currentNode);
-			direction = normalNode->DirectionMarioCanMove(normalNode->GetPosition());
-		}
-		if (currentNode->GetNodeTag() == NodeTag::Portal)
-		{
-			auto portalNode = static_cast<CSceneGate*>(currentNode);
-			direction = portalNode->DirectionMarioCanMove(portalNode->GetPosition());
-		}
-	}
 	auto keyboard = CKeyboardManager::GetInstance();
-	float vel = 0.2f;
-	if (keyboard->GetKeyStateDown(DIK_RIGHT) && direction.right == 1)
+	switch (moveState)
 	{
-		transform.position.x += vel * dt;
+		case 0:
+		{
+			if (currentNode != NULL)
+			{
+				if (currentNode->GetNodeTag() == NodeTag::Normal)
+				{
+					auto normalNode = static_cast<CNodeMap*>(currentNode);
+					canGoDirection = normalNode->DirectionMarioCanMove(normalNode->GetPosition());
+				}
+				if (currentNode->GetNodeTag() == NodeTag::Portal)
+				{
+					auto portalNode = static_cast<CSceneGate*>(currentNode);
+					canGoDirection = portalNode->DirectionMarioCanMove(portalNode->GetPosition());
+				}
+			}
+			if (keyboard->GetKeyStateDown(DIK_RIGHT) && canGoDirection.right == 1)
+			{
+				moveState = 1;
+				currentDirection.right = 1;
+			}
+			if (keyboard->GetKeyStateDown(DIK_LEFT) && canGoDirection.left == 1)
+			{
+				moveState = 1;
+				currentDirection.left = 1;
+			}
+			if (keyboard->GetKeyStateDown(DIK_UP) && canGoDirection.top == 1)
+			{
+				moveState = 1;
+				currentDirection.top = 1;
+			}
+			if (keyboard->GetKeyStateDown(DIK_DOWN) && canGoDirection.bottom == 1)
+			{
+				moveState = 1;
+				currentDirection.bottom = 1;
+			}
+			break;
+		}
+		case 1:
+		{
+			if (currentDirection.right == 1)
+				transform.position.x += MARIO_MAP_VELOCITY.x * dt;
+			if (currentDirection.left == 1)
+				transform.position.x -= MARIO_MAP_VELOCITY.x * dt;
+			if (currentDirection.top == 1)
+				transform.position.y -= MARIO_MAP_VELOCITY.y * dt;
+			if (currentDirection.bottom == 1)
+				transform.position.y += MARIO_MAP_VELOCITY.y * dt;
+			break;
+		}
+		case 2:
+		{
+			auto currNode = static_cast<CGameObject*>(currentNode);
+			if (currentDirection.right == 1)
+			{
+				transform.position.x += MARIO_MAP_VELOCITY.x * dt;
+				if (transform.position.x >= currNode->GetPosition().x)
+				{
+					transform.position.x = currNode->GetPosition().x;
+					moveState = 3;
+				}
+			}
+			if (currentDirection.left == 1)
+			{
+				transform.position.x -= MARIO_MAP_VELOCITY.x * dt;
+				if (transform.position.x <= currNode->GetPosition().x)
+				{
+					transform.position.x = currNode->GetPosition().x;
+					moveState = 3;
+				}
+			}
+			if (currentDirection.top == 1)
+			{
+				transform.position.y -= MARIO_MAP_VELOCITY.y * dt;
+				if (transform.position.y <= currNode->GetPosition().y)
+				{
+					transform.position.y = currNode->GetPosition().y;
+					moveState = 3;
+				}
+			}
+			if (currentDirection.bottom == 1)
+			{
+				transform.position.y += MARIO_MAP_VELOCITY.y * dt;
+				if (transform.position.y >= currNode->GetPosition().y)
+				{
+					transform.position.y = currNode->GetPosition().y;
+					moveState = 3;
+				}
+			}
+			break;
+		}
+		case 3:
+		{
+			moveState = 0;
+			currentDirection = { 0, 0, 0, 0 };
+			break;
+		}
 	}
-	if (keyboard->GetKeyStateDown(DIK_LEFT) && direction.left == 1)
-	{
-		transform.position.x -= vel * dt;
-	}
-	if (keyboard->GetKeyStateDown(DIK_UP) && direction.top == 1)
-	{
-		transform.position.y -= vel * dt;
-	}
-	if (keyboard->GetKeyStateDown(DIK_DOWN) && direction.bottom == 1)
-	{
-		transform.position.y += vel * dt;
-	}
+	
 }
 
 void CMarioMap::Render(CCamera* cam, int alpha)
@@ -109,9 +182,10 @@ void CMarioMap::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox
 			this->sceneID = sceneID;
 		}
 	}
-	if (otherCollisionBox->GetGameObjectAttach()->GetNodeTag() != NodeTag::None)
+	if (otherCollisionBox->GetGameObjectAttach()->GetNodeTag() != NodeTag::None && otherCollisionBox->GetGameObjectAttach() != currentNode)
 	{
 		currentNode = otherCollisionBox->GetGameObjectAttach();
+		moveState = 2;
 	}
 }
 

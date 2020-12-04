@@ -1,14 +1,16 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 #include "Graph.h"
 class CGraph;
 class CMarioMap: public CGameObject
 {
 private:
-	RECT direction;
+	RECT canGoDirection;
+	RECT currentDirection;
 	std::string sceneID;
 	CGraph* graph;
 	CNode* currentNode;
+	int moveState; // 0: Chưa di chuyển, 1: Di chuyển, chưa tới đích, 2: Tới node tiếp theo (Lúc đó gán lại = 0 và cho dừng)
 public:
 	CMarioMap();
 	void LoadAnimation();
