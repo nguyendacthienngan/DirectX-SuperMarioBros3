@@ -259,6 +259,9 @@
     <Filter Include="Game\GameObject\Enemy\ParaGoomba\RedParaGoomba">
       <UniqueIdentifier>{74843606-372e-4586-9ab4-b91ec3a222dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Misc\PSwitch">
+      <UniqueIdentifier>{872c724c-d654-481d-bc1f-3398c5f0b953}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -621,6 +624,12 @@
     <ClInclude Include="ParaGoombaConst.h">
       <Filter>Game\GameObject\Enemy\ParaGoomba</Filter>
     </ClInclude>
+    <ClInclude Include="PSwitch.h">
+      <Filter>Game\GameObject\Misc\PSwitch</Filter>
+    </ClInclude>
+    <ClInclude Include="PSwitchConst.h">
+      <Filter>Game\GameObject\Misc\PSwitch</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -880,6 +889,9 @@
     </ClCompile>
     <ClCompile Include="RedParaGoomba.cpp">
       <Filter>Game\GameObject\Enemy\ParaGoomba\RedParaGoomba</Filter>
+    </ClCompile>
+    <ClCompile Include="PSwitch.cpp">
+      <Filter>Game\GameObject\Misc\PSwitch</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

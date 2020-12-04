@@ -15,7 +15,6 @@ void CRedParaGoomba::LoadAnimation()
 	AddAnimation(PARA_GOOMBA_IDLE, animationManager->Clone("ani-red-para-goomba-idle"));
 	AddAnimation(PARA_GOOMBA_WALK, animationManager->Clone("ani-red-para-goomba-walk"));
 	AddAnimation(PARA_GOOMBA_FLY, animationManager->Clone("ani-red-para-goomba-fly"));
-
 }
 
 void CRedParaGoomba::Init()

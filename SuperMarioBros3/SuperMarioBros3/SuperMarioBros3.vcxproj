@@ -227,6 +227,8 @@
     <ClInclude Include="PMeter.h" />
     <ClInclude Include="PMeterConst.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="PSwitch.h" />
+    <ClInclude Include="PSwitchConst.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="QuestionBlockConst.h" />
     <ClInclude Include="RaccoonTailBox.h" />
@@ -323,6 +325,7 @@
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="PMeter.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="PSwitch.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RaccoonTailBox.cpp" />
     <ClCompile Include="RaccoonMario.cpp" />

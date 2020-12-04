@@ -1,0 +1,4 @@
+#pragma once
+#define PSWITCH_TIME_TO_ACTIVE 10000 //miliseconds
+
+const D3DXVECTOR2 PSWITCH_SIZE_BOX = D3DXVECTOR2(48, 48);

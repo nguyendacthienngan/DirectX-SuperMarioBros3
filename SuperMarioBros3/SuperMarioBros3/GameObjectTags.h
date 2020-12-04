@@ -21,5 +21,6 @@ enum class GameObjectTags
 	Effect,
 
 	Portal,
-	Label
+	Label,
+	SwitchBlock
 };

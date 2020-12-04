@@ -37,6 +37,7 @@
 #include "SceneGate.h"
 #include "WorldItemConst.h"
 #include "NodeMap.h"
+#include "PSwitch.h"
 
 CTileMap::CTileMap()
 {
@@ -182,6 +183,8 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 		}
 		// Load game objects
 		int count = 0, heightObjectOne = 0;
+		vector<CBrick*> listBricks;
+		vector<CCoin*> listCoins;
 		for (TiXmlElement* element = root->FirstChildElement("objectgroup"); element != nullptr; element = element->NextSiblingElement("objectgroup"))
 		{
 			for (TiXmlElement* object = element->FirstChildElement("object"); object != nullptr; object = object->NextSiblingElement("object"))
@@ -357,13 +360,14 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					CCoin* solid = new CCoin();
 					solid->SetPosition(position - translateQuestionBlockConst);
 					listGameObjects.push_back(solid);
-
+					listCoins.push_back(solid);
 				}
 				else if (name.compare("Brick") == 0)
 				{
 					CBrick* solid = new CBrick();
 					solid->SetPosition(position - translateQuestionBlockConst);
 					listGameObjects.push_back(solid);
+					listBricks.push_back(solid);
 				}
 				else if (name.compare("Portal") == 0)
 				{
@@ -422,7 +426,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				}
 				else if (name.compare("World-Item") == 0)
 				{
-				std::string itemName = object->Attribute("name");
+					std::string itemName = object->Attribute("name");
 					if (itemName.compare("grass") == 0)
 					{
 						CGrass* grass = new CGrass();
@@ -636,6 +640,14 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 							listGameObjects.push_back(node);
 						}
 					}
+				}
+				else if (name.compare("SwitchBlocks") == 0)
+				{
+					CPSwitch* switchBlock = new CPSwitch();
+					switchBlock->SetPosition(position - translateQuestionBlockConst);
+					switchBlock->SetListBricks(listBricks);
+					switchBlock->SetListCoins(listCoins);
+					listGameObjects.push_back(switchBlock);
 				}
 			}
 		}
