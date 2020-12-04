@@ -502,7 +502,7 @@
   <object id="95" name="piranha" type="basic" x="5375" y="1211.53"/>
   <object id="96" name="venus" type="basic" x="5568" y="1180.64"/>
   <object id="98" name="venus" type="basic" x="1103.82" y="1180.64"/>
-  <object id="147" name="para-goomba" type="red" x="555" y="1166.5"/>
+  <object id="147" name="para-goomba" type="red" x="769" y="1181.5"/>
  </objectgroup>
  <objectgroup id="20" name="Label">
   <object id="131" name="warp-pipe" type="down" x="624" y="1090" width="96" height="28">

@@ -44,6 +44,7 @@ void CScene::Load()
 
 			player = new CMarioController();
 			player->AddStateObjectsToScene(this);
+			player->SetPosition(startPosition);
 			player->GetCurrentStateObject()->SetPosition(startPosition);
 			AddObject(player);
 		}
