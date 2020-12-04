@@ -1,4 +1,4 @@
-#include "MushroomEffect.h"
+﻿#include "MushroomEffect.h"
 #include "AnimationManager.h"
 #include "EffectConst.h"
 #include "MushroomConst.h"
@@ -37,7 +37,6 @@ void CMushroomEffect::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	auto normal = physiscBody->GetNormal();
 	if (isAppearing == true)
 	{
-
 		velocity.y = -MUSHROOM_PUSH_FORCE;
 		if (abs(startPosition.y) - abs(transform.position.y) > GROW_MAX_HEIGHT)
 			isAppearing = false;
@@ -45,7 +44,7 @@ void CMushroomEffect::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	else
 	{
 		appearingCounting++;
-		if (appearingCounting == 1)
+		if (appearingCounting == 1) // Lần đầu xuất hiện sẽ xuất hiện theo mario facing, sau đó thì dựa theo facing của chính cục nấm 
 			normal.x = marioFacing;
 		velocity.x = normal.x * MUSHROOM_SPEED;
 	}

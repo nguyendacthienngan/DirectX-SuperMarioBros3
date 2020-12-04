@@ -4,8 +4,7 @@ class CRedParaGoomba: public CEnemy
 {
 	CRedGoomba* redGoomba;
 	int jumpState; // 0: Find Mario, 1: Rest, 2,3,4: Low Jump, 5: High Jump, 6: Stop
-	int jumpStep; // 0,1,2: Low Jump ?
-	DWORD timeStartFixing;
+	DWORD timer;
 public:
 	CRedParaGoomba();
 	void Init() override;

@@ -1,6 +1,7 @@
 ﻿#include "RedParaGoomba.h"
 #include "AnimationManager.h"
 #include "ParaGoombaConst.h"
+#include "Game.h"
 CRedParaGoomba::CRedParaGoomba()
 {
 	LoadAnimation();
@@ -48,6 +49,9 @@ void CRedParaGoomba::Render(CCamera* cam, int alpha)
 void CRedParaGoomba::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	auto normal = physiscBody->GetNormal();
+	auto vel = physiscBody->GetVelocity();
+	if (isOnGround == false)
+		return;
 	switch (jumpState)
 	{
 		case 0:
@@ -62,32 +66,49 @@ void CRedParaGoomba::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 					normal.x = -1;
 				physiscBody->SetNormal(normal);
 			}
-			//jumpState = 1;
+			vel.x = RED_PARAGOOMBA_SPEED * normal.x;
+			timer = 0;
+			jumpState = 1;
+			break;
 		}
 		case 1:
 		{
 			// Có đồng hồ đếm ngược
-			jumpState = 2;
+			timer += CGame::GetInstance()->GetDeltaTime() * CGame::GetTimeScale();
+			if (timer > RED_PARAGOOMBA_BREAK_TIME)
+			{
+				jumpState = 2;
+				timer = 0;
+			}
+			break;
 		}
 		case 2: case 3: case 4:
 		{
-
 			// Low Jump
+			vel.y = -RED_PARAGOOMBA_LOW_JUMP;
+			jumpState++;
+			isOnGround = false;
+			break;
 		}
 		case 5:
 		{
-			// High Jyno
+			// High Jump
+			vel.y = -RED_PARAGOOMBA_HIGH_JUMP;
+			jumpState++;
+			isOnGround = false;
+			break;
 		}
 		case 6:
 		{
 			// Stop
 			jumpState = 0;
+			break;
+
 		}
 	}
-	auto vel = physiscBody->GetVelocity();
-	vel.x = RED_PARAGOOMBA_SPEED * normal.x;
+	
 	physiscBody->SetVelocity(vel);
-	DebugOut(L"VEL GOOMBA %f, %f \n", vel.x, vel.y);
+	//DebugOut(L"VEL GOOMBA %f, %f \n", vel.x, vel.y);
 }
 
 bool CRedParaGoomba::IsOnGround()
