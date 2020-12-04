@@ -3,7 +3,7 @@
 #include "GoombaConst.h"
 class CGoomba : public CEnemy
 {
-private:
+protected:
 	GoombaState currentPhysicsState;
 	D3DXVECTOR2 beforeHitPosition;
 	bool isJumpMaxHeight;
