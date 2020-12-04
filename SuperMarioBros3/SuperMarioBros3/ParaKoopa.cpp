@@ -118,6 +118,9 @@ void CParaKoopa::OnDamaged(CGameObject* otherGO)
 	this->isEnabled = false;
 	this->physiscBody->SetDynamic(false);
 	this->collisionBoxs->at(0)->SetEnable(false);
-	koopa->SetPosition(transform.position);
-	koopa->OnDamaged(otherGO);
+	if (koopa != NULL)
+	{
+		koopa->SetPosition(transform.position);
+		koopa->OnDamaged(otherGO);
+	}
 }

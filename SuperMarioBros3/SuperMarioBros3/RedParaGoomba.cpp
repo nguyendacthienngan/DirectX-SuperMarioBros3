@@ -111,9 +111,42 @@ void CRedParaGoomba::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	//DebugOut(L"VEL GOOMBA %f, %f \n", vel.x, vel.y);
 }
 
+void CRedParaGoomba::ChangeToGoomba()
+{
+	this->isEnabled = false;
+	this->physiscBody->SetDynamic(false);
+	this->collisionBoxs->at(0)->SetEnable(false);
+	if (redGoomba != NULL)
+	{
+		redGoomba->Enable(true);
+		redGoomba->SetPosition(transform.position);
+	}
+}
+
+CRedGoomba* CRedParaGoomba::GetGoomba()
+{
+	return redGoomba;
+}
+
+void CRedParaGoomba::SetGoomba(CRedGoomba* goomba)
+{
+	redGoomba = goomba;
+}
+
 bool CRedParaGoomba::IsOnGround()
 {
 	return isOnGround;
 }
 
-
+void CRedParaGoomba::OnDie()
+{
+	this->isEnabled = false;
+	this->physiscBody->SetDynamic(false);
+	this->collisionBoxs->at(0)->SetEnable(false);
+	if (redGoomba != NULL)
+	{
+		redGoomba->SetPosition(transform.position);
+		redGoomba->SetIsHeadShot(isHeadShot);
+		redGoomba->OnDie();
+	}
+}

@@ -5,6 +5,7 @@
 #include "MarioConst.h"
 #include "Ultis.h"
 #include "ParaKoopa.h"
+#include "RedParaGoomba.h"
 
 void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>& collisionEvents, LPPhysicsBody phyBody, D3DXVECTOR2 vel, int mintx, int minty, float nx, float ny)
 {
@@ -54,9 +55,13 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 						paraKoopa->ChangeToKoopa();
 						break;
 					}
+					case EnemyTag::ParaGoomba:
+					{
+						auto paraGoomba = static_cast<CRedParaGoomba*>(otherObject);
+						paraGoomba->ChangeToGoomba();
+						break;
+					}
 				}
-
-
 			}
 			if (collisionEvent->ny > 0) // Nhảy từ dưới lên
 			{

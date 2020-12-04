@@ -281,11 +281,17 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					}
 					else if (enemyName.compare("para-goomba") == 0)
 					{
-						CRedParaGoomba* goomba = new CRedParaGoomba();
+						CRedGoomba* goomba = new CRedGoomba();
 						goomba->SetPosition(position - translateGoombaConst);
 						goomba->SetStartPosition(position - translateGoombaConst);
+						goomba->Enable(false);
 
+						CRedParaGoomba* paragoomba = new CRedParaGoomba();
+						paragoomba->SetPosition(position - translateGoombaConst);
+						paragoomba->SetStartPosition(position - translateGoombaConst);
+						paragoomba->SetGoomba(goomba);
 						listGameObjects.push_back(goomba);
+						listGameObjects.push_back(paragoomba);
 					}
 					else if (enemyName.compare("para-koopa") == 0)
 					{
