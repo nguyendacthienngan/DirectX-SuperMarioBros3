@@ -10,4 +10,6 @@ public:
     void LoadAnimation();
     void Render(CCamera* cam, int alpha = 255);
     void Init(D3DXVECTOR2 size);
+    RECT DirectionMarioCanMove(D3DXVECTOR2 posMario);
+
 };

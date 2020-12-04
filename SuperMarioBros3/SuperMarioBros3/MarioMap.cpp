@@ -5,6 +5,8 @@
 #include "Portal.h"
 #include "SceneManager.h"
 #include "Scene1.h"
+#include "NodeMap.h"
+#include "SceneGate.h"
 CMarioMap::CMarioMap()
 {
 	LoadAnimation();
@@ -13,7 +15,7 @@ CMarioMap::CMarioMap()
 	isEnabled = true;
 	physiscBody->SetDynamic(true);
 	//physiscBody->SetGravity(0.0f);
-	direction = { 1, 1, 1, 1 };
+	direction = { 0, 0, 0, 0 };
 
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(D3DXVECTOR2(14*3,16*3));
@@ -24,6 +26,8 @@ CMarioMap::CMarioMap()
 	this->collisionBoxs->push_back(collisionBox);
 
 	sceneID = "";
+	graph = NULL;
+	currentNode = NULL;
 }
 
 void CMarioMap::LoadAnimation()
@@ -39,8 +43,33 @@ void CMarioMap::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	if (SwitchScene() == true)
 		return;
+	if (graph == NULL)
+	{
+		auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+		auto mapGraph = activeScene->GetMap()->GetTileMap()->GetGraph();
+		if (mapGraph != NULL)
+		{
+			graph = mapGraph;
+			auto nodes = mapGraph->GetListNodes();
+			if (nodes.size() > 0)
+				currentNode = nodes.at(0);
+		}
+	}
+	if (currentNode != NULL)
+	{
+		if (currentNode->GetNodeTag() == NodeTag::Normal)
+		{
+			auto normalNode = static_cast<CNodeMap*>(currentNode);
+			direction = normalNode->DirectionMarioCanMove(normalNode->GetPosition());
+		}
+		if (currentNode->GetNodeTag() == NodeTag::Portal)
+		{
+			auto portalNode = static_cast<CSceneGate*>(currentNode);
+			direction = portalNode->DirectionMarioCanMove(portalNode->GetPosition());
+		}
+	}
 	auto keyboard = CKeyboardManager::GetInstance();
-	float vel = 1.0f;
+	float vel = 0.2f;
 	if (keyboard->GetKeyStateDown(DIK_RIGHT) && direction.right == 1)
 	{
 		transform.position.x += vel * dt;
@@ -79,6 +108,10 @@ void CMarioMap::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox
 		{
 			this->sceneID = sceneID;
 		}
+	}
+	if (otherCollisionBox->GetGameObjectAttach()->GetNodeTag() != NodeTag::None)
+	{
+		currentNode = otherCollisionBox->GetGameObjectAttach();
 	}
 }
 

@@ -536,6 +536,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				if (type.compare("node") == 0)
 				{
 					CNodeMap* node = new CNodeMap(size);
+					
 					node->SetPosition(position - translateConst + size * 0.5);
 					TiXmlElement* properties = object->FirstChildElement();
 					if (properties != NULL)
@@ -551,7 +552,6 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 								if (nodeID == 0)
 								{
 									node->AddAdjacencyNode(1);
-									node->AddAdjacencyNode(2);
 								}
 								if (nodeID == 1)
 								{
@@ -611,7 +611,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					}
 					if (node != NULL)
 						gameMap->graph->AddNode(node);
-
+						listGameObjects.push_back(node);
 					}
 				}
 			}

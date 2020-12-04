@@ -252,7 +252,7 @@
   </object>
  </objectgroup>
  <objectgroup id="7" name="Portal-Scene">
-  <object id="125" name="node-0" type="node" x="95" y="143" width="49" height="49">
+  <object id="125" name="node-0" type="node" x="95" y="143" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="0"/>
     <property name="left" type="int" value="0"/>
@@ -261,7 +261,7 @@
     <property name="top" type="int" value="0"/>
    </properties>
   </object>
-  <object id="126" name="node-1" type="node" x="190.5" y="141.5" width="49" height="49">
+  <object id="126" name="node-1" type="node" x="192" y="143" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="0"/>
     <property name="left" type="int" value="1"/>
@@ -270,7 +270,7 @@
     <property name="top" type="int" value="1"/>
    </properties>
   </object>
-  <object id="102" name="scene-1" type="scene" x="192" y="48" width="47" height="48">
+  <object id="102" name="scene-1" type="scene" x="192" y="48" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="1"/>
     <property name="left" type="int" value="0"/>
@@ -280,7 +280,7 @@
     <property name="top" type="int" value="0"/>
    </properties>
   </object>
-  <object id="127" name="node-3" type="node" x="287.5" y="47.5" width="49" height="49">
+  <object id="127" name="node-3" type="node" x="287.5" y="48" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="0"/>
     <property name="left" type="int" value="1"/>
@@ -289,7 +289,7 @@
     <property name="top" type="int" value="0"/>
    </properties>
   </object>
-  <object id="103" name="scene-2" type="scene" x="384.667" y="48" width="47" height="48">
+  <object id="103" name="scene-2" type="scene" x="384.5" y="48" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="1"/>
     <property name="left" type="int" value="1"/>
@@ -299,7 +299,7 @@
     <property name="top" type="int" value="0"/>
    </properties>
   </object>
-  <object id="104" name="scene-3" type="scene" x="480.333" y="47" width="47" height="48">
+  <object id="104" name="scene-3" type="scene" x="480" y="48" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="0"/>
     <property name="left" type="int" value="1"/>
@@ -309,7 +309,7 @@
     <property name="top" type="int" value="0"/>
    </properties>
   </object>
-  <object id="128" name="node-6" type="node" x="575.5" y="46.5" width="49" height="49">
+  <object id="128" name="node-6" type="node" x="575.5" y="48" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="1"/>
     <property name="left" type="int" value="1"/>
@@ -318,7 +318,7 @@
     <property name="top" type="int" value="0"/>
    </properties>
   </object>
-  <object id="106" name="mushroom-gate" type="scene" x="576.667" y="144.667" width="47" height="48">
+  <object id="106" name="mushroom-gate" type="scene" x="575.5" y="143" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="0"/>
     <property name="left" type="int" value="1"/>
@@ -328,7 +328,7 @@
     <property name="top" type="int" value="1"/>
    </properties>
   </object>
-  <object id="105" name="scene-4" type="scene" x="480" y="143" width="47" height="48">
+  <object id="105" name="scene-4" type="scene" x="480" y="143" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="0"/>
     <property name="left" type="int" value="1"/>
@@ -338,7 +338,7 @@
     <property name="top" type="int" value="0"/>
    </properties>
   </object>
-  <object id="129" name="node-9" type="node" x="384.5" y="143.5" width="49" height="49">
+  <object id="129" name="node-9" type="node" x="384.5" y="143" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="1"/>
     <property name="left" type="int" value="0"/>
@@ -347,7 +347,7 @@
     <property name="top" type="int" value="1"/>
    </properties>
   </object>
-  <object id="107" name="spade" type="scene" x="385" y="240.333" width="47" height="48">
+  <object id="107" name="spade" type="scene" x="384.5" y="240" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="0"/>
     <property name="left" type="int" value="1"/>
@@ -357,7 +357,7 @@
     <property name="top" type="int" value="1"/>
    </properties>
   </object>
-  <object id="108" name="castle" type="scene" x="288.333" y="240" width="47" height="48">
+  <object id="108" name="castle" type="scene" x="287.5" y="240" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="0"/>
     <property name="left" type="int" value="1"/>
@@ -367,7 +367,7 @@
     <property name="top" type="int" value="0"/>
    </properties>
   </object>
-  <object id="130" name="node-12" type="node" x="191.5" y="239.5" width="49" height="49">
+  <object id="130" name="node-12" type="node" x="192" y="240" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="1"/>
     <property name="left" type="int" value="0"/>
@@ -376,7 +376,7 @@
     <property name="top" type="int" value="1"/>
    </properties>
   </object>
-  <object id="109" name="domed-gate" type="scene" x="192" y="192.667" width="47" height="48">
+  <object id="109" name="domed-gate" type="scene" x="192" y="192.667" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="1"/>
     <property name="left" type="int" value="0"/>
@@ -386,7 +386,7 @@
     <property name="top" type="int" value="0"/>
    </properties>
   </object>
-  <object id="131" name="node-14" type="node" x="191.5" y="335.5" width="49" height="49">
+  <object id="131" name="node-14" type="node" x="192" y="335.5" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="1"/>
     <property name="left" type="int" value="0"/>
@@ -395,37 +395,36 @@
     <property name="top" type="int" value="1"/>
    </properties>
   </object>
-   <object id="111" name="scene-5" type="scene" x="191.667" y="431" width="47" height="48">
-     <properties>
-       <property name="sceneID" value="world-1-1"/>
-       <property name="bottom" type="int" value="0"/>
-       <property name="left" type="int" value="0"/>
-       <property name="nodeID" type="int" value="15"/>
-       <property name="right" type="int" value="1"/>
-       <property name="top" type="int" value="1"/>
-     </properties>
-   </object>
-  
-   <object id="132" name="node-16" type="node" x="288.5" y="431.5" width="49" height="49">
-     <properties>
-       <property name="bottom" type="int" value="0"/>
-       <property name="left" type="int" value="1"/>
-       <property name="nodeID" type="int" value="16"/>
-       <property name="right" type="int" value="1"/>
-       <property name="top" type="int" value="0"/>
-     </properties>
-   </object>
-  <object id="112" name="scene-6" type="scene" x="384" y="431.667" width="47" height="48">
+  <object id="111" name="scene-5" type="scene" x="192" y="431" width="48" height="48">
    <properties>
+    <property name="bottom" type="int" value="0"/>
+    <property name="left" type="int" value="0"/>
+    <property name="nodeID" type="int" value="15"/>
+    <property name="right" type="int" value="1"/>
     <property name="sceneID" value="world-1-1"/>
-      <property name="bottom" type="int" value="0"/>
-       <property name="left" type="int" value="1"/>
-       <property name="nodeID" type="int" value="17"/>
-       <property name="right" type="int" value="0"/>
-       <property name="top" type="int" value="1"/>
+    <property name="top" type="int" value="1"/>
    </properties>
   </object>
-  <object id="133" name="node-18" type="node" x="386.5" y="336.5" width="49" height="49">
+  <object id="132" name="node-16" type="node" x="287.5" y="431" width="48" height="48">
+   <properties>
+    <property name="bottom" type="int" value="0"/>
+    <property name="left" type="int" value="1"/>
+    <property name="nodeID" type="int" value="16"/>
+    <property name="right" type="int" value="1"/>
+    <property name="top" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="112" name="scene-6" type="scene" x="384.5" y="431" width="48" height="48">
+   <properties>
+    <property name="bottom" type="int" value="0"/>
+    <property name="left" type="int" value="1"/>
+    <property name="nodeID" type="int" value="17"/>
+    <property name="right" type="int" value="0"/>
+    <property name="sceneID" value="world-1-1"/>
+    <property name="top" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="133" name="node-18" type="node" x="384.5" y="335.5" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="1"/>
     <property name="left" type="int" value="1"/>
@@ -434,17 +433,17 @@
     <property name="top" type="int" value="0"/>
    </properties>
   </object>
-   <object id="110" name="mushroom-gate" type="scene" x="287.667" y="336" width="47" height="48">
-     <properties>
-       <property name="bottom" type="int" value="0"/>
-       <property name="left" type="int" value="0"/>
-       <property name="nodeID" type="int" value="19"/>
-       <property name="right" type="int" value="1"/>
-       <property name="sceneID" value="world-1-1"/>
-       <property name="top" type="int" value="0"/>
-     </properties>
-   </object>
-  <object id="134" name="node-20" type="node" x="479.5" y="334.5" width="49" height="49">
+  <object id="110" name="mushroom-gate" type="scene" x="287.5" y="335.5" width="48" height="48">
+   <properties>
+    <property name="bottom" type="int" value="0"/>
+    <property name="left" type="int" value="0"/>
+    <property name="nodeID" type="int" value="19"/>
+    <property name="right" type="int" value="1"/>
+    <property name="sceneID" value="world-1-1"/>
+    <property name="top" type="int" value="0"/>
+   </properties>
+  </object>
+  <object id="134" name="node-20" type="node" x="480" y="335.5" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="0"/>
     <property name="left" type="int" value="1"/>
@@ -453,7 +452,7 @@
     <property name="top" type="int" value="0"/>
    </properties>
   </object>
-  <object id="135" name="node-21" type="node" x="576.5" y="333.5" width="49" height="49">
+  <object id="135" name="node-21" type="node" x="575.5" y="333.5" width="48" height="48">
    <properties>
     <property name="bottom" type="int" value="0"/>
     <property name="left" type="int" value="1"/>

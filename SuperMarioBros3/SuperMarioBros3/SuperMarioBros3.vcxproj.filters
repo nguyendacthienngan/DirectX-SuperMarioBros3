@@ -601,7 +601,7 @@
       <Filter>Framework\Game\Graph</Filter>
     </ClInclude>
     <ClInclude Include="NodeMap.h">
-      <Filter>Files\Header Files</Filter>
+      <Filter>Game\GameObject\World-Item\Node</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -855,7 +855,7 @@
       <Filter>Framework\Game\Graph</Filter>
     </ClCompile>
     <ClCompile Include="NodeMap.cpp">
-      <Filter>Files\Source Files</Filter>
+      <Filter>Game\GameObject\World-Item\Node</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

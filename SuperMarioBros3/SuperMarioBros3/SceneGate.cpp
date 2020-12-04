@@ -1,9 +1,11 @@
 #include "SceneGate.h"
 #include "AnimationManager.h"
 #include "Ultis.h"
+#include "SceneManager.h"
 
 CSceneGate::CSceneGate()
 {
+	nodeTag = NodeTag::Portal;
 }
 
 CSceneGate::CSceneGate(D3DXVECTOR2 size)
@@ -11,6 +13,7 @@ CSceneGate::CSceneGate(D3DXVECTOR2 size)
 	Init(size);
 	LoadAnimation();
 	SetState("SCENE-1");
+	nodeTag = NodeTag::Portal;
 }
 
 void CSceneGate::LoadAnimation()
@@ -50,4 +53,40 @@ void CSceneGate::Init(D3DXVECTOR2 size)
 
 	sceneID = "";
 	cameraID = -1;
+}
+
+RECT CSceneGate::DirectionMarioCanMove(D3DXVECTOR2 posMario)
+{
+	RECT direction = { 0, 0, 0, 0 };
+
+	if (graph == NULL)
+	{
+		auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+		if (activeScene != NULL)
+		{
+			auto map = activeScene->GetMap();
+			if (map != NULL)
+				graph = map->GetTileMap()->GetGraph();
+		}
+	}
+	if (graph != NULL)
+	{
+		for (auto nodeIndex : adjacencyNodes)
+		{
+			auto node = graph->GetNodeByID(nodeIndex);
+			if (node != NULL)
+			{
+				auto nodeGO = static_cast<CGameObject*>(node);
+				if (nodeGO->GetPosition().x < posMario.x)
+					direction.left = 1;
+				if (nodeGO->GetPosition().x > posMario.x)
+					direction.right = 1;
+				if (nodeGO->GetPosition().y < posMario.y)
+					direction.top = 1;
+				if (nodeGO->GetPosition().y > posMario.y)
+					direction.bottom = 1;
+			}
+		}
+	}
+	return direction;
 }

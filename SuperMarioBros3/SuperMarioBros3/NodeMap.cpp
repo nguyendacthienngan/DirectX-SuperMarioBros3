@@ -3,7 +3,7 @@
 
 CNodeMap::CNodeMap()
 {
-
+	nodeTag = NodeTag::Normal;
 }
 
 CNodeMap::CNodeMap(D3DXVECTOR2 size)
@@ -18,12 +18,13 @@ CNodeMap::CNodeMap(D3DXVECTOR2 size)
 
 	physiscBody->SetTrigger(true);
 	physiscBody->SetDynamic(false);
+
+	nodeTag = NodeTag::Normal;
 }
 
 RECT CNodeMap::DirectionMarioCanMove(D3DXVECTOR2 posMario)
 {
 	RECT direction = { 0, 0, 0, 0 };
-
 	if (graph == NULL)
 	{
 		auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
@@ -38,6 +39,7 @@ RECT CNodeMap::DirectionMarioCanMove(D3DXVECTOR2 posMario)
 	{
 		for (auto nodeIndex : adjacencyNodes)
 		{
+			DebugOut(L"NODE INDEX %d \n", nodeIndex);
 			auto node = graph->GetNodeByID(nodeIndex);
 			if (node != NULL)
 			{
@@ -53,5 +55,6 @@ RECT CNodeMap::DirectionMarioCanMove(D3DXVECTOR2 posMario)
 			}
 		}
 	}
+	DebugOut(L" DIRECTION %d %d %d %d \n", direction.left, direction.top, direction.right, direction.bottom);
 	return direction;
 }

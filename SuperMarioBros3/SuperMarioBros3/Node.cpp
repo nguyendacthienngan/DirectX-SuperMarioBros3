@@ -2,11 +2,13 @@
 using namespace std;
 CNode::CNode()
 {
+	graph = NULL;
+	nodeTag = NodeTag::None;
 }
 CNode::CNode(D3DXVECTOR2 size)
 {
-	
 	graph = NULL;
+	nodeTag = NodeTag::None;
 }
 
 std::vector<int> CNode::GetAdjacencyNodes()
@@ -27,4 +29,9 @@ void CNode::SetNodeID(int id)
 void CNode::AddAdjacencyNode(int adjIndex)
 {
 	adjacencyNodes.push_back(adjIndex);
+}
+
+NodeTag CNode::GetNodeTag()
+{
+	return nodeTag;
 }

@@ -1,10 +1,14 @@
 #pragma once
 #include "GameObject.h"
+#include "Graph.h"
+class CGraph;
 class CMarioMap: public CGameObject
 {
 private:
 	RECT direction;
 	std::string sceneID;
+	CGraph* graph;
+	CNode* currentNode;
 public:
 	CMarioMap();
 	void LoadAnimation();

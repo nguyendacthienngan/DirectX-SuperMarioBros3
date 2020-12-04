@@ -14,6 +14,7 @@ CGameObject::CGameObject()
 	ignoreTimeScale = false;
 	currentState = "IDLE";
 	isCheckWithCollision = true;
+	nodeTag = NodeTag::None;
 }
 
 CGameObject::~CGameObject()
