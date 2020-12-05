@@ -179,13 +179,13 @@ void CScene::Update(DWORD dt)
 	if (gameObjects.size() == 0) return;
 	for (auto obj : gameObjects)
 	{
-		if (obj->IsIgnoreTimeScale() == false && CGame::GetTimeScale() == 0)
-			continue;
-		if (obj->IsEnabled() == false) continue;
-		if (uiCam != NULL)
-			obj->Update(dt, camera, uiCam);
-		else 
-			obj->Update(dt, camera, NULL);
+		if (obj->IsIgnoreTimeScale() == false 
+			&& CGame::GetTimeScale() == 0)							continue;
+		if (camera != NULL 
+			&& camera->CheckObjectInCamera(obj) == false)			continue;
+		if (obj->IsEnabled() == false)								continue;
+		if (uiCam != NULL)											obj->Update(dt, camera, uiCam);
+		else														obj->Update(dt, camera, NULL);
 		obj->PhysicsUpdate(&gameObjects); 
 	}
 	if (camera != NULL)

@@ -88,6 +88,7 @@ public:
 	virtual void OnDie();
 	virtual void OnDamaged();
 
+	std::string GetCurrentState();
 	void AddAnimation(std::string stateName, LPAnimation animation, bool isLoop = true); // một số animation như quăng lửa k cần lặp
 	void SetRelativePositionOnScreen(D3DXVECTOR2); // Dùng khi ví dụ chuyển từ idle -> crouch, dời hình xuống
 	virtual void EndAnimation();

@@ -88,8 +88,18 @@ D3DXVECTOR2 CCamera::TransformCamToWorld(D3DXVECTOR2 posInCam)
     return D3DXVECTOR2(posInCam.x + posCam.x, posInCam.y + posCam.y);
 }
 
-bool CCamera::CheckObjectInCamera(D3DXVECTOR2 posObject, float widthObj, float heightObj) // Thông tin của object
+bool CCamera::CheckObjectInCamera(LPGameObject gO) // Thông tin của object
 {
+    D3DXVECTOR2 posObject = gO->GetPosition();
+    auto anim = gO->GetAnimationByState(gO->GetCurrentState());
+    if (!anim) return false;
+    auto animFrame = anim->GetAnimFrame();
+    if (!animFrame) return false;
+    auto sprite = animFrame->GetSprite();
+    if (!sprite) return false;
+
+    float widthObj = sprite->GetWidth();
+    float heightObj = sprite->GetHeight();
     if (posObject.x + widthObj < posCam.x || posObject.x > posCam.x + widthCam)
         return false;
     if (posObject.y + heightObj < posCam.y || posObject.y > posCam.y + heightCam)

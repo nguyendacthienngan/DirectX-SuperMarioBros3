@@ -34,7 +34,7 @@ public:
 
 	D3DXVECTOR2 Transform(D3DXVECTOR2 posWorld);
 	D3DXVECTOR2 TransformCamToWorld(D3DXVECTOR2 posInCam);
-	bool CheckObjectInCamera(D3DXVECTOR2 posObject, float widthObj, float heightObj); //Kiểm tra xem obj truyền vào có nằm trong camera không để ta xử lý update / renderm
+	bool CheckObjectInCamera(LPGameObject gO); //Kiểm tra xem obj truyền vào có nằm trong camera không để ta xử lý update / renderm
 	bool CheckRectInCamera(RECT rect);
 
 	int GetSpeedXCam();
