@@ -90,6 +90,8 @@ D3DXVECTOR2 CCamera::TransformCamToWorld(D3DXVECTOR2 posInCam)
 
 bool CCamera::CheckObjectInCamera(LPGameObject gO) // Thông tin của object
 {
+    if (gO->GetTag() == GameObjectTags::PlayerController)
+        return true;
     D3DXVECTOR2 posObject = gO->GetPosition();
     float widthObj = 0, heightObj = 0;
     if (gO->GetCollisionBox()->size() > 0)

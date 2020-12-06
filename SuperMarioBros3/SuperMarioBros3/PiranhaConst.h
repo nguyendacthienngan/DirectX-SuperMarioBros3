@@ -8,3 +8,4 @@ const float PIRANHA_PUSH_FORCE = 0.05f;
 const float PIRANHA_HEIGHT = 70;
 
 const int DART_OUT_TIME = 2000;
+const int TIME_TO_IDLE = 2000;

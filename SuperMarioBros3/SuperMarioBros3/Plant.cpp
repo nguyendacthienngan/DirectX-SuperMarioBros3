@@ -1,6 +1,7 @@
 ﻿#include "Plant.h"
 #include "PiranhaConst.h"
 #include "SceneManager.h"
+#include "Game.h"
 
 CPlant::CPlant()
 {
@@ -8,7 +9,7 @@ CPlant::CPlant()
 	timeStartIdle = 0;
 	canDartOut = false;
 	maxHeight = PIRANHA_HEIGHT;
-	timeToStopDartOut = DART_OUT_TIME;
+	timeToStopDartOut =  TIME_TO_IDLE;
 	timeToIdle = DART_OUT_TIME;
 	isIdle = false;
 }
@@ -52,7 +53,8 @@ void CPlant::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	if (canDartOut == false && timeStopDartOut == 0)
 	{
 		// Ở dưới cái pipe
-		timeStopDartOut = GetTickCount64();
+		DebugOut(L"Plant \n");
+		timeStopDartOut += CGame::GetInstance()->GetDeltaTime() * CGame::GetTimeScale();
 		timeStartIdle = 0;
 		physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 		return;
