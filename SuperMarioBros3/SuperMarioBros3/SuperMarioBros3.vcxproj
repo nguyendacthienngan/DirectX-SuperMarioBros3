@@ -164,6 +164,7 @@
     <ClInclude Include="CVenus.h" />
     <ClInclude Include="EffectConst.h" />
     <ClInclude Include="EffectObject.h" />
+    <ClInclude Include="EmptyBlock.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyConst.h" />
     <ClInclude Include="Font.h" />
@@ -227,6 +228,8 @@
     <ClInclude Include="PMeter.h" />
     <ClInclude Include="PMeterConst.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="PSwitch.h" />
+    <ClInclude Include="PSwitchConst.h" />
     <ClInclude Include="QuestionBlock.h" />
     <ClInclude Include="QuestionBlockConst.h" />
     <ClInclude Include="RaccoonTailBox.h" />
@@ -280,6 +283,7 @@
     <ClCompile Include="CollisionBox.cpp" />
     <ClCompile Include="CVenus.cpp" />
     <ClCompile Include="EffectObject.cpp" />
+    <ClCompile Include="EmptyBlock.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Graph.cpp" />
@@ -323,6 +327,7 @@
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="PMeter.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="PSwitch.cpp" />
     <ClCompile Include="QuestionBlock.cpp" />
     <ClCompile Include="RaccoonTailBox.cpp" />
     <ClCompile Include="RaccoonMario.cpp" />

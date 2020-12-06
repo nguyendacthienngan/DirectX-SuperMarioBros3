@@ -53,7 +53,8 @@ void CGameObject::LoadAnimation()
 void CGameObject::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
 {
 	if (physiscBody->IsDynamic() == false) return;
-
+	if (StaticTag(tag) == false && isEnabled == false)
+		return;
 	vector<CCollisionBox*> otherCollisionBoxs;
 	for (auto obj : *coObjects)
 	{
@@ -135,6 +136,11 @@ void CGameObject::OnDie()
 
 void CGameObject::OnDamaged()
 {
+}
+
+std::string CGameObject::GetCurrentState()
+{
+	return currentState;
 }
 
 void CGameObject::AddAnimation(std::string stateName, LPAnimation animation, bool isLoop)

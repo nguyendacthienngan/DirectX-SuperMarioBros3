@@ -6,6 +6,7 @@
 #include "Ultis.h"
 #include "ParaKoopa.h"
 #include "RedParaGoomba.h"
+#include "PSwitch.h"
 
 void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>& collisionEvents, LPPhysicsBody phyBody, D3DXVECTOR2 vel, int mintx, int minty, float nx, float ny)
 {
@@ -120,6 +121,15 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 		{
 			mario->OnDamaged();
 			collisionBox->GetGameObjectAttach()->Enable(false);
+		}
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::SwitchBlock)
+		{
+			if (collisionEvent->ny < 0)
+			{
+				auto switchBlock = static_cast<CPSwitch*>(collisionBox->GetGameObjectAttach());
+				if (switchBlock->GetChangeState() == 0)
+					switchBlock->Active();
+			}
 		}
 	}
 }

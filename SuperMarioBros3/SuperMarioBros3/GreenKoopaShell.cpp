@@ -6,6 +6,7 @@
 CGreenKoopaShell::CGreenKoopaShell()
 {
 	LoadAnimation();
+	SetState(KOOPA_SHELL_STATE_IDLE);
 }
 
 void CGreenKoopaShell::LoadAnimation()

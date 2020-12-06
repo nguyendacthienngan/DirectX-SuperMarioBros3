@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="22" nextobjectid="149">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="24" nextobjectid="201">
  <editorsettings>
   <export target="world-1-1-map.xml" format="tmx"/>
  </editorsettings>
@@ -399,7 +399,6 @@
   <object id="130" x="624.045" y="1103.47" width="95.9091" height="144.394"/>
   <object id="145" x="6912.33" y="1390" width="97.6667" height="99"/>
   <object id="146" x="6238.67" y="1390.17" width="97.6667" height="99"/>
-  <object id="148" x="1" y="1148" width="47" height="110"/>
  </objectgroup>
  <objectgroup id="14" name="Ghost">
   <object id="28" x="720.523" y="1104.97" width="142.597" height="47.1135"/>
@@ -447,63 +446,120 @@
   <object id="129" x="6503.34" y="1531.33"/>
  </objectgroup>
  <objectgroup id="19" name="Brick">
-  <object id="73" x="6119.67" y="1222">
+  <object id="73" type="1" x="6119.67" y="1222.33">
    <point/>
   </object>
-  <object id="74" x="6071.67" y="1222.33">
+  <object id="74" type="1" x="6071.67" y="1222.33">
    <point/>
   </object>
-  <object id="75" x="6023.67" y="1222.33">
+  <object id="75" type="1" x="6024.33" y="1222.33">
    <point/>
   </object>
-  <object id="76" x="5976" y="1222.67">
+  <object id="76" type="1" x="5976" y="1222.33">
    <point/>
   </object>
-  <object id="77" x="5927.67" y="1222">
+  <object id="77" type="1" x="5927.67" y="1222.33">
    <point/>
   </object>
-  <object id="78" x="5879.67" y="1222.33">
+  <object id="78" type="1" x="5880" y="1222.33">
    <point/>
   </object>
-  <object id="79" x="5832" y="1222.33">
+  <object id="79" type="1" x="5832" y="1222.33">
    <point/>
   </object>
-  <object id="80" x="6071.67" y="1174.67">
+  <object id="80" type="1" x="6071.67" y="1174.67">
    <point/>
   </object>
-  <object id="81" x="6024" y="1174.67">
+  <object id="81" type="1" x="6024.33" y="1174.67">
    <point/>
   </object>
-  <object id="82" x="5976" y="1174.67">
+  <object id="82" type="1" x="5976" y="1174.67">
    <point/>
   </object>
-  <object id="83" x="5928" y="1175">
+  <object id="83" type="1" x="5927.67" y="1175">
    <point/>
   </object>
-  <object id="84" x="5880" y="1175">
+  <object id="84" type="1" x="5880" y="1175">
    <point/>
   </object>
-  <object id="85" x="5927.67" y="1126.33">
+  <object id="85" type="1" x="5927.67" y="1126.33">
    <point/>
   </object>
-  <object id="86" x="5976" y="1126">
+  <object id="86" type="1" x="5976" y="1126.33">
    <point/>
   </object>
-  <object id="87" x="6024.33" y="1126.67">
+  <object id="87" type="1" x="6024.33" y="1126.33">
    <point/>
   </object>
-  <object id="88" x="6071.67" y="1126">
+  <object id="168" type="1" x="380.667" y="1221">
+   <point/>
+  </object>
+  <object id="169" type="1" x="332.667" y="1221">
+   <point/>
+  </object>
+  <object id="170" type="1" x="284.667" y="1221">
+   <point/>
+  </object>
+  <object id="171" type="1" x="236.997" y="1221">
+   <point/>
+  </object>
+  <object id="172" type="1" x="188.667" y="1221">
+   <point/>
+  </object>
+  <object id="173" type="1" x="140.667" y="1221">
+   <point/>
+  </object>
+  <object id="174" type="1" x="92.997" y="1221">
+   <point/>
+  </object>
+  <object id="175" type="1" x="332.667" y="1173.34">
+   <point/>
+  </object>
+  <object id="176" type="1" x="284.997" y="1173.34">
+   <point/>
+  </object>
+  <object id="177" type="1" x="236.997" y="1173.34">
+   <point/>
+  </object>
+  <object id="178" type="1" x="188.997" y="1173.67">
+   <point/>
+  </object>
+  <object id="179" type="1" x="140.997" y="1173.67">
+   <point/>
+  </object>
+  <object id="180" type="1" x="188.667" y="1125">
+   <point/>
+  </object>
+  <object id="181" type="1" x="236.997" y="1125">
+   <point/>
+  </object>
+  <object id="182" type="1" x="285.33" y="1125.34">
+   <point/>
+  </object>
+  <object id="193" type="1" x="6264" y="1174.67">
+   <point/>
+  </object>
+  <object id="194" type="1" x="6264" y="1222.33">
+   <point/>
+  </object>
+  <object id="195" type="1" x="6314.5" y="1222.33">
    <point/>
   </object>
  </objectgroup>
  <objectgroup id="15" name="Enemy">
-  <object id="42" name="goomba" type="red" x="1225.33" y="1202.67"/>
   <object id="55" name="goomba" type="tan" x="1510" y="1189.33"/>
   <object id="91" name="koopa" type="red" x="1641.33" y="1034.66"/>
   <object id="95" name="piranha" type="basic" x="5375" y="1211.53"/>
   <object id="96" name="venus" type="basic" x="5568" y="1180.64"/>
   <object id="98" name="venus" type="basic" x="1103.82" y="1180.64"/>
-  <object id="147" name="para-goomba" type="red" x="465" y="1185.5"/>
+  <object id="186" name="para-goomba" type="tan" x="2663.82" y="1105.5"/>
+  <object id="187" name="goomba" type="tan" x="2251.33" y="1108.67"/>
+  <object id="189" name="para-koopa" type="red" x="4105" y="891"/>
+  <object id="190" name="para-koopa" type="red" x="4249" y="796"/>
+  <object id="191" name="para-koopa" type="red" x="3850" y="954"/>
+  <object id="192" name="koopa" type="green" x="4338" y="1124"/>
+  <object id="196" name="koopa" type="red" x="6262.5" y="1082"/>
+  <object id="200" name="piranha" type="basic" x="480" y="1162.67"/>
  </objectgroup>
  <objectgroup id="20" name="Label">
   <object id="131" name="warp-pipe" type="down" x="624" y="1090" width="96" height="28">
@@ -527,6 +583,22 @@
    <properties>
     <property name="cameraID" type="int" value="0"/>
    </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="22" name="SwitchBlocks">
+  <object id="151" x="332.67" y="1081">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="23" name="Block">
+  <object id="185" x="332.67" y="1125">
+   <point/>
+  </object>
+  <object id="197" x="6071.67" y="1075.33">
+   <point/>
+  </object>
+  <object id="198" x="6071.67" y="1126.33">
+   <point/>
   </object>
  </objectgroup>
 </map>

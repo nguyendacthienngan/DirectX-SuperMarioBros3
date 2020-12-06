@@ -1,6 +1,7 @@
 #include "Brick.h"
 #include "AnimationManager.h"
 #include "BrickConst.h"
+#include "SceneManager.h"
 
 CBrick::CBrick()
 {
@@ -23,14 +24,14 @@ void CBrick::Init()
 	box->SetSizeBox(BRICK_BBOX);
 	box->SetGameObjectAttach(this);
 	this->collisionBoxs->push_back(box);
-	this->physiscBody->SetDynamic(false);
+	this->physiscBody->SetDynamic(true);
 }
 
 void CBrick::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
 {
 	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
 	{
-		isEnabled = false;
+		Debris();
 		// Apply Effect Brick Breaking
 	}
 }
@@ -38,5 +39,28 @@ void CBrick::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 bool CBrick::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
 	return false;
+}
+
+void CBrick::SetType(int type)
+{
+	this->type = type;
+}
+
+int CBrick::GetType()
+{
+	return type;
+}
+
+void CBrick::Debris()
+{
+	// Destroy
+	isEnabled = false;
+	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	if (activeScene != NULL)
+	{
+		activeScene->RemoveBrick(this);
+		activeScene->RemoveObject(this);
+		activeScene->AddDestroyObject(this);
+	}
 }
 

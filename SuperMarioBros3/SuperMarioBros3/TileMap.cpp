@@ -37,6 +37,8 @@
 #include "SceneGate.h"
 #include "WorldItemConst.h"
 #include "NodeMap.h"
+#include "PSwitch.h"
+#include "EmptyBlock.h"
 
 CTileMap::CTileMap()
 {
@@ -45,6 +47,8 @@ CTileMap::CTileMap()
 	width = 1;
 	height = 1;
 	foreground = NULL;
+	poolBricks = new CObjectPool();
+	poolCoins = new CObjectPool();
 }
 
 CTileMap::CTileMap(int width, int height, int tileWidth, int tileHeight)
@@ -54,6 +58,8 @@ CTileMap::CTileMap(int width, int height, int tileWidth, int tileHeight)
 	this->tileHeight = tileHeight;
 	this->tileWidth = tileWidth;
 	foreground = NULL;
+	poolBricks = new CObjectPool();
+	poolCoins = new CObjectPool();
 }
 
 TileSet* CTileMap::GetTileSetByTileID(int id)
@@ -188,6 +194,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 			{
 				std::string name = element->Attribute("name");
 				int id, x, y, width, height;
+				int type = 0;
 				object->QueryIntAttribute("id", &id);
 				object->QueryIntAttribute("x", &x);
 				object->QueryIntAttribute("y", &y);
@@ -235,13 +242,14 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						CKoopaShell* koopaShell = NULL;
 						if (enemyType.compare("green") == 0)
 						{
-							CGreenKoopaShell* koopaShell = new CGreenKoopaShell();
-							CGreenKoopa* koopa = new CGreenKoopa();
+							koopaShell = new CGreenKoopaShell();
+							koopa = new CGreenKoopa();
+							koopa->Enable(true);
 						}
 						if (enemyType.compare("red") == 0)
 						{
-							CRedKoopaShell* koopaShell = new CRedKoopaShell();
-							CRedKoopa* koopa = new CRedKoopa();
+							koopaShell = new CRedKoopaShell();
+							koopa = new CRedKoopa();
 						}
 						if (koopa != NULL && koopaShell != NULL)
 						{
@@ -356,13 +364,36 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				{
 					CCoin* solid = new CCoin();
 					solid->SetPosition(position - translateQuestionBlockConst);
-					listGameObjects.push_back(solid);
+					if (object->QueryIntAttribute("type", &type) == TIXML_SUCCESS && type == 1)
+					{
+						gameMap->coins.push_back(solid);
+						CBrick* brick = new CBrick();
+						brick->SetType(type);
 
+						gameMap->poolBricks->Add(brick);
+						gameMap->poolCoins->Add(solid);
+
+						solid->Enable(true);
+					}
+					solid->SetType(type);
+					listGameObjects.push_back(solid);
 				}
 				else if (name.compare("Brick") == 0)
 				{
 					CBrick* solid = new CBrick();
 					solid->SetPosition(position - translateQuestionBlockConst);
+					if (object->QueryIntAttribute("type", &type) == TIXML_SUCCESS && type == 1)
+					{
+						gameMap->bricks.push_back(solid);
+						CCoin* coin = new CCoin();
+						coin->SetType(type);
+
+						gameMap->poolCoins->Add(coin);
+						gameMap->poolBricks->Add(solid);
+
+						solid->Enable(true);
+					}
+					solid->SetType(type);
 					listGameObjects.push_back(solid);
 				}
 				else if (name.compare("Portal") == 0)
@@ -422,7 +453,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				}
 				else if (name.compare("World-Item") == 0)
 				{
-				std::string itemName = object->Attribute("name");
+					std::string itemName = object->Attribute("name");
 					if (itemName.compare("grass") == 0)
 					{
 						CGrass* grass = new CGrass();
@@ -637,6 +668,18 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						}
 					}
 				}
+				else if (name.compare("SwitchBlocks") == 0)
+				{
+					CPSwitch* switchBlock = new CPSwitch();
+					switchBlock->SetPosition(position - translateQuestionBlockConst);
+					listGameObjects.push_back(switchBlock);
+				}
+				else if (name.compare("Block") == 0)
+				{
+					CEmptyBlock* emptyBlock = new CEmptyBlock();
+					emptyBlock->SetPosition(position - translateQuestionBlockConst);
+					listGameObjects.push_back(emptyBlock);
+				}
 			}
 		}
 		if (listGameObjects.size() == 0)
@@ -716,6 +759,26 @@ void CTileMap::RenderLayer(Layer* layer, int i, int j, int x, int y)
 CGraph* CTileMap::GetGraph()
 {
 	return graph;
+}
+
+std::vector<CGameObject*> CTileMap::GetBricks()
+{
+	return bricks;
+}
+
+std::vector<CGameObject*> CTileMap::GetCoins()
+{
+	return coins;
+}
+
+CObjectPool* CTileMap::GetPoolBricks()
+{
+	return poolBricks;
+}
+
+CObjectPool* CTileMap::GetPoolCoins()
+{
+	return poolCoins;
 }
 
 CTileMap::~CTileMap()

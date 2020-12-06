@@ -53,17 +53,19 @@
 		
 		<!-- SWITCH BLOCK -->
 		<!-- Switch block blue -->
-		<Animation aniId="ani-switch-block-blue" frameTime="100" name = "SWITCH-BLOCK-BLUE">
+		<Animation aniId="ani-switch-block-blue-active" frameTime="100" name = "ACTIVE">
 			<Sprite id="spr-switch-block-blue-0" left="156" top="144"  width="16" height="16"/>
-			<Sprite id="spr-switch-block-blue-1" left="200" top="153"  width="16" height="7"/>
 		</Animation>
-		
+    <Animation aniId="ani-switch-block-blue-inactive" frameTime="100" name = "INACTIVE">
+      <Sprite id="spr-switch-block-blue-1" left="200" top="153"  width="16" height="7"/>
+    </Animation>
 		<!-- Switch block green -->
-		<Animation aniId="ani-switch-block-green" frameTime="100" name = "SWITCH-BLOCK-GREEN">
+		<Animation aniId="ani-switch-block-green-active" frameTime="100" name = "ACTIVE">
 			<Sprite id="spr-switch-block-green-0" left="178" top="144"  width="16" height="16"/>
-			<Sprite id="spr-switch-block-green-1" left="200" top="153"  width="16" height="7"/>
 		</Animation>
-		
+    <Animation aniId="ani-switch-block-green-inactive" frameTime="100" name = "INACTIVE">
+      <Sprite id="spr-switch-block-green-1" left="200" top="153"  width="16" height="7"/>
+    </Animation>
 		<!-- MAGIC BALL -->
 		<Animation aniId="ani-magic-ball" frameTime="100" name = "MAGIC-BALL">
 			<Sprite id="spr-magic-ball-0" left="223" top="144"  width="16" height="16"/>

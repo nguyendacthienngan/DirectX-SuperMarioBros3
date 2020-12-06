@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+class CScene;
 class CObjectPool
 {
 	std::vector<CGameObject*> pool;

@@ -88,11 +88,36 @@ D3DXVECTOR2 CCamera::TransformCamToWorld(D3DXVECTOR2 posInCam)
     return D3DXVECTOR2(posInCam.x + posCam.x, posInCam.y + posCam.y);
 }
 
-bool CCamera::CheckObjectInCamera(D3DXVECTOR2 posObject, float widthObj, float heightObj) // Thông tin của object
+bool CCamera::CheckObjectInCamera(LPGameObject gO) // Thông tin của object
 {
-    if (posObject.x + widthObj < posCam.x || posObject.x > posCam.x + widthCam)
+    D3DXVECTOR2 posObject = gO->GetPosition();
+    float widthObj = 0, heightObj = 0;
+    if (gO->GetCollisionBox()->size() > 0)
+    {
+        auto colBox = gO->GetCollisionBox()->at(0);
+        auto sizeBox = colBox->GetSizeBox();
+        widthObj = sizeBox.x;
+        heightObj = sizeBox.y;
+        if (gO->GetTag() == GameObjectTags::Solid || gO->GetTag() == GameObjectTags::GhostPlatform)
+        {
+            posObject -= sizeBox * 0.5f;
+        }
+    }
+    if (widthObj == 0 || heightObj == 0)
+    {
+        auto anim = gO->GetAnimationByState(gO->GetCurrentState());
+        if (!anim) return false;
+        auto animFrame = anim->GetAnimFrame();
+        if (!animFrame) return false;
+        auto sprite = animFrame->GetSprite();
+        if (!sprite) return false;
+
+        widthObj = sprite->GetWidth();
+        heightObj = sprite->GetHeight();
+    }
+    if (posObject.x + widthObj + 48 *6 < posCam.x || posObject.x > posCam.x + widthCam + 48 * 6)
         return false;
-    if (posObject.y + heightObj < posCam.y || posObject.y > posCam.y + heightCam)
+    if (posObject.y + heightObj + 48 * 6 < posCam.y || posObject.y > posCam.y + heightCam + 48 * 6)
         return false;
     return true; // Object nằm trong Cam
 }

@@ -32,11 +32,6 @@ CMarioFireBall::~CMarioFireBall()
 	CGameObject::~CGameObject();
 }
 
-void CMarioFireBall::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
-{
-	CGameObject::PhysicsUpdate(coObjects);
-}
-
 void CMarioFireBall::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	CGameObject::Update(dt, cam, uiCam);

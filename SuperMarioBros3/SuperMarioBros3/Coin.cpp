@@ -29,3 +29,14 @@ bool CCoin::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
 	return false;
 }
+
+void CCoin::SetType(int type)
+{
+	this->type = type;
+}
+
+int CCoin::GetType()
+{
+	return type;
+}
+

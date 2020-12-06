@@ -55,6 +55,13 @@ void CScene::Load()
 			string fileMap = scene->Attribute("fileName");
 			this->map = NULL;
 			this->map = new CMap(sourceMap, fileMap); // Ham nay tu load map
+			auto tilemap = map->GetTileMap();
+			bricks = tilemap->GetBricks();
+			coins = tilemap->GetCoins();
+			poolBricks = tilemap->GetPoolBricks();
+			poolCoins = tilemap->GetPoolCoins();
+			poolBricks->AddPoolToScene(this);
+			poolCoins->AddPoolToScene(this);
 			auto mapObjs = map->GetListGameObjects();
 			for (auto obj : mapObjs)
 			{
@@ -169,6 +176,16 @@ void CScene::DestroyObject()
 		map = NULL;
 		camera = NULL;
 	}
+	if (destroyObjects.size() > 0)
+	{
+		for (auto gO : destroyObjects)
+		{
+			RemoveObject(gO);
+			delete gO;
+			gO = NULL;
+		}
+		destroyObjects.clear();
+	}
 }
 
 void CScene::Update(DWORD dt)
@@ -176,17 +193,17 @@ void CScene::Update(DWORD dt)
 	if (loaded == false)
 		return;
 	auto uiCam = CSceneManager::GetInstance()->GetUICamera();
-	if (gameObjects.size() == 0) return;
-	for (auto obj : gameObjects)
+	if (updateObjects.size() == 0) return;
+	for (auto obj : updateObjects)
 	{
-		if (obj->IsIgnoreTimeScale() == false && CGame::GetTimeScale() == 0)
-			continue;
-		if (obj->IsEnabled() == false) continue;
-		if (uiCam != NULL)
-			obj->Update(dt, camera, uiCam);
-		else 
-			obj->Update(dt, camera, NULL);
-		obj->PhysicsUpdate(&gameObjects); 
+		if (obj->IsIgnoreTimeScale() == false 
+			&& CGame::GetTimeScale() == 0)							continue;
+		if (obj->IsIgnoreTimeScale() == false
+			&& CGame::GetTimeScale() == 0)							continue;
+		if (obj->IsEnabled() == false)								continue;
+		if (uiCam != NULL)											obj->Update(dt, camera, uiCam);
+		else														obj->Update(dt, camera, NULL);
+		obj->PhysicsUpdate(&updateObjects);
 	}
 	if (camera != NULL)
 		map->Update(camera, dt);
@@ -201,12 +218,25 @@ void CScene::Render()
 
 	for (auto obj : gameObjects)
 	{
-		if (obj->IsEnabled() == false) continue;
+		if (obj->IsEnabled() == false)								continue;
+
 		obj->Render(camera);
 		if (obj->GetCollisionBox()->size() != 0)
 			obj->GetCollisionBox()->at(0)->Render(camera, CollisionBox_Render_Distance);
 	}
 	map->Render(camera, true);
+}
+
+void CScene::FindUpdateObjects()
+{
+	if (gameObjects.size() == 0) return;
+	updateObjects.clear();
+	for (auto obj : gameObjects)
+	{
+		if (camera != NULL
+			&& camera->CheckObjectInCamera(obj) == false)			continue;
+		updateObjects.push_back(obj);
+	}
 }
 
 void CScene::AddObject(LPGameObject gameObject)
@@ -234,6 +264,72 @@ void CScene::SetObjectPosition(D3DXVECTOR2 distance)
 			obj->GetCollisionBox()->at(0)->SetPosition(pos + distance);
 		}
 	}
+}
+
+std::vector<LPGameObject> CScene::GetBricks()
+{
+	return bricks;
+}
+
+std::vector<LPGameObject> CScene::GetCoins()
+{
+	return coins;
+}
+
+CObjectPool* CScene::GetPoolBricks()
+{
+	return poolBricks;
+}
+
+CObjectPool* CScene::GetPoolCoins()
+{
+	return poolCoins;
+}
+
+void CScene::RemoveBrick(CGameObject* gameObject)
+{
+	auto gameObj = find(bricks.begin(), bricks.end(), gameObject);
+	if (gameObj != bricks.end())
+	{
+		bricks.erase(gameObj);
+	}
+}
+
+void CScene::RemoveCoin(CGameObject* gO)
+{
+	auto gameObj = find(coins.begin(), coins.end(), gO);
+	if (gameObj != coins.end())
+	{
+		coins.erase(gameObj);
+	}
+}
+
+void CScene::AddBrick(CGameObject* gO)
+{
+	if (gO != NULL)
+		bricks.push_back(gO);
+}
+
+void CScene::AddCoin(CGameObject* gO)
+{
+	if (gO != NULL)
+		coins.push_back(gO);
+}
+
+void CScene::AddDestroyObject(CGameObject* gO)
+{
+	if (gO != NULL)
+		destroyObjects.push_back(gO);
+}
+
+bool CScene::SwitchBlockStateOnToOff()
+{
+	return switchBlockOffToOn;
+}
+
+void CScene::SwitchBlockStateOnToOff(bool state)
+{
+	this->switchBlockOffToOn = state;
 }
 
 void CScene::SetCamera(int id)

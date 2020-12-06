@@ -372,7 +372,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 
 			if (canLowJumpContinous == true)
 			{
-				velocity.y -= MARIO_JUMP_SPEED_Y;
+				velocity.y -= MARIO_JUMP_FORCE;
 				isOnGround = false;
 			}
 			currentPhysicsState.jump = JumpOnAirStates::LowJump;
@@ -623,7 +623,8 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 	{
 		auto collisionBox = collisionEvent->obj;
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::GhostPlatform 
-			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick)
+			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick
+			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::SwitchBlock)
 		{
 			if (collisionEvent->ny < 0 && isOnGround == false)
 			{
@@ -656,7 +657,15 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Coin)
 		{
 			// Đụng trúng tiền là tăng tiền và disbale tiền
-			collisionBox->GetGameObjectAttach()->Enable(false);
+			auto coin = collisionBox->GetGameObjectAttach();
+			coin->Enable(false);
+			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+			if (activeScene != NULL)
+			{
+				activeScene->RemoveCoin(coin);
+				activeScene->RemoveObject(coin);
+				activeScene->AddDestroyObject(coin);
+			}
 		}
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Portal)
 		{
@@ -722,8 +731,6 @@ void CMario::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 bool CMario::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
 	if (MarioTag(tag) || tag == GameObjectTags::MarioFireBall || tag == GameObjectTags::Label)
-		return false;
-	if (tag == GameObjectTags::Label)
 		return false;
 	if (GiftTag(tag) == true && tag != GameObjectTags::Coin)
 		return false;
@@ -1005,7 +1012,7 @@ void CMario::OnKeyDown(int KeyCode)
 	}
 	if ((KeyCode == DIK_Z || KeyCode == DIK_A)&& canAttack == true && isAttack == false && currentPhysicsState.move != MoveOnGroundStates::Attack)
 	{
-		beginAttackTime = GetTickCount64();
+		beginAttackTime = 0;
 		isAttack = true;
 	}
 }

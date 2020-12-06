@@ -4,6 +4,7 @@
 #include "Ultis.h"
 #include "MarioStateSet.h"
 #include "PMeterConst.h"
+#include "Game.h"
 CRaccoonMario::CRaccoonMario()
 {
 	CMario::Init();
@@ -45,7 +46,7 @@ void CRaccoonMario::Init()
 	
 #pragma region  Các biến flag để xét việc Attack (Quay đuôi)
 	timeToAttack = ATTACKING_TIME;
-	beginAttackTime = 0;
+	beginAttackTime = -1;
 	beginAttackTail = false;
 #pragma endregion
 
@@ -112,12 +113,14 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	{
 		// Nếu vừa ấn attack cái enable cái đuôi là sai vì tới frame thứ 3 của Attack Animation mới là cái đuôi giơ ra
 		// Nên mình sẽ set cái time phù hợp để xét va chạm đuôi đúng
-		if (GetTickCount64() - beginAttackTime > ATTACKING_TIME && beginAttackTime != 0)
+		if (beginAttackTime != -1)
+			beginAttackTime += CGame::GetInstance()->GetDeltaTime() * CGame::GetTimeScale();
+
+		if (beginAttackTime > ATTACKING_TIME && beginAttackTime != -1)
 		{
 			raccoonTailBox->Enable(true);
 			beginAttackTail = true;
 		}
-
 #pragma region Xử lý việc quay đuôi với phím tắt
 		currentPhysicsState.move = MoveOnGroundStates::Attack;
 		if (keyboard->GetKeyStateDown(DIK_Z))
@@ -125,9 +128,10 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			// Z giữ lâu
 			isAttackContinious = true;
 		}
-		if (isOnGround == false || isJump == true)
+		if (isOnGround == false || isJump == true || canLowJumpContinous == true)
 		{
 			// S + Z
+			// X + Z?
 			currentPhysicsState.move = MoveOnGroundStates::JumpAttack;
 			isJumpAttack = true;
 		}
@@ -136,13 +140,13 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			currentPhysicsState.move = MoveOnGroundStates::Idle;
 			isAttack = false;
 			isJumpAttack = false;
-
 			raccoonTailBox->Enable(false);
 		}
 #pragma endregion
 
 	}
-
+	if (isAttack == false)
+		beginAttackTime = -1;
 	// Bay
 	// Set Gravity = 0 để bé cáo bay thỏa thích trên trời, đến max time (4s) rồi thì hạ xuống từ từ
 	//DebugOut(L"pMeterCounting %f \n", pMeterCounting);
