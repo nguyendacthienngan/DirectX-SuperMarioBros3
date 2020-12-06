@@ -90,8 +90,8 @@ D3DXVECTOR2 CCamera::TransformCamToWorld(D3DXVECTOR2 posInCam)
 
 bool CCamera::CheckObjectInCamera(LPGameObject gO) // Thông tin của object
 {
-    if (gO->GetTag() == GameObjectTags::Solid)
-        return true;
+    /*if (gO->GetTag() == GameObjectTags::Solid)
+        return true;*/
     D3DXVECTOR2 posObject = gO->GetPosition();
     float widthObj = 0, heightObj = 0;
     if (gO->GetCollisionBox()->size() > 0)
@@ -113,12 +113,10 @@ bool CCamera::CheckObjectInCamera(LPGameObject gO) // Thông tin của object
         widthObj = sprite->GetWidth();
         heightObj = sprite->GetHeight();
     }
-    if (posObject.x + widthObj < posCam.x || posObject.x > posCam.x + widthCam)
+    if (posObject.x + widthObj + 48 *6 < posCam.x || posObject.x > posCam.x + widthCam + 48 * 6)
         return false;
-    /*if (posObject.y + heightObj < posCam.y || posObject.y > posCam.y + heightCam)
+    if (posObject.y + heightObj < posCam.y || posObject.y > posCam.y + heightCam)
         return false;
-    if (gO->GetTag() == GameObjectTags::Solid)
-        DebugOut(L"Hehe \n");*/
     return true; // Object nằm trong Cam
 }
 

@@ -30,7 +30,7 @@ void CBrick::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 {
 	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
 	{
-		isEnabled = false;
+		isEnabled = false;   
 		// Apply Effect Brick Breaking
 	}
 }
