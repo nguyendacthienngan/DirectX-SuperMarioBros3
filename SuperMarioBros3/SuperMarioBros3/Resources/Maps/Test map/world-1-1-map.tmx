@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="24" nextobjectid="186">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="24" nextobjectid="187">
  <editorsettings>
   <export target="world-1-1-map.xml" format="tmx"/>
  </editorsettings>
@@ -593,6 +593,7 @@
   <object id="96" name="venus" type="basic" x="5568" y="1180.64"/>
   <object id="98" name="venus" type="basic" x="1103.82" y="1180.64"/>
   <object id="147" name="para-goomba" type="red" x="465" y="1185.5"/>
+  <object id="186" name="goomba" type="tan" x="191.818" y="1053.5"/>
  </objectgroup>
  <objectgroup id="20" name="Label">
   <object id="131" name="warp-pipe" type="down" x="624" y="1090" width="96" height="28">

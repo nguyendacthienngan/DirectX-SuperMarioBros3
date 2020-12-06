@@ -29,7 +29,7 @@ const float MARIO_DEFLECT_BLOCK = 0.2f;
 
 const int  FLYING_TIME = 4000;
 const int FLOATING_TIME = 5000;
-const int ATTACKING_TIME = 320;
+const int ATTACKING_TIME = 150;
 
 const int TIME_TO_PRESS_S_TO_FLY = 200;
 const int TIME_TO_PRESS_S_TO_FLOAT = 1000;

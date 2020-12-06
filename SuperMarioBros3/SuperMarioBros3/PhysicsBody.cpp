@@ -88,6 +88,7 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	coEvents.clear();
+	//CalcOverlappedCollisions(cO, coObjects);
 
 }
 void CPhysicsBody::Update(LPGameObject gameObject)
@@ -284,7 +285,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 			continue;
 		
 
-		// Có overlap (Dùng AABB)
+		//// Có overlap (Dùng AABB)
 		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && cO->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid)
 		{
 			if (CheckAABB(cO->GetBoundingBox(), coObjects->at(i)->GetBoundingBox()) == true || CheckAABB(coObjects->at(i)->GetBoundingBox(), cO->GetBoundingBox()) == true)
@@ -320,41 +321,63 @@ void CPhysicsBody::CalcPotentialCollisions(
 	}
 
 	std::sort(temp.begin(), temp.end(), CollisionEvent::compare);
-	for (auto latterCollision  : temp)
+	coEvents = temp;
+	//for (auto latterCollision  : temp)
+	//{
+	//	for (auto prevCollision : coEvents)
+	//	{
+	//		D3DXVECTOR2 distance(cO->GetDistance());
+	//		auto dt = CGame::GetInstance()->GetDeltaTime() * CGame::GetTimeScale();
+	//		auto dist = distance - latterCollision->obj->GetGameObjectAttach()->GetPhysiscBody()->GetVelocity() * dt;
+
+	//		if (latterCollision->nx != 0)
+	//		{
+	//			dist.y *= prevCollision->t;
+	//			dist.y -= 0.1f; // why
+	//		}
+	//		else
+	//		{
+	//			dist.x *= prevCollision->t;
+	//			dist.x -= 0.1f;
+	//		}
+
+	//		float time; D3DXVECTOR2 direction;
+	//		auto mBox = cO->GetBoundingBox();
+	//		auto sBox = latterCollision->obj->GetBoundingBox();
+	//		SweptAABB(mBox.left, mBox.top, mBox.right, mBox.bottom, dist.x, dist.y, sBox.left, sBox.top, sBox.right, sBox.bottom, time, direction.x, direction.y, latterCollision->obj->GetGameObjectAttach()->GetTag());
+	//	
+	//		if (time <= 0 || time >= 1.0f)
+	//		{
+	//			prevCollision->t = 99999.0f;
+	//			break;
+	//		}
+	//	}
+	//	if (latterCollision->t > 0 && latterCollision->t <= 1.0f)
+	//		coEvents.push_back(latterCollision);
+	//}
+
+	//std::sort(coEvents.begin(), coEvents.end(), CollisionEvent::compare);
+}
+
+void CPhysicsBody::CalcOverlappedCollisions(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects)
+{
+	// Có overlap (Dùng AABB)
+	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		for (auto prevCollision : coEvents)
+		if (coObjects->at(i) == nullptr) continue;
+		if (coObjects->at(i) == cO) continue;
+		if (coObjects->at(i)->IsEnabled() == false) continue;
+
+		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && cO->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid)
 		{
-			D3DXVECTOR2 distance(cO->GetDistance());
-			auto dt = CGame::GetInstance()->GetDeltaTime() * CGame::GetTimeScale();
-			auto dist = distance - latterCollision->obj->GetGameObjectAttach()->GetPhysiscBody()->GetVelocity() * dt;
-
-			if (latterCollision->nx != 0)
+			if (CheckAABB(cO->GetBoundingBox(), coObjects->at(i)->GetBoundingBox()) == true || CheckAABB(coObjects->at(i)->GetBoundingBox(), cO->GetBoundingBox()) == true)
 			{
-				dist.y *= prevCollision->t;
-				dist.y -= 0.1f; // why
-			}
-			else
-			{
-				dist.x *= prevCollision->t;
-				dist.x -= 0.1f;
-			}
-
-			float time; D3DXVECTOR2 direction;
-			auto mBox = cO->GetBoundingBox();
-			auto sBox = latterCollision->obj->GetBoundingBox();
-			SweptAABB(mBox.left, mBox.top, mBox.right, mBox.bottom, dist.x, dist.y, sBox.left, sBox.top, sBox.right, sBox.bottom, time, direction.x, direction.y, latterCollision->obj->GetGameObjectAttach()->GetTag());
-		
-			if (time <= 0 || time >= 1.0f)
-			{
-				prevCollision->t = 99999.0f;
-				break;
+				cO->GetGameObjectAttach()->OnOverlappedEnter(cO, coObjects->at(i));
+				coObjects->at(i)->GetGameObjectAttach()->OnOverlappedEnter(coObjects->at(i), cO);
+				continue;
 			}
 		}
-		if (latterCollision->t > 0 && latterCollision->t <= 1.0f)
-			coEvents.push_back(latterCollision);
 	}
-
-	std::sort(coEvents.begin(), coEvents.end(), CollisionEvent::compare);
 }
 
 
