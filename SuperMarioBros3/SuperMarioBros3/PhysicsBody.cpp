@@ -296,7 +296,8 @@ void CPhysicsBody::CalcPotentialCollisions(
 			}
 		}
 
-
+		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick)
+			continue;
 		if (cO->GetGameObjectAttach()->CanCollisionWithThisObject(coObjects->at(i)->GetGameObjectAttach(), coObjects->at(i)->GetGameObjectAttach()->GetTag())
 			== false)
 			continue;

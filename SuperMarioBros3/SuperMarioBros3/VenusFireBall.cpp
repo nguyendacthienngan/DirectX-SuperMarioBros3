@@ -32,10 +32,6 @@ CVenusFireBall::~CVenusFireBall()
 	CGameObject::~CGameObject();
 }
 
-void CVenusFireBall::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
-{
-	CGameObject::PhysicsUpdate(coObjects);
-}
 
 void CVenusFireBall::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
