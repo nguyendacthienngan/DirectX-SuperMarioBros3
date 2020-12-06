@@ -27,7 +27,10 @@
 #include "Coin.h"
 #include "Brick.h"
 #include "Piranha.h"
-#include "CVenus.h"
+
+#include "VenusGreen.h"
+#include "VenusRed.h"
+
 #include "Portal.h"
 #include "Label.h"
 #include "Grass.h"
@@ -335,7 +338,11 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					}
 					else if (enemyName.compare("venus") == 0)
 					{
-						CVenus* venus = new CVenus();
+						CVenus* venus = NULL;
+						if (enemyType.compare("green") == 0)
+							venus = new CVenusGreen();
+						else
+							venus = new CVenusRed();
 						OutputDebugString(ToLPCWSTR(venus->GetCollisionBox()->at(0)->GetName() + "\n"));
 						venus->SetPosition(position - translateVenusConst);
 						venus->SetStartPosition(position - translateVenusConst);

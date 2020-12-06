@@ -53,8 +53,7 @@ void CPlant::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	if (canDartOut == false && timeStopDartOut == 0)
 	{
 		// Ở dưới cái pipe
-		DebugOut(L"Plant \n");
-		timeStopDartOut += CGame::GetInstance()->GetDeltaTime() * CGame::GetTimeScale();
+		timeStopDartOut = GetTickCount64();
 		timeStartIdle = 0;
 		physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 		return;

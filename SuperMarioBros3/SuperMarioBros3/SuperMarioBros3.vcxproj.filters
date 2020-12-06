@@ -265,6 +265,12 @@
     <Filter Include="Game\GameObject\Misc\Block\PSwitch">
       <UniqueIdentifier>{872c724c-d654-481d-bc1f-3398c5f0b953}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Enemy\Plant\Venus\Green">
+      <UniqueIdentifier>{6c775e39-b7d2-4aa3-9d54-d9ff0d5b9ef7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Enemy\Plant\Venus\Red">
+      <UniqueIdentifier>{30b613c8-2d05-4004-9cc5-8af0182667d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -636,6 +642,12 @@
     <ClInclude Include="EmptyBlock.h">
       <Filter>Game\GameObject\Misc\Block\EmptyBlock</Filter>
     </ClInclude>
+    <ClInclude Include="VenusGreen.h">
+      <Filter>Game\GameObject\Enemy\Plant\Venus\Green</Filter>
+    </ClInclude>
+    <ClInclude Include="VenusRed.h">
+      <Filter>Game\GameObject\Enemy\Plant\Venus\Red</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -901,6 +913,12 @@
     </ClCompile>
     <ClCompile Include="EmptyBlock.cpp">
       <Filter>Game\GameObject\Misc\Block\EmptyBlock</Filter>
+    </ClCompile>
+    <ClCompile Include="VenusGreen.cpp">
+      <Filter>Game\GameObject\Enemy\Plant\Venus\Green</Filter>
+    </ClCompile>
+    <ClCompile Include="VenusRed.cpp">
+      <Filter>Game\GameObject\Enemy\Plant\Venus\Red</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

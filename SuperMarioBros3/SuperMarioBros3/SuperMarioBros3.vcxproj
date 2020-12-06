@@ -265,6 +265,8 @@
     <ClInclude Include="Ultis.h" />
     <ClInclude Include="VenusConst.h" />
     <ClInclude Include="VenusFireBall.h" />
+    <ClInclude Include="VenusGreen.h" />
+    <ClInclude Include="VenusRed.h" />
     <ClInclude Include="WorldItemConst.h" />
     <ClInclude Include="WorldMap1.h" />
   </ItemGroup>
@@ -356,6 +358,8 @@
     <ClCompile Include="UICamera.cpp" />
     <ClCompile Include="Ultis.cpp" />
     <ClCompile Include="VenusFireBall.cpp" />
+    <ClCompile Include="VenusGreen.cpp" />
+    <ClCompile Include="VenusRed.cpp" />
     <ClCompile Include="WorldMap1.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,6 @@
 
 CVenus::CVenus()
 {
-	CVenus::LoadAnimation();
 	CVenus::Init();
 }
 
@@ -44,9 +43,6 @@ void CVenus::Init()
 
 void CVenus::LoadAnimation()
 {
-	auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(VENUS_STATE_HEAD_UP, animationManager->Clone("ani-red-venus-fire-trap-headup"));
-	AddAnimation(VENUS_STATE_HEAD_DOWN, animationManager->Clone("ani-red-venus-fire-trap-headdown"));
 }
 
 void CVenus::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
