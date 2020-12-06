@@ -244,6 +244,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						{
 							koopaShell = new CGreenKoopaShell();
 							koopa = new CGreenKoopa();
+							koopa->Enable(true);
 						}
 						if (enemyType.compare("red") == 0)
 						{
