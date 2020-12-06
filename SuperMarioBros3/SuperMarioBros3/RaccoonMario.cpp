@@ -4,6 +4,7 @@
 #include "Ultis.h"
 #include "MarioStateSet.h"
 #include "PMeterConst.h"
+#include "Game.h"
 CRaccoonMario::CRaccoonMario()
 {
 	CMario::Init();
@@ -112,12 +113,14 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	{
 		// Nếu vừa ấn attack cái enable cái đuôi là sai vì tới frame thứ 3 của Attack Animation mới là cái đuôi giơ ra
 		// Nên mình sẽ set cái time phù hợp để xét va chạm đuôi đúng
-		if (GetTickCount64() - beginAttackTime > ATTACKING_TIME && beginAttackTime != 0)
+		if (beginAttackTime != 0)
+			beginAttackTime += CGame::GetInstance()->GetDeltaTime() * CGame::GetTimeScale();
+
+		if (beginAttackTime > 320 && beginAttackTime != 0)
 		{
 			raccoonTailBox->Enable(true);
 			beginAttackTail = true;
 		}
-
 #pragma region Xử lý việc quay đuôi với phím tắt
 		currentPhysicsState.move = MoveOnGroundStates::Attack;
 		if (keyboard->GetKeyStateDown(DIK_Z))
