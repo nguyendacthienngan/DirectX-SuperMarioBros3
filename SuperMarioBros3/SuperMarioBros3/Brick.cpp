@@ -23,7 +23,7 @@ void CBrick::Init()
 	box->SetSizeBox(BRICK_BBOX);
 	box->SetGameObjectAttach(this);
 	this->collisionBoxs->push_back(box);
-	this->physiscBody->SetDynamic(false);
+	this->physiscBody->SetDynamic(true);
 }
 
 void CBrick::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)

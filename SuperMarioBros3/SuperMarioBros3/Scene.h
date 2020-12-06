@@ -26,7 +26,7 @@ protected:
 	CCamera *camera;
 	std::string filePath;
 	bool loaded;
-	std::vector<LPGameObject> destroyObjects, initObjects;
+	std::vector<LPGameObject> destroyObjects, initObjects, updateObjects;
 public:
 	CScene();
 
@@ -35,7 +35,7 @@ public:
 	virtual void DestroyObject();
 	virtual void Update(DWORD dt); // dt để xác định t va chạm 
 	virtual void Render();
-
+	virtual void FindUpdateObjects();
 	std::string GetSceneId() { return this->id; }
 	D3DCOLOR GetBackgroundColor() { return backgroundColor; }
 

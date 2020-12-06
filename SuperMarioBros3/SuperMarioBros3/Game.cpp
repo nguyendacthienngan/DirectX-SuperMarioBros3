@@ -50,11 +50,11 @@ void CGame::Init()
 void CGame::Request()
 {
 	CSceneManager::GetInstance()->LoadRequestScene();
-	/*auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 	if (activeScene != nullptr)
 	{
-		auto 
-	}*/
+		activeScene->FindUpdateObjects();
+	}
 }
 
 void CGame::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)

@@ -176,17 +176,17 @@ void CScene::Update(DWORD dt)
 	if (loaded == false)
 		return;
 	auto uiCam = CSceneManager::GetInstance()->GetUICamera();
-	if (gameObjects.size() == 0) return;
-	for (auto obj : gameObjects)
+	if (updateObjects.size() == 0) return;
+	for (auto obj : updateObjects)
 	{
 		if (obj->IsIgnoreTimeScale() == false 
 			&& CGame::GetTimeScale() == 0)							continue;
-		if (camera != NULL 
-			&& camera->CheckObjectInCamera(obj) == false)			continue;
+		if (obj->IsIgnoreTimeScale() == false
+			&& CGame::GetTimeScale() == 0)							continue;
 		if (obj->IsEnabled() == false)								continue;
 		if (uiCam != NULL)											obj->Update(dt, camera, uiCam);
 		else														obj->Update(dt, camera, NULL);
-		obj->PhysicsUpdate(&gameObjects); 
+		obj->PhysicsUpdate(&updateObjects);
 	}
 	if (camera != NULL)
 		map->Update(camera, dt);
@@ -201,12 +201,25 @@ void CScene::Render()
 
 	for (auto obj : gameObjects)
 	{
-		if (obj->IsEnabled() == false) continue;
+		if (obj->IsEnabled() == false)								continue;
+
 		obj->Render(camera);
 		if (obj->GetCollisionBox()->size() != 0)
 			obj->GetCollisionBox()->at(0)->Render(camera, CollisionBox_Render_Distance);
 	}
 	map->Render(camera, true);
+}
+
+void CScene::FindUpdateObjects()
+{
+	if (gameObjects.size() == 0) return;
+	updateObjects.clear();
+	for (auto obj : gameObjects)
+	{
+		if (camera != NULL
+			&& camera->CheckObjectInCamera(obj) == false)			continue;
+		updateObjects.push_back(obj);
+	}
 }
 
 void CScene::AddObject(LPGameObject gameObject)

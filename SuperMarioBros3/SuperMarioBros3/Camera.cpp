@@ -90,22 +90,35 @@ D3DXVECTOR2 CCamera::TransformCamToWorld(D3DXVECTOR2 posInCam)
 
 bool CCamera::CheckObjectInCamera(LPGameObject gO) // Thông tin của object
 {
-    if (gO->MarioTag(gO->GetTag()) || gO->GetTag() == GameObjectTags::Brick || gO->GetTag() == GameObjectTags::Coin)
+    if (gO->GetTag() == GameObjectTags::Solid)
         return true;
     D3DXVECTOR2 posObject = gO->GetPosition();
-    auto anim = gO->GetAnimationByState(gO->GetCurrentState());
-    if (!anim) return false;
-    auto animFrame = anim->GetAnimFrame();
-    if (!animFrame) return false;
-    auto sprite = animFrame->GetSprite();
-    if (!sprite) return false;
+    float widthObj = 0, heightObj = 0;
+    if (gO->GetCollisionBox()->size() > 0)
+    {
+        auto colBox = gO->GetCollisionBox()->at(0);
+        auto sizeBox = colBox->GetSizeBox();
+        widthObj = sizeBox.x;
+        heightObj = sizeBox.y;
+    }
+    if (widthObj == 0 || heightObj == 0)
+    {
+        auto anim = gO->GetAnimationByState(gO->GetCurrentState());
+        if (!anim) return false;
+        auto animFrame = anim->GetAnimFrame();
+        if (!animFrame) return false;
+        auto sprite = animFrame->GetSprite();
+        if (!sprite) return false;
 
-    float widthObj = sprite->GetWidth();
-    float heightObj = sprite->GetHeight();
+        widthObj = sprite->GetWidth();
+        heightObj = sprite->GetHeight();
+    }
     if (posObject.x + widthObj < posCam.x || posObject.x > posCam.x + widthCam)
         return false;
-    if (posObject.y + heightObj < posCam.y || posObject.y > posCam.y + heightCam)
+    /*if (posObject.y + heightObj < posCam.y || posObject.y > posCam.y + heightCam)
         return false;
+    if (gO->GetTag() == GameObjectTags::Solid)
+        DebugOut(L"Hehe \n");*/
     return true; // Object nằm trong Cam
 }
 
