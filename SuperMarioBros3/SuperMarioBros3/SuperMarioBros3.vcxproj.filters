@@ -271,6 +271,15 @@
     <Filter Include="Game\GameObject\Enemy\Plant\Venus\Red">
       <UniqueIdentifier>{30b613c8-2d05-4004-9cc5-8af0182667d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Misc\CardGift">
+      <UniqueIdentifier>{7b503b29-9a88-4006-87fb-4e4d67988151}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Misc\CardGift\Card">
+      <UniqueIdentifier>{6d606b37-b0e0-4cc8-867d-99ac5ba883a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\HUD\Card">
+      <UniqueIdentifier>{b5963d89-5081-4bce-9fad-8e7e55960d09}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -648,6 +657,12 @@
     <ClInclude Include="VenusRed.h">
       <Filter>Game\GameObject\Enemy\Plant\Venus\Red</Filter>
     </ClInclude>
+    <ClInclude Include="Card.h">
+      <Filter>Game\GameObject\Misc\CardGift\Card</Filter>
+    </ClInclude>
+    <ClInclude Include="CardGift.h">
+      <Filter>Game\GameObject\UI\HUD\Card</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -919,6 +934,12 @@
     </ClCompile>
     <ClCompile Include="VenusRed.cpp">
       <Filter>Game\GameObject\Enemy\Plant\Venus\Red</Filter>
+    </ClCompile>
+    <ClCompile Include="Card.cpp">
+      <Filter>Game\GameObject\Misc\CardGift</Filter>
+    </ClCompile>
+    <ClCompile Include="CardGift.cpp">
+      <Filter>Game\GameObject\UI\HUD\Card</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
