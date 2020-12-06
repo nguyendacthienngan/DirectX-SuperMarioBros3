@@ -8,14 +8,9 @@ const float  MARIO_VENT_SPEED = 0.02f;
 const float  MARIO_WALKING_SPEED = 0.24f * 2; 
 const float  MARIO_RUNNING_SPEED = 0.38f * 2;
 const float  MARIO_HIGHSPEED_SPEED = 0.53f * 2;
-const float  MARIO_JUMP_SPEED_Y = 0.35f * 2;
 
-const float  MARIO_WALKING_DRAG_FORCE = 0.0002506f * 2;
-const float  MARIO_RUNNING_DRAG_FORCE = 0.0006266f * 2;
-const float  MARIO_JUMP_FORCE = 0.45f;
-const float  MARIO_HIGH_JUMP_FORCE = 0.6f;
-const float  MARIO_SUPER_JUMP_FORCE = 0.53f;
-const float  MARIO_PUSH_FORCE = 0.45f;
+const float  MARIO_JUMP_FORCE = 0.55f;
+const float  MARIO_PUSH_FORCE = 0.55f;
 const float  MARIO_FLY_FORCE = 0.0002f * 2;
 const float  RACCOON_FLOAT_VELOCITY = 0.07f * 2;
 const float  RACCOON_FLY_VELOCITY = -0.2f * 2;

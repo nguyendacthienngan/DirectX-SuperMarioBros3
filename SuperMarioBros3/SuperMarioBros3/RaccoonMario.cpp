@@ -116,7 +116,7 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		if (beginAttackTime != 0)
 			beginAttackTime += CGame::GetInstance()->GetDeltaTime() * CGame::GetTimeScale();
 
-		if (beginAttackTime > 320 && beginAttackTime != 0)
+		if (beginAttackTime > ATTACKING_TIME && beginAttackTime != 0)
 		{
 			raccoonTailBox->Enable(true);
 			beginAttackTail = true;
@@ -128,9 +128,10 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			// Z giữ lâu
 			isAttackContinious = true;
 		}
-		if (isOnGround == false || isJump == true)
+		if (isOnGround == false || isJump == true || canLowJumpContinous == true)
 		{
 			// S + Z
+			// X + Z?
 			currentPhysicsState.move = MoveOnGroundStates::JumpAttack;
 			isJumpAttack = true;
 		}

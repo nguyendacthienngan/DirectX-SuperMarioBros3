@@ -372,7 +372,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 
 			if (canLowJumpContinous == true)
 			{
-				velocity.y -= MARIO_JUMP_SPEED_Y;
+				velocity.y -= MARIO_JUMP_FORCE;
 				isOnGround = false;
 			}
 			currentPhysicsState.jump = JumpOnAirStates::LowJump;
