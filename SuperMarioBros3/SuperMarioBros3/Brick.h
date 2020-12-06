@@ -11,5 +11,6 @@ public:
 	bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag) override;
 	void SetType(int type);
 	int GetType();
+	void Debris();
 };
 

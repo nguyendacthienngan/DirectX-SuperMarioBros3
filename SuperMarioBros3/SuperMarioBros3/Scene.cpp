@@ -54,7 +54,14 @@ void CScene::Load()
 			string sourceMap = scene->Attribute("source");
 			string fileMap = scene->Attribute("fileName");
 			this->map = NULL;
-			this->map = new CMap(sourceMap, fileMap, bricks, coins); // Ham nay tu load map
+			this->map = new CMap(sourceMap, fileMap); // Ham nay tu load map
+			auto tilemap = map->GetTileMap();
+			bricks = tilemap->GetBricks();
+			coins = tilemap->GetCoins();
+			poolBricks = tilemap->GetPoolBricks();
+			poolCoins = tilemap->GetPoolCoins();
+			poolBricks->AddPoolToScene(this);
+			poolCoins->AddPoolToScene(this);
 			auto mapObjs = map->GetListGameObjects();
 			for (auto obj : mapObjs)
 			{
@@ -267,6 +274,52 @@ std::vector<LPGameObject> CScene::GetBricks()
 std::vector<LPGameObject> CScene::GetCoins()
 {
 	return coins;
+}
+
+CObjectPool* CScene::GetPoolBricks()
+{
+	return poolBricks;
+}
+
+CObjectPool* CScene::GetPoolCoins()
+{
+	return poolCoins;
+}
+
+void CScene::RemoveBrick(CGameObject* gameObject)
+{
+	auto gameObj = find(bricks.begin(), bricks.end(), gameObject);
+	if (gameObj != bricks.end())
+	{
+		bricks.erase(gameObj);
+	}
+}
+
+void CScene::RemoveCoin(CGameObject* gO)
+{
+	auto gameObj = find(coins.begin(), coins.end(), gO);
+	if (gameObj != coins.end())
+	{
+		coins.erase(gameObj);
+	}
+}
+
+void CScene::AddBrick(CGameObject* gO)
+{
+	if (gO != NULL)
+		bricks.push_back(gO);
+}
+
+void CScene::AddCoin(CGameObject* gO)
+{
+	if (gO != NULL)
+		coins.push_back(gO);
+}
+
+void CScene::AddDestroyObject(CGameObject* gO)
+{
+	if (gO != NULL)
+		destroyObjects.push_back(gO);
 }
 
 bool CScene::SwitchBlockStateOnToOff()

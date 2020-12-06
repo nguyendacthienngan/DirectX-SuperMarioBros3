@@ -1,4 +1,4 @@
-#include "PSwitch.h"
+﻿#include "PSwitch.h"
 #include "Game.h"
 #include "PSwitchConst.h"
 #include "AnimationManager.h"
@@ -59,7 +59,27 @@ void CPSwitch::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		{
 			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 			if (activeScene != NULL)
-				activeScene->SwitchBlockStateOnToOff(false);
+			{
+				activeScene->SwitchBlockStateOnToOff(true);
+				auto coins = activeScene->GetCoins();
+				auto poolBricks = activeScene->GetPoolBricks();
+
+				for (auto coin : coins)
+				{
+					if (coin == NULL) continue;
+					if (coin->IsEnabled() == false) continue;
+					coin->Enable(false);
+					coin->GetPhysiscBody()->SetDynamic(false);
+					coin->GetCollisionBox()->at(0)->SetEnable(false);
+
+					auto brick = poolBricks->Init();
+					brick->Enable(true);
+					brick->SetPosition(coin->GetPosition());
+					brick->GetPhysiscBody()->SetDynamic(true);
+					brick->GetCollisionBox()->at(0)->SetEnable(true);
+				}
+				
+			}
 			timer = 0;
 			break;
 		}
@@ -73,7 +93,24 @@ void CPSwitch::Active()
 	timer = 0;
 	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 	if (activeScene != NULL)
-		activeScene->SwitchBlockStateOnToOff(true);
+	{
+		activeScene->SwitchBlockStateOnToOff(false);
+		auto bricks = activeScene->GetBricks();
+		auto coins = activeScene->GetCoins();
+		auto poolCoins = activeScene->GetPoolCoins();
+		for (auto brick : bricks)
+		{
+			brick->Enable(false);
+			brick->GetPhysiscBody()->SetDynamic(false);
+			brick->GetCollisionBox()->at(0)->SetEnable(false);
+			auto coin = poolCoins->Init();
+			if (coin != NULL)
+			{
+				coin->SetPosition(brick->GetPosition());
+				activeScene->AddCoin(coin);
+			}
+		}
+	}
 	changeState = 1;
 }
 

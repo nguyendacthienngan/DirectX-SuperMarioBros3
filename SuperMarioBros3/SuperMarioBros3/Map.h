@@ -20,9 +20,9 @@ private:
 	CTileMap* tileMap;
 	std::vector<LPGameObject> listGameObjects;
 public:
-	CMap(std::string filePath, std::string fileMap, std::vector<LPGameObject> bricks, std::vector<LPGameObject> coins);
+	CMap(std::string filePath, std::string fileMap);
 	~CMap();
-	void LoadTilemap(std::string filePath, std::string fileMap, std::vector<LPGameObject> bricks, std::vector<LPGameObject> coins);
+	void LoadTilemap(std::string filePath, std::string fileMap);
 	
 	void Update(CCamera* camera, DWORD dt);
 	void Render(CCamera* camera, bool isRenderForeground);

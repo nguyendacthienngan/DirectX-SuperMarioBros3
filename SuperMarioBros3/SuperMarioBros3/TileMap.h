@@ -9,6 +9,7 @@
 struct TileSet;
 struct Layer;
 class CGraph;
+class CObjectPool;
 class CTileMap
 {
 private:
@@ -21,16 +22,28 @@ private:
 	std::vector<Layer*> layers;
 	Layer* foreground;
 	CGraph* graph;
+
+	std::vector<CGameObject*>bricks, coins;
+	CObjectPool* poolBricks;
+	CObjectPool* poolCoins;
 public:
 	CTileMap();
 	CTileMap(int width, int height, int tileWidth, int tileHeight);
 
 	TileSet* GetTileSetByTileID(int id);
 	void Render(CCamera* camera, bool isRenderForeground);
-	static CTileMap* LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects, std::vector<LPGameObject> bricks, std::vector<LPGameObject> coins);
+	static CTileMap* LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects);
 	Layer* LoadLayer(TiXmlElement* layerElement);
 	void RenderLayer(Layer* layer, int i, int j, int x, int y);
 	CGraph* GetGraph();
+
+	// Bricks và Coins đặc biệt là do nó chịu sự quản lý của Switch Button => Sau khi Switch Button chuyển trạng thái, Brick sẽ chuyển thành coin 
+	// => Ta lấy coin từ poolCoins. Hết thời gian thì Coin chuyển thành Brick, ta dùng cách ngược lại
+	std::vector<CGameObject*> GetBricks();
+	std::vector<CGameObject*> GetCoins();
+	CObjectPool* GetPoolBricks();
+	CObjectPool* GetPoolCoins();
+
 	~CTileMap();
 };
 

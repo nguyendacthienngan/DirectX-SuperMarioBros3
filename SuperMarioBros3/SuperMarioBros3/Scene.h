@@ -36,7 +36,6 @@ protected:
 	bool switchBlockOffToOn;
 public:
 	CScene();
-
 	virtual void Load();
 	virtual void Unload();
 	virtual void DestroyObject();
@@ -56,8 +55,17 @@ public:
 
 	void SetObjectPosition(D3DXVECTOR2 distance);
 
-	std::vector<LPGameObject> GetBricks();
-	std::vector<LPGameObject> GetCoins();
+	std::vector<CGameObject*> GetBricks();
+	std::vector<CGameObject*> GetCoins();
+	CObjectPool* GetPoolBricks();
+	CObjectPool* GetPoolCoins();
+
+	void RemoveBrick(CGameObject* gO);
+	void RemoveCoin(CGameObject* gO);
+	void AddBrick(CGameObject* gO);
+	void AddCoin(CGameObject* gO);
+
+	void AddDestroyObject(CGameObject* gO);
 	bool SwitchBlockStateOnToOff();
 	void SwitchBlockStateOnToOff(bool state);
 	bool IsLoaded();

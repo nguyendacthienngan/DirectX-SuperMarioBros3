@@ -47,6 +47,8 @@ CTileMap::CTileMap()
 	width = 1;
 	height = 1;
 	foreground = NULL;
+	poolBricks = new CObjectPool();
+	poolCoins = new CObjectPool();
 }
 
 CTileMap::CTileMap(int width, int height, int tileWidth, int tileHeight)
@@ -56,6 +58,8 @@ CTileMap::CTileMap(int width, int height, int tileWidth, int tileHeight)
 	this->tileHeight = tileHeight;
 	this->tileWidth = tileWidth;
 	foreground = NULL;
+	poolBricks = new CObjectPool();
+	poolCoins = new CObjectPool();
 }
 
 TileSet* CTileMap::GetTileSetByTileID(int id)
@@ -133,7 +137,7 @@ void CTileMap::Render(CCamera* camera, bool isRenderForeground)
 	
 }
 
-CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects, std::vector<LPGameObject> bricks, std::vector<LPGameObject> coins)
+CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects)
 {
 	string fullPath = filePath + fileMap;
 	TiXmlDocument doc(fullPath.c_str());
@@ -184,8 +188,6 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 		}
 		// Load game objects
 		int count = 0, heightObjectOne = 0;
-		vector<CBrick*> listBricks;
-		vector<CCoin*> listCoins;
 		for (TiXmlElement* element = root->FirstChildElement("objectgroup"); element != nullptr; element = element->NextSiblingElement("objectgroup"))
 		{
 			for (TiXmlElement* object = element->FirstChildElement("object"); object != nullptr; object = object->NextSiblingElement("object"))
@@ -362,7 +364,16 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					CCoin* solid = new CCoin();
 					solid->SetPosition(position - translateQuestionBlockConst);
 					if (object->QueryIntAttribute("type", &type) == TIXML_SUCCESS && type == 1)
-						coins.push_back(solid);
+					{
+						gameMap->coins.push_back(solid);
+						CBrick* brick = new CBrick();
+						brick->SetType(type);
+
+						gameMap->poolBricks->Add(brick);
+						gameMap->poolCoins->Add(solid);
+
+						solid->Enable(true);
+					}
 					solid->SetType(type);
 					listGameObjects.push_back(solid);
 				}
@@ -371,7 +382,16 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					CBrick* solid = new CBrick();
 					solid->SetPosition(position - translateQuestionBlockConst);
 					if (object->QueryIntAttribute("type", &type) == TIXML_SUCCESS && type == 1)
-						bricks.push_back(solid);
+					{
+						gameMap->bricks.push_back(solid);
+						CCoin* coin = new CCoin();
+						coin->SetType(type);
+
+						gameMap->poolCoins->Add(coin);
+						gameMap->poolBricks->Add(solid);
+
+						solid->Enable(true);
+					}
 					solid->SetType(type);
 					listGameObjects.push_back(solid);
 				}
@@ -738,6 +758,26 @@ void CTileMap::RenderLayer(Layer* layer, int i, int j, int x, int y)
 CGraph* CTileMap::GetGraph()
 {
 	return graph;
+}
+
+std::vector<CGameObject*> CTileMap::GetBricks()
+{
+	return bricks;
+}
+
+std::vector<CGameObject*> CTileMap::GetCoins()
+{
+	return coins;
+}
+
+CObjectPool* CTileMap::GetPoolBricks()
+{
+	return poolBricks;
+}
+
+CObjectPool* CTileMap::GetPoolCoins()
+{
+	return poolCoins;
 }
 
 CTileMap::~CTileMap()

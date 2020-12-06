@@ -656,7 +656,15 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Coin)
 		{
 			// Đụng trúng tiền là tăng tiền và disbale tiền
-			collisionBox->GetGameObjectAttach()->Enable(false);
+			auto coin = collisionBox->GetGameObjectAttach();
+			coin->Enable(false);
+			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+			if (activeScene != NULL)
+			{
+				activeScene->RemoveCoin(coin);
+				activeScene->RemoveObject(coin);
+				activeScene->AddDestroyObject(coin);
+			}
 		}
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Portal)
 		{
