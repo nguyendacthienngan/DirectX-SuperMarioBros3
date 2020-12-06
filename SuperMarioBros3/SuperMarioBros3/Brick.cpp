@@ -40,3 +40,23 @@ bool CBrick::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 	return false;
 }
 
+void CBrick::SetID(int id)
+{
+	this->id = id;
+}
+
+int CBrick::GetID()
+{
+	return id;
+}
+
+void CBrick::SetType(int type)
+{
+	this->type = type;
+}
+
+int CBrick::GetType()
+{
+	return type;
+}
+

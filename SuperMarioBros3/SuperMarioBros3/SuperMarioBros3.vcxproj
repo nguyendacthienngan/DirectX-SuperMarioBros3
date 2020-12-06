@@ -164,6 +164,7 @@
     <ClInclude Include="CVenus.h" />
     <ClInclude Include="EffectConst.h" />
     <ClInclude Include="EffectObject.h" />
+    <ClInclude Include="EmptyBlock.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyConst.h" />
     <ClInclude Include="Font.h" />
@@ -282,6 +283,7 @@
     <ClCompile Include="CollisionBox.cpp" />
     <ClCompile Include="CVenus.cpp" />
     <ClCompile Include="EffectObject.cpp" />
+    <ClCompile Include="EmptyBlock.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Graph.cpp" />

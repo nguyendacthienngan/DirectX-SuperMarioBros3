@@ -38,6 +38,7 @@
 #include "WorldItemConst.h"
 #include "NodeMap.h"
 #include "PSwitch.h"
+#include "EmptyBlock.h"
 
 CTileMap::CTileMap()
 {
@@ -191,6 +192,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 			{
 				std::string name = element->Attribute("name");
 				int id, x, y, width, height;
+				int type;
 				object->QueryIntAttribute("id", &id);
 				object->QueryIntAttribute("x", &x);
 				object->QueryIntAttribute("y", &y);
@@ -238,13 +240,13 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 						CKoopaShell* koopaShell = NULL;
 						if (enemyType.compare("green") == 0)
 						{
-							CGreenKoopaShell* koopaShell = new CGreenKoopaShell();
-							CGreenKoopa* koopa = new CGreenKoopa();
+							koopaShell = new CGreenKoopaShell();
+							koopa = new CGreenKoopa();
 						}
 						if (enemyType.compare("red") == 0)
 						{
-							CRedKoopaShell* koopaShell = new CRedKoopaShell();
-							CRedKoopa* koopa = new CRedKoopa();
+							koopaShell = new CRedKoopaShell();
+							koopa = new CRedKoopa();
 						}
 						if (koopa != NULL && koopaShell != NULL)
 						{
@@ -360,14 +362,16 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					CCoin* solid = new CCoin();
 					solid->SetPosition(position - translateQuestionBlockConst);
 					listGameObjects.push_back(solid);
-					listCoins.push_back(solid);
+					if (object->QueryIntAttribute("type", &type) == TIXML_SUCCESS && type == 1)
+						listCoins.push_back(solid);
 				}
 				else if (name.compare("Brick") == 0)
 				{
 					CBrick* solid = new CBrick();
 					solid->SetPosition(position - translateQuestionBlockConst);
 					listGameObjects.push_back(solid);
-					listBricks.push_back(solid);
+					if (object->QueryIntAttribute("type", &type) == TIXML_SUCCESS && type == 1)
+						listBricks.push_back(solid);
 				}
 				else if (name.compare("Portal") == 0)
 				{
@@ -648,6 +652,12 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					switchBlock->SetListBricks(listBricks);
 					switchBlock->SetListCoins(listCoins);
 					listGameObjects.push_back(switchBlock);
+				}
+				else if (name.compare("Block") == 0)
+				{
+					CEmptyBlock* emptyBlock = new CEmptyBlock();
+					emptyBlock->SetPosition(position - translateQuestionBlockConst);
+					listGameObjects.push_back(emptyBlock);
 				}
 			}
 		}

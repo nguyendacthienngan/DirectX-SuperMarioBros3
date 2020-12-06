@@ -33,7 +33,12 @@ void CPSwitch::LoadAnimation()
 void CPSwitch::Render(CCamera* cam, int alpha)
 {
 	if (changeState != 0)
+	{
 		SetState("INACTIVE");
+		collisionBoxs->at(0)->SetSizeBox(PSWITCH_SIZE_BOX_INACTIVE);
+		collisionBoxs->at(0)->SetDistance(D3DXVECTOR2(0.0f, PSWITCH_SIZE_BOX.y*0.5f - PSWITCH_SIZE_BOX_INACTIVE.y * 0.5f));
+		SetRelativePositionOnScreen(D3DXVECTOR2(0.0f, PSWITCH_SIZE_BOX.y * 0.5f - PSWITCH_SIZE_BOX_INACTIVE.y * 0.5f));
+	}
 	CGameObject::Render(cam, alpha);
 }
 
@@ -98,6 +103,4 @@ void CPSwitch::SetListBricks(std::vector<CBrick*> listBricks)
 void CPSwitch::SetListCoins(std::vector<CCoin*> listCoins)
 {
 	this->listCoins = listCoins;
-	for (auto coin : listCoins)
-		coin->Enable(false);
 }

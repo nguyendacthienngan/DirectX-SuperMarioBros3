@@ -262,6 +262,9 @@
     <Filter Include="Game\GameObject\Misc\PSwitch">
       <UniqueIdentifier>{872c724c-d654-481d-bc1f-3398c5f0b953}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Misc\Block\EmptyBlock">
+      <UniqueIdentifier>{6fe7acfc-3c3a-4241-92fd-d3be9835bf71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -630,6 +633,9 @@
     <ClInclude Include="PSwitchConst.h">
       <Filter>Game\GameObject\Misc\PSwitch</Filter>
     </ClInclude>
+    <ClInclude Include="EmptyBlock.h">
+      <Filter>Game\GameObject\Misc\Block\EmptyBlock</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -892,6 +898,9 @@
     </ClCompile>
     <ClCompile Include="PSwitch.cpp">
       <Filter>Game\GameObject\Misc\PSwitch</Filter>
+    </ClCompile>
+    <ClCompile Include="EmptyBlock.cpp">
+      <Filter>Game\GameObject\Misc\Block\EmptyBlock</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

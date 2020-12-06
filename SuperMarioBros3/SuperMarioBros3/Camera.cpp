@@ -90,6 +90,8 @@ D3DXVECTOR2 CCamera::TransformCamToWorld(D3DXVECTOR2 posInCam)
 
 bool CCamera::CheckObjectInCamera(LPGameObject gO) // Thông tin của object
 {
+    if (gO->MarioTag(gO->GetTag()) || gO->GetTag() == GameObjectTags::Brick || gO->GetTag() == GameObjectTags::Coin)
+        return true;
     D3DXVECTOR2 posObject = gO->GetPosition();
     auto anim = gO->GetAnimationByState(gO->GetCurrentState());
     if (!anim) return false;

@@ -723,8 +723,6 @@ bool CMario::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
 	if (MarioTag(tag) || tag == GameObjectTags::MarioFireBall || tag == GameObjectTags::Label)
 		return false;
-	if (tag == GameObjectTags::Label)
-		return false;
 	if (GiftTag(tag) == true && tag != GameObjectTags::Coin)
 		return false;
 	if (isGoToWarpPipe == true && StaticTag(tag))
