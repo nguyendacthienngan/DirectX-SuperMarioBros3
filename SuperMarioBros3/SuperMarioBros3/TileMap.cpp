@@ -133,7 +133,7 @@ void CTileMap::Render(CCamera* camera, bool isRenderForeground)
 	
 }
 
-CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects)
+CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects, std::vector<LPGameObject> bricks, std::vector<LPGameObject> coins)
 {
 	string fullPath = filePath + fileMap;
 	TiXmlDocument doc(fullPath.c_str());
@@ -192,7 +192,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 			{
 				std::string name = element->Attribute("name");
 				int id, x, y, width, height;
-				int type;
+				int type = 0;
 				object->QueryIntAttribute("id", &id);
 				object->QueryIntAttribute("x", &x);
 				object->QueryIntAttribute("y", &y);
@@ -361,17 +361,19 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				{
 					CCoin* solid = new CCoin();
 					solid->SetPosition(position - translateQuestionBlockConst);
-					listGameObjects.push_back(solid);
 					if (object->QueryIntAttribute("type", &type) == TIXML_SUCCESS && type == 1)
-						listCoins.push_back(solid);
+						coins.push_back(solid);
+					solid->SetType(type);
+					listGameObjects.push_back(solid);
 				}
 				else if (name.compare("Brick") == 0)
 				{
 					CBrick* solid = new CBrick();
 					solid->SetPosition(position - translateQuestionBlockConst);
-					listGameObjects.push_back(solid);
 					if (object->QueryIntAttribute("type", &type) == TIXML_SUCCESS && type == 1)
-						listBricks.push_back(solid);
+						bricks.push_back(solid);
+					solid->SetType(type);
+					listGameObjects.push_back(solid);
 				}
 				else if (name.compare("Portal") == 0)
 				{
@@ -649,8 +651,6 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				{
 					CPSwitch* switchBlock = new CPSwitch();
 					switchBlock->SetPosition(position - translateQuestionBlockConst);
-					switchBlock->SetListBricks(listBricks);
-					switchBlock->SetListCoins(listCoins);
 					listGameObjects.push_back(switchBlock);
 				}
 				else if (name.compare("Block") == 0)

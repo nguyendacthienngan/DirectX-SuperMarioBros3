@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "PSwitchConst.h"
 #include "AnimationManager.h"
+#include "SceneManager.h"
 CPSwitch::CPSwitch()
 {
 	LoadAnimation();
@@ -44,8 +45,6 @@ void CPSwitch::Render(CCamera* cam, int alpha)
 
 void CPSwitch::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
-	if (listBricks.size() <= 0 || listCoins.size() <= 0)
-		return;
 	switch (changeState)
 	{
 		case 1:
@@ -58,14 +57,9 @@ void CPSwitch::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		}
 		case 2:
 		{
-			for (auto coin : listCoins)
-			{
-				coin->Enable(false);
-			}
-			for (auto brick : listBricks)
-			{
-				brick->Enable(true);
-			}
+			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+			if (activeScene != NULL)
+				activeScene->SwitchBlockStateOnToOff(false);
 			timer = 0;
 			break;
 		}
@@ -74,19 +68,12 @@ void CPSwitch::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 
 void CPSwitch::Active()
 {
-	if (changeState != 0 || listBricks.size() <= 0)
+	if (changeState != 0)
 		return;
-	this->physiscBody->SetDynamic(false);
-	this->collisionBoxs->at(0)->SetEnable(false);
 	timer = 0;
-	for (auto brick : listBricks)
-	{
-		brick->Enable(false);
-	}
-	for (auto coin : listCoins)
-	{
-		coin->Enable(true);
-	}
+	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	if (activeScene != NULL)
+		activeScene->SwitchBlockStateOnToOff(true);
 	changeState = 1;
 }
 
@@ -95,12 +82,7 @@ bool CPSwitch::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 	return false;
 }
 
-void CPSwitch::SetListBricks(std::vector<CBrick*> listBricks)
+int CPSwitch::GetChangeState()
 {
-	this->listBricks = listBricks;
-}
-
-void CPSwitch::SetListCoins(std::vector<CCoin*> listCoins)
-{
-	this->listCoins = listCoins;
+	return changeState;
 }

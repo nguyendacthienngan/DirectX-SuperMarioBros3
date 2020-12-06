@@ -54,7 +54,7 @@ void CScene::Load()
 			string sourceMap = scene->Attribute("source");
 			string fileMap = scene->Attribute("fileName");
 			this->map = NULL;
-			this->map = new CMap(sourceMap, fileMap); // Ham nay tu load map
+			this->map = new CMap(sourceMap, fileMap, bricks, coins); // Ham nay tu load map
 			auto mapObjs = map->GetListGameObjects();
 			for (auto obj : mapObjs)
 			{
@@ -169,6 +169,16 @@ void CScene::DestroyObject()
 		map = NULL;
 		camera = NULL;
 	}
+	if (destroyObjects.size() > 0)
+	{
+		for (auto gO : destroyObjects)
+		{
+			RemoveObject(gO);
+			delete gO;
+			gO = NULL;
+		}
+		destroyObjects.clear();
+	}
 }
 
 void CScene::Update(DWORD dt)
@@ -247,6 +257,26 @@ void CScene::SetObjectPosition(D3DXVECTOR2 distance)
 			obj->GetCollisionBox()->at(0)->SetPosition(pos + distance);
 		}
 	}
+}
+
+std::vector<LPGameObject> CScene::GetBricks()
+{
+	return bricks;
+}
+
+std::vector<LPGameObject> CScene::GetCoins()
+{
+	return coins;
+}
+
+bool CScene::SwitchBlockStateOnToOff()
+{
+	return switchBlockOffToOn;
+}
+
+void CScene::SwitchBlockStateOnToOff(bool state)
+{
+	this->switchBlockOffToOn = state;
 }
 
 void CScene::SetCamera(int id)

@@ -27,7 +27,7 @@ public:
 
 	TileSet* GetTileSetByTileID(int id);
 	void Render(CCamera* camera, bool isRenderForeground);
-	static CTileMap* LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects);
+	static CTileMap* LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects, std::vector<LPGameObject> bricks, std::vector<LPGameObject> coins);
 	Layer* LoadLayer(TiXmlElement* layerElement);
 	void RenderLayer(Layer* layer, int i, int j, int x, int y);
 	CGraph* GetGraph();

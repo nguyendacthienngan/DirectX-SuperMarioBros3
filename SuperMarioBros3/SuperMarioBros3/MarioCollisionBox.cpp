@@ -127,7 +127,8 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 			if (collisionEvent->ny < 0)
 			{
 				auto switchBlock = static_cast<CPSwitch*>(collisionBox->GetGameObjectAttach());
-				switchBlock->Active();
+				if (switchBlock->GetChangeState() == 0)
+					switchBlock->Active();
 			}
 		}
 	}

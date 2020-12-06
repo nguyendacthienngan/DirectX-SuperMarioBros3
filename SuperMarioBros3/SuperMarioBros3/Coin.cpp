@@ -30,16 +30,6 @@ bool CCoin::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 	return false;
 }
 
-void CCoin::SetID(int id)
-{
-	this->id = id;
-}
-
-int CCoin::GetID()
-{
-	return id;
-}
-
 void CCoin::SetType(int type)
 {
 	this->type = type;

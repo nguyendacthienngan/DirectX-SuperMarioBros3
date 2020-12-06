@@ -7,6 +7,7 @@
 
 #include "Map.h"
 #include "Camera.h"
+#include "ObjectPool.h"
 class CScene;
 typedef CScene* LPScene;
 
@@ -16,6 +17,7 @@ typedef CGameObject* LPGameObject;
 class CCamera;
 class CMap;
 
+class CObjectPool;
 class CScene
 {
 protected:
@@ -27,6 +29,11 @@ protected:
 	std::string filePath;
 	bool loaded;
 	std::vector<LPGameObject> destroyObjects, initObjects, updateObjects;
+	std::vector<LPGameObject> bricks;
+	std::vector<LPGameObject> coins;
+	CObjectPool* poolBricks;
+	CObjectPool* poolCoins;
+	bool switchBlockOffToOn;
 public:
 	CScene();
 
@@ -49,6 +56,10 @@ public:
 
 	void SetObjectPosition(D3DXVECTOR2 distance);
 
+	std::vector<LPGameObject> GetBricks();
+	std::vector<LPGameObject> GetCoins();
+	bool SwitchBlockStateOnToOff();
+	void SwitchBlockStateOnToOff(bool state);
 	bool IsLoaded();
 	virtual ~CScene();
 };

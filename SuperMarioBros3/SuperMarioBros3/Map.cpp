@@ -12,9 +12,9 @@
 #include "Const.h"
 using namespace std;
 
-CMap::CMap(std::string filePath, std::string fileMap)
+CMap::CMap(std::string filePath, std::string fileMap, std::vector<LPGameObject> bricks, std::vector<LPGameObject> coins)
 {
-	LoadTilemap(filePath, fileMap);
+	LoadTilemap(filePath, fileMap, bricks, coins);
 }
 
 CMap::~CMap()
@@ -23,10 +23,10 @@ CMap::~CMap()
 	delete tileMap;
 }
 
-void CMap::LoadTilemap(std::string filePath, std::string fileMap)
+void CMap::LoadTilemap(std::string filePath, std::string fileMap, std::vector<LPGameObject> bricks, std::vector<LPGameObject> coins)
 {
 	tileMap = new CTileMap();
-	tileMap = tileMap->LoadMap(filePath, fileMap, listGameObjects);
+	tileMap = tileMap->LoadMap(filePath, fileMap, listGameObjects, bricks, coins);
 }
 
 void CMap::Update(CCamera* camera, DWORD dt)

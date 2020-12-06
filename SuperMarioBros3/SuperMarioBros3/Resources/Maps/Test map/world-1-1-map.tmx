@@ -444,99 +444,51 @@
   <object id="127" x="6599" y="1483.33"/>
   <object id="128" x="6551" y="1483.33"/>
   <object id="129" x="6503.34" y="1531.33"/>
-  <object id="168" type="1" x="380.667" y="1221">
-   <point/>
-  </object>
-  <object id="169" type="1" x="332.667" y="1221">
-   <point/>
-  </object>
-  <object id="170" type="1" x="284.667" y="1221">
-   <point/>
-  </object>
-  <object id="171" type="1" x="236.997" y="1221">
-   <point/>
-  </object>
-  <object id="172" type="1" x="188.667" y="1221">
-   <point/>
-  </object>
-  <object id="173" type="1" x="140.667" y="1221">
-   <point/>
-  </object>
-  <object id="174" type="1" x="92.997" y="1221">
-   <point/>
-  </object>
-  <object id="175" type="1" x="332.667" y="1173.34">
-   <point/>
-  </object>
-  <object id="176" type="1" x="284.997" y="1173.34">
-   <point/>
-  </object>
-  <object id="177" type="1" x="236.997" y="1173.34">
-   <point/>
-  </object>
-  <object id="178" type="1" x="188.997" y="1173.67">
-   <point/>
-  </object>
-  <object id="179" type="1" x="140.997" y="1173.67">
-   <point/>
-  </object>
-  <object id="180" type="1" x="188.667" y="1125">
-   <point/>
-  </object>
-  <object id="181" type="1" x="236.997" y="1124.67">
-   <point/>
-  </object>
-  <object id="182" type="1" x="285.327" y="1125.34">
-   <point/>
-  </object>
  </objectgroup>
  <objectgroup id="19" name="Brick">
-  <object id="73" x="6119.67" y="1222">
+  <object id="73" type="1" x="6119.67" y="1222.33">
    <point/>
   </object>
-  <object id="74" x="6071.67" y="1222.33">
+  <object id="74" type="1" x="6071.67" y="1222.33">
    <point/>
   </object>
-  <object id="75" x="6023.67" y="1222.33">
+  <object id="75" type="1" x="6024.33" y="1222.33">
    <point/>
   </object>
-  <object id="76" x="5976" y="1222.67">
+  <object id="76" type="1" x="5976" y="1222.33">
    <point/>
   </object>
-  <object id="77" x="5927.67" y="1222">
+  <object id="77" type="1" x="5927.67" y="1222.33">
    <point/>
   </object>
-  <object id="78" x="5879.67" y="1222.33">
+  <object id="78" type="1" x="5880" y="1222.33">
    <point/>
   </object>
-  <object id="79" x="5832" y="1222.33">
+  <object id="79" type="1" x="5832" y="1222.33">
    <point/>
   </object>
-  <object id="80" x="6071.67" y="1174.67">
+  <object id="80" type="1" x="6071.67" y="1174.67">
    <point/>
   </object>
-  <object id="81" x="6024" y="1174.67">
+  <object id="81" type="1" x="6024.33" y="1174.67">
    <point/>
   </object>
-  <object id="82" x="5976" y="1174.67">
+  <object id="82" type="1" x="5976" y="1174.67">
    <point/>
   </object>
-  <object id="83" x="5928" y="1175">
+  <object id="83" type="1" x="5927.67" y="1175">
    <point/>
   </object>
-  <object id="84" x="5880" y="1175">
+  <object id="84" type="1" x="5880" y="1175">
    <point/>
   </object>
-  <object id="85" x="5927.67" y="1126.33">
+  <object id="85" type="1" x="5927.67" y="1126.33">
    <point/>
   </object>
-  <object id="86" x="5976" y="1126">
+  <object id="86" type="1" x="5976" y="1126.33">
    <point/>
   </object>
-  <object id="87" x="6024.33" y="1126.67">
-   <point/>
-  </object>
-  <object id="88" x="6071.67" y="1126">
+  <object id="87" type="1" x="6024.33" y="1126.33">
    <point/>
   </object>
   <object id="168" type="1" x="380.667" y="1221">
@@ -620,9 +572,6 @@
   </object>
  </objectgroup>
  <objectgroup id="22" name="SwitchBlocks">
-  <object id="150" x="6071.5" y="1125.75">
-   <point/>
-  </object>
   <object id="151" x="332.67" y="1081">
    <point/>
   </object>
