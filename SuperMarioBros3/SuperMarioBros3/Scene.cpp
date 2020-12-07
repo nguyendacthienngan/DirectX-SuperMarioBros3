@@ -13,6 +13,7 @@
 #include <string>
 #include "SceneManager.h"
 #include "MarioMap.h"
+#include "Card.h"
 
 using namespace std;
 
@@ -20,6 +21,7 @@ CScene::CScene()
 {
 	camera = NULL;
 	loaded = true;
+	cardState = 0;
 }
 
 void CScene::Load()
@@ -62,6 +64,7 @@ void CScene::Load()
 			poolCoins = tilemap->GetPoolCoins();
 			poolBricks->AddPoolToScene(this);
 			poolCoins->AddPoolToScene(this);
+			card = tilemap->GetCard();
 			auto mapObjs = map->GetListGameObjects();
 			for (auto obj : mapObjs)
 			{
@@ -192,6 +195,22 @@ void CScene::Update(DWORD dt)
 {
 	if (loaded == false)
 		return;
+	if (card != NULL && CGame::GetTimeScale() != 0)
+	{
+		auto cardGO = static_cast<CCard*>(card);
+		if (cardGO->IsTouched() == false)
+		{
+			cardState++;
+			if (cardState > 10)
+				cardState = 0;
+			cardGO->SetCardState(cardState);
+		}
+		else
+		{
+			cardGO = NULL;
+			card = NULL;
+		}
+	}
 	auto uiCam = CSceneManager::GetInstance()->GetUICamera();
 	if (updateObjects.size() == 0) return;
 	for (auto obj : updateObjects)

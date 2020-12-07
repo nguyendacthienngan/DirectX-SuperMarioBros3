@@ -52,8 +52,8 @@ void CFont::Render()
 {
 	// Test font
 	/*vector<LPSprite> spriteStrings;
-	spriteStrings = StringToSprites("Hello!");
-	float x = 360, y = 360;
+	spriteStrings = StringToSprites("You got a card!");
+	float x = 100, y = 360;
 	if (spriteStrings.size() != 0)
 	{
 		for (auto s : spriteStrings)

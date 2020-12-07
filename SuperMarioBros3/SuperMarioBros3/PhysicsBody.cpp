@@ -283,8 +283,6 @@ void CPhysicsBody::CalcPotentialCollisions(
 			continue;
 		if (coObjects->at(i) == cO)
 			continue;
-		
-
 		//// Có overlap (Dùng AABB)
 		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && cO->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid)
 		{

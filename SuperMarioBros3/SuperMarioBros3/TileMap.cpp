@@ -42,6 +42,7 @@
 #include "NodeMap.h"
 #include "PSwitch.h"
 #include "EmptyBlock.h"
+#include "Card.h"
 
 CTileMap::CTileMap()
 {
@@ -52,6 +53,7 @@ CTileMap::CTileMap()
 	foreground = NULL;
 	poolBricks = new CObjectPool();
 	poolCoins = new CObjectPool();
+	card = NULL;
 }
 
 CTileMap::CTileMap(int width, int height, int tileWidth, int tileHeight)
@@ -63,6 +65,8 @@ CTileMap::CTileMap(int width, int height, int tileWidth, int tileHeight)
 	foreground = NULL;
 	poolBricks = new CObjectPool();
 	poolCoins = new CObjectPool();
+	card = NULL;
+
 }
 
 TileSet* CTileMap::GetTileSetByTileID(int id)
@@ -687,6 +691,13 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					emptyBlock->SetPosition(position - translateQuestionBlockConst);
 					listGameObjects.push_back(emptyBlock);
 				}
+				else if (name.compare("Card") == 0)
+				{
+					CCard* ca = new CCard();
+					ca->SetPosition(position - translateQuestionBlockConst);
+					listGameObjects.push_back(ca);
+					gameMap->card = ca;
+				}
 			}
 		}
 		if (listGameObjects.size() == 0)
@@ -786,6 +797,11 @@ CObjectPool* CTileMap::GetPoolBricks()
 CObjectPool* CTileMap::GetPoolCoins()
 {
 	return poolCoins;
+}
+
+CGameObject* CTileMap::GetCard()
+{
+	return card;
 }
 
 CTileMap::~CTileMap()

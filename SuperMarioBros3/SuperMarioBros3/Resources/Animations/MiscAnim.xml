@@ -30,13 +30,17 @@
 		</Animation>
 		
 		<!-- STARMAN -->
-		<Animation aniId="ani-star-man" frameTime="100" name = "STARMAN">
+		<Animation aniId="ani-star-man-0" frameTime="100" name = "STARMAN">
 			<Sprite id="spr-star-man-0" left="201" top="121"  width="16" height="16"/>
-			<Sprite id="spr-star-man-1" left="222" top="121"  width="16" height="16"/>
-			<Sprite id="spr-star-man-2" left="245" top="121"  width="16" height="16"/>
 		</Animation>
-		
-		<!-- FIRE FLOWER -->
+    <Animation aniId="ani-star-man-1" frameTime="100" name = "STARMAN">
+      <Sprite id="spr-star-man-1" left="222" top="121"  width="16" height="16"/>
+    </Animation>
+    <Animation aniId="ani-star-man-2" frameTime="100" name = "STARMAN">
+      <Sprite id="spr-star-man-2" left="245" top="121"  width="16" height="16"/>
+    </Animation>
+
+    <!-- FIRE FLOWER -->
 		<Animation aniId="ani-fire-flower" frameTime="100" name = "FIRE-FLOWER">
 			<Sprite id="spr-fire-flower-0" left="286" top="121"  width="16" height="16"/>
 		</Animation>

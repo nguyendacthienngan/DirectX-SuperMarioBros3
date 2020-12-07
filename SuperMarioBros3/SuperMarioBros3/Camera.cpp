@@ -63,9 +63,9 @@ void CCamera::Update()
             posCam.y = currentBoundary.bottom - heightCam;
 
     //	Xét biên để chỉnh lại camera k thoát khỏi camera
-    if (x > currentBoundary.right- 24)
+    if (x > currentBoundary.right- 24 && isDisablePosX == false)
         x = currentBoundary.right- 24;
-    else if (x < currentBoundary.left + 24)
+    else if (x < currentBoundary.left + 24 && isDisablePosX == false)
         x = currentBoundary.left + 24;
     gameObject->SetPosition(D3DXVECTOR2(x, y));
 

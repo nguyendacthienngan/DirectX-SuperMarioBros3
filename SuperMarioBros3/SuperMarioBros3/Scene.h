@@ -29,11 +29,14 @@ protected:
 	std::string filePath;
 	bool loaded;
 	std::vector<LPGameObject> destroyObjects, initObjects, updateObjects;
+
 	std::vector<LPGameObject> bricks;
 	std::vector<LPGameObject> coins;
 	CObjectPool* poolBricks;
 	CObjectPool* poolCoins;
 	bool switchBlockOffToOn;
+	CGameObject* card;
+	int cardState;
 public:
 	CScene();
 	virtual void Load();

@@ -22,5 +22,6 @@ enum class GameObjectTags
 
 	Portal,
 	Label,
-	SwitchBlock
+	SwitchBlock,
+	Card
 };

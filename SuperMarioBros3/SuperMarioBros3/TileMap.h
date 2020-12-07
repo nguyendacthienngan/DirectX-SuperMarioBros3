@@ -26,6 +26,8 @@ private:
 	std::vector<CGameObject*>bricks, coins;
 	CObjectPool* poolBricks;
 	CObjectPool* poolCoins;
+
+	CGameObject* card;
 public:
 	CTileMap();
 	CTileMap(int width, int height, int tileWidth, int tileHeight);
@@ -43,7 +45,7 @@ public:
 	std::vector<CGameObject*> GetCoins();
 	CObjectPool* GetPoolBricks();
 	CObjectPool* GetPoolCoins();
-
+	CGameObject* GetCard();
 	~CTileMap();
 };
 

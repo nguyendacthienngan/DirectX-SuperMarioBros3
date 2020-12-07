@@ -24,6 +24,7 @@
 #include "QuestionBlock.h"
 #include "Label.h"
 #include "Portal.h"
+#include "WorldMap1.h"
 using namespace std;
 
 CMario::CMario()
@@ -200,6 +201,7 @@ void CMario::InitProperties()
 	timeStartChangeAlpha = 0;
 	isPowerUp = false;
 	isAutogo = false;
+	isHitGoalRoulette = false;
 	powerupItem = PowerupTag::None;
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 	ventDirection = { 0, 0, 0, 0 };
@@ -469,6 +471,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	else
 	{
 		WarpPipeProcess(cam);
+		GoalRouletteProcess(cam);
 	}	
 }
 
@@ -622,7 +625,7 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::GhostPlatform 
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::GhostPlatform
 			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick
 			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::SwitchBlock)
 		{
@@ -677,7 +680,6 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 			if (cameraID != -1)
 			{
 				// Đổi camera
-				DebugOut(L"Cameraaaa %d\n", cameraID);
 				auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 				activeScene->SetCamera(cameraID);
 			}
@@ -949,6 +951,12 @@ void CMario::GoToWarpPipeProcess()
 	
 }
 
+void CMario::HitGoalRoulette()
+{
+	isAutogo = true;
+	isHitGoalRoulette = true;
+}
+
 void CMario::WarpPipeProcess(CCamera* cam)
 {
 	if (isGoToWarpPipe == true)
@@ -960,7 +968,7 @@ void CMario::WarpPipeProcess(CCamera* cam)
 		if (ventDirection.top == 1)
 			transform.position.y -= MARIO_VENT_SPEED * CGame::GetInstance()->GetDeltaTime();
 	}
-	else
+	else if (isHitGoalRoulette == false)
 	{
 		isAutogo = false;
 		//this->transform.position = D3DXVECTOR2(6237, 1366);
@@ -968,6 +976,33 @@ void CMario::WarpPipeProcess(CCamera* cam)
 		camPos.x += cam->GetWidthCam() / 2;
 		SetPosition(camPos);
 		this->physiscBody->SetGravity(MARIO_GRAVITY);
+	}
+}
+
+void CMario::GoalRouletteProcess(CCamera* cam)
+{
+	if (isHitGoalRoulette == true)
+	{
+		isAutogo = true;
+		if (isOnGround == false && physiscBody->GetVelocity().y > 0 )
+		{
+			currentPhysicsState.jump = JumpOnAirStates::Fall;
+		}
+		if (isOnGround == true)
+		{
+			currentPhysicsState.jump = JumpOnAirStates::Stand;
+			currentPhysicsState.move = MoveOnGroundStates::Walk;
+			physiscBody->SetVelocity(D3DXVECTOR2(MARIO_WALKING_SPEED, 0.0f));
+			cam->SetDisablePosX(true);
+		}
+		if (transform.position.x > cam->GetCurrentBoundary().right)
+		{
+			//physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
+			auto sceneManager = CSceneManager::GetInstance();
+			auto activeScene = sceneManager->GetActiveScene();
+			CWorldMap1* wolrdMap1 = new CWorldMap1();
+			sceneManager->SwitchScene(wolrdMap1);
+		}
 	}
 }
 
