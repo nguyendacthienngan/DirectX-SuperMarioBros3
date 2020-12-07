@@ -1,6 +1,7 @@
 #include "Card.h"
 #include "AnimationManager.h"
 #include "UICamera.h"
+#include "Mario.h"
 
 CCard::CCard()
 {
@@ -63,6 +64,8 @@ void CCard::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Collis
 		if (MarioTag(collisionBox->GetGameObjectAttach()->GetTag()))
 		{
 			//this->Enable(false);
+			auto mario = static_cast<CMario*>(collisionBox->GetGameObjectAttach());
+			mario->HitGoalRoulette();
 			isTouched = true;
 		}
 
@@ -74,6 +77,8 @@ void CCard::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* ot
 	if (MarioTag(otherCollisionBox->GetGameObjectAttach()->GetTag()))
 	{
 		//this->Enable(false);
+		auto mario = static_cast<CMario*>(otherCollisionBox->GetGameObjectAttach());
+		mario->HitGoalRoulette();
 		isTouched = true;
 
 	}

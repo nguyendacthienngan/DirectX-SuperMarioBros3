@@ -51,7 +51,7 @@ void CFont::LoadSprite()
 void CFont::Render()
 {
 	// Test font
-	vector<LPSprite> spriteStrings;
+	/*vector<LPSprite> spriteStrings;
 	spriteStrings = StringToSprites("You got a card!");
 	float x = 100, y = 360;
 	if (spriteStrings.size() != 0)
@@ -61,7 +61,7 @@ void CFont::Render()
 			s->Draw(D3DXVECTOR2(x, y), D3DXVECTOR2(1.0f, 1.0f), 0.0f);
 			x += 50;
 		}
-	}
+	}*/
 }
 
 LPSprite CFont::CharToSprite(char character)

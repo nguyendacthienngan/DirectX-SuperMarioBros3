@@ -935,11 +935,11 @@
     <ClCompile Include="VenusRed.cpp">
       <Filter>Game\GameObject\Enemy\Plant\Venus\Red</Filter>
     </ClCompile>
-    <ClCompile Include="Card.cpp">
-      <Filter>Game\GameObject\Misc\CardGift</Filter>
-    </ClCompile>
     <ClCompile Include="CardGift.cpp">
       <Filter>Game\GameObject\UI\HUD\Card</Filter>
+    </ClCompile>
+    <ClCompile Include="Card.cpp">
+      <Filter>Game\GameObject\Misc\CardGift\Card</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

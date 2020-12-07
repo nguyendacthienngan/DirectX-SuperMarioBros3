@@ -54,6 +54,7 @@ protected:
 	RectF ventDirection;
 	bool isAutogo;
 	CUICamera* uiCamera;
+	bool isHitGoalRoulette;
 public:
 	CMario();
 	void SetDamageFlag(bool isDamaged);
@@ -108,7 +109,9 @@ public:
 	void ChangeLevelProcess();
 	void FallProcess();
 	void GoToWarpPipeProcess(); // chui xuống cống để chuyển scene
+	void HitGoalRoulette();
 	void WarpPipeProcess(CCamera* cam);
+	void GoalRouletteProcess(CCamera* cam);
 
 	void StopBounce(bool stopBounce);
 	bool StopBounce();
