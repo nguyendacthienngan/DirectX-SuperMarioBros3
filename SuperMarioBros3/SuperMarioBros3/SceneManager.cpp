@@ -97,9 +97,26 @@ void CSceneManager::LoadRequestScene()
 {
 	if (requestedLoadScene.size() > 0)
 	{
+		DebugOut(L"Hello \n");
 		auto scene = requestedLoadScene.at(0);
-		requestedLoadScene.erase(requestedLoadScene.begin());
-		Load(scene);
+		if (scene != NULL)
+		{
+			requestedLoadScene.erase(requestedLoadScene.begin());
+			Load(scene);
+		}
+	}
+}
+
+void CSceneManager::UnloadRequestScene()
+{
+	if (requestedUnloadScene.size() > 0)
+	{
+		auto scene = requestedUnloadScene.at(0);
+		if (scene != NULL)
+		{
+			requestedUnloadScene.erase(requestedUnloadScene.begin());
+			Unload(scene->GetSceneId());
+		}
 	}
 }
 
@@ -108,9 +125,9 @@ void CSceneManager::SwitchScene(LPScene scene)
 	auto activeScene = GetActiveScene();
 	if (activeScene == NULL)
 		return;
-	Unload(activeSceneId);
+	requestedUnloadScene.push_back(activeScene);
+	//Unload(activeSceneId);
 	requestedLoadScene.push_back(scene);
-	//Load(scene);
 }
 
 CSceneManager::~CSceneManager()

@@ -180,6 +180,7 @@ void CGame::End()
 
 void CGame::Clean()
 {
+	CSceneManager::GetInstance()->UnloadRequestScene();
 	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 	if (activeScene != nullptr)
 		activeScene->DestroyObject();

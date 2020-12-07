@@ -15,6 +15,7 @@ class CSceneManager
 	std::string activeSceneId;
 	CUICamera* uiCamera;
 	std::vector<LPScene> requestedLoadScene;
+	std::vector<LPScene> requestedUnloadScene;
 public:
 	CSceneManager();
 	static LPSceneManager GetInstance();
@@ -31,6 +32,7 @@ public:
 	LPScene GetActiveScene();
 
 	void LoadRequestScene();
+	void UnloadRequestScene();
 	void SwitchScene(LPScene scene);
 	~CSceneManager();
 };

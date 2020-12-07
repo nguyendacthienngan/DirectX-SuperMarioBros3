@@ -997,11 +997,11 @@ void CMario::GoalRouletteProcess(CCamera* cam)
 		}
 		if (transform.position.x > cam->GetCurrentBoundary().right)
 		{
-			/*physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
+			//physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 			auto sceneManager = CSceneManager::GetInstance();
 			auto activeScene = sceneManager->GetActiveScene();
 			CWorldMap1* wolrdMap1 = new CWorldMap1();
-			sceneManager->SwitchScene(wolrdMap1);*/
+			sceneManager->SwitchScene(wolrdMap1);
 		}
 	}
 }
