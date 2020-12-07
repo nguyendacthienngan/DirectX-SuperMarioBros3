@@ -56,6 +56,8 @@ void CSceneManager::Init()
 //Load Resource
 void CSceneManager::Load(LPScene scene)
 {
+	if (loadedScenes.find(scene->GetSceneId()) != loadedScenes.end())
+		loadedScenes.erase(scene->GetSceneId());
 	scene->Load(); // Scene Manager nó tự load
 	loadedScenes.insert(make_pair(scene->GetSceneId(), scene));
 	activeSceneId = scene->GetSceneId();
