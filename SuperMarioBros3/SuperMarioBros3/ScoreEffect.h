@@ -4,6 +4,8 @@
 class CScoreEffect : public CEffectObject
 {
 	CFont* scoreText;
+	int currentScore;
+	int scoreState;
 public:
 	CScoreEffect();
 	void SetStartPosition(D3DXVECTOR2 pos);

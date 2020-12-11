@@ -37,5 +37,4 @@ public:
 	void SetIsHeadShotByFireball(bool isHeadShotByFireball);
 
 	void SetTarget(CGameObject* target);
-	void OnScoreEffect();
 };

@@ -7,8 +7,8 @@ CFont::CFont()
 	LoadSprite();
 	currentText = "Hello World";
 	currentPosition = D3DXVECTOR2(100, 360);
-	space.x = 50;
-	space.y = 50;
+	space.x = 8*3;
+	space.y = 0;
 }
 
 void CFont::LoadSprite()

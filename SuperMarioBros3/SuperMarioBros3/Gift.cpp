@@ -18,7 +18,6 @@ void CGift::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Collis
 		}
 		if (powerupTag == PowerupTag::SuperMushroom && StaticTag(collisionBox->GetGameObjectAttach()->GetTag()))
 		{
-			DebugOut(L"MUSHROOM \n");
 			if (collisionEvent->nx != 0)
 			{
 				auto normal = physiscBody->GetNormal();
@@ -42,7 +41,6 @@ void CGift::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* ot
 	}
 	if (powerupTag == PowerupTag::SuperMushroom && StaticTag(otherCollisionBox->GetGameObjectAttach()->GetTag()))
 	{
-		DebugOut(L"MUSHROOM \n");
 		auto normal = physiscBody->GetNormal();
 		normal.x = -normal.x;
 		physiscBody->SetNormal(normal);

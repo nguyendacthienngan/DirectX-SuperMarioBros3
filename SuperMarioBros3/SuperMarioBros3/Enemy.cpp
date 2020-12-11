@@ -237,14 +237,3 @@ void CEnemy::SetTarget(CGameObject* target)
 {
 	this->target = target;
 }
-
-void CEnemy::OnScoreEffect()
-{
-	CScoreEffect* scoreFX = new CScoreEffect();
-	scoreFX->SetStartPosition(transform.position);
-	scoreFX->Enable(true);
-	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
-	if (activeScene)
-		activeScene->AddObject(scoreFX);
-}
-

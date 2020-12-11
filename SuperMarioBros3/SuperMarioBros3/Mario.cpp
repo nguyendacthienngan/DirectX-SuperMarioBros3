@@ -662,6 +662,7 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 			// Đụng trúng tiền là tăng tiền và disbale tiền
 			auto coin = collisionBox->GetGameObjectAttach();
 			coin->Enable(false);
+			OnScoreEffect();
 			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 			if (activeScene != NULL)
 			{
@@ -890,7 +891,6 @@ void CMario::ChangeLevelProcess()
 	if (marioController != NULL)
 	{
 		CGame::SetTimeScale(1.0f);
-		DebugOut(L"Time Scale In Mario Controller %f \n", CGame::GetTimeScale());
 
 		isChangeLevel = true;
 		switch (powerupItem)
@@ -908,12 +908,14 @@ void CMario::ChangeLevelProcess()
 			{
 				if (marioStateTag == MarioStates::SuperMario)
 					marioController->SwitchToState(RACOON_MARIO_STATE);
+				OnScoreEffect();
 				break;
 			}
 			case PowerupTag::SuperMushroom:
 			{
 				if (marioStateTag == MarioStates::SmallMario)
 					marioController->SwitchToState(SUPER_MARIO_STATE);
+				OnScoreEffect();
 				break;
 			}
 		}

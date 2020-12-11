@@ -54,6 +54,7 @@ void CQuestionBlock::Bounce(CGameObject* gO)
 					coinObtainedFX->SetStartPosition(transform.position);
 					auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 					activeScene->AddObject(coinObtainedFX);
+					OnScoreEffect();
 					break;
 				}
 				case ItemTag::PowerUp:

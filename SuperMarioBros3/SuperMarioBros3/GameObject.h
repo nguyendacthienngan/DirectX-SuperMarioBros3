@@ -87,6 +87,7 @@ public:
 	virtual void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox);
 	virtual void OnDie();
 	virtual void OnDamaged();
+	virtual void OnScoreEffect();
 
 	std::string GetCurrentState();
 	void AddAnimation(std::string stateName, LPAnimation animation, bool isLoop = true); // một số animation như quăng lửa k cần lặp

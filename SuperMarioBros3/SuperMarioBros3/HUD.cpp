@@ -1,6 +1,8 @@
 #include "HUD.h"
 #include "SpriteManager.h"
-
+#include <iostream>
+#include <string>
+using namespace std;
 CHUD::CHUD(D3DXVECTOR2 hudPos)
 {
 	this->pos = hudPos;
@@ -14,6 +16,20 @@ CHUD::CHUD(D3DXVECTOR2 hudPos)
 	timerPos.y += 15;
 	timer->SetPosition(timerPos);
 
+	scoreText = new CFont();
+	auto scorePos = hudPos;
+	scorePos.x -= 60;
+	scorePos.y += 15;
+	scoreText->SetCurrentText("0000000");
+	scoreText->SetPosition(scorePos);
+
+	coinText = new CFont();
+	auto coinPos = hudPos;
+	coinPos.x += 185;
+	coinPos.y -= 11;
+	coinText->SetCurrentText("00");
+	coinText->SetPosition(coinPos);
+
 	auto cardPos = hudPos;
 	cardPos.x += 300;
 	pMeter = new CPMeter(pMeterPos);
@@ -25,6 +41,8 @@ CHUD::CHUD(D3DXVECTOR2 hudPos)
 	card3 = new CCardGift(cardPos);
 	cardPos.x += 24 * 3;
 
+	score = 0;
+	coin = 0;
 	LoadSprite();
 }
 
@@ -41,6 +59,16 @@ void CHUD::Update()
 	card2->Update();
 	card3->Update();
 	timer->Update();
+
+	auto scoreString = to_string(score);
+	while (scoreString.length() < 7)
+		scoreString = "0" + scoreString;
+	scoreText->SetCurrentText(scoreString);
+
+	auto coinString = to_string(coin);
+	while (coinString.length() < 2)
+		coinString = "0" + coinString;
+	coinText->SetCurrentText(coinString);
 }
 
 void CHUD::Render()
@@ -51,6 +79,8 @@ void CHUD::Render()
 	card2->Render();
 	card3->Render();
 	timer->Render();
+	coinText->Render();
+	scoreText->Render();
 }
 
 void CHUD::SetPosition(D3DXVECTOR2 pos)
@@ -96,4 +126,24 @@ CCardGift* CHUD::GetCard(int index)
 CGameTimer* CHUD::GetTimer()
 {
 	return timer;
+}
+
+void CHUD::AddingScore(int score)
+{
+	this->score += score;
+}
+
+int CHUD::GetScore()
+{
+	return score;
+}
+
+void CHUD::AddingCoin(int coin)
+{
+	this->coin += coin;
+}
+
+int CHUD::GetCoin()
+{
+	return coin;
 }

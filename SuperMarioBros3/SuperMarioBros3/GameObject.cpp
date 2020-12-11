@@ -2,6 +2,7 @@
 #include "GameObjectConst.h"
 #include "Ultis.h"
 #include "SceneManager.h"
+#include "ScoreEffect.h"
 using namespace std;
 
 CGameObject::CGameObject()
@@ -136,6 +137,16 @@ void CGameObject::OnDie()
 
 void CGameObject::OnDamaged()
 {
+}
+
+void CGameObject::OnScoreEffect()
+{
+	CScoreEffect* scoreFX = new CScoreEffect();
+	scoreFX->SetStartPosition(transform.position);
+	scoreFX->Enable(true);
+	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	if (activeScene)
+		activeScene->AddObject(scoreFX);
 }
 
 std::string CGameObject::GetCurrentState()
