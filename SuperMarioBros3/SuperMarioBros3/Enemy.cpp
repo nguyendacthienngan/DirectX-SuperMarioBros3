@@ -3,6 +3,8 @@
 #include "Koopa.h"
 #include "ParaKoopa.h"
 #include "KoopaConst.h"
+#include "ScoreEffect.h"
+#include "SceneManager.h"
 
 CEnemy::CEnemy()
 {
@@ -123,6 +125,8 @@ void CEnemy::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 			if (collisionEvent->nx != 0 || collisionEvent->ny != 0)
 			{
 				isHeadShot = true;
+				OnScoreEffect();
+
 				if (enemyTag == EnemyTag::Koopa || enemyTag == EnemyTag::ParaKoopa)
 				{
 					this->OnDamaged(collisionBox->GetGameObjectAttach());
@@ -146,6 +150,8 @@ void CEnemy::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
 	{
 		isHeadShot = true;
+		OnScoreEffect();
+
 		if (enemyTag == EnemyTag::Koopa || enemyTag == EnemyTag::ParaKoopa)
 		{
 			this->OnDamaged(otherCollisionBox->GetGameObjectAttach());
@@ -163,6 +169,7 @@ void CEnemy::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 	else if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::MarioFireBall)
 	{
 		isHeadShot = true;
+		OnScoreEffect();
 
 		if (enemyTag == EnemyTag::Koopa || enemyTag == EnemyTag::ParaKoopa)
 		{
@@ -229,5 +236,15 @@ void CEnemy::SetIsHeadShotByFireball(bool isHeadShotByFireball)
 void CEnemy::SetTarget(CGameObject* target)
 {
 	this->target = target;
+}
+
+void CEnemy::OnScoreEffect()
+{
+	CScoreEffect* scoreFX = new CScoreEffect();
+	scoreFX->SetStartPosition(transform.position);
+	scoreFX->Enable(true);
+	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	if (activeScene)
+		activeScene->AddObject(scoreFX);
 }
 

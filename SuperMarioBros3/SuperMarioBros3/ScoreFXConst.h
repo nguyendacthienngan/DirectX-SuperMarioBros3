@@ -1,0 +1,4 @@
+#pragma once
+#define SCORE_FX_APPEARING_HEIGHT 150
+#define SCORE_FX_VELOCITY 0.2f
+#define SCORE_FX_GRAVITY 0.00093f

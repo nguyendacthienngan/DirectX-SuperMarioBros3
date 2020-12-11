@@ -93,6 +93,7 @@ void CGoomba::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* 
 
 void CGoomba::OnDie()
 {
+	//OnScoreEffect();
 	auto v = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
 
@@ -118,6 +119,7 @@ void CGoomba::OnDie()
 	}
 	else
 	{
+		OnScoreEffect();
 		currentPhysicsState = GoombaState::Die;
 
 		v.x = 0.0f;

@@ -90,7 +90,7 @@ D3DXVECTOR2 CCamera::TransformCamToWorld(D3DXVECTOR2 posInCam)
 
 bool CCamera::CheckObjectInCamera(LPGameObject gO) // Thông tin của object
 {
-    if (gO->GetTag() == GameObjectTags::PlayerController)
+    if (gO->GetTag() == GameObjectTags::PlayerController || gO->GetTag() == GameObjectTags::Effect)
         return true;
     D3DXVECTOR2 posObject = gO->GetPosition();
     float widthObj = 0, heightObj = 0;

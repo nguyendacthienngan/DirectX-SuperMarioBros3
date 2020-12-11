@@ -249,6 +249,8 @@
     <ClInclude Include="SceneConst.h" />
     <ClInclude Include="SceneGate.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="ScoreEffect.h" />
+    <ClInclude Include="ScoreFXConst.h" />
     <ClInclude Include="SmallMario.h" />
     <ClInclude Include="SolidBox.h" />
     <ClInclude Include="Sprite.h" />
@@ -347,6 +349,7 @@
     <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="SceneGate.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="ScoreEffect.cpp" />
     <ClCompile Include="SmallMario.cpp" />
     <ClCompile Include="SolidBox.cpp" />
     <ClCompile Include="Sprite.cpp" />

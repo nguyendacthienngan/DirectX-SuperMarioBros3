@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "PMeter.h"
 #include "CardGift.h"
 #include "GameTimer.h"
@@ -12,6 +12,8 @@ private:
     CCardGift* card3;
     CSprite* hudSprite;
     CGameTimer* timer;
+    CFont* scoreText; // Tổng các score đã thu hoạch được
+    CFont* coinText; // cứ 100 score = 1 $
 public:
     CHUD(D3DXVECTOR2 hudPos);
     void LoadSprite();
