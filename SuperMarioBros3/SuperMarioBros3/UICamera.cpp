@@ -13,7 +13,6 @@ CUICamera::CUICamera(int wid, int hei, D3DXVECTOR2 hudPos)
 	hud = new CHUD(hudPos);
     this->widthCam = wid;
     this->heightCam = hei;
-    font = new CFont();
     disableBlackTexture = false;
 }
 
@@ -34,11 +33,15 @@ void CUICamera::Render()
         float surfaceHeight = surfaceRect.bottom - surfaceRect.top;
         CGame::GetInstance()->Draw(posInCam, D3DXVECTOR2(surfaceWidth * 0.5f, surfaceHeight * 0.5f), tex, surfaceRect, D3DCOLOR_XRGB(0, 0, 0));
     }
-	 if (hud != NULL)
+	if (hud != NULL)
     {
        hud->Render();
     }
-    font->Render();
+    if (texts.size() > 0)
+    {
+        for (auto text : texts)
+            text->Render();
+    }
 }
 
 CHUD* CUICamera::GetHUD()
@@ -49,6 +52,12 @@ CHUD* CUICamera::GetHUD()
 void CUICamera::SetHUD(CHUD* hud)
 {
     this->hud = hud;
+}
+
+void CUICamera::AddText(CFont* text)
+{
+    if (text == NULL) return;
+    texts.push_back(text);
 }
 
 void CUICamera::SetPositionCam(D3DXVECTOR2 pos)

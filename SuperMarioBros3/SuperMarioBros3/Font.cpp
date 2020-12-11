@@ -4,6 +4,10 @@ using namespace std;
 CFont::CFont()
 {
 	LoadSprite();
+	currentText = "Hello World";
+	currentPosition = D3DXVECTOR2(100, 360);
+	space.x = 50;
+	space.y = 50;
 }
 
 void CFont::LoadSprite()
@@ -51,17 +55,16 @@ void CFont::LoadSprite()
 void CFont::Render()
 {
 	// Test font
-	/*vector<LPSprite> spriteStrings;
-	spriteStrings = StringToSprites("You got a card!");
-	float x = 100, y = 360;
+	vector<LPSprite> spriteStrings;
+	spriteStrings = StringToSprites(currentText);
 	if (spriteStrings.size() != 0)
 	{
 		for (auto s : spriteStrings)
 		{
-			s->Draw(D3DXVECTOR2(x, y), D3DXVECTOR2(1.0f, 1.0f), 0.0f);
-			x += 50;
+			s->Draw(currentPosition, D3DXVECTOR2(1.0f, 1.0f), 0.0f);
+			currentPosition.x += space.x;
 		}
-	}*/
+	}
 }
 
 LPSprite CFont::CharToSprite(char character)
@@ -115,4 +118,19 @@ bool CFont::IsLetterLowerCase(char character)
 		return true;
 
 	return false;
+}
+
+void CFont::SetCurrentText(std::string text)
+{
+	this->currentText = text;
+}
+
+void CFont::SetPosition(D3DXVECTOR2 pos)
+{
+	currentPosition = pos;
+}
+
+void CFont::SetSpace(D3DXVECTOR2 space)
+{
+	this->space = space;
 }

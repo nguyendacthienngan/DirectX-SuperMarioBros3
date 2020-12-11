@@ -8,7 +8,7 @@ class CUICamera :  public CCamera
 {
     CHUD* hud;
     RECT surfaceRect;
-    CFont* font;
+    std::vector<CFont*> texts;
     bool disableBlackTexture;
 public:
     CUICamera();
@@ -18,6 +18,8 @@ public:
 
     CHUD* GetHUD();
     void SetHUD(CHUD* hud);
+
+    void AddText(CFont* text);
 
     void SetPositionCam(D3DXVECTOR2 pos) override;
     void SetDisableBlackTexture(bool disT);

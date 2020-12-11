@@ -280,6 +280,9 @@
     <Filter Include="Game\GameObject\UI\HUD\Card">
       <UniqueIdentifier>{b5963d89-5081-4bce-9fad-8e7e55960d09}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\UI\HUD\GameTimer">
+      <UniqueIdentifier>{bec6c5ba-15a9-4c03-99b3-0fefee2af139}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -663,6 +666,9 @@
     <ClInclude Include="CardGift.h">
       <Filter>Game\GameObject\UI\HUD\Card</Filter>
     </ClInclude>
+    <ClInclude Include="GameTimer.h">
+      <Filter>Game\GameObject\UI\HUD\GameTimer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -940,6 +946,9 @@
     </ClCompile>
     <ClCompile Include="Card.cpp">
       <Filter>Game\GameObject\Misc\CardGift\Card</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTimer.cpp">
+      <Filter>Game\GameObject\UI\HUD\GameTimer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

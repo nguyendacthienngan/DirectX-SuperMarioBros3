@@ -9,9 +9,11 @@
 #include "SceneGate.h"
 CMarioMap::CMarioMap()
 {
+	tag = GameObjectTags::MarioMap;
 	LoadAnimation();
 	SetState(SMALL_MARIO_MAP_STATE);
 	isEnabled = true;
+	canEnterScene = false;
 	physiscBody->SetDynamic(true);
 	physiscBody->SetGravity(0.0f);
 	physiscBody->SetTrigger(true);
@@ -173,7 +175,7 @@ void CMarioMap::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Co
 
 void CMarioMap::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
 {
-	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Portal)
+	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Portal && canEnterScene == true)
 	{
 		auto portal = static_cast<CPortal*>(otherCollisionBox->GetGameObjectAttach());
 		auto sceneID = portal->GetSceneID();
@@ -198,4 +200,11 @@ bool CMarioMap::SwitchScene()
 		return true;
 	}
 	return false;
+}
+
+void CMarioMap::OnKeyDown(int KeyCode)
+{
+	DebugOut(L"Hello \n");
+	if (KeyCode == DIK_X)
+		canEnterScene = true;
 }

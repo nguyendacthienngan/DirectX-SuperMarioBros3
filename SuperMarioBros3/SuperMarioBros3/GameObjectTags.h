@@ -23,5 +23,7 @@ enum class GameObjectTags
 	Portal,
 	Label,
 	SwitchBlock,
-	Card
+	Card,
+
+	MarioMap
 };

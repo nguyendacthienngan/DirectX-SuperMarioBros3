@@ -13,7 +13,7 @@ void CGameKeyEventHandler::OnKeyDown(int KeyCode)
 	LPScene activeScene = sceneManger->GetActiveScene();
 	vector<LPGameObject> gameObjects = activeScene->GetObjects(); // nếu vậy mình chỉ truyền cho thằng nào dynamic cast ra là Mario thôi đc k vì mấy thằng kia mình đâu cần xử lý? Nhưng như vậy sẽ không đủ tổng quát? Nên hỏi thầy !
 	for (auto gameObject : gameObjects)
-		if ((gameObject->GetTag() == GameObjectTags::Player || gameObject->GetTag() == GameObjectTags::PlayerController || gameObject->GetTag() == GameObjectTags::SmallPlayer) && gameObject->IsEnabled() == true)
+		if ((gameObject->MarioTag(gameObject->GetTag())|| gameObject->GetTag() == GameObjectTags::PlayerController || gameObject->GetTag() == GameObjectTags::MarioMap) && gameObject->IsEnabled() == true)
 				gameObject->OnKeyDown(KeyCode);
 }
 
@@ -24,8 +24,8 @@ void CGameKeyEventHandler::OnKeyUp(int KeyCode)
 	LPScene activeScene = sceneManger->GetActiveScene();
 	vector<LPGameObject> gameObjects = activeScene->GetObjects(); // nếu vậy mình chỉ truyền cho thằng nào dynamic cast ra là Mario thôi đc k vì mấy thằng kia mình đâu cần xử lý? Nhưng như vậy sẽ không đủ tổng quát? Nên hỏi thầy !
 	for (auto gameObject : gameObjects)
-		if ((gameObject->GetTag() == GameObjectTags::Player || gameObject->GetTag() == GameObjectTags::PlayerController || gameObject->GetTag() == GameObjectTags::SmallPlayer) &&gameObject->IsEnabled() == true)
-				gameObject->OnKeyUp(KeyCode);
+		if ((gameObject->MarioTag(gameObject->GetTag()) || gameObject->GetTag() == GameObjectTags::PlayerController || gameObject->GetTag() == GameObjectTags::MarioMap) && gameObject->IsEnabled() == true)
+			gameObject->OnKeyUp(KeyCode);
 }
 
 void CGameKeyEventHandler::KeyState()
@@ -34,6 +34,6 @@ void CGameKeyEventHandler::KeyState()
 	LPScene activeScene = sceneManger->GetActiveScene();
 	vector<LPGameObject> gameObjects = activeScene->GetObjects(); // nếu vậy mình chỉ truyền cho thằng nào dynamic cast ra là Mario thôi đc k vì mấy thằng kia mình đâu cần xử lý? Nhưng như vậy sẽ không đủ tổng quát? Nên hỏi thầy !
 	for (auto gameObject : gameObjects)
-		if ((gameObject->GetTag() == GameObjectTags::Player || gameObject->GetTag() == GameObjectTags::PlayerController || gameObject->GetTag() == GameObjectTags::SmallPlayer) && gameObject->IsEnabled() == true)
-				gameObject->KeyState();
+		if ((gameObject->MarioTag(gameObject->GetTag()) || gameObject->GetTag() == GameObjectTags::PlayerController || gameObject->GetTag() == GameObjectTags::MarioMap) && gameObject->IsEnabled() == true)
+			gameObject->KeyState();
 }
