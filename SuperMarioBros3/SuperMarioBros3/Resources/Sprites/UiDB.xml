@@ -56,5 +56,12 @@
         <Sprite id="spr-super-mushroom-card-0" left="171" top="158"  width="24" height="29"/>
         <Sprite id="spr-fire-flower-card-0" left="202" top="158"  width="24" height="29"/>
         <Sprite id="spr-star-man-card-0" left="232" top="158"  width="24" height="30"/>
+        <Sprite id="spr-goal-mushroom-0" left="5" top="7"  width="16" height="16"/>
+        <Sprite id="spr-goal-mushroom-1" left="67" top="29"  width="10" height="15"/>
+        <Sprite id="spr-goal-mushroom-2" left="111" top="28"  width="1" height="16"/>
+        <Sprite id="spr-goal-flower-0" left="25" top="28"  width="16" height="16"/>
+        <Sprite id="spr-goal-flower-1" left="80" top="29"  width="10" height="16"/>
+        <Sprite id="spr-goal-star-0" left="45" top="27"  width="16" height="16"/>
+        <Sprite id="spr-goal-star-1" left="95" top="28"  width="10" height="16"/>
 	</Textures>
 </Textures>
