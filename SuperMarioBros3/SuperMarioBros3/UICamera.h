@@ -23,6 +23,7 @@ public:
 
     void SetPositionCam(D3DXVECTOR2 pos) override;
     void SetDisableBlackTexture(bool disT);
+
     ~CUICamera();
 };
 

@@ -17,12 +17,16 @@ void CScene1::Load()
 {
 	CScene::Load();
 	CSceneManager::GetInstance()->GetUICamera()->SetDisableBlackTexture(false);
+	auto timer = CSceneManager::GetInstance()->GetUICamera()->GetHUD()->GetTimer();
+	timer->StartTimer();
 	DebugOut(L"[INFO] Loaded Scene \n");
 }
 
 void CScene1::Unload()
 {
 	CScene::Unload();
+	auto timer = CSceneManager::GetInstance()->GetUICamera()->GetHUD()->GetTimer();
+	timer->ResetTimer();
 }
 
 CScene1::~CScene1()

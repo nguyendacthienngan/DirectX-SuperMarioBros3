@@ -5,7 +5,7 @@ class CScene;
 class CCard :  public CGameObject
 {
 private:
-	int cardState; // 0: Flower, 1: Star, 2: Mushroom
+	int cardState; // 0: Flower, 5: Star, 10: Mushroom
 	bool isTouched;
 public:
 	CCard();

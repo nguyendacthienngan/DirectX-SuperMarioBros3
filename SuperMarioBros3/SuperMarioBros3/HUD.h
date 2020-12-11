@@ -1,15 +1,17 @@
 #pragma once
 #include "PMeter.h"
 #include "CardGift.h"
+#include "GameTimer.h"
 class CHUD
 {
 private:
+    D3DXVECTOR2 pos;
     CPMeter* pMeter;
     CCardGift* card1;
     CCardGift* card2;
     CCardGift* card3;
     CSprite* hudSprite;
-    D3DXVECTOR2 pos;
+    CGameTimer* timer;
 public:
     CHUD(D3DXVECTOR2 hudPos);
     void LoadSprite();
@@ -21,5 +23,6 @@ public:
     CPMeter* GetPMeter();
     void SetCard(int index, std::string state);
     CCardGift* GetCard(int index);
+    CGameTimer* GetTimer();
 };
 

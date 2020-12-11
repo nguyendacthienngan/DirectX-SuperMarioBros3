@@ -204,7 +204,6 @@ bool CMarioMap::SwitchScene()
 
 void CMarioMap::OnKeyDown(int KeyCode)
 {
-	DebugOut(L"Hello \n");
 	if (KeyCode == DIK_X)
 		canEnterScene = true;
 }

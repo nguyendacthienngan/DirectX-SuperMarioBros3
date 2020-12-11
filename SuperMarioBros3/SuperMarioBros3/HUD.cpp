@@ -7,6 +7,13 @@ CHUD::CHUD(D3DXVECTOR2 hudPos)
 	auto pMeterPos = hudPos;
 	pMeterPos.x -= 60;
 	pMeterPos.y -= 11;
+
+	timer = new CGameTimer();
+	auto timerPos = hudPos;
+	timerPos.x += 160;
+	timerPos.y += 15;
+	timer->SetPosition(timerPos);
+
 	auto cardPos = hudPos;
 	cardPos.x += 300;
 	pMeter = new CPMeter(pMeterPos);
@@ -33,6 +40,7 @@ void CHUD::Update()
 	card1->Update();
 	card2->Update();
 	card3->Update();
+	timer->Update();
 }
 
 void CHUD::Render()
@@ -42,6 +50,7 @@ void CHUD::Render()
 	card1->Render();
 	card2->Render();
 	card3->Render();
+	timer->Render();
 }
 
 void CHUD::SetPosition(D3DXVECTOR2 pos)
@@ -72,7 +81,6 @@ void CHUD::SetCard(int index, std::string state)
 		card2->SetState(state);
 	else
 		card3->SetState(state);
-
 }
 
 CCardGift* CHUD::GetCard(int index)
@@ -83,4 +91,9 @@ CCardGift* CHUD::GetCard(int index)
 		return card2;
 	else
 		return card3;
+}
+
+CGameTimer* CHUD::GetTimer()
+{
+	return timer;
 }
