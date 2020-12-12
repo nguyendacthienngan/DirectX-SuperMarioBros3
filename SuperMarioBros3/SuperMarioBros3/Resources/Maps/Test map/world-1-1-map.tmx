@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="25" nextobjectid="206">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="25" nextobjectid="207">
  <editorsettings>
   <export target="world-1-1-map.xml" format="tmx"/>
  </editorsettings>
@@ -458,13 +458,13 @@
   <object id="76" type="1" x="5976" y="1222.33">
    <point/>
   </object>
-  <object id="77" type="1" x="5927.67" y="1222.33">
+  <object id="77" type="1" x="5929" y="1222.33">
    <point/>
   </object>
-  <object id="78" type="1" x="5880" y="1222.33">
+  <object id="78" type="1" x="5881" y="1222.33">
    <point/>
   </object>
-  <object id="79" type="1" x="5832" y="1222.33">
+  <object id="79" type="1" x="5833" y="1222.33">
    <point/>
   </object>
   <object id="80" type="1" x="6071.67" y="1174.67">
@@ -476,13 +476,13 @@
   <object id="82" type="1" x="5976" y="1174.67">
    <point/>
   </object>
-  <object id="83" type="1" x="5927.67" y="1175">
+  <object id="83" type="1" x="5929" y="1174.67">
    <point/>
   </object>
-  <object id="84" type="1" x="5880" y="1175">
+  <object id="84" type="1" x="5881" y="1175">
    <point/>
   </object>
-  <object id="85" type="1" x="5927.67" y="1126.33">
+  <object id="85" type="1" x="5929" y="1126.33">
    <point/>
   </object>
   <object id="86" type="1" x="5976" y="1126.33">
@@ -540,11 +540,12 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="22" name="SwitchBlocks"/>
- <objectgroup id="23" name="Block">
-  <object id="197" x="6071.67" y="1075.33">
+ <objectgroup id="22" name="SwitchBlocks">
+  <object id="206" x="6070" y="1076">
    <point/>
   </object>
+ </objectgroup>
+ <objectgroup id="23" name="Block">
   <object id="198" x="6071.67" y="1126.33">
    <point/>
   </object>
