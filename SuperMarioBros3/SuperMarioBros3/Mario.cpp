@@ -287,7 +287,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			isSkid = false;
 		}
 
-		
+		DebugOut(L"Mario Velocity %f\n", physiscBody->GetVelocity().x, physiscBody->GetVelocity().y);
 		
 #pragma region P-METER
 		if (feverState != 3)

@@ -1,13 +1,13 @@
 ﻿#pragma once
 
-const float MARIO_GRAVITY =					0.00093f *2;
+const float MARIO_GRAVITY = 0.0026f;
 
 const float  MARIO_VENT_SPEED = 0.02f;
 
 
-const float  MARIO_WALKING_SPEED = 0.24f * 2; 
-const float  MARIO_RUNNING_SPEED = 0.38f * 2;
-const float  MARIO_HIGHSPEED_SPEED = 0.53f * 2;
+const float  MARIO_WALKING_SPEED = 0.24f;
+const float  MARIO_RUNNING_SPEED = 0.42f;
+const float  MARIO_HIGHSPEED_SPEED = 0.45f;
 
 const float  MARIO_JUMP_FORCE = 0.55f;
 const float  MARIO_PUSH_FORCE = 0.55f;
@@ -17,9 +17,8 @@ const float  RACCOON_FLY_VELOCITY = -0.2f * 2;
 const float  MARIO_HIGH_JUMP_HEIGHT = 180.5f ;
 const float  MARIO_SUPER_JUMP_HEIGHT = 200.5f;
 
-const float  MARIO_RUNNING_ACCELERATION = 0.000376f * 2;
-const float  MARIO_WALKING_ACCELERATION = 0.000350f * 2;
-const float  MARIO_SKID_FORCE = 0.001104f * 2;
+const float  MARIO_RUNNING_ACCELERATION = 0.0007475f;
+const float  MARIO_WALKING_ACCELERATION = 0.000875f;
 
 const float  MARIO_DEFLECT_TIME = 800;
 const float  MARIO_DEFLECT_Y = 0.4f;
