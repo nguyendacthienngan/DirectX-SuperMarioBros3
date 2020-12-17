@@ -97,17 +97,17 @@ void CGameObject::Render(CCamera* cam, int alpha)
 	animations.at(currentState)->Render(posInCam, alpha);
 }
 
-void CGameObject::FrictionProcess(float& speed, DWORD dt)
+void CGameObject::FrictionProcess(float& speed, DWORD dt, bool isStop)
 {
 	if (speed > 0)
 	{
-		speed += -ACCELERATION_FRICTION * dt;
+		speed += -(isStop ? ACCELERATION_FRICTION *2.5f : ACCELERATION_FRICTION) * dt;
 		if (speed < 0)
 			speed = 0;
 	}
 	if (speed < 0)
 	{
-		speed += ACCELERATION_FRICTION * dt;
+		speed += (isStop ? ACCELERATION_FRICTION * 2.5f : ACCELERATION_FRICTION) * dt;
 		if (speed > 0)
 			speed = 0;
 	}
