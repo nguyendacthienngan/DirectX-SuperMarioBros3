@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="25" nextobjectid="207">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="25" nextobjectid="208">
  <editorsettings>
   <export target="world-1-1-map.xml" format="tmx"/>
  </editorsettings>
@@ -444,6 +444,7 @@
   <object id="127" x="6599" y="1483.33"/>
   <object id="128" x="6551" y="1483.33"/>
   <object id="129" x="6503.34" y="1531.33"/>
+  <object id="207" x="6420" y="1838.67"/>
  </objectgroup>
  <objectgroup id="19" name="Brick">
   <object id="73" type="1" x="6119.67" y="1222.33">

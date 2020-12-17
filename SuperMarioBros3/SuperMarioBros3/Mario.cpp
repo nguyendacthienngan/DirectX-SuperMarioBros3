@@ -658,20 +658,6 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 		{
 			FallProcess();
 		}
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Coin)
-		{
-			// Đụng trúng tiền là tăng tiền và disbale tiền
-			auto coin = collisionBox->GetGameObjectAttach();
-			coin->Enable(false);
-			OnScoreEffect();
-			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
-			if (activeScene != NULL)
-			{
-				activeScene->RemoveCoin(coin);
-				activeScene->RemoveObject(coin);
-				activeScene->AddDestroyObject(coin);
-			}
-		}
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Portal)
 		{
 			isGoToWarpPipe = false;
@@ -737,6 +723,8 @@ bool CMario::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 	if (MarioTag(tag) || tag == GameObjectTags::MarioFireBall || tag == GameObjectTags::Label)
 		return false;
 	if (GiftTag(tag) == true && tag != GameObjectTags::Coin)
+		return false;
+	if (tag == GameObjectTags::Coin)
 		return false;
 	if (isGoToWarpPipe == true && StaticTag(tag))
 		return false;
