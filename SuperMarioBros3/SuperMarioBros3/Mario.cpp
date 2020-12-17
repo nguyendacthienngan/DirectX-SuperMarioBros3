@@ -267,7 +267,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 				velocity.x += physiscBody->GetAcceleration() * dt;
 
 			
-			FrictionProcess(velocity.x, dt); // Kèm lực ma sát kéo lại vận tốc
+			FrictionProcess(velocity.x, dt, false); // Kèm lực ma sát kéo lại vận tốc
 			physiscBody->SetVelocity(velocity);
 
 			SkidProcess(velocity);
@@ -278,7 +278,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		}
 		else
 		{
-			FrictionProcess(velocity.x, dt);
+			FrictionProcess(velocity.x, dt, true);
 			physiscBody->SetVelocity(velocity);
 
 			if (velocity.x == 0)
@@ -287,8 +287,6 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			isSkid = false;
 		}
 
-		DebugOut(L"Mario Velocity %f\n", physiscBody->GetVelocity().x, physiscBody->GetVelocity().y);
-		
 #pragma region P-METER
 		if (feverState != 3)
 		{
