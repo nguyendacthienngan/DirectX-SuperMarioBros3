@@ -56,7 +56,11 @@ void CVenus::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		normal.y = (target->GetPosition().y < this->transform.position.y) ? -1 : 1;
 	}
 	physiscBody->SetNormal(normal);
-	if (isIdle == true)
+	bool canShoot = false;
+	auto distanceBetweenTargetAndVenus = target->GetPosition().x - this->transform.position.x;
+	if (abs(distanceBetweenTargetAndVenus) < DISTANCE_CAN_SHOOT)
+		canShoot = true;
+	if (isIdle == true && canShoot == true) // Khi mario đủ gần thì mới nhả đạn
 	{
 		countFireBalls++;
 		if (countFireBalls == 1) 
