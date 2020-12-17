@@ -788,7 +788,10 @@ void CMario::HoldProcess()
 		else
 		{
 			// thả ra => vẫn còn nút A => tưởng bị A
-			objectHolding->Release();
+			if (marioStateTag == MarioStates::SmallMario)
+				objectHolding->Release(false);
+			else 
+				objectHolding->Release(true);
 			objectHolding = NULL;
 			isHold = false;
 			isKick = true;

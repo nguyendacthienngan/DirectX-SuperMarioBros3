@@ -14,6 +14,7 @@ CKoopaShell::CKoopaShell()
 	upsideDown = false;
 	isWithDraw == false;
 	canWithDraw == false;
+	isReleaseFromHigher = true;
 	countWithDraw = 0;
 	countShakingTime = 0;
 	timeStartHeadShot = 0;
@@ -59,7 +60,7 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	}
 	else
 	{
-		if ((IsHolding() == true))
+		if ((IsHolding() == true) || isReleaseFromHigher == false)
 			physiscBody->SetGravity(0);
 		else
 			physiscBody->SetGravity(KOOPA_GRAVITY);
@@ -78,7 +79,6 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	physiscBody->SetNormal(normal);
 	physiscBody->SetVelocity(vel);
 	WithDrawProcess();
-
 }
 
 void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
@@ -169,14 +169,20 @@ void CKoopaShell::SetHoldablePosition(D3DXVECTOR2 pos)
 	SetPosition(pos);
 }
 
-void CKoopaShell::Release()
+void CKoopaShell::Release(bool isFromHigher)
 {
-	CHoldable::Release();
+	CHoldable::Release(isFromHigher);
+	isReleaseFromHigher = isFromHigher;
 	// Thả ra là mai rùa chạy !
 	isEnabled = true;
 	stopHold = true;
 	this->canRun = true;
-	physiscBody->SetGravity(KOOPA_GRAVITY);
+	// Nếu là small mario thì KOOPA_GRAVITY làm koopa shell đẩy xuống nhiều quá  / lố ground, rớt khỏi ground
+	//physiscBody->SetGravity(0.0f);
+	/*if (isFromHigher == false)
+		physiscBody->SetGravity(0.0f);
+	else
+		physiscBody->SetGravity(KOOPA_GRAVITY);*/
 	physiscBody->SetNormal(normal); // Sẽ set lại normal theo hướng bị thả ra dựa vào normal bên class cha Holdable giữ
 }
 
