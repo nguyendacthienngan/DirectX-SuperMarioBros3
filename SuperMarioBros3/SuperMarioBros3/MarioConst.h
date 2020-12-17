@@ -12,8 +12,8 @@ const float  MARIO_PUSH_FORCE = 0.55f;
 const float  MARIO_FLY_FORCE = 0.0002f * 2;
 const float  RACCOON_FLOAT_VELOCITY = 0.07f * 2;
 const float  RACCOON_FLY_VELOCITY = -0.2f * 2;
-const float  MARIO_HIGH_JUMP_HEIGHT = 150.0f ;
-const float  MARIO_SUPER_JUMP_HEIGHT = 200.0f;
+const float  MARIO_HIGH_JUMP_HEIGHT = 180.0f ;
+const float  MARIO_SUPER_JUMP_HEIGHT = 210.0f;
 
 const float  MARIO_RUNNING_ACCELERATION = 0.001175f;
 const float  MARIO_WALKING_ACCELERATION = 0.000875f;
