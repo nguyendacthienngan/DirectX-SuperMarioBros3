@@ -148,6 +148,7 @@ void CKoopaShell::CollisionWithOtherEnemy(CollisionEvent* cE, CCollisionBox* cO)
 		if (isRun == true || IsHolding() == true)
 		{
 			auto enemyObj = static_cast<CEnemy*>(cO->GetGameObjectAttach());
+			enemyObj->SetIsHeadShot(true);
 			enemyObj->OnDie();
 		}
 	}
