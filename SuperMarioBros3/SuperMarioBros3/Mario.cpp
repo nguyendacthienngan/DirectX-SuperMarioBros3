@@ -351,7 +351,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(pMeterCounting);
 		uiCamera->GetHUD()->GetPMeter()->SetFeverState(feverState);
 
-		if (pMeterCounting >= PMETER_MAX && ( velocity.x > 0))
+		if (pMeterCounting >= PMETER_MAX && ( abs(velocity.x) > 0))
 			currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
 
 
@@ -391,25 +391,28 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			if ((keyboard->GetKeyStateDown(DIK_S) && isFly == false) || bounceAfterJumpOnEnemy == true)
 			{
 				float jumpMaxHeight;
+				float force = MARIO_PUSH_FORCE;
 				if ((feverState == 2 && abs(velocity.x) > MARIO_RUNNING_SPEED * 0.85f) || bounceAfterJumpOnEnemy == true)
 				{
 					// SUPER JUMP
 					jumpMaxHeight = MARIO_SUPER_JUMP_HEIGHT;
+					force = MARIO_PUSH_FORCE * 1.5f;
 				}
 				else
 				{
 					// HIGH - JUMP
 					jumpMaxHeight = MARIO_HIGH_JUMP_HEIGHT;
+					force = MARIO_PUSH_FORCE;
 
 				}
 				if (abs(beforeJumpPosition) - abs(transform.position.y) <= jumpMaxHeight)
 				{
-					velocity.y = -MARIO_PUSH_FORCE;
+					velocity.y = -force;
 				}
 				else
 				{
 					// EndJump
-					velocity.y = -MARIO_PUSH_FORCE / 2;
+					velocity.y = -force / 2;
 					canHighJump = false;
 				}
 				if (bounceAfterJumpOnEnemy == true)
