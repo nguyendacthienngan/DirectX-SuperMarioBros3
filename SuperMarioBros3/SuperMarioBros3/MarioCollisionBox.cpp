@@ -66,7 +66,7 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 					{
 						mario->OnDamaged();
 						auto normal = mario->GetPhysiscBody()->GetNormal();
-						mario->GetPhysiscBody()->SetVelocity(D3DXVECTOR2(MARIO_WALKING_SPEED * normal.x, 0.0f));
+						mario->GetPhysiscBody()->SetVelocity(D3DXVECTOR2(MARIO_WALKING_SPEED * normal.x, 0.0f)); // Khi bị nhảy lên trúng Venus => bị damaged và đẩy ra
 					}
 				}
 			}

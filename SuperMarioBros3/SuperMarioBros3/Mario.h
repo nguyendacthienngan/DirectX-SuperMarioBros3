@@ -105,6 +105,7 @@ public:
 	void CrouchProcess(CKeyboardManager* keyboard);
 	void SkidProcess(D3DXVECTOR2 velocity);
 	void HoldProcess();
+	void ResetHolding();
 	void JumpProcess(float jumpForce, bool bounceAfterJumpOnEnemy);
 	void KickProcess(bool isKick);
 	void DamageProcess();

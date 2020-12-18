@@ -797,11 +797,16 @@ void CMario::HoldProcess()
 				objectHolding->Release(false);
 			else 
 				objectHolding->Release(true);
-			objectHolding = NULL;
-			isHold = false;
-			isKick = true;
+			ResetHolding();
 		}
 	}
+}
+
+void CMario::ResetHolding()
+{
+	objectHolding = NULL;
+	isHold = false;
+	isKick = true;
 }
 
 void CMario::JumpProcess(float jumpForce, bool bounceAfterJumpOnEnemy)

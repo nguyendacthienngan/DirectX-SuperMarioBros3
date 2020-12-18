@@ -4,6 +4,7 @@
 #include "Ultis.h"
 #include "MiscConst.h"
 #include "SceneManager.h"
+#include "Mario.h"
 CKoopaShell::CKoopaShell()
 {
 	Init();
@@ -50,10 +51,9 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	auto normal = physiscBody->GetNormal();
 	if (isHeadShot == true || isHeadShotByFireBall == true)
 	{
-		if (GetTickCount64() - timeStartHeadShot >= KOOPA_HEAD_SHOT_TIME)
+		if (GetTickCount64() - timeStartHeadShot >= KOOPA_HEAD_SHOT_TIME && isHeadShot == true)
 		{
 			isHeadShot = false;
-			isHeadShotByFireBall = false;
 			countDeadCallback = 0;
 			vel.x = 0.0f;
 		}
@@ -99,18 +99,14 @@ void CKoopaShell::OnDie()
 	if (isHeadShot || isHeadShotByFireBall)
 	{
 		countDeadCallback++;
-
-		if (isReleaseFromHigher == false)
-		{
-			isReleaseFromHigher = true;
-			physiscBody->SetGravity(KOOPA_GRAVITY);
-		}
+		physiscBody->SetGravity(KOOPA_GRAVITY);
 		if (countDeadCallback == 1)
 		{
 			timeStartHeadShot = GetTickCount64();
 
 			auto v = physiscBody->GetVelocity();
 			v.y = -KOOPA_SHELL_DEFLECT;
+			v.x = 0;
 			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 			activeScene->AddObject(hitFX);
 			hitFX->SetStartPosition(this->transform.position);
@@ -154,7 +150,14 @@ void CKoopaShell::CollisionWithOtherEnemy(CollisionEvent* cE, CCollisionBox* cO)
 			auto enemyObj = static_cast<CEnemy*>(cO->GetGameObjectAttach());
 			enemyObj->SetIsHeadShot(true);
 			enemyObj->OnDie();
-			CollisionWithFireBall();
+			if (IsHolding() == true)
+			{
+				auto mario = static_cast<CMario*>(holder);
+				mario->ResetHolding();
+				Release(true);
+				CollisionWithFireBall();
+			}
+			
 		}
 	}
 }
