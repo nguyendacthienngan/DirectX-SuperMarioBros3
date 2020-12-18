@@ -57,6 +57,8 @@ protected:
 	bool isHitGoalRoulette;
 public:
 	CMario();
+
+	CHoldable* GetHoldObject();
 	void SetDamageFlag(bool isDamaged);
 	void SetChangeSmokeEffectFlag(bool isChangeSmokeEffect);
 	void SetChangeLevelFlag(bool flag);

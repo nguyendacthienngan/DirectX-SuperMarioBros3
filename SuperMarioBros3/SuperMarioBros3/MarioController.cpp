@@ -108,9 +108,9 @@ void CMarioController::SwitchToState(std::string state)
 			listStateObjects.at(state)->SetRelativePositionOnScreen(listStateObjects.at(state)->GetCollisionBox()->at(0)->GetPosition());
 		}
 
-#pragma region PassParamater For DamageProcess
 		auto stateMarioToBeChanged = static_cast<CMario*>(listStateObjects.at(state));
 		auto currentMario = static_cast<CMario*>(currentStateObject);
+#pragma region PassParamater For DamageProcess
 		stateMarioToBeChanged->SetDamageFlag(currentMario->GetDamageFlag());
 		stateMarioToBeChanged->SetChangeSmokeEffectFlag(currentMario->GetChangeSmokeEffectFlag());
 		stateMarioToBeChanged->SetChangeLevelFlag(currentMario->GetChangeLevelFlag());
@@ -125,6 +125,13 @@ void CMarioController::SwitchToState(std::string state)
 		stateMarioToBeChanged->SetPowerUp(currentMario->IsPowerUp());
 #pragma endregion
 
+
+#pragma region PassParamater For Holding Obj
+		auto holdObj = currentMario->GetHoldObject();
+		if (holdObj != NULL)
+			stateMarioToBeChanged->HoldObject(holdObj);
+
+#pragma endregion
 		auto curMario = static_cast<CMario*>(currentStateObject);
 		if (curMario->GettMarioStateTag() == MarioStates::RacoonMario)
 		{

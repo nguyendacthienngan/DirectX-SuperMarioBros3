@@ -35,6 +35,11 @@ CMario::CMario()
 
 }
 
+CHoldable* CMario::GetHoldObject()
+{
+	return objectHolding;
+}
+
 void CMario::SetDamageFlag(bool isDamaged)
 {
 	this->isDamaged = isDamaged;
