@@ -36,21 +36,38 @@ bool CCoin::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 
 void CCoin::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions)
 {
-	for (auto collisionEvent : otherCollisions)
+	//for (auto collisionEvent : otherCollisions)
+	//{
+	//	auto collisionBox = collisionEvent->obj;
+	//	if (MarioTag(collisionBox->GetGameObjectAttach()->GetTag()))
+	//	{
+	//		// Đụng trúng tiền là tăng tiền và disbale tiền
+	//		this->isEnabled = false;
+	//		OnScoreEffect();
+	//		auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	//		if (activeScene != NULL)
+	//		{
+	//			activeScene->RemoveCoin(this);
+	//			activeScene->RemoveObject(this);
+	//			activeScene->AddDestroyObject(this);
+	//		}
+	//	}
+	//}
+}
+
+void CCoin::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
+{
+	if (MarioTag(otherCollisionBox->GetGameObjectAttach()->GetTag()))
 	{
-		auto collisionBox = collisionEvent->obj;
-		if (MarioTag(collisionBox->GetGameObjectAttach()->GetTag()))
+		// Đụng trúng tiền là tăng tiền và disbale tiền
+		this->isEnabled = false;
+		OnScoreEffect();
+		auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+		if (activeScene != NULL)
 		{
-			// Đụng trúng tiền là tăng tiền và disbale tiền
-			this->isEnabled = false;
-			OnScoreEffect();
-			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
-			if (activeScene != NULL)
-			{
-				activeScene->RemoveCoin(this);
-				activeScene->RemoveObject(this);
-				activeScene->AddDestroyObject(this);
-			}
+			activeScene->RemoveCoin(this);
+			activeScene->RemoveObject(this);
+			activeScene->AddDestroyObject(this);
 		}
 	}
 }
