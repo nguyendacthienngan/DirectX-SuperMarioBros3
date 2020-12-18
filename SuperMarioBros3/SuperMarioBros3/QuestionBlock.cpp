@@ -8,6 +8,7 @@
 #include "LeafEffect.h"
 #include "MushroomEffect.h"
 #include "Mario.h"
+#include "MarioController.h"
 CQuestionBlock::CQuestionBlock()
 {
 	CBlock::CBlock();
@@ -18,6 +19,12 @@ CQuestionBlock::CQuestionBlock()
 	bounceState = 0;
 	startBounceTime = 0;
 	bounceDelta = 0.0f;
+	target = NULL;
+}
+
+void CQuestionBlock::SetTarget(CGameObject* target)
+{
+	this->target = target;
 }
 
 void CQuestionBlock::LoadAnimation()
@@ -38,7 +45,7 @@ void CQuestionBlock::SetItemInfo(ItemInfo info)
 	this->itemInfo = info;
 }
 
-void CQuestionBlock::Bounce(CGameObject* gO)
+void CQuestionBlock::Bounce()
 {
 	if (bounceState == 0)
 	{
@@ -59,16 +66,23 @@ void CQuestionBlock::Bounce(CGameObject* gO)
 				}
 				case ItemTag::PowerUp:
 				{
-					if (MarioTag(gO->GetTag()) && gO != NULL)
+					// có thể mario va chạm, hoặc là mai rùa va chạm theo chiều ngang
+					// nếu là mai rùa thì làm sao mình có thể xét theo tag của mario?
+					// question block phải giữ Mario Controller chăng?
+					if (target == NULL)
+						break;
+					auto marioController = static_cast<CMarioController*>(target);
+					auto currentMario = marioController->GetCurrentStateObject();
+					if (currentMario != NULL)
 					{
-						auto mario = static_cast<CMario*>(gO);
+						auto mario = static_cast<CMario*>(currentMario);
 						switch (mario->GettMarioStateTag())
 						{
 							case MarioStates::SmallMario:
 							{
 								CMushroomEffect* mushroomObtainedFX = new CMushroomEffect();
 								mushroomObtainedFX->SetStartPosition(transform.position);
-								mushroomObtainedFX->StartEffect(gO->GetPhysiscBody()->GetNormal().x);
+								mushroomObtainedFX->StartEffect(mario->GetPhysiscBody()->GetNormal().x);
 								auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 								activeScene->AddObject(mushroomObtainedFX);
 								break;

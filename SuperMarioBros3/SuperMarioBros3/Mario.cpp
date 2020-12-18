@@ -651,8 +651,8 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 		{
 			// Mario cụng đầu lên question block
 			FallProcess();
-			auto questionBlock = dynamic_cast<CQuestionBlock*>(collisionBox->GetGameObjectAttach());
-			questionBlock->Bounce(this);
+			auto questionBlock = static_cast<CQuestionBlock*>(collisionBox->GetGameObjectAttach());
+			questionBlock->Bounce();
 		}
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick && collisionEvent->ny > 0)
 		{
