@@ -133,17 +133,15 @@ void CMarioController::SwitchToState(std::string state)
 
 #pragma endregion
 
-#pragma region PassParamater For Attacking
+#pragma region PassParamater For Attacking and Flying
 		if (currentMario->GettMarioStateTag() == MarioStates::RacoonMario)
 		{
 			auto curRacconMario = static_cast<CRaccoonMario*>(currentMario);
 			curRacconMario->ResetValueAttack();
-			
+			if (curRacconMario->IsFly() == true)
+				curRacconMario->ResetValueFly();
+			currentPhyBody->SetGravity(MARIO_GRAVITY);
 		}
-#pragma endregion
-
-#pragma region PassParamater For Flying
-
 #pragma endregion
 	}
 

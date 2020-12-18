@@ -33,6 +33,8 @@ public:
 	void SetRaccoonTailBox(CRaccoonTailBox*);
 
 	void ResetValueAttack();
+	void ResetValueFly();
+	bool IsFly();
 	~CRaccoonMario();
 };
 
