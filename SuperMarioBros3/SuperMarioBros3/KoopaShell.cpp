@@ -99,14 +99,18 @@ void CKoopaShell::OnDie()
 	if (isHeadShot || isHeadShotByFireBall)
 	{
 		countDeadCallback++;
+
+		if (isReleaseFromHigher == false)
+		{
+			isReleaseFromHigher = true;
+			physiscBody->SetGravity(KOOPA_GRAVITY);
+		}
 		if (countDeadCallback == 1)
 		{
 			timeStartHeadShot = GetTickCount64();
 
 			auto v = physiscBody->GetVelocity();
 			v.y = -KOOPA_SHELL_DEFLECT;
-			//v.x = KOOPA_SHELL_DEFLECT_X * normal.x;
-
 			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 			activeScene->AddObject(hitFX);
 			hitFX->SetStartPosition(this->transform.position);
@@ -150,6 +154,7 @@ void CKoopaShell::CollisionWithOtherEnemy(CollisionEvent* cE, CCollisionBox* cO)
 			auto enemyObj = static_cast<CEnemy*>(cO->GetGameObjectAttach());
 			enemyObj->SetIsHeadShot(true);
 			enemyObj->OnDie();
+			CollisionWithFireBall();
 		}
 	}
 }
@@ -178,11 +183,7 @@ void CKoopaShell::Release(bool isFromHigher)
 	stopHold = true;
 	this->canRun = true;
 	// Nếu là small mario thì KOOPA_GRAVITY làm koopa shell đẩy xuống nhiều quá  / lố ground, rớt khỏi ground
-	//physiscBody->SetGravity(0.0f);
-	/*if (isFromHigher == false)
-		physiscBody->SetGravity(0.0f);
-	else
-		physiscBody->SetGravity(KOOPA_GRAVITY);*/
+	// Nên sẽ set gravity = 0 :( nhưng thả ra mà trúng quái thì trừ v mà còn gravity = 0 nên bay lên trời
 	physiscBody->SetNormal(normal); // Sẽ set lại normal theo hướng bị thả ra dựa vào normal bên class cha Holdable giữ
 }
 
