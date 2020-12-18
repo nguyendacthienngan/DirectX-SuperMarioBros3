@@ -132,13 +132,19 @@ void CMarioController::SwitchToState(std::string state)
 			stateMarioToBeChanged->HoldObject(holdObj);
 
 #pragma endregion
-		auto curMario = static_cast<CMario*>(currentStateObject);
-		if (curMario->GettMarioStateTag() == MarioStates::RacoonMario)
+
+#pragma region PassParamater For Attacking
+		if (currentMario->GettMarioStateTag() == MarioStates::RacoonMario)
 		{
-			auto curRacconMario = static_cast<CRaccoonMario*>(curMario);
+			auto curRacconMario = static_cast<CRaccoonMario*>(currentMario);
 			curRacconMario->ResetValueAttack();
 			
 		}
+#pragma endregion
+
+#pragma region PassParamater For Flying
+
+#pragma endregion
 	}
 
 	// Gán object (OBJECT)
