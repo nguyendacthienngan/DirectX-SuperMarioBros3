@@ -44,6 +44,10 @@ void CBrick::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 	}
 }
 
+void CBrick::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
+{
+}
+
 bool CBrick::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
 	return false;

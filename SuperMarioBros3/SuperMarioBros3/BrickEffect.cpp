@@ -1,4 +1,4 @@
-#include "BrickEffect.h"
+﻿#include "BrickEffect.h"
 #include "AnimationManager.h"
 #include "Game.h"
 #include "BrickFXConst.h"
@@ -33,7 +33,4 @@ void CBrickEffect::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	vel.y += physiscBody->GetGravity() * deltaTime;
 	vel.y = (vel.y < DEBRIS_MIN_FALL) ? vel.y : DEBRIS_MIN_FALL;
 	physiscBody->SetVelocity(vel);
-
-	if (cam->CheckObjectInCamera(this) == false || pos.y > cam->GetCurrentBoundary().bottom)
-		pool->Revoke(this);
 }
