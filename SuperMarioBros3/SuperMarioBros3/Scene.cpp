@@ -15,6 +15,7 @@
 #include "MarioMap.h"
 #include "Card.h"
 #include "QuestionBlock.h"
+#include "Brick.h"
 
 using namespace std;
 
@@ -87,6 +88,12 @@ void CScene::Load()
 					auto qB = static_cast<CQuestionBlock*>(obj);
 					if (qB != NULL)
 						qB->SetTarget(player);
+				}
+				if (obj->GetTag() == GameObjectTags::Brick)
+				{
+					auto brick = static_cast<CBrick*>(obj);
+					if (brick != NULL)
+						brick->GetObjectPool().AddPoolToScene(this);
 				}
 				AddObject(obj);
 			}

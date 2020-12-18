@@ -133,6 +133,14 @@
 			<Sprite id="spr-brick-3" left="331" top="188"  width="16" height="16"/>
 		</Animation>
 
+    <!--DEBRIS-->
+    <Animation aniId="ani-brick-debris" frameTime="100" name = "BRICK-DEBRIS">
+      <Sprite id="spr-debris-0"/>
+      <Sprite id="spr-debris-1"/>
+      <Sprite id="spr-debris-2"/>
+      <Sprite id="spr-debris-3"/>
+    </Animation>
+    
 		<!-- PLATFORM -->
 		<Animation aniId="ani-platform" frameTime="100" name = "PLATFORM">
 			<Sprite id="spr-platform-0" left="352" top="167"  width="48" height="16"/>

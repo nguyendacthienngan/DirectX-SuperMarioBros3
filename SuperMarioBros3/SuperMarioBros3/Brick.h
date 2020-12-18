@@ -3,6 +3,7 @@
 class CBrick : public CGameObject
 {
 	int type;
+	CObjectPool brickPool;
 public:
 	CBrick();
 	void LoadAnimation();
@@ -12,5 +13,6 @@ public:
 	void SetType(int type);
 	int GetType();
 	void Debris();
+	CObjectPool GetObjectPool();
 };
 

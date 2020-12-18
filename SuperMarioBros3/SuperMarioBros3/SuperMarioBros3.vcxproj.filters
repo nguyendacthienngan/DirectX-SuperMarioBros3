@@ -687,6 +687,9 @@
     <ClInclude Include="ScoreFXConst.h">
       <Filter>Game\GameObject\Misc\Effect\ScoreEffect</Filter>
     </ClInclude>
+    <ClInclude Include="BrickFXConst.h">
+      <Filter>Game\GameObject\Misc\Effect\BrickEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
