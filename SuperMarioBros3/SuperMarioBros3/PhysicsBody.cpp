@@ -305,7 +305,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 		{
 			temp.push_back(e);
 			std::string name = coObjects->at(i)->GetName();
-			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
+			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::VenusFireBall)
 			{
 				SetTrigger(true);
 			}

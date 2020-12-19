@@ -35,6 +35,11 @@ CMario::CMario()
 
 }
 
+CHoldable* CMario::GetHoldObject()
+{
+	return objectHolding;
+}
+
 void CMario::SetDamageFlag(bool isDamaged)
 {
 	this->isDamaged = isDamaged;
@@ -267,7 +272,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 				velocity.x += physiscBody->GetAcceleration() * dt;
 
 			
-			FrictionProcess(velocity.x, dt); // Kèm lực ma sát kéo lại vận tốc
+			FrictionProcess(velocity.x, dt, false); // Kèm lực ma sát kéo lại vận tốc
 			physiscBody->SetVelocity(velocity);
 
 			SkidProcess(velocity);
@@ -278,7 +283,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		}
 		else
 		{
-			FrictionProcess(velocity.x, dt);
+			FrictionProcess(velocity.x, dt, true);
 			physiscBody->SetVelocity(velocity);
 
 			if (velocity.x == 0)
@@ -287,8 +292,6 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			isSkid = false;
 		}
 
-		
-		
 #pragma region P-METER
 		if (feverState != 3)
 		{
@@ -353,7 +356,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(pMeterCounting);
 		uiCamera->GetHUD()->GetPMeter()->SetFeverState(feverState);
 
-		if (pMeterCounting >= PMETER_MAX && ( velocity.x > 0))
+		if (pMeterCounting >= PMETER_MAX && ( abs(velocity.x) > 0))
 			currentPhysicsState.move = MoveOnGroundStates::HighSpeed;
 
 
@@ -393,25 +396,28 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			if ((keyboard->GetKeyStateDown(DIK_S) && isFly == false) || bounceAfterJumpOnEnemy == true)
 			{
 				float jumpMaxHeight;
+				float force = MARIO_PUSH_FORCE;
 				if ((feverState == 2 && abs(velocity.x) > MARIO_RUNNING_SPEED * 0.85f) || bounceAfterJumpOnEnemy == true)
 				{
 					// SUPER JUMP
 					jumpMaxHeight = MARIO_SUPER_JUMP_HEIGHT;
+					force = MARIO_PUSH_FORCE * 1.5f;
 				}
 				else
 				{
 					// HIGH - JUMP
 					jumpMaxHeight = MARIO_HIGH_JUMP_HEIGHT;
+					force = MARIO_PUSH_FORCE;
 
 				}
 				if (abs(beforeJumpPosition) - abs(transform.position.y) <= jumpMaxHeight)
 				{
-					velocity.y = -MARIO_PUSH_FORCE;
+					velocity.y = -force;
 				}
 				else
 				{
 					// EndJump
-					velocity.y = -MARIO_PUSH_FORCE / 2;
+					velocity.y = -force / 2;
 					canHighJump = false;
 				}
 				if (bounceAfterJumpOnEnemy == true)
@@ -650,26 +656,12 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 		{
 			// Mario cụng đầu lên question block
 			FallProcess();
-			auto questionBlock = dynamic_cast<CQuestionBlock*>(collisionBox->GetGameObjectAttach());
-			questionBlock->Bounce(this);
+			auto questionBlock = static_cast<CQuestionBlock*>(collisionBox->GetGameObjectAttach());
+			questionBlock->Bounce();
 		}
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick && collisionEvent->ny > 0)
 		{
 			FallProcess();
-		}
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Coin)
-		{
-			// Đụng trúng tiền là tăng tiền và disbale tiền
-			auto coin = collisionBox->GetGameObjectAttach();
-			coin->Enable(false);
-			OnScoreEffect();
-			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
-			if (activeScene != NULL)
-			{
-				activeScene->RemoveCoin(coin);
-				activeScene->RemoveObject(coin);
-				activeScene->AddDestroyObject(coin);
-			}
 		}
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Portal)
 		{
@@ -737,6 +729,8 @@ bool CMario::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 		return false;
 	if (GiftTag(tag) == true && tag != GameObjectTags::Coin)
 		return false;
+	if (tag == GameObjectTags::Coin)
+		return false;
 	if (isGoToWarpPipe == true && StaticTag(tag))
 		return false;
 	return true;
@@ -799,12 +793,20 @@ void CMario::HoldProcess()
 		else
 		{
 			// thả ra => vẫn còn nút A => tưởng bị A
-			objectHolding->Release();
-			objectHolding = NULL;
-			isHold = false;
-			isKick = true;
+			if (marioStateTag == MarioStates::SmallMario)
+				objectHolding->Release(false);
+			else 
+				objectHolding->Release(true);
+			ResetHolding();
 		}
 	}
+}
+
+void CMario::ResetHolding()
+{
+	objectHolding = NULL;
+	isHold = false;
+	isKick = true;
 }
 
 void CMario::JumpProcess(float jumpForce, bool bounceAfterJumpOnEnemy)

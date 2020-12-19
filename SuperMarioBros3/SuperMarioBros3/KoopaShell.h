@@ -12,6 +12,7 @@ protected:
 	bool headShot;
 	bool upsideDown;
 	bool canWithDraw, isWithDraw;
+	bool isReleaseFromHigher;
 	CKoopa* koopa;
 	DWORD timeStartWithDraw, timeStartCanWithDraw;
 	int countWithDraw, countShakingTime, isLeftHit;
@@ -41,7 +42,7 @@ public:
 	CKoopa* GetKoopa();
 
 	virtual void SetHoldablePosition(D3DXVECTOR2 pos);
-	virtual void Release();
+	virtual void Release(bool isFromHigher);
 	virtual D3DXVECTOR2 GetHoldableCollisionBox();
 	virtual bool IsHolding();
 };

@@ -279,22 +279,7 @@ void CRaccoonMario::OnKeyDown(int KeyCode)
 			lastFlyTime = GetTickCount64();
 		if (GetTickCount() - lastFlyTime > timeToFly && lastFlyTime != 0 && isFly == true) 
 		{
-			if (uiCamera != NULL)
-			{
-				uiCamera->GetHUD()->GetPMeter()->SetFeverState(-1);
-				uiCamera->GetHUD()->GetPMeter()->SetCanFly(false);
-			}
-			isFly = false;
-			physiscBody->SetGravity(MARIO_GRAVITY);
-			if (isOnGround == false)
-				currentPhysicsState.jump = JumpOnAirStates::Fall;
-			else
-				currentPhysicsState.jump = JumpOnAirStates::Stand;
-			canFly = false; 
-			lastFlyTime = 0;
-			canFloat = true;
-			pMeterCounting = 0.0f;
-			feverState = -1;
+			ResetValueFly();
 		}
 		if (canFly == true)
 		{
@@ -356,6 +341,31 @@ void CRaccoonMario::ResetValueAttack()
 	isAttack = false;
 	isJumpAttack = false;
 	raccoonTailBox->Enable(false);
+}
+
+void CRaccoonMario::ResetValueFly()
+{
+	if (uiCamera != NULL)
+	{
+		uiCamera->GetHUD()->GetPMeter()->SetFeverState(-1);
+		uiCamera->GetHUD()->GetPMeter()->SetCanFly(false);
+	}
+	isFly = false;
+	physiscBody->SetGravity(MARIO_GRAVITY);
+	if (isOnGround == false)
+		currentPhysicsState.jump = JumpOnAirStates::Fall;
+	else
+		currentPhysicsState.jump = JumpOnAirStates::Stand;
+	canFly = false;
+	lastFlyTime = 0;
+	canFloat = true;
+	pMeterCounting = 0.0f;
+	feverState = -1;
+}
+
+bool CRaccoonMario::IsFly()
+{
+	return isFly;
 }
 
 CRaccoonMario::~CRaccoonMario()

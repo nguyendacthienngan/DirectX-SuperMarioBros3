@@ -5,6 +5,8 @@
 #include "KoopaConst.h"
 #include "ScoreEffect.h"
 #include "SceneManager.h"
+#include "QuestionBlock.h"
+#include "Brick.h"
 
 CEnemy::CEnemy()
 {
@@ -64,6 +66,16 @@ void CEnemy::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 				auto normal = physiscBody->GetNormal();
 				normal.x = -normal.x;
 				physiscBody->SetNormal(normal);
+				if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock && enemyTag == EnemyTag::KoopaShell)
+				{
+					auto questionBlock = static_cast<CQuestionBlock*>(collisionBox->GetGameObjectAttach());
+					questionBlock->Bounce();
+				}
+				if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick && enemyTag == EnemyTag::KoopaShell)
+				{
+					auto brick = static_cast<CBrick*>(collisionBox->GetGameObjectAttach());
+					brick->Debris();
+				}
 			}
 			if (this->enemyTag == EnemyTag::Koopa)
 			{

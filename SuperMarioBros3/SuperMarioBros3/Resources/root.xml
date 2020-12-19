@@ -3,7 +3,7 @@
   <Root name="Textures">
     <Texture id="tex-mario" source="Resources/Textures/mariox3(1).png"/>
     <Texture id="tex-enemy" source="Resources/Textures/enemy_x3_white.png"/>
-    <Texture id="tex-misc" source="Resources/Textures/misc_x3.png"/>
+    <Texture id="tex-misc" source="Resources/Textures/misc_x3 (2).png"/>
     <Texture id="tex-fire-ball" source="Resources/Textures/fire-ball-white.png"/>
     <Texture id="tex-bbox" source="Resources/Textures/bbox.png"/>
     <Texture id="tex-effect" source="Resources/Textures/effect_white_254_x3.png"/>

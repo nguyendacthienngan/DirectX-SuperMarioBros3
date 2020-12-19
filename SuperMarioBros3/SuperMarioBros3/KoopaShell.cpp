@@ -4,6 +4,7 @@
 #include "Ultis.h"
 #include "MiscConst.h"
 #include "SceneManager.h"
+#include "Mario.h"
 CKoopaShell::CKoopaShell()
 {
 	Init();
@@ -14,6 +15,7 @@ CKoopaShell::CKoopaShell()
 	upsideDown = false;
 	isWithDraw == false;
 	canWithDraw == false;
+	isReleaseFromHigher = true;
 	countWithDraw = 0;
 	countShakingTime = 0;
 	timeStartHeadShot = 0;
@@ -49,17 +51,16 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	auto normal = physiscBody->GetNormal();
 	if (isHeadShot == true || isHeadShotByFireBall == true)
 	{
-		if (GetTickCount64() - timeStartHeadShot >= KOOPA_HEAD_SHOT_TIME)
+		if (GetTickCount64() - timeStartHeadShot >= KOOPA_HEAD_SHOT_TIME && isHeadShot == true)
 		{
 			isHeadShot = false;
-			isHeadShotByFireBall = false;
 			countDeadCallback = 0;
 			vel.x = 0.0f;
 		}
 	}
 	else
 	{
-		if ((IsHolding() == true))
+		if ((IsHolding() == true) || isReleaseFromHigher == false)
 			physiscBody->SetGravity(0);
 		else
 			physiscBody->SetGravity(KOOPA_GRAVITY);
@@ -78,7 +79,6 @@ void CKoopaShell::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	physiscBody->SetNormal(normal);
 	physiscBody->SetVelocity(vel);
 	WithDrawProcess();
-
 }
 
 void CKoopaShell::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
@@ -99,14 +99,14 @@ void CKoopaShell::OnDie()
 	if (isHeadShot || isHeadShotByFireBall)
 	{
 		countDeadCallback++;
+		physiscBody->SetGravity(KOOPA_GRAVITY);
 		if (countDeadCallback == 1)
 		{
 			timeStartHeadShot = GetTickCount64();
 
 			auto v = physiscBody->GetVelocity();
 			v.y = -KOOPA_SHELL_DEFLECT;
-			//v.x = KOOPA_SHELL_DEFLECT_X * normal.x;
-
+			v.x = 0;
 			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 			activeScene->AddObject(hitFX);
 			hitFX->SetStartPosition(this->transform.position);
@@ -148,7 +148,16 @@ void CKoopaShell::CollisionWithOtherEnemy(CollisionEvent* cE, CCollisionBox* cO)
 		if (isRun == true || IsHolding() == true)
 		{
 			auto enemyObj = static_cast<CEnemy*>(cO->GetGameObjectAttach());
+			enemyObj->SetIsHeadShot(true);
 			enemyObj->OnDie();
+			if (IsHolding() == true)
+			{
+				auto mario = static_cast<CMario*>(holder);
+				mario->ResetHolding();
+				Release(true);
+				CollisionWithFireBall();
+			}
+			
 		}
 	}
 }
@@ -168,14 +177,16 @@ void CKoopaShell::SetHoldablePosition(D3DXVECTOR2 pos)
 	SetPosition(pos);
 }
 
-void CKoopaShell::Release()
+void CKoopaShell::Release(bool isFromHigher)
 {
-	CHoldable::Release();
+	CHoldable::Release(isFromHigher);
+	isReleaseFromHigher = isFromHigher;
 	// Thả ra là mai rùa chạy !
 	isEnabled = true;
 	stopHold = true;
 	this->canRun = true;
-	physiscBody->SetGravity(KOOPA_GRAVITY);
+	// Nếu là small mario thì KOOPA_GRAVITY làm koopa shell đẩy xuống nhiều quá  / lố ground, rớt khỏi ground
+	// Nên sẽ set gravity = 0 :( nhưng thả ra mà trúng quái thì trừ v mà còn gravity = 0 nên bay lên trời
 	physiscBody->SetNormal(normal); // Sẽ set lại normal theo hướng bị thả ra dựa vào normal bên class cha Holdable giữ
 }
 

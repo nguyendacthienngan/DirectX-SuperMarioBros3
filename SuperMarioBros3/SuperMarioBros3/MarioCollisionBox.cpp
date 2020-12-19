@@ -62,6 +62,12 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 						paraGoomba->ChangeToGoomba();
 						break;
 					}
+					case EnemyTag::Venus: case EnemyTag::Piranha:
+					{
+						mario->OnDamaged();
+						auto normal = mario->GetPhysiscBody()->GetNormal();
+						mario->GetPhysiscBody()->SetVelocity(D3DXVECTOR2(MARIO_WALKING_SPEED * normal.x, 0.0f)); // Khi bị nhảy lên trúng Venus => bị damaged và đẩy ra
+					}
 				}
 			}
 			if (collisionEvent->ny > 0) // Nhảy từ dưới lên

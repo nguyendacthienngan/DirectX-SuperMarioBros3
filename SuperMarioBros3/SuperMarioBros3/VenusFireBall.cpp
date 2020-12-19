@@ -36,7 +36,8 @@ CVenusFireBall::~CVenusFireBall()
 void CVenusFireBall::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	CGameObject::Update(dt, cam, uiCam);
-	if (transform.position.y > cam->GetCurrentBoundary().bottom)
+	if (transform.position.y > cam->GetCurrentBoundary().bottom || transform.position.y < cam->GetPositionCam().y 
+		|| transform.position.x > cam->GetCurrentBoundary().right || transform.position.x < cam->GetPositionCam().x )
 	{
 		if (pool != NULL)
 			pool->Revoke(this);

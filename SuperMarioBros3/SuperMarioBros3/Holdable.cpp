@@ -1,6 +1,6 @@
 #include "Holdable.h"
 
-void CHoldable::Release()
+void CHoldable::Release(bool isFromHigher)
 {
 	this->holder = NULL;
 }

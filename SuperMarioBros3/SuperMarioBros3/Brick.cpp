@@ -2,6 +2,7 @@
 #include "AnimationManager.h"
 #include "BrickConst.h"
 #include "SceneManager.h"
+#include "BrickEffect.h"
 
 CBrick::CBrick()
 {
@@ -9,6 +10,13 @@ CBrick::CBrick()
 	Init();
 	SetState("BRICK");
 	isEnabled = true;
+
+	for (int i = 0; i < 4; i++)
+	{
+		CBrickEffect* brickFX = new CBrickEffect();
+		brickFX->LinkToPool(&brickPool);
+		brickPool.Add(brickFX);
+	}
 }
 
 void CBrick::LoadAnimation()
@@ -36,6 +44,10 @@ void CBrick::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 	}
 }
 
+void CBrick::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
+{
+}
+
 bool CBrick::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
 	return false;
@@ -53,7 +65,17 @@ int CBrick::GetType()
 
 void CBrick::Debris()
 {
-	// Destroy
+	const float velx[4] = { +0.1875f, +0.25f, -0.25f, -0.1875f };
+	const float vely[4] = { -0.375f, -0.75f, -0.75f, -0.375f };
+
+
+	for (int i = 0; i < 4; i++)
+	{
+		auto brickFX = brickPool.Init();
+		brickFX->GetPhysiscBody()->SetVelocity(D3DXVECTOR2(velx[i], vely[i]));
+		brickFX->Enable(true);
+		brickFX->SetPosition(this->GetPosition());
+	}
 	isEnabled = false;
 	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 	if (activeScene != NULL)
@@ -62,5 +84,10 @@ void CBrick::Debris()
 		activeScene->RemoveObject(this);
 		activeScene->AddDestroyObject(this);
 	}
+}
+
+CObjectPool CBrick::GetObjectPool()
+{
+	return brickPool;
 }
 

@@ -7,7 +7,7 @@ protected:
 	D3DXVECTOR2 normal;
 public:
 	virtual void SetHoldablePosition(D3DXVECTOR2 pos) = 0;
-	virtual void Release();
+	virtual void Release(bool isFromHigher);
 	virtual D3DXVECTOR2 GetHoldableCollisionBox() = 0;
 
 	virtual CGameObject* GetHolder();

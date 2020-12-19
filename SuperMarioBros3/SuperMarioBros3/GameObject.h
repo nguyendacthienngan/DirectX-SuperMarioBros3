@@ -75,7 +75,7 @@ public:
 	virtual void Update(DWORD dt, CCamera* cam, CCamera* uiCam);
 	virtual void Render(CCamera* cam, int alpha = 255);
 
-	void FrictionProcess(float& speed, DWORD dt);
+	void FrictionProcess(float& speed, DWORD dt, bool isStop);
 	void ResetTempValues();
 	// Collision
 	// Khi PhysicsBody bắt dược va chạm, nó sẽ tùy thuộc vào biến trigger để truyền về đúng loại callback mình muốn

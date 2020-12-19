@@ -14,6 +14,8 @@
 #include "SceneManager.h"
 #include "MarioMap.h"
 #include "Card.h"
+#include "QuestionBlock.h"
+#include "Brick.h"
 
 using namespace std;
 
@@ -80,6 +82,18 @@ void CScene::Load()
 						auto venus = static_cast<CVenus*>(enemy);
 						venus->GetObjectPool().AddPoolToScene(this);
 					}
+				}
+				if (obj->GetTag() == GameObjectTags::QuestionBlock)
+				{
+					auto qB = static_cast<CQuestionBlock*>(obj);
+					if (qB != NULL)
+						qB->SetTarget(player);
+				}
+				if (obj->GetTag() == GameObjectTags::Brick)
+				{
+					auto brick = static_cast<CBrick*>(obj);
+					if (brick != NULL)
+						brick->GetObjectPool().AddPoolToScene(this);
 				}
 				AddObject(obj);
 			}
