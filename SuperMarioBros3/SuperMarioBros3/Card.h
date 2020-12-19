@@ -1,10 +1,12 @@
 #pragma once
 #include "GameObject.h"
+#include "GoalEffects.h"
 class CGameObject;
 class CScene;
 class CCard :  public CGameObject
 {
 private:
+	CGoalEffects* goalFX;
 	int cardState; // 0: Flower, 5: Star, 10: Mushroom
 	bool isTouched;
 public:
@@ -19,5 +21,6 @@ public:
 	virtual bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag);
 	void IsTouched(bool state);
 	bool IsTouched();
+	void HitGoalRoulette();
 };
 

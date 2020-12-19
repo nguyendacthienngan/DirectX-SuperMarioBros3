@@ -147,3 +147,8 @@ int CHUD::GetCoin()
 {
 	return coin;
 }
+
+void CHUD::EndScene()
+{
+
+}

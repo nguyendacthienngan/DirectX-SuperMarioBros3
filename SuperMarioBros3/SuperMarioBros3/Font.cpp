@@ -50,7 +50,8 @@ void CFont::LoadSprite()
 	fonts.insert(make_pair('X', spriteManager->Get("spr-font-X")));
 	fonts.insert(make_pair('Y', spriteManager->Get("spr-font-Y")));
 	fonts.insert(make_pair('Z', spriteManager->Get("spr-font-Z")));
-
+	fonts.insert(make_pair(' ', spriteManager->Get("spr-font-blank-space")));
+	fonts.insert(make_pair('!', spriteManager->Get("spr-font-exclamation-point")));
 }
 
 void CFont::Render()
@@ -99,6 +100,14 @@ std::vector<LPSprite> CFont::StringToSprites(std::string str)
 
 bool CFont::InScope(char character)
 {
+	// Dấu cách - Blank Space
+	if ((int)character == 32)
+		return true;
+
+	// Dấu ! - Exclamation point
+	if ((int)character == 33)
+		return true;
+
 	// 0 - 9 tương ứng 48 - 57
 	if ((int)character >= 48 && (int)character <= 57)
 		return true;

@@ -1,7 +1,8 @@
-#include "Card.h"
+﻿#include "Card.h"
 #include "AnimationManager.h"
 #include "UICamera.h"
 #include "Mario.h"
+#include "SceneManager.h"
 
 CCard::CCard()
 {
@@ -15,9 +16,11 @@ CCard::CCard()
 	this->collisionBoxs->push_back(collisionBox);
 	physiscBody->SetDynamic(true);
 	physiscBody->SetGravity(0.0f);
-	isEnabled = true;
+	isEnabled = true;	
 	cardState = 0;
 	isTouched = false;
+	goalFX = NULL;
+	tag = GameObjectTags::Card;
 }
 
 void CCard::LoadAnimation()
@@ -41,6 +44,8 @@ void CCard::Render(CCamera* cam, int alpha)
 		SetState("STAR");
 	if (cardState == 10)
 		SetState("MUSHROOM");
+	if (isTouched == true)
+		alpha = 0;
 	CGameObject::Render(cam, alpha);
 }
 
@@ -48,12 +53,12 @@ void CCard::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	if (isTouched == true)
 	{
-		if (uiCam != NULL)
-		{
-			auto uiCamera = static_cast<CUICamera*>(uiCam);
-			uiCamera->GetHUD()->SetCard(1, currentState);
-		}
+		//Khi nào xét FX bị disable thì mình disable card luôn
+		if (goalFX != NULL)
+			if (goalFX->IsEnabled() == false)
+				this->Enable(false);
 	}
+	
 }
 
 void CCard::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions)
@@ -63,12 +68,10 @@ void CCard::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Collis
 		auto collisionBox = collisionEvent->obj;
 		if (MarioTag(collisionBox->GetGameObjectAttach()->GetTag()))
 		{
-			//this->Enable(false);
 			auto mario = static_cast<CMario*>(collisionBox->GetGameObjectAttach());
 			mario->HitGoalRoulette();
-			isTouched = true;
+			HitGoalRoulette();
 		}
-
 	}
 }
 
@@ -76,11 +79,9 @@ void CCard::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* ot
 {
 	if (MarioTag(otherCollisionBox->GetGameObjectAttach()->GetTag()))
 	{
-		//this->Enable(false);
 		auto mario = static_cast<CMario*>(otherCollisionBox->GetGameObjectAttach());
 		mario->HitGoalRoulette();
-		isTouched = true;
-
+		HitGoalRoulette();
 	}
 }
 
@@ -99,4 +100,18 @@ void CCard::IsTouched(bool state)
 bool CCard::IsTouched()
 {
 	return isTouched;
+}
+
+void CCard::HitGoalRoulette()
+{
+	if (goalFX == NULL)
+	{
+		goalFX = new CGoalEffects();
+		goalFX->SetStartPosition(this->GetPosition());
+		goalFX->SetState(currentState);
+		auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+		activeScene->AddObject(goalFX);
+	}
+	// Set State Goals FX
+	isTouched = true;
 }

@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include "HUD.h"
 #include "Font.h"
+#include "GoalEffects.h"
 class CHUD;
 class CCamera;
 class CUICamera :  public CCamera
@@ -10,6 +11,12 @@ class CUICamera :  public CCamera
     RECT surfaceRect;
     std::vector<CFont*> texts;
     bool disableBlackTexture;
+    std::string goalState;
+    bool isGoalRoulette;
+    DWORD goalTimer;
+    bool fontResultDisplayed;
+    CSprite* cardResultInFont;
+    CCardGift* giftInFont;
 public:
     CUICamera();
     CUICamera(int wid, int hei, D3DXVECTOR2 hudPos);
@@ -24,6 +31,11 @@ public:
     void SetPositionCam(D3DXVECTOR2 pos) override;
     void SetDisableBlackTexture(bool disT);
 
+    void OnGoalRoulette(std::string cardState);
+    void GoalRouletteProcess();
+    void FontResult();
+
+    void EmptyTexts();
     ~CUICamera();
 };
 

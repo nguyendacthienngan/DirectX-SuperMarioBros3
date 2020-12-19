@@ -190,5 +190,21 @@
       <Sprite id="spr-mario-damaged-effect-3" left="92" top="1"  width="16" height="16"/>
     </Animation>
   </Textures>
-
+  <Textures gameObjectId="0" textureId="tex-goal">
+    <Animation aniId="ani-goal-mushroom" frameTime="100" name = "MUSHROOM">
+      <Sprite id="spr-goal-mushroom-0" left="5" top="7" width="16" height="16"/>
+      <Sprite id="spr-goal-mushroom-1" left="67" top="29" width="10" height="15"/>
+      <Sprite id="spr-goal-mushroom-2" left="111" top="28" width="1" height="16"/>
+    </Animation>
+    <Animation aniId="ani-goal-flower" frameTime="100" name = "FLOWER">
+      <Sprite id="spr-goal-flower-0" left="25" top="28" width="16" height="16"/>
+      <Sprite id="spr-goal-flower-1" left="80" top="29" width="10" height="16"/>
+      <Sprite id="spr-goal-mushroom-2" left="111" top="28" width="1" height="16"/>
+    </Animation>
+    <Animation aniId="ani-goal-star" frameTime="100" name = "STAR">
+      <Sprite id="spr-goal-star-0" left="45" top="27" width="16" height="16"/>
+      <Sprite id="spr-goal-star-1" left="95" top="28" width="10" height="16"/>
+      <Sprite id="spr-goal-mushroom-2" left="111" top="28" width="1" height="16"/>
+    </Animation>
+  </Textures>
 </Textures>

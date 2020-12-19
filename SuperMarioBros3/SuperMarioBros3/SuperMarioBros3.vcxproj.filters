@@ -262,15 +262,6 @@
     <Filter Include="Game\GameObject\Enemy\Plant\Venus\Red">
       <UniqueIdentifier>{30b613c8-2d05-4004-9cc5-8af0182667d6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameObject\Misc\CardGift">
-      <UniqueIdentifier>{7b503b29-9a88-4006-87fb-4e4d67988151}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameObject\Misc\CardGift\Card">
-      <UniqueIdentifier>{6d606b37-b0e0-4cc8-867d-99ac5ba883a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameObject\UI\HUD\Card">
-      <UniqueIdentifier>{b5963d89-5081-4bce-9fad-8e7e55960d09}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\GameObject\UI\HUD\GameTimer">
       <UniqueIdentifier>{bec6c5ba-15a9-4c03-99b3-0fefee2af139}</UniqueIdentifier>
     </Filter>
@@ -294,6 +285,15 @@
     </Filter>
     <Filter Include="Game\GameObject\Misc\Effect\HitEffect">
       <UniqueIdentifier>{312acf1f-81b6-42df-8ad6-c5a5d1f40a83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Misc\Effect\GoalEffect">
+      <UniqueIdentifier>{742f0a5a-bd2d-458e-ba65-5ae9c60a0a0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\HUD\CardGift">
+      <UniqueIdentifier>{b5963d89-5081-4bce-9fad-8e7e55960d09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Misc\Card">
+      <UniqueIdentifier>{6d606b37-b0e0-4cc8-867d-99ac5ba883a0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -664,10 +664,10 @@
       <Filter>Game\GameObject\Enemy\Plant\Venus\Red</Filter>
     </ClInclude>
     <ClInclude Include="Card.h">
-      <Filter>Game\GameObject\Misc\CardGift\Card</Filter>
+      <Filter>Game\GameObject\Misc\Card</Filter>
     </ClInclude>
     <ClInclude Include="CardGift.h">
-      <Filter>Game\GameObject\UI\HUD\Card</Filter>
+      <Filter>Game\GameObject\UI\HUD\CardGift</Filter>
     </ClInclude>
     <ClInclude Include="GameTimer.h">
       <Filter>Game\GameObject\UI\HUD\GameTimer</Filter>
@@ -689,6 +689,12 @@
     </ClInclude>
     <ClInclude Include="BrickFXConst.h">
       <Filter>Game\GameObject\Misc\Effect\BrickEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalEffects.h">
+      <Filter>Game\GameObject\Misc\Effect\GoalEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalFXConst.h">
+      <Filter>Game\GameObject\Misc\Effect\GoalEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -954,10 +960,10 @@
       <Filter>Game\GameObject\Enemy\Plant\Venus\Red</Filter>
     </ClCompile>
     <ClCompile Include="CardGift.cpp">
-      <Filter>Game\GameObject\UI\HUD\Card</Filter>
+      <Filter>Game\GameObject\UI\HUD\CardGift</Filter>
     </ClCompile>
     <ClCompile Include="Card.cpp">
-      <Filter>Game\GameObject\Misc\CardGift\Card</Filter>
+      <Filter>Game\GameObject\Misc\Card</Filter>
     </ClCompile>
     <ClCompile Include="GameTimer.cpp">
       <Filter>Game\GameObject\UI\HUD\GameTimer</Filter>
@@ -973,6 +979,9 @@
     </ClCompile>
     <ClCompile Include="ScoreEffect.cpp">
       <Filter>Game\GameObject\Misc\Effect\ScoreEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="GoalEffects.cpp">
+      <Filter>Game\GameObject\Misc\Effect\GoalEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

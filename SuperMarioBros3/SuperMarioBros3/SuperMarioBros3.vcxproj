@@ -172,6 +172,8 @@
     <ClInclude Include="EnemyConst.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="GameTimer.h" />
+    <ClInclude Include="GoalEffects.h" />
+    <ClInclude Include="GoalFXConst.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="HelpItem.h" />
@@ -297,6 +299,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="GameTimer.cpp" />
+    <ClCompile Include="GoalEffects.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="HelpItem.cpp" />

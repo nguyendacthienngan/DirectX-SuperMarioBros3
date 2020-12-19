@@ -7,6 +7,7 @@
     <Texture id="tex-fire-ball" source="Resources/Textures/fire-ball-white.png"/>
     <Texture id="tex-bbox" source="Resources/Textures/bbox.png"/>
     <Texture id="tex-effect" source="Resources/Textures/effect_white_254_x3.png"/>
+    <Texture id="tex-goal" source="Resources/Textures/reward_x3.png"/>
     <Texture id="tex-ui" source="Resources/Textures/UI_x3.png"/>
     <Texture id="tex-black" source="Resources/Textures/black.png"/>
     <Texture id="tex-world-map-1" source="Resources/Textures/MapSelection(x3).png"/>
@@ -17,6 +18,7 @@
     <Sprite id="spr-misc" source="Resources/Sprites/MiscDB.xml"/>
     <Sprite id="spr-fire-ball" source="Resources/Sprites/MiscDB.xml"/>
     <Sprite id="spr-effect" source="Resources/Sprites/MiscDB.xml"/>
+    <Sprite id="spr-reward" source="Resources/Sprites/MiscDB.xml"/>
     <Sprite id="spr-ui" source="Resources/Sprites/UiDB.xml"/>
     <Sprite id="spr-world-map-1" source="Resources/Sprites/MapSelectionDB.xml"/>
   </Root>
@@ -25,6 +27,7 @@
     <Animation id="ani-enemy" source="Resources/Animations/EnemyAnim.xml"/>
     <Animation id="ani-misc" source="Resources/Animations/MiscAnim.xml"/>
     <Animation id="ani-fire-ball" source="Resources/Animations/MiscAnim.xml"/>
+    <Animation id="ani-reward" source="Resources/Animations/MiscAnim.xml"/>
     <Animation id="ani-effect" source="Resources/Animations/MiscAnim.xml"/>
     <Animation id="ani-ui" source="Resources/Animations/UiAnim.xml"/>
     <Animation id="ani-world-map-1" source="Resources/Animations/MapSelectionAnim.xml"/>

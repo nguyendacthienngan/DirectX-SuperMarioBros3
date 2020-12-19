@@ -37,5 +37,7 @@ public:
 
     void AddingCoin(int coin);
     int GetCoin();
+
+    void EndScene();
 };
 

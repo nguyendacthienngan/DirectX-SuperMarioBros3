@@ -14,4 +14,5 @@ public:
 	void Update();
 	void Render();
 	void SetState(std::string state);
+	void SetPosition(D3DXVECTOR2 pos);
 };

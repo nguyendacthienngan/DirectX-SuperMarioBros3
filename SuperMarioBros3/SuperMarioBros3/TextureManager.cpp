@@ -23,6 +23,7 @@ void CTextureManager::Init()
 	LoadTexture(TEXTURE_MARIO, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_MARIO));
 	LoadTexture(TEXTURE_BBOX, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_BBOX));
 	LoadTexture(TEXTURE_MISC, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_MISC));
+	LoadTexture(TEXTURE_REWARD, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_REWARD));
 	LoadTexture(TEXTURE_FIRE_BALL, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_FIRE_BALL));
 	LoadTexture(TEXTURE_ENEMY, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_ENEMY));
 	LoadTexture(TEXTURE_EFFECT, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_EFFECT));

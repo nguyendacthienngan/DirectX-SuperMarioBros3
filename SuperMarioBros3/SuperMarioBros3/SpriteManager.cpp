@@ -18,11 +18,12 @@ void CSpriteManager::Init()
 	auto root = CGame::GetInstance();
 	LoadSprite(TEXTURE_MARIO, root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_MARIO));
 	LoadSprite(TEXTURE_FIRE_BALL, root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_FIRE_BALL));
+	LoadSprite(TEXTURE_REWARD,root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_REWARD));
 	LoadSprite(TEXTURE_ENEMY, root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_ENEMY));
 	LoadSprite(TEXTURE_EFFECT, root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_EFFECT));
 	LoadSprite(TEXTURE_MISC, root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_MISC));
 	LoadSprite(TEXTURE_UI, root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_UI));
-	LoadSprite(TEXTURE_WORLD_1,root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_WORLD_1));
+	LoadSprite(TEXTURE_WORLD_1, root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_WORLD_1));
 }
 
 void CSpriteManager::Add(string id, RECT rect, LPDIRECT3DTEXTURE9 tex, int xPivot, D3DXCOLOR transcolor)

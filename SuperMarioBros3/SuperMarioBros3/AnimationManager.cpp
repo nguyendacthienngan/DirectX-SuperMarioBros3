@@ -50,6 +50,11 @@ bool CAnimationManager::Init()
 		DebugOut(L"[ERROR] Cannot Load Effect Animation File \n");
 		return false;
 	}
+	if (InitAnAnimationSet(TEXTURE_REWARD, root->GetFilePathByCategory(CATEGORY_ANIMATION, DB_ANIMATION_REWARD)) == false)
+	{
+		DebugOut(L"[ERROR] Cannot Load Rewward Animation File \n");
+		return false;
+	}
 	if (InitAnAnimationSet(TEXTURE_MISC, root->GetFilePathByCategory(CATEGORY_ANIMATION, DB_ANIMATION_MISC)) == false)
 	{
 		DebugOut(L"[ERROR] Cannot Load Misc Animation File \n");
@@ -65,6 +70,7 @@ bool CAnimationManager::Init()
 		DebugOut(L"[ERROR] Cannot Load UI Animation File \n");
 		return false;
 	}
+	
 	return true;
 }
 
