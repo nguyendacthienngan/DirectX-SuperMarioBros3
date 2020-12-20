@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="25" nextobjectid="209">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="25" nextobjectid="229">
  <editorsettings>
   <export target="world-1-1-map.xml" format="tmx"/>
  </editorsettings>
@@ -378,11 +378,11 @@
   <object id="10" x="4944.5" y="1104" width="47.5" height="146"/>
   <object id="11" x="4990" y="1151.75" width="49.5" height="50.25"/>
   <object id="12" x="5036.5" y="1200" width="51.5" height="46"/>
-  <object id="13" x="4944" y="1246" width="1728" height="50"/>
+  <object id="13" x="4944" y="1246" width="1718.67" height="50"/>
   <object id="14" x="5330" y="1150" width="94" height="100"/>
   <object id="15" x="5520" y="1102" width="98" height="150"/>
   <object id="16" x="6718" y="1244" width="1732" height="54"/>
-  <object id="17" x="6718" y="1100" width="98" height="144"/>
+  <object id="17" x="6723.33" y="1150.67" width="89.3333" height="93.3333"/>
   <object id="18" x="6914" y="1150" width="94" height="98"/>
   <object id="19" x="6720" y="478" width="96" height="530"/>
   <object id="48" x="4463.5" y="1008.09" width="96.3636" height="47.4091"/>
@@ -399,6 +399,7 @@
   <object id="130" x="624.045" y="1103.47" width="95.9091" height="144.394"/>
   <object id="145" x="6912.33" y="1390" width="97.6667" height="99"/>
   <object id="146" x="6238.67" y="1390.17" width="97.6667" height="99"/>
+  <object id="209" x="6720" y="1104.67" width="94.6666" height="47.3333"/>
  </objectgroup>
  <objectgroup id="14" name="Ghost">
   <object id="28" x="720.523" y="1104.97" width="142.597" height="47.1135"/>
@@ -425,6 +426,7 @@
   <object id="104" name="powerup" type="1" x="1991.88" y="1176.01"/>
   <object id="105" name="powerup" type="1" x="2135.94" y="1078.24"/>
   <object id="106" name="powerup" type="1" x="4391.88" y="1126.88"/>
+  <object id="213" name="powerup" type="1" x="4295" y="406"/>
  </objectgroup>
  <objectgroup id="15" name="Coin">
   <object id="59" x="3236.5" y="983.5"/>
@@ -444,6 +446,24 @@
   <object id="127" x="6599" y="1483.33"/>
   <object id="128" x="6551" y="1483.33"/>
   <object id="129" x="6503.34" y="1531.33"/>
+  <object id="210" x="3959" y="262"/>
+  <object id="211" x="4008" y="262"/>
+  <object id="212" x="4056" y="262"/>
+  <object id="214" x="4392" y="359"/>
+  <object id="215" x="4440" y="359"/>
+  <object id="216" x="4871" y="359"/>
+  <object id="217" x="4919" y="359"/>
+  <object id="218" x="4967" y="359"/>
+  <object id="219" x="5015" y="359"/>
+  <object id="220" x="4632" y="407"/>
+  <object id="221" x="4680" y="407"/>
+  <object id="222" x="4728" y="407"/>
+  <object id="223" x="4776" y="407"/>
+  <object id="224" x="5111" y="454"/>
+  <object id="225" x="5160" y="359"/>
+  <object id="226" x="5255" y="408"/>
+  <object id="227" x="5400" y="359"/>
+  <object id="228" x="5449" y="408"/>
  </objectgroup>
  <objectgroup id="19" name="Brick">
   <object id="73" type="1" x="6119.67" y="1222.33">
@@ -497,25 +517,21 @@
   <object id="194" type="1" x="6264" y="1222.33">
    <point/>
   </object>
-  <object id="195" type="1" x="6314.5" y="1222.33">
+  <object id="195" type="1" x="6312.5" y="1222.33">
    <point/>
   </object>
  </objectgroup>
  <objectgroup id="15" name="Enemy">
   <object id="55" name="goomba" type="tan" x="1510" y="1189.33"/>
   <object id="91" name="koopa" type="red" x="1641.33" y="1034.66"/>
-  <object id="95" name="piranha" type="basic" x="5375" y="1211.53"/>
+  <object id="95" name="piranha" type="basic" x="5375" y="1212.53"/>
   <object id="96" name="venus" type="green" x="5568" y="1189.64"/>
   <object id="98" name="venus" type="red" x="1103.82" y="1180.64"/>
   <object id="186" name="para-goomba" type="tan" x="2663.82" y="1105.5"/>
   <object id="187" name="goomba" type="tan" x="2251.33" y="1108.67"/>
-  <object id="189" name="para-koopa" type="red" x="4105" y="891"/>
-  <object id="190" name="para-koopa" type="red" x="4249" y="796"/>
-  <object id="191" name="para-koopa" type="red" x="3850" y="954"/>
+  <object id="190" name="para-koopa" type="red" x="4249" y="838"/>
   <object id="192" name="koopa" type="green" x="4338" y="1124"/>
   <object id="196" name="koopa" type="red" x="6262.5" y="1082"/>
-  <object id="205" name="goomba" type="tan" x="413.333" y="1172"/>
-  <object id="208" name="koopa" type="red" x="192" y="1176"/>
  </objectgroup>
  <objectgroup id="20" name="Label">
   <object id="131" name="warp-pipe" type="down" x="624" y="1090" width="96" height="28">
