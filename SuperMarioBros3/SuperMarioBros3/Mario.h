@@ -55,6 +55,7 @@ protected:
 	bool isAutogo;
 	CUICamera* uiCamera;
 	bool isHitGoalRoulette;
+	CGameObject* label;
 public:
 	CMario();
 

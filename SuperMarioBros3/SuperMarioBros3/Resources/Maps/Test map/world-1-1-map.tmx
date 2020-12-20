@@ -529,8 +529,8 @@
   <object id="98" name="venus" type="red" x="1103.82" y="1180.64"/>
   <object id="186" name="para-goomba" type="tan" x="2663.82" y="1105.5"/>
   <object id="187" name="goomba" type="tan" x="2251.33" y="1108.67"/>
-  <object id="190" name="para-koopa" type="red" x="4249" y="838"/>
-  <object id="192" name="koopa" type="green" x="4338" y="1124"/>
+  <object id="190" name="para-koopa" type="red" x="3893" y="958"/>
+  <object id="192" name="koopa" type="green" x="4320" y="1122"/>
   <object id="196" name="koopa" type="red" x="6262.5" y="1082"/>
  </objectgroup>
  <objectgroup id="20" name="Label">

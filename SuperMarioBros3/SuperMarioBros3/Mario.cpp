@@ -227,6 +227,7 @@ void CMario::InitProperties()
 	isPowerUp = false;
 	isAutogo = false;
 	isHitGoalRoulette = false;
+	label = NULL;
 	powerupItem = PowerupTag::None;
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 	ventDirection = { 0, 0, 0, 0 };
@@ -683,7 +684,7 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 		{
 			FallProcess();
 		}
-		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Portal)
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Portal && canGoToWarpPipe == true && isGoToWarpPipe == true)
 		{
 			isGoToWarpPipe = false;
 			canGoToWarpPipe = false;
@@ -722,8 +723,9 @@ void CMario::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* o
 		// Khi mario đụng trúng object label
 		// Nó sẽ lấy cái push direction ra và di chuyển theo hướng đó 
 		// Autogo => Disable trạng thái vật lý update, chỉ render và thay đổi relative position
-		auto label = static_cast<CLabel*>(otherCollisionBox->GetGameObjectAttach());
-		auto direction = label->GetPushDirection();
+		label = otherCollisionBox->GetGameObjectAttach();
+		auto labelCollided = static_cast<CLabel*>(label);
+		auto direction = labelCollided->GetPushDirection();
 		ventDirection = direction;
 		OnGoToWarpPipe();
 	}
@@ -960,8 +962,15 @@ void CMario::FallProcess()
 
 void CMario::GoToWarpPipeProcess()
 {
+	if (label == NULL)
+		return;
 	auto keyboard = CKeyboardManager::GetInstance();
-	if (canGoToWarpPipe == true)
+	bool isOnWarpPipe = true;
+	auto labelPos = label->GetPosition();
+	auto labelSize = label->GetCollisionBox()->at(0)->GetSizeBox();
+	if (this->transform.position.x < labelPos.x - labelSize.x*0.5f || this->transform.position.x > labelPos.x + labelSize.x*0.5f)
+		isOnWarpPipe = false;
+	if (canGoToWarpPipe == true && isOnWarpPipe == true)
 	{
 		if (keyboard->GetKeyStateDown(DIK_DOWN) && ventDirection.bottom == 1)
 		{
@@ -974,7 +983,6 @@ void CMario::GoToWarpPipeProcess()
 			isAutogo = true;
 		}
 	}
-	
 }
 
 void CMario::HitGoalRoulette()
