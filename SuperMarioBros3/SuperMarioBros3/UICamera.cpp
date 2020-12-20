@@ -17,6 +17,7 @@ CUICamera::CUICamera(int wid, int hei, D3DXVECTOR2 hudPos)
     this->heightCam = hei;
     disableBlackTexture = false;
     isGoalRoulette = false;
+    waitingTimer = 0;
     goalTimer = 0;
     fontResultDisplayed = false;
     giftInFont = NULL;
@@ -93,28 +94,32 @@ void CUICamera::GoalRouletteProcess()
 {
     if (isGoalRoulette == false)
         return;
-    // TO-DO: Thêm tí time mới làm 
-    goalTimer += CGame::GetInstance()->GetDeltaTime();
-    if (goalTimer > GOAL_ROULETTE_TIME) // miliseconds
+    waitingTimer += CGame::GetInstance()->GetDeltaTime() * CGame::GetTimeScale();
+    if (waitingTimer > WAITING_TIME)
     {
-        // Chuyển scene
-        auto sceneManager = CSceneManager::GetInstance();
-        CWorldMap1* wolrdMap1 = new CWorldMap1();
-        sceneManager->SwitchScene(wolrdMap1);
-        isGoalRoulette = false;
-        giftInFont = NULL;
-        EmptyTexts();
-        return;
+        goalTimer += CGame::GetInstance()->GetDeltaTime();
+        if (goalTimer > GOAL_ROULETTE_TIME && this->GetHUD()->GetTimer()->GetTimerState() == 0) // miliseconds
+        {
+            // Chuyển scene
+            auto sceneManager = CSceneManager::GetInstance();
+            CWorldMap1* wolrdMap1 = new CWorldMap1();
+            sceneManager->SwitchScene(wolrdMap1);
+            isGoalRoulette = false;
+            giftInFont = NULL;
+            goalTimer = 0;
+            waitingTimer = 0;
+            EmptyTexts();
+            return;
+        }
+        // Hiển thị font và card
+        if (fontResultDisplayed == false)
+            FontResult();
+        //Reset game timer to zero
+        if (this->GetHUD()->GetTimer()->GetTimerState() == 1)
+            this->GetHUD()->GetTimer()->ResetToZero();
+        // Hiển thị card bên HUD 
+        this->GetHUD()->SetCard(1, goalState);
     }
-    // Hiển thị font và card
-    if (fontResultDisplayed == false)
-        FontResult();
-
-    // TO-DO: Reset timer 
-    // Hiển thị card bên HUD 
-    this->GetHUD()->SetCard(1, goalState);
-
-   
 }
 
 void CUICamera::FontResult()

@@ -13,7 +13,7 @@ class CUICamera :  public CCamera
     bool disableBlackTexture;
     std::string goalState;
     bool isGoalRoulette;
-    DWORD goalTimer;
+    DWORD goalTimer, waitingTimer;
     bool fontResultDisplayed;
     CSprite* cardResultInFont;
     CCardGift* giftInFont;

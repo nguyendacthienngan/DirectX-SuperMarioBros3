@@ -4,7 +4,7 @@ class CGameTimer
 {
 	D3DXVECTOR2 pos;
 	CFont* timerFont;
-	DWORD currentTime;
+	int currentTime;
 	int timerState;
 public:
 	CGameTimer();
@@ -13,7 +13,10 @@ public:
 	void SetPosition(D3DXVECTOR2 pos);
 	D3DXVECTOR2 GetPosition();
 	void StartTimer();
-	void ResetTimer();
+	void ResetTimer(); // Reset to 300
+	void ResetToZero(); // Reset to 0
 	CFont* GetTimerText();
+	void TimerToFont();
+	int GetTimerState();
 };
 

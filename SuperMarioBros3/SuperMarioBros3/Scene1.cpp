@@ -18,7 +18,7 @@ void CScene1::Load()
 	CScene::Load();
 	CSceneManager::GetInstance()->GetUICamera()->SetDisableBlackTexture(false);
 	auto timer = CSceneManager::GetInstance()->GetUICamera()->GetHUD()->GetTimer();
-	timer->StartTimer();
+	timer->StartTimer(); // Mỗi scene khi load đều start timer trừ map selection
 	DebugOut(L"[INFO] Loaded Scene \n");
 }
 
