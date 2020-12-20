@@ -143,6 +143,11 @@ void CMarioController::SwitchToState(std::string state)
 			currentPhyBody->SetGravity(MARIO_GRAVITY);
 		}
 #pragma endregion
+
+#pragma region PassParamater For P-meter
+		stateMarioToBeChanged->SetPMeterCounting(currentMario->GetPMeterCounting());
+		stateMarioToBeChanged->SetFeverState(currentMario->GetFeverState());
+#pragma endregion
 	}
 
 	// Gán object (OBJECT)
@@ -159,8 +164,6 @@ void CMarioController::SwitchToState(std::string state)
 	}
 
 	CGame::SetTimeScale(1.0f);
-	//DebugOut(L"Time Scale In Mario Controller %f \n", CGame::GetTimeScale());
-
 }
 
 void CMarioController::OnKeyDown(int KeyCode)

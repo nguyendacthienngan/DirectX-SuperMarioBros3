@@ -59,6 +59,9 @@ public:
 	CMario();
 
 	CHoldable* GetHoldObject();
+	
+	void SetPMeterCounting(int pMeterCounting);
+	void SetFeverState(int fState);
 	void SetDamageFlag(bool isDamaged);
 	void SetChangeSmokeEffectFlag(bool isChangeSmokeEffect);
 	void SetChangeLevelFlag(bool flag);
@@ -72,6 +75,9 @@ public:
 	void SetTimeStartSmokeEffect(DWORD t);
 	void SetTimeStartChangeLevel(DWORD t);
 	void SetTimeStartChangeAlpha(DWORD t);
+
+	int GetPMeterCounting();
+	int GetFeverState();
 
 	bool GetDamageFlag();
 	bool GetChangeSmokeEffectFlag();

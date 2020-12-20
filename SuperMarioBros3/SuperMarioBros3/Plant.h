@@ -6,8 +6,8 @@ class CPlant :
 protected:
 	bool canDartOut, isIdle;
 	float maxHeight;
-	DWORD timeStopDartOut, timeStartIdle;
-	DWORD timeToStopDartOut, timeToIdle;
+	int timeStopDartOut, timeStartIdle;
+	int timeToStopDartOut, timeToIdle;
 public:
 	CPlant();
 	void Update(DWORD dt, CCamera* cam, CCamera* uiCam) override;

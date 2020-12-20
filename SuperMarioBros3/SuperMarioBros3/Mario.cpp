@@ -40,6 +40,16 @@ CHoldable* CMario::GetHoldObject()
 	return objectHolding;
 }
 
+void CMario::SetPMeterCounting(int pMeterCounting)
+{
+	this->pMeterCounting = pMeterCounting;
+}
+
+void CMario::SetFeverState(int fState)
+{
+	this->feverState = fState;
+}
+
 void CMario::SetDamageFlag(bool isDamaged)
 {
 	this->isDamaged = isDamaged;
@@ -93,6 +103,16 @@ void CMario::SetTimeStartChangeLevel(DWORD t)
 void CMario::SetTimeStartChangeAlpha(DWORD t)
 {
 	timeStartChangeAlpha = t;
+}
+
+int CMario::GetPMeterCounting()
+{
+	return pMeterCounting;
+}
+
+int CMario::GetFeverState()
+{
+	return feverState;
 }
 
 bool CMario::GetDamageFlag()

@@ -16,7 +16,10 @@ CPlant::CPlant()
 
 void CPlant::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
-	auto velocity = physiscBody->GetVelocity();
+	if (timeStopDartOut != 0)
+		timeStopDartOut += CGame::GetInstance()->GetDeltaTime() * CGame::GetTimeScale();
+	if (timeStartIdle != 0)
+		timeStartIdle += CGame::GetInstance()->GetDeltaTime() * CGame::GetTimeScale();
 
 	if (canDartOut == true)
 	{
@@ -25,13 +28,13 @@ void CPlant::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		// Khi chưa đạt max height thì cung cấp vy, không thì trả lại vy
 		if (abs(startPosition.y) - abs(transform.position.y) > maxHeight || abs(transform.position.y) - abs(startPosition.y) > maxHeight)
 		{
-			if (timeStartIdle == 0)
+			if (timeStartIdle == 0) // Đứng yên
 			{
-				timeStartIdle = GetTickCount64();
+				timeStartIdle = CGame::GetInstance()->GetDeltaTime() * CGame::GetTimeScale();
 				physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 				isIdle = true;
 			}
-			if (GetTickCount64() - timeStartIdle > timeToIdle)
+			if (timeStartIdle > timeToIdle) // Đi xuống
 			{
 				physiscBody->SetVelocity(D3DXVECTOR2(0.0f, PIRANHA_PUSH_FORCE));
 				isIdle = false;
@@ -41,9 +44,8 @@ void CPlant::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		{
 			canDartOut = false;
 		}
-		return;
 	}
-	if (GetTickCount64() - timeStopDartOut > timeToStopDartOut && timeStopDartOut != 0)
+	if (timeStopDartOut > timeToStopDartOut && timeStopDartOut != 0)
 	{
 		// Mới vô đợi 0.8s để được ngoi lên
 		canDartOut = true;
@@ -53,10 +55,15 @@ void CPlant::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	if (canDartOut == false && timeStopDartOut == 0)
 	{
 		// Ở dưới cái pipe
-		timeStopDartOut = GetTickCount64();
-		timeStartIdle = 0;
+		timeStopDartOut = CGame::GetInstance()->GetDeltaTime() * CGame::GetTimeScale();
 		physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
-		return;
+		timeStartIdle = 0;
+
+	}
+	if (isIdle == false && timeStartIdle != 0)
+	{
+		physiscBody->SetVelocity(D3DXVECTOR2(0.0f, PIRANHA_PUSH_FORCE));
+		transform.position.y += PIRANHA_PUSH_FORCE * dt;
 	}
 }
 
