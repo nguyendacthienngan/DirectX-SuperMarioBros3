@@ -228,6 +228,7 @@
     <ClInclude Include="ParaKoopaConst.h" />
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="PIcon.h" />
+    <ClInclude Include="Pipe.h" />
     <ClInclude Include="Piranha.h" />
     <ClInclude Include="PiranhaConst.h" />
     <ClInclude Include="Plant.h" />
@@ -337,6 +338,7 @@
     <ClCompile Include="ParaKoopa.cpp" />
     <ClCompile Include="PhysicsBody.cpp" />
     <ClCompile Include="PIcon.cpp" />
+    <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Piranha.cpp" />
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="PMeter.cpp" />

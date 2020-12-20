@@ -13,6 +13,7 @@ CEnemy::CEnemy()
 	this->SetTag(GameObjectTags::Enemy);
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 	countDeadCallback = 0;
+	countBeated = 0;
 	isHeadShot = false;
 	isHeadShotByFireBall = false;
 	hitFX = new CHitEffects();
@@ -248,4 +249,13 @@ void CEnemy::SetIsHeadShotByFireball(bool isHeadShotByFireball)
 void CEnemy::SetTarget(CGameObject* target)
 {
 	this->target = target;
+}
+
+void CEnemy::CollideUnderMario()
+{
+	if (enemyTag == EnemyTag::Piranha || enemyTag == EnemyTag::Venus)
+		return;
+	countBeated++;
+	if (countBeated == 1)
+		OnScoreEffect();
 }

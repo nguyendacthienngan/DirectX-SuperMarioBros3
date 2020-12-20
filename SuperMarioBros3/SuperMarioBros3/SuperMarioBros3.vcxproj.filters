@@ -295,6 +295,9 @@
     <Filter Include="Game\GameObject\Effect\GoalEffect">
       <UniqueIdentifier>{742f0a5a-bd2d-458e-ba65-5ae9c60a0a0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Pipe">
+      <UniqueIdentifier>{eec80390-76c7-4d24-bc95-4b56e0d7bc21}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -696,6 +699,9 @@
     <ClInclude Include="GoalFXConst.h">
       <Filter>Game\GameObject\Effect\GoalEffect</Filter>
     </ClInclude>
+    <ClInclude Include="Pipe.h">
+      <Filter>Game\GameObject\Pipe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -982,6 +988,9 @@
     </ClCompile>
     <ClCompile Include="GoalEffects.cpp">
       <Filter>Game\GameObject\Effect\GoalEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipe.cpp">
+      <Filter>Game\GameObject\Pipe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

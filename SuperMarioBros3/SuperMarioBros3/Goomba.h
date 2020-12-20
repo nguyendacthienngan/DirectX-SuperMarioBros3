@@ -7,7 +7,6 @@ protected:
 	GoombaState currentPhysicsState;
 	D3DXVECTOR2 beforeHitPosition;
 	bool isJumpMaxHeight;
-	int countBeated;
 public:
 	CGoomba();
 	void Init() override;

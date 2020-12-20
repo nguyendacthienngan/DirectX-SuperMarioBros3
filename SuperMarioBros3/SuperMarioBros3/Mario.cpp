@@ -1005,7 +1005,6 @@ void CMario::WarpPipeProcess(CCamera* cam)
 	else if (isHitGoalRoulette == false)
 	{
 		isAutogo = false;
-		//this->transform.position = D3DXVECTOR2(6237, 1366);
 		auto camPos = cam->GetPositionCam();
 		camPos.x += cam->GetWidthCam() / 2;
 		SetPosition(camPos);
@@ -1127,9 +1126,6 @@ bool CMario::CanRun()
 void CMario::Access()
 {
 	this->isEnabled = true;
-	//this->collisionBoxs->at(0)->GetGameObjectAttach()->Enable(true);
-	//DebugOut(L"Access: Collision box enable: %d \n", this->collisionBoxs->at(0)->GetGameObjectAttach()->IsEnabled());
-
 }
 
 void CMario::Process()
@@ -1140,8 +1136,6 @@ void CMario::Process()
 void CMario::Exit()
 {
 	this->isEnabled = false;
-	//this->collisionBoxs->at(0)->GetGameObjectAttach()->Enable(false); // solid box . Nếu solid box bị disable thì sao? thì không update
-	//DebugOut(L"Exit: Collision box enable: %d \n", this->collisionBoxs->at(0)->GetGameObjectAttach()->IsEnabled());
 }
 
 CMario::~CMario()

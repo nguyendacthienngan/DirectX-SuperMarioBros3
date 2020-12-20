@@ -15,7 +15,7 @@ protected:
 	CHitEffects* hitFX;
 	bool isOnGround;
 	CGameObject* target;
-
+	int countBeated;
 public:
 	CEnemy();
 	void SetEnemyType(std::string eT);
@@ -37,4 +37,6 @@ public:
 	void SetIsHeadShotByFireball(bool isHeadShotByFireball);
 
 	void SetTarget(CGameObject* target);
+
+	void CollideUnderMario();
 };

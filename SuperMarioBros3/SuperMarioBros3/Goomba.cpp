@@ -13,7 +13,6 @@ void CGoomba::Init()
 {
 	//LoadAnimation();
 	isEnabled = true;
-	countBeated = 0;
 	isJumpMaxHeight = false;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
@@ -120,9 +119,6 @@ void CGoomba::OnDie()
 	}
 	else
 	{
-		countBeated++;
-		if (countBeated == 1)
-			OnScoreEffect();
 		currentPhysicsState = GoombaState::Die;
 
 		v.x = 0.0f;

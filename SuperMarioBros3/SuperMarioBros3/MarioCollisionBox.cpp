@@ -23,6 +23,7 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 
 				auto otherObject = collisionBox->GetGameObjectAttach();
 				auto otherEnemyObject = static_cast<CEnemy*>(otherObject);
+				otherEnemyObject->CollideUnderMario();
 				switch (otherEnemyObject->GetEnemyTag())
 				{
 					case EnemyTag::KoopaShell:
