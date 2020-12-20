@@ -109,9 +109,6 @@
     <Filter Include="Game\GameObject\Misc\Coin">
       <UniqueIdentifier>{f6668661-d863-4785-b317-6d8de19fac31}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameObject\Misc\Effect">
-      <UniqueIdentifier>{0b1ec37c-7d28-4108-8e5d-b095413b195d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\GameObject\Misc\Brick">
       <UniqueIdentifier>{0cf146a4-d71b-43bc-87a9-fd971350924e}</UniqueIdentifier>
     </Filter>
@@ -265,35 +262,38 @@
     <Filter Include="Game\GameObject\UI\HUD\GameTimer">
       <UniqueIdentifier>{bec6c5ba-15a9-4c03-99b3-0fefee2af139}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameObject\Misc\Effect\ScoreEffect">
-      <UniqueIdentifier>{d4b9e992-59c2-486f-bb1f-6ba15fcf60b8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameObject\Misc\Effect\Gift">
-      <UniqueIdentifier>{3e28dfb2-4080-4525-ad2e-2fc90b94084a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameObject\Misc\Effect\Gift\SuperLeafEffect">
-      <UniqueIdentifier>{7e54899e-0f2d-4fd8-acb8-b399410167e8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameObject\Misc\Effect\Gift\SuperMushroomEffect">
-      <UniqueIdentifier>{d272ab0d-a862-4a8a-96ab-0873603f8225}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameObject\Misc\Effect\CoinEffect">
-      <UniqueIdentifier>{637517e9-95f3-4059-aacc-81d0b0ced04b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameObject\Misc\Effect\BrickEffect">
-      <UniqueIdentifier>{878388b8-587a-4f9f-aaf4-e2ae691a2a98}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameObject\Misc\Effect\HitEffect">
-      <UniqueIdentifier>{312acf1f-81b6-42df-8ad6-c5a5d1f40a83}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameObject\Misc\Effect\GoalEffect">
-      <UniqueIdentifier>{742f0a5a-bd2d-458e-ba65-5ae9c60a0a0b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\GameObject\UI\HUD\CardGift">
       <UniqueIdentifier>{b5963d89-5081-4bce-9fad-8e7e55960d09}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\GameObject\Misc\Card">
       <UniqueIdentifier>{6d606b37-b0e0-4cc8-867d-99ac5ba883a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Effect">
+      <UniqueIdentifier>{0b1ec37c-7d28-4108-8e5d-b095413b195d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Effect\ScoreEffect">
+      <UniqueIdentifier>{d4b9e992-59c2-486f-bb1f-6ba15fcf60b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Effect\Gift">
+      <UniqueIdentifier>{3e28dfb2-4080-4525-ad2e-2fc90b94084a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Effect\Gift\SuperLeafEffect">
+      <UniqueIdentifier>{7e54899e-0f2d-4fd8-acb8-b399410167e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Effect\Gift\SuperMushroomEffect">
+      <UniqueIdentifier>{d272ab0d-a862-4a8a-96ab-0873603f8225}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Effect\CoinEffect">
+      <UniqueIdentifier>{637517e9-95f3-4059-aacc-81d0b0ced04b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Effect\BrickEffect">
+      <UniqueIdentifier>{878388b8-587a-4f9f-aaf4-e2ae691a2a98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Effect\HitEffect">
+      <UniqueIdentifier>{312acf1f-81b6-42df-8ad6-c5a5d1f40a83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Effect\GoalEffect">
+      <UniqueIdentifier>{742f0a5a-bd2d-458e-ba65-5ae9c60a0a0b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -481,7 +481,7 @@
       <Filter>Framework\Game\VFX</Filter>
     </ClInclude>
     <ClInclude Include="EffectConst.h">
-      <Filter>Game\GameObject\Misc\Effect</Filter>
+      <Filter>Game\GameObject\Effect</Filter>
     </ClInclude>
     <ClInclude Include="SceneConst.h">
       <Filter>Framework\Game\Scene</Filter>
@@ -511,19 +511,19 @@
       <Filter>Game\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="LeafEffect.h">
-      <Filter>Game\GameObject\Misc\Effect\Gift\SuperLeafEffect</Filter>
+      <Filter>Game\GameObject\Effect\Gift\SuperLeafEffect</Filter>
     </ClInclude>
     <ClInclude Include="LeafConst.h">
-      <Filter>Game\GameObject\Misc\Effect\Gift\SuperLeafEffect</Filter>
+      <Filter>Game\GameObject\Effect\Gift\SuperLeafEffect</Filter>
     </ClInclude>
     <ClInclude Include="Gift.h">
-      <Filter>Game\GameObject\Misc\Effect\Gift</Filter>
+      <Filter>Game\GameObject\Effect\Gift</Filter>
     </ClInclude>
     <ClInclude Include="MushroomEffect.h">
-      <Filter>Game\GameObject\Misc\Effect\Gift\SuperMushroomEffect</Filter>
+      <Filter>Game\GameObject\Effect\Gift\SuperMushroomEffect</Filter>
     </ClInclude>
     <ClInclude Include="MushroomConst.h">
-      <Filter>Game\GameObject\Misc\Effect\Gift\SuperMushroomEffect</Filter>
+      <Filter>Game\GameObject\Effect\Gift\SuperMushroomEffect</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
       <Filter>Game\GameObject\Misc\Brick</Filter>
@@ -673,28 +673,28 @@
       <Filter>Game\GameObject\UI\HUD\GameTimer</Filter>
     </ClInclude>
     <ClInclude Include="CoinEffect.h">
-      <Filter>Game\GameObject\Misc\Effect\CoinEffect</Filter>
+      <Filter>Game\GameObject\Effect\CoinEffect</Filter>
     </ClInclude>
     <ClInclude Include="BrickEffect.h">
-      <Filter>Game\GameObject\Misc\Effect\BrickEffect</Filter>
+      <Filter>Game\GameObject\Effect\BrickEffect</Filter>
     </ClInclude>
     <ClInclude Include="HitEffects.h">
-      <Filter>Game\GameObject\Misc\Effect\HitEffect</Filter>
+      <Filter>Game\GameObject\Effect\HitEffect</Filter>
     </ClInclude>
     <ClInclude Include="ScoreEffect.h">
-      <Filter>Game\GameObject\Misc\Effect\ScoreEffect</Filter>
+      <Filter>Game\GameObject\Effect\ScoreEffect</Filter>
     </ClInclude>
     <ClInclude Include="ScoreFXConst.h">
-      <Filter>Game\GameObject\Misc\Effect\ScoreEffect</Filter>
+      <Filter>Game\GameObject\Effect\ScoreEffect</Filter>
     </ClInclude>
     <ClInclude Include="BrickFXConst.h">
-      <Filter>Game\GameObject\Misc\Effect\BrickEffect</Filter>
+      <Filter>Game\GameObject\Effect\BrickEffect</Filter>
     </ClInclude>
     <ClInclude Include="GoalEffects.h">
-      <Filter>Game\GameObject\Misc\Effect\GoalEffect</Filter>
+      <Filter>Game\GameObject\Effect\GoalEffect</Filter>
     </ClInclude>
     <ClInclude Include="GoalFXConst.h">
-      <Filter>Game\GameObject\Misc\Effect\GoalEffect</Filter>
+      <Filter>Game\GameObject\Effect\GoalEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -843,13 +843,13 @@
       <Filter>Game\GameObject\Misc\Coin</Filter>
     </ClCompile>
     <ClCompile Include="LeafEffect.cpp">
-      <Filter>Game\GameObject\Misc\Effect\Gift\SuperLeafEffect</Filter>
+      <Filter>Game\GameObject\Effect\Gift\SuperLeafEffect</Filter>
     </ClCompile>
     <ClCompile Include="Gift.cpp">
-      <Filter>Game\GameObject\Misc\Effect\Gift</Filter>
+      <Filter>Game\GameObject\Effect\Gift</Filter>
     </ClCompile>
     <ClCompile Include="MushroomEffect.cpp">
-      <Filter>Game\GameObject\Misc\Effect\Gift\SuperMushroomEffect</Filter>
+      <Filter>Game\GameObject\Effect\Gift\SuperMushroomEffect</Filter>
     </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>Game\GameObject\Misc\Brick</Filter>
@@ -969,19 +969,19 @@
       <Filter>Game\GameObject\UI\HUD\GameTimer</Filter>
     </ClCompile>
     <ClCompile Include="CoinEffect.cpp">
-      <Filter>Game\GameObject\Misc\Effect\CoinEffect</Filter>
+      <Filter>Game\GameObject\Effect\CoinEffect</Filter>
     </ClCompile>
     <ClCompile Include="BrickEffect.cpp">
-      <Filter>Game\GameObject\Misc\Effect\BrickEffect</Filter>
+      <Filter>Game\GameObject\Effect\BrickEffect</Filter>
     </ClCompile>
     <ClCompile Include="HitEffects.cpp">
-      <Filter>Game\GameObject\Misc\Effect\HitEffect</Filter>
+      <Filter>Game\GameObject\Effect\HitEffect</Filter>
     </ClCompile>
     <ClCompile Include="ScoreEffect.cpp">
-      <Filter>Game\GameObject\Misc\Effect\ScoreEffect</Filter>
+      <Filter>Game\GameObject\Effect\ScoreEffect</Filter>
     </ClCompile>
     <ClCompile Include="GoalEffects.cpp">
-      <Filter>Game\GameObject\Misc\Effect\GoalEffect</Filter>
+      <Filter>Game\GameObject\Effect\GoalEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
