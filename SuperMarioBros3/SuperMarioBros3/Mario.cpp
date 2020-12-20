@@ -464,7 +464,9 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 				pMeterCounting = 0;
 			}
 			if (uiCamera != NULL)
+			{
 				uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(pMeterCounting);
+			}
 		}
 		if (currentPhysicsState.jump == JumpOnAirStates::Fall)
 		{

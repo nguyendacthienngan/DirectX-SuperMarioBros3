@@ -184,8 +184,11 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	
 	if (uiCamera != NULL)
 	{
+		// -1: Init
+		if (pMeterCounting == 0)
+			uiCamera->GetHUD()->GetPMeter()->SetFeverState(-1);
 		// 4: Bắt đầu bước vào tính pMetercounting
-		if (pMeterCounting >= 0 && pMeterCounting <= PMETER_MAX)
+		if (pMeterCounting > 0 && pMeterCounting <= PMETER_MAX)
 			if (uiCamera->GetHUD()->GetPMeter()->GetFeverState() < 5)
 				uiCamera->GetHUD()->GetPMeter()->SetFeverState(4);
 		
