@@ -70,13 +70,17 @@ void CGame::InitDirectX(HWND hWnd, int scrWidth, int scrHeight, int fps)
 	ZeroMemory(&d3dpp, sizeof(d3dpp));
 	d3dpp.BackBufferWidth = screenWidth = scrWidth;
 	d3dpp.BackBufferHeight = screenHeight = scrHeight;
+	d3dpp.Flags = 0;
+	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+	d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
+	d3dpp.MultiSampleQuality = NULL;
 	d3dpp.BackBufferCount = 1;
 	d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
-	d3dpp.SwapEffect = D3DSWAPEFFECT_COPY;
+	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.Windowed = true;
 	d3dpp.hDeviceWindow = hWnd;
 
-	d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+	d3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING,
 		&d3dpp, &d3ddv);
 
 	if (d3ddv == NULL)
@@ -228,18 +232,15 @@ void CGame::Render()
 		bgColor = activeScene->GetBackgroundColor();
 	d3ddv->Clear(0, NULL, D3DCLEAR_TARGET, bgColor, 1.0f, 0);
 
-	if (d3ddv->BeginScene())
-	{
-		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
-		if (activeScene != nullptr)
-			activeScene->Render();
-		if (uiCamera != nullptr)
-			uiCamera->Render();
-		spriteHandler->End();
+	d3ddv->BeginScene();
+	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+	if (activeScene != nullptr)
+		activeScene->Render();
+	if (uiCamera != nullptr)
+		uiCamera->Render();
+	spriteHandler->End();
 
-		d3ddv->EndScene();
-	}
-
+	d3ddv->EndScene();
 	d3ddv->Present(NULL, NULL, NULL, NULL);
 
 }
