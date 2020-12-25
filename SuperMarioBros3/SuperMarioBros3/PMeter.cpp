@@ -86,11 +86,11 @@ void CPMeter::Update()
 	// Nếu xuống 0 thì hạ từ cái hiện tại xuống pMeterState = -1 hoặc -2 làm sao cho mượt nhất
 	if (pMeterCounting == 0)
 	{
-		if (previousPMeterState >= 0)
+		if (previousPMeterState >= 0 && previousPMeterState <= 6)
 		{
 			if (previousPMeterState == 6)
 				arrowItemIcons[previousPMeterState -1]->SetCharged(false);
-			else 
+			else
 				arrowItemIcons[previousPMeterState]->SetCharged(false);
 			previousPMeterState--;
 		}

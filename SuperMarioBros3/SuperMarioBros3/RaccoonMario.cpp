@@ -107,6 +107,8 @@ void CRaccoonMario::EndAnimation()
 
 void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
+	if (feverState == 0)
+		feverState = -1;
 	auto keyboard = CKeyboardManager::GetInstance();
 	CMario::Update(dt, cam, uiCam);
 	if (isAttack == true && isDamaged == false) 
