@@ -588,35 +588,46 @@ void CMario::Render(CCamera* cam, int alpha)
 #	pragma endregion
 
 #pragma region Jump On Air
-		if (currentPhysicsState.move != MoveOnGroundStates::JumpAttack && isHold == false)
+		if (currentPhysicsState.move != MoveOnGroundStates::JumpAttack)
 		{
 			switch (currentPhysicsState.jump)
 			{
 			case JumpOnAirStates::Jump: case JumpOnAirStates::HighJump:
 			case JumpOnAirStates::LowJump:
 			{
-				SetState(MARIO_STATE_JUMP);
+				if (isHold)
+					SetState(MARIO_STATE_HOLD_JUMP);
+				else
+					SetState(MARIO_STATE_JUMP);
 				break;
 			}
 			case JumpOnAirStates::Fall:
 			{
-				SetState(MARIO_STATE_FALL);
+				if (isHold)
+					SetState(MARIO_STATE_HOLD_JUMP);
+				else
+					SetState(MARIO_STATE_FALL);
 				break;
 			}
 			case JumpOnAirStates::Fly: //Riêng raccoon
 			{
-				SetState(MARIO_STATE_FLY);
+				if (isHold)
+					SetState(MARIO_STATE_HOLD_JUMP);
+				else
+					SetState(MARIO_STATE_FLY);
 				break;
 			}
 			case JumpOnAirStates::Float:
 			{
-				SetState(MARIO_STATE_FLOAT);
+				if (!isHold)
+					SetState(MARIO_STATE_FLOAT);
 				break;
 			}
 			}
 			if (feverState == 2 && isOnGround == false) // Các mario khác
 			{
-				SetState(MARIO_STATE_FLY);
+				if (!isHold)
+					SetState(MARIO_STATE_FLY);
 			}
 		}
 

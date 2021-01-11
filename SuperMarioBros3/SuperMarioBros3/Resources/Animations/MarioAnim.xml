@@ -55,6 +55,9 @@
     <Animation aniId="ani-small-mario-hold-idle" frameTime="50" name="HOLD-IDLE">
       <Sprite id="spr-small-mario-hold-0" left="435" top="8"  width="14" height="16" frameTime="50"/>
     </Animation>
+    <Animation aniId="ani-small-mario-hold-jump" frameTime="50" name="HOLD-JUMP">
+      <Sprite id="spr-small-mario-hold-1" left="435" top="8"  width="14" height="16" frameTime="50"/>
+    </Animation>
 		<!-- Animation KICK-->
 		<Animation aniId="ani-small-mario-kick" frameTime="150" name="KICK">
 			<Sprite id="spr-small-mario-kick-0" left="470" top="8"  width="16" height="16" frameTime="150"/>
@@ -141,7 +144,9 @@
       <Sprite id="spr-big-mario-hold-2" left="469" top="49"  width="16" height="26" frameTime="50"/>
       <Sprite id="spr-big-mario-hold-1" left="451" top="48"  width="15" height="27" frameTime="50"/>
     </Animation>
-
+    <Animation aniId="ani-big-mario-hold-jump" frameTime="100" name="HOLD-JUMP">
+      <Sprite id="spr-big-mario-hold-2" left="434" top="48"  width="14" height="27" frameTime="100"/>
+    </Animation>
     <Animation aniId="ani-big-mario-hold-idle" frameTime="100" name="HOLD-IDLE">
       <Sprite id="spr-big-mario-hold-0" left="434" top="48"  width="14" height="27" frameTime="100"/>
     </Animation>
@@ -262,6 +267,10 @@
     <Animation aniId="ani-raccoon-mario-hold-idle" frameTime="100" name="HOLD-IDLE">
       <Sprite id="spr-raccoon-mario-hold-0" left="566" top="142"  width="21" height="28" frameTime="100"/>
     </Animation>
+
+    <Animation aniId="ani-raccoon-mario-hold-jump" frameTime="100" name="HOLD-JUMP">
+      <Sprite id="spr-raccoon-mario-hold-2" left="566" top="142"  width="21" height="28" frameTime="100"/>
+    </Animation>
 		<!-- Animation KICK-->
 		<Animation aniId="ani-raccoon-mario-kick" frameTime="150" name="KICK">
 			<Sprite id="spr-raccoon-mario-kick-0" left="641" top="142"  width="22" height="28" frameTime="150"/>
@@ -372,6 +381,10 @@
 
     <Animation aniId="ani-fire-mario-hold-idle" frameTime="100" name="HOLD-IDLE">
       <Sprite id="spr-fire-mario-hold-0" left="477" top="109"  width="14" height="27" frameTime="100"/>
+    </Animation>
+
+    <Animation aniId="ani-fire-mario-hold-jump" frameTime="100" name="HOLD-JUMP">
+      <Sprite id="spr-fire-mario-hold-2" left="477" top="109"  width="14" height="27" frameTime="100"/>
     </Animation>
 		<!-- Animation KICK -->
 		<Animation aniId="ani-fire-mario-kick" frameTime="150" name="KICK">

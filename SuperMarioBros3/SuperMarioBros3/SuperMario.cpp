@@ -37,6 +37,7 @@ void CSuperMario::LoadAnimation()
 	AddAnimation(MARIO_STATE_HOLD_IDLE, animationManager->Get("ani-big-mario-hold-idle"));
 	AddAnimation(MARIO_STATE_KICK, animationManager->Get("ani-big-mario-kick"), false);
 	AddAnimation(MARIO_STATE_IDLE_FRONT, animationManager->Get("ani-big-mario-idle-front"));
+	AddAnimation(MARIO_STATE_HOLD_JUMP, animationManager->Get("ani-big-mario-hold-jump"));
 
 }
 
