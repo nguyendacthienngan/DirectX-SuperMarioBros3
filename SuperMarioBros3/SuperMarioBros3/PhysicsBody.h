@@ -42,7 +42,7 @@ public:
 	CPhysicsBody();
 	~CPhysicsBody();
 	// Chỉ phát hiện va chạm thui còn việc xử lý sao thì tùy theo mỗi game object [ OnCollisionEnter]
-	void PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects);
+	void PhysicsUpdate(LPGameObject cO, std::vector<LPGameObject>* coObjects);
 	void Update(LPGameObject gO);
 
 	bool CheckAABB(RectF selfBox, RectF otherBox);
@@ -63,8 +63,8 @@ public:
 		GameObjectTags tag);
 
 	LPCollisionEvent SweptAABBEx(LPCollisionBox cO, LPCollisionBox cOOther); // thay vì xét với các gameobject khác, thực chất mình chỉ xét với những collisionbox mà thôi
-	void CalcPotentialCollisions(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects, std::vector<LPCollisionEvent>& coEvents);
-	void CalcOverlappedCollisions(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects);
+	void CalcPotentialCollisions(LPGameObject cO, std::vector<LPGameObject>* coObjects, std::vector<LPCollisionEvent>& coEvents);
+	void CalcOverlappedCollisions(LPGameObject cO, std::vector<LPGameObject>* coObjects);
 	void FilterCollision(
 		std::vector<LPCollisionEvent>& coEvents,
 		std::vector<LPCollisionEvent>& coEventsResult,

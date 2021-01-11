@@ -28,18 +28,16 @@ CPhysicsBody::~CPhysicsBody()
 {
 }
 
-void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects)
+void CPhysicsBody::PhysicsUpdate(LPGameObject gameObject, std::vector<LPGameObject>* coObjects)
 {
-	auto gameObject = cO->GetGameObjectAttach();
-	auto collisionBox = gameObject->GetCollisionBox()->at(0);
-
+	auto cO = gameObject->GetCollisionBox()->at(0);
 	if (gameObject == NULL || gameObject->IsEnabled() == false || isDynamic == false)
 		return;
 
 	
 	auto dt = CGame::GetInstance()->GetDeltaTime();
 	auto pos = gameObject->GetPosition();
-	auto distance = collisionBox->GetDistance();
+	auto distance = cO->GetDistance();
 	vector<CollisionEvent*> coEvents;
 	vector<CollisionEvent*> coEventsResult;
 
@@ -47,7 +45,7 @@ void CPhysicsBody::PhysicsUpdate(LPCollisionBox cO, std::vector<LPCollisionBox>*
 
 	coEvents.clear();
 
-	CalcPotentialCollisions(cO, coObjects, coEvents);
+	CalcPotentialCollisions(gameObject, coObjects, coEvents);
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
@@ -269,43 +267,50 @@ LPCollisionEvent CPhysicsBody::SweptAABBEx(LPCollisionBox cO, LPCollisionBox cOO
 
 
 void CPhysicsBody::CalcPotentialCollisions(
-	LPCollisionBox cO,
-	std::vector<LPCollisionBox>* coObjects,
+	LPGameObject gameObject,
+	std::vector<LPGameObject>* goObjects,
 	std::vector<LPCollisionEvent>& coEvents)
 {
 	std::vector<CollisionEvent*> temp;
-	for (UINT i = 0; i < coObjects->size(); i++)
+	auto cO = gameObject->GetCollisionBox()->at(0);
+	for (UINT i = 0; i < goObjects->size(); i++)
 	{
-		if (cO->IsEnabled() == false || coObjects->at(i)->IsEnabled() == false)
+		auto cOObjectCollisions = goObjects->at(i)->GetCollisionBox();
+		if (cOObjectCollisions->size() <= 0)
+			continue;
+
+		auto coObject = cOObjectCollisions->at(0);
+		auto coObjectGO = coObject->GetGameObjectAttach();
+		if (cO->IsEnabled() == false || coObject->IsEnabled() == false)
 			continue;
 		// Trừ solidbox ra thì tất cả gameobject bị disable thì k được xét va chạm vật lý
-		if (coObjects->at(i)->GetGameObjectAttach()->IsEnabled() == false && (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid))
+		if (coObjectGO->IsEnabled() == false && (coObjectGO->GetTag() != GameObjectTags::Solid))
 			continue;
-		if (coObjects->at(i) == cO)
+		if (coObject == cO)
 			continue;
 		//// Có overlap (Dùng AABB)
-		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && cO->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid)
+		if (coObjectGO->GetTag() != GameObjectTags::Solid && gameObject->GetTag() != GameObjectTags::Solid)
 		{
-			if (CheckAABB(cO->GetBoundingBox(), coObjects->at(i)->GetBoundingBox()) == true || CheckAABB(coObjects->at(i)->GetBoundingBox(), cO->GetBoundingBox()) == true)
+			if (CheckAABB(cO->GetBoundingBox(), coObject->GetBoundingBox()) == true || CheckAABB(coObject->GetBoundingBox(), cO->GetBoundingBox()) == true)
 			{
-				cO->GetGameObjectAttach()->OnOverlappedEnter(cO, coObjects->at(i));
-				coObjects->at(i)->GetGameObjectAttach()->OnOverlappedEnter(coObjects->at(i), cO);
+				gameObject->OnOverlappedEnter(cO, coObject);
+				coObjectGO->OnOverlappedEnter(coObject, cO);
 				continue;
 			}
 		}
 
-		if (cO->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick)
+		if (gameObject->GetTag() == GameObjectTags::Brick)
 			continue;
-		if (cO->GetGameObjectAttach()->CanCollisionWithThisObject(coObjects->at(i)->GetGameObjectAttach(), coObjects->at(i)->GetGameObjectAttach()->GetTag())
+		if (gameObject->CanCollisionWithThisObject(coObjectGO, coObjectGO->GetTag())
 			== false)
 			continue;
 
-		LPCollisionEvent e = SweptAABBEx(cO,coObjects->at(i));
+		LPCollisionEvent e = SweptAABBEx(cO, coObject);
 		if (e->t > 0 && e->t <= 1.0f)
 		{
 			temp.push_back(e);
-			std::string name = coObjects->at(i)->GetName();
-			if (coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy || coObjects->at(i)->GetGameObjectAttach()->GetTag() == GameObjectTags::VenusFireBall)
+			std::string name = coObject->GetName();
+			if (coObjectGO->GetTag() == GameObjectTags::Enemy || coObjectGO->GetTag() == GameObjectTags::VenusFireBall)
 			{
 				SetTrigger(true);
 			}
@@ -313,7 +318,6 @@ void CPhysicsBody::CalcPotentialCollisions(
 			{
 				SetTrigger(false);
 			}
-			//OutputDebugString(ToLPCWSTR("Hit Name: " + name + "\n"));
 		}
 		else
 			delete e;
@@ -358,21 +362,23 @@ void CPhysicsBody::CalcPotentialCollisions(
 	//std::sort(coEvents.begin(), coEvents.end(), CollisionEvent::compare);
 }
 
-void CPhysicsBody::CalcOverlappedCollisions(LPCollisionBox cO, std::vector<LPCollisionBox>* coObjects)
+void CPhysicsBody::CalcOverlappedCollisions(LPGameObject gameObject, std::vector<LPGameObject>* coObjects)
 {
+	auto cO = gameObject->GetCollisionBox()->at(0);
 	// Có overlap (Dùng AABB)
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
-		if (coObjects->at(i) == nullptr) continue;
-		if (coObjects->at(i) == cO) continue;
-		if (coObjects->at(i)->IsEnabled() == false) continue;
+		auto coObject = coObjects->at(i)->GetCollisionBox()->at(0);
+		if (coObject == nullptr) continue;
+		if (coObject == cO) continue;
+		if (coObject->IsEnabled() == false) continue;
 
-		if (coObjects->at(i)->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && cO->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid)
+		if (coObject->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && gameObject->GetTag() != GameObjectTags::Solid)
 		{
-			if (CheckAABB(cO->GetBoundingBox(), coObjects->at(i)->GetBoundingBox()) == true || CheckAABB(coObjects->at(i)->GetBoundingBox(), cO->GetBoundingBox()) == true)
+			if (CheckAABB(cO->GetBoundingBox(), coObject->GetBoundingBox()) == true || CheckAABB(coObject->GetBoundingBox(), cO->GetBoundingBox()) == true)
 			{
-				cO->GetGameObjectAttach()->OnOverlappedEnter(cO, coObjects->at(i));
-				coObjects->at(i)->GetGameObjectAttach()->OnOverlappedEnter(coObjects->at(i), cO);
+				gameObject->OnOverlappedEnter(cO, coObject);
+				coObject->GetGameObjectAttach()->OnOverlappedEnter(coObject, cO);
 				continue;
 			}
 		}

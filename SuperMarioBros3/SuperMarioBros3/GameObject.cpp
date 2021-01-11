@@ -56,20 +56,10 @@ void CGameObject::PhysicsUpdate(std::vector<LPGameObject>* coObjects)
 	if (physiscBody->IsDynamic() == false) return;
 	if (StaticTag(tag) == false && isEnabled == false)
 		return;
-	vector<CCollisionBox*> otherCollisionBoxs;
-	for (auto obj : *coObjects)
-	{
-		auto collisionBoxsOther = obj->GetCollisionBox();
-		for (auto collisionBox : *collisionBoxsOther)
-			otherCollisionBoxs.push_back(collisionBox);
-	}
-
-	for (auto collisionBox : *collisionBoxs)
-	{
-		physiscBody->Update(this);
-		physiscBody->PhysicsUpdate(collisionBox, &otherCollisionBoxs);
-	}
-
+	if (collisionBoxs == NULL || collisionBoxs->size() <= 0)
+		return;
+	physiscBody->Update(this);
+	physiscBody->PhysicsUpdate(this, coObjects);
 	ResetTempValues();
 }
 

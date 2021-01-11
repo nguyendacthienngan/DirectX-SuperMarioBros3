@@ -25,6 +25,8 @@ CUICamera::CUICamera(int wid, int hei, D3DXVECTOR2 hudPos)
 
 void CUICamera::Update()
 {
+    if (CGame::GetTimeScale() == 0)
+        return;
     hud->Update();
     GoalRouletteProcess();
 }
