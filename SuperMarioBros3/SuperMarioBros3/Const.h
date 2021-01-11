@@ -44,6 +44,7 @@
 
 #define SC_WOLRD_1			"world-1"
 #define SC_WOLRD_1_1		"world-1-1"
+#define SC_WOLRD_1_4		"world-1-4"
 #define SC_UI_CAMERA		"ui-camera"
 
 #define CG_GLOBAL_CONFIG	"global-config"

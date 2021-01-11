@@ -45,7 +45,7 @@ void CScene::Load()
 			D3DXVECTOR2 startPosition;
 			scene->QueryFloatAttribute("pos_x", &startPosition.x);
 			scene->QueryFloatAttribute("pos_y", &startPosition.y);
-
+			DebugOut(L"Start Pos %f, %f \n", startPosition.x, startPosition.y);
 			player = new CMarioController();
 			player->AddStateObjectsToScene(this);
 			player->SetPosition(startPosition);

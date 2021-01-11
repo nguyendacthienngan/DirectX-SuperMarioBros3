@@ -34,6 +34,7 @@
   </Root>
   <Root name="Scenes">
     <Scene id="world-1-1" source="Resources/Scenes/World1-1.xml"/>
+    <Scene id="world-1-4" source="Resources/Scenes/World1-4.xml"/>
     <Scene id="ui-camera" source="Resources/Scenes/UICamera.xml"/>
     <Scene id="world-1" source="Resources/Scenes/World1.xml"/> 
   </Root>

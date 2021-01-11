@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Scene>
+  <Scene name="Player" pos_x="145" pos_y="0"/>
+  <Scene name="Map" source="Resources/Maps/" fileName = "world-1-4-map.tmx">
+    <BackgroundColor R="156" G="252" B="240"/>
+  </Scene>
+  <Scene name="Camera" start="0" main="0" width="720" height="671">
+    <!--Camera-->
+    <!--X,Y: Mario.x, Mario.y - ScreenHeight/2-->
+    <Boundary id="0" pos_x="0" pos_y="692" left="0" top="0" right="7710" bottom="1388" disX ="0" disY="0"/>
+    <!--<Boundary id="1" pos_x="5877" pos_y="1366" left="5877" top="1366" right="7320" bottom="2279.5" disX ="0" disY="1"/>-->
+  </Scene>
+</Scene>

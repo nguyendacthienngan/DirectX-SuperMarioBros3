@@ -9,11 +9,8 @@ class CScene1: public CScene
 {
 public:
 	CScene1();
-
-
 	void Load();
 	void Unload() override;
-
 	~CScene1();
 };
 

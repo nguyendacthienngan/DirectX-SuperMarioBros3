@@ -2,7 +2,6 @@
 <Scene>
   <Scene name="Map" source="Resources/Maps/" fileName = "world-map-1.tmx">
     <BackgroundColor R="0" G="0" B="0"/>
-    <!--<BackgroundColor R="248" G="236" B="160"/>-->
   </Scene>
   <Scene name="Camera" start="0" main="0" width="705" height="489">
     <Boundary id="0" pos_x="-25" pos_y="-30" left="0" top="0" right="705" bottom="489" disX ="1" disY="1"/>

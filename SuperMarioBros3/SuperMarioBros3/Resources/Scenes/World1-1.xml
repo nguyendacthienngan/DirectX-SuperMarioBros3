@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Scene>
-  <Scene name="Player" pos_x="130" pos_y="1000"/>
+  <Scene name="Player" pos_x="130" pos_y="1183"/>
+  <!--Orginal: Y: 1247-->
   <!--<Scene name="Player" pos_x="6260" pos_y="1366"/>-->
 
   <Scene name="Map" source="Resources/Maps/" fileName = "world-1-1-map.tmx">

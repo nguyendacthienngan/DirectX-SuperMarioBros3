@@ -79,9 +79,6 @@
     <Filter Include="Game\Resouces\Maps">
       <UniqueIdentifier>{5b91a648-84df-4b00-8b8e-7713d83e88b0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Resouces\Maps\Test map">
-      <UniqueIdentifier>{6bb2e1d1-0a4c-41b5-a3d5-a993915dbd93}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Resouces\Animations">
       <UniqueIdentifier>{335e95c2-bc2a-4470-a3bb-daf1e134b9fe}</UniqueIdentifier>
     </Filter>
@@ -301,15 +298,15 @@
     <Filter Include="Game\GameObject\Effect\Gift\FireFlower">
       <UniqueIdentifier>{54b94729-666e-4aa7-9503-97c8f5ba4dce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Scene\World-1-4">
+      <UniqueIdentifier>{3b449d8f-474e-407e-99e3-3bfbcb13968e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
       <Filter>Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
       <Filter>Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
@@ -705,7 +702,13 @@
     <ClInclude Include="Pipe.h">
       <Filter>Game\GameObject\Pipe</Filter>
     </ClInclude>
+    <ClInclude Include="Scene4.h">
+      <Filter>Files\Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="FireFlower.h">
+      <Filter>Game\GameObject\Effect\Gift\FireFlower</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
       <Filter>Files\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -998,8 +1001,11 @@
     <ClCompile Include="Pipe.cpp">
       <Filter>Game\GameObject\Pipe</Filter>
     </ClCompile>
+    <ClCompile Include="Scene4.cpp">
+      <Filter>Game\Scene\World-1-4</Filter>
+    </ClCompile>
     <ClCompile Include="FireFlower.cpp">
-      <Filter>Files\Source Files</Filter>
+      <Filter>Game\GameObject\Effect\Gift\FireFlower</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1016,9 +1022,6 @@
     </Image>
     <Image Include="Super_Mario_Bros_3.ico">
       <Filter>Files\Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Maps\Test map\world-1-1.png">
-      <Filter>Game\Resouces\Maps\Test map</Filter>
     </Image>
     <Image Include="Resources\Textures\enemy_x3.png">
       <Filter>Game\Resouces\Textures</Filter>
@@ -1047,17 +1050,6 @@
     <Image Include="Resources\Textures\MapSelection(x3).png">
       <Filter>Game\Resouces\Textures</Filter>
     </Image>
-    <Image Include="Resources\Maps\Test map\tileset(x3).png">
-      <Filter>Game\Resouces\Maps\Test map</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Maps\Test map\world-1-1-map.tmx">
-      <Filter>Game\Resouces\Maps\Test map</Filter>
-    </None>
-    <None Include="Resources\Maps\Test map\world-map-1(x3)(2).tmx">
-      <Filter>Game\Resouces\Maps\Test map</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resources\Animations\EnemyAnim.xml">
@@ -1105,5 +1097,16 @@
     <Xml Include="Resources\Animations\MapSelectionAnim.xml">
       <Filter>Game\Resouces\Animations</Filter>
     </Xml>
+    <Xml Include="Resources\Scenes\World1-4.xml">
+      <Filter>Game\Resouces\Scenes</Filter>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Maps\world-1-1-map.tmx">
+      <Filter>Game\Resouces\Maps</Filter>
+    </None>
+    <None Include="Resources\Maps\world-map-1.tmx">
+      <Filter>Game\Resouces\Maps</Filter>
+    </None>
   </ItemGroup>
 </Project>
