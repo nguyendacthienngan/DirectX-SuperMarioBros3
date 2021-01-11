@@ -324,42 +324,42 @@ void CPhysicsBody::CalcPotentialCollisions(
 	}
 
 	std::sort(temp.begin(), temp.end(), CollisionEvent::compare);
-	coEvents = temp;
-	//for (auto latterCollision  : temp)
-	//{
-	//	for (auto prevCollision : coEvents)
-	//	{
-	//		D3DXVECTOR2 distance(cO->GetDistance());
-	//		auto dt = CGame::GetInstance()->GetDeltaTime() * CGame::GetTimeScale();
-	//		auto dist = distance - latterCollision->obj->GetGameObjectAttach()->GetPhysiscBody()->GetVelocity() * dt;
+	//coEvents = temp;
+	for (auto latterCollision  : temp)
+	{
+		for (auto prevCollision : coEvents)
+		{
+			D3DXVECTOR2 distance(cO->GetDistance());
+			auto dt = CGame::GetInstance()->GetDeltaTime() * CGame::GetTimeScale();
+			auto dist = distance - latterCollision->obj->GetGameObjectAttach()->GetPhysiscBody()->GetVelocity() * dt;
 
-	//		if (latterCollision->nx != 0)
-	//		{
-	//			dist.y *= prevCollision->t;
-	//			dist.y -= 0.1f; // why
-	//		}
-	//		else
-	//		{
-	//			dist.x *= prevCollision->t;
-	//			dist.x -= 0.1f;
-	//		}
+			if (latterCollision->nx != 0)
+			{
+				dist.y *= prevCollision->t;
+				dist.y -= 0.1f; // why
+			}
+			else
+			{
+				dist.x *= prevCollision->t;
+				dist.x -= 0.1f;
+			}
 
-	//		float time; D3DXVECTOR2 direction;
-	//		auto mBox = cO->GetBoundingBox();
-	//		auto sBox = latterCollision->obj->GetBoundingBox();
-	//		SweptAABB(mBox.left, mBox.top, mBox.right, mBox.bottom, dist.x, dist.y, sBox.left, sBox.top, sBox.right, sBox.bottom, time, direction.x, direction.y, latterCollision->obj->GetGameObjectAttach()->GetTag());
-	//	
-	//		if (time <= 0 || time >= 1.0f)
-	//		{
-	//			prevCollision->t = 99999.0f;
-	//			break;
-	//		}
-	//	}
-	//	if (latterCollision->t > 0 && latterCollision->t <= 1.0f)
-	//		coEvents.push_back(latterCollision);
-	//}
+			float time; D3DXVECTOR2 direction;
+			auto mBox = cO->GetBoundingBox();
+			auto sBox = latterCollision->obj->GetBoundingBox();
+			SweptAABB(mBox.left, mBox.top, mBox.right, mBox.bottom, dist.x, dist.y, sBox.left, sBox.top, sBox.right, sBox.bottom, time, direction.x, direction.y, latterCollision->obj->GetGameObjectAttach()->GetTag());
+		
+			if (time <= 0 || time >= 1.0f)
+			{
+				latterCollision->t = 99999.0f;
+				break;
+			}
+		}
+		if (latterCollision->t > 0 && latterCollision->t <= 1.0f)
+			coEvents.push_back(latterCollision);
+	}
 
-	//std::sort(coEvents.begin(), coEvents.end(), CollisionEvent::compare);
+	std::sort(coEvents.begin(), coEvents.end(), CollisionEvent::compare);
 }
 
 void CPhysicsBody::CalcOverlappedCollisions(LPGameObject gameObject, std::vector<LPGameObject>* coObjects)
