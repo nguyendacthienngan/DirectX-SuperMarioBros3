@@ -298,6 +298,9 @@
     <Filter Include="Game\GameObject\Pipe">
       <UniqueIdentifier>{eec80390-76c7-4d24-bc95-4b56e0d7bc21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Effect\Gift\FireFlower">
+      <UniqueIdentifier>{54b94729-666e-4aa7-9503-97c8f5ba4dce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -702,6 +705,9 @@
     <ClInclude Include="Pipe.h">
       <Filter>Game\GameObject\Pipe</Filter>
     </ClInclude>
+    <ClInclude Include="FireFlower.h">
+      <Filter>Files\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -991,6 +997,9 @@
     </ClCompile>
     <ClCompile Include="Pipe.cpp">
       <Filter>Game\GameObject\Pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="FireFlower.cpp">
+      <Filter>Files\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

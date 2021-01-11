@@ -487,7 +487,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		HoldProcess();
 		GoToWarpPipeProcess();
 
-		DamageProcess();
+		InvincibleProcess();
 		if (isKick == true)
 		{
 			previousPhysicsState.move = currentPhysicsState.move;
@@ -850,7 +850,7 @@ void CMario::KickProcess(bool isKick)
 	this->isKick = isKick;
 }
 
-void CMario::DamageProcess()
+void CMario::InvincibleProcess()
 {
 	if (timeStartDamaged != 0)
 	{
@@ -932,15 +932,26 @@ void CMario::ChangeLevelProcess()
 					marioController->SwitchToState(SMALL_MARIO_STATE);
 				break;
 			}
-			case PowerupTag::SuperLeaf:
+			case PowerupTag::SuperMushroom:
 			{
-				if (marioStateTag == MarioStates::SuperMario)
-					marioController->SwitchToState(RACOON_MARIO_STATE);
+				if (marioStateTag == MarioStates::SmallMario)
+					marioController->SwitchToState(SUPER_MARIO_STATE);
 				OnScoreEffect();
 				break;
 			}
-			case PowerupTag::SuperMushroom:
+			case PowerupTag::SuperLeaf:
 			{
+				if (marioStateTag == MarioStates::SuperMario || marioStateTag == MarioStates::FireMario)
+					marioController->SwitchToState(RACOON_MARIO_STATE);
+				if (marioStateTag == MarioStates::SmallMario)
+					marioController->SwitchToState(SUPER_MARIO_STATE);
+				OnScoreEffect();
+				break;
+			}
+			case PowerupTag::FireFlower:
+			{
+				if (marioStateTag == MarioStates::SuperMario || marioStateTag == MarioStates::RacoonMario)
+					marioController->SwitchToState(FIRE_MARIO_STATE);
 				if (marioStateTag == MarioStates::SmallMario)
 					marioController->SwitchToState(SUPER_MARIO_STATE);
 				OnScoreEffect();

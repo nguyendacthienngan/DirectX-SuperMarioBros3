@@ -55,8 +55,11 @@ bool CGift::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 void CGift::PowerUp(CCollisionBox* otherCollisionBox)
 {
 	isEnabled = false;
-	GetPhysiscBody()->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
-	GetPhysiscBody()->SetGravity(0.0f);
+	if (physiscBody->IsDynamic() == true)
+	{
+		GetPhysiscBody()->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
+		GetPhysiscBody()->SetGravity(0.0f);
+	}
 	this->collisionBoxs->at(0)->SetEnable(false);
 
 	auto gO = otherCollisionBox->GetGameObjectAttach();

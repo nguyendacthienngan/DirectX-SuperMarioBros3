@@ -115,7 +115,7 @@ public:
 	void ResetHolding();
 	void JumpProcess(float jumpForce, bool bounceAfterJumpOnEnemy);
 	void KickProcess(bool isKick);
-	void DamageProcess();
+	void InvincibleProcess();
 	void ChangeLevelProcess();
 	void FallProcess();
 	void GoToWarpPipeProcess(); // chui xuống cống để chuyển scene

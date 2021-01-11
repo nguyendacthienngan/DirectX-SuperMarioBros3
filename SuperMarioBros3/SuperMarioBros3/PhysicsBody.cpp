@@ -324,7 +324,6 @@ void CPhysicsBody::CalcPotentialCollisions(
 	}
 
 	std::sort(temp.begin(), temp.end(), CollisionEvent::compare);
-	//coEvents = temp;
 	for (auto latterCollision  : temp)
 	{
 		for (auto prevCollision : coEvents)

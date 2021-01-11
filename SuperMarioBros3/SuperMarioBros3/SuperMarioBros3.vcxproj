@@ -170,6 +170,7 @@
     <ClInclude Include="EmptyBlock.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyConst.h" />
+    <ClInclude Include="FireFlower.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="GameTimer.h" />
     <ClInclude Include="GoalEffects.h" />
@@ -298,6 +299,7 @@
     <ClCompile Include="EffectObject.cpp" />
     <ClCompile Include="EmptyBlock.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FireFlower.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="GoalEffects.cpp" />

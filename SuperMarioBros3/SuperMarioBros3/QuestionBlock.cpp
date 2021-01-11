@@ -9,6 +9,8 @@
 #include "MushroomEffect.h"
 #include "Mario.h"
 #include "MarioController.h"
+#include "FireFlower.h"
+#include "BlockConst.h"
 CQuestionBlock::CQuestionBlock()
 {
 	CBlock::CBlock();
@@ -87,13 +89,47 @@ void CQuestionBlock::Bounce()
 								activeScene->AddObject(mushroomObtainedFX);
 								break;
 							}
-							case MarioStates::SuperMario: case MarioStates::FireMario: case MarioStates::RacoonMario:
+							case MarioStates::SuperMario: 
+							{
+								srand(time(NULL));
+								int res = rand()% (2) + 0;
+								if (res == 0)
+								{
+									CLeafEffect* leafObtainedFX = new CLeafEffect();
+									leafObtainedFX->SetStartPosition(transform.position);
+									leafObtainedFX->StartEffect();
+									auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+									activeScene->AddObject(leafObtainedFX);
+								}
+								if (res == 1)
+								{
+									CFireFlower* fireFlower = new CFireFlower();
+									D3DXVECTOR2 firePos = transform.position;
+									firePos.y -= BLOCK_BBOX.y;
+									fireFlower->SetStartPosition(firePos);
+									auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+									activeScene->AddObject(fireFlower);
+								}
+								break;
+							}
+							case MarioStates::FireMario:
 							{
 								CLeafEffect* leafObtainedFX = new CLeafEffect();
 								leafObtainedFX->SetStartPosition(transform.position);
 								leafObtainedFX->StartEffect();
 								auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 								activeScene->AddObject(leafObtainedFX);
+								break;
+							}
+							case MarioStates::RacoonMario:
+							{
+								CFireFlower* fireFlower = new CFireFlower();
+								D3DXVECTOR2 firePos = transform.position;
+								firePos.y -= BLOCK_BBOX.y;
+								fireFlower->SetStartPosition(firePos);
+								auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+								activeScene->AddObject(fireFlower);
+								break;
 							}
 						}
 					}
