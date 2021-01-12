@@ -1,2 +1,2 @@
 #pragma once
-#define CAMERA_VEL_X 0.05
+#define CAMERA_VEL_X 0.1

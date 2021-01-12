@@ -88,9 +88,6 @@
     <Filter Include="Game\Resouces\Sprites">
       <UniqueIdentifier>{0fcc7d7f-17d1-4ea1-856c-82b80e393d4c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Resouces\Textures">
-      <UniqueIdentifier>{7802115c-478e-4aa2-a3eb-a4adaf19c594}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\GameObject\Misc\Block">
       <UniqueIdentifier>{416ff218-1889-4a08-b37a-ac0221e388a0}</UniqueIdentifier>
     </Filter>
@@ -300,6 +297,15 @@
     </Filter>
     <Filter Include="Game\Scene\World-1-4">
       <UniqueIdentifier>{3b449d8f-474e-407e-99e3-3bfbcb13968e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Misc\Platform">
+      <UniqueIdentifier>{f4614317-ee84-4020-8fd5-add8aa42e2c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Misc\Platform\Moving PlatForm">
+      <UniqueIdentifier>{b82c883d-a9e7-4f2b-b20a-8808891d33c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Resouces\Textures">
+      <UniqueIdentifier>{0a02fdf4-83a3-492a-9df4-719e698be31f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -714,6 +720,12 @@
     <ClInclude Include="CameraConst.h">
       <Filter>Framework\Game\Scene\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="MovingPlatform.h">
+      <Filter>Game\GameObject\Misc\Platform\Moving PlatForm</Filter>
+    </ClInclude>
+    <ClInclude Include="MovingPlatformConst.h">
+      <Filter>Game\GameObject\Misc\Platform\Moving PlatForm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -1010,6 +1022,9 @@
     <ClCompile Include="FireFlower.cpp">
       <Filter>Game\GameObject\Effect\Gift\FireFlower</Filter>
     </ClCompile>
+    <ClCompile Include="MovingPlatform.cpp">
+      <Filter>Game\GameObject\Misc\Platform\Moving PlatForm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SuperMarioBros3.rc">
@@ -1026,7 +1041,19 @@
     <Image Include="Super_Mario_Bros_3.ico">
       <Filter>Files\Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Textures\enemy_x3.png">
+    <Image Include="Resources\Textures\bbox.png">
+      <Filter>Game\Resouces\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\black.png">
+      <Filter>Game\Resouces\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\effect_white_254_x3.png">
+      <Filter>Game\Resouces\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\enemy.png">
+      <Filter>Game\Resouces\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\enemy_x3_white.png">
       <Filter>Game\Resouces\Textures</Filter>
     </Image>
     <Image Include="Resources\Textures\fire-ball-white.png">
@@ -1035,22 +1062,28 @@
     <Image Include="Resources\Textures\intro_x3.png">
       <Filter>Game\Resouces\Textures</Filter>
     </Image>
+    <Image Include="Resources\Textures\MapSelection(x3).png">
+      <Filter>Game\Resouces\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\MapSelection.png">
+      <Filter>Game\Resouces\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\mario(1).png">
+      <Filter>Game\Resouces\Textures</Filter>
+    </Image>
     <Image Include="Resources\Textures\mariox3(1).png">
       <Filter>Game\Resouces\Textures</Filter>
     </Image>
-    <Image Include="Resources\Textures\misc_x3.png">
+    <Image Include="Resources\Textures\misc_x3 (2).png">
+      <Filter>Game\Resouces\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\reward_x3.png">
+      <Filter>Game\Resouces\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\UI_x1.png">
       <Filter>Game\Resouces\Textures</Filter>
     </Image>
     <Image Include="Resources\Textures\UI_x3.png">
-      <Filter>Game\Resouces\Textures</Filter>
-    </Image>
-    <Image Include="Resources\Textures\bbox.png">
-      <Filter>Game\Resouces\Textures</Filter>
-    </Image>
-    <Image Include="Resources\Textures\effect_blue_x3.png">
-      <Filter>Game\Resouces\Textures</Filter>
-    </Image>
-    <Image Include="Resources\Textures\MapSelection(x3).png">
       <Filter>Game\Resouces\Textures</Filter>
     </Image>
   </ItemGroup>

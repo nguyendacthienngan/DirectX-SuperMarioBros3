@@ -220,6 +220,8 @@
     <ClInclude Include="MarioStateSet.h" />
     <ClInclude Include="Misc.h" />
     <ClInclude Include="MiscConst.h" />
+    <ClInclude Include="MovingPlatform.h" />
+    <ClInclude Include="MovingPlatformConst.h" />
     <ClInclude Include="MushroomConst.h" />
     <ClInclude Include="MushroomEffect.h" />
     <ClInclude Include="Node.h" />
@@ -335,6 +337,7 @@
     <ClCompile Include="MarioController.cpp" />
     <ClCompile Include="MarioMap.cpp" />
     <ClCompile Include="Misc.cpp" />
+    <ClCompile Include="MovingPlatform.cpp" />
     <ClCompile Include="MushroomEffect.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="NodeMap.cpp" />
@@ -387,13 +390,19 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\bbox.png" />
-    <Image Include="Resources\Textures\effect_blue_x3.png" />
-    <Image Include="Resources\Textures\enemy_x3.png" />
+    <Image Include="Resources\Textures\black.png" />
+    <Image Include="Resources\Textures\effect_white_254_x3.png" />
+    <Image Include="Resources\Textures\enemy.png" />
+    <Image Include="Resources\Textures\enemy_x3_white.png" />
     <Image Include="Resources\Textures\fire-ball-white.png" />
     <Image Include="Resources\Textures\intro_x3.png" />
     <Image Include="Resources\Textures\MapSelection(x3).png" />
+    <Image Include="Resources\Textures\MapSelection.png" />
+    <Image Include="Resources\Textures\mario(1).png" />
     <Image Include="Resources\Textures\mariox3(1).png" />
-    <Image Include="Resources\Textures\misc_x3.png" />
+    <Image Include="Resources\Textures\misc_x3 (2).png" />
+    <Image Include="Resources\Textures\reward_x3.png" />
+    <Image Include="Resources\Textures\UI_x1.png" />
     <Image Include="Resources\Textures\UI_x3.png" />
     <Image Include="small.ico" />
     <Image Include="SuperMarioBros3.ico" />
