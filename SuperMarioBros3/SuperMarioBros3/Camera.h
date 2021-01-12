@@ -21,7 +21,7 @@ protected:
 	LPGameObject gameObject; // lưu cái gameobject mà camera follow: Mario
 	bool isDisablePosX;
 	bool isDisablePosY;
-
+	bool isAutoX;
 	RectF currentBoundary;
 	std::unordered_map<int, CameraPropertieSet> cameraPropertieSets;
 public:
@@ -64,6 +64,9 @@ public:
 
 	bool GetDisablePosY();
 	void SetDisablePosY(bool isDisableY);
+
+	bool GetAutoX();
+	void SetAutoX(bool isAutoX);
 };
 
 struct CameraPropertieSet

@@ -60,7 +60,7 @@ public:
 	CMario();
 
 	CHoldable* GetHoldObject();
-	
+	void SetCurrentPhysicsState(MarioStateSet state);
 	void SetPMeterCounting(int pMeterCounting);
 	void SetFeverState(int fState);
 	void SetDamageFlag(bool isDamaged);

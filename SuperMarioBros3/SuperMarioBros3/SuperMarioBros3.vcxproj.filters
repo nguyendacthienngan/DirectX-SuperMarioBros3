@@ -711,6 +711,9 @@
     <ClInclude Include="Resource.h">
       <Filter>Files\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CameraConst.h">
+      <Filter>Framework\Game\Scene\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">

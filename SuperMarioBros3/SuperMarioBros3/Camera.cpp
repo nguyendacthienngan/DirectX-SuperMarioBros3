@@ -6,6 +6,7 @@
 #include "Mario.h"
 
 #include "MarioConst.h"
+#include "CameraConst.h"
 
 #include <vector>
 #include <map>
@@ -22,6 +23,7 @@ CCamera::CCamera(int wid, int hei)
     vx = 0.0f;
     isDisablePosX = false;
     isDisablePosY = false;
+    isAutoX = false;
 }
 
 CCamera::~CCamera()
@@ -33,18 +35,39 @@ void CCamera::Update()
 {
     if (gameObject == NULL)
         return;
-    this->dt = CGame::GetInstance()->GetFixedDeltaTime(); 
+    this->dt = CGame::GetInstance()->GetFixedDeltaTime();
     float x, y;
     x = gameObject->GetPosition().x;
     y = gameObject->GetPosition().y;
-    
-     // follow Mario
-    posCam.x = x - widthCam * 0.5f;
+    if (isAutoX == true)
+    {
+        posCam.x += CAMERA_VEL_X * dt;
 
-    if (isDisablePosY == false)
-        posCam.y = y - heightCam * 0.1f;
+        if (x < posCam.x + 24)
+        {
+            x = posCam.x + 24;
+            auto mario = static_cast<CMario*>(gameObject);
+            MarioStateSet state;
+            state.move = MoveOnGroundStates::Walk;
+            state.jump = JumpOnAirStates::Stand;
+            mario->SetCurrentPhysicsState(state);
+        }
+    }
+    else
+    {
+        // follow Mario
+        posCam.x = x - widthCam * 0.5f;
+
+        if (isDisablePosY == false)
+            posCam.y = y - heightCam * 0.1f;
 
 
+        //	Xét biên để chỉnh lại camera k thoát khỏi camera
+        if (x > currentBoundary.right - 24 && isDisablePosX == false)
+            x = currentBoundary.right - 24;
+        else if (x < currentBoundary.left + 24 && isDisablePosX == false)
+            x = currentBoundary.left + 24;
+    }
     // Ở đầu scene và cuối scene ta sẽ đặt ra boundary => Mario k được vượt quá boundary này
     if (posCam.x < currentBoundary.left)
         posCam.x = currentBoundary.left;
@@ -57,18 +80,13 @@ void CCamera::Update()
 
     if (posCam.y > currentBoundary.bottom - heightCam)
         posCam.y = currentBoundary.bottom - heightCam;
-    
+
     if (isDisablePosY == false)
-        if (posCam.y < currentBoundary.bottom - heightCam && y >= currentBoundary.bottom - heightCam*0.75)
+        if (posCam.y < currentBoundary.bottom - heightCam && y >= currentBoundary.bottom - heightCam * 0.75)
             posCam.y = currentBoundary.bottom - heightCam;
 
-    //	Xét biên để chỉnh lại camera k thoát khỏi camera
-    if (x > currentBoundary.right- 24 && isDisablePosX == false)
-        x = currentBoundary.right- 24;
-    else if (x < currentBoundary.left + 24 && isDisablePosX == false)
-        x = currentBoundary.left + 24;
-    gameObject->SetPosition(D3DXVECTOR2(x, y));
 
+    gameObject->SetPosition(D3DXVECTOR2(x, y));
 }
 
 void CCamera::Render()
@@ -233,6 +251,16 @@ void CCamera::SetDisablePosX(bool isDisableX)
 void CCamera::SetDisablePosY(bool isDisableY)
 {
     this->isDisablePosY = isDisableY;
+}
+
+bool CCamera::GetAutoX()
+{
+    return isAutoX;
+}
+
+void CCamera::SetAutoX(bool isAutoX)
+{
+    this->isAutoX = isAutoX;
 }
 
 

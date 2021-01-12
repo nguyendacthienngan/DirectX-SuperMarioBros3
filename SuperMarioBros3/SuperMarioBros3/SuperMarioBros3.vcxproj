@@ -156,6 +156,7 @@
     <ClInclude Include="BrickEffect.h" />
     <ClInclude Include="BrickFXConst.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraConst.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardGift.h" />
     <ClInclude Include="Coin.h" />

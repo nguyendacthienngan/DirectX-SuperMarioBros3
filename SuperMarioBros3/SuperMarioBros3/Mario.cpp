@@ -40,6 +40,11 @@ CHoldable* CMario::GetHoldObject()
 	return objectHolding;
 }
 
+void CMario::SetCurrentPhysicsState(MarioStateSet state)
+{
+	this->currentPhysicsState = state;
+}
+
 void CMario::SetPMeterCounting(int pMeterCounting)
 {
 	this->pMeterCounting = pMeterCounting;
