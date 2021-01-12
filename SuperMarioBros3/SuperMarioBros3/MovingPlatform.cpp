@@ -5,7 +5,7 @@ CMovingPlatform::CMovingPlatform()
 {
 	LoadAnimation();
 	SetState("PLATFORM");
-
+	isEnabled = true;
 	CCollisionBox* box = new CCollisionBox();
 	box->SetSizeBox(MOVING_PLATFORM_BBOX);
 	box->SetGameObjectAttach(this);
