@@ -62,6 +62,7 @@ public:
 	void LoadSwitchBlock(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects);
 	void LoadEmptyBlock(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects);
 	void LoadCard(D3DXVECTOR2 position, CTileMap* gameMap, std::vector<LPGameObject>& listGameObjects);
+	void LoadMovingPlatform(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects);
 
 	void Render(CCamera* camera, bool isRenderForeground);
 	void RenderLayer(Layer* layer, int i, int j, int x, int y);

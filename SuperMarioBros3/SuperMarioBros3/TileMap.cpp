@@ -43,6 +43,7 @@
 #include "PSwitch.h"
 #include "EmptyBlock.h"
 #include "Card.h"
+#include "MovingPlatform.h"
 
 CTileMap::CTileMap()
 {
@@ -273,6 +274,10 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				else if (name.compare("Card") == 0)
 				{
 					gameMap->LoadCard(position, gameMap, listGameObjects);
+				}
+				else if (name.compare("MovingPlatform") == 0)
+				{
+					gameMap->LoadMovingPlatform(position, listGameObjects);
 				}
 			}
 		}
@@ -845,6 +850,13 @@ void CTileMap::LoadCard(D3DXVECTOR2 position, CTileMap* gameMap, std::vector<LPG
 	ca->SetPosition(position - translateQuestionBlockConst);
 	listGameObjects.push_back(ca);
 	gameMap->card = ca;
+}
+
+void CTileMap::LoadMovingPlatform(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects)
+{
+	CMovingPlatform* platform = new CMovingPlatform();
+	platform->SetPosition(position);
+	listGameObjects.push_back(platform);
 }
 
 void CTileMap::RenderLayer(Layer* layer, int i, int j, int x, int y)
