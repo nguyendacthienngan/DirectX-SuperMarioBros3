@@ -218,485 +218,61 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 
 				if (name.compare("Solid") == 0)
 				{
-					CSolidBox* solid = new CSolidBox();
-					solid->SetPosition(position - translateConst + size*0.5); // lấy tọa độ giữa
-					solid->GetCollisionBox()->at(0)->SetSizeBox(size);
-					solid->GetCollisionBox()->at(0)->SetId(id);
-					solid->GetCollisionBox()->at(0)->SetName(nameObject);
-					listGameObjects.push_back(solid);
-					OutputDebugString(ToLPCWSTR("Name object" + nameObject + "\n"));
-					DebugOut(L"BoxSize: %d, %f,%f,%f,%f\n", id, solid->GetPosition().x, solid->GetPosition().y, size.x, size.y);
-				
+					gameMap->LoadSolidBox(position, size, nameObject, listGameObjects);
 				}
 				else if (name.compare("Ghost") == 0)
 				{
-					CGhostPlatform* ghostPlatform = new CGhostPlatform();
-					ghostPlatform->SetPosition(position - translateConst + size * 0.5);
-					ghostPlatform->GetCollisionBox()->at(0)->SetSizeBox(size);
-					ghostPlatform->GetCollisionBox()->at(0)->SetId(id);
-					ghostPlatform->GetCollisionBox()->at(0)->SetName(nameObject);
-					listGameObjects.push_back(ghostPlatform);
-					OutputDebugString(ToLPCWSTR("Name object" + nameObject + "\n"));
-					DebugOut(L"BoxSize: %d, %f,%f,%f,%f\n", id, ghostPlatform->GetPosition().x, ghostPlatform->GetPosition().y, size.x, size.y);
+					gameMap->LoadGhostBox(position, size, nameObject, listGameObjects);
 				}
 				else if (name.compare("Enemy") == 0)
 				{
 					std::string enemyName = object->Attribute("name");
 					std::string enemyType = object->Attribute("type");
-					if (enemyName.compare("koopa") == 0)
-					{
-						CKoopa* koopa = NULL;
-						CKoopaShell* koopaShell = NULL;
-						if (enemyType.compare("green") == 0)
-						{
-							koopaShell = new CGreenKoopaShell();
-							koopa = new CGreenKoopa();
-							koopa->Enable(true);
-						}
-						if (enemyType.compare("red") == 0)
-						{
-							koopaShell = new CRedKoopaShell();
-							koopa = new CRedKoopa();
-						}
-						if (koopa != NULL && koopaShell != NULL)
-						{
-							koopaShell->SetEnemyType(enemyType);
-							koopaShell->SetPosition(position - translateKoopaShellConst);
-							koopaShell->SetStartPosition(position - translateKoopaShellConst);
-
-							koopa->SetEnemyType(enemyType);
-							koopa->SetPosition(position - translateKoopaConst);
-							koopa->SetStartPosition(position - translateKoopaConst);
-							koopa->SetKoopaShell(koopaShell);
-							koopaShell->SetKoopa(koopa);
-							listGameObjects.push_back(koopaShell);
-							listGameObjects.push_back(koopa);
-						}
-					}
-					else if (enemyName.compare("goomba") == 0)
-					{
-						std::string enemyType = object->Attribute("type");
-						CGoomba* goomba = NULL;
-						if (enemyType.compare("tan") == 0)
-						{
-							goomba = new CTanGoomba();
-						}
-						if (enemyType.compare("red") == 0)
-						{
-							goomba = new CRedGoomba();
-						}
-						if (goomba != NULL)
-						{
-							goomba->SetEnemyType(enemyType);
-							goomba->SetPosition(position - translateGoombaConst);
-							goomba->SetStartPosition(position - translateGoombaConst);
-
-							listGameObjects.push_back(goomba);
-						}
-					}
-					else if (enemyName.compare("para-goomba") == 0)
-					{
-						CRedGoomba* goomba = new CRedGoomba();
-						goomba->SetPosition(position - translateGoombaConst);
-						goomba->SetStartPosition(position - translateGoombaConst);
-						goomba->Enable(false);
-
-						CRedParaGoomba* paragoomba = new CRedParaGoomba();
-						paragoomba->SetPosition(position - translateGoombaConst);
-						paragoomba->SetStartPosition(position - translateGoombaConst);
-						paragoomba->SetGoomba(goomba);
-						listGameObjects.push_back(goomba);
-						listGameObjects.push_back(paragoomba);
-					}
-					else if (enemyName.compare("para-koopa") == 0)
-					{
-						CGreenKoopaShell* koopaShell = new CGreenKoopaShell();
-						koopaShell->SetEnemyType(enemyType);
-						koopaShell->SetPosition(position - translateKoopaShellConst);
-						koopaShell->SetStartPosition(position - translateKoopaShellConst);
-						koopaShell->Enable(false);
-
-						CGreenKoopa* koopa = new CGreenKoopa();
-						koopa->SetEnemyType(enemyType);
-						koopa->SetPosition(position - translateKoopaConst);
-						koopa->SetStartPosition(position - translateKoopaConst);
-						koopa->SetKoopaShell(koopaShell);
-						koopaShell->SetKoopa(koopa);
-						koopa->Enable(false);
-						listGameObjects.push_back(koopaShell);
-						listGameObjects.push_back(koopa);
-
-						CParaKoopa* parakoopa = new CParaKoopa();
-						parakoopa->SetPosition(position - translateKoopaConst);
-						parakoopa->SetStartPosition(position - translateKoopaConst);
-						parakoopa->SetKoopa(koopa);
-
-						listGameObjects.push_back(parakoopa);
-					}
-					else if (enemyName.compare("piranha") == 0)
-					{
-						CPiranha* piranha = new CPiranha();
-						piranha->SetPosition(position - translatePiranhaConst);
-						piranha->SetStartPosition(position - translatePiranhaConst);
-						listGameObjects.push_back(piranha);
-					}
-					else if (enemyName.compare("venus") == 0)
-					{
-						CVenus* venus = NULL;
-						if (enemyType.compare("green") == 0)
-							venus = new CVenusGreen();
-						else
-							venus = new CVenusRed();
-						OutputDebugString(ToLPCWSTR(venus->GetCollisionBox()->at(0)->GetName() + "\n"));
-						venus->SetPosition(position - translateVenusConst);
-						venus->SetStartPosition(position - translateVenusConst);
-						listGameObjects.push_back(venus);
-					}
+					gameMap->LoadEnemy(position, enemyName, enemyType, listGameObjects);
 				}
 				else if (name.compare("QuestionBlocks") == 0)
 				{
-					int type;
-					std::string name = object->Attribute("name");
 					object->QueryIntAttribute("type", &type); //type thiệt ra là số lượng
-					CQuestionBlock* solid = new CQuestionBlock();
-					solid->SetPosition(position - translateQuestionBlockConst);
-					if (name.compare("bcoin") == 0)
-					{
-						solid->SetItemInfo({ItemTag::Coin, type});
-					}
-					if (name.compare("powerup") == 0)
-					{
-						solid->SetItemInfo({ ItemTag::PowerUp, type });
-					}
-					listGameObjects.push_back(solid);
-
+					std::string questionBlockName = object->Attribute("name");
+					gameMap->LoadQuestionBlock(position, type, questionBlockName, listGameObjects);
 				}
 				else if (name.compare("Coin") == 0)
 				{
-					CCoin* solid = new CCoin();
-					solid->SetPosition(position - translateQuestionBlockConst);
-					if (object->QueryIntAttribute("type", &type) == TIXML_SUCCESS && type == 1)
-					{
-						gameMap->coins.push_back(solid);
-						CBrick* brick = new CBrick();
-						brick->SetType(type);
-
-						gameMap->poolBricks->Add(brick);
-						gameMap->poolCoins->Add(solid);
-
-						solid->Enable(true);
-					}
-					solid->SetType(type);
-					listGameObjects.push_back(solid);
+					gameMap->LoadCoin(position, type, object, gameMap, listGameObjects);
 				}
 				else if (name.compare("Brick") == 0)
 				{
-					CBrick* solid = new CBrick();
-					solid->SetPosition(position - translateQuestionBlockConst);
-					if (object->QueryIntAttribute("type", &type) == TIXML_SUCCESS && type == 1)
-					{
-						gameMap->bricks.push_back(solid);
-						CCoin* coin = new CCoin();
-						coin->SetType(type);
-
-						gameMap->poolCoins->Add(coin);
-						gameMap->poolBricks->Add(solid);
-
-						solid->Enable(true);
-					}
-					solid->SetType(type);
-					listGameObjects.push_back(solid);
+					gameMap->LoadBrick(position, type, object, gameMap, listGameObjects);
 				}
 				else if (name.compare("Portal") == 0)
 				{
-					int cameraID = -1;
-					std::string sceneID = "";
-					
-					CPortal* portal = new CPortal(size);
-					portal->SetPosition(position - translateConst + size * 0.5);
-					
-					TiXmlElement* properties = object->FirstChildElement();
-					for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
-					{
-						std::string propName = property->Attribute("name");
-						if (propName.compare("cameraID") == 0)
-						{
-							property->QueryIntAttribute("value", &cameraID);
-							portal->SetCameraID(cameraID);
-						}
-						if (propName.compare("sceneID") == 0)
-						{
-							sceneID = property->Attribute("value");
-							portal->SetSceneID(sceneID);
-						}
-					}
-
-					listGameObjects.push_back(portal);
+					gameMap->LoadPortal(position, size, object, listGameObjects);
 				}
 				else if (name.compare("Label") == 0)
 				{
 					std::string labelName = object->Attribute("name");
-					if (labelName.compare("warp-pipe") == 0)
-					{
-						CLabel* label = new CLabel(size);
-						label->SetPosition(position - translateConst + size * 0.5);
-						
-						TiXmlElement* properties = object->FirstChildElement();
-						for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
-						{
-							std::string propName = property->Attribute("name");
-							if (propName.compare("direction") == 0)
-							{
-								std::string direction = property->Attribute("value");
-								if (direction.compare("up") == 0)
-									label->SetPushDirection({ 0, 1, 0, 0 });
-								if (direction.compare("down") == 0)
-									label->SetPushDirection({ 0, 0, 0, 1 });
-								if (direction.compare("right") == 0)
-									label->SetPushDirection({ 0, 0, 1, 0 });
-								if (direction.compare("left") == 0)
-									label->SetPushDirection({ 1, 0, 0, 0 });
-							}
-						}
-						listGameObjects.push_back(label);
-
-					}
+					gameMap->LoadLabel(position, labelName, size, object, listGameObjects);
 				}
 				else if (name.compare("World-Item") == 0)
 				{
-					std::string itemName = object->Attribute("name");
-					if (itemName.compare("grass") == 0)
-					{
-						CGrass* grass = new CGrass();
-						grass->SetPosition(position - translateGrassConst);
-						listGameObjects.push_back(grass);
-					}
-					if (itemName.compare("help") == 0)
-					{
-						CHelpItem* help = new CHelpItem();
-						help->SetPosition(position - translateGrassConst);
-						listGameObjects.push_back(help);
-					}
-					if (itemName.compare("start") == 0)
-					{
-						CStartItem* startItem = new CStartItem();
-						startItem->SetPosition(position - translateGrassConst);
-						listGameObjects.push_back(startItem);
-					}
+					string itemName = object->Attribute("name");
+					gameMap->LoadWorldItem(position, itemName, listGameObjects);
 				}
 				else if (name.compare("Portal-Scene") == 0)
 				{
-					int cameraID = -1;
-					std::string sceneID = "";
-					std::string type = object->Attribute("type");
-					std::string sceneName = object->Attribute("name");
-					if (type.compare("scene") == 0)
-					{
-						CSceneGate* portal = new CSceneGate(size);
-						portal->SetPosition(position - translateConst + size * 0.5);
-						if (sceneName.compare("scene-1") == 0)
-						{
-							portal->SetState(SCENE_1_ANIMATION);
-							portal->AddAdjacencyNode(1);
-							portal->AddAdjacencyNode(3);
-						}
-						if (sceneName.compare("scene-2") == 0)
-						{
-							portal->SetState(SCENE_2_ANIMATION);
-							portal->AddAdjacencyNode(3);
-							portal->AddAdjacencyNode(5);
-							portal->AddAdjacencyNode(9);
-						}
-						if (sceneName.compare("scene-3") == 0)
-						{
-							portal->SetState(SCENE_3_ANIMATION);
-							portal->AddAdjacencyNode(4);
-							portal->AddAdjacencyNode(6);
-						}
-						if (sceneName.compare("scene-4") == 0)
-						{
-							portal->SetState(SCENE_4_ANIMATION);
-							portal->AddAdjacencyNode(7);
-							portal->AddAdjacencyNode(9);
-
-						}
-						if (sceneName.compare("scene-5") == 0)
-						{
-							portal->SetState(SCENE_5_ANIMATION);
-							portal->AddAdjacencyNode(14);
-							portal->AddAdjacencyNode(16);
-
-						}
-						if (sceneName.compare("scene-6") == 0)
-						{
-							portal->SetState(SCENE_6_ANIMATION);
-							portal->AddAdjacencyNode(16);
-							portal->AddAdjacencyNode(18);
-
-						}
-						if (sceneName.compare("spade") == 0)
-						{
-							portal->SetState(SPADE_ANIMATION);
-							portal->AddAdjacencyNode(9);
-							portal->AddAdjacencyNode(11);
-
-						}
-						if (sceneName.compare("castle") == 0)
-						{
-							portal->SetState(CASTLE_ANIMATION);
-							portal->AddAdjacencyNode(10);
-							portal->AddAdjacencyNode(12);
-
-						}
-						if (sceneName.compare("domed-gate") == 0)
-						{
-							portal->SetState(DOMED_ANIMATION);
-							portal->AddAdjacencyNode(1);
-							portal->AddAdjacencyNode(12);
-
-						}
-						if (sceneName.compare("mushroom-gate-1") == 0)
-						{
-							portal->SetState(MUSHROOM_ANIMATION);
-							portal->AddAdjacencyNode(6);
-							portal->AddAdjacencyNode(8);
-
-						}
-						if (sceneName.compare("mushroom-gate-2") == 0)
-						{
-							portal->SetState(MUSHROOM_ANIMATION);
-							portal->AddAdjacencyNode(18);
-						}
-						TiXmlElement* properties = object->FirstChildElement();
-						if (properties != NULL)
-						{
-							for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
-							{
-								std::string propName = property->Attribute("name");
-								if (propName.compare("cameraID") == 0)
-								{
-									property->QueryIntAttribute("value", &cameraID);
-									portal->SetCameraID(cameraID);
-								}
-								if (propName.compare("sceneID") == 0)
-								{
-									sceneID = property->Attribute("value");
-									portal->SetSceneID(sceneID);
-								}
-								if (propName.compare("nodeID") == 0)
-								{
-									int nodeID;
-									property->QueryIntAttribute("value", &nodeID);
-									portal->SetNodeID(nodeID);
-								}
-							}
-							if (portal != NULL)
-							{
-								gameMap->graph->AddNode(portal);
-								listGameObjects.push_back(portal);
-							}
-						}
-					}
-					if (type.compare("node") == 0)
-					{
-						CNodeMap* node = new CNodeMap(size);
-					
-						node->SetPosition(position - translateConst + size * 0.5);
-						TiXmlElement* properties = object->FirstChildElement();
-						if (properties != NULL)
-						{
-							for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
-							{
-								std::string propName = property->Attribute("name");
-								if (propName.compare("nodeID") == 0)
-								{
-									int nodeID;
-									property->QueryIntAttribute("value", &nodeID);
-									node->SetNodeID(nodeID);
-									if (nodeID == 0)
-									{
-										node->AddAdjacencyNode(1);
-									}
-									if (nodeID == 1)
-									{
-										node->AddAdjacencyNode(0);
-										node->AddAdjacencyNode(2);
-									}
-									if (nodeID == 3)
-									{
-										node->AddAdjacencyNode(2);
-										node->AddAdjacencyNode(4);
-									}
-									if (nodeID == 6)
-									{
-										node->AddAdjacencyNode(5);
-										node->AddAdjacencyNode(7);
-									}
-									if (nodeID == 9)
-									{
-										node->AddAdjacencyNode(8);
-										node->AddAdjacencyNode(10);
-										node->AddAdjacencyNode(4);
-									}
-									if (nodeID == 12)
-									{
-										node->AddAdjacencyNode(11);
-										node->AddAdjacencyNode(13);
-										node->AddAdjacencyNode(14);
-									}
-									if (nodeID == 14)
-									{
-										node->AddAdjacencyNode(12);
-										node->AddAdjacencyNode(15);
-									}
-									if (nodeID == 16)
-									{
-										node->AddAdjacencyNode(15);
-										node->AddAdjacencyNode(17);
-									}
-									if (nodeID == 18)
-									{
-										node->AddAdjacencyNode(17);
-										node->AddAdjacencyNode(19);
-										node->AddAdjacencyNode(20);
-									}
-									if (nodeID == 20)
-									{
-										node->AddAdjacencyNode(18);
-										node->AddAdjacencyNode(21);
-									}
-									if (nodeID == 21)
-									{
-										node->AddAdjacencyNode(10);
-									}
-								}
-							}
-						}
-						if (node != NULL)
-						{
-							gameMap->graph->AddNode(node);
-							listGameObjects.push_back(node);
-						}
-					}
+					gameMap->LoadPortalScene(position, size, gameMap, object, listGameObjects);
 				}
 				else if (name.compare("SwitchBlocks") == 0)
 				{
-					CPSwitch* switchBlock = new CPSwitch();
-					switchBlock->SetPosition(position - translateQuestionBlockConst);
-					listGameObjects.push_back(switchBlock);
+					gameMap->LoadSwitchBlock(position, listGameObjects);
 				}
 				else if (name.compare("Block") == 0)
 				{
-					CEmptyBlock* emptyBlock = new CEmptyBlock();
-					emptyBlock->SetPosition(position - translateQuestionBlockConst);
-					listGameObjects.push_back(emptyBlock);
+					gameMap->LoadEmptyBlock(position, listGameObjects);
 				}
 				else if (name.compare("Card") == 0)
 				{
-					CCard* ca = new CCard();
-					ca->SetPosition(position - translateQuestionBlockConst);
-					listGameObjects.push_back(ca);
-					gameMap->card = ca;
+					gameMap->LoadCard(position, gameMap, listGameObjects);
 				}
 			}
 		}
@@ -748,6 +324,527 @@ Layer* CTileMap::LoadLayer(TiXmlElement* element)
 	// Thì muốn lấy 5 ra thì ta phải lấy 0 + 1 * 5 ( i + j * width )
 	splitted.clear();
 	return layer;
+}
+
+void CTileMap::LoadSolidBox(D3DXVECTOR2 position, D3DXVECTOR2 size, std::string name, std::vector<LPGameObject>& listGameObjects)
+{
+	CSolidBox* solid = new CSolidBox();
+	solid->SetPosition(position - translateConst + size * 0.5); // lấy tọa độ giữa
+	solid->GetCollisionBox()->at(0)->SetSizeBox(size);
+	solid->GetCollisionBox()->at(0)->SetName(name);
+	OutputDebugString(ToLPCWSTR("Name object " + name + "\n"));
+	DebugOut(L"BoxSize: %f,%f,%f,%f\n", solid->GetPosition().x, solid->GetPosition().y, size.x, size.y);
+	listGameObjects.push_back(solid);
+}
+
+void CTileMap::LoadGhostBox(D3DXVECTOR2 position, D3DXVECTOR2 size, std::string name, std::vector<LPGameObject>& listGameObjects)
+{
+	CGhostPlatform* ghostPlatform = new CGhostPlatform();
+	ghostPlatform->SetPosition(position - translateConst + size * 0.5);
+	ghostPlatform->GetCollisionBox()->at(0)->SetSizeBox(size);
+	ghostPlatform->GetCollisionBox()->at(0)->SetName(name);
+	OutputDebugString(ToLPCWSTR("Name object" + name + "\n"));
+	DebugOut(L"BoxSize: %d, %f,%f,%f,%f\n", ghostPlatform->GetPosition().x, ghostPlatform->GetPosition().y, size.x, size.y);
+	listGameObjects.push_back(ghostPlatform);
+}
+
+void CTileMap::LoadEnemy(D3DXVECTOR2 position, std::string enemyName, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
+{
+	CGameObject* enemy = NULL;
+	if (enemyName.compare("koopa") == 0)
+	{
+		LoadKoopa(position, enemyType, listGameObjects);
+	}
+	else if (enemyName.compare("goomba") == 0)
+	{
+		LoadGoomba(position, enemyType, listGameObjects);
+	}
+	else if (enemyName.compare("para-goomba") == 0)
+	{
+		LoadParagoomba(position, enemyType, listGameObjects);
+	}
+	else if (enemyName.compare("para-koopa") == 0)
+	{
+		LoadParakoopa(position, enemyType, listGameObjects);
+	}
+	else if (enemyName.compare("piranha") == 0)
+	{
+		LoadPiranha(position, listGameObjects);
+	}
+	else if (enemyName.compare("venus") == 0)
+	{
+		LoadVenus(position, enemyType, listGameObjects);
+	}
+}
+
+void CTileMap::LoadKoopa(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
+{
+	CKoopa* koopa = NULL;
+	CKoopaShell* koopaShell = NULL;
+	if (enemyType.compare("green") == 0)
+	{
+		koopaShell = new CGreenKoopaShell();
+		koopa = new CGreenKoopa();
+		koopa->Enable(true);
+	}
+	if (enemyType.compare("red") == 0)
+	{
+		koopaShell = new CRedKoopaShell();
+		koopa = new CRedKoopa();
+	}
+	if (koopa != NULL && koopaShell != NULL)
+	{
+		koopaShell->SetEnemyType(enemyType);
+		koopaShell->SetPosition(position - translateKoopaShellConst);
+		koopaShell->SetStartPosition(position - translateKoopaShellConst);
+
+		koopa->SetEnemyType(enemyType);
+		koopa->SetPosition(position - translateKoopaConst);
+		koopa->SetStartPosition(position - translateKoopaConst);
+		koopa->SetKoopaShell(koopaShell);
+		koopaShell->SetKoopa(koopa);
+		listGameObjects.push_back(koopaShell);
+		listGameObjects.push_back(koopa);
+	}
+}
+
+void CTileMap::LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
+{
+	CGreenKoopaShell* koopaShell = new CGreenKoopaShell();
+	koopaShell->SetEnemyType(enemyType);
+	koopaShell->SetPosition(position - translateKoopaShellConst);
+	koopaShell->SetStartPosition(position - translateKoopaShellConst);
+	koopaShell->Enable(false);
+
+	CGreenKoopa* koopa = new CGreenKoopa();
+	koopa->SetEnemyType(enemyType);
+	koopa->SetPosition(position - translateKoopaConst);
+	koopa->SetStartPosition(position - translateKoopaConst);
+	koopa->SetKoopaShell(koopaShell);
+	koopaShell->SetKoopa(koopa);
+	koopa->Enable(false);
+	listGameObjects.push_back(koopaShell);
+	listGameObjects.push_back(koopa);
+
+	CParaKoopa* parakoopa = new CParaKoopa();
+	parakoopa->SetPosition(position - translateKoopaConst);
+	parakoopa->SetStartPosition(position - translateKoopaConst);
+	parakoopa->SetKoopa(koopa);
+
+	listGameObjects.push_back(parakoopa);
+}
+
+void CTileMap::LoadGoomba(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
+{
+	CGoomba* goomba = NULL;
+	if (enemyType.compare("tan") == 0)
+	{
+		goomba = new CTanGoomba();
+	}
+	if (enemyType.compare("red") == 0)
+	{
+		goomba = new CRedGoomba();
+	}
+	if (goomba != NULL)
+	{
+		goomba->SetEnemyType(enemyType);
+		goomba->SetPosition(position - translateGoombaConst);
+		goomba->SetStartPosition(position - translateGoombaConst);
+
+		listGameObjects.push_back(goomba);
+	}
+}
+
+void CTileMap::LoadParagoomba(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
+{
+	CRedGoomba* goomba = new CRedGoomba();
+	goomba->SetPosition(position - translateGoombaConst);
+	goomba->SetStartPosition(position - translateGoombaConst);
+	goomba->Enable(false);
+
+	CRedParaGoomba* paragoomba = new CRedParaGoomba();
+	paragoomba->SetPosition(position - translateGoombaConst);
+	paragoomba->SetStartPosition(position - translateGoombaConst);
+	paragoomba->SetGoomba(goomba);
+	listGameObjects.push_back(goomba);
+	listGameObjects.push_back(paragoomba);
+}
+
+void CTileMap::LoadPiranha(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects)
+{
+	CPiranha* piranha = new CPiranha();
+	piranha->SetPosition(position - translatePiranhaConst);
+	piranha->SetStartPosition(position - translatePiranhaConst);
+	listGameObjects.push_back(piranha);
+}
+
+void CTileMap::LoadVenus(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
+{
+	CVenus* venus = NULL;
+	if (enemyType.compare("green") == 0)
+		venus = new CVenusGreen();
+	else
+		venus = new CVenusRed();
+	venus->SetPosition(position - translateVenusConst);
+	venus->SetStartPosition(position - translateVenusConst);
+	listGameObjects.push_back(venus);
+}
+
+void CTileMap::LoadQuestionBlock(D3DXVECTOR2 position, int type, std::string name, std::vector<LPGameObject>& listGameObjects)
+{
+	CQuestionBlock* solid = new CQuestionBlock();
+	solid->SetPosition(position - translateQuestionBlockConst);
+	if (name.compare("bcoin") == 0)
+	{
+		solid->SetItemInfo({ ItemTag::Coin, type });
+	}
+	if (name.compare("powerup") == 0)
+	{
+		solid->SetItemInfo({ ItemTag::PowerUp, type });
+	}
+	listGameObjects.push_back(solid);
+}
+
+void CTileMap::LoadBrick(D3DXVECTOR2 position, int type, TiXmlElement* object, CTileMap* gameMap, std::vector<LPGameObject>& listGameObjects)
+{
+	CBrick* solid = new CBrick();
+	solid->SetPosition(position - translateQuestionBlockConst);
+	if (object->QueryIntAttribute("type", &type) == TIXML_SUCCESS && type == 1)
+	{
+		gameMap->bricks.push_back(solid);
+		CCoin* coin = new CCoin();
+		coin->SetType(type);
+
+		gameMap->poolCoins->Add(coin);
+		gameMap->poolBricks->Add(solid);
+
+		solid->Enable(true);
+	}
+	solid->SetType(type);
+	listGameObjects.push_back(solid);
+}
+
+void CTileMap::LoadCoin(D3DXVECTOR2 position, int type, TiXmlElement* object, CTileMap* gameMap, std::vector<LPGameObject>& listGameObjects)
+{
+	CCoin* solid = new CCoin();
+	solid->SetPosition(position - translateQuestionBlockConst);
+	if (object->QueryIntAttribute("type", &type) == TIXML_SUCCESS && type == 1)
+	{
+		gameMap->coins.push_back(solid);
+		CBrick* brick = new CBrick();
+		brick->SetType(type);
+
+		gameMap->poolBricks->Add(brick);
+		gameMap->poolCoins->Add(solid);
+
+		solid->Enable(true);
+	}
+	solid->SetType(type);
+	listGameObjects.push_back(solid);
+}
+
+void CTileMap::LoadPortal(D3DXVECTOR2 position, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
+{
+	int cameraID = -1;
+	std::string sceneID = "";
+
+	CPortal* portal = new CPortal(size);
+	portal->SetPosition(position - translateConst + size * 0.5);
+
+	TiXmlElement* properties = object->FirstChildElement();
+	for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
+	{
+		std::string propName = property->Attribute("name");
+		if (propName.compare("cameraID") == 0)
+		{
+			property->QueryIntAttribute("value", &cameraID);
+			portal->SetCameraID(cameraID);
+		}
+		if (propName.compare("sceneID") == 0)
+		{
+			sceneID = property->Attribute("value");
+			portal->SetSceneID(sceneID);
+		}
+	}
+	listGameObjects.push_back(portal);
+}
+
+void CTileMap::LoadLabel(D3DXVECTOR2 position, std::string labelName, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
+{
+	if (labelName.compare("warp-pipe") == 0)
+	{
+		CLabel* label = new CLabel(size);
+		label->SetPosition(position - translateConst + size * 0.5);
+
+		TiXmlElement* properties = object->FirstChildElement();
+		for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
+		{
+			std::string propName = property->Attribute("name");
+			if (propName.compare("direction") == 0)
+			{
+				std::string direction = property->Attribute("value");
+				if (direction.compare("up") == 0)
+					label->SetPushDirection({ 0, 1, 0, 0 });
+				if (direction.compare("down") == 0)
+					label->SetPushDirection({ 0, 0, 0, 1 });
+				if (direction.compare("right") == 0)
+					label->SetPushDirection({ 0, 0, 1, 0 });
+				if (direction.compare("left") == 0)
+					label->SetPushDirection({ 1, 0, 0, 0 });
+			}
+		}
+		listGameObjects.push_back(label);
+	}
+}
+
+void CTileMap::LoadWorldItem(D3DXVECTOR2 position, std::string itemName, std::vector<LPGameObject>& listGameObjects)
+{
+	if (itemName.compare("grass") == 0)
+	{
+		CGrass* grass = new CGrass();
+		grass->SetPosition(position - translateGrassConst);
+		listGameObjects.push_back(grass);
+	}
+	if (itemName.compare("help") == 0)
+	{
+		CHelpItem* help = new CHelpItem();
+		help->SetPosition(position - translateGrassConst);
+		listGameObjects.push_back(help);
+	}
+	if (itemName.compare("start") == 0)
+	{
+		CStartItem* startItem = new CStartItem();
+		startItem->SetPosition(position - translateGrassConst);
+		listGameObjects.push_back(startItem);
+	}
+}
+
+void CTileMap::LoadPortalScene(D3DXVECTOR2 position, D3DXVECTOR2 size, CTileMap* gameMap, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
+{
+	std::string type = object->Attribute("type");
+	if (type.compare("scene") == 0)
+	{
+		LoadSceneGate(position, size, gameMap, object, listGameObjects);
+	}
+	if (type.compare("node") == 0)
+	{
+		LoadNodeGate(position, size, gameMap, object, listGameObjects);
+	}
+}
+
+void CTileMap::LoadSceneGate(D3DXVECTOR2 position, D3DXVECTOR2 size, CTileMap* gameMap, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
+{
+	int cameraID = -1;
+	std::string sceneID = "";
+	std::string sceneName = object->Attribute("name");
+	CSceneGate* portal = new CSceneGate(size);
+	portal->SetPosition(position - translateConst + size * 0.5);
+	if (sceneName.compare("scene-1") == 0)
+	{
+		portal->SetState(SCENE_1_ANIMATION);
+		portal->AddAdjacencyNode(1);
+		portal->AddAdjacencyNode(3);
+	}
+	if (sceneName.compare("scene-2") == 0)
+	{
+		portal->SetState(SCENE_2_ANIMATION);
+		portal->AddAdjacencyNode(3);
+		portal->AddAdjacencyNode(5);
+		portal->AddAdjacencyNode(9);
+	}
+	if (sceneName.compare("scene-3") == 0)
+	{
+		portal->SetState(SCENE_3_ANIMATION);
+		portal->AddAdjacencyNode(4);
+		portal->AddAdjacencyNode(6);
+	}
+	if (sceneName.compare("scene-4") == 0)
+	{
+		portal->SetState(SCENE_4_ANIMATION);
+		portal->AddAdjacencyNode(7);
+		portal->AddAdjacencyNode(9);
+
+	}
+	if (sceneName.compare("scene-5") == 0)
+	{
+		portal->SetState(SCENE_5_ANIMATION);
+		portal->AddAdjacencyNode(14);
+		portal->AddAdjacencyNode(16);
+
+	}
+	if (sceneName.compare("scene-6") == 0)
+	{
+		portal->SetState(SCENE_6_ANIMATION);
+		portal->AddAdjacencyNode(16);
+		portal->AddAdjacencyNode(18);
+
+	}
+	if (sceneName.compare("spade") == 0)
+	{
+		portal->SetState(SPADE_ANIMATION);
+		portal->AddAdjacencyNode(9);
+		portal->AddAdjacencyNode(11);
+
+	}
+	if (sceneName.compare("castle") == 0)
+	{
+		portal->SetState(CASTLE_ANIMATION);
+		portal->AddAdjacencyNode(10);
+		portal->AddAdjacencyNode(12);
+
+	}
+	if (sceneName.compare("domed-gate") == 0)
+	{
+		portal->SetState(DOMED_ANIMATION);
+		portal->AddAdjacencyNode(1);
+		portal->AddAdjacencyNode(12);
+
+	}
+	if (sceneName.compare("mushroom-gate-1") == 0)
+	{
+		portal->SetState(MUSHROOM_ANIMATION);
+		portal->AddAdjacencyNode(6);
+		portal->AddAdjacencyNode(8);
+
+	}
+	if (sceneName.compare("mushroom-gate-2") == 0)
+	{
+		portal->SetState(MUSHROOM_ANIMATION);
+		portal->AddAdjacencyNode(18);
+	}
+	TiXmlElement* properties = object->FirstChildElement();
+	if (properties != NULL)
+	{
+		for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
+		{
+			std::string propName = property->Attribute("name");
+			if (propName.compare("cameraID") == 0)
+			{
+				property->QueryIntAttribute("value", &cameraID);
+				portal->SetCameraID(cameraID);
+			}
+			if (propName.compare("sceneID") == 0)
+			{
+				sceneID = property->Attribute("value");
+				portal->SetSceneID(sceneID);
+			}
+			if (propName.compare("nodeID") == 0)
+			{
+				int nodeID;
+				property->QueryIntAttribute("value", &nodeID);
+				portal->SetNodeID(nodeID);
+			}
+		}
+		if (portal != NULL)
+		{
+			gameMap->graph->AddNode(portal);
+			listGameObjects.push_back(portal);
+		}
+	}
+}
+
+void CTileMap::LoadNodeGate(D3DXVECTOR2 position, D3DXVECTOR2 size, CTileMap* gameMap, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
+{
+	CNodeMap* node = new CNodeMap(size);
+
+	node->SetPosition(position - translateConst + size * 0.5);
+	TiXmlElement* properties = object->FirstChildElement();
+	if (properties != NULL)
+	{
+		for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
+		{
+			std::string propName = property->Attribute("name");
+			if (propName.compare("nodeID") == 0)
+			{
+				int nodeID;
+				property->QueryIntAttribute("value", &nodeID);
+				node->SetNodeID(nodeID);
+				if (nodeID == 0)
+				{
+					node->AddAdjacencyNode(1);
+				}
+				if (nodeID == 1)
+				{
+					node->AddAdjacencyNode(0);
+					node->AddAdjacencyNode(2);
+				}
+				if (nodeID == 3)
+				{
+					node->AddAdjacencyNode(2);
+					node->AddAdjacencyNode(4);
+				}
+				if (nodeID == 6)
+				{
+					node->AddAdjacencyNode(5);
+					node->AddAdjacencyNode(7);
+				}
+				if (nodeID == 9)
+				{
+					node->AddAdjacencyNode(8);
+					node->AddAdjacencyNode(10);
+					node->AddAdjacencyNode(4);
+				}
+				if (nodeID == 12)
+				{
+					node->AddAdjacencyNode(11);
+					node->AddAdjacencyNode(13);
+					node->AddAdjacencyNode(14);
+				}
+				if (nodeID == 14)
+				{
+					node->AddAdjacencyNode(12);
+					node->AddAdjacencyNode(15);
+				}
+				if (nodeID == 16)
+				{
+					node->AddAdjacencyNode(15);
+					node->AddAdjacencyNode(17);
+				}
+				if (nodeID == 18)
+				{
+					node->AddAdjacencyNode(17);
+					node->AddAdjacencyNode(19);
+					node->AddAdjacencyNode(20);
+				}
+				if (nodeID == 20)
+				{
+					node->AddAdjacencyNode(18);
+					node->AddAdjacencyNode(21);
+				}
+				if (nodeID == 21)
+				{
+					node->AddAdjacencyNode(10);
+				}
+			}
+		}
+	}
+	if (node != NULL)
+	{
+		gameMap->graph->AddNode(node);
+		listGameObjects.push_back(node);
+	}
+}
+
+void CTileMap::LoadSwitchBlock(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects)
+{
+	CPSwitch* switchBlock = new CPSwitch();
+	switchBlock->SetPosition(position - translateQuestionBlockConst);
+	listGameObjects.push_back(switchBlock);
+}
+
+void CTileMap::LoadEmptyBlock(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects)
+{
+	CEmptyBlock* emptyBlock = new CEmptyBlock();
+	emptyBlock->SetPosition(position - translateQuestionBlockConst);
+	listGameObjects.push_back(emptyBlock);
+}
+
+void CTileMap::LoadCard(D3DXVECTOR2 position, CTileMap* gameMap, std::vector<LPGameObject>& listGameObjects)
+{
+	CCard* ca = new CCard();
+	ca->SetPosition(position - translateQuestionBlockConst);
+	listGameObjects.push_back(ca);
+	gameMap->card = ca;
 }
 
 void CTileMap::RenderLayer(Layer* layer, int i, int j, int x, int y)
