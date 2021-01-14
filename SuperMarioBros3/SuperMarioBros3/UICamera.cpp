@@ -5,7 +5,7 @@
 #include "UICameraConst.h"
 #include "WorldMap1.h"
 #include "SceneManager.h"
-
+#include "CCurtain.h"
 CUICamera::CUICamera()
 {
 }
@@ -21,12 +21,21 @@ CUICamera::CUICamera(int wid, int hei, D3DXVECTOR2 hudPos)
     goalTimer = 0;
     fontResultDisplayed = false;
     giftInFont = NULL;
+    curtain = new CCurtain();
+    isEnterIntro = false;
 }
 
 void CUICamera::Update()
 {
     if (CGame::GetTimeScale() == 0)
         return;
+    if (isEnterIntro == true)
+    {
+        curtain->Update();
+        hud->Enable(false);
+    }
+    else
+        hud->Enable(true);
     hud->Update();
     GoalRouletteProcess();
 }
@@ -54,7 +63,10 @@ void CUICamera::Render()
     }
     if (giftInFont != NULL)
         giftInFont->Render();
-
+    if (isEnterIntro == true)
+    {
+        curtain->Render();
+    }
 }
 
 CHUD* CUICamera::GetHUD()
@@ -140,6 +152,11 @@ void CUICamera::FontResult()
     giftInFont->SetPosition(D3DXVECTOR2(580, 220));
     fontResultDisplayed = true;
 
+}
+
+void CUICamera::SetEnterIntro(bool isEnterIntro)
+{
+    this->isEnterIntro = isEnterIntro;
 }
 
 void CUICamera::EmptyTexts()

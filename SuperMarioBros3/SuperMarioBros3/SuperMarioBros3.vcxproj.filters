@@ -316,6 +316,9 @@
     <Filter Include="Game\GameObject\Intro">
       <UniqueIdentifier>{d3c12c7d-0864-4e53-86cb-fb0a67656ba1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\UI\Curtain">
+      <UniqueIdentifier>{57f4944f-06e6-466e-b000-d18c13463e76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -744,6 +747,9 @@
     <ClInclude Include="ThreeAnimation.h">
       <Filter>Game\GameObject\Intro</Filter>
     </ClInclude>
+    <ClInclude Include="CCurtain.h">
+      <Filter>Game\GameObject\UI\Curtain</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -1051,6 +1057,9 @@
     </ClCompile>
     <ClCompile Include="ThreeAnimation.cpp">
       <Filter>Game\GameObject\Intro</Filter>
+    </ClCompile>
+    <ClCompile Include="CCurtain.cpp">
+      <Filter>Game\GameObject\UI\Curtain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

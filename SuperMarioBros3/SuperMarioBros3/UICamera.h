@@ -4,6 +4,7 @@
 #include "Font.h"
 #include "GoalEffects.h"
 #include "Menu.h"
+#include "CCurtain.h"
 class CHUD;
 class CCamera;
 class CUICamera :  public CCamera
@@ -17,7 +18,9 @@ class CUICamera :  public CCamera
     bool fontResultDisplayed;
     CSprite* cardResultInFont;
     CCardGift* giftInFont;
+    CCurtain* curtain;
     bool isGoalRoulette;
+    bool isEnterIntro;
 public:
     CUICamera();
     CUICamera(int wid, int hei, D3DXVECTOR2 hudPos);
@@ -36,6 +39,7 @@ public:
     void GoalRouletteProcess();
     void FontResult();
 
+    void SetEnterIntro(bool isEnterIntro);
     void EmptyTexts();
     ~CUICamera();
 };

@@ -7,5 +7,6 @@ class CIntro :
 public:
 	CIntro();
 	void Load();
+	void Unload() override;
 };
 

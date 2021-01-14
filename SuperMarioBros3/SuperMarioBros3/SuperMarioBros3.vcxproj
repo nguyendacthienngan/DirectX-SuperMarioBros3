@@ -159,6 +159,7 @@
     <ClInclude Include="CameraConst.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="CardGift.h" />
+    <ClInclude Include="CCurtain.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="CoinConst.h" />
     <ClInclude Include="CoinEffect.h" />
@@ -299,6 +300,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="CardGift.cpp" />
+    <ClCompile Include="CCurtain.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CoinEffect.cpp" />
     <ClCompile Include="CollisionBox.cpp" />

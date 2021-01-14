@@ -17,4 +17,11 @@ void CIntro::Load()
 	CScene::Load();
 	CSceneManager::GetInstance()->GetUICamera()->SetDisableBlackTexture(true);
 	gameObjects.push_back(new CMenu());
+	CSceneManager::GetInstance()->GetUICamera()->SetEnterIntro(true);
+}
+
+void CIntro::Unload()
+{
+	CSceneManager::GetInstance()->GetUICamera()->SetEnterIntro(false);
+	CScene::Unload();
 }
