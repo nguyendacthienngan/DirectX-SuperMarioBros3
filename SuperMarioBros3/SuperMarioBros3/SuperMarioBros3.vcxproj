@@ -180,6 +180,7 @@
     <ClInclude Include="Grass.h" />
     <ClInclude Include="HelpItem.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="Intro.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="MarioFireBall.h" />
     <ClInclude Include="FireMario.h" />
@@ -218,6 +219,7 @@
     <ClInclude Include="MarioMap.h" />
     <ClInclude Include="MarioMapConst.h" />
     <ClInclude Include="MarioStateSet.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Misc.h" />
     <ClInclude Include="MiscConst.h" />
     <ClInclude Include="MovingPlatform.h" />
@@ -270,6 +272,7 @@
     <ClInclude Include="TanGoomba.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="ThreeAnimation.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="tinystr.h" />
     <ClInclude Include="tinyxml.h" />
@@ -311,6 +314,7 @@
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="HelpItem.cpp" />
     <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="Intro.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="MarioFireBall.cpp" />
     <ClCompile Include="FireMario.cpp" />
@@ -336,6 +340,7 @@
     <ClCompile Include="MarioCollisionBox.cpp" />
     <ClCompile Include="MarioController.cpp" />
     <ClCompile Include="MarioMap.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Misc.cpp" />
     <ClCompile Include="MovingPlatform.cpp" />
     <ClCompile Include="MushroomEffect.cpp" />
@@ -373,6 +378,7 @@
     <ClCompile Include="SuperMario.cpp" />
     <ClCompile Include="TanGoomba.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="ThreeAnimation.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="tinystr.cpp" />
     <ClCompile Include="tinyxml.cpp" />
@@ -410,17 +416,20 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resources\Animations\EnemyAnim.xml" />
+    <Xml Include="Resources\Animations\IntroAnim.xml" />
     <Xml Include="Resources\Animations\MapSelectionAnim.xml" />
     <Xml Include="Resources\Animations\MarioAnim.xml" />
     <Xml Include="Resources\Animations\MiscAnim.xml" />
     <Xml Include="Resources\Animations\UiAnim.xml" />
     <Xml Include="Resources\config.xml" />
     <Xml Include="Resources\root.xml" />
+    <Xml Include="Resources\Scenes\Intro.xml" />
     <Xml Include="Resources\Scenes\UICamera.xml" />
     <Xml Include="Resources\Scenes\World1-1.xml" />
     <Xml Include="Resources\Scenes\World1-4.xml" />
     <Xml Include="Resources\Scenes\World1.xml" />
     <Xml Include="Resources\Sprites\EnemyDB.xml" />
+    <Xml Include="Resources\Sprites\IntroDB.xml" />
     <Xml Include="Resources\Sprites\MapSelectionDB.xml" />
     <Xml Include="Resources\Sprites\MarioDB.xml" />
     <Xml Include="Resources\Sprites\MiscDB.xml" />

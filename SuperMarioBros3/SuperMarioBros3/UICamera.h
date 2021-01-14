@@ -3,6 +3,7 @@
 #include "HUD.h"
 #include "Font.h"
 #include "GoalEffects.h"
+#include "Menu.h"
 class CHUD;
 class CCamera;
 class CUICamera :  public CCamera
@@ -12,11 +13,13 @@ class CUICamera :  public CCamera
     std::vector<CFont*> texts;
     bool disableBlackTexture;
     std::string goalState;
-    bool isGoalRoulette;
     DWORD goalTimer, waitingTimer;
     bool fontResultDisplayed;
     CSprite* cardResultInFont;
     CCardGift* giftInFont;
+    CMenu* menu;
+    bool isGoalRoulette;
+    bool isIntro;
 public:
     CUICamera();
     CUICamera(int wid, int hei, D3DXVECTOR2 hudPos);
@@ -35,6 +38,8 @@ public:
     void GoalRouletteProcess();
     void FontResult();
 
+    void IntroProcess();
+    void SetIntro(bool isIntro);
     void EmptyTexts();
     ~CUICamera();
 };

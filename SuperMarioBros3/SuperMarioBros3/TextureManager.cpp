@@ -30,6 +30,7 @@ void CTextureManager::Init()
 	LoadTexture(TEXTURE_UI, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_UI));
 	LoadTexture(TEXTURE_BLACK, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_BLACK));
 	LoadTexture(TEXTURE_WORLD_1, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_WORLD_1));
+	LoadTexture(TEXTURE_INTRO, root->GetFilePathByCategory(CATEGORY_TEXTURE, TEXTURE_INTRO));
 }
 
 void CTextureManager::Clear()

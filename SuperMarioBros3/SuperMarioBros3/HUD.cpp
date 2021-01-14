@@ -5,6 +5,7 @@
 using namespace std;
 CHUD::CHUD(D3DXVECTOR2 hudPos)
 {
+	isEnable = true;
 	this->pos = hudPos;
 	auto pMeterPos = hudPos;
 	pMeterPos.x -= 60;
@@ -54,6 +55,8 @@ void CHUD::LoadSprite()
 
 void CHUD::Update()
 {
+	if (isEnable == false)
+		return;
 	pMeter->Update();
 	card1->Update();
 	card2->Update();
@@ -73,6 +76,8 @@ void CHUD::Update()
 
 void CHUD::Render()
 {
+	if (isEnable == false)
+		return;
 	hudSprite->Draw(pos, D3DXVECTOR2(1.0f, 1.0f), 0.0f);
 	pMeter->Render();
 	card1->Render();
@@ -151,4 +156,9 @@ int CHUD::GetCoin()
 void CHUD::EndScene()
 {
 
+}
+
+void CHUD::Enable(bool isEnable)
+{
+	this->isEnable = isEnable;
 }

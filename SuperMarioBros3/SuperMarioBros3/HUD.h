@@ -15,6 +15,7 @@ private:
     CFont* scoreText; // Tổng các score đã thu hoạch được
     CFont* coinText; // cứ 100 score = 1 $
     int score, coin;
+    bool isEnable;
 public:
     CHUD(D3DXVECTOR2 hudPos);
     void LoadSprite();
@@ -39,5 +40,7 @@ public:
     int GetCoin();
 
     void EndScene();
+
+    void Enable(bool isEnable);
 };
 

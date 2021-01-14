@@ -12,6 +12,7 @@
 #include <string>
 #include "WorldMap1.h"
 #include "Scene4.h"
+#include "Intro.h"
 CGame* CGame::instance = NULL;
 DWORD CGame::deltaTime = 0;
 float CGame::timeScale = 1.0f;
@@ -39,14 +40,16 @@ void CGame::Init()
 	keyboardManager->SetHWND(hWnd);
 	keyboardManager->InitKeyboard(keyEventHandler);
 	
+	CIntro* intro = new CIntro();
+	CSceneManager::GetInstance()->Load(intro);
 	/*CScene4* scene4 = new CScene4();
 	CSceneManager::GetInstance()->Load(scene4);*/
 
 	/*CScene1* scene1 = new CScene1();
 	CSceneManager::GetInstance()->Load(scene1);*/
 
-	CWorldMap1* sceneWorld1 = new CWorldMap1();
-	CSceneManager::GetInstance()->Load(sceneWorld1);
+	//CWorldMap1* sceneWorld1 = new CWorldMap1();
+	//CSceneManager::GetInstance()->Load(sceneWorld1);
 	DebugOut(L"[INFO] Init Manager Sucessfully \n");
 
 }

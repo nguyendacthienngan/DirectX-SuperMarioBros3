@@ -56,7 +56,6 @@ void CFont::LoadSprite()
 
 void CFont::Render()
 {
-	// Test font
 	D3DXVECTOR2 previousPos = currentPosition;
 	vector<LPSprite> spriteStrings;
 	spriteStrings = StringToSprites(currentText);

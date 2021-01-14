@@ -13,6 +13,7 @@ CUICamera::CUICamera()
 CUICamera::CUICamera(int wid, int hei, D3DXVECTOR2 hudPos)
 {
 	hud = new CHUD(hudPos);
+    menu = new CMenu();
     this->widthCam = wid;
     this->heightCam = hei;
     disableBlackTexture = false;
@@ -20,6 +21,7 @@ CUICamera::CUICamera(int wid, int hei, D3DXVECTOR2 hudPos)
     waitingTimer = 0;
     goalTimer = 0;
     fontResultDisplayed = false;
+    isIntro = false;
     giftInFont = NULL;
 }
 
@@ -29,6 +31,7 @@ void CUICamera::Update()
         return;
     hud->Update();
     GoalRouletteProcess();
+    IntroProcess();
 }
 
 void CUICamera::Render()
@@ -54,6 +57,11 @@ void CUICamera::Render()
     }
     if (giftInFont != NULL)
         giftInFont->Render();
+
+    if (menu != NULL && isIntro == true)
+    {
+        menu->Render();
+    }
 }
 
 CHUD* CUICamera::GetHUD()
@@ -139,6 +147,19 @@ void CUICamera::FontResult()
     giftInFont->SetPosition(D3DXVECTOR2(580, 220));
     fontResultDisplayed = true;
 
+}
+
+void CUICamera::IntroProcess()
+{
+    if (isIntro == false || menu == NULL)
+        return;
+    hud->Enable(false);
+    menu->Update();
+}
+
+void CUICamera::SetIntro(bool isIntro)
+{
+    this->isIntro = isIntro;
 }
 
 void CUICamera::EmptyTexts()

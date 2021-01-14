@@ -44,6 +44,7 @@
 #include "EmptyBlock.h"
 #include "Card.h"
 #include "MovingPlatform.h"
+#include "ThreeAnimation.h"
 
 CTileMap::CTileMap()
 {
@@ -621,6 +622,12 @@ void CTileMap::LoadWorldItem(D3DXVECTOR2 position, std::string itemName, std::ve
 		CStartItem* startItem = new CStartItem();
 		startItem->SetPosition(position - translateGrassConst);
 		listGameObjects.push_back(startItem);
+	}
+	if (itemName.compare("three") == 0)
+	{
+		CThreeAnimation* three = new CThreeAnimation();
+		three->SetPosition(position - translateGrassConst);
+		listGameObjects.push_back(three);
 	}
 }
 

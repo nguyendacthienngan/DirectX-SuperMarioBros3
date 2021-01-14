@@ -307,6 +307,15 @@
     <Filter Include="Game\Resouces\Textures">
       <UniqueIdentifier>{0a02fdf4-83a3-492a-9df4-719e698be31f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Scene\Intro">
+      <UniqueIdentifier>{0d202065-492a-44c0-97a5-623c7dd23d7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\Menu">
+      <UniqueIdentifier>{b9e30745-3971-4a55-8790-688083f8e4c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Intro">
+      <UniqueIdentifier>{d3c12c7d-0864-4e53-86cb-fb0a67656ba1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -708,9 +717,6 @@
     <ClInclude Include="Pipe.h">
       <Filter>Game\GameObject\Pipe</Filter>
     </ClInclude>
-    <ClInclude Include="Scene4.h">
-      <Filter>Files\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="FireFlower.h">
       <Filter>Game\GameObject\Effect\Gift\FireFlower</Filter>
     </ClInclude>
@@ -725,6 +731,18 @@
     </ClInclude>
     <ClInclude Include="MovingPlatformConst.h">
       <Filter>Game\GameObject\Misc\Platform\Moving PlatForm</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene4.h">
+      <Filter>Game\Scene\World-1-4</Filter>
+    </ClInclude>
+    <ClInclude Include="Intro.h">
+      <Filter>Game\Scene\Intro</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Game\GameObject\UI\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreeAnimation.h">
+      <Filter>Game\GameObject\Intro</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1025,6 +1043,15 @@
     <ClCompile Include="MovingPlatform.cpp">
       <Filter>Game\GameObject\Misc\Platform\Moving PlatForm</Filter>
     </ClCompile>
+    <ClCompile Include="Intro.cpp">
+      <Filter>Game\Scene\Intro</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Game\GameObject\UI\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreeAnimation.cpp">
+      <Filter>Game\GameObject\Intro</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SuperMarioBros3.rc">
@@ -1135,6 +1162,15 @@
     </Xml>
     <Xml Include="Resources\Scenes\World1-4.xml">
       <Filter>Game\Resouces\Scenes</Filter>
+    </Xml>
+    <Xml Include="Resources\Scenes\Intro.xml">
+      <Filter>Game\Resouces\Scenes</Filter>
+    </Xml>
+    <Xml Include="Resources\Animations\IntroAnim.xml">
+      <Filter>Game\Resouces\Animations</Filter>
+    </Xml>
+    <Xml Include="Resources\Sprites\IntroDB.xml">
+      <Filter>Game\Resouces\Sprites</Filter>
     </Xml>
   </ItemGroup>
   <ItemGroup>

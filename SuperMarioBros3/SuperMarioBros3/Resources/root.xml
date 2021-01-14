@@ -11,6 +11,7 @@
     <Texture id="tex-ui" source="Resources/Textures/UI_x3.png"/>
     <Texture id="tex-black" source="Resources/Textures/black.png"/>
     <Texture id="tex-world-map-1" source="Resources/Textures/MapSelection(x3).png"/>
+    <Texture id="tex-intro" source="Resources/Textures/intro_x3.png"/>
   </Root>
   <Root name="Sprites">
     <Sprite id="spr-mario" source="Resources/Sprites/MarioDB.xml"/>
@@ -21,6 +22,7 @@
     <Sprite id="spr-reward" source="Resources/Sprites/MiscDB.xml"/>
     <Sprite id="spr-ui" source="Resources/Sprites/UiDB.xml"/>
     <Sprite id="spr-world-map-1" source="Resources/Sprites/MapSelectionDB.xml"/>
+    <Sprite id="spr-intro" source="Resources/Sprites/IntroDB.xml"/>
   </Root>
   <Root name="Animations">
     <Animation id="ani-mario" source="Resources/Animations/MarioAnim.xml"/>
@@ -31,12 +33,14 @@
     <Animation id="ani-effect" source="Resources/Animations/MiscAnim.xml"/>
     <Animation id="ani-ui" source="Resources/Animations/UiAnim.xml"/>
     <Animation id="ani-world-map-1" source="Resources/Animations/MapSelectionAnim.xml"/>
+    <Animation id="ani-intro" source="Resources/Animations/IntroAnim.xml"/>
   </Root>
   <Root name="Scenes">
     <Scene id="world-1-1" source="Resources/Scenes/World1-1.xml"/>
     <Scene id="world-1-4" source="Resources/Scenes/World1-4.xml"/>
     <Scene id="ui-camera" source="Resources/Scenes/UICamera.xml"/>
-    <Scene id="world-1" source="Resources/Scenes/World1.xml"/> 
+    <Scene id="world-1" source="Resources/Scenes/World1.xml"/>
+    <Scene id="intro" source="Resources/Scenes/Intro.xml"/> 
   </Root>
   <Root name="Config">
     <Config id="global-config" source="Resources/config.xml"/> 
