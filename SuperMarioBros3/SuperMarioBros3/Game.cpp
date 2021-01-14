@@ -39,14 +39,14 @@ void CGame::Init()
 	keyboardManager->SetHWND(hWnd);
 	keyboardManager->InitKeyboard(keyEventHandler);
 	
-	CScene4* scene4 = new CScene4();
-	CSceneManager::GetInstance()->Load(scene4);
+	/*CScene4* scene4 = new CScene4();
+	CSceneManager::GetInstance()->Load(scene4);*/
 
 	/*CScene1* scene1 = new CScene1();
 	CSceneManager::GetInstance()->Load(scene1);*/
 
-	/*CWorldMap1* sceneWorld1 = new CWorldMap1();
-	CSceneManager::GetInstance()->Load(sceneWorld1);*/
+	CWorldMap1* sceneWorld1 = new CWorldMap1();
+	CSceneManager::GetInstance()->Load(sceneWorld1);
 	DebugOut(L"[INFO] Init Manager Sucessfully \n");
 
 }

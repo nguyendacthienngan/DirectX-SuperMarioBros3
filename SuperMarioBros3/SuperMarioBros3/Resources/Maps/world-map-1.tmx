@@ -295,7 +295,7 @@
     <property name="left" type="int" value="1"/>
     <property name="nodeID" type="int" value="4"/>
     <property name="right" type="int" value="1"/>
-    <property name="sceneID" value="world-1-1"/>
+    <property name="sceneID" value="world-1-4"/>
     <property name="top" type="int" value="0"/>
    </properties>
   </object>

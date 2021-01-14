@@ -7,6 +7,7 @@
 #include "Scene1.h"
 #include "NodeMap.h"
 #include "SceneGate.h"
+#include "Scene4.h"
 CMarioMap::CMarioMap()
 {
 	tag = GameObjectTags::MarioMap;
@@ -197,6 +198,12 @@ bool CMarioMap::SwitchScene()
 	{
 		CScene1* scene1 = new CScene1();
 		CSceneManager::GetInstance()->SwitchScene(scene1);
+		return true;
+	}
+	if (sceneID.compare("world-1-4") == 0)
+	{
+		CScene4* scene4 = new CScene4();
+		CSceneManager::GetInstance()->SwitchScene(scene4);
 		return true;
 	}
 	return false;

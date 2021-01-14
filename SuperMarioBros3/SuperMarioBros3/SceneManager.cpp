@@ -99,7 +99,6 @@ void CSceneManager::LoadRequestScene()
 {
 	if (requestedLoadScene.size() > 0)
 	{
-		DebugOut(L"Hello \n");
 		auto scene = requestedLoadScene.at(0);
 		if (scene != NULL)
 		{
@@ -128,7 +127,6 @@ void CSceneManager::SwitchScene(LPScene scene)
 	if (activeScene == NULL)
 		return;
 	requestedUnloadScene.push_back(activeScene);
-	//Unload(activeSceneId);
 	requestedLoadScene.push_back(scene);
 }
 
