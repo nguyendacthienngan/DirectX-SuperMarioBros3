@@ -27,5 +27,7 @@ enum class GameObjectTags
 
 	MarioMap,
 
+	Menu,
+
 	MovingPlatform
 };

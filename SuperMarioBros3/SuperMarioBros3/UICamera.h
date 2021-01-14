@@ -17,9 +17,7 @@ class CUICamera :  public CCamera
     bool fontResultDisplayed;
     CSprite* cardResultInFont;
     CCardGift* giftInFont;
-    CMenu* menu;
     bool isGoalRoulette;
-    bool isIntro;
 public:
     CUICamera();
     CUICamera(int wid, int hei, D3DXVECTOR2 hudPos);
@@ -38,8 +36,6 @@ public:
     void GoalRouletteProcess();
     void FontResult();
 
-    void IntroProcess();
-    void SetIntro(bool isIntro);
     void EmptyTexts();
     ~CUICamera();
 };

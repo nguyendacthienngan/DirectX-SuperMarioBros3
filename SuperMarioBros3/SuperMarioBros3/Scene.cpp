@@ -267,7 +267,8 @@ void CScene::FindUpdateObjects()
 	for (auto obj : gameObjects)
 	{
 		if (camera != NULL
-			&& camera->CheckObjectInCamera(obj) == false)			continue;
+			&& camera->CheckObjectInCamera(obj) == false
+			&& obj->GetTag() == GameObjectTags::Menu)			continue;
 		updateObjects.push_back(obj);
 	}
 }

@@ -1,13 +1,20 @@
 #pragma once
 #include "Font.h"
-class CMenu
+#include "GameObject.h"
+class CMenu : public CGameObject
 {
 private:
 	CFont* selection1;
 	CFont* selection2;
+	CSprite* arrow;
+	bool isUp;
+	std::map<std::string, D3DXVECTOR2> direction;
+	D3DXVECTOR2 currentDirection;
 public:
 	CMenu();
-	void Update();
-	void Render();
+
+	void Render(CCamera* cam, int alpha = 255) override;
+	virtual void OnKeyDown(int KeyCode); 
+	virtual void OnKeyUp(int KeyCode);
 };
 
