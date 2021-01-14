@@ -33,9 +33,38 @@ public:
 	CTileMap(int width, int height, int tileWidth, int tileHeight);
 
 	TileSet* GetTileSetByTileID(int id);
-	void Render(CCamera* camera, bool isRenderForeground);
 	static CTileMap* LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects);
 	Layer* LoadLayer(TiXmlElement* layerElement);
+
+	void LoadSolidBox(D3DXVECTOR2 position, D3DXVECTOR2 size, std::string name, std::vector<LPGameObject>& listGameObjects);
+	void LoadGhostBox(D3DXVECTOR2 position, D3DXVECTOR2 size, std::string name, std::vector<LPGameObject>& listGameObjects);
+	
+	void LoadEnemy(D3DXVECTOR2 position, std::string enemyName, std::string enemyType, std::vector<LPGameObject>& listGameObjects);
+	void LoadKoopa(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects);
+	void LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects);
+	void LoadGoomba(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects);
+	void LoadParagoomba(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects);
+	void LoadPiranha(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects);
+	void LoadVenus(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects);
+
+	void LoadQuestionBlock(D3DXVECTOR2 position, int type, std::string name, std::vector<LPGameObject>& listGameObjects);
+	void LoadBrick(D3DXVECTOR2 position, int type, TiXmlElement* object, CTileMap* gameMap, std::vector<LPGameObject>& listGameObjects);
+	void LoadCoin(D3DXVECTOR2 position, int type, TiXmlElement* object, CTileMap* gameMap, std::vector<LPGameObject>& listGameObjects);
+
+	void LoadPortal(D3DXVECTOR2 position, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects);
+	void LoadLabel(D3DXVECTOR2 position, std::string labelName, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects);
+	
+	void LoadWorldItem(D3DXVECTOR2 position, std::string itemName, std::vector<LPGameObject>& listGameObjects);
+	void LoadPortalScene(D3DXVECTOR2 position, D3DXVECTOR2 size, CTileMap* gameMap, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects);
+	void LoadSceneGate(D3DXVECTOR2 position, D3DXVECTOR2 size, CTileMap* gameMap, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects);
+	void LoadNodeGate(D3DXVECTOR2 position, D3DXVECTOR2 size, CTileMap* gameMap, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects);
+	
+	void LoadSwitchBlock(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects);
+	void LoadEmptyBlock(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects);
+	void LoadCard(D3DXVECTOR2 position, CTileMap* gameMap, std::vector<LPGameObject>& listGameObjects);
+	void LoadMovingPlatform(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects);
+
+	void Render(CCamera* camera, bool isRenderForeground);
 	void RenderLayer(Layer* layer, int i, int j, int x, int y);
 	CGraph* GetGraph();
 
