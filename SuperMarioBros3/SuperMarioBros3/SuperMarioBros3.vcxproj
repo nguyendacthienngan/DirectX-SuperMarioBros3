@@ -428,6 +428,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Maps\world-1-1-map.tmx" />
+    <None Include="Resources\Maps\world-1-4-map.tmx" />
     <None Include="Resources\Maps\world-map-1.tmx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

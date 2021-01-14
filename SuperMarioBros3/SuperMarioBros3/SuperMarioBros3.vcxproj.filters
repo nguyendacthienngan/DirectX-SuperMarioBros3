@@ -1144,5 +1144,8 @@
     <None Include="Resources\Maps\world-map-1.tmx">
       <Filter>Game\Resouces\Maps</Filter>
     </None>
+    <None Include="Resources\Maps\world-1-4-map.tmx">
+      <Filter>Game\Resouces\Maps</Filter>
+    </None>
   </ItemGroup>
 </Project>

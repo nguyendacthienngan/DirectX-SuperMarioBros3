@@ -7,6 +7,7 @@
 #include "ParaKoopa.h"
 #include "RedParaGoomba.h"
 #include "PSwitch.h"
+#include "MovingPlatform.h"
 
 void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>& collisionEvents, LPPhysicsBody phyBody, D3DXVECTOR2 vel, int mintx, int minty, float nx, float ny)
 {
@@ -136,6 +137,17 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 				auto switchBlock = static_cast<CPSwitch*>(collisionBox->GetGameObjectAttach());
 				if (switchBlock->GetChangeState() == 0)
 					switchBlock->Active();
+			}
+		}
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::MovingPlatform)
+		{
+			if (collisionEvent->ny < 0)
+			{
+				auto movingPlatform = static_cast<CMovingPlatform*>(collisionBox->GetGameObjectAttach());
+				movingPlatform->SetFall(true);
+				auto vel = mario->GetPhysiscBody()->GetVelocity();
+				vel.y = movingPlatform->GetFallForce();
+				mario->GetPhysiscBody()->SetVelocity(vel);
 			}
 		}
 	}

@@ -25,5 +25,7 @@ enum class GameObjectTags
 	SwitchBlock,
 	Card,
 
-	MarioMap
+	MarioMap,
+
+	MovingPlatform
 };
