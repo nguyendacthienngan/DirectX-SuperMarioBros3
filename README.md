@@ -11,7 +11,9 @@
 - C++
 
 ## 3. Các scene
-- World 1-1 
+- World map 1
+- World map 1-1
+- World map 1-4
 
 ## 4. Tool sử dụng
 - Tile Map Editor: Hỗ trợ việc tạo tileset và tạo map
