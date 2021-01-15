@@ -7,6 +7,6 @@
   <Scene name="Camera" start="0" main="0" width="720" height="671">
     <!--Camera-->
     <Boundary id="0" pos_x="46" pos_y="692" left="46" top="0" right="6075" bottom="1388" disX ="0" disY="0"/>
-    <Boundary id="1" pos_x="6100" pos_y="1366" left="6150" top="0" right="7728" bottom="1388" disX ="0" disY="1"/>
+    <Boundary id="1" pos_x="6100" pos_y="1366" left="6200" top="0" right="7628" bottom="1388" disX ="0" disY="1"/>
   </Scene>
 </Scene>
