@@ -28,6 +28,7 @@ protected:
 	int isSkid;
 	bool canCrouch;
 	D3DXVECTOR2 previousNormal;
+	D3DXVECTOR2 previousPosition;
 	bool canAttack, isAttack, canAttackContinious;
 	bool isJumpAttack;
 	int feverState; // - 1, 0, 1, 2 : -1 là disable đối với Raccoon vì Raccoon bay kiểu khác
@@ -56,6 +57,8 @@ protected:
 	CUICamera* uiCamera;
 	bool isHitGoalRoulette;
 	CGameObject* label;
+	bool isDie;
+	int dieState = 0;
 public:
 	CMario();
 
@@ -122,6 +125,7 @@ public:
 	void HitGoalRoulette();
 	void WarpPipeProcess(CCamera* cam);
 	void GoalRouletteProcess(CCamera* cam);
+	void DieProcess(CCamera* cam);
 
 	void StopBounce(bool stopBounce);
 	bool StopBounce();
@@ -132,6 +136,8 @@ public:
 
 	void OnDamaged();
 	void OnGoToWarpPipe();
+	void OnDie();
+
 	void HoldObject(CHoldable* holdableObj);
 	void SetMarioStateTag(MarioStates tag);
 	MarioStates GettMarioStateTag();

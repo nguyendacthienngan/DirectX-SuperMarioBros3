@@ -2,6 +2,10 @@
 
 const float MARIO_GRAVITY = 0.0026f;
 
+const float DIE_VELOCITY_Y = 0.3f;
+const float DIE_JUMP = 100;
+const float DIE_FALL = 200;
+
 const float  MARIO_VENT_SPEED = 0.02f;
 
 const float  MARIO_WALKING_SPEED = 0.24f;
@@ -60,6 +64,7 @@ const float  MARIO_BOUNCE_FORCE = 0.3f *2;
 #define MARIO_STATE_KICK				"KICK"
 #define MARIO_STATE_DAMAGED				"DAMAGED"
 #define MARIO_STATE_IDLE_FRONT			"IDLE-FRONT"
+#define MARIO_STATE_DIE					"DIE"
 
 #define SPACE_MARIO_MOVING_IN_CAMERA	30
 

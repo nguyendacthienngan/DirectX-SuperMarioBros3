@@ -232,11 +232,13 @@ void CMario::InitProperties()
 	isPowerUp = false;
 	isAutogo = false;
 	isHitGoalRoulette = false;
+	isDie = false;
 	label = NULL;
 	powerupItem = PowerupTag::None;
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 	ventDirection = { 0, 0, 0, 0 };
 	uiCamera = NULL;
+	previousPosition = D3DXVECTOR2(0.0f, 0.0f);
 }
 
 void CMario::LoadAnimation()
@@ -506,6 +508,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	{
 		WarpPipeProcess(cam);
 		GoalRouletteProcess(cam);
+		DieProcess(cam);
 	}	
 }
 
@@ -646,7 +649,8 @@ void CMario::Render(CCamera* cam, int alpha)
 	{
 		SetState(MARIO_STATE_IDLE_FRONT);
 	}
-
+	if (isDie)
+		SetState(MARIO_STATE_DIE);
 #pragma endregion
 	//if (currentState != "IDLE")
 		//OutputDebugString(ToLPCWSTR("Current State " + currentState + "\n"));
@@ -1032,7 +1036,7 @@ void CMario::WarpPipeProcess(CCamera* cam)
 		if (ventDirection.top == 1)
 			transform.position.y -= MARIO_VENT_SPEED * CGame::GetInstance()->GetDeltaTime();
 	}
-	else if (isHitGoalRoulette == false)
+	else if (isHitGoalRoulette == false && isDie == false)
 	{
 		isAutogo = false;
 		auto camPos = cam->GetPositionCam();
@@ -1058,10 +1062,42 @@ void CMario::GoalRouletteProcess(CCamera* cam)
 			physiscBody->SetVelocity(D3DXVECTOR2(MARIO_WALKING_SPEED, 0.0f));
 			cam->SetDisablePosX(true);
 		}
-		if (transform.position.x > cam->GetCurrentBoundary().right)
+	}
+}
+
+void CMario::DieProcess(CCamera* cam)
+{
+
+	if (isDie == true)
+	{
+		switch (dieState)
 		{
-			auto sceneManager = CSceneManager::GetInstance();
-			auto activeScene = sceneManager->GetActiveScene();
+			case 0: 
+			{
+				this->physiscBody->SetGravity(0.0f);
+				this->physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
+				SetPosition(previousPosition);
+				dieState = 1;
+				break;
+			}
+			case 1:
+			{
+				transform.position.y -= DIE_VELOCITY_Y * CGame::GetInstance()->GetDeltaTime();
+				if (transform.position.y < previousPosition.y - DIE_JUMP)
+					dieState = 2;
+				break;
+			}
+			case 2:
+			{
+				transform.position.y += DIE_VELOCITY_Y * CGame::GetInstance()->GetDeltaTime();
+				if (transform.position.y >= cam->GetCurrentBoundary().bottom - DIE_FALL)
+				{
+					auto sceneManager = CSceneManager::GetInstance();
+					sceneManager->SwitchScene(new CWorldMap1());
+					isAutogo = false;
+				}
+				break;
+			}
 		}
 	}
 }
@@ -1122,13 +1158,26 @@ void CMario::OnKeyUp(int KeyCode)
 
 void CMario::OnDamaged()
 {
-	isDamaged = true;
-	timeStartDamaged = GetTickCount64();
+	if (marioStateTag == MarioStates::SmallMario)
+		OnDie();
+	else
+	{
+		isDamaged = true;
+		timeStartDamaged = GetTickCount64();
+	}
 }
 
 void CMario::OnGoToWarpPipe()
 {
 	canGoToWarpPipe = true;
+}
+
+void CMario::OnDie()
+{
+	previousPosition = GetPosition();
+	this->isDie = true;
+	isAutogo = true;
+	CGame::GetInstance()->SetTimeScale(0.0f);
 }
 
 void CMario::HoldObject(CHoldable* holdableObj)
