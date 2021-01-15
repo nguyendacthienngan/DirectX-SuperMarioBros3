@@ -216,6 +216,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				D3DXVECTOR2 size = D3DXVECTOR2(width, height);
 				string nameObject = std::to_string(id);
 
+
 				if (name.compare("Solid") == 0)
 				{
 					gameMap->LoadSolidBox(position, size, nameObject, listGameObjects);

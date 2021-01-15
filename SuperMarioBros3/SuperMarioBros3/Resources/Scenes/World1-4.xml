@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Scene>
-  <Scene name="Player" pos_x="145" pos_y="993"/>  <!--Orginal: Y: 1056-->
+  <Scene name="Player" pos_x="0" pos_y="512"/>  <!--Orginal: Y: 552-->
   <Scene name="Map" source="Resources/Maps/" fileName = "world-1-4-map.tmx">
     <BackgroundColor R="156" G="252" B="240"/>
   </Scene>
   <Scene name="Camera" start="0" main="0" width="720" height="671">
     <!--Camera-->
-    <Boundary id="0" pos_x="46" pos_y="692" left="46" top="0" right="6075" bottom="1388" disX ="0" disY="0"/>
-    <Boundary id="1" pos_x="6100" pos_y="1366" left="6200" top="0" right="7628" bottom="1388" disX ="0" disY="1"/>
+    <Boundary id="0" pos_x="0" pos_y="1366" left="46" top="0" right="6075" bottom="925" disX ="0" disY="1"/>
+    <Boundary id="1" pos_x="6100" pos_y="1366" left="6200" top="0" right="7628" bottom="925" disX ="0" disY="1"/>
   </Scene>
 </Scene>
