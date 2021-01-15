@@ -15,7 +15,9 @@
 #include "RedKoopa.h"
 #include "RedKoopaShell.h"
 #include "GreenKoopaShell.h"
-#include "ParaKoopa.h"
+
+#include "GreenParaKoopa.h"
+#include "RedParaKoopa.h"
 
 #include "Goomba.h"
 #include "RedParaGoomba.h"
@@ -416,28 +418,58 @@ void CTileMap::LoadKoopa(D3DXVECTOR2 position, std::string enemyType, std::vecto
 
 void CTileMap::LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
 {
-	CGreenKoopaShell* koopaShell = new CGreenKoopaShell();
-	koopaShell->SetEnemyType(enemyType);
-	koopaShell->SetPosition(position - translateKoopaShellConst);
-	koopaShell->SetStartPosition(position - translateKoopaShellConst);
-	koopaShell->Enable(false);
 
-	CGreenKoopa* koopa = new CGreenKoopa();
-	koopa->SetEnemyType(enemyType);
-	koopa->SetPosition(position - translateKoopaConst);
-	koopa->SetStartPosition(position - translateKoopaConst);
-	koopa->SetKoopaShell(koopaShell);
-	koopaShell->SetKoopa(koopa);
-	koopa->Enable(false);
-	listGameObjects.push_back(koopaShell);
-	listGameObjects.push_back(koopa);
+	if (enemyType.compare("red") == 0)
+	{
+		CRedKoopaShell* koopaShell = new CRedKoopaShell();
+		koopaShell->SetEnemyType(enemyType);
+		koopaShell->SetPosition(position - translateKoopaShellConst);
+		koopaShell->SetStartPosition(position - translateKoopaShellConst);
+		koopaShell->Enable(false);
 
-	CParaKoopa* parakoopa = new CParaKoopa();
-	parakoopa->SetPosition(position - translateKoopaConst);
-	parakoopa->SetStartPosition(position - translateKoopaConst);
-	parakoopa->SetKoopa(koopa);
+		CRedKoopa* koopa = new CRedKoopa();
+		koopa->SetEnemyType(enemyType);
+		koopa->SetPosition(position - translateKoopaConst);
+		koopa->SetStartPosition(position - translateKoopaConst);
+		koopa->SetKoopaShell(koopaShell);
+		koopaShell->SetKoopa(koopa);
+		koopa->Enable(false);
+		listGameObjects.push_back(koopaShell);
+		listGameObjects.push_back(koopa);
 
-	listGameObjects.push_back(parakoopa);
+		CRedParaKoopa* parakoopa = new CRedParaKoopa();
+		parakoopa->SetPosition(position - translateKoopaConst);
+		parakoopa->SetStartPosition(position - translateKoopaConst);
+		parakoopa->SetKoopa(koopa);
+
+		listGameObjects.push_back(parakoopa);
+	}
+	else
+	{
+		CGreenKoopaShell* koopaShell = new CGreenKoopaShell();
+		koopaShell->SetEnemyType(enemyType);
+		koopaShell->SetPosition(position - translateKoopaShellConst);
+		koopaShell->SetStartPosition(position - translateKoopaShellConst);
+		koopaShell->Enable(false);
+
+		CGreenKoopa* koopa = new CGreenKoopa();
+		koopa->SetEnemyType(enemyType);
+		koopa->SetPosition(position - translateKoopaConst);
+		koopa->SetStartPosition(position - translateKoopaConst);
+		koopa->SetKoopaShell(koopaShell);
+		koopaShell->SetKoopa(koopa);
+		koopa->Enable(false);
+		listGameObjects.push_back(koopaShell);
+		listGameObjects.push_back(koopa);
+
+		CGreenParaKoopa* parakoopa = new CGreenParaKoopa();
+		parakoopa->SetPosition(position - translateKoopaConst);
+		parakoopa->SetStartPosition(position - translateKoopaConst);
+		parakoopa->SetKoopa(koopa);
+
+		listGameObjects.push_back(parakoopa);
+	}
+	
 }
 
 void CTileMap::LoadGoomba(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)

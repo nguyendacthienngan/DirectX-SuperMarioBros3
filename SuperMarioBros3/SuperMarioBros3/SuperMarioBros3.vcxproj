@@ -179,6 +179,7 @@
     <ClInclude Include="GoalFXConst.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="Grass.h" />
+    <ClInclude Include="GreenParaKoopa.h" />
     <ClInclude Include="HelpItem.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Intro.h" />
@@ -254,6 +255,7 @@
     <ClInclude Include="RedKoopa.h" />
     <ClInclude Include="RedKoopaShell.h" />
     <ClInclude Include="RedParaGoomba.h" />
+    <ClInclude Include="RedParaKoopa.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />
@@ -314,6 +316,7 @@
     <ClCompile Include="GoalEffects.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="GreenParaKoopa.cpp" />
     <ClCompile Include="HelpItem.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Intro.cpp" />
@@ -365,6 +368,7 @@
     <ClCompile Include="RedKoopa.cpp" />
     <ClCompile Include="RedKoopaShell.cpp" />
     <ClCompile Include="RedParaGoomba.cpp" />
+    <ClCompile Include="RedParaKoopa.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="Scene4.cpp" />

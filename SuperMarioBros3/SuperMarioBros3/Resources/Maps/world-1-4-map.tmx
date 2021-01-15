@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="161" height="29" tilewidth="48" tileheight="48" infinite="0" nextlayerid="15" nextobjectid="169">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="161" height="29" tilewidth="48" tileheight="48" infinite="0" nextlayerid="16" nextobjectid="170">
  <tileset firstgid="1" name="world-1-4" tilewidth="48" tileheight="48" tilecount="870" columns="29">
   <image source="world-1-1.png" width="1392" height="1440"/>
  </tileset>
@@ -235,7 +235,7 @@
 </data>
  </layer>
  <objectgroup id="8" name="Solid">
-  <object id="12" x="5" y="1058" width="466" height="106.333"/>
+  <object id="12" x="5" y="1058" width="667" height="106.333"/>
   <object id="14" x="5761.33" y="1199" width="380.667" height="110.333"/>
   <object id="15" x="5903.5" y="1104" width="144" height="102.5"/>
   <object id="17" x="6092" y="718.667" width="68" height="502.667"/>
@@ -591,5 +591,8 @@
   <object id="168" x="5448" y="1272">
    <point/>
   </object>
+ </objectgroup>
+ <objectgroup id="15" name="Enemy">
+  <object id="169" name="para-koopa" type="red" x="348" y="984"/>
  </objectgroup>
 </map>

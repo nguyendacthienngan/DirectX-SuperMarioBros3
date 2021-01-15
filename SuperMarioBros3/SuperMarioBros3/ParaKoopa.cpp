@@ -1,5 +1,4 @@
 ﻿#include "ParaKoopa.h"
-#include "AnimationManager.h"
 #include "ParaKoopaConst.h"
 #include "MiscConst.h"
 
@@ -11,7 +10,6 @@ CParaKoopa::CParaKoopa()
 
 void CParaKoopa::Init()
 {
-	SetState(PARAKOOPA_STATE_FLY);
 	isEnabled = true;
 	enemyTag = EnemyTag::ParaKoopa;
 
@@ -25,15 +23,6 @@ void CParaKoopa::Init()
 
 	physiscBody->SetDynamic(true);
 	physiscBody->SetGravity(KOOPA_GRAVITY);
-	physiscBody->SetVelocity(D3DXVECTOR2(KOOPA_SPEED, 0.0f));
-
-	isJump = false;
-}
-
-void CParaKoopa::LoadAnimation()
-{
-	auto animationManager = CAnimationManager::GetInstance();
-	AddAnimation(PARAKOOPA_STATE_FLY, animationManager->Clone("ani-green-koopa-paratroopa-fly"));
 }
 
 void CParaKoopa::Render(CCamera* cam, int alpha)
@@ -41,48 +30,6 @@ void CParaKoopa::Render(CCamera* cam, int alpha)
 	auto normal = physiscBody->GetNormal();
 	SetScale(D3DXVECTOR2(-normal.x, normal.y));
 	CGameObject::Render(cam, alpha);
-}
-
-void CParaKoopa::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
-{
-	auto velocity = physiscBody->GetVelocity();
-	auto normal = physiscBody->GetNormal();
-	velocity.x = normal.x * KOOPA_SPEED;
-	
-	if (isJump == false && IsOnGround() == true)
-	{
-		if (abs(jumpStartPosition) - abs(transform.position.y) <= PARA_KOOPA_HEIGHT)
-		{
-			jumpStartPosition = transform.position.y;
-			velocity.y = -PARA_KOOPA_FORCE_Y;
-			isJump = true;
-		}
-	}
-
-	if (isJump == true)
-	{
-		isOnGround = false;
-
-		if (abs(jumpStartPosition) - abs(transform.position.y) > PARA_KOOPA_HEIGHT)
-		{
-			velocity.y = PARA_KOOPA_FORCE_Y / 2;
-		}
-		if (velocity.y > 0)
-		{
-			isJump = false;
-		}
-	}
-	physiscBody->SetVelocity(velocity);
-}
-
-void CParaKoopa::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
-{
-	CEnemy::OnCollisionEnter(selfCollisionBox, collisionEvents);
-}
-
-void CParaKoopa::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
-{
-	CEnemy::OnOverlappedEnter(selfCollisionBox, otherCollisionBox);
 }
 
 void CParaKoopa::ChangeToKoopa()
@@ -98,12 +45,12 @@ void CParaKoopa::ChangeToKoopa()
 	}
 }
 
-CGreenKoopa* CParaKoopa::GetKoopa()
+CKoopa* CParaKoopa::GetKoopa()
 {
 	return koopa;
 }
 
-void CParaKoopa::SetKoopa(CGreenKoopa* koopa)
+void CParaKoopa::SetKoopa(CKoopa* koopa)
 {
 	this->koopa = koopa;
 }
