@@ -160,6 +160,8 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 				auto brick = static_cast<CBrick*>(collisionBox->GetGameObjectAttach());
 				if (mario->GettMarioStateTag() != MarioStates::SmallMario && brick->IsEnabled() == true)
 					brick->Debris();
+				else
+					brick->Bounce();
 			}
 		}
 	}
