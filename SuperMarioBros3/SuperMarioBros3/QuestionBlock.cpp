@@ -187,3 +187,11 @@ bool CQuestionBlock::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags 
 {
 	return false;
 }
+
+void CQuestionBlock::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
+{
+	if (otherCollisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::RaccoonTail)
+	{
+		Bounce();
+	}
+}

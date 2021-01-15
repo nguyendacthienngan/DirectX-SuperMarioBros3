@@ -19,5 +19,6 @@ public:
 	virtual void Update(DWORD dt, CCamera* cam, CCamera* uiCam) override;
 	virtual void Render(CCamera* cam, int alpha = 255);
 	bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag) override;
+	void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox) override;
 };
 
