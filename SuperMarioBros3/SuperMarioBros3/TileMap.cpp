@@ -15,7 +15,9 @@
 #include "RedKoopa.h"
 #include "RedKoopaShell.h"
 #include "GreenKoopaShell.h"
-#include "ParaKoopa.h"
+
+#include "GreenParaKoopa.h"
+#include "RedParaKoopa.h"
 
 #include "Goomba.h"
 #include "RedParaGoomba.h"
@@ -230,7 +232,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				{
 					std::string enemyName = object->Attribute("name");
 					std::string enemyType = object->Attribute("type");
-					gameMap->LoadEnemy(position, enemyName, enemyType, listGameObjects);
+					gameMap->LoadEnemy(position, enemyName, enemyType, object, listGameObjects);
 				}
 				else if (name.compare("QuestionBlocks") == 0)
 				{
@@ -354,7 +356,7 @@ void CTileMap::LoadGhostBox(D3DXVECTOR2 position, D3DXVECTOR2 size, std::string 
 	listGameObjects.push_back(ghostPlatform);
 }
 
-void CTileMap::LoadEnemy(D3DXVECTOR2 position, std::string enemyName, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
+void CTileMap::LoadEnemy(D3DXVECTOR2 position, std::string enemyName, std::string enemyType, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
 {
 	CGameObject* enemy = NULL;
 	if (enemyName.compare("koopa") == 0)
@@ -371,7 +373,7 @@ void CTileMap::LoadEnemy(D3DXVECTOR2 position, std::string enemyName, std::strin
 	}
 	else if (enemyName.compare("para-koopa") == 0)
 	{
-		LoadParakoopa(position, enemyType, listGameObjects);
+		LoadParakoopa(position, enemyType, object, listGameObjects);
 	}
 	else if (enemyName.compare("piranha") == 0)
 	{
@@ -414,30 +416,78 @@ void CTileMap::LoadKoopa(D3DXVECTOR2 position, std::string enemyType, std::vecto
 	}
 }
 
-void CTileMap::LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
+void CTileMap::LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
 {
-	CGreenKoopaShell* koopaShell = new CGreenKoopaShell();
-	koopaShell->SetEnemyType(enemyType);
-	koopaShell->SetPosition(position - translateKoopaShellConst);
-	koopaShell->SetStartPosition(position - translateKoopaShellConst);
-	koopaShell->Enable(false);
 
-	CGreenKoopa* koopa = new CGreenKoopa();
-	koopa->SetEnemyType(enemyType);
-	koopa->SetPosition(position - translateKoopaConst);
-	koopa->SetStartPosition(position - translateKoopaConst);
-	koopa->SetKoopaShell(koopaShell);
-	koopaShell->SetKoopa(koopa);
-	koopa->Enable(false);
-	listGameObjects.push_back(koopaShell);
-	listGameObjects.push_back(koopa);
+	if (enemyType.compare("red") == 0)
+	{
+		int boundaryTop = 0, boundaryBottom = 0;
+		TiXmlElement* properties = object->FirstChildElement();
+		for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
+		{
+			std::string propName = property->Attribute("name");
+			if (propName.compare("top") == 0)
+			{
+				property->QueryIntAttribute("value", &boundaryTop);
+			}
+			if (propName.compare("bottom") == 0)
+			{
+				property->QueryIntAttribute("value", &boundaryBottom);
+			}
+		}
+		if (boundaryTop == 0 || boundaryBottom == 0) return;
 
-	CParaKoopa* parakoopa = new CParaKoopa();
-	parakoopa->SetPosition(position - translateKoopaConst);
-	parakoopa->SetStartPosition(position - translateKoopaConst);
-	parakoopa->SetKoopa(koopa);
+		CRedKoopaShell* koopaShell = new CRedKoopaShell();
+		koopaShell->SetEnemyType(enemyType);
+		koopaShell->SetPosition(position - translateKoopaShellConst);
+		koopaShell->SetStartPosition(position - translateKoopaShellConst);
+		koopaShell->Enable(false);
 
-	listGameObjects.push_back(parakoopa);
+		CRedKoopa* koopa = new CRedKoopa();
+		koopa->SetEnemyType(enemyType);
+		koopa->SetPosition(position - translateKoopaConst);
+		koopa->SetStartPosition(position - translateKoopaConst);
+		koopa->SetKoopaShell(koopaShell);
+		koopaShell->SetKoopa(koopa);
+		koopa->Enable(false);
+		listGameObjects.push_back(koopaShell);
+		listGameObjects.push_back(koopa);
+
+		CRedParaKoopa* parakoopa = new CRedParaKoopa();
+		auto pos = position - translateKoopaConst;
+		parakoopa->SetPosition(pos);
+		parakoopa->SetStartPosition(pos);
+		parakoopa->SetKoopa(koopa);
+		parakoopa->SetBoundary(pos.y - boundaryTop, pos.y + boundaryBottom);
+
+		listGameObjects.push_back(parakoopa);
+	}
+	else
+	{
+		CGreenKoopaShell* koopaShell = new CGreenKoopaShell();
+		koopaShell->SetEnemyType(enemyType);
+		koopaShell->SetPosition(position - translateKoopaShellConst);
+		koopaShell->SetStartPosition(position - translateKoopaShellConst);
+		koopaShell->Enable(false);
+
+		CGreenKoopa* koopa = new CGreenKoopa();
+		koopa->SetEnemyType(enemyType);
+		koopa->SetPosition(position - translateKoopaConst);
+		koopa->SetStartPosition(position - translateKoopaConst);
+		koopa->SetKoopaShell(koopaShell);
+		koopaShell->SetKoopa(koopa);
+		koopa->Enable(false);
+		listGameObjects.push_back(koopaShell);
+		listGameObjects.push_back(koopa);
+
+		CGreenParaKoopa* parakoopa = new CGreenParaKoopa();
+		parakoopa->SetPosition(position - translateKoopaConst);
+		parakoopa->SetStartPosition(position - translateKoopaConst);
+		parakoopa->SetKoopa(koopa);
+
+		listGameObjects.push_back(parakoopa);
+	}
+	
 }
 
 void CTileMap::LoadGoomba(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)

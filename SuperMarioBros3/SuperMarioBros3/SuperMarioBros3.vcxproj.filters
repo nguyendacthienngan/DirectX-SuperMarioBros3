@@ -319,6 +319,12 @@
     <Filter Include="Game\GameObject\UI\Curtain">
       <UniqueIdentifier>{57f4944f-06e6-466e-b000-d18c13463e76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Enemy\ParaKoopa\RedParaKoopa">
+      <UniqueIdentifier>{ffac8340-1949-4c13-ad0a-b07a6dbb4f6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Enemy\ParaKoopa\GreenParaKoopa">
+      <UniqueIdentifier>{3c465cc5-79e2-47e4-97f4-a37abcd4269a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -750,6 +756,12 @@
     <ClInclude Include="CCurtain.h">
       <Filter>Game\GameObject\UI\Curtain</Filter>
     </ClInclude>
+    <ClInclude Include="GreenParaKoopa.h">
+      <Filter>Game\GameObject\Enemy\ParaKoopa\GreenParaKoopa</Filter>
+    </ClInclude>
+    <ClInclude Include="RedParaKoopa.h">
+      <Filter>Game\GameObject\Enemy\ParaKoopa\RedParaKoopa</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -1061,6 +1073,12 @@
     <ClCompile Include="CCurtain.cpp">
       <Filter>Game\GameObject\UI\Curtain</Filter>
     </ClCompile>
+    <ClCompile Include="GreenParaKoopa.cpp">
+      <Filter>Game\GameObject\Enemy\ParaKoopa\GreenParaKoopa</Filter>
+    </ClCompile>
+    <ClCompile Include="RedParaKoopa.cpp">
+      <Filter>Game\GameObject\Enemy\ParaKoopa\RedParaKoopa</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SuperMarioBros3.rc">
@@ -1190,6 +1208,9 @@
       <Filter>Game\Resouces\Maps</Filter>
     </None>
     <None Include="Resources\Maps\world-1-4-map.tmx">
+      <Filter>Game\Resouces\Maps</Filter>
+    </None>
+    <None Include="Resources\Maps\intro-map.tmx">
       <Filter>Game\Resouces\Maps</Filter>
     </None>
   </ItemGroup>

@@ -39,9 +39,9 @@ public:
 	void LoadSolidBox(D3DXVECTOR2 position, D3DXVECTOR2 size, std::string name, std::vector<LPGameObject>& listGameObjects);
 	void LoadGhostBox(D3DXVECTOR2 position, D3DXVECTOR2 size, std::string name, std::vector<LPGameObject>& listGameObjects);
 	
-	void LoadEnemy(D3DXVECTOR2 position, std::string enemyName, std::string enemyType, std::vector<LPGameObject>& listGameObjects);
+	void LoadEnemy(D3DXVECTOR2 position, std::string enemyName, std::string enemyType, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects);
 	void LoadKoopa(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects);
-	void LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects);
+	void LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects);
 	void LoadGoomba(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects);
 	void LoadParagoomba(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects);
 	void LoadPiranha(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects);
