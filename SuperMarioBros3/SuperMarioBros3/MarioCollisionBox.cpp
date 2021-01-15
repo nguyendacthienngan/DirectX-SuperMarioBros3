@@ -8,10 +8,12 @@
 #include "RedParaGoomba.h"
 #include "PSwitch.h"
 #include "MovingPlatform.h"
+#include "Brick.h"
 
 void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>& collisionEvents, LPPhysicsBody phyBody, D3DXVECTOR2 vel, int mintx, int minty, float nx, float ny)
 {
 	CCollisionBox::CollisionHandle(dt, collisionEvents, phyBody, vel, mintx, minty, nx, ny);
+
 	for (auto collisionEvent : collisionEvents)
 	{
 		auto collisionBox = collisionEvent->obj;
@@ -148,6 +150,16 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 				auto vel = mario->GetPhysiscBody()->GetVelocity();
 				vel.y = movingPlatform->GetFallForce();
 				mario->GetPhysiscBody()->SetVelocity(vel);
+			}
+		}
+		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick)
+		{
+
+			if (collisionEvent->ny > 0)
+			{
+				auto brick = static_cast<CBrick*>(collisionBox->GetGameObjectAttach());
+				if (mario->GettMarioStateTag() != MarioStates::SmallMario && brick->IsEnabled() == true)
+					brick->Debris();
 			}
 		}
 	}

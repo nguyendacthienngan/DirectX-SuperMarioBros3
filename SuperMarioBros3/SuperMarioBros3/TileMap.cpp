@@ -198,7 +198,6 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 			
 		}
 		// Load game objects
-		int count = 0, heightObjectOne = 0;
 		for (TiXmlElement* element = root->FirstChildElement("objectgroup"); element != nullptr; element = element->NextSiblingElement("objectgroup"))
 		{
 			for (TiXmlElement* object = element->FirstChildElement("object"); object != nullptr; object = object->NextSiblingElement("object"))
@@ -212,9 +211,6 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				object->QueryIntAttribute("width", &width);
 				object->QueryIntAttribute("height", &height);
 
-				count++;
-				if (count == 1)
-					heightObjectOne = height;
 
 				D3DXVECTOR2 position = D3DXVECTOR2(x, y);
 				D3DXVECTOR2 size = D3DXVECTOR2(width, height);
