@@ -438,9 +438,11 @@ void CTileMap::LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, std::v
 		listGameObjects.push_back(koopa);
 
 		CRedParaKoopa* parakoopa = new CRedParaKoopa();
-		parakoopa->SetPosition(position - translateKoopaConst);
-		parakoopa->SetStartPosition(position - translateKoopaConst);
+		auto pos = position - translateKoopaConst;
+		parakoopa->SetPosition(pos);
+		parakoopa->SetStartPosition(pos);
 		parakoopa->SetKoopa(koopa);
+		parakoopa->SetBoundary(pos.y -100, pos.y + 260);
 
 		listGameObjects.push_back(parakoopa);
 	}
