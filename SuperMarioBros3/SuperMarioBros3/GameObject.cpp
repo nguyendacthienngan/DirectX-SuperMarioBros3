@@ -28,6 +28,31 @@ CGameObject::~CGameObject()
 }
 
 
+D3DXVECTOR2 CGameObject::GetGameObjectSize(CGameObject* gO)
+{
+	D3DXVECTOR2 size = D3DXVECTOR2(0, 0);
+	if (gO->GetCollisionBox()->size() > 0)
+	{
+		auto colBox = gO->GetCollisionBox()->at(0);
+		auto sizeBox = colBox->GetSizeBox();
+		size.x = sizeBox.x;
+		size.y = sizeBox.y;
+	}
+	if (size.x == 0 || size.y == 0)
+	{
+		auto anim = gO->GetAnimationByState(gO->GetCurrentState());
+		if (!anim) return D3DXVECTOR2(-1, -1);;
+		auto animFrame = anim->GetAnimFrame();
+		if (!animFrame) return D3DXVECTOR2(-1, -1);;
+		auto sprite = animFrame->GetSprite();
+		if (!sprite) return D3DXVECTOR2(-1, -1);;
+
+		size.x = sprite->GetWidth();
+		size.y = sprite->GetHeight();
+	}
+	return size;
+}
+
 void CGameObject::Init()
 {
 }

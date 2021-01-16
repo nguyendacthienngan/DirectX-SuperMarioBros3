@@ -65,6 +65,7 @@ public:
 	CGameObject();
 	~CGameObject();
 
+	static D3DXVECTOR2 GetGameObjectSize(CGameObject* gO);
 	virtual void Init();
 	bool IsDestroyed();
 	void SetDestroy(bool isDes);
