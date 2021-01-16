@@ -36,3 +36,5 @@ float Clamp(float target, float inf, float sup);
 int Sign(float x);
 
 bool InRange(float target, float inf, float sup);
+
+bool RectEqual(RECT a, RECT b);

@@ -7,8 +7,6 @@ CCell::CCell(D3DXVECTOR2 index)
 	rect.top = index.y;
 	rect.right = index.x + cellWidth;
 	rect.bottom = index.y + cellHeight;*/
-	cellWidth = CELL_WIDTH;
-	cellHeight = CELL_HEIGHT;
 }
 
 void CCell::AddObject(CGameObject* gO)
@@ -17,5 +15,14 @@ void CCell::AddObject(CGameObject* gO)
 	if (gameObjects.find(gO) == gameObjects.end())
 	{
 		gameObjects.insert(gO);
+	}
+}
+
+void CCell::RemoveObject(CGameObject* gO)
+{
+	// Nếu có trong ds mới xóa
+	if (gameObjects.find(gO) != gameObjects.end())
+	{
+		gameObjects.erase(gO);
 	}
 }

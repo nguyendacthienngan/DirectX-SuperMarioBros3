@@ -79,6 +79,14 @@ bool InRange(float target, float inf, float sup)
 	return inf <= target && target <= sup;
 }
 
+bool RectEqual(RECT a, RECT b)
+{
+	if (a.left == b.left && a.right == b.right
+		&& a.top == b.top && a.bottom == b.bottom)
+		return true;
+	return false;
+}
+
 void DebugOutTitle(const wchar_t* fmt, ...)
 {
 	wchar_t s[1024];

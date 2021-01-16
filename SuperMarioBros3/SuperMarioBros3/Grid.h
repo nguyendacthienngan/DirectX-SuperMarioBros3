@@ -12,6 +12,9 @@ public:
 	CGrid();
 	CGrid(D3DXVECTOR2 mapSize, std::vector<CGameObject*>gameObjects);
 	void Insert(CGameObject* gameObject);
+	void Move(D3DXVECTOR2 oldPosition, CGameObject* gameObject, D3DXVECTOR2 size);
+	RECT GetRectByPosition(D3DXVECTOR2 pos, D3DXVECTOR2 size);
+	std::vector<CGameObject*> GetActiveObjects();
 	~CGrid();
 };
 
