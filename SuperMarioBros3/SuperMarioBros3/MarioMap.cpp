@@ -84,17 +84,17 @@ void CMarioMap::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 				moveState = 1;
 				currentDirection.right = 1;
 			}
-			if (keyboard->GetKeyStateDown(DIK_LEFT) && canGoDirection.left == 1)
+			else if (keyboard->GetKeyStateDown(DIK_LEFT) && canGoDirection.left == 1)
 			{
 				moveState = 1;
 				currentDirection.left = 1;
 			}
-			if (keyboard->GetKeyStateDown(DIK_UP) && canGoDirection.top == 1)
+			else if (keyboard->GetKeyStateDown(DIK_UP) && canGoDirection.top == 1)
 			{
 				moveState = 1;
 				currentDirection.top = 1;
 			}
-			if (keyboard->GetKeyStateDown(DIK_DOWN) && canGoDirection.bottom == 1)
+			else if (keyboard->GetKeyStateDown(DIK_DOWN) && canGoDirection.bottom == 1)
 			{
 				moveState = 1;
 				currentDirection.bottom = 1;
@@ -105,11 +105,11 @@ void CMarioMap::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		{
 			if (currentDirection.right == 1)
 				transform.position.x += MARIO_MAP_VELOCITY.x * dt;
-			if (currentDirection.left == 1)
+			else if (currentDirection.left == 1)
 				transform.position.x -= MARIO_MAP_VELOCITY.x * dt;
-			if (currentDirection.top == 1)
+			else if (currentDirection.top == 1)
 				transform.position.y -= MARIO_MAP_VELOCITY.y * dt;
-			if (currentDirection.bottom == 1)
+			else if (currentDirection.bottom == 1)
 				transform.position.y += MARIO_MAP_VELOCITY.y * dt;
 			break;
 		}
@@ -125,7 +125,7 @@ void CMarioMap::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 					moveState = 3;
 				}
 			}
-			if (currentDirection.left == 1)
+			else if (currentDirection.left == 1)
 			{
 				transform.position.x -= MARIO_MAP_VELOCITY.x * dt;
 				if (transform.position.x <= currNode->GetPosition().x)
@@ -134,7 +134,7 @@ void CMarioMap::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 					moveState = 3;
 				}
 			}
-			if (currentDirection.top == 1)
+			else if (currentDirection.top == 1)
 			{
 				transform.position.y -= MARIO_MAP_VELOCITY.y * dt;
 				if (transform.position.y <= currNode->GetPosition().y)
@@ -143,7 +143,7 @@ void CMarioMap::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 					moveState = 3;
 				}
 			}
-			if (currentDirection.bottom == 1)
+			else if (currentDirection.bottom == 1)
 			{
 				transform.position.y += MARIO_MAP_VELOCITY.y * dt;
 				if (transform.position.y >= currNode->GetPosition().y)
@@ -185,7 +185,7 @@ void CMarioMap::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox
 			this->sceneID = sceneID;
 		}
 	}
-	if (otherCollisionBox->GetGameObjectAttach()->GetNodeTag() != NodeTag::None && otherCollisionBox->GetGameObjectAttach() != currentNode)
+	if (otherCollisionBox->GetGameObjectAttach()->GetNodeTag() != NodeTag::None && otherCollisionBox->GetGameObjectAttach() != currentNode && moveState != 2)
 	{
 		currentNode = otherCollisionBox->GetGameObjectAttach();
 		moveState = 2;

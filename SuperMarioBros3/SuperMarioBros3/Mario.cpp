@@ -1095,6 +1095,7 @@ void CMario::DieProcess(CCamera* cam)
 					auto sceneManager = CSceneManager::GetInstance();
 					sceneManager->SwitchScene(new CWorldMap1());
 					isAutogo = false;
+					CGame::GetInstance()->SetTimeScale(1.0f);
 				}
 				break;
 			}
