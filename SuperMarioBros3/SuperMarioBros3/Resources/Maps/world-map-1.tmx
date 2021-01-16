@@ -376,7 +376,7 @@
     <property name="top" type="int" value="1"/>
    </properties>
   </object>
-  <object id="109" name="domed-gate" type="scene" x="192" y="192.667" width="48" height="45.8182">
+  <object id="109" name="domed-gate" type="scene" x="192" y="204" width="48" height="24">
    <properties>
     <property name="bottom" type="int" value="1"/>
     <property name="left" type="int" value="0"/>
