@@ -328,6 +328,9 @@
     <Filter Include="Framework\Game\Grid">
       <UniqueIdentifier>{a9b54ef9-f9a9-45f9-9387-8c58bcc269d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Game\Grid\Cell">
+      <UniqueIdentifier>{cc3385eb-5bc1-4dbd-8947-7af0b2eaeb48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -768,6 +771,12 @@
     <ClInclude Include="Grid.h">
       <Filter>Framework\Game\Grid</Filter>
     </ClInclude>
+    <ClInclude Include="Cell.h">
+      <Filter>Framework\Game\Grid\Cell</Filter>
+    </ClInclude>
+    <ClInclude Include="GridConst.h">
+      <Filter>Framework\Game\Grid</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -1087,6 +1096,9 @@
     </ClCompile>
     <ClCompile Include="Grid.cpp">
       <Filter>Framework\Game\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="Cell.cpp">
+      <Filter>Framework\Game\Grid\Cell</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
