@@ -180,6 +180,7 @@
     <ClInclude Include="Graph.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="GreenParaKoopa.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="HelpItem.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Intro.h" />
@@ -317,6 +318,7 @@
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="GreenParaKoopa.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="HelpItem.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Intro.cpp" />

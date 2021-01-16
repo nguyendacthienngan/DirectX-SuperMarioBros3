@@ -325,6 +325,9 @@
     <Filter Include="Game\GameObject\Enemy\ParaKoopa\GreenParaKoopa">
       <UniqueIdentifier>{3c465cc5-79e2-47e4-97f4-a37abcd4269a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Game\Grid">
+      <UniqueIdentifier>{a9b54ef9-f9a9-45f9-9387-8c58bcc269d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -762,6 +765,9 @@
     <ClInclude Include="RedParaKoopa.h">
       <Filter>Game\GameObject\Enemy\ParaKoopa\RedParaKoopa</Filter>
     </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Framework\Game\Grid</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -1078,6 +1084,9 @@
     </ClCompile>
     <ClCompile Include="RedParaKoopa.cpp">
       <Filter>Game\GameObject\Enemy\ParaKoopa\RedParaKoopa</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Framework\Game\Grid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
