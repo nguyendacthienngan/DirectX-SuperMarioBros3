@@ -1,6 +1,6 @@
 ﻿#include "Grid.h"
 #include "GridConst.h"
-
+using namespace std;
 CGrid::CGrid()
 {
 }

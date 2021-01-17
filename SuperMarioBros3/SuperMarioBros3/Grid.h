@@ -2,6 +2,7 @@
 #include <vector>
 #include "Cell.h"
 
+class CCell;
 class CGrid
 {
 private:
