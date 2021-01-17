@@ -5,7 +5,7 @@ CGrid::CGrid()
 {
 }
 
-CGrid::CGrid(D3DXVECTOR2 mapSize, std::vector<CGameObject*>gameObjects)
+CGrid::CGrid(D3DXVECTOR2 mapSize)
 {
 	columns = (int) mapSize.x / (int) CELL_WIDTH;
 	rows = (int) mapSize.y / (int) CELL_HEIGHT;

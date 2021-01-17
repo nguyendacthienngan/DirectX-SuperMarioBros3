@@ -26,7 +26,7 @@ CMap::~CMap()
 void CMap::LoadTilemap(std::string filePath, std::string fileMap)
 {
 	tileMap = new CTileMap();
-	tileMap = tileMap->LoadMap(filePath, fileMap, listGameObjects);
+	tileMap->LoadMap(filePath, fileMap, listGameObjects);
 }
 
 void CMap::Update(CCamera* camera, DWORD dt)
