@@ -165,7 +165,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 		root->QueryIntAttribute("tilewidth", &tileWidth);
 		root->QueryIntAttribute("tileheight", &tileHeight);
 
-		//this->grid = new CGrid(D3DXVECTOR2(width * tileWidth, height * tileHeight));
+		this->grid = new CGrid(D3DXVECTOR2(width * tileWidth, height * tileHeight));
 		//Load tileset
 		for (TiXmlElement* element = root->FirstChildElement("tileset"); element != nullptr; element = element->NextSiblingElement("tileset"))
 		{
@@ -974,7 +974,8 @@ void CTileMap::AddObjectToList(CGameObject* gO)
 
 void CTileMap::AddObjectToList(CGameObject* gO, std::vector<LPGameObject>& listGameObjects)
 {
-	listGameObjects.push_back(gO);
+	//listGameObjects.push_back(gO);
+	grid->Insert(gO);
 }
 
 CGrid* CTileMap::GetGrid()

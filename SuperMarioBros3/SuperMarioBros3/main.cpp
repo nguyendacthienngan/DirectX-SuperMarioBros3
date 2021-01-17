@@ -31,7 +31,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     int fps, screenWidth, screenHeight;
     if (LoadFileConfig(fps, screenWidth, screenHeight) == false)
         return NULL;
-    //DebugOut(L"FPS: %d, ScWidth: %d, ScHeight: %d", fps, screenWidth, screenHeight);
     MyRegisterClass(hInstance);
 
     // Perform application initialization:
