@@ -275,18 +275,6 @@ void CScene::RemoveObject(LPGameObject gameObject)
 	}
 }
 
-void CScene::SetObjectPosition(D3DXVECTOR2 distance)
-{
-	for (auto obj : gameObjects)
-	{
-		if (obj->GetTag() == GameObjectTags::Solid)
-		{
-			auto pos = obj->GetCollisionBox()->at(0)->GetPosition();
-			obj->GetCollisionBox()->at(0)->SetPosition(pos + distance);
-		}
-	}
-}
-
 CGameObject* CScene::GetMarioController()
 {
 	return marioController;
