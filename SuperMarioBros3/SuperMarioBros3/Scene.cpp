@@ -24,6 +24,7 @@ CScene::CScene()
 	camera = NULL;
 	loaded = true;
 	cardState = 0;
+	marioController = NULL;
 }
 
 void CScene::Load()
@@ -137,8 +138,11 @@ void CScene::Load()
 			CMarioMap* marioMap = new CMarioMap();
 			marioMap->SetPosition(startPosition);
 			AddObject(marioMap);
+			marioController = marioMap;
 		}
 	}
+	if (marioController != NULL)
+		CKeyboardManager::GetInstance()->AddTargetForKeyboard(marioController);
 	loaded = true;
 }
 
@@ -253,8 +257,13 @@ void CScene::FindUpdateObjects()
 
 void CScene::AddObject(LPGameObject gameObject)
 {
-	if (gameObject != NULL)
+	if (gameObject == NULL)
+		return;
+	auto gameObj = find(gameObjects.begin(), gameObjects.end(), gameObject);
+	if (gameObj == gameObjects.end())
+	{
 		gameObjects.push_back(gameObject);
+	}
 }
 
 void CScene::RemoveObject(LPGameObject gameObject)
@@ -361,10 +370,10 @@ void CScene::SetCamera(int id)
 	}
 }
 
-std::vector<LPGameObject> CScene::GetObjects()
-{
-	return gameObjects;
-}
+//std::vector<LPGameObject> CScene::GetObjects()
+//{
+//	return gameObjects;
+//}
 
 
 bool CScene::IsLoaded()

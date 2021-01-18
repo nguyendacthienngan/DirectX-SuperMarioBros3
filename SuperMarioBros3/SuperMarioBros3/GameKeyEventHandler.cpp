@@ -9,34 +9,22 @@ using namespace std;
 void CGameKeyEventHandler::OnKeyDown(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-	LPSceneManager sceneManger = CSceneManager::GetInstance();
-	LPScene activeScene = sceneManger->GetActiveScene();
-	vector<LPGameObject> gameObjects = activeScene->GetObjects(); // nếu vậy mình chỉ truyền cho thằng nào dynamic cast ra là Mario thôi đc k vì mấy thằng kia mình đâu cần xử lý? Nhưng như vậy sẽ không đủ tổng quát? Nên hỏi thầy !
-	for (auto gameObject : gameObjects)
-		if ((gameObject->MarioTag(gameObject->GetTag())|| gameObject->GetTag() == GameObjectTags::PlayerController || gameObject->GetTag() == GameObjectTags::MarioMap ||
-			gameObject->GetTag() == GameObjectTags::Menu) && gameObject->IsEnabled() == true)
-				gameObject->OnKeyDown(KeyCode);
+	for (auto gameObject : currentTargets)
+		if (gameObject != NULL && gameObject->IsEnabled() == true)
+		gameObject->OnKeyDown(KeyCode);
 }
 
 void CGameKeyEventHandler::OnKeyUp(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
-	LPSceneManager sceneManger = CSceneManager::GetInstance();
-	LPScene activeScene = sceneManger->GetActiveScene();
-	vector<LPGameObject> gameObjects = activeScene->GetObjects(); // nếu vậy mình chỉ truyền cho thằng nào dynamic cast ra là Mario thôi đc k vì mấy thằng kia mình đâu cần xử lý? Nhưng như vậy sẽ không đủ tổng quát? Nên hỏi thầy !
-	for (auto gameObject : gameObjects)
-		if ((gameObject->MarioTag(gameObject->GetTag()) || gameObject->GetTag() == GameObjectTags::PlayerController || gameObject->GetTag() == GameObjectTags::MarioMap ||
-			gameObject->GetTag() == GameObjectTags::Menu) && gameObject->IsEnabled() == true)
-			gameObject->OnKeyUp(KeyCode);
+	for (auto gameObject : currentTargets)
+		if (gameObject != NULL && gameObject->IsEnabled() == true)
+		gameObject->OnKeyUp(KeyCode);
 }
 
 void CGameKeyEventHandler::KeyState()
 {
-	LPSceneManager sceneManger = CSceneManager::GetInstance();
-	LPScene activeScene = sceneManger->GetActiveScene();
-	vector<LPGameObject> gameObjects = activeScene->GetObjects(); // nếu vậy mình chỉ truyền cho thằng nào dynamic cast ra là Mario thôi đc k vì mấy thằng kia mình đâu cần xử lý? Nhưng như vậy sẽ không đủ tổng quát? Nên hỏi thầy !
-	for (auto gameObject : gameObjects)
-		if ((gameObject->MarioTag(gameObject->GetTag()) || gameObject->GetTag() == GameObjectTags::PlayerController || gameObject->GetTag() == GameObjectTags::MarioMap ||
-			gameObject->GetTag() == GameObjectTags::Menu) && gameObject->IsEnabled() == true)
-			gameObject->KeyState();
+	for (auto gameObject : currentTargets)
+		if (gameObject != NULL && gameObject->IsEnabled() == true)
+		gameObject->KeyState();
 }

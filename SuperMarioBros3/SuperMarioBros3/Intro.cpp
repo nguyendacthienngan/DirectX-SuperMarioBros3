@@ -14,9 +14,12 @@ CIntro::CIntro()
 
 void CIntro::Load()
 {
+	CMenu* menu = new CMenu();
+	marioController = menu;
+
 	CScene::Load();
 	CSceneManager::GetInstance()->GetUICamera()->SetDisableBlackTexture(true);
-	gameObjects.push_back(new CMenu());
+	gameObjects.push_back(menu);
 	CSceneManager::GetInstance()->GetUICamera()->SetEnterIntro(true);
 }
 

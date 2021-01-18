@@ -991,9 +991,15 @@ void CTileMap::AddObjectToList(CGameObject* gO)
 	grid->Insert(gO);
 }
 
-void CTileMap::AddObjectToList(CGameObject* gO, std::vector<LPGameObject>& listGameObjects)
+void CTileMap::AddObjectToList(CGameObject* gameObject, std::vector<LPGameObject>& gameObjects)
 {
-	listGameObjects.push_back(gO);
+	if (gameObject == NULL)
+		return;
+	auto gameObj = find(gameObjects.begin(), gameObjects.end(), gameObject);
+	if (gameObj == gameObjects.end())
+	{
+		gameObjects.push_back(gameObject);
+	}
 	//grid->Insert(gO);
 }
 

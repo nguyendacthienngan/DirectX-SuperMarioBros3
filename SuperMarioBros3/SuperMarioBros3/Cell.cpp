@@ -32,3 +32,8 @@ void CCell::RemoveObject(CGameObject* gO)
 		gameObjects.erase(gO);
 	}
 }
+
+std::unordered_set<CGameObject*> CCell::GetListGameObject()
+{
+	return gameObjects;
+}

@@ -12,6 +12,6 @@ public:
 	CCell(D3DXVECTOR2 index);
 	void AddObject(CGameObject* gO);
 	void RemoveObject(CGameObject* gO);
-	std::vector<CGameObject*> GetActiveObjects();
+	std::unordered_set<CGameObject*> GetListGameObject();
 };
 
