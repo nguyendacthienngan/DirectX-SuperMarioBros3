@@ -37,3 +37,13 @@ std::unordered_set<CGameObject*> CCell::GetListGameObject()
 {
 	return gameObjects;
 }
+
+CCell::~CCell()
+{
+	for (auto gameObject : gameObjects)
+	{
+		delete gameObject;
+		gameObject = NULL;
+	}
+	gameObjects.clear();
+}

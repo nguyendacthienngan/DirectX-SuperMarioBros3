@@ -156,11 +156,7 @@ void CScene::Load()
 void CScene::Unload()
 {
 	loaded = false;
-	if (spaceParitioning == true)
-	{
-
-	}
-	else
+	if (spaceParitioning == false)
 	{
 		if (gameObjects.size() > 0)
 		{
@@ -176,16 +172,24 @@ void CScene::DestroyObject()
 {
 	if (loaded == false)
 	{
-		for (auto gO : gameObjects)
+		if (spaceParitioning == true)
 		{
-			if (gO->IsDestroyed() == true)
-			{
-				RemoveObject(gO);
-				delete gO;
-				gO = NULL;
-			}
+			delete grid;
+			grid = NULL;
 		}
-		gameObjects.clear();
+		else
+		{
+			for (auto gO : gameObjects)
+			{
+				if (gO->IsDestroyed() == true)
+				{
+					RemoveObject(gO);
+					delete gO;
+					gO = NULL;
+				}
+			}
+			gameObjects.clear();
+		}
 		delete map;
 		map = NULL;
 		camera = NULL;
@@ -244,28 +248,42 @@ void CScene::Render()
 	if (loaded == false)
 		return;
 	map->Render(camera, false);
-	if (gameObjects.size() == 0) return;
+	if (updateObjects.size() == 0) return;
 
-	for (auto obj : gameObjects)
+	for (auto obj : updateObjects)
 	{
-		if (obj->IsEnabled() == false)								continue;
+		//if (obj->IsEnabled() == false)								continue;
 
 		obj->Render(camera);
-		if (obj->GetCollisionBox()->size() != 0)
-			obj->GetCollisionBox()->at(0)->Render(camera, CollisionBox_Render_Distance);
+		/*if (obj->GetCollisionBox()->size() != 0)
+			obj->GetCollisionBox()->at(0)->Render(camera, CollisionBox_Render_Distance);*/
 	}
 	map->Render(camera, true);
 }
 
 void CScene::FindUpdateObjects()
 {
-	if (gameObjects.size() == 0) return;
 	updateObjects.clear();
-	for (auto obj : gameObjects)
+	if (spaceParitioning == true)
 	{
-		if (camera != NULL
-			&& camera->CheckObjectInCamera(obj) == false)			continue;
-		updateObjects.push_back(obj);
+		auto activeCells = grid->FindActiveCells(camera);
+		for (auto activeCell : activeCells)
+		{
+			for (auto gameObject : activeCell->GetListGameObject())
+			{
+				updateObjects.push_back(gameObject);
+			}
+		}
+	}
+	else
+	{
+		if (gameObjects.size() == 0) return;
+		for (auto obj : gameObjects)
+		{
+			if (camera != NULL
+				&& camera->CheckObjectInCamera(obj) == false)			continue;
+			updateObjects.push_back(obj);
+		}
 	}
 }
 
@@ -389,12 +407,6 @@ void CScene::SetCamera(int id)
 		camera->SetDisablePosY(camProps.disableY);
 	}
 }
-
-//std::vector<LPGameObject> CScene::GetObjects()
-//{
-//	return gameObjects;
-//}
-
 
 bool CScene::IsLoaded()
 {

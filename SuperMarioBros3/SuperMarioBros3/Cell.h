@@ -13,5 +13,6 @@ public:
 	void AddObject(CGameObject* gO);
 	void RemoveObject(CGameObject* gO);
 	std::unordered_set<CGameObject*> GetListGameObject();
+	~CCell();
 };
 
