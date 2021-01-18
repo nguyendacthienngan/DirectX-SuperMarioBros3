@@ -16,7 +16,7 @@ void CIntro::Load()
 {
 	CMenu* menu = new CMenu();
 	marioController = menu;
-
+	spaceParitioning = false;
 	CScene::Load();
 	CSceneManager::GetInstance()->GetUICamera()->SetDisableBlackTexture(true);
 	gameObjects.push_back(menu);

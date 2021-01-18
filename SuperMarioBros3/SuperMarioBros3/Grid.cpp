@@ -39,6 +39,19 @@ void CGrid::Insert(CGameObject* gameObject)
 	}
 }
 
+void CGrid::Remove(CGameObject* gameObject)
+{
+	if (gameObject == NULL)
+		return;
+	for (int i = 0; i < columns; i++)
+	{
+		for (int j = 0; j < rows; j++)
+		{
+			cells[i][j]->RemoveObject(gameObject);
+		}
+	}
+}
+
 void CGrid::Move(D3DXVECTOR2 oldPosition, CGameObject* gameObject, D3DXVECTOR2 size)
 {
 	auto oldRect = GetRectByPosition(oldPosition, size);

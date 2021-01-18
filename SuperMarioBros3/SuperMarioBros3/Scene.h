@@ -45,6 +45,7 @@ protected:
 	CGameObject* card;
 	CGameObject* marioController;
 	int cardState;
+	bool spaceParitioning;
 public:
 	CScene();
 	virtual void Load();
@@ -59,7 +60,6 @@ public:
 	void SetCamera(int id);
 	CCamera* GetCamera() { return camera; }
 	CMap* GetMap() { return map; }
-	//std::vector<LPGameObject> GetObjects();
 	void AddObject(LPGameObject gameObject);
 	void RemoveObject(LPGameObject gameObject);
 
@@ -78,6 +78,7 @@ public:
 	bool SwitchBlockStateOnToOff();
 	void SwitchBlockStateOnToOff(bool state);
 	bool IsLoaded();
+	bool IsSpacePartitioning();
 	virtual ~CScene();
 };
 #endif

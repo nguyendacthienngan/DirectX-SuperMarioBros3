@@ -25,6 +25,7 @@ CScene::CScene()
 	loaded = true;
 	cardState = 0;
 	marioController = NULL;
+	spaceParitioning = true;
 }
 
 void CScene::Load()
@@ -70,11 +71,17 @@ void CScene::Load()
 			poolCoins->AddPoolToScene(this);
 			card = tilemap->GetCard();
 
-			// BIG REFACTOR
-			auto mapObjs = map->GetListGameObjects();
-			for (auto obj : mapObjs)
+			if (spaceParitioning == true)
 			{
-				AddObject(obj);
+				this->grid = map->GetTileMap()->GetGrid();
+			}
+			else
+			{
+				auto mapObjs = map->GetListGameObjects();
+				for (auto obj : mapObjs)
+				{
+					AddObject(obj);
+				}
 			}
 
 			DebugOut(L"[INFO] Load background color \n");
@@ -149,11 +156,18 @@ void CScene::Load()
 void CScene::Unload()
 {
 	loaded = false;
-	if (gameObjects.size() > 0)
+	if (spaceParitioning == true)
 	{
-		for (int i = 0; i < gameObjects.size(); i++)
+
+	}
+	else
+	{
+		if (gameObjects.size() > 0)
 		{
-			gameObjects[i]->SetDestroy(true);
+			for (int i = 0; i < gameObjects.size(); i++)
+			{
+				gameObjects[i]->SetDestroy(true);
+			}
 		}
 	}
 }
@@ -259,19 +273,37 @@ void CScene::AddObject(LPGameObject gameObject)
 {
 	if (gameObject == NULL)
 		return;
-	auto gameObj = find(gameObjects.begin(), gameObjects.end(), gameObject);
-	if (gameObj == gameObjects.end())
+	if (spaceParitioning == true)
 	{
-		gameObjects.push_back(gameObject);
+		if (grid == NULL) 
+			return;
+		grid->Insert(gameObject);
+	}
+	else
+	{
+		auto gameObj = find(gameObjects.begin(), gameObjects.end(), gameObject);
+		if (gameObj == gameObjects.end())
+		{
+			gameObjects.push_back(gameObject);
+		}
 	}
 }
 
 void CScene::RemoveObject(LPGameObject gameObject)
 {
-	auto gameObj = find(gameObjects.begin(), gameObjects.end(), gameObject);
-	if (gameObj != gameObjects.end())
+	if (gameObject == NULL)
+		return;
+	if (spaceParitioning == true)
 	{
-		gameObjects.erase(gameObj);
+		grid->Remove(gameObject);
+	}
+	else
+	{
+		auto gameObj = find(gameObjects.begin(), gameObjects.end(), gameObject);
+		if (gameObj != gameObjects.end())
+		{
+			gameObjects.erase(gameObj);
+		}
 	}
 }
 
@@ -367,6 +399,11 @@ void CScene::SetCamera(int id)
 bool CScene::IsLoaded()
 {
 	return loaded;
+}
+
+bool CScene::IsSpacePartitioning()
+{
+	return spaceParitioning;
 }
 
 CScene::~CScene()

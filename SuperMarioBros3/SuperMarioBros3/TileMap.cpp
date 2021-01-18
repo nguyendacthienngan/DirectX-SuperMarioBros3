@@ -995,12 +995,17 @@ void CTileMap::AddObjectToList(CGameObject* gameObject, std::vector<LPGameObject
 {
 	if (gameObject == NULL)
 		return;
-	auto gameObj = find(gameObjects.begin(), gameObjects.end(), gameObject);
-	if (gameObj == gameObjects.end())
+	
+	if (scene->IsSpacePartitioning() == true)
+		grid->Insert(gameObject);
+	else
 	{
-		gameObjects.push_back(gameObject);
+		auto gameObj = find(gameObjects.begin(), gameObjects.end(), gameObject);
+		if (gameObj == gameObjects.end())
+		{
+			gameObjects.push_back(gameObject);
+		}
 	}
-	//grid->Insert(gO);
 }
 
 CGrid* CTileMap::GetGrid()

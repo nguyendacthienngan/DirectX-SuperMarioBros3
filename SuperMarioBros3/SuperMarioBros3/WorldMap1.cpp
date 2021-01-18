@@ -10,6 +10,7 @@ CWorldMap1::CWorldMap1()
 
 void CWorldMap1::Load()
 {
+	spaceParitioning = false;
 	CScene::Load();
 	CSceneManager::GetInstance()->GetUICamera()->SetDisableBlackTexture(true);
 }
