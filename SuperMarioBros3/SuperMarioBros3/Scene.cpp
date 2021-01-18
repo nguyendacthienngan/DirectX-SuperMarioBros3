@@ -45,12 +45,12 @@ void CScene::Load()
 			D3DXVECTOR2 startPosition;
 			scene->QueryFloatAttribute("pos_x", &startPosition.x);
 			scene->QueryFloatAttribute("pos_y", &startPosition.y);
-			DebugOut(L"Start Pos %f, %f \n", startPosition.x, startPosition.y);
 			player = new CMarioController();
 			player->AddStateObjectsToScene(this);
 			player->SetPosition(startPosition);
 			player->GetCurrentStateObject()->SetPosition(startPosition);
 			AddObject(player);
+			marioController = player;
 		}
 		if (name.compare("Map") == 0)
 		{
@@ -60,6 +60,7 @@ void CScene::Load()
 			this->map = NULL;
 			this->map = new CMap(sourceMap, fileMap); // Ham nay tu load map
 			auto tilemap = map->GetTileMap();
+
 			bricks = tilemap->GetBricks();
 			coins = tilemap->GetCoins();
 			poolBricks = tilemap->GetPoolBricks();
@@ -67,6 +68,8 @@ void CScene::Load()
 			poolBricks->AddPoolToScene(this);
 			poolCoins->AddPoolToScene(this);
 			card = tilemap->GetCard();
+
+			// BIG REFACTOR
 			auto mapObjs = map->GetListGameObjects();
 			for (auto obj : mapObjs)
 			{
@@ -95,8 +98,11 @@ void CScene::Load()
 					if (brick != NULL)
 						brick->GetObjectPool().AddPoolToScene(this);
 				}
+				
 				AddObject(obj);
 			}
+
+
 			DebugOut(L"[INFO] Load background color \n");
 			for (TiXmlElement* color = scene->FirstChildElement(); color != NULL; color = color->NextSiblingElement())
 			{
@@ -299,6 +305,11 @@ void CScene::SetObjectPosition(D3DXVECTOR2 distance)
 	}
 }
 
+CGameObject* CScene::GetMarioController()
+{
+	return marioController;
+}
+
 std::vector<LPGameObject> CScene::GetBricks()
 {
 	return bricks;
@@ -382,14 +393,6 @@ std::vector<LPGameObject> CScene::GetObjects()
 	return gameObjects;
 }
 
-LPGameObject CScene::GetPlayer()
-{
-	LPGameObject player = NULL;
-	for (auto obj : gameObjects)
-		if (obj->GetTag() == GameObjectTags::Player) 
-			player = obj;
-	return player;
-}
 
 bool CScene::IsLoaded()
 {

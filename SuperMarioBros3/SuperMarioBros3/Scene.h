@@ -43,6 +43,7 @@ protected:
 	bool switchBlockOffToOn;
 
 	CGameObject* card;
+	CGameObject* marioController;
 	int cardState;
 public:
 	CScene();
@@ -59,12 +60,12 @@ public:
 	CCamera* GetCamera() { return camera; }
 	CMap* GetMap() { return map; }
 	std::vector<LPGameObject> GetObjects();
-	LPGameObject GetPlayer();
 	void AddObject(LPGameObject gameObject);
 	void RemoveObject(LPGameObject gameObject);
 
 	void SetObjectPosition(D3DXVECTOR2 distance);
 
+	CGameObject* GetMarioController();
 	std::vector<CGameObject*> GetBricks();
 	std::vector<CGameObject*> GetCoins();
 	CObjectPool* GetPoolBricks();
