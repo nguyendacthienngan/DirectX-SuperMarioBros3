@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "KeyEventHandler.h"
-
+#include "GameObject.h"
+#include <vector>
 // implement lại KeyEventHandler. KeyEventHandler chỉ là một bản mẫu cha của tất cả
 // Game Key Event Handler sẽ chỉ là ảo chứ không thuần ảo. Chỉ khi các object cần implement lại thì tự override lại
 // GameKeyEventHandler sẽ bao gồm 2 hàm OnKeyDown và OnKeyUp (bỏ đi hàm KeyState vì ta sẽ implement thẳng trong Update của Game)

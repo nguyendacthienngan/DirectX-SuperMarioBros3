@@ -175,6 +175,11 @@ void CKeyboardManager::SetHWND(HWND h)
 	hWnd = h;
 }
 
+void CKeyboardManager::AddTargetForKeyboard(CGameObject* target)
+{
+	keyEventHandler->AddCurrentTarget(target);
+}
+
 
 bool CKeyboardManager::GetKeyStateDown(int keyCode)
 {

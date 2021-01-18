@@ -2,6 +2,7 @@
 #include "KeyEventHandler.h"
 #include "GameConst.h"
 #include <dinput.h>
+#include "GameObject.h"
 
 class CKeyboardManager;
 typedef CKeyboardManager* LPKeyboardManager;
@@ -42,7 +43,7 @@ public:
 	//void SetKeyEventHandler(LPKeyEventHandler k);
 
 	LPKeyEventHandler GetKeyEventHandler() { return this->keyEventHandler; }
-
+	void AddTargetForKeyboard(CGameObject* target);
 
 };
 

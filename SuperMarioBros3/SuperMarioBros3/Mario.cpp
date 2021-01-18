@@ -869,7 +869,6 @@ void CMario::KickProcess(bool isKick)
 
 void CMario::InvincibleProcess()
 {
-	DebugOut(L"Invicible Process %d \n", timeStartDamaged);
 	if (timeStartDamaged != 0)
 	{
 		if (GetTickCount64() - timeStartDamaged > TIME_TO_BE_DAMAGED)
