@@ -58,7 +58,7 @@ void CScene::Load()
 			string sourceMap = scene->Attribute("source");
 			string fileMap = scene->Attribute("fileName");
 			this->map = NULL;
-			this->map = new CMap(sourceMap, fileMap); // Ham nay tu load map
+			this->map = new CMap(sourceMap, fileMap, player, this); // Ham nay tu load map
 			auto tilemap = map->GetTileMap();
 
 			bricks = tilemap->GetBricks();
@@ -73,35 +73,8 @@ void CScene::Load()
 			auto mapObjs = map->GetListGameObjects();
 			for (auto obj : mapObjs)
 			{
-				if (obj->GetTag() == GameObjectTags::Enemy)
-				{
-					auto enemy = static_cast<CEnemy*>(obj);
-					if (player != NULL)
-					{
-						enemy->SetTarget(player);
-					}
-					if (enemy->GetEnemyTag() == EnemyTag::Venus)
-					{
-						auto venus = static_cast<CVenus*>(enemy);
-						venus->GetObjectPool().AddPoolToScene(this);
-					}
-				}
-				if (obj->GetTag() == GameObjectTags::QuestionBlock)
-				{
-					auto qB = static_cast<CQuestionBlock*>(obj);
-					if (qB != NULL)
-						qB->SetTarget(player);
-				}
-				if (obj->GetTag() == GameObjectTags::Brick)
-				{
-					auto brick = static_cast<CBrick*>(obj);
-					if (brick != NULL)
-						brick->GetObjectPool().AddPoolToScene(this);
-				}
-				
 				AddObject(obj);
 			}
-
 
 			DebugOut(L"[INFO] Load background color \n");
 			for (TiXmlElement* color = scene->FirstChildElement(); color != NULL; color = color->NextSiblingElement())

@@ -29,6 +29,8 @@ bool CObjectPool::IsEmpty()
 
 void CObjectPool::AddPoolToScene(CScene* scene)
 {
+	if (scene == NULL)
+		return;
 	if (pool.size() == 0)
 		return;
 	for (auto x : pool)

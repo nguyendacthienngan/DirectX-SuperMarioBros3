@@ -62,7 +62,7 @@ CTileMap::CTileMap()
 	grid = NULL;
 }
 
-CTileMap::CTileMap(CGrid* grid, int width, int height, int tileWidth, int tileHeight)
+CTileMap::CTileMap(int width, int height, int tileWidth, int tileHeight)
 {
 	this->width = width;
 	this->height = height;
@@ -72,7 +72,7 @@ CTileMap::CTileMap(CGrid* grid, int width, int height, int tileWidth, int tileHe
 	poolBricks = new CObjectPool();
 	poolCoins = new CObjectPool();
 	card = NULL;
-	this->grid = grid;
+	player = NULL;
 }
 
 TileSet* CTileMap::GetTileSetByTileID(int id)
@@ -150,7 +150,7 @@ void CTileMap::Render(CCamera* camera, bool isRenderForeground)
 	
 }
 
-CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects)
+CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects, CGameObject* player, CScene* scene)
 {
 	string fullPath = filePath + fileMap;
 	TiXmlDocument doc(fullPath.c_str());
@@ -166,6 +166,9 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 		root->QueryIntAttribute("tileheight", &tileHeight);
 
 		this->grid = new CGrid(D3DXVECTOR2(width * tileWidth, height * tileHeight));
+		this->player = player;
+		this->scene = scene;
+		
 		//Load tileset
 		for (TiXmlElement* element = root->FirstChildElement("tileset"); element != nullptr; element = element->NextSiblingElement("tileset"))
 		{
@@ -408,7 +411,11 @@ void CTileMap::LoadKoopa(D3DXVECTOR2 position, std::string enemyType, std::vecto
 		koopa->SetPosition(position - translateConst);
 		koopa->SetStartPosition(position - translateConst);
 		koopa->SetKoopaShell(koopaShell);
+
 		koopaShell->SetKoopa(koopa);
+		koopaShell->SetTarget(player);
+		koopa->SetTarget(player);
+
 		AddObjectToList(koopaShell, listGameObjects);
 		AddObjectToList(koopa, listGameObjects);
 	}
@@ -440,6 +447,7 @@ void CTileMap::LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, TiXmlE
 		koopaShell->SetPosition(position - translateConst);
 		koopaShell->SetStartPosition(position - translateConst);
 		koopaShell->Enable(false);
+		koopaShell->SetTarget(player);
 
 		CRedKoopa* koopa = new CRedKoopa();
 		koopa->SetEnemyType(enemyType);
@@ -448,6 +456,7 @@ void CTileMap::LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, TiXmlE
 		koopa->SetKoopaShell(koopaShell);
 		koopaShell->SetKoopa(koopa);
 		koopa->Enable(false);
+		koopa->SetTarget(player);
 
 		CRedParaKoopa* parakoopa = new CRedParaKoopa();
 		auto pos = position - translateConst;
@@ -455,6 +464,7 @@ void CTileMap::LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, TiXmlE
 		parakoopa->SetStartPosition(pos);
 		parakoopa->SetKoopa(koopa);
 		parakoopa->SetBoundary(pos.y - boundaryTop, pos.y + boundaryBottom);
+		parakoopa->SetTarget(player);
 
 		AddObjectToList(koopaShell, listGameObjects);
 		AddObjectToList(koopa, listGameObjects);
@@ -467,6 +477,7 @@ void CTileMap::LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, TiXmlE
 		koopaShell->SetPosition(position - translateConst);
 		koopaShell->SetStartPosition(position - translateConst);
 		koopaShell->Enable(false);
+		koopaShell->SetTarget(player);
 
 		CGreenKoopa* koopa = new CGreenKoopa();
 		koopa->SetEnemyType(enemyType);
@@ -475,12 +486,14 @@ void CTileMap::LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, TiXmlE
 		koopa->SetKoopaShell(koopaShell);
 		koopaShell->SetKoopa(koopa);
 		koopa->Enable(false);
+		koopa->SetTarget(player);
 
 		CGreenParaKoopa* parakoopa = new CGreenParaKoopa();
 		parakoopa->SetPosition(position - translateConst);
 		parakoopa->SetStartPosition(position - translateConst);
 		parakoopa->SetKoopa(koopa);
-		
+		parakoopa->SetTarget(player);
+
 		AddObjectToList(koopaShell, listGameObjects);
 		AddObjectToList(koopa, listGameObjects);
 		AddObjectToList(parakoopa, listGameObjects);
@@ -503,7 +516,7 @@ void CTileMap::LoadGoomba(D3DXVECTOR2 position, std::string enemyType, std::vect
 		goomba->SetEnemyType(enemyType);
 		goomba->SetPosition(position - translateConst);
 		goomba->SetStartPosition(position - translateConst);
-
+		goomba->SetTarget(player);
 		AddObjectToList(goomba, listGameObjects);
 	}
 }
@@ -519,7 +532,7 @@ void CTileMap::LoadParagoomba(D3DXVECTOR2 position, std::string enemyType, std::
 	paragoomba->SetPosition(position - translateConst);
 	paragoomba->SetStartPosition(position - translateConst);
 	paragoomba->SetGoomba(goomba);
-
+	paragoomba->SetTarget(player);
 	AddObjectToList(goomba, listGameObjects);
 	AddObjectToList(paragoomba, listGameObjects);
 }
@@ -529,6 +542,7 @@ void CTileMap::LoadPiranha(D3DXVECTOR2 position, std::vector<LPGameObject>& list
 	CPiranha* piranha = new CPiranha();
 	piranha->SetPosition(position - translateConst);
 	piranha->SetStartPosition(position - translateConst);
+	piranha->SetTarget(player);
 	AddObjectToList(piranha, listGameObjects);
 }
 
@@ -541,6 +555,8 @@ void CTileMap::LoadVenus(D3DXVECTOR2 position, std::string enemyType, std::vecto
 		venus = new CVenusRed();
 	venus->SetPosition(position - translateConst);
 	venus->SetStartPosition(position - translateConst);
+	venus->SetTarget(player);
+	venus->GetObjectPool().AddPoolToScene(scene);
 	AddObjectToList(venus, listGameObjects);
 }
 
@@ -556,6 +572,8 @@ void CTileMap::LoadQuestionBlock(D3DXVECTOR2 position, int type, std::string nam
 	{
 		solid->SetItemInfo({ ItemTag::PowerUp, type });
 	}
+
+	solid->SetTarget(player);
 	AddObjectToList(solid, listGameObjects);
 }
 
@@ -575,6 +593,7 @@ void CTileMap::LoadBrick(D3DXVECTOR2 position, int type, TiXmlElement* object, s
 		solid->Enable(true);
 	}
 	solid->SetType(type);
+	solid->GetObjectPool().AddPoolToScene(scene);
 	AddObjectToList(solid, listGameObjects);
 }
 
@@ -974,8 +993,8 @@ void CTileMap::AddObjectToList(CGameObject* gO)
 
 void CTileMap::AddObjectToList(CGameObject* gO, std::vector<LPGameObject>& listGameObjects)
 {
-	//listGameObjects.push_back(gO);
-	grid->Insert(gO);
+	listGameObjects.push_back(gO);
+	//grid->Insert(gO);
 }
 
 CGrid* CTileMap::GetGrid()

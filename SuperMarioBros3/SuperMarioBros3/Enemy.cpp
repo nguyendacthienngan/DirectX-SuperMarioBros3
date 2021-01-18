@@ -248,6 +248,8 @@ void CEnemy::SetIsHeadShotByFireball(bool isHeadShotByFireball)
 
 void CEnemy::SetTarget(CGameObject* target)
 {
+	if (target == NULL)
+		return;
 	this->target = target;
 }
 

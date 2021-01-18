@@ -6,12 +6,15 @@
 #include <vector>
 #include "TextureManager.h"
 #include "Graph.h"
+#include "Scene.h"
 
 struct TileSet;
 struct Layer;
 class CGraph;
 class CObjectPool;
 class CGrid;
+class CScene;
+
 class CTileMap
 {
 private:
@@ -30,12 +33,14 @@ private:
 	CObjectPool* poolCoins;
 
 	CGameObject* card;
+	CGameObject* player;
+	CScene* scene;
 public:
 	CTileMap();
-	CTileMap(CGrid* grid, int width, int height, int tileWidth, int tileHeight);
+	CTileMap(int width, int height, int tileWidth, int tileHeight);
 
 	TileSet* GetTileSetByTileID(int id);
-	CTileMap* LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects);
+	CTileMap* LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects, CGameObject* player, CScene* scene);
 	Layer* LoadLayer(TiXmlElement* layerElement);
 
 	void LoadSolidBox(D3DXVECTOR2 position, D3DXVECTOR2 size, std::string name, std::vector<LPGameObject>& listGameObjects);
