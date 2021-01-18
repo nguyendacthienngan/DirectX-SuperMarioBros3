@@ -3,11 +3,12 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include "GameObject.h"
+//#include "GameObject.h"
 
 #include "Map.h"
 #include "Camera.h"
 #include "ObjectPool.h"
+#include "Grid.h"
 class CScene;
 typedef CScene* LPScene;
 
@@ -18,12 +19,17 @@ class CCamera;
 class CMap;
 
 class CObjectPool;
+
+class CGrid;
+
 class CScene
 {
 protected:
 	std::vector<LPGameObject> gameObjects;
 	std::string id;
 	D3DCOLOR backgroundColor;
+
+	CGrid* grid;
 	CMap *map;
 	CCamera *camera;
 	std::string filePath;
@@ -35,7 +41,9 @@ protected:
 	CObjectPool* poolBricks;
 	CObjectPool* poolCoins;
 	bool switchBlockOffToOn;
+
 	CGameObject* card;
+	CGameObject* marioController;
 	int cardState;
 public:
 	CScene();
@@ -52,12 +60,12 @@ public:
 	CCamera* GetCamera() { return camera; }
 	CMap* GetMap() { return map; }
 	std::vector<LPGameObject> GetObjects();
-	LPGameObject GetPlayer();
 	void AddObject(LPGameObject gameObject);
 	void RemoveObject(LPGameObject gameObject);
 
 	void SetObjectPosition(D3DXVECTOR2 distance);
 
+	CGameObject* GetMarioController();
 	std::vector<CGameObject*> GetBricks();
 	std::vector<CGameObject*> GetCoins();
 	CObjectPool* GetPoolBricks();

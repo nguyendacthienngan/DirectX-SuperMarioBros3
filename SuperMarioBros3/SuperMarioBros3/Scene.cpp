@@ -45,12 +45,12 @@ void CScene::Load()
 			D3DXVECTOR2 startPosition;
 			scene->QueryFloatAttribute("pos_x", &startPosition.x);
 			scene->QueryFloatAttribute("pos_y", &startPosition.y);
-			DebugOut(L"Start Pos %f, %f \n", startPosition.x, startPosition.y);
 			player = new CMarioController();
 			player->AddStateObjectsToScene(this);
 			player->SetPosition(startPosition);
 			player->GetCurrentStateObject()->SetPosition(startPosition);
 			AddObject(player);
+			marioController = player;
 		}
 		if (name.compare("Map") == 0)
 		{
@@ -58,8 +58,9 @@ void CScene::Load()
 			string sourceMap = scene->Attribute("source");
 			string fileMap = scene->Attribute("fileName");
 			this->map = NULL;
-			this->map = new CMap(sourceMap, fileMap); // Ham nay tu load map
+			this->map = new CMap(sourceMap, fileMap, player, this); // Ham nay tu load map
 			auto tilemap = map->GetTileMap();
+
 			bricks = tilemap->GetBricks();
 			coins = tilemap->GetCoins();
 			poolBricks = tilemap->GetPoolBricks();
@@ -67,36 +68,14 @@ void CScene::Load()
 			poolBricks->AddPoolToScene(this);
 			poolCoins->AddPoolToScene(this);
 			card = tilemap->GetCard();
+
+			// BIG REFACTOR
 			auto mapObjs = map->GetListGameObjects();
 			for (auto obj : mapObjs)
 			{
-				if (obj->GetTag() == GameObjectTags::Enemy)
-				{
-					auto enemy = static_cast<CEnemy*>(obj);
-					if (player != NULL)
-					{
-						enemy->SetTarget(player);
-					}
-					if (enemy->GetEnemyTag() == EnemyTag::Venus)
-					{
-						auto venus = static_cast<CVenus*>(enemy);
-						venus->GetObjectPool().AddPoolToScene(this);
-					}
-				}
-				if (obj->GetTag() == GameObjectTags::QuestionBlock)
-				{
-					auto qB = static_cast<CQuestionBlock*>(obj);
-					if (qB != NULL)
-						qB->SetTarget(player);
-				}
-				if (obj->GetTag() == GameObjectTags::Brick)
-				{
-					auto brick = static_cast<CBrick*>(obj);
-					if (brick != NULL)
-						brick->GetObjectPool().AddPoolToScene(this);
-				}
 				AddObject(obj);
 			}
+
 			DebugOut(L"[INFO] Load background color \n");
 			for (TiXmlElement* color = scene->FirstChildElement(); color != NULL; color = color->NextSiblingElement())
 			{
@@ -299,6 +278,11 @@ void CScene::SetObjectPosition(D3DXVECTOR2 distance)
 	}
 }
 
+CGameObject* CScene::GetMarioController()
+{
+	return marioController;
+}
+
 std::vector<LPGameObject> CScene::GetBricks()
 {
 	return bricks;
@@ -382,14 +366,6 @@ std::vector<LPGameObject> CScene::GetObjects()
 	return gameObjects;
 }
 
-LPGameObject CScene::GetPlayer()
-{
-	LPGameObject player = NULL;
-	for (auto obj : gameObjects)
-		if (obj->GetTag() == GameObjectTags::Player) 
-			player = obj;
-	return player;
-}
 
 bool CScene::IsLoaded()
 {

@@ -6,8 +6,9 @@ class CCell
 private:
 	D3DXVECTOR2 index;
 	RECT rect;
-	unordered_set<CGameObject*> gameObjects;
+	std::unordered_set<CGameObject*> gameObjects;
 public:
+	CCell();
 	CCell(D3DXVECTOR2 index);
 	void AddObject(CGameObject* gO);
 	void RemoveObject(CGameObject* gO);

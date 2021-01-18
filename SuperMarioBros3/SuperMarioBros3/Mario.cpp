@@ -522,76 +522,72 @@ void CMario::Render(CCamera* cam, int alpha)
 #pragma region Move On Ground
 		switch (currentPhysicsState.move)
 		{
-		case MoveOnGroundStates::Idle:
-		{
-			if (isHold == true)
-				SetState(MARIO_STATE_HOLD_IDLE);
-			else
-				SetState(MARIO_STATE_IDLE);
-			break;
-		}
-		case MoveOnGroundStates::Walk:
-		{
-			if (isHold == true)
-				SetState(MARIO_STATE_HOLD_MOVE);
-			else
-				SetState(MARIO_STATE_WALKING);
-			break;
-		}
-		case MoveOnGroundStates::Run:
-		{
-			if (isHold == true)
-				SetState(MARIO_STATE_HOLD_MOVE);
-			else
-				SetState(MARIO_STATE_RUNNING);
-			break;
-		}
-		case MoveOnGroundStates::Skid:
-		{
-			if (isHold == false)
+			case MoveOnGroundStates::Idle:
 			{
-				auto normal = physiscBody->GetNormal();
-				SetScale(D3DXVECTOR2(-normal.x, 1.0f));
-				SetState(MARIO_STATE_SKID);
+				if (isHold == true)
+					SetState(MARIO_STATE_HOLD_IDLE);
+				else
+					SetState(MARIO_STATE_IDLE);
 				break;
 			}
+			case MoveOnGroundStates::Walk:
+			{
+				if (isHold == true)
+					SetState(MARIO_STATE_HOLD_MOVE);
+				else
+					SetState(MARIO_STATE_WALKING);
+				break;
+			}
+			case MoveOnGroundStates::Run:
+			{
+				if (isHold == true)
+					SetState(MARIO_STATE_HOLD_MOVE);
+				else
+					SetState(MARIO_STATE_RUNNING);
+				break;
+			}
+			case MoveOnGroundStates::Skid:
+			{
+				if (isHold == false)
+				{
+					auto normal = physiscBody->GetNormal();
+					SetScale(D3DXVECTOR2(-normal.x, 1.0f));
+					SetState(MARIO_STATE_SKID);
+					break;
+				}
 
-		}
-		case MoveOnGroundStates::Crouch:
-		{
-			if (isHold == false)
-				SetState(MARIO_STATE_CROUCH);
-			break;
-		}
-		case MoveOnGroundStates::HighSpeed:
-		{
-			if (isHold == false)
-				SetState(MARIO_STATE_HIGH_SPEED);
-			break;
-		}
-		case MoveOnGroundStates::Attack:
-		{
-			if (isHold == false) // Tạm thời
-				SetState(MARIO_STATE_ATTACK);
-			break;
-		}
-		case MoveOnGroundStates::JumpAttack:
-		{
-			if (isHold == false)
-				SetState(MARIO_STATE_JUMP_ATTACK);
-			break;
-		}
-		case MoveOnGroundStates::Kick:
-		{
-			//DebugOut(L"KICK \n");
-			if (isHold == false)
-				SetState(MARIO_STATE_KICK);
-			break;
-		}
-		case MoveOnGroundStates::Damaged:
-		{
-			SetState(MARIO_STATE_DAMAGED);
-		}
+			}
+			case MoveOnGroundStates::Crouch:
+			{
+				if (isHold == false)
+					SetState(MARIO_STATE_CROUCH);
+				break;
+			}
+			case MoveOnGroundStates::HighSpeed:
+			{
+				if (isHold == false)
+					SetState(MARIO_STATE_HIGH_SPEED);
+				break;
+			}
+			case MoveOnGroundStates::Attack:
+			{
+				if (isHold == false) // Tạm thời
+					SetState(MARIO_STATE_ATTACK);
+				break;
+			}
+			case MoveOnGroundStates::JumpAttack:
+			{
+				if (isHold == false)
+					SetState(MARIO_STATE_JUMP_ATTACK);
+				break;
+			}
+			case MoveOnGroundStates::Kick:
+			{
+				//DebugOut(L"KICK \n");
+				if (isHold == false)
+					SetState(MARIO_STATE_KICK);
+				break;
+			}
 		}
 #	pragma endregion
 
@@ -873,6 +869,7 @@ void CMario::KickProcess(bool isKick)
 
 void CMario::InvincibleProcess()
 {
+	DebugOut(L"Invicible Process %d \n", timeStartDamaged);
 	if (timeStartDamaged != 0)
 	{
 		if (GetTickCount64() - timeStartDamaged > TIME_TO_BE_DAMAGED)
@@ -926,17 +923,10 @@ void CMario::InvincibleProcess()
 void CMario::ChangeLevelProcess()
 {
 	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
-	auto objs = activeScene->GetObjects();
-	CMarioController* marioController = NULL;
-
-	for (auto obj : objs)
-	{
-		if (obj->GetTag() == GameObjectTags::PlayerController)
-		{
-			marioController = dynamic_cast<CMarioController*>(obj);
-			break;
-		}
-	}
+	auto obj = activeScene->GetMarioController();
+	if (obj == NULL) return;
+	CMarioController* marioController = static_cast<CMarioController*>(obj);
+	
 	if (marioController != NULL)
 	{
 		CGame::SetTimeScale(1.0f);
@@ -1175,6 +1165,8 @@ void CMario::OnGoToWarpPipe()
 
 void CMario::OnDie()
 {
+	if (isDamaged == true)
+		return;
 	previousPosition = GetPosition();
 	this->isDie = true;
 	isAutogo = true;

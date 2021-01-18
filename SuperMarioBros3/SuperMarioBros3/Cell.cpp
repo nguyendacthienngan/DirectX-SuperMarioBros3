@@ -1,5 +1,11 @@
 ﻿#include "Cell.h"
 #include "GridConst.h"
+using namespace std;
+
+CCell::CCell()
+{
+}
+
 CCell::CCell(D3DXVECTOR2 index)
 {
 	this->index = index;
