@@ -166,16 +166,6 @@ void CScene::Unload()
 			}
 		}
 	}
-	/*else
-	{
-		if (globalObjects.size() > 0)
-		{
-			for (int i = 0; i < globalObjects.size(); i++)
-			{
-				globalObjects[i]->SetDestroy(true);
-			}
-		}
-	}*/
 }
 
 void CScene::DestroyObject()
@@ -287,8 +277,8 @@ void CScene::Render()
 		if (obj->IsEnabled() == false)								continue;
 
 		obj->Render(camera);
-		/*if (obj->GetCollisionBox()->size() != 0)
-			obj->GetCollisionBox()->at(0)->Render(camera, CollisionBox_Render_Distance);*/
+		if (obj->GetCollisionBox()->size() != 0)
+			obj->GetCollisionBox()->at(0)->Render(camera, CollisionBox_Render_Distance);
 	}
 	map->Render(camera, true);
 }
@@ -483,6 +473,8 @@ bool CScene::CheckGlobalObject(GameObjectTags tag)
 	if (tag == GameObjectTags::Solid || tag == GameObjectTags::GhostPlatform)
 		return true;
 	if (tag == GameObjectTags::Player || tag == GameObjectTags::SmallPlayer || tag == GameObjectTags::PlayerController)
+		return true;
+	if (tag == GameObjectTags::RaccoonTail)
 		return true;
 	return false;
 }
