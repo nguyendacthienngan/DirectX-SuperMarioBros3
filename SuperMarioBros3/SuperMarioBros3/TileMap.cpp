@@ -168,6 +168,10 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 		this->grid = new CGrid(D3DXVECTOR2(width * tileWidth, height * tileHeight));
 		this->player = player;
 		this->scene = scene;
+		/*if (scene->IsSpacePartitioning() == true)
+			translateConst = D3DXVECTOR2(0,0);
+		else*/
+			translateConst = translateConstMap;
 		
 		//Load tileset
 		for (TiXmlElement* element = root->FirstChildElement("tileset"); element != nullptr; element = element->NextSiblingElement("tileset"))
@@ -285,12 +289,11 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				}
 			}
 		}
-		if (listGameObjects.size() == 0)
+		if (listGameObjects.size() == 0 && scene->IsSpacePartitioning() == false)
 		{
 			DebugOut(L"[ERROR] Cannot load game objects \n");
 			return nullptr;
 		}
-		DebugOut(L"Game object size %d \n", listGameObjects.size());
 		return this;
 	}
 	DebugOut(L"[ERROR] Cannnot load file map \n");

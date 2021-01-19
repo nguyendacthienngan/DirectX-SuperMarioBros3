@@ -35,6 +35,7 @@ private:
 	CGameObject* card;
 	CGameObject* player;
 	CScene* scene;
+	D3DXVECTOR2 translateConst;
 public:
 	CTileMap();
 	CTileMap(int width, int height, int tileWidth, int tileHeight);

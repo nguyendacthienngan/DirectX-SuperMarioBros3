@@ -8,11 +8,11 @@ CGrid::CGrid()
 
 CGrid::CGrid(D3DXVECTOR2 mapSize)
 {
-	/*columns = (int) mapSize.x / (int) CELL_WIDTH;
-	rows = (int) mapSize.y / (int) CELL_HEIGHT;*/
+	/*numXCells = (int) (mapSize.x / CELL_WIDTH);
+	numYCells = (int) (mapSize.y / CELL_HEIGHT);*/
 
-	columns = (int)ceil((float)mapSize.x / (SCREEN_WIDTH >> 1));
-	rows = (int)ceil((float)mapSize.y / (SCREEN_HEIGHT >> 1));
+	columns = (int)ceil((float)mapSize.x / (float)CELL_WIDTH);
+	rows = (int)ceil((float)mapSize.y / (float)CELL_WIDTH);
 
 	// Khởi tạo cells
 	for (int i = 0; i < columns; i++)
@@ -20,10 +20,11 @@ CGrid::CGrid(D3DXVECTOR2 mapSize)
 		auto column = std::vector<CCell*>();
 		for(int j = 0; j < rows ; j++)
 		{
-			column.push_back(new CCell(D3DXVECTOR2(i, j)));
+			column.push_back(new CCell(Index({ i, j })));
 		}
 		cells.push_back(column);
 	}
+	count = 0;
 }
 
 void CGrid::Insert(CGameObject* gameObject)
@@ -44,10 +45,9 @@ void CGrid::Insert(CGameObject* gameObject)
 			cells[i][j]->AddObject(gameObject);
 		}
 	}*/
-	auto currentCell = GetCellIndexByPosition(pos);
-	auto x = (int)currentCell.x;
-	auto y = (int)currentCell.y;
-	cells[x][y]->AddObject(gameObject);
+	count++;
+	auto cell = GetCell(pos);
+	cell->AddObject(gameObject);
 }
 
 void CGrid::Remove(CGameObject* gameObject)
@@ -68,10 +68,8 @@ void CGrid::Remove(CGameObject* gameObject)
 		}
 	}*/
 	// 1 object thuộc 1 cell
-	auto currentCell = GetCellIndexByPosition(pos);
-	auto x = (int)currentCell.x;
-	auto y = (int)currentCell.y;
-	cells[x][y]->RemoveObject(gameObject);
+	auto cell = GetCell(pos);
+	cell->RemoveObject(gameObject);
 }
 
 void CGrid::Move(D3DXVECTOR2 oldPosition, CGameObject* gameObject, D3DXVECTOR2 size)
@@ -97,13 +95,13 @@ void CGrid::Move(D3DXVECTOR2 oldPosition, CGameObject* gameObject, D3DXVECTOR2 s
 
 	// 1 object thuộc 1 cell
 	auto oldCell = GetCellIndexByPosition(oldPosition);
-	auto x = (int)oldCell.x;
-	auto y = (int)oldCell.y;
 
 	auto newCell = GetCellIndexByPosition(gameObject->GetPosition());
 	if (oldCell.x == newCell.x && oldCell.y == newCell.y)
-		cells[x][y]->RemoveObject(gameObject);
-
+	{
+		auto cell = GetCell(oldCell);
+		cell->RemoveObject(gameObject);
+	}
 	Insert(gameObject);
 }
 
@@ -120,18 +118,19 @@ std::vector <CCell*>  CGrid::FindActiveCells(CCamera* camera)
 	auto width = camera->GetWidthCam();
 	auto height = camera->GetHeightCam();
 
-	int startCellX = (int)(viewport.x / CELL_WIDTH);
-	int startCellY = (int)(viewport.y / CELL_HEIGHT);
-	int endCellX =	(int)( (viewport.x + width) / CELL_WIDTH );
-	int endCellY = (int)( (viewport.y + height) / CELL_HEIGHT );
+	int startCellX = (int)(viewport.x / (float)CELL_WIDTH);
+	int startCellY = (int)(viewport.y / (float)CELL_HEIGHT);
+	int endCellX =	(int)( (viewport.x + width) / (float)CELL_WIDTH );
+	int endCellY = (int)( (viewport.y + height) / (float)CELL_HEIGHT );
 
-	for (int i = startCellX; i <= endCellX; i++)
+	for (int i = startCellX -1 ; i <= endCellX + 1 ; i++)
 	{
 		if (i < 0 || i > columns) continue;
-		for (int j = startCellY; j <= endCellY; j++)
+		for (int j = startCellY - 1; j <= endCellY + 1 ; j++)
 		{
-			if (j < 0 || j > columns) continue;
-			activeCells.push_back(cells[j][i]);
+			if (j < 0 || j > rows) continue;
+			auto cell = GetCell(Index({i, j}));
+			activeCells.push_back(cell);
 		}
 	}
 	return activeCells;
@@ -160,9 +159,29 @@ RECT CGrid::GetRectByPosition(D3DXVECTOR2 pos, D3DXVECTOR2 size)
 	return rect;
 }
 
-D3DXVECTOR2 CGrid::GetCellIndexByPosition(D3DXVECTOR2 pos)
+Index CGrid::GetCellIndexByPosition(D3DXVECTOR2 pos)
 {
-	return { (int)pos.x / CELL_WIDTH, (int) pos.y / CELL_HEIGHT };
+	return { (int) (pos.x / CELL_WIDTH), (int) (pos.y / CELL_HEIGHT) };
+}
+
+CCell* CGrid::GetCell(Index index)
+{
+	if (index.x < 0)
+		index.x = 0;
+	if (index.x > columns - 1)
+		index.x = columns - 1;
+
+	if (index.y < 0)
+		index.y = 0;
+	if (index.y > rows - 1)
+		index.y = rows - 1;
+	return cells.at(index.x).at(index.y); // IMPORTANT
+}
+
+CCell* CGrid::GetCell(D3DXVECTOR2 position)
+{
+	auto index = GetCellIndexByPosition(position);
+	return GetCell(index);
 }
 
 CGrid::~CGrid()
@@ -171,7 +190,8 @@ CGrid::~CGrid()
 	{
 		for (int j = 0; j < rows; j++)
 		{
-			delete cells[i][j];
+			delete cells.at(i).at(j);
 		}
 	}
+	cells.clear();
 }

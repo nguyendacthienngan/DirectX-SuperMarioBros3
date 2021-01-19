@@ -6,7 +6,7 @@ CCell::CCell()
 {
 }
 
-CCell::CCell(D3DXVECTOR2 index)
+CCell::CCell(Index index)
 {
 	this->index = index;
 	/*rect.left = index.x;

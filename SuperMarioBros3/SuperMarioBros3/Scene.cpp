@@ -274,6 +274,7 @@ void CScene::FindUpdateObjects()
 				updateObjects.push_back(gameObject);
 			}
 		}
+		DebugOut(L"Update objects size %d \n", updateObjects.size());
 	}
 	else
 	{
