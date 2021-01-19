@@ -38,6 +38,7 @@ protected:
 
 	std::vector<LPGameObject> bricks;
 	std::vector<LPGameObject> coins;
+	std::vector<LPGameObject> keyboardTargetObjects;
 	CObjectPool* poolBricks;
 	CObjectPool* poolCoins;
 	bool switchBlockOffToOn;
@@ -81,6 +82,9 @@ public:
 	bool IsLoaded();
 	bool IsSpacePartitioning();
 	bool CheckGlobalObject(GameObjectTags tag);
+
+	void AddKeyboardTargetObject(CGameObject* gameObject);
+	std::vector<LPGameObject>  GetKeyboardTargetObject();
 	virtual ~CScene();
 };
 #endif

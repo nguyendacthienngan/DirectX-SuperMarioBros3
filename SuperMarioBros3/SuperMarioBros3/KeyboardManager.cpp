@@ -175,12 +175,6 @@ void CKeyboardManager::SetHWND(HWND h)
 	hWnd = h;
 }
 
-void CKeyboardManager::AddTargetForKeyboard(CGameObject* target)
-{
-	keyEventHandler->AddCurrentTarget(target);
-}
-
-
 bool CKeyboardManager::GetKeyStateDown(int keyCode)
 {
 	return (keyStates[keyCode] & 0x80) > 0; // Lấy ra nút được ấn

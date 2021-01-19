@@ -34,28 +34,24 @@ void CMarioController::Init()
 	listMarioStates.insert(make_pair(SMALL_MARIO_STATE, marioStateObject));
 	listStateObjects.insert(make_pair(SMALL_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
-	CKeyboardManager::GetInstance()->AddTargetForKeyboard(marioStateObject);
 
 	// SUPER MARIO
 	marioStateObject = new CSuperMario();
 	listMarioStates.insert(make_pair(SUPER_MARIO_STATE, marioStateObject));
 	listStateObjects.insert(make_pair(SUPER_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
-	CKeyboardManager::GetInstance()->AddTargetForKeyboard(marioStateObject);
 
 	// RACOON MARIO
 	marioStateObject = new CRaccoonMario();
 	listMarioStates.insert(make_pair(RACOON_MARIO_STATE, marioStateObject));
 	listStateObjects.insert(make_pair(RACOON_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
-	CKeyboardManager::GetInstance()->AddTargetForKeyboard(marioStateObject);
 
 	// FIRE MARIO
 	marioStateObject = new CFireMario();
 	listMarioStates.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
 	listStateObjects.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
-	CKeyboardManager::GetInstance()->AddTargetForKeyboard(marioStateObject);
 
 	collisionBoxs->clear();
 	//collisionBoxs = NULL;
@@ -74,6 +70,7 @@ void CMarioController::AddStateObjectsToScene(LPScene scene)
 	for (auto obj : listStateObjects)
 	{
 		scene->AddObject(obj.second);
+		scene->AddKeyboardTargetObject(obj.second);
 		obj.second->AddObjectToScene(scene);
 	}
 }

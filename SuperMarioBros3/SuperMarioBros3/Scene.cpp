@@ -25,7 +25,7 @@ CScene::CScene()
 	loaded = true;
 	cardState = 0;
 	marioController = NULL;
-	spaceParitioning = true;
+	spaceParitioning = false;
 }
 
 void CScene::Load()
@@ -149,7 +149,7 @@ void CScene::Load()
 		}
 	}
 	if (marioController != NULL)
-		CKeyboardManager::GetInstance()->AddTargetForKeyboard(marioController);
+		keyboardTargetObjects.push_back(marioController);
 	loaded = true;
 }
 
@@ -179,7 +179,7 @@ void CScene::DestroyObject()
 		}
 		else
 		{
-			for (auto gO : gameObjects)
+			for (auto gO : gameObjects) // IMPORTANT for player problem
 			{
 				if (gO->IsDestroyed() == true)
 				{
@@ -190,19 +190,24 @@ void CScene::DestroyObject()
 			}
 			gameObjects.clear();
 		}
+		keyboardTargetObjects.clear();
 		delete map;
 		map = NULL;
+		marioController = NULL;
 		camera = NULL;
 	}
-	if (destroyObjects.size() > 0)
+	if (spaceParitioning == false) /// IMPORTANT for brick problem?
 	{
-		for (auto gO : destroyObjects)
+		if (destroyObjects.size() > 0)
 		{
-			RemoveObject(gO);
-			delete gO;
-			gO = NULL;
+			for (auto gO : destroyObjects)
+			{
+				RemoveObject(gO);
+				delete gO;
+				gO = NULL;
+			}
+			destroyObjects.clear();
 		}
-		destroyObjects.clear();
 	}
 }
 
@@ -458,6 +463,16 @@ bool CScene::CheckGlobalObject(GameObjectTags tag)
 	if (tag == GameObjectTags::Player || tag == GameObjectTags::SmallPlayer || tag == GameObjectTags::PlayerController)
 		return true;
 	return false;
+}
+
+void CScene::AddKeyboardTargetObject(CGameObject* gameObject)
+{
+	keyboardTargetObjects.push_back(gameObject);
+}
+
+std::vector<LPGameObject>  CScene::GetKeyboardTargetObject()
+{
+	return keyboardTargetObjects;
 }
 
 CScene::~CScene()
