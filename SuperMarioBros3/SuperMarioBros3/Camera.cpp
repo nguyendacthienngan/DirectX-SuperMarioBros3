@@ -110,6 +110,8 @@ bool CCamera::CheckObjectInCamera(LPGameObject gO) // Thông tin của object
 {
     if (gO->GetTag() == GameObjectTags::PlayerController || gO->GetTag() == GameObjectTags::Effect)
         return true;
+    if (gO->MarioTag(gO->GetTag()))
+        return true;
     D3DXVECTOR2 posObject = gO->GetPosition();
     auto size = CGameObject::GetGameObjectSize(gO);
     if (size.x == -1 && size.y == -1)

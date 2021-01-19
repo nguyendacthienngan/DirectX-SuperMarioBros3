@@ -70,8 +70,7 @@ void CMarioController::Process()
 
 void CMarioController::AddStateObjectsToScene(LPScene scene)
 {
-	int i = 0;
-	DebugOut(L"Add mario to scene %d", i++);
+	DebugOut(L"Add mario to scene \n");
 	for (auto obj : listStateObjects)
 	{
 		scene->AddObject(obj.second);

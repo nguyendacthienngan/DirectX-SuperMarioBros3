@@ -34,7 +34,7 @@ protected:
 	CCamera *camera;
 	std::string filePath;
 	bool loaded;
-	std::vector<LPGameObject> destroyObjects, initObjects, updateObjects;
+	std::vector<LPGameObject> destroyObjects, initObjects, updateObjects, globalObjects;
 
 	std::vector<LPGameObject> bricks;
 	std::vector<LPGameObject> coins;
@@ -62,6 +62,7 @@ public:
 	CMap* GetMap() { return map; }
 	void AddObject(LPGameObject gameObject);
 	void RemoveObject(LPGameObject gameObject);
+	void AddGlobalObject(LPGameObject gameObject);
 
 	CGameObject* GetMarioController();
 	std::vector<CGameObject*> GetBricks();
@@ -79,6 +80,7 @@ public:
 	void SwitchBlockStateOnToOff(bool state);
 	bool IsLoaded();
 	bool IsSpacePartitioning();
+	bool CheckGlobalObject(GameObjectTags tag);
 	virtual ~CScene();
 };
 #endif

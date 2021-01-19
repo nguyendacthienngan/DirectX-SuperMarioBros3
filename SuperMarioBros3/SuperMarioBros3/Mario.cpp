@@ -258,6 +258,7 @@ void CMario::EndAnimation()
 
 void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
+	DebugOut(L"Mario Update \n");
 	if (uiCamera == NULL)
 	{
 		uiCamera = static_cast<CUICamera*>(uiCam);

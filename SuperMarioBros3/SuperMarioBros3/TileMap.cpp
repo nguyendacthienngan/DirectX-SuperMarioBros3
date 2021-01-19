@@ -412,6 +412,7 @@ void CTileMap::LoadKoopa(D3DXVECTOR2 position, std::string enemyType, std::vecto
 
 		koopaShell->SetKoopa(koopa);
 		koopaShell->SetTarget(player);
+		koopaShell->Enable(false);
 		koopa->SetTarget(player);
 
 		AddObjectToList(koopaShell, listGameObjects);
@@ -995,7 +996,13 @@ void CTileMap::AddObjectToList(CGameObject* gameObject, std::vector<LPGameObject
 		return;
 	
 	if (scene->IsSpacePartitioning() == true)
-		grid->Insert(gameObject);
+	{
+		if (scene->CheckGlobalObject(gameObject->GetTag()))
+			scene->AddGlobalObject(gameObject);
+		else
+			grid->Insert(gameObject);
+
+	}
 	else
 	{
 		auto gameObj = find(gameObjects.begin(), gameObjects.end(), gameObject);

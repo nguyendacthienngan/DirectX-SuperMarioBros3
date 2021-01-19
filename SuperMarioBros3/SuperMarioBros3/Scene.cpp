@@ -252,7 +252,7 @@ void CScene::Render()
 
 	for (auto obj : updateObjects)
 	{
-		//if (obj->IsEnabled() == false)								continue;
+		if (obj->IsEnabled() == false)								continue;
 
 		obj->Render(camera);
 		/*if (obj->GetCollisionBox()->size() != 0)
@@ -266,15 +266,26 @@ void CScene::FindUpdateObjects()
 	updateObjects.clear();
 	if (spaceParitioning == true)
 	{
+		if (globalObjects.size() > 0)
+		{
+			for (auto obj : globalObjects)
+			{
+				if (camera != NULL
+					&& camera->CheckObjectInCamera(obj) == false)			continue;
+				updateObjects.push_back(obj);
+			}
+		}
+
 		auto activeCells = grid->FindActiveCells(camera);
+		int count = 0;
 		for (auto activeCell : activeCells)
 		{
 			for (auto gameObject : activeCell->GetListGameObject())
 			{
+				count++;
 				updateObjects.push_back(gameObject);
 			}
 		}
-		DebugOut(L"Update objects size %d \n", updateObjects.size());
 	}
 	else
 	{
@@ -294,9 +305,15 @@ void CScene::AddObject(LPGameObject gameObject)
 		return;
 	if (spaceParitioning == true)
 	{
-		if (grid == NULL) 
-			return;
-		grid->Insert(gameObject);
+		if (CheckGlobalObject(gameObject->GetTag()) == true)
+			globalObjects.push_back(gameObject);
+		else
+		{
+			if (grid == NULL)
+				return;
+			grid->Insert(gameObject);
+
+		}
 	}
 	else
 	{
@@ -324,6 +341,13 @@ void CScene::RemoveObject(LPGameObject gameObject)
 			gameObjects.erase(gameObj);
 		}
 	}
+}
+
+void CScene::AddGlobalObject(LPGameObject gameObject)
+{
+	if (gameObject == NULL)
+		return;
+	globalObjects.push_back(gameObject);
 }
 
 CGameObject* CScene::GetMarioController()
@@ -417,6 +441,15 @@ bool CScene::IsLoaded()
 bool CScene::IsSpacePartitioning()
 {
 	return spaceParitioning;
+}
+
+bool CScene::CheckGlobalObject(GameObjectTags tag)
+{
+	if (tag == GameObjectTags::Solid || tag == GameObjectTags::GhostPlatform)
+		return true;
+	if (tag == GameObjectTags::Player || tag == GameObjectTags::SmallPlayer || tag == GameObjectTags::PlayerController)
+		return true;
+	return false;
 }
 
 CScene::~CScene()
