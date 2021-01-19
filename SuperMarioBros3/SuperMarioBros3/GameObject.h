@@ -15,6 +15,7 @@
 #include "GameObjectTags.h"
 #include "Scene.h"
 #include "Node.h"
+#include "Index.h"
 
 class CScene;
 typedef CScene* LPScene;
@@ -36,6 +37,8 @@ struct CollisionEvent;
 class CAnimation;
 typedef CAnimation* LPAnimation;
 
+struct Index;
+
 // Mỗi gameobject sẽ lưu animation của riêng nó. Nó sẽ clone animation từ animation gốc chứ k lấy thẳng con trỏ animation bên đó
 // Vì như vậy sẽ làm cho việc animation quá đồng bộ và không tự nhiên
 // Nhưng lưu ý khi cloneanimation và setstate nhớ đặt tên giống nhau !
@@ -45,6 +48,7 @@ class CGameObject: public CNode
 protected:
 	int id;
 	DWORD dt;
+	Index currentCellIndex;
 
 	Transform transform; // position ( dời hình ), scale, rotate
 	D3DXVECTOR2 relativePositionOnScreen = D3DXVECTOR2(0.0f, 0.0f);
@@ -140,6 +144,9 @@ public:
 	void SetStatic(bool setStatic);
 	bool IsInGrid();
 	void SetInGrid(bool setInGrid);
+
+	Index GetIndex();
+	void SetIndex(Index index);
 };
 
 #endif

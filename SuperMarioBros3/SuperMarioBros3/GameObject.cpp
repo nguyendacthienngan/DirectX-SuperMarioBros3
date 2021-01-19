@@ -352,6 +352,16 @@ void CGameObject::SetInGrid(bool setInGrid)
 	isInGrid = setInGrid;
 }
 
+Index CGameObject::GetIndex()
+{
+	return currentCellIndex;
+}
+
+void CGameObject::SetIndex(Index index)
+{
+	currentCellIndex = index;
+}
+
 
 LPAnimation CGameObject::GetAnimationByState(std::string state)
 {

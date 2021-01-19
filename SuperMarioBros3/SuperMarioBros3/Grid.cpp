@@ -28,6 +28,7 @@ void CGrid::Insert(CGameObject* gameObject)
 	if (gameObject == NULL)
 		return;
 	auto pos = gameObject->GetPosition();
+	//auto cell = GetCell(pos);// Tự tính pos
 
 	/*
 	// 1 object thuộc nhiều cell
@@ -41,7 +42,7 @@ void CGrid::Insert(CGameObject* gameObject)
 			cells[i][j]->AddObject(gameObject);
 		}
 	}*/
-	auto cell = GetCell(pos);
+	auto cell = GetCell(gameObject->GetIndex());
 	cell->AddObject(gameObject);
 }
 
@@ -50,6 +51,8 @@ void CGrid::Remove(CGameObject* gameObject)
 	if (gameObject == NULL)
 		return;
 	auto pos = gameObject->GetPosition();
+	//auto cell = GetCell(pos); // Tự tính pos
+
 	/*
 	// 1 object thuộc nhiều cell
 	auto objSize = CGameObject::GetGameObjectSize(gameObject);
@@ -63,7 +66,8 @@ void CGrid::Remove(CGameObject* gameObject)
 		}
 	}*/
 	// 1 object thuộc 1 cell
-	auto cell = GetCell(pos);
+
+	auto cell = GetCell(gameObject->GetIndex());
 	cell->RemoveObject(gameObject);
 }
 
@@ -89,7 +93,8 @@ void CGrid::Move(D3DXVECTOR2 oldPosition, CGameObject* gameObject)
 	}*/
 
 	// 1 object thuộc 1 cell
-	auto oldCell = GetCellIndexByPosition(oldPosition);
+	//auto oldCell = GetCellIndexByPosition(oldPosition); // tự tính = pos
+	auto oldCell = gameObject->GetIndex();
 	auto newCell = GetCellIndexByPosition(gameObject->GetPosition());
 	if (oldCell.x != newCell.x || oldCell.y != newCell.y)
 	{

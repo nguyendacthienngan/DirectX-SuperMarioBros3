@@ -309,6 +309,8 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 					gameObject = LoadMovingPlatform(position, listGameObjects);
 				}
 
+				if (cellX != -1 && cellY != -1)
+					gameObject->SetIndex({ cellX, cellY });
 				/*if (gameObject != NULL)
 				{
 					objectGroup.insert(make_pair(id, gameObject));
@@ -474,7 +476,7 @@ CGameObject* CTileMap::LoadParakoopa(D3DXVECTOR2 position, std::string enemyType
 				property->QueryIntAttribute("value", &boundaryBottom);
 			}
 		}
-		if (boundaryTop == 0 || boundaryBottom == 0) return;
+		if (boundaryTop == 0 || boundaryBottom == 0) return NULL;
 
 		CRedKoopaShell* koopaShell = new CRedKoopaShell();
 		koopaShell->SetEnemyType(enemyType);

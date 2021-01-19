@@ -1,11 +1,8 @@
 #pragma once
+#include "Index.h"
 #include "GameObject.h"
 #include <unordered_set>
-struct Index
-{
-	int x;
-	int y;
-};
+struct Index;
 class CCell
 {
 private:

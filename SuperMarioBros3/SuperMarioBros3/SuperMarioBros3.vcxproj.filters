@@ -780,6 +780,9 @@
     <ClInclude Include="GridConst.h">
       <Filter>Framework\Game\Grid</Filter>
     </ClInclude>
+    <ClInclude Include="Index.h">
+      <Filter>Framework\Ultis</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -1223,7 +1226,7 @@
     <Xml Include="Resources\Sprites\IntroDB.xml">
       <Filter>Game\Resouces\Sprites</Filter>
     </Xml>
-    <Xml Include="Resources\grid-result.xml">
+    <Xml Include="..\..\..\..\Game\Source code cua Bach\GridTool\uploads\grid-result.xml">
       <Filter>Game\Resouces\Grid</Filter>
     </Xml>
   </ItemGroup>
@@ -1239,6 +1242,9 @@
     </None>
     <None Include="Resources\Maps\intro-map.tmx">
       <Filter>Game\Resouces\Maps</Filter>
+    </None>
+    <None Include="Resources\Grid\world-1-1-grid.tmx">
+      <Filter>Game\Resouces\Grid</Filter>
     </None>
   </ItemGroup>
 </Project>
