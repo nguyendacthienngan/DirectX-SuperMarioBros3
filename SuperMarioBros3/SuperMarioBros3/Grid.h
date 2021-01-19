@@ -10,10 +10,6 @@ private:
 	std::vector<std::vector<CCell*>> cells; // Ma trận toàn bộ các cell trong map
 	int columns;
 	int rows;
-	int count; //temp
-
-	/*int numXCells;
-	int numYCells;*/
 	std::vector <CCell*> activeCells; // các cell được active trong viewport
 public:
 	CGrid();

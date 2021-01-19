@@ -168,11 +168,6 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 		this->grid = new CGrid(D3DXVECTOR2(width * tileWidth, height * tileHeight));
 		this->player = player;
 		this->scene = scene;
-		/*if (scene->IsSpacePartitioning() == true)
-			translateConst = D3DXVECTOR2(0,0);
-		else*/
-			translateConst = translateConstMap;
-		
 		//Load tileset
 		for (TiXmlElement* element = root->FirstChildElement("tileset"); element != nullptr; element = element->NextSiblingElement("tileset"))
 		{

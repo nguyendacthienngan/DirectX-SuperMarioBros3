@@ -8,9 +8,6 @@ CGrid::CGrid()
 
 CGrid::CGrid(D3DXVECTOR2 mapSize)
 {
-	/*numXCells = (int) (mapSize.x / CELL_WIDTH);
-	numYCells = (int) (mapSize.y / CELL_HEIGHT);*/
-
 	columns = (int)ceil((float)mapSize.x / (float)CELL_WIDTH);
 	rows = (int)ceil((float)mapSize.y / (float)CELL_WIDTH);
 
@@ -24,7 +21,6 @@ CGrid::CGrid(D3DXVECTOR2 mapSize)
 		}
 		cells.push_back(column);
 	}
-	count = 0;
 }
 
 void CGrid::Insert(CGameObject* gameObject)
@@ -45,7 +41,6 @@ void CGrid::Insert(CGameObject* gameObject)
 			cells[i][j]->AddObject(gameObject);
 		}
 	}*/
-	count++;
 	auto cell = GetCell(pos);
 	cell->AddObject(gameObject);
 }
