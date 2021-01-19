@@ -201,12 +201,18 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 
 		}
 		// Load game objects
-		vector<CGameObject*> objectGroup;
+		std::unordered_map<int, CGameObject*> objectGroup;
 		for (TiXmlElement* element = root->FirstChildElement("objectgroup"); element != nullptr; element = element->NextSiblingElement("objectgroup"))
 		{
 			std::string name = element->Attribute("name");
 			int objectGroupdID;
 			element->QueryIntAttribute("id", &objectGroupdID);
+
+			if (objectGroup.size() > 0)
+				objectGroups.insert(make_pair(objectGroupdID, objectGroup));
+			objectGroup.clear();
+			
+			CGameObject* gameObject = NULL;
 			for (TiXmlElement* object = element->FirstChildElement("object"); object != nullptr; object = object->NextSiblingElement("object"))
 			{
 				int id, x, y, width, height;
@@ -225,65 +231,70 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 
 				if (name.compare("Solid") == 0)
 				{
-					LoadSolidBox(position, size, nameObject, listGameObjects);
+					gameObject = LoadSolidBox(position, size, nameObject, listGameObjects);
 				}
 				else if (name.compare("Ghost") == 0)
 				{
-					LoadGhostBox(position, size, nameObject, listGameObjects);
+					gameObject = LoadGhostBox(position, size, nameObject, listGameObjects);
 				}
 				else if (name.compare("Enemy") == 0)
 				{
 					std::string enemyName = object->Attribute("name");
 					std::string enemyType = object->Attribute("type");
-					LoadEnemy(position, enemyName, enemyType, object, listGameObjects);
+					gameObject = LoadEnemy(position, enemyName, enemyType, object, listGameObjects);
 				}
 				else if (name.compare("QuestionBlocks") == 0)
 				{
 					object->QueryIntAttribute("type", &type); //type thiệt ra là số lượng
 					std::string questionBlockName = object->Attribute("name");
-					LoadQuestionBlock(position, type, questionBlockName, listGameObjects);
+					gameObject = LoadQuestionBlock(position, type, questionBlockName, listGameObjects);
 				}
 				else if (name.compare("Coin") == 0)
 				{
-					LoadCoin(position, type, object, listGameObjects);
+					gameObject = LoadCoin(position, type, object, listGameObjects);
 				}
 				else if (name.compare("Brick") == 0)
 				{
-					LoadBrick(position, type, object, listGameObjects);
+					gameObject = LoadBrick(position, type, object, listGameObjects);
 				}
 				else if (name.compare("Portal") == 0)
 				{
-					LoadPortal(position, size, object, listGameObjects);
+					gameObject = LoadPortal(position, size, object, listGameObjects);
 				}
 				else if (name.compare("Label") == 0)
 				{
 					std::string labelName = object->Attribute("name");
-					LoadLabel(position, labelName, size, object, listGameObjects);
+					gameObject = LoadLabel(position, labelName, size, object, listGameObjects);
 				}
 				else if (name.compare("World-Item") == 0)
 				{
 					string itemName = object->Attribute("name");
-					LoadWorldItem(position, itemName, listGameObjects);
+					gameObject = LoadWorldItem(position, itemName, listGameObjects);
 				}
 				else if (name.compare("Portal-Scene") == 0)
 				{
-					LoadPortalScene(position, size, object, listGameObjects);
+					gameObject = LoadPortalScene(position, size, object, listGameObjects);
 				}
 				else if (name.compare("SwitchBlocks") == 0)
 				{
-					LoadSwitchBlock(position, listGameObjects);
+					gameObject = LoadSwitchBlock(position, listGameObjects);
 				}
 				else if (name.compare("Block") == 0)
 				{
-					LoadEmptyBlock(position, listGameObjects);
+					gameObject = LoadEmptyBlock(position, listGameObjects);
 				}
 				else if (name.compare("Card") == 0)
 				{
-					LoadCard(position, listGameObjects);
+					gameObject = LoadCard(position, listGameObjects);
 				}
 				else if (name.compare("MovingPlatform") == 0)
 				{
-					LoadMovingPlatform(position, listGameObjects);
+					gameObject = LoadMovingPlatform(position, listGameObjects);
+				}
+
+				if (gameObject != NULL)
+				{
+					objectGroup.insert(make_pair(id, gameObject));
 				}
 			}
 		}
@@ -340,54 +351,57 @@ Layer* CTileMap::LoadLayer(TiXmlElement* element)
 	return layer;
 }
 
-void CTileMap::LoadSolidBox(D3DXVECTOR2 position, D3DXVECTOR2 size, std::string name, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadSolidBox(D3DXVECTOR2 position, D3DXVECTOR2 size, std::string name, std::vector<LPGameObject>& listGameObjects)
 {
 	CSolidBox* solid = new CSolidBox();
 	solid->SetPosition(position - translateConst + size * 0.5); // lấy tọa độ giữa
 	solid->GetCollisionBox()->at(0)->SetSizeBox(size);
 	solid->GetCollisionBox()->at(0)->SetName(name);
 	AddObjectToList(solid, listGameObjects);
+	return solid;
 }
 
-void CTileMap::LoadGhostBox(D3DXVECTOR2 position, D3DXVECTOR2 size, std::string name, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadGhostBox(D3DXVECTOR2 position, D3DXVECTOR2 size, std::string name, std::vector<LPGameObject>& listGameObjects)
 {
 	CGhostPlatform* ghostPlatform = new CGhostPlatform();
 	ghostPlatform->SetPosition(position - translateConst + size * 0.5);
 	ghostPlatform->GetCollisionBox()->at(0)->SetSizeBox(size);
 	ghostPlatform->GetCollisionBox()->at(0)->SetName(name);
 	AddObjectToList(ghostPlatform, listGameObjects);
+	return ghostPlatform;
 }
 
-void CTileMap::LoadEnemy(D3DXVECTOR2 position, std::string enemyName, std::string enemyType, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadEnemy(D3DXVECTOR2 position, std::string enemyName, std::string enemyType, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
 {
 	CGameObject* enemy = NULL;
 	if (enemyName.compare("koopa") == 0)
 	{
-		LoadKoopa(position, enemyType, listGameObjects);
+		enemy = LoadKoopa(position, enemyType, listGameObjects);
 	}
 	else if (enemyName.compare("goomba") == 0)
 	{
-		LoadGoomba(position, enemyType, listGameObjects);
+		enemy = LoadGoomba(position, enemyType, listGameObjects);
 	}
 	else if (enemyName.compare("para-goomba") == 0)
 	{
-		LoadParagoomba(position, enemyType, listGameObjects);
+		enemy = LoadParagoomba(position, enemyType, listGameObjects);
 	}
 	else if (enemyName.compare("para-koopa") == 0)
 	{
-		LoadParakoopa(position, enemyType, object, listGameObjects);
+		enemy = LoadParakoopa(position, enemyType, object, listGameObjects);
 	}
 	else if (enemyName.compare("piranha") == 0)
 	{
-		LoadPiranha(position, listGameObjects);
+		enemy = LoadPiranha(position, listGameObjects);
 	}
 	else if (enemyName.compare("venus") == 0)
 	{
-		LoadVenus(position, enemyType, listGameObjects);
+		enemy = LoadVenus(position, enemyType, listGameObjects);
 	}
+	return enemy;
 }
 
-void CTileMap::LoadKoopa(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadKoopa(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
 {
 	CKoopa* koopa = NULL;
 	CKoopaShell* koopaShell = NULL;
@@ -421,9 +435,10 @@ void CTileMap::LoadKoopa(D3DXVECTOR2 position, std::string enemyType, std::vecto
 		AddObjectToList(koopaShell, listGameObjects);
 		AddObjectToList(koopa, listGameObjects);
 	}
+	return koopa;
 }
 
-void CTileMap::LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
 {
 
 	if (enemyType.compare("red") == 0)
@@ -471,6 +486,7 @@ void CTileMap::LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, TiXmlE
 		AddObjectToList(koopaShell, listGameObjects);
 		AddObjectToList(koopa, listGameObjects);
 		AddObjectToList(parakoopa, listGameObjects);
+		return parakoopa;
 	}
 	else
 	{
@@ -499,10 +515,12 @@ void CTileMap::LoadParakoopa(D3DXVECTOR2 position, std::string enemyType, TiXmlE
 		AddObjectToList(koopaShell, listGameObjects);
 		AddObjectToList(koopa, listGameObjects);
 		AddObjectToList(parakoopa, listGameObjects);
+		return parakoopa;
 	}
+	return NULL;
 }
 
-void CTileMap::LoadGoomba(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadGoomba(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
 {
 	CGoomba* goomba = NULL;
 	if (enemyType.compare("tan") == 0)
@@ -521,9 +539,10 @@ void CTileMap::LoadGoomba(D3DXVECTOR2 position, std::string enemyType, std::vect
 		goomba->SetTarget(player);
 		AddObjectToList(goomba, listGameObjects);
 	}
+	return goomba;
 }
 
-void CTileMap::LoadParagoomba(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadParagoomba(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
 {
 	CRedGoomba* goomba = new CRedGoomba();
 	goomba->SetPosition(position - translateConst);
@@ -537,18 +556,20 @@ void CTileMap::LoadParagoomba(D3DXVECTOR2 position, std::string enemyType, std::
 	paragoomba->SetTarget(player);
 	AddObjectToList(goomba, listGameObjects);
 	AddObjectToList(paragoomba, listGameObjects);
+	return paragoomba;
 }
 
-void CTileMap::LoadPiranha(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadPiranha(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects)
 {
 	CPiranha* piranha = new CPiranha();
 	piranha->SetPosition(position - translateConst);
 	piranha->SetStartPosition(position - translateConst);
 	piranha->SetTarget(player);
 	AddObjectToList(piranha, listGameObjects);
+	return piranha;
 }
 
-void CTileMap::LoadVenus(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadVenus(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects)
 {
 	CVenus* venus = NULL;
 	if (enemyType.compare("green") == 0)
@@ -560,9 +581,10 @@ void CTileMap::LoadVenus(D3DXVECTOR2 position, std::string enemyType, std::vecto
 	venus->SetTarget(player);
 	venus->GetObjectPool().AddPoolToScene(scene);
 	AddObjectToList(venus, listGameObjects);
+	return venus;
 }
 
-void CTileMap::LoadQuestionBlock(D3DXVECTOR2 position, int type, std::string name, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadQuestionBlock(D3DXVECTOR2 position, int type, std::string name, std::vector<LPGameObject>& listGameObjects)
 {
 	CQuestionBlock* solid = new CQuestionBlock();
 	solid->SetPosition(position - translateConst);
@@ -577,9 +599,10 @@ void CTileMap::LoadQuestionBlock(D3DXVECTOR2 position, int type, std::string nam
 
 	solid->SetTarget(player);
 	AddObjectToList(solid, listGameObjects);
+	return solid;
 }
 
-void CTileMap::LoadBrick(D3DXVECTOR2 position, int type, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadBrick(D3DXVECTOR2 position, int type, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
 {
 	CBrick* solid = new CBrick();
 	solid->SetPosition(position - translateConst);
@@ -597,9 +620,10 @@ void CTileMap::LoadBrick(D3DXVECTOR2 position, int type, TiXmlElement* object, s
 	solid->SetType(type);
 	solid->GetObjectPool().AddPoolToScene(scene);
 	AddObjectToList(solid, listGameObjects);
+	return solid;
 }
 
-void CTileMap::LoadCoin(D3DXVECTOR2 position, int type, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadCoin(D3DXVECTOR2 position, int type, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
 {
 	CCoin* solid = new CCoin();
 	solid->SetPosition(position - translateConst);
@@ -616,9 +640,10 @@ void CTileMap::LoadCoin(D3DXVECTOR2 position, int type, TiXmlElement* object, st
 	}
 	solid->SetType(type);
 	AddObjectToList(solid, listGameObjects);
+	return solid;
 }
 
-void CTileMap::LoadPortal(D3DXVECTOR2 position, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadPortal(D3DXVECTOR2 position, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
 {
 	int cameraID = -1;
 	std::string sceneID = "";
@@ -642,9 +667,11 @@ void CTileMap::LoadPortal(D3DXVECTOR2 position, D3DXVECTOR2 size, TiXmlElement* 
 		}
 	}
 	AddObjectToList(portal, listGameObjects);
+	return portal;
+
 }
 
-void CTileMap::LoadLabel(D3DXVECTOR2 position, std::string labelName, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadLabel(D3DXVECTOR2 position, std::string labelName, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
 {
 	if (labelName.compare("warp-pipe") == 0)
 	{
@@ -669,51 +696,60 @@ void CTileMap::LoadLabel(D3DXVECTOR2 position, std::string labelName, D3DXVECTOR
 			}
 		}
 		AddObjectToList(label, listGameObjects);
+		return label;
 	}
+	return NULL;
 }
 
-void CTileMap::LoadWorldItem(D3DXVECTOR2 position, std::string itemName, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadWorldItem(D3DXVECTOR2 position, std::string itemName, std::vector<LPGameObject>& listGameObjects)
 {
 	if (itemName.compare("grass") == 0)
 	{
 		CGrass* grass = new CGrass();
 		grass->SetPosition(position - translateConst);
 		AddObjectToList(grass, listGameObjects);
+		return grass;
 	}
 	if (itemName.compare("help") == 0)
 	{
 		CHelpItem* help = new CHelpItem();
 		help->SetPosition(position - translateConst);
 		AddObjectToList(help, listGameObjects);
+		return help;
 	}
 	if (itemName.compare("start") == 0)
 	{
 		CStartItem* startItem = new CStartItem();
 		startItem->SetPosition(position - translateConst);
 		AddObjectToList(startItem, listGameObjects);
+		return startItem;
 	}
 	if (itemName.compare("three") == 0)
 	{
 		CThreeAnimation* three = new CThreeAnimation();
 		three->SetPosition(position - translateConst);
 		AddObjectToList(three, listGameObjects);
+		return three;
 	}
+	return NULL;
 }
 
-void CTileMap::LoadPortalScene(D3DXVECTOR2 position, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadPortalScene(D3DXVECTOR2 position, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
 {
 	std::string type = object->Attribute("type");
+	CGameObject* portal = NULL;
 	if (type.compare("scene") == 0)
 	{
-		LoadSceneGate(position, size, object, listGameObjects);
+		portal = LoadSceneGate(position, size, object, listGameObjects);
 	}
 	if (type.compare("node") == 0)
 	{
-		LoadNodeGate(position, size, object, listGameObjects);
+		portal = LoadNodeGate(position, size, object, listGameObjects);
 	}
+	return portal;
 }
 
-void CTileMap::LoadSceneGate(D3DXVECTOR2 position, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadSceneGate(D3DXVECTOR2 position, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
 {
 	int cameraID = -1;
 	std::string sceneID = "";
@@ -820,11 +856,13 @@ void CTileMap::LoadSceneGate(D3DXVECTOR2 position, D3DXVECTOR2 size, TiXmlElemen
 		{
 			graph->AddNode(portal);
 			AddObjectToList(portal, listGameObjects);
+			return portal;
 		}
 	}
+	return NULL;
 }
 
-void CTileMap::LoadNodeGate(D3DXVECTOR2 position, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadNodeGate(D3DXVECTOR2 position, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
 {
 	CNodeMap* node = new CNodeMap(size);
 
@@ -903,36 +941,42 @@ void CTileMap::LoadNodeGate(D3DXVECTOR2 position, D3DXVECTOR2 size, TiXmlElement
 	{
 		graph->AddNode(node);
 		AddObjectToList(node, listGameObjects);
+		return node;
 	}
+	return NULL;
 }
 
-void CTileMap::LoadSwitchBlock(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadSwitchBlock(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects)
 {
 	CPSwitch* switchBlock = new CPSwitch();
 	switchBlock->SetPosition(position - translateConst);
 	AddObjectToList(switchBlock, listGameObjects);
+	return switchBlock;
 }
 
-void CTileMap::LoadEmptyBlock(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadEmptyBlock(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects)
 {
 	CEmptyBlock* emptyBlock = new CEmptyBlock();
 	emptyBlock->SetPosition(position - translateConst);
 	AddObjectToList(emptyBlock, listGameObjects);
+	return emptyBlock;
 }
 
-void CTileMap::LoadCard(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadCard(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects)
 {
 	CCard* ca = new CCard();
 	ca->SetPosition(position - translateConst);
 	AddObjectToList(ca, listGameObjects);
 	card = ca;
+	return ca;
 }
 
-void CTileMap::LoadMovingPlatform(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadMovingPlatform(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects)
 {
 	CMovingPlatform* platform = new CMovingPlatform();
 	platform->SetPosition(position);
 	AddObjectToList(platform, listGameObjects);
+	return platform;
 }
 
 void CTileMap::RenderLayer(Layer* layer, int i, int j, int x, int y)
