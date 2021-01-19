@@ -166,6 +166,16 @@ void CScene::Unload()
 			}
 		}
 	}
+	/*else
+	{
+		if (globalObjects.size() > 0)
+		{
+			for (int i = 0; i < globalObjects.size(); i++)
+			{
+				globalObjects[i]->SetDestroy(true);
+			}
+		}
+	}*/
 }
 
 void CScene::DestroyObject()
@@ -174,6 +184,20 @@ void CScene::DestroyObject()
 	{
 		if (spaceParitioning == true)
 		{
+			marioController = NULL;
+			keyboardTargetObjects.clear();
+
+			if (globalObjects.size() > 0)
+			{
+				for (auto gO : globalObjects)
+				{
+					if (gO->GetTag() == GameObjectTags::PlayerController)
+						continue;
+					delete gO;
+					gO = NULL;
+				}
+				globalObjects.clear();
+			}
 			delete grid;
 			grid = NULL;
 		}
@@ -190,10 +214,8 @@ void CScene::DestroyObject()
 			}
 			gameObjects.clear();
 		}
-		keyboardTargetObjects.clear();
 		delete map;
 		map = NULL;
-		marioController = NULL;
 		camera = NULL;
 	}
 	if (spaceParitioning == false) /// IMPORTANT for brick problem?
