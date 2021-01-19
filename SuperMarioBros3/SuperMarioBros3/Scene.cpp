@@ -25,7 +25,7 @@ CScene::CScene()
 	loaded = true;
 	cardState = 0;
 	marioController = NULL;
-	spaceParitioning = false;
+	spaceParitioning = true;
 }
 
 void CScene::Load()
@@ -473,6 +473,10 @@ void CScene::AddKeyboardTargetObject(CGameObject* gameObject)
 std::vector<LPGameObject>  CScene::GetKeyboardTargetObject()
 {
 	return keyboardTargetObjects;
+}
+CGrid* CScene::GetGrid()
+{
+	return grid;
 }
 
 CScene::~CScene()

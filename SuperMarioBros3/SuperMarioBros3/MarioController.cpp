@@ -80,7 +80,7 @@ void CMarioController::SwitchToState(std::string state)
 	// Chưa check điều kiện input
 
 	// Đổi trạng thái (STATE)
-		SwitchState(listMarioStates.at(state)); 
+	SwitchState(listMarioStates.at(state)); 
 
 	// Nếu object đó đã được khởi tạo trc đó thì mình lấy lại vị trí trc đó đã lưu
 	if (currentStateObject != NULL)

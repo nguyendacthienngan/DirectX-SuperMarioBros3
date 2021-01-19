@@ -73,12 +73,19 @@ void CPSwitch::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 					coin->GetCollisionBox()->at(0)->SetEnable(false);
 
 					auto brick = poolBricks->Init();
-					brick->Enable(true);
-					brick->SetPosition(coin->GetPosition());
-					brick->GetPhysiscBody()->SetDynamic(true);
-					brick->GetCollisionBox()->at(0)->SetEnable(true);
+					if (brick != NULL)
+					{
+						auto pos = brick->GetPosition();
+						brick->Enable(true);
+						brick->SetPosition(coin->GetPosition());
+						brick->GetPhysiscBody()->SetDynamic(true);
+						brick->GetCollisionBox()->at(0)->SetEnable(true);
+
+						auto grid = activeScene->GetGrid();
+						if (grid != NULL && activeScene->IsSpacePartitioning() == true)
+							grid->Move(pos, coin);
+					}
 				}
-				
 			}
 			timer = 0;
 			break;
@@ -106,8 +113,14 @@ void CPSwitch::Active()
 			auto coin = poolCoins->Init();
 			if (coin != NULL)
 			{
+				auto pos = coin->GetPosition();
 				coin->SetPosition(brick->GetPosition());
 				activeScene->AddCoin(coin);
+
+				auto grid = activeScene->GetGrid();
+				if (grid != NULL && activeScene->IsSpacePartitioning() == true)
+					grid->Move(pos, coin);
+
 			}
 		}
 	}

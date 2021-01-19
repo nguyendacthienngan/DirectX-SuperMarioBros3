@@ -85,6 +85,7 @@ public:
 
 	void AddKeyboardTargetObject(CGameObject* gameObject);
 	std::vector<LPGameObject>  GetKeyboardTargetObject();
+	CGrid* GetGrid();
 	virtual ~CScene();
 };
 #endif

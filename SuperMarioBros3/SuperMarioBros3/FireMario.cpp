@@ -6,7 +6,7 @@
 #include "SceneManager.h"
 #include "Ultis.h"
 #include "MarioFireBall.h"
-
+#include "SceneManager.h"
 CFireMario::CFireMario()
 {
 	CMario::Init();
@@ -114,18 +114,25 @@ void CFireMario::OnKeyDown(int KeyCode)
 	CMario::OnKeyDown(KeyCode);
 	if (isAttack == true)
 	{
-
 		auto currentFireBall = fireBalls.Init();
+		
+		
 		auto normal = physiscBody->GetNormal();
 
 		if (currentFireBall != NULL)
 		{
+			D3DXVECTOR2 pos = currentFireBall->GetPosition();
 			auto firePhyBody = currentFireBall->GetPhysiscBody();
 
 			auto posMario = transform.position + relativePositionOnScreen;
 			posMario.x += SUPER_MARIO_BBOX.x * 0.5f * normal.x;
 			currentFireBall->SetPosition(posMario);
 			firePhyBody->SetVelocity(D3DXVECTOR2(FIRE_BALL_SPEED * normal.x, 0));
+
+			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+			auto grid = activeScene->GetGrid();
+			if (grid != NULL && activeScene->IsSpacePartitioning() == true)
+				grid->Move(pos, currentFireBall);
 		}
 	}
 }
