@@ -228,16 +228,21 @@ void CScene::Update(DWORD dt)
 	}
 	auto uiCam = CSceneManager::GetInstance()->GetUICamera();
 	if (updateObjects.size() == 0) return;
+	D3DXVECTOR2 oldPosition;
 	for (auto obj : updateObjects)
 	{
-		if (obj->IsIgnoreTimeScale() == false 
-			&& CGame::GetTimeScale() == 0)							continue;
-		if (obj->IsIgnoreTimeScale() == false
-			&& CGame::GetTimeScale() == 0)							continue;
-		if (obj->IsEnabled() == false)								continue;
-		if (uiCam != NULL)											obj->Update(dt, camera, uiCam);
-		else														obj->Update(dt, camera, NULL);
+		if (obj->IsIgnoreTimeScale() == false && CGame::GetTimeScale() == 0)
+			continue;
+		if (obj->IsEnabled() == false)
+			continue;
+		if (uiCam != NULL)
+			obj->Update(dt, camera, uiCam);
+		else
+			obj->Update(dt, camera, NULL);
+		oldPosition = obj->GetPosition();
 		obj->PhysicsUpdate(&updateObjects);
+		if (obj->IsInGrid() == true)
+			grid->Move(oldPosition, obj);
 	}
 	if (camera != NULL)
 		map->Update(camera, dt);

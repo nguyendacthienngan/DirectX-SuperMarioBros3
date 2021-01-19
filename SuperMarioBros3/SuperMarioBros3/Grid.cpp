@@ -67,7 +67,7 @@ void CGrid::Remove(CGameObject* gameObject)
 	cell->RemoveObject(gameObject);
 }
 
-void CGrid::Move(D3DXVECTOR2 oldPosition, CGameObject* gameObject, D3DXVECTOR2 size)
+void CGrid::Move(D3DXVECTOR2 oldPosition, CGameObject* gameObject)
 {
 	if (gameObject == NULL)
 		return;
@@ -92,12 +92,12 @@ void CGrid::Move(D3DXVECTOR2 oldPosition, CGameObject* gameObject, D3DXVECTOR2 s
 	auto oldCell = GetCellIndexByPosition(oldPosition);
 
 	auto newCell = GetCellIndexByPosition(gameObject->GetPosition());
-	if (oldCell.x == newCell.x && oldCell.y == newCell.y)
+	if (oldCell.x != newCell.x || oldCell.y != newCell.y)
 	{
 		auto cell = GetCell(oldCell);
 		cell->RemoveObject(gameObject);
+		Insert(gameObject);
 	}
-	Insert(gameObject);
 }
 
 void CGrid::Update(CCamera* camera)

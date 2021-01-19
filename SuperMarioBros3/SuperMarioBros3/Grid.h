@@ -16,7 +16,7 @@ public:
 	CGrid(D3DXVECTOR2 mapSize);
 	void Insert(CGameObject* gameObject);
 	void Remove(CGameObject* gameObject);
-	void Move(D3DXVECTOR2 oldPosition, CGameObject* gameObject, D3DXVECTOR2 size);
+	void Move(D3DXVECTOR2 oldPosition, CGameObject* gameObject);
 	void Update(CCamera* camera);
 	std::vector <CCell*>  FindActiveCells(CCamera* camera);
 	std::vector <CGameObject*> FindActiveGameObjects(CCamera* camera);
