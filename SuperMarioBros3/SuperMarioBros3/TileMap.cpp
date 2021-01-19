@@ -48,7 +48,7 @@
 #include "Card.h"
 #include "MovingPlatform.h"
 #include "ThreeAnimation.h"
-
+using namespace std;
 CTileMap::CTileMap()
 {
 	tileWidth = 1;
@@ -201,11 +201,14 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 
 		}
 		// Load game objects
+		vector<CGameObject*> objectGroup;
 		for (TiXmlElement* element = root->FirstChildElement("objectgroup"); element != nullptr; element = element->NextSiblingElement("objectgroup"))
 		{
+			std::string name = element->Attribute("name");
+			int objectGroupdID;
+			element->QueryIntAttribute("id", &objectGroupdID);
 			for (TiXmlElement* object = element->FirstChildElement("object"); object != nullptr; object = object->NextSiblingElement("object"))
 			{
-				std::string name = element->Attribute("name");
 				int id, x, y, width, height;
 				int type = 0;
 				object->QueryIntAttribute("id", &id);

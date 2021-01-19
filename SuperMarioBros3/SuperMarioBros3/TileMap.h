@@ -35,6 +35,9 @@ private:
 	CGameObject* card;
 	CGameObject* player;
 	CScene* scene;
+
+	std::unordered_map<int, CGameObject*> objects;
+	std::unordered_map<int, std::vector<CGameObject*>> objectGroups;
 public:
 	CTileMap();
 	CTileMap(int width, int height, int tileWidth, int tileHeight);

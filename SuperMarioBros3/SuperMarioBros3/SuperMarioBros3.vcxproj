@@ -433,6 +433,7 @@
     <Xml Include="Resources\Animations\MiscAnim.xml" />
     <Xml Include="Resources\Animations\UiAnim.xml" />
     <Xml Include="Resources\config.xml" />
+    <Xml Include="Resources\grid-result.xml" />
     <Xml Include="Resources\root.xml" />
     <Xml Include="Resources\Scenes\Intro.xml" />
     <Xml Include="Resources\Scenes\UICamera.xml" />

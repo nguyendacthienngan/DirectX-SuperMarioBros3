@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grid>
+  <config cellwidth="undefined" cellheight="undefined" width="NaN" height="NaN"/>
+  <data>
+    <group id="13" name="Solid">
+        <object id="110" cellx="NaN" celly="NaN"/>
+        <object id="111" cellx="NaN" celly="NaN"/>
+        <object id="118" cellx="NaN" celly="NaN"/>
+        <object id="119" cellx="NaN" celly="NaN"/>
+        <object id="120" cellx="NaN" celly="NaN"/>
+        <object id="121" cellx="NaN" celly="NaN"/>
+        <object id="122" cellx="NaN" celly="NaN"/>
+        <object id="123" cellx="NaN" celly="NaN"/>
+        <object id="124" cellx="NaN" celly="NaN"/>
+        <object id="125" cellx="NaN" celly="NaN"/>
+        <object id="126" cellx="NaN" celly="NaN"/>
+        <object id="127" cellx="NaN" celly="NaN"/>
+        <object id="128" cellx="NaN" celly="NaN"/>
+        <object id="129" cellx="NaN" celly="NaN"/>
+        <object id="130" cellx="NaN" celly="NaN"/>
+        <object id="133" cellx="NaN" celly="NaN"/>
+        <object id="134" cellx="NaN" celly="NaN"/>
+        <object id="135" cellx="NaN" celly="NaN"/>
+        <object id="136" cellx="NaN" celly="NaN"/>
+        <object id="137" cellx="NaN" celly="NaN"/>
+        <object id="138" cellx="NaN" celly="NaN"/>
+        <object id="139" cellx="NaN" celly="NaN"/>
+        <object id="140" cellx="NaN" celly="NaN"/>
+        <object id="141" cellx="NaN" celly="NaN"/>
+        <object id="142" cellx="NaN" celly="NaN"/>
+    </group>
+    <group id="14" name="Ghost">
+        <object id="143" cellx="NaN" celly="NaN"/>
+        <object id="144" cellx="NaN" celly="NaN"/>
+        <object id="145" cellx="NaN" celly="NaN"/>
+        <object id="146" cellx="NaN" celly="NaN"/>
+        <object id="147" cellx="NaN" celly="NaN"/>
+        <object id="148" cellx="NaN" celly="NaN"/>
+        <object id="149" cellx="NaN" celly="NaN"/>
+        <object id="150" cellx="NaN" celly="NaN"/>
+        <object id="151" cellx="NaN" celly="NaN"/>
+        <object id="152" cellx="NaN" celly="NaN"/>
+        <object id="153" cellx="NaN" celly="NaN"/>
+        <object id="154" cellx="NaN" celly="NaN"/>
+        <object id="155" cellx="NaN" celly="NaN"/>
+        <object id="156" cellx="NaN" celly="NaN"/>
+    </group>
+    <group id="15" name="Enemies">
+        <object id="42" cellx="NaN" celly="NaN"/>
+        <object id="43" cellx="NaN" celly="NaN"/>
+        <object id="44" cellx="NaN" celly="NaN"/>
+        <object id="45" cellx="NaN" celly="NaN"/>
+        <object id="76" cellx="NaN" celly="NaN"/>
+        <object id="77" cellx="NaN" celly="NaN"/>
+        <object id="78" cellx="NaN" celly="NaN"/>
+        <object id="80" cellx="NaN" celly="NaN"/>
+        <object id="105" cellx="NaN" celly="NaN"/>
+        <object id="106" cellx="NaN" celly="NaN"/>
+        <object id="107" cellx="NaN" celly="NaN"/>
+        <object id="108" cellx="NaN" celly="NaN"/>
+        <object id="109" cellx="NaN" celly="NaN"/>
+        <object id="157" cellx="NaN" celly="NaN"/>
+        <object id="158" cellx="NaN" celly="NaN"/>
+    </group>
+    <group id="20" name="Items">
+        <object id="81" cellx="NaN" celly="NaN"/>
+        <object id="82" cellx="NaN" celly="NaN"/>
+        <object id="83" cellx="NaN" celly="NaN"/>
+        <object id="84" cellx="NaN" celly="NaN"/>
+        <object id="85" cellx="NaN" celly="NaN"/>
+        <object id="86" cellx="NaN" celly="NaN"/>
+        <object id="87" cellx="NaN" celly="NaN"/>
+        <object id="88" cellx="NaN" celly="NaN"/>
+        <object id="89" cellx="NaN" celly="NaN"/>
+        <object id="90" cellx="NaN" celly="NaN"/>
+        <object id="91" cellx="NaN" celly="NaN"/>
+        <object id="92" cellx="NaN" celly="NaN"/>
+        <object id="93" cellx="NaN" celly="NaN"/>
+        <object id="94" cellx="NaN" celly="NaN"/>
+        <object id="95" cellx="NaN" celly="NaN"/>
+        <object id="96" cellx="NaN" celly="NaN"/>
+        <object id="97" cellx="NaN" celly="NaN"/>
+        <object id="98" cellx="NaN" celly="NaN"/>
+        <object id="99" cellx="NaN" celly="NaN"/>
+        <object id="100" cellx="NaN" celly="NaN"/>
+        <object id="101" cellx="NaN" celly="NaN"/>
+        <object id="102" cellx="NaN" celly="NaN"/>
+        <object id="103" cellx="NaN" celly="NaN"/>
+        <object id="167" cellx="NaN" celly="NaN"/>
+        <object id="168" cellx="NaN" celly="NaN"/>
+        <object id="169" cellx="NaN" celly="NaN"/>
+        <object id="170" cellx="NaN" celly="NaN"/>
+        <object id="171" cellx="NaN" celly="NaN"/>
+        <object id="172" cellx="NaN" celly="NaN"/>
+        <object id="173" cellx="NaN" celly="NaN"/>
+        <object id="174" cellx="NaN" celly="NaN"/>
+        <object id="175" cellx="NaN" celly="NaN"/>
+        <object id="176" cellx="NaN" celly="NaN"/>
+        <object id="177" cellx="NaN" celly="NaN"/>
+        <object id="178" cellx="NaN" celly="NaN"/>
+        <object id="179" cellx="NaN" celly="NaN"/>
+    </group>
+    <group id="18" name="QuestionBlocks">
+        <object id="47" cellx="NaN" celly="NaN"/>
+        <object id="49" cellx="NaN" celly="NaN"/>
+        <object id="50" cellx="NaN" celly="NaN"/>
+        <object id="51" cellx="NaN" celly="NaN"/>
+        <object id="53" cellx="NaN" celly="NaN"/>
+        <object id="54" cellx="NaN" celly="NaN"/>
+        <object id="55" cellx="NaN" celly="NaN"/>
+        <object id="56" cellx="NaN" celly="NaN"/>
+        <object id="104" cellx="NaN" celly="NaN"/>
+    </group>
+    <group id="19" name="Bricks">
+        <object id="57" cellx="NaN" celly="NaN"/>
+        <object id="58" cellx="NaN" celly="NaN"/>
+        <object id="59" cellx="NaN" celly="NaN"/>
+        <object id="60" cellx="NaN" celly="NaN"/>
+        <object id="61" cellx="NaN" celly="NaN"/>
+        <object id="62" cellx="NaN" celly="NaN"/>
+        <object id="63" cellx="NaN" celly="NaN"/>
+        <object id="64" cellx="NaN" celly="NaN"/>
+        <object id="65" cellx="NaN" celly="NaN"/>
+        <object id="66" cellx="NaN" celly="NaN"/>
+        <object id="67" cellx="NaN" celly="NaN"/>
+        <object id="68" cellx="NaN" celly="NaN"/>
+        <object id="69" cellx="NaN" celly="NaN"/>
+        <object id="70" cellx="NaN" celly="NaN"/>
+        <object id="71" cellx="NaN" celly="NaN"/>
+        <object id="72" cellx="NaN" celly="NaN"/>
+        <object id="73" cellx="NaN" celly="NaN"/>
+        <object id="74" cellx="NaN" celly="NaN"/>
+        <object id="75" cellx="NaN" celly="NaN"/>
+    </group>
+    <group id="21" name="Pipes">
+        <object id="112" cellx="NaN" celly="NaN"/>
+        <object id="113" cellx="NaN" celly="NaN"/>
+        <object id="114" cellx="NaN" celly="NaN"/>
+        <object id="115" cellx="NaN" celly="NaN"/>
+        <object id="116" cellx="NaN" celly="NaN"/>
+        <object id="117" cellx="NaN" celly="NaN"/>
+        <object id="162" cellx="NaN" celly="NaN"/>
+        <object id="164" cellx="NaN" celly="NaN"/>
+    </group>
+    <group id="22" name="Warp">
+        <object id="159" cellx="NaN" celly="NaN"/>
+        <object id="160" cellx="NaN" celly="NaN"/>
+        <object id="165" cellx="NaN" celly="NaN"/>
+        <object id="166" cellx="NaN" celly="NaN"/>
+    </group>
+  </data>
+</grid>

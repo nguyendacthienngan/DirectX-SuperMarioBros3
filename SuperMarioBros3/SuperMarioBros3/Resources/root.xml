@@ -42,6 +42,9 @@
     <Scene id="world-1" source="Resources/Scenes/World1.xml"/>
     <Scene id="intro" source="Resources/Scenes/Intro.xml"/> 
   </Root>
+  <Root name="Grid">
+    <Scene id="grid" source="Resources/grid-result.xml"/>
+  </Root>
   <Root name="Config">
     <Config id="global-config" source="Resources/config.xml"/> 
   </Root>
