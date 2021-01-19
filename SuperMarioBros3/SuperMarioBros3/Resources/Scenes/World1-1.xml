@@ -3,7 +3,7 @@
   <Scene name="Player" pos_x="130" pos_y="1183"/>
   <!--Orginal: X: 130, Y: 1247-->
 
-  <Scene name="Map" source="Resources/Maps/" fileName = "world-1-1-map.tmx">
+  <Scene name="Map" source="Resources/Maps/" fileName = "world-1-1-map.tmx" gridSource ="Resources/Maps/Grid/" gridFile ="world-1-1-grid.tmx">
     <BackgroundColor R="156" G="252" B="240"/>
   </Scene>
   <Scene name="Camera" start="0" main="0" width="720" height="671">

@@ -57,8 +57,19 @@ void CScene::Load()
 		if (name.compare("Map") == 0)
 		{
 			DebugOut(L"[INFO] Load map \n");
-			string sourceMap = scene->Attribute("source");
-			string fileMap = scene->Attribute("fileName");
+			string sourceMap;
+			string fileMap;
+
+			if (spaceParitioning == true)
+			{
+				sourceMap = scene->Attribute("gridSource");
+				fileMap = scene->Attribute("gridFile");
+			}
+			else
+			{
+				sourceMap = scene->Attribute("source");
+				fileMap = scene->Attribute("fileName");
+			}
 			this->map = NULL;
 			this->map = new CMap(sourceMap, fileMap, player, this); // Ham nay tu load map
 			auto tilemap = map->GetTileMap();
