@@ -1000,8 +1000,13 @@ void CTileMap::AddObjectToList(CGameObject* gameObject, std::vector<LPGameObject
 		if (scene->CheckGlobalObject(gameObject->GetTag()))
 			scene->AddGlobalObject(gameObject);
 		else
-			grid->Insert(gameObject);
-
+		{
+			if (gameObject->IsInGrid() == false)
+			{
+				grid->Insert(gameObject);
+				gameObject->SetInGrid(true);
+			}
+		}
 	}
 	else
 	{

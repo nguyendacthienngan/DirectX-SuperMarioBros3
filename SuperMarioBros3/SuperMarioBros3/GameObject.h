@@ -54,7 +54,8 @@ protected:
 	bool isEnabled;
 	bool ignoreTimeScale;
 	bool isDestroyed;
-
+	bool isStatic;
+	bool isInGrid;
 	GameObjectTags tag; // Phân biệt player với eniemies,...
 	std::unordered_map<std::string, LPAnimation> animations;
 	
@@ -134,6 +135,11 @@ public:
 	bool StaticTag(GameObjectTags tag);
 	bool GiftTag(GameObjectTags tag);
 	bool PlayerAttackItemTag(GameObjectTags tag);
+
+	bool IsStatic();
+	void SetStatic(bool setStatic);
+	bool IsInGrid();
+	void SetInGrid(bool setInGrid);
 };
 
 #endif

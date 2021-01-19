@@ -16,6 +16,8 @@ CGameObject::CGameObject()
 	currentState = "IDLE";
 	isCheckWithCollision = true;
 	nodeTag = NodeTag::None;
+	isInGrid = false;
+	isStatic = true;
 }
 
 CGameObject::~CGameObject()
@@ -328,6 +330,26 @@ bool CGameObject::PlayerAttackItemTag(GameObjectTags tag)
 	if (tag == GameObjectTags::RaccoonTail || tag == GameObjectTags::MarioFireBall) // And Koopa Shell 
 		return true;
 	return false;
+}
+
+bool CGameObject::IsStatic()
+{
+	return isStatic;
+}
+
+void CGameObject::SetStatic(bool setStatic)
+{
+	this->isStatic = setStatic;
+}
+
+bool CGameObject::IsInGrid()
+{
+	return isInGrid;
+}
+
+void CGameObject::SetInGrid(bool setInGrid)
+{
+	isInGrid = setInGrid;
 }
 
 

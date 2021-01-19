@@ -17,6 +17,7 @@ CEnemy::CEnemy()
 	isHeadShot = false;
 	isHeadShotByFireBall = false;
 	hitFX = new CHitEffects();
+	isStatic = false;
 }
 
 void CEnemy::SetEnemyType(std::string eT)

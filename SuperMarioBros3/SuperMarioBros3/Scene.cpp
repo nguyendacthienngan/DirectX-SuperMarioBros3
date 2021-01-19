@@ -311,8 +311,11 @@ void CScene::AddObject(LPGameObject gameObject)
 		{
 			if (grid == NULL)
 				return;
-			grid->Insert(gameObject);
-
+			if (gameObject->IsInGrid() == false)
+			{
+				grid->Insert(gameObject);
+				gameObject->SetInGrid(true);
+			}
 		}
 	}
 	else
