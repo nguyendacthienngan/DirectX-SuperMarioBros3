@@ -43,11 +43,11 @@ D3DXVECTOR2 CGameObject::GetGameObjectSize(CGameObject* gO)
 	if (size.x == 0 || size.y == 0)
 	{
 		auto anim = gO->GetAnimationByState(gO->GetCurrentState());
-		if (!anim) return D3DXVECTOR2(-1, -1);;
+		if (!anim) return size;
 		auto animFrame = anim->GetAnimFrame();
-		if (!animFrame) return D3DXVECTOR2(-1, -1);;
+		if (!animFrame) return size;
 		auto sprite = animFrame->GetSprite();
-		if (!sprite) return D3DXVECTOR2(-1, -1);;
+		if (!sprite) return size;
 
 		size.x = sprite->GetWidth();
 		size.y = sprite->GetHeight();

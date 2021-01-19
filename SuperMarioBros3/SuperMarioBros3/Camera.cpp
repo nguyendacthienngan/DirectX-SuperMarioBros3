@@ -114,8 +114,6 @@ bool CCamera::CheckObjectInCamera(LPGameObject gO) // Thông tin của object
         return true;
     D3DXVECTOR2 posObject = gO->GetPosition();
     auto size = CGameObject::GetGameObjectSize(gO);
-    if (size.x == -1 && size.y == -1)
-        return false;
     auto translate = 48 * 6;
 
     if (gO->GetTag() == GameObjectTags::Solid || gO->GetTag() == GameObjectTags::GhostPlatform)
