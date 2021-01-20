@@ -60,12 +60,12 @@ void CScene::Load()
 			string sourceMap;
 			string fileMap;
 
-			/*if (spaceParitioning == true)
+			if (spaceParitioning == true)
 			{
 				sourceMap = scene->Attribute("gridSource");
 				fileMap = scene->Attribute("gridFile");
 			}
-			else*/
+			else
 			{
 				sourceMap = scene->Attribute("source");
 				fileMap = scene->Attribute("fileName");

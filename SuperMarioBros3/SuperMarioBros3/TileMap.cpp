@@ -152,6 +152,7 @@ void CTileMap::Render(CCamera* camera, bool isRenderForeground)
 
 CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vector<LPGameObject>& listGameObjects, CGameObject* player, CScene* scene)
 {
+	currentGOIndex = Index({ -1, -1 });
 	string fullPath = filePath + fileMap;
 	TiXmlDocument doc(fullPath.c_str());
 	if (doc.LoadFile())
@@ -244,6 +245,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 							property->QueryIntAttribute("value", &cellY);
 						}
 					}
+					currentGOIndex = Index({ cellX, cellY });
 				}
 
 				if (name.compare("Solid") == 0)
@@ -312,7 +314,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				if (cellX != -1 && cellY != -1)
 				{
 					gameObject->SetIndex({ cellX, cellY });
-					DebugOut(L"Id %d CellX %d, CellY %d \n", id, cellX, cellY);
+					//DebugOut(L"Id %d CellX %d, CellY %d \n", id, cellX, cellY);
 				}
 				/*if (gameObject != NULL)
 				{
@@ -1066,10 +1068,16 @@ void CTileMap::AddObjectToList(CGameObject* gameObject, std::vector<LPGameObject
 
 	if (scene->IsSpacePartitioning() == true)
 	{
+
 		if (scene->CheckGlobalObject(gameObject->GetTag()))
 			scene->AddGlobalObject(gameObject);
 		else
 		{
+			if (currentGOIndex.x != -1 && currentGOIndex.y != -1)
+			{
+				gameObject->SetIndex(currentGOIndex);
+				//DebugOut(L"Id %d CellX %d, CellY %d \n", id, cellX, cellY);
+			}
 			if (gameObject->IsInGrid() == false)
 			{
 				grid->Insert(gameObject);

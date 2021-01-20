@@ -7,14 +7,14 @@
 #include "TextureManager.h"
 #include "Graph.h"
 #include "Scene.h"
-
+#include "Index.h"
 struct TileSet;
 struct Layer;
 class CGraph;
 class CObjectPool;
 class CGrid;
 class CScene;
-
+struct Index;
 class CTileMap
 {
 private:
@@ -36,6 +36,7 @@ private:
 	CGameObject* player;
 	CScene* scene;
 	std::unordered_map<int, std::unordered_map<int, CGameObject*>> objectGroups;
+	Index currentGOIndex;
 public:
 	CTileMap();
 	CTileMap(int width, int height, int tileWidth, int tileHeight);
