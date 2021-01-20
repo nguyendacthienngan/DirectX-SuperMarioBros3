@@ -185,6 +185,7 @@
     <ClInclude Include="GridConst.h" />
     <ClInclude Include="HelpItem.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="Index.h" />
     <ClInclude Include="Intro.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="MarioFireBall.h" />
@@ -426,6 +427,7 @@
     <Image Include="Super_Mario_Bros_3.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="..\..\..\..\Game\Source code cua Bach\GridTool\uploads\grid-result.xml" />
     <Xml Include="Resources\Animations\EnemyAnim.xml" />
     <Xml Include="Resources\Animations\IntroAnim.xml" />
     <Xml Include="Resources\Animations\MapSelectionAnim.xml" />
@@ -447,6 +449,7 @@
     <Xml Include="Resources\Sprites\UiDB.xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Maps\Grid\world-1-1-grid.tmx" />
     <None Include="Resources\Maps\intro-map.tmx" />
     <None Include="Resources\Maps\world-1-1-map.tmx" />
     <None Include="Resources\Maps\world-1-4-map.tmx" />

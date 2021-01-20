@@ -34,7 +34,6 @@ CMarioFireBall::~CMarioFireBall()
 
 void CMarioFireBall::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
-	CGameObject::Update(dt, cam, uiCam);
 	if (transform.position.y > cam->GetCurrentBoundary().bottom)
 	{
 		if (pool != NULL)

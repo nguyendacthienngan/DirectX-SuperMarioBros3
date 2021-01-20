@@ -6,7 +6,7 @@ CCell::CCell()
 {
 }
 
-CCell::CCell(D3DXVECTOR2 index)
+CCell::CCell(Index index)
 {
 	this->index = index;
 	/*rect.left = index.x;
@@ -36,4 +36,14 @@ void CCell::RemoveObject(CGameObject* gO)
 std::unordered_set<CGameObject*> CCell::GetListGameObject()
 {
 	return gameObjects;
+}
+
+CCell::~CCell()
+{
+	for (auto gameObject : gameObjects)
+	{
+		delete gameObject;
+		gameObject = NULL;
+	}
+	gameObjects.clear();
 }

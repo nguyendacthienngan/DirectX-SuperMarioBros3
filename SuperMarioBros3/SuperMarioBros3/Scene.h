@@ -34,10 +34,11 @@ protected:
 	CCamera *camera;
 	std::string filePath;
 	bool loaded;
-	std::vector<LPGameObject> destroyObjects, initObjects, updateObjects;
+	std::vector<LPGameObject> destroyObjects, initObjects, updateObjects, globalObjects;
 
 	std::vector<LPGameObject> bricks;
 	std::vector<LPGameObject> coins;
+	std::vector<LPGameObject> keyboardTargetObjects;
 	CObjectPool* poolBricks;
 	CObjectPool* poolCoins;
 	bool switchBlockOffToOn;
@@ -45,6 +46,7 @@ protected:
 	CGameObject* card;
 	CGameObject* marioController;
 	int cardState;
+	bool spaceParitioning;
 public:
 	CScene();
 	virtual void Load();
@@ -59,11 +61,9 @@ public:
 	void SetCamera(int id);
 	CCamera* GetCamera() { return camera; }
 	CMap* GetMap() { return map; }
-	//std::vector<LPGameObject> GetObjects();
 	void AddObject(LPGameObject gameObject);
 	void RemoveObject(LPGameObject gameObject);
-
-	void SetObjectPosition(D3DXVECTOR2 distance);
+	void AddGlobalObject(LPGameObject gameObject);
 
 	CGameObject* GetMarioController();
 	std::vector<CGameObject*> GetBricks();
@@ -80,6 +80,12 @@ public:
 	bool SwitchBlockStateOnToOff();
 	void SwitchBlockStateOnToOff(bool state);
 	bool IsLoaded();
+	bool IsSpacePartitioning();
+	bool CheckGlobalObject(GameObjectTags tag);
+
+	void AddKeyboardTargetObject(CGameObject* gameObject);
+	std::vector<LPGameObject>  GetKeyboardTargetObject();
+	CGrid* GetGrid();
 	virtual ~CScene();
 };
 #endif

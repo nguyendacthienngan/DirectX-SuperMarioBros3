@@ -64,7 +64,8 @@ void CGift::PowerUp(CCollisionBox* otherCollisionBox)
 
 	auto gO = otherCollisionBox->GetGameObjectAttach();
 	auto mario = static_cast<CMario*>(gO);
+
+	mario->SetPowerUp(true);
 	mario->OnDamaged();
 	mario->SetPowerUpItem(powerupTag);
-	mario->SetPowerUp(true);
 }

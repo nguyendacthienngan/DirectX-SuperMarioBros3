@@ -68,6 +68,7 @@ void CVenus::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			auto currentFireBall = fireBalls.Init();
 			if (currentFireBall != NULL)
 			{
+				D3DXVECTOR2 pos = currentFireBall->GetPosition();
 				currentFireBall->SetPosition(transform.position);
 				auto firePhyBody = currentFireBall->GetPhysiscBody();
 				firePhyBody->SetGravity(0.0f);
@@ -75,6 +76,11 @@ void CVenus::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 				auto posVenus = transform.position + relativePositionOnScreen;
 				posVenus.x += VENUS_BBOX.x * 0.5f * normal.x;
 				currentFireBall->SetPosition(posVenus);
+
+				auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+				auto grid = activeScene->GetGrid();
+				if (grid != NULL && activeScene->IsSpacePartitioning() == true)
+					grid->Move(pos, currentFireBall);
 
 				vectorShootFireBall.x = cos(SHOOT_FIRE_BALL_ANGLE);
 				vectorShootFireBall.y = sin(SHOOT_FIRE_BALL_ANGLE);

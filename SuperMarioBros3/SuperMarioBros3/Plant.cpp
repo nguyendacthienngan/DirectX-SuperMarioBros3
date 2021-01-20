@@ -74,6 +74,7 @@ void CPlant::OnDie()
 	hitFX->SetStartPosition(this->transform.position);
 	hitFX->SetStartHitTime(GetTickCount64());
 	hitFX->Enable(true);
+	activeScene->GetGrid()->Move(D3DXVECTOR2(-1, -1), hitFX);
 	this->isEnabled = false;
 	this->physiscBody->SetDynamic(false);
 	this->collisionBoxs->at(0)->SetEnable(false);

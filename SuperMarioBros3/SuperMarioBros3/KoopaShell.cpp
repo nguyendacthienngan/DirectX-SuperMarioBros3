@@ -112,7 +112,7 @@ void CKoopaShell::OnDie()
 			hitFX->SetStartPosition(this->transform.position);
 			hitFX->SetStartHitTime(GetTickCount64());
 			hitFX->Enable(true);
-
+			activeScene->GetGrid()->Move(D3DXVECTOR2(-1, -1), hitFX);
 			if (isHeadShotByFireBall == true)
 			{
 				// Off the cliffs

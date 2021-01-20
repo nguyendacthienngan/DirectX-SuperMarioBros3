@@ -25,6 +25,7 @@ CScene::CScene()
 	loaded = true;
 	cardState = 0;
 	marioController = NULL;
+	spaceParitioning = true;
 }
 
 void CScene::Load()
@@ -56,8 +57,19 @@ void CScene::Load()
 		if (name.compare("Map") == 0)
 		{
 			DebugOut(L"[INFO] Load map \n");
-			string sourceMap = scene->Attribute("source");
-			string fileMap = scene->Attribute("fileName");
+			string sourceMap;
+			string fileMap;
+
+			if (spaceParitioning == true)
+			{
+				sourceMap = scene->Attribute("gridSource");
+				fileMap = scene->Attribute("gridFile");
+			}
+			else
+			{
+				sourceMap = scene->Attribute("source");
+				fileMap = scene->Attribute("fileName");
+			}
 			this->map = NULL;
 			this->map = new CMap(sourceMap, fileMap, player, this); // Ham nay tu load map
 			auto tilemap = map->GetTileMap();
@@ -70,11 +82,17 @@ void CScene::Load()
 			poolCoins->AddPoolToScene(this);
 			card = tilemap->GetCard();
 
-			// BIG REFACTOR
-			auto mapObjs = map->GetListGameObjects();
-			for (auto obj : mapObjs)
+			if (spaceParitioning == true)
 			{
-				AddObject(obj);
+				this->grid = map->GetTileMap()->GetGrid();
+			}
+			else
+			{
+				auto mapObjs = map->GetListGameObjects();
+				for (auto obj : mapObjs)
+				{
+					AddObject(obj);
+				}
 			}
 
 			DebugOut(L"[INFO] Load background color \n");
@@ -142,18 +160,21 @@ void CScene::Load()
 		}
 	}
 	if (marioController != NULL)
-		CKeyboardManager::GetInstance()->AddTargetForKeyboard(marioController);
+		keyboardTargetObjects.push_back(marioController);
 	loaded = true;
 }
 
 void CScene::Unload()
 {
 	loaded = false;
-	if (gameObjects.size() > 0)
+	if (spaceParitioning == false)
 	{
-		for (int i = 0; i < gameObjects.size(); i++)
+		if (gameObjects.size() > 0)
 		{
-			gameObjects[i]->SetDestroy(true);
+			for (int i = 0; i < gameObjects.size(); i++)
+			{
+				gameObjects[i]->SetDestroy(true);
+			}
 		}
 	}
 }
@@ -162,29 +183,54 @@ void CScene::DestroyObject()
 {
 	if (loaded == false)
 	{
-		for (auto gO : gameObjects)
+		if (spaceParitioning == true)
 		{
-			if (gO->IsDestroyed() == true)
+			marioController = NULL;
+			keyboardTargetObjects.clear();
+
+			if (globalObjects.size() > 0)
+			{
+				for (auto gO : globalObjects)
+				{
+					if (gO->GetTag() == GameObjectTags::PlayerController)
+						continue;
+					delete gO;
+					gO = NULL;
+				}
+				globalObjects.clear();
+			}
+			delete grid;
+			grid = NULL;
+		}
+		else
+		{
+			for (auto gO : gameObjects) // IMPORTANT for player problem
+			{
+				if (gO->IsDestroyed() == true)
+				{
+					RemoveObject(gO);
+					delete gO;
+					gO = NULL;
+				}
+			}
+			gameObjects.clear();
+		}
+		delete map;
+		map = NULL;
+		camera = NULL;
+	}
+	if (spaceParitioning == false) /// IMPORTANT for brick problem?
+	{
+		if (destroyObjects.size() > 0)
+		{
+			for (auto gO : destroyObjects)
 			{
 				RemoveObject(gO);
 				delete gO;
 				gO = NULL;
 			}
+			destroyObjects.clear();
 		}
-		gameObjects.clear();
-		delete map;
-		map = NULL;
-		camera = NULL;
-	}
-	if (destroyObjects.size() > 0)
-	{
-		for (auto gO : destroyObjects)
-		{
-			RemoveObject(gO);
-			delete gO;
-			gO = NULL;
-		}
-		destroyObjects.clear();
 	}
 }
 
@@ -210,16 +256,21 @@ void CScene::Update(DWORD dt)
 	}
 	auto uiCam = CSceneManager::GetInstance()->GetUICamera();
 	if (updateObjects.size() == 0) return;
+	D3DXVECTOR2 oldPosition;
 	for (auto obj : updateObjects)
 	{
-		if (obj->IsIgnoreTimeScale() == false 
-			&& CGame::GetTimeScale() == 0)							continue;
-		if (obj->IsIgnoreTimeScale() == false
-			&& CGame::GetTimeScale() == 0)							continue;
-		if (obj->IsEnabled() == false)								continue;
-		if (uiCam != NULL)											obj->Update(dt, camera, uiCam);
-		else														obj->Update(dt, camera, NULL);
+		if (obj->IsIgnoreTimeScale() == false && CGame::GetTimeScale() == 0)
+			continue;
+		if (obj->IsEnabled() == false)
+			continue;
+		if (uiCam != NULL)
+			obj->Update(dt, camera, uiCam);
+		else
+			obj->Update(dt, camera, NULL);
+		oldPosition = obj->GetPosition();
 		obj->PhysicsUpdate(&updateObjects);
+		if (obj->IsInGrid() == true)
+			grid->Move(oldPosition, obj);
 	}
 	if (camera != NULL)
 		map->Update(camera, dt);
@@ -230,9 +281,9 @@ void CScene::Render()
 	if (loaded == false)
 		return;
 	map->Render(camera, false);
-	if (gameObjects.size() == 0) return;
+	if (updateObjects.size() == 0) return;
 
-	for (auto obj : gameObjects)
+	for (auto obj : updateObjects)
 	{
 		if (obj->IsEnabled() == false)								continue;
 
@@ -245,13 +296,39 @@ void CScene::Render()
 
 void CScene::FindUpdateObjects()
 {
-	if (gameObjects.size() == 0) return;
 	updateObjects.clear();
-	for (auto obj : gameObjects)
+	if (spaceParitioning == true)
 	{
-		if (camera != NULL
-			&& camera->CheckObjectInCamera(obj) == false)			continue;
-		updateObjects.push_back(obj);
+		if (globalObjects.size() > 0)
+		{
+			for (auto obj : globalObjects)
+			{
+				if (camera != NULL
+					&& camera->CheckObjectInCamera(obj) == false)			continue;
+				updateObjects.push_back(obj);
+			}
+		}
+
+		auto activeCells = grid->FindActiveCells(camera);
+		int count = 0;
+		for (auto activeCell : activeCells)
+		{
+			for (auto gameObject : activeCell->GetListGameObject())
+			{
+				count++;
+				updateObjects.push_back(gameObject);
+			}
+		}
+	}
+	else
+	{
+		if (gameObjects.size() == 0) return;
+		for (auto obj : gameObjects)
+		{
+			if (camera != NULL
+				&& camera->CheckObjectInCamera(obj) == false)			continue;
+			updateObjects.push_back(obj);
+		}
 	}
 }
 
@@ -259,32 +336,54 @@ void CScene::AddObject(LPGameObject gameObject)
 {
 	if (gameObject == NULL)
 		return;
-	auto gameObj = find(gameObjects.begin(), gameObjects.end(), gameObject);
-	if (gameObj == gameObjects.end())
+	if (spaceParitioning == true)
 	{
-		gameObjects.push_back(gameObject);
+		if (CheckGlobalObject(gameObject->GetTag()) == true)
+			globalObjects.push_back(gameObject);
+		else
+		{
+			if (grid == NULL)
+				return;
+			if (gameObject->IsInGrid() == false)
+			{
+				grid->Insert(gameObject);
+				gameObject->SetInGrid(true);
+			}
+		}
+	}
+	else
+	{
+		auto gameObj = find(gameObjects.begin(), gameObjects.end(), gameObject);
+		if (gameObj == gameObjects.end())
+		{
+			gameObjects.push_back(gameObject);
+		}
 	}
 }
 
 void CScene::RemoveObject(LPGameObject gameObject)
 {
-	auto gameObj = find(gameObjects.begin(), gameObjects.end(), gameObject);
-	if (gameObj != gameObjects.end())
+	if (gameObject == NULL)
+		return;
+	if (spaceParitioning == true)
 	{
-		gameObjects.erase(gameObj);
+		grid->Remove(gameObject);
+	}
+	else
+	{
+		auto gameObj = find(gameObjects.begin(), gameObjects.end(), gameObject);
+		if (gameObj != gameObjects.end())
+		{
+			gameObjects.erase(gameObj);
+		}
 	}
 }
 
-void CScene::SetObjectPosition(D3DXVECTOR2 distance)
+void CScene::AddGlobalObject(LPGameObject gameObject)
 {
-	for (auto obj : gameObjects)
-	{
-		if (obj->GetTag() == GameObjectTags::Solid)
-		{
-			auto pos = obj->GetCollisionBox()->at(0)->GetPosition();
-			obj->GetCollisionBox()->at(0)->SetPosition(pos + distance);
-		}
-	}
+	if (gameObject == NULL)
+		return;
+	globalObjects.push_back(gameObject);
 }
 
 CGameObject* CScene::GetMarioController()
@@ -370,15 +469,39 @@ void CScene::SetCamera(int id)
 	}
 }
 
-//std::vector<LPGameObject> CScene::GetObjects()
-//{
-//	return gameObjects;
-//}
-
-
 bool CScene::IsLoaded()
 {
 	return loaded;
+}
+
+bool CScene::IsSpacePartitioning()
+{
+	return spaceParitioning;
+}
+
+bool CScene::CheckGlobalObject(GameObjectTags tag)
+{
+	if (tag == GameObjectTags::Solid || tag == GameObjectTags::GhostPlatform)
+		return true;
+	if (tag == GameObjectTags::Player || tag == GameObjectTags::SmallPlayer || tag == GameObjectTags::PlayerController)
+		return true;
+	if (tag == GameObjectTags::RaccoonTail)
+		return true;
+	return false;
+}
+
+void CScene::AddKeyboardTargetObject(CGameObject* gameObject)
+{
+	keyboardTargetObjects.push_back(gameObject);
+}
+
+std::vector<LPGameObject>  CScene::GetKeyboardTargetObject()
+{
+	return keyboardTargetObjects;
+}
+CGrid* CScene::GetGrid()
+{
+	return grid;
 }
 
 CScene::~CScene()

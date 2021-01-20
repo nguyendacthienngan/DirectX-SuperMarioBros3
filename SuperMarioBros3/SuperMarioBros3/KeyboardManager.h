@@ -43,7 +43,6 @@ public:
 	//void SetKeyEventHandler(LPKeyEventHandler k);
 
 	LPKeyEventHandler GetKeyEventHandler() { return this->keyEventHandler; }
-	void AddTargetForKeyboard(CGameObject* target);
 
 };
 

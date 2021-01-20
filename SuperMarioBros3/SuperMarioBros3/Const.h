@@ -12,6 +12,7 @@
 #define CATEGORY_ANIMATION	"Animations"
 #define CATEGORY_SCENE		"Scenes"
 #define CATEGORY_CONFIG		"Config"
+#define CATEGORY_GRID		"Grid"
 
 #define TEXTURE_MARIO		"tex-mario"
 #define TEXTURE_ENEMY		"tex-enemy"
@@ -52,3 +53,5 @@
 #define SC_UI_CAMERA		"ui-camera"
 
 #define CG_GLOBAL_CONFIG	"global-config"
+
+#define GRID_ID				"grid"

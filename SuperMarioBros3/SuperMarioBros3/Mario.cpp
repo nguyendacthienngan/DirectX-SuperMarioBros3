@@ -1148,7 +1148,7 @@ void CMario::OnKeyUp(int KeyCode)
 
 void CMario::OnDamaged()
 {
-	if (marioStateTag == MarioStates::SmallMario)
+	if (marioStateTag == MarioStates::SmallMario && isPowerUp == false)
 		OnDie();
 	else
 	{

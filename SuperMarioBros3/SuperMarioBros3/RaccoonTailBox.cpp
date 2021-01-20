@@ -23,28 +23,3 @@ void CRaccoonTailBox::Init()
 	this->SetScale(D3DXVECTOR2(1.0f, 1.0f));
 }
 
-void CRaccoonTailBox::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
-{
-	// Di chuyển theo mario
-	// Nhưng đặt phía trước mario như thế nào
-	/*auto velocity = physiscBody->GetVelocity();
-	velocity = raccoonMario->GetPhysiscBody()->GetVelocity();
-	physiscBody->SetVelocity(velocity);*/
-}
-
-void CRaccoonTailBox::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
-{
-	//for (auto collisionEvent : collisionEvents)
-	//{
-	//	auto collisionBox = collisionEvent->obj;
-	//	if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy)
-	//	{
-	//		if (collisionEvent->nx != 0)
-	//		{
-	//			// Quẫy đuôi trúng enemy
-	//			// Enemy sẽ chết
-	//			
-	//		}
-	//	}
-	//}
-}

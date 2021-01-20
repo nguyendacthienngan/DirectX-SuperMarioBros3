@@ -34,28 +34,24 @@ void CMarioController::Init()
 	listMarioStates.insert(make_pair(SMALL_MARIO_STATE, marioStateObject));
 	listStateObjects.insert(make_pair(SMALL_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
-	CKeyboardManager::GetInstance()->AddTargetForKeyboard(marioStateObject);
 
 	// SUPER MARIO
 	marioStateObject = new CSuperMario();
 	listMarioStates.insert(make_pair(SUPER_MARIO_STATE, marioStateObject));
 	listStateObjects.insert(make_pair(SUPER_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
-	CKeyboardManager::GetInstance()->AddTargetForKeyboard(marioStateObject);
 
 	// RACOON MARIO
 	marioStateObject = new CRaccoonMario();
 	listMarioStates.insert(make_pair(RACOON_MARIO_STATE, marioStateObject));
 	listStateObjects.insert(make_pair(RACOON_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
-	CKeyboardManager::GetInstance()->AddTargetForKeyboard(marioStateObject);
 
 	// FIRE MARIO
 	marioStateObject = new CFireMario();
 	listMarioStates.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
 	listStateObjects.insert(make_pair(FIRE_MARIO_STATE, marioStateObject));
 	marioStateObject->Enable(false);
-	CKeyboardManager::GetInstance()->AddTargetForKeyboard(marioStateObject);
 
 	collisionBoxs->clear();
 	//collisionBoxs = NULL;
@@ -70,11 +66,11 @@ void CMarioController::Process()
 
 void CMarioController::AddStateObjectsToScene(LPScene scene)
 {
-	int i = 0;
-	DebugOut(L"Add mario to scene %d", i++);
+	DebugOut(L"Add mario to scene \n");
 	for (auto obj : listStateObjects)
 	{
 		scene->AddObject(obj.second);
+		scene->AddKeyboardTargetObject(obj.second);
 		obj.second->AddObjectToScene(scene);
 	}
 }
@@ -84,7 +80,7 @@ void CMarioController::SwitchToState(std::string state)
 	// Chưa check điều kiện input
 
 	// Đổi trạng thái (STATE)
-		SwitchState(listMarioStates.at(state)); 
+	SwitchState(listMarioStates.at(state)); 
 
 	// Nếu object đó đã được khởi tạo trc đó thì mình lấy lại vị trí trc đó đã lưu
 	if (currentStateObject != NULL)

@@ -104,22 +104,27 @@ void CBrick::Debris()
 	const float velx[4] = { +0.1875f, +0.25f, -0.25f, -0.1875f };
 	const float vely[4] = { -0.375f, -0.75f, -0.75f, -0.375f };
 
+	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 
 	for (int i = 0; i < 4; i++)
 	{
 		auto brickFX = brickPool.Init();
-		brickFX->GetPhysiscBody()->SetVelocity(D3DXVECTOR2(velx[i], vely[i]));
-		brickFX->Enable(true);
-		brickFX->SetPosition(this->GetPosition());
+		if (brickFX != NULL)
+		{
+			auto pos = brickFX->GetPosition();
+			brickFX->GetPhysiscBody()->SetVelocity(D3DXVECTOR2(velx[i], vely[i]));
+			brickFX->Enable(true);
+			brickFX->SetPosition(this->GetPosition());
+
+			auto grid = activeScene->GetGrid();
+			if (grid != NULL && activeScene->IsSpacePartitioning() == true)
+				grid->Move(pos, brickFX);
+		}
 	}
 	isEnabled = false;
-	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
-	if (activeScene != NULL)
-	{
-		activeScene->RemoveBrick(this);
-		activeScene->RemoveObject(this);
-		activeScene->AddDestroyObject(this);
-	}
+	activeScene->RemoveBrick(this);
+	activeScene->RemoveObject(this);
+	activeScene->AddDestroyObject(this);
 }
 
 void CBrick::Bounce()

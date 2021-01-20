@@ -16,6 +16,8 @@ CGameObject::CGameObject()
 	currentState = "IDLE";
 	isCheckWithCollision = true;
 	nodeTag = NodeTag::None;
+	isInGrid = false;
+	isStatic = true;
 }
 
 CGameObject::~CGameObject()
@@ -41,11 +43,11 @@ D3DXVECTOR2 CGameObject::GetGameObjectSize(CGameObject* gO)
 	if (size.x == 0 || size.y == 0)
 	{
 		auto anim = gO->GetAnimationByState(gO->GetCurrentState());
-		if (!anim) return D3DXVECTOR2(-1, -1);;
+		if (!anim) return size;
 		auto animFrame = anim->GetAnimFrame();
-		if (!animFrame) return D3DXVECTOR2(-1, -1);;
+		if (!animFrame) return size;
 		auto sprite = animFrame->GetSprite();
-		if (!sprite) return D3DXVECTOR2(-1, -1);;
+		if (!sprite) return size;
 
 		size.x = sprite->GetWidth();
 		size.y = sprite->GetHeight();
@@ -162,7 +164,10 @@ void CGameObject::OnScoreEffect()
 	scoreFX->Enable(true);
 	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 	if (activeScene)
+	{
 		activeScene->AddObject(scoreFX);
+		activeScene->GetGrid()->Move(D3DXVECTOR2(-1, -1), scoreFX);
+	}
 }
 
 std::string CGameObject::GetCurrentState()
@@ -328,6 +333,36 @@ bool CGameObject::PlayerAttackItemTag(GameObjectTags tag)
 	if (tag == GameObjectTags::RaccoonTail || tag == GameObjectTags::MarioFireBall) // And Koopa Shell 
 		return true;
 	return false;
+}
+
+bool CGameObject::IsStatic()
+{
+	return isStatic;
+}
+
+void CGameObject::SetStatic(bool setStatic)
+{
+	this->isStatic = setStatic;
+}
+
+bool CGameObject::IsInGrid()
+{
+	return isInGrid;
+}
+
+void CGameObject::SetInGrid(bool setInGrid)
+{
+	isInGrid = setInGrid;
+}
+
+Index CGameObject::GetIndex()
+{
+	return currentCellIndex;
+}
+
+void CGameObject::SetIndex(Index index)
+{
+	currentCellIndex = index;
 }
 
 

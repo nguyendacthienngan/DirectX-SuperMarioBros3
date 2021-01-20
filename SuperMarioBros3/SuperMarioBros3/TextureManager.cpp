@@ -102,7 +102,6 @@ void CTextureManager::Add(string id, std::string filePath, D3DCOLOR transparentC
 		return;
 	}
 
-	//textures.at(id) = texture;
 	textures.insert(make_pair(id, texture));
 
 	OutputDebugStringW(ToLPCWSTR("[INFO] Texture loaded Ok:  " + filePath + "\n"));
