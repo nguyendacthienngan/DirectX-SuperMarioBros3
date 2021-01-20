@@ -67,7 +67,7 @@ void CBoomerangBrother::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		case 0:
 		{
 			// Đứng yên, xác định mario
-			// Nhảy
+			// TO-DO: Nhảy
 			auto distanceBetweenTargetAndBoomerang = target->GetPosition().x - this->transform.position.x;
 			if (abs(distanceBetweenTargetAndBoomerang) <= DISTANCE_CAN_THROW_TWICE)
 				canThrowSecondBoomerang = true;
@@ -135,7 +135,7 @@ void CBoomerangBrother::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		case 4:
 		{
 			// Lùi
-			// Đang bị lõi chưa đc reset
+			//  TO-DO: Đang bị lõi chưa đc reset 
 			velocity.x = -BOOMERANG_BROTHER_VELOCITY * normal.x;
 			if (transform.position.x <= startPosition.x - BOUNDARY)
 			{
@@ -150,7 +150,6 @@ void CBoomerangBrother::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	if (canAttack == true)
 	{
 		// Nếu có lấy boomerang được thì mới attack. Attack xong chuyển lại animation move
-		
 		if (isAttack == false)
 		{
 			auto currentObj = boomerangs.Init();
@@ -180,8 +179,9 @@ void CBoomerangBrother::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		}
 	}
 	else
-		isAttack = false; // Chưa đúng lắm, khi nào tắt k attack nữa? K lẽ cho timer
-	DebugOut(L"Move state %d \n", moveState);
+		isAttack = false; 
+	//  TO-DO:  Chưa đúng lắm, khi nào tắt k attack nữa? K lẽ cho timer
+
 }
 
 CObjectPool CBoomerangBrother::GetObjectPool()

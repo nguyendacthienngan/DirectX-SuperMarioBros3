@@ -45,7 +45,7 @@ void CBoomerang::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			// vy < 0, vx > 0 (cùng hướng target hoặc boomerang brother)
 			vel.y = -BOOMERANG_VEL_Y;
 			vel.x = BOOMERANG_VEL_X;
-			if (transform.position.y <= goalPosition.y) // Thiệt ra tạm để là goal.y chứ thiệt ra là hằng số cố đ
+			if (transform.position.y <= goalPosition.y) // TO-DO: Thiệt ra tạm để là goal.y chứ thiệt ra là hằng số cố định
 				attackState = 1;
 			break;
 		}
@@ -54,7 +54,7 @@ void CBoomerang::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			vel.y = BOOMERANG_VEL_Y;
 			// Gặp biên => Quay đầu (vx < 0) (Ngược hướng target hoặc boomerang brother) 
 			// Khi quay đầu thì giàm ga chậm tí rồi vy cũng tăng
-			if (transform.position.x >= goalPosition.x)
+			if (transform.position.x >= goalPosition.x) // TO-DO: Thiệt ra tạm để là goal.x chứ thiệt ra là hằng số cố định
 			{
 				vel.x = 0;
 				attackState = 2;
@@ -66,7 +66,6 @@ void CBoomerang::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			// Rớt xuống (Gravity != 0)
 			// vy > 0, vx > 0
 			vel.y = BOOMERANG_VEL_Y;
-			//vel.y += BOOMERANG_VEL_Y /5;
 			vel.x -= BOOMERANG_VEL_X / 50;
 			if (transform.position.y >= boomerangBrother->GetPosition().y)
 			{
@@ -89,7 +88,6 @@ void CBoomerang::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			break;
 		}
 	}
-	DebugOut(L"Attack State %d \n", attackState);
 	transform.position.x += vel.x * dt;
 	physiscBody->SetVelocity(vel);
 }
