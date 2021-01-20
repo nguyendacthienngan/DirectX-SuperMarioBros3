@@ -179,12 +179,12 @@
 
 		<!--Boomerang Brother-->
 		<!-- Animation MOVE-->
-		<Animation aniId="ani-boomerang-brother-move" frameTime="100" name = "MOVE">
+		<Animation aniId="ani-boomerang-brother-move" frameTime="200" name = "MOVE">
 			<Sprite id="spr-boomerang-brother-move-0" left="33" top="171"  width="16" height="24"/>
 			<Sprite id="spr-boomerang-brother-move-1" left="57" top="171"  width="16" height="24"/>
 		</Animation>
 		<!-- Animation ATTACK-->
-		<Animation aniId="ani-boomerang-brother-attack" frameTime="100" name = "ATTACK">
+		<Animation aniId="ani-boomerang-brother-attack" frameTime="200" name = "ATTACK">
 			<Sprite id="spr-boomerang-brother-attack-0" left="80" top="171"  width="16" height="24"/>
 			<Sprite id="spr-boomerang-brother-attack-1" left="103" top="171"  width="16" height="24"/>
 		</Animation>

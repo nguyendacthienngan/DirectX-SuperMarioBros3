@@ -5,6 +5,11 @@ class CBoomerangBrother :
 {
 private:
     CObjectPool boomerangs;
+    int moveState;
+    bool canAttack;
+    bool isAttack;
+    bool canThrowSecondBoomerang;
+    int timer;
 public:
     CBoomerangBrother();
     void LoadAnimation() override;

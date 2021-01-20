@@ -944,7 +944,7 @@
     <property name="top" value="30"/>
    </properties>
   </object>
-  <object id="277" name="boomerang" type="white" x="6432" y="720">
+  <object id="277" name="boomerang" type="white" x="6348" y="720">
    <properties>
     <property name="cellx" value="16"/>
     <property name="celly" value="1"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Scene>
-  <Scene name="Player" pos_x="200" pos_y="512"/>  <!--Orginal: X: 200, Y: 552-->
+  <Scene name="Player" pos_x="6600" pos_y="512"/>  <!--Orginal: X: 200, Y: 552-->
   <Scene name="Map" source="Resources/Maps/" fileName = "world-1-4-map.tmx" gridSource ="Resources/Maps/Grid/" gridFile ="world-1-4-grid.tmx">
     <BackgroundColor R="156" G="252" B="240"/>
   </Scene>

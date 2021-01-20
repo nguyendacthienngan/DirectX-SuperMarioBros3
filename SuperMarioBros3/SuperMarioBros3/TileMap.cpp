@@ -617,6 +617,7 @@ CGameObject* CTileMap::LoadBoomerangBrother(D3DXVECTOR2 position, std::vector<LP
 {
 	CBoomerangBrother* boomerangBrother = new CBoomerangBrother();
 	boomerangBrother->SetPosition(position - translateConst);
+	boomerangBrother->SetStartPosition(position - translateConst);
 	boomerangBrother->SetTarget(player);
 	boomerangBrother->GetObjectPool().AddPoolToScene(scene);
 	AddObjectToList(boomerangBrother, listGameObjects);

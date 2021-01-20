@@ -6,6 +6,7 @@ CBoomerang::CBoomerang()
 {
 	LoadAnimation();
 	SetState(BOOMERANG_STATE_SPIN);
+	isEnabled = true;
 }
 
 void CBoomerang::LoadAnimation()
