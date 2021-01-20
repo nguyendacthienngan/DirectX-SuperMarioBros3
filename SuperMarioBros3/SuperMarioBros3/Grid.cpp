@@ -40,13 +40,13 @@ void CGrid::Insert(CGameObject* gameObject)
 		}
 	}*/
 
-	auto pos = gameObject->GetPosition();
-	auto cell = GetCell(pos);// Tự tính pos
-	cell->AddObject(gameObject);
+	//auto pos = gameObject->GetPosition();
+	//auto cell = GetCell(pos);// Tự tính pos
+	//cell->AddObject(gameObject);
 
 	
-	/*auto cell = GetCell(gameObject->GetIndex());
-	cell->AddObject(gameObject);*/
+	auto cell = GetCell(gameObject->GetIndex());
+	cell->AddObject(gameObject);
 }
 
 void CGrid::Remove(CGameObject* gameObject)
@@ -69,12 +69,12 @@ void CGrid::Remove(CGameObject* gameObject)
 
 	
 	// 1 object thuộc 1 cell
-	auto pos = gameObject->GetPosition();
-	auto cell = GetCell(pos); // Tự tính pos
-	cell->RemoveObject(gameObject);
+	//auto pos = gameObject->GetPosition();
+	//auto cell = GetCell(pos); // Tự tính pos
+	//cell->RemoveObject(gameObject);
 
-	/*auto cell = GetCell(gameObject->GetIndex());
-	cell->RemoveObject(gameObject);*/
+	///*auto cell = GetCell(gameObject->GetIndex());
+	//cell->RemoveObject(gameObject);*/
 }
 
 void CGrid::Move(D3DXVECTOR2 oldPosition, CGameObject* gameObject)
@@ -99,7 +99,20 @@ void CGrid::Move(D3DXVECTOR2 oldPosition, CGameObject* gameObject)
 	}*/
 
 	// 1 object thuộc 1 cell
-	auto oldCell = GetCellIndexByPosition(oldPosition); // tự tính = pos
+	//auto oldCell = GetCellIndexByPosition(oldPosition); // tự tính = pos
+	//auto newCell = GetCellIndexByPosition(gameObject->GetPosition());
+	//if (oldCell.x != newCell.x || oldCell.y != newCell.y)
+	//{
+	//	if (oldCell.x >= 0 && oldCell.x <= columns - 1
+	//		&& oldCell.y >= 0 && oldCell.y <= rows - 1)
+	//	{
+	//		auto cell = GetCell(oldCell);
+	//		cell->RemoveObject(gameObject);
+	//	}
+	//	Insert(gameObject);
+	//}
+
+	auto oldCell = gameObject->GetIndex();
 	auto newCell = GetCellIndexByPosition(gameObject->GetPosition());
 	if (oldCell.x != newCell.x || oldCell.y != newCell.y)
 	{
@@ -109,21 +122,9 @@ void CGrid::Move(D3DXVECTOR2 oldPosition, CGameObject* gameObject)
 			auto cell = GetCell(oldCell);
 			cell->RemoveObject(gameObject);
 		}
+		gameObject->SetIndex(newCell);
 		Insert(gameObject);
 	}
-
-	/*auto oldCell = gameObject->GetIndex();
-	auto newCell = GetCellIndexByPosition(gameObject->GetPosition());
-	if (oldCell.x != newCell.x || oldCell.y != newCell.y)
-	{
-		if (oldCell.x >= 0 && oldCell.x <= columns - 1
-			&& oldCell.y >= 0 && oldCell.y <= rows - 1)
-		{
-			auto cell = GetCell(oldCell);
-			cell->RemoveObject(gameObject);
-		}
-		Insert(gameObject);
-	}*/
 }
 
 std::vector <CCell*>  CGrid::FindActiveCells(CCamera* camera)

@@ -81,19 +81,8 @@ void CGoomba::Render(CCamera* cam, int alpha)
 	CGameObject::Render(cam, alpha);
 }
 
-void CGoomba::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> collisionEvents)
-{
-	CEnemy::OnCollisionEnter(selfCollisionBox, collisionEvents);
-}
-
-void CGoomba::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox)
-{
-	CEnemy::OnOverlappedEnter(selfCollisionBox, otherCollisionBox);
-}
-
 void CGoomba::OnDie()
 {
-	//OnScoreEffect();
 	auto v = physiscBody->GetVelocity();
 	auto normal = physiscBody->GetNormal();
 
@@ -114,6 +103,7 @@ void CGoomba::OnDie()
 			v.y = -GOOMBA_HIT_FORCE;
 			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 			activeScene->AddObject(hitFX);
+			activeScene->GetGrid()->Move(D3DXVECTOR2(-1, -1), hitFX);
 			hitFX->Enable(true);
 		}
 	}

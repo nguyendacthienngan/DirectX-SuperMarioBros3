@@ -63,6 +63,7 @@ void CQuestionBlock::Bounce()
 					coinObtainedFX->SetStartPosition(transform.position);
 					auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 					activeScene->AddObject(coinObtainedFX);
+					activeScene->GetGrid()->Move(D3DXVECTOR2(-1, -1), coinObtainedFX);
 					OnScoreEffect();
 					break;
 				}
@@ -87,6 +88,7 @@ void CQuestionBlock::Bounce()
 								mushroomObtainedFX->StartEffect(mario->GetPhysiscBody()->GetNormal().x);
 								auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 								activeScene->AddObject(mushroomObtainedFX);
+								activeScene->GetGrid()->Move(D3DXVECTOR2(-1, -1), mushroomObtainedFX);
 								break;
 							}
 							case MarioStates::SuperMario: 
@@ -100,6 +102,8 @@ void CQuestionBlock::Bounce()
 									leafObtainedFX->StartEffect();
 									auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 									activeScene->AddObject(leafObtainedFX);
+									activeScene->GetGrid()->Move(D3DXVECTOR2(-1, -1), leafObtainedFX);
+
 								}
 								if (res == 1)
 								{
@@ -109,6 +113,7 @@ void CQuestionBlock::Bounce()
 									fireFlower->SetStartPosition(firePos);
 									auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 									activeScene->AddObject(fireFlower);
+									activeScene->GetGrid()->Move(D3DXVECTOR2(-1, -1), fireFlower);
 								}
 								break;
 							}
@@ -119,6 +124,7 @@ void CQuestionBlock::Bounce()
 								leafObtainedFX->StartEffect();
 								auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 								activeScene->AddObject(leafObtainedFX);
+								activeScene->GetGrid()->Move(D3DXVECTOR2(-1, -1), leafObtainedFX);
 								break;
 							}
 							case MarioStates::RacoonMario:
@@ -129,6 +135,7 @@ void CQuestionBlock::Bounce()
 								fireFlower->SetStartPosition(firePos);
 								auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 								activeScene->AddObject(fireFlower);
+								activeScene->GetGrid()->Move(D3DXVECTOR2(-1, -1), fireFlower);
 								break;
 							}
 						}

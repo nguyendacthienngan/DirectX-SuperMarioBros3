@@ -164,7 +164,10 @@ void CGameObject::OnScoreEffect()
 	scoreFX->Enable(true);
 	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 	if (activeScene)
+	{
 		activeScene->AddObject(scoreFX);
+		activeScene->GetGrid()->Move(D3DXVECTOR2(-1, -1), scoreFX);
+	}
 }
 
 std::string CGameObject::GetCurrentState()
