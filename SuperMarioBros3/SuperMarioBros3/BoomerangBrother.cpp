@@ -14,12 +14,13 @@ CBoomerangBrother::CBoomerangBrother()
 	{
 		CBoomerang* boomerang = new CBoomerang();
 		boomerang->LinkToPool(&boomerangs);
+		boomerang->SetBoomerangBrother(this);
 		boomerangs.Add(boomerang);
 	}
 	CCollisionBox* collisionBox = new CCollisionBox();
 	collisionBox->SetSizeBox(BOOMERANG_BROTHER__BBOX);
 	collisionBox->SetGameObjectAttach(this);
-	collisionBox->SetName("Boomerang");
+	collisionBox->SetName("Boomerang-Brother");
 	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
 	this->collisionBoxs->push_back(collisionBox);
 
@@ -54,9 +55,11 @@ void CBoomerangBrother::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	auto normal = physiscBody->GetNormal();
 	auto velocity = physiscBody->GetVelocity();
+	auto targetPos = D3DXVECTOR2(0,0);
 	if (target != NULL)
 	{
 		normal.x = (target->GetPosition().x < this->transform.position.x) ? -1 : 1;
+		targetPos = target->GetPosition();
 	}
 	physiscBody->SetNormal(normal);
 	switch (moveState)
@@ -75,6 +78,7 @@ void CBoomerangBrother::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 				moveState = 1;
 				timer = 0;
 			}
+			canAttack = false;
 			break;
 		}
 		case 1:
@@ -131,6 +135,7 @@ void CBoomerangBrother::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		case 4:
 		{
 			// Lùi
+			// Đang bị lõi chưa đc reset
 			velocity.x = -BOOMERANG_BROTHER_VELOCITY * normal.x;
 			if (transform.position.x <= startPosition.x - BOUNDARY)
 			{
@@ -145,20 +150,25 @@ void CBoomerangBrother::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	if (canAttack == true)
 	{
 		// Nếu có lấy boomerang được thì mới attack. Attack xong chuyển lại animation move
+		
 		if (isAttack == false)
 		{
-			auto currentBoomerang = boomerangs.Init();
-			if (currentBoomerang != NULL)
+			auto currentObj = boomerangs.Init();
+			if (currentObj != NULL)
 			{
 				isAttack = true;
+				auto currentBoomerang = static_cast<CBoomerang*>(currentObj);
 				D3DXVECTOR2 pos = currentBoomerang->GetPosition();
 				currentBoomerang->SetPosition(transform.position);
+				currentBoomerang->SetGoalPosition(targetPos);
+
 				auto boomPhyBody = currentBoomerang->GetPhysiscBody();
 				boomPhyBody->SetGravity(0.0f);
 
 				auto posBoomerangBrother = transform.position + relativePositionOnScreen;
 				posBoomerangBrother.x += BOOMERANG_BROTHER__BBOX.x * 0.5f * normal.x;
 				currentBoomerang->SetPosition(posBoomerangBrother);
+				currentBoomerang->SetStartPosition(posBoomerangBrother);
 				currentBoomerang->Enable(true);
 
 				auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
@@ -169,6 +179,8 @@ void CBoomerangBrother::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 
 		}
 	}
+	else
+		isAttack = false; // Chưa đúng lắm, khi nào tắt k attack nữa? K lẽ cho timer
 	DebugOut(L"Move state %d \n", moveState);
 }
 
