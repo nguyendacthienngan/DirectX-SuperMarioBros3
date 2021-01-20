@@ -139,10 +139,10 @@ std::vector <CCell*>  CGrid::FindActiveCells(CCamera* camera)
 	int endCellX =	(int)( (viewport.x + width) / (float)CELL_WIDTH );
 	int endCellY = (int)( (viewport.y + height) / (float)CELL_HEIGHT );
 
-	for (int i = startCellX -1 ; i <= endCellX + 1 ; i++)
+	for (int i = startCellX -1 ; i <= endCellX ; i++)
 	{
 		if (i < 0 || i > columns) continue;
-		for (int j = startCellY - 1; j <= endCellY + 1 ; j++)
+		for (int j = startCellY -1 ; j <= endCellY ; j++)
 		{
 			if (j < 0 || j > rows) continue;
 			auto cell = GetCell(Index({i, j}));
