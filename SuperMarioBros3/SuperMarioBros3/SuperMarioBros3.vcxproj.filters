@@ -1243,7 +1243,7 @@
     <None Include="Resources\Maps\intro-map.tmx">
       <Filter>Game\Resouces\Maps</Filter>
     </None>
-    <None Include="Resources\Grid\world-1-1-grid.tmx">
+    <None Include="Resources\Maps\Grid\world-1-1-grid.tmx">
       <Filter>Game\Resouces\Grid</Filter>
     </None>
   </ItemGroup>

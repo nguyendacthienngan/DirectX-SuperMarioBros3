@@ -449,7 +449,7 @@
     <Xml Include="Resources\Sprites\UiDB.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Grid\world-1-1-grid.tmx" />
+    <None Include="Resources\Maps\Grid\world-1-1-grid.tmx" />
     <None Include="Resources\Maps\intro-map.tmx" />
     <None Include="Resources\Maps\world-1-1-map.tmx" />
     <None Include="Resources\Maps\world-1-4-map.tmx" />

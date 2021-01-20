@@ -60,12 +60,12 @@ void CScene::Load()
 			string sourceMap;
 			string fileMap;
 
-			if (spaceParitioning == true)
+			/*if (spaceParitioning == true)
 			{
 				sourceMap = scene->Attribute("gridSource");
 				fileMap = scene->Attribute("gridFile");
 			}
-			else
+			else*/
 			{
 				sourceMap = scene->Attribute("source");
 				fileMap = scene->Attribute("fileName");
@@ -330,6 +330,8 @@ void CScene::FindUpdateObjects()
 			updateObjects.push_back(obj);
 		}
 	}
+	DebugOut(L"Update Objs size %d \n", updateObjects.size());
+
 }
 
 void CScene::AddObject(LPGameObject gameObject)

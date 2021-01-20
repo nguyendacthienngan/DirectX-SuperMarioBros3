@@ -614,13 +614,13 @@
     </object>
     <object id="217" x="4919" y="359">
       <properties>
-        <property name="cellx" value="11"/>
+        <property name="cellx" value="12"/>
         <property name="celly" value="0"/>
       </properties>
     </object>
     <object id="218" x="4967" y="359">
       <properties>
-        <property name="cellx" value="11"/>
+        <property name="cellx" value="12"/>
         <property name="celly" value="0"/>
       </properties>
     </object>

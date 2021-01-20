@@ -310,7 +310,10 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				}
 
 				if (cellX != -1 && cellY != -1)
+				{
 					gameObject->SetIndex({ cellX, cellY });
+					DebugOut(L"Id %d CellX %d, CellY %d \n", id, cellX, cellY);
+				}
 				/*if (gameObject != NULL)
 				{
 					objectGroup.insert(make_pair(id, gameObject));
