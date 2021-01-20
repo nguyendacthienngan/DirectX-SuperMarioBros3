@@ -330,8 +330,6 @@ void CScene::FindUpdateObjects()
 			updateObjects.push_back(obj);
 		}
 	}
-	DebugOut(L"Update Objs size %d \n", updateObjects.size());
-
 }
 
 void CScene::AddObject(LPGameObject gameObject)

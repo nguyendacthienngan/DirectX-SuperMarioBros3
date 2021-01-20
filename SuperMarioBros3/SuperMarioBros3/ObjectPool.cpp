@@ -1,5 +1,5 @@
 #include "ObjectPool.h"
-
+#include "SceneManager.h"
 void CObjectPool::Add(CGameObject* obj)
 {
 	pool.push_back(obj);
@@ -20,6 +20,9 @@ void CObjectPool::Revoke(CGameObject* obj)
 {
 	obj->Enable(false);
 	pool.push_back(obj);
+	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	auto grid = activeScene->GetGrid();
+	grid->Remove(obj);
 }
 
 bool CObjectPool::IsEmpty()

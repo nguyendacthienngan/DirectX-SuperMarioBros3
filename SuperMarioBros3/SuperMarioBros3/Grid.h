@@ -17,7 +17,6 @@ public:
 	void Insert(CGameObject* gameObject);
 	void Remove(CGameObject* gameObject);
 	void Move(D3DXVECTOR2 oldPosition, CGameObject* gameObject);
-	void Update(CCamera* camera);
 	std::vector <CCell*>  FindActiveCells(CCamera* camera);
 	std::vector <CGameObject*> FindActiveGameObjects(CCamera* camera);
 	RECT GetRectByPosition(D3DXVECTOR2 pos, D3DXVECTOR2 size);
