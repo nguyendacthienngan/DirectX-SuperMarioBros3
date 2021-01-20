@@ -427,7 +427,7 @@
     <Image Include="Super_Mario_Bros_3.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\..\..\..\Game\Source code cua Bach\GridTool\uploads\grid-result.xml" />
+    <Xml Include="..\..\..\..\Game\Source code cua Bach\GridTool\uploads\world-1-1-grid.xml" />
     <Xml Include="Resources\Animations\EnemyAnim.xml" />
     <Xml Include="Resources\Animations\IntroAnim.xml" />
     <Xml Include="Resources\Animations\MapSelectionAnim.xml" />
@@ -435,6 +435,7 @@
     <Xml Include="Resources\Animations\MiscAnim.xml" />
     <Xml Include="Resources\Animations\UiAnim.xml" />
     <Xml Include="Resources\config.xml" />
+    <Xml Include="Resources\Maps\Grid\world-1-4-grid.xml" />
     <Xml Include="Resources\root.xml" />
     <Xml Include="Resources\Scenes\Intro.xml" />
     <Xml Include="Resources\Scenes\UICamera.xml" />
@@ -450,6 +451,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Maps\Grid\world-1-1-grid.tmx" />
+    <None Include="Resources\Maps\Grid\world-1-4-grid.tmx" />
     <None Include="Resources\Maps\intro-map.tmx" />
     <None Include="Resources\Maps\world-1-1-map.tmx" />
     <None Include="Resources\Maps\world-1-4-map.tmx" />
