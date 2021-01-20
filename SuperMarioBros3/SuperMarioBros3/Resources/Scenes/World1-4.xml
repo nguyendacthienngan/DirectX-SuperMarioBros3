@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Scene>
-  <Scene name="Player" pos_x="0" pos_y="512"/>  <!--Orginal: Y: 552-->
+  <Scene name="Player" pos_x="200" pos_y="512"/>  <!--Orginal: X: 200, Y: 552-->
   <Scene name="Map" source="Resources/Maps/" fileName = "world-1-4-map.tmx" gridSource ="Resources/Maps/Grid/" gridFile ="world-1-4-grid.tmx">
     <BackgroundColor R="156" G="252" B="240"/>
   </Scene>
-  <Scene name="Camera" start="0" main="0" width="800" height="671">
+  <Scene name="Camera" start="1" main="0" width="800" height="671">
     <!--Orginal: W: 720, H : 671-->
     <!--Camera-->
     <Boundary id="0" pos_x="0" pos_y="420" left="46" top="0" right="6075" bottom="925" disX ="0" disY="1"/>

@@ -151,6 +151,9 @@
     <ClInclude Include="BasePortal.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockConst.h" />
+    <ClInclude Include="Boomerang.h" />
+    <ClInclude Include="BoomerangBrother.h" />
+    <ClInclude Include="BoomerangBrotherConst.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BrickConst.h" />
     <ClInclude Include="BrickEffect.h" />
@@ -301,6 +304,8 @@
     <ClCompile Include="ArrowItemIcon.cpp" />
     <ClCompile Include="BasePortal.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Boomerang.cpp" />
+    <ClCompile Include="BoomerangBrother.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BrickEffect.cpp" />
     <ClCompile Include="Camera.cpp" />
