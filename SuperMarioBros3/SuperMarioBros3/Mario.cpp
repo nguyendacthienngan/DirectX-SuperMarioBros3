@@ -217,6 +217,7 @@ void CMario::InitProperties()
 	canGoToWarpPipe = false;
 	isSmokeEffectAnimation = false;
 	isChangeLevel = false;
+	isSwitchCamera = false;
 	bounceAfterJumpOnEnemy = false;
 	feverTime = MARIO_FEVER_TIME;
 	lastFeverTime = 0;
@@ -1027,6 +1028,7 @@ void CMario::WarpPipeProcess(CCamera* cam)
 			transform.position.y += MARIO_VENT_SPEED * CGame::GetInstance()->GetDeltaTime();
 		if (ventDirection.top == 1)
 			transform.position.y -= MARIO_VENT_SPEED * CGame::GetInstance()->GetDeltaTime();
+		isSwitchCamera = true;
 	}
 	else if (isHitGoalRoulette == false && isDie == false)
 	{
@@ -1035,6 +1037,7 @@ void CMario::WarpPipeProcess(CCamera* cam)
 		camPos.x += cam->GetWidthCam() / 2;
 		SetPosition(camPos);
 		this->physiscBody->SetGravity(MARIO_GRAVITY);
+		isSwitchCamera = false;
 	}
 }
 
@@ -1167,7 +1170,7 @@ void CMario::OnGoToWarpPipe()
 
 void CMario::OnDie()
 {
-	if (isDamaged == true)
+	if (isDamaged == true || isGoToWarpPipe == true || isSwitchCamera == true)
 		return;
 	previousPosition = GetPosition();
 	this->isDie = true;
