@@ -30,12 +30,8 @@ CBoomerangBrother::CBoomerangBrother()
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 
 	moveState = 1;
-	isAttack = false;
 	canAttack = false;
 	idleTimer = 0;
-	attackTimer = 0;
-	countThrowTimes = 0;
-	attackTime = ATTACK_TIME_THROW_ONCE;
 	onHoldObject = NULL;
 	isHoldBoomerang = false;
 }
@@ -144,25 +140,10 @@ CObjectPool CBoomerangBrother::GetObjectPool()
 
 void CBoomerangBrother::OnAttack(D3DXVECTOR2 normal)
 {
-	/*countThrowTimes++;
-	if (canThrowSecondBoomerang == false && countThrowTimes >= 2)
-		return;
-	if (canThrowSecondBoomerang == true)
-	{
-		if (countThrowTimes >= 2)
-		{
-			attackTimer += CGame::GetInstance()->GetDeltaTime();
-			if (attackTimer <= attackTime)
-			{
-				return;
-			}
-		}
-	}*/
 	if (onHoldObject != NULL)
 	{
 		auto currentBoomerang = static_cast<CBoomerang*>(onHoldObject);
 		currentBoomerang->SetAttackState(0);
-		attackTimer = 0;
 		onHoldObject = NULL;
 		canAttack = false;
 	}

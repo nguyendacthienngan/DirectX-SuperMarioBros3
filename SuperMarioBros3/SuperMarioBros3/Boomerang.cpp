@@ -43,6 +43,8 @@ void CBoomerang::Render(CCamera* cam, int alpha)
 void CBoomerang::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	auto vel = physiscBody->GetVelocity();
+	auto normal = boomerangBrother->GetPhysiscBody()->GetNormal();
+	physiscBody->SetNormal(normal);
 	switch (attackState)
 	{
 		case -1:
@@ -54,13 +56,24 @@ void CBoomerang::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		}
 		case 0:
 		{
+
 			// Phi lên trên bầu trời vòng cung (Gravity = 0)
 			// vy < 0, vx > 0 (cùng hướng target hoặc boomerang brother)
-			if (transform.position.x < 6600)
-				vel.x = BOOMERANG_VEL_X;
+			if (normal.x > 0)
+			{
+				if (transform.position.x < BOOMERANG_LIMIT_RIGHT)
+					vel.x = BOOMERANG_VEL_X;
+				else
+					vel.x = 0;
+			}
 			else
-				vel.x = 0;
-			if (transform.position.y <= 500)
+			{
+				if (transform.position.x > -BOOMERANG_LIMIT_RIGHT)
+					vel.x = -BOOMERANG_VEL_X;
+				else
+					vel.x = 0;
+			}
+			if (transform.position.y <= BOOMERANG_LIMIT_TOP)
 			{
 				attackState = 1;
 				vel.y = BOOMERANG_VEL_Y;
@@ -73,14 +86,28 @@ void CBoomerang::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		{
 			// Gặp biên => Quay đầu (vx < 0) (Ngược hướng target hoặc boomerang brother) 
 			// Khi quay đầu thì giàm ga chậm tí rồi vy cũng tăng
-			if (transform.position.x >= 6600) 
+			if (normal.x > 0)
 			{
-				vel.x = 0;
-				attackState = 2;
+				if (transform.position.x >= BOOMERANG_LIMIT_RIGHT)
+				{
+					vel.x = 0;
+					attackState = 2;
+				}
+				else
+					vel.y = BOOMERANG_VEL_Y;
+
 			}
 			else
-				vel.y = BOOMERANG_VEL_Y;
-
+			{
+				if (transform.position.x >= BOOMERANG_LIMIT_RIGHT)
+				{
+					vel.x = 0;
+					attackState = 2;
+				}
+				else
+					vel.y = BOOMERANG_VEL_Y;
+			}
+			
 			break;
 		}
 		case 2:
@@ -144,8 +171,8 @@ void CBoomerang::SetBoomerangBrother(CGameObject* gO)
 
 bool CBoomerang::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
-	/*if (gO->MarioTag(tag))
-		return true;*/
+	if (gO->MarioTag(tag))
+		return true;
 	return false;
 }
 
@@ -154,7 +181,7 @@ void CBoomerang::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBo
 	if (MarioTag(otherCollisionBox->GetGameObjectAttach()->GetTag()))
 	{
 		auto mario = otherCollisionBox->GetGameObjectAttach();
-		//mario->OnDamaged();
+		mario->OnDamaged();
 	}
 }
 

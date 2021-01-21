@@ -13,7 +13,10 @@ const int BOUNDARY = 100;
 
 const float  BOOMERANG_VEL_X = 0.2f;
 const float  BOOMERANG_VEL_Y = 0.2f;
+const int BOOMERANG_LIMIT_TOP = 550;
+const int BOOMERANG_LIMIT_RIGHT = 6600;
 
 const int ATTACK_TIME_THROW_ONCE = 1000;
 const int ATTACK_TIME_THROW_TWICE = 800;
 const int IDLE_TIME = 500;
+

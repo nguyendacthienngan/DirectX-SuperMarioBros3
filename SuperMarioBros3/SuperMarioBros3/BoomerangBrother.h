@@ -7,11 +7,8 @@ private:
     CObjectPool boomerangs;
     int moveState;
     bool canAttack;
-    bool isAttack;
     bool canThrowSecondBoomerang;
-    int idleTimer, attackTimer;
-    int attackTime;
-    int countThrowTimes;
+    int idleTimer;
     CGameObject* onHoldObject;
     bool isHoldBoomerang;
 public:
