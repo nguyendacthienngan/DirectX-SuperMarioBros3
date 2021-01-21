@@ -275,3 +275,13 @@ void CBoomerangBrother::OnHoldBoomerang(D3DXVECTOR2 normal)
 			grid->Move(pos, currentBoomerang);
 	}
 }
+
+void CBoomerangBrother::OnDie()
+{
+	auto normal = physiscBody->GetNormal();
+	normal.y = -normal.y;
+	physiscBody->SetNormal(normal);
+	this->collisionBoxs->at(0)->SetEnable(false);
+}
+
+

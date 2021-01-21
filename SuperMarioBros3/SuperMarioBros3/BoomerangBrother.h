@@ -21,5 +21,6 @@ public:
     void OnMovingForward(D3DXVECTOR2 normal);
     void OnMovingBackwards(D3DXVECTOR2 normal);
     void OnHoldBoomerang(D3DXVECTOR2 normal);
+    void OnDie() override;
 };
 
