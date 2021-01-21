@@ -244,6 +244,7 @@
     <ClInclude Include="PhysicsBody.h" />
     <ClInclude Include="PIcon.h" />
     <ClInclude Include="Pipe.h" />
+    <ClInclude Include="PipeConst.h" />
     <ClInclude Include="Piranha.h" />
     <ClInclude Include="PiranhaConst.h" />
     <ClInclude Include="Plant.h" />

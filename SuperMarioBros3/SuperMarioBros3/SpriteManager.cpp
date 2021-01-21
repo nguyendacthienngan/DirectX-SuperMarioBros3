@@ -25,6 +25,7 @@ void CSpriteManager::Init()
 	LoadSprite(TEXTURE_UI, root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_UI));
 	LoadSprite(TEXTURE_WORLD_1, root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_WORLD_1));
 	LoadSprite(TEXTURE_INTRO, root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_INTRO));
+	LoadSprite(TEXTURE_PIPE, root->GetFilePathByCategory(CATEGORY_SPRITE, DB_SPRITE_PIPE));
 }
 
 void CSpriteManager::Add(string id, RECT rect, LPDIRECT3DTEXTURE9 tex, int xPivot, D3DXCOLOR transcolor)

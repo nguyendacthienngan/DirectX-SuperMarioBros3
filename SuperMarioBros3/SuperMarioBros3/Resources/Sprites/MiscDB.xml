@@ -73,4 +73,7 @@
     <Sprite id="spr-goal-star-0" left="45" top="27" width="16" height="16"/>
     <Sprite id="spr-goal-star-1" left="95" top="28" width="10" height="16"/>
   </Textures>
+  <Textures id="tex-pipe">
+    <Sprite id="spr-pipe-0" left="0" top="0" width="224" height="64"/>
+  </Textures>
 </Textures>

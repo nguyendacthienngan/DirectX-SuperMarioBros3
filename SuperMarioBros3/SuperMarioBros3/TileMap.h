@@ -37,6 +37,7 @@ private:
 	CScene* scene;
 	std::unordered_map<int, std::unordered_map<int, CGameObject*>> objectGroups;
 	Index currentGOIndex;
+
 public:
 	CTileMap();
 	CTileMap(int width, int height, int tileWidth, int tileHeight);
@@ -61,6 +62,7 @@ public:
 	CGameObject* LoadBrick(D3DXVECTOR2 position, int type, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects);
 	CGameObject* LoadCoin(D3DXVECTOR2 position, int type, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects);
 
+	CGameObject* LoadPipe(D3DXVECTOR2 position, D3DXVECTOR2 size, std::string direction, std::vector<LPGameObject>& listGameObjects);
 	CGameObject* LoadPortal(D3DXVECTOR2 position, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects);
 	CGameObject* LoadLabel(D3DXVECTOR2 position, std::string labelName, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects);
 

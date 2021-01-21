@@ -25,6 +25,7 @@
 #define TEXTURE_WORLD_1		"tex-world-map-1"
 #define TEXTURE_REWARD		"tex-goal"
 #define TEXTURE_INTRO		"tex-intro"
+#define TEXTURE_PIPE		"tex-pipe"
 
 #define DB_SPRITE_MARIO			"spr-mario"
 #define DB_SPRITE_ENEMY			"spr-enemy"
@@ -35,6 +36,7 @@
 #define DB_SPRITE_WORLD_1		"spr-world-map-1"
 #define DB_SPRITE_REWARD		"spr-reward"
 #define DB_SPRITE_INTRO			"spr-intro"
+#define DB_SPRITE_PIPE			"spr-pipe"
 
 #define DB_ANIMATION_MARIO		"ani-mario"
 #define DB_ANIMATION_ENEMY		"ani-enemy"

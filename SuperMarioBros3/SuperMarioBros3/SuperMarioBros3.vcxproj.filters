@@ -798,6 +798,9 @@
     <ClInclude Include="Boomerang.h">
       <Filter>Game\GameObject\Enemy\BoomerangBrother\Boomerang</Filter>
     </ClInclude>
+    <ClInclude Include="PipeConst.h">
+      <Filter>Game\GameObject\Pipe</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
