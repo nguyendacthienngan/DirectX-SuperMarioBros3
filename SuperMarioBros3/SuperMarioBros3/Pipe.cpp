@@ -10,12 +10,7 @@ CPipe::CPipe(D3DXVECTOR2 size)
 
 
 	pipeSprite = CSpriteManager::GetInstance()->Get("spr-pipe-0");
-
-	CCollisionBox* box = new CCollisionBox();
-	box->SetSizeBox(size);
-	box->SetGameObjectAttach(this);
-	this->collisionBoxs->push_back(box);
-	this->physiscBody->SetDynamic(true);
+	this->physiscBody->SetDynamic(false);
 	isEnabled = true;
 }
 
