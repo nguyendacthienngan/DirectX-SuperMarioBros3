@@ -120,8 +120,8 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		// Nên mình sẽ set cái time phù hợp để xét va chạm đuôi đúng
 		if (beginAttackTime != -1)
 			beginAttackTime += CGame::GetInstance()->GetDeltaTime() * CGame::GetTimeScale();
-
-		if (beginAttackTime > ATTACKING_TIME && beginAttackTime != -1)
+		int MAX_ATTACK_TIME = canLowJumpContinous == false ? ATTACKING_TIME : ATTACKING_TIME - 120;
+		if (beginAttackTime > MAX_ATTACK_TIME && beginAttackTime != -1)
 		{
 			raccoonTailBox->Enable(true);
 			beginAttackTail = true;
@@ -133,6 +133,9 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			// Z giữ lâu
 			isAttackContinious = true;
 		}
+		if (keyboard->GetKeyStateUp(DIK_Z))
+			isAttackContinious = false;
+
 		if (isOnGround == false || isJump == true || canLowJumpContinous == true)
 		{
 			// S + Z
@@ -147,6 +150,7 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			isJumpAttack = false;
 			raccoonTailBox->Enable(false);
 		}
+
 #pragma endregion
 
 	}
@@ -236,8 +240,6 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		}
 		uiCamera->GetHUD()->GetPMeter()->SetIsRaccoonMario(true);
 
-		DebugOut(L"Pmeter counting Raccoon %f \n", pMeterCounting);
-		DebugOut(L"Fever state Raccoon %d \n", feverState);
 	}
 
 #pragma endregion

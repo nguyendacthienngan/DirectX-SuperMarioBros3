@@ -105,9 +105,6 @@ void CPMeter::Update()
 			}
 		}
 	}
-	DebugOut(L"Pmeter counting %f \n", pMeterCounting);
-	DebugOut(L"Previous pMeter counting %f \n", previousPMeterState);
-	DebugOut(L"Fever state %d \n", feverState);
 }
 
 void CPMeter::Render()
