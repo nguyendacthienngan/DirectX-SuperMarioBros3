@@ -776,6 +776,8 @@ bool CMario::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 		return false;
 	if (tag == GameObjectTags::Card)
 		return false;
+	if (tag == GameObjectTags::Boomerang)
+		return false;
 	return true;
 }
 

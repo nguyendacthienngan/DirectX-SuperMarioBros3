@@ -19,6 +19,7 @@ enum class GameObjectTags
 	SuperMushroom,
 	RaccoonTail,
 	Effect,
+	Boomerang,
 
 	Portal,
 	Label,

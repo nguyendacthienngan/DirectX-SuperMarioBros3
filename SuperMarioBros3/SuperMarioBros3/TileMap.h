@@ -55,6 +55,7 @@ public:
 	CGameObject* LoadParagoomba(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects);
 	CGameObject* LoadPiranha(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects);
 	CGameObject* LoadVenus(D3DXVECTOR2 position, std::string enemyType, std::vector<LPGameObject>& listGameObjects);
+	CGameObject* LoadBoomerangBrother(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects);
 
 	CGameObject* LoadQuestionBlock(D3DXVECTOR2 position, int type, std::string name, std::vector<LPGameObject>& listGameObjects);
 	CGameObject* LoadBrick(D3DXVECTOR2 position, int type, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects);

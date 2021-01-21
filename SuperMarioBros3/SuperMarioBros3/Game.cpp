@@ -40,11 +40,11 @@ void CGame::Init()
 	keyboardManager->SetHWND(hWnd);
 	keyboardManager->InitKeyboard(keyEventHandler);
 	
-	CIntro* intro = new CIntro();
-	CSceneManager::GetInstance()->Load(intro);
+	/*CIntro* intro = new CIntro();
+	CSceneManager::GetInstance()->Load(intro);*/
 
-	/*CScene4* scene4 = new CScene4();
-	CSceneManager::GetInstance()->Load(scene4);*/
+	CScene4* scene4 = new CScene4();
+	CSceneManager::GetInstance()->Load(scene4);
 
 	/*CScene1* scene1 = new CScene1();
 	CSceneManager::GetInstance()->Load(scene1);*/

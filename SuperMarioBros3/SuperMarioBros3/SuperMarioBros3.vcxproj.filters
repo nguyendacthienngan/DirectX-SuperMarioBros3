@@ -334,6 +334,12 @@
     <Filter Include="Game\Resouces\Grid">
       <UniqueIdentifier>{9d13ca85-f546-4e3f-aa54-d8ff5f3c560d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Enemy\BoomerangBrother">
+      <UniqueIdentifier>{141b27cd-fd88-4294-a408-b35115df7245}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Enemy\BoomerangBrother\Boomerang">
+      <UniqueIdentifier>{48a9776a-1cf0-4fdd-b251-5e5820968a1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -783,6 +789,15 @@
     <ClInclude Include="Index.h">
       <Filter>Framework\Ultis</Filter>
     </ClInclude>
+    <ClInclude Include="BoomerangBrother.h">
+      <Filter>Game\GameObject\Enemy\BoomerangBrother</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangBrotherConst.h">
+      <Filter>Game\GameObject\Enemy\BoomerangBrother</Filter>
+    </ClInclude>
+    <ClInclude Include="Boomerang.h">
+      <Filter>Game\GameObject\Enemy\BoomerangBrother\Boomerang</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -1105,6 +1120,12 @@
     </ClCompile>
     <ClCompile Include="Cell.cpp">
       <Filter>Framework\Game\Grid\Cell</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangBrother.cpp">
+      <Filter>Game\GameObject\Enemy\BoomerangBrother</Filter>
+    </ClCompile>
+    <ClCompile Include="Boomerang.cpp">
+      <Filter>Game\GameObject\Enemy\BoomerangBrother\Boomerang</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -48,6 +48,7 @@
 #include "Card.h"
 #include "MovingPlatform.h"
 #include "ThreeAnimation.h"
+#include "BoomerangBrother.h"
 using namespace std;
 CTileMap::CTileMap()
 {
@@ -422,6 +423,10 @@ CGameObject* CTileMap::LoadEnemy(D3DXVECTOR2 position, std::string enemyName, st
 	{
 		enemy = LoadVenus(position, enemyType, listGameObjects);
 	}
+	else if (enemyName.compare("boomerang") == 0)
+	{
+		enemy = LoadBoomerangBrother(position, listGameObjects);
+	}
 	return enemy;
 }
 
@@ -606,6 +611,17 @@ CGameObject* CTileMap::LoadVenus(D3DXVECTOR2 position, std::string enemyType, st
 	venus->GetObjectPool().AddPoolToScene(scene);
 	AddObjectToList(venus, listGameObjects);
 	return venus;
+}
+
+CGameObject* CTileMap::LoadBoomerangBrother(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects)
+{
+	CBoomerangBrother* boomerangBrother = new CBoomerangBrother();
+	boomerangBrother->SetPosition(position - translateConst);
+	boomerangBrother->SetStartPosition(position - translateConst);
+	boomerangBrother->SetTarget(player);
+	boomerangBrother->GetObjectPool().AddPoolToScene(scene);
+	AddObjectToList(boomerangBrother, listGameObjects);
+	return boomerangBrother;
 }
 
 CGameObject* CTileMap::LoadQuestionBlock(D3DXVECTOR2 position, int type, std::string name, std::vector<LPGameObject>& listGameObjects)
