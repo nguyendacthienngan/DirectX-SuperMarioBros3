@@ -694,12 +694,9 @@ CGameObject* CTileMap::LoadPipe(D3DXVECTOR2 position, D3DXVECTOR2 size, std::str
 {
 	CPipe* pipe = new CPipe(size);
 	pipe->SetPosition(position + translateConst);
-	//pipe->SetPosition(position - translateConst + size * 0.5);
 	auto pos = position + translateConst;
 	pos.x += 24;
 	
-	//pipe->SetPosition(position + translateConst );
-
 	int startX = PIPE_START_X, startY = PIPE_START_Y;
 	startX += 2;
 	int sizeTile = PIPE_DEFAULT_TILE_SIZE;

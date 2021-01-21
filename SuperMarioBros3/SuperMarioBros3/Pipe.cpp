@@ -23,8 +23,7 @@ void CPipe::Render(CCamera* cam, int alpha)
 {
 	int size = PIPE_DEFAULT_TILE_SIZE;
 	D3DXVECTOR2 pos = transform.position;
-	//auto translation = -cam->GetPositionCam();
-	auto translation = -cam->GetPositionCam() + D3DXVECTOR2(289, 32);
+	auto translation = -cam->GetPositionCam() + DEFAULT_OFFSET;
 	auto headOffset = pipeDirection == PipeDirection::Up ? 0 : (pipeSize.y - 1) * size;
 
 

@@ -7,6 +7,9 @@ const int PIPE_START_Y = 0;
 const int PIPE_HEIGHT = 192;
 const int PIPE_WIDTH = 672;
 
+
+const D3DXVECTOR2 DEFAULT_OFFSET = D3DXVECTOR2(289, 32);
+
 enum class PipeDirection
 {
 	Left, Right, Up, Down
