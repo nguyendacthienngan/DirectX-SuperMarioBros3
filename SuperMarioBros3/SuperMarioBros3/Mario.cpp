@@ -353,7 +353,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			if (pMeterCounting >= PMETER_MAX && feverState == 0)
 			{
 				feverState = 2;
-				lastFeverTime = GetTickCount();
+				lastFeverTime = GetTickCount64();
 			}
 			else if (pMeterCounting > 0 && feverState == -1) // feverState = -1 là con raccoon
 			{
@@ -365,7 +365,7 @@ void CMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			if (feverState == 2)
 			{
 				pMeterCounting = PMETER_MAX; // giữ giá trị max 1 thời gian
-				if (GetTickCount() - lastFeverTime > MARIO_FEVER_TIME)
+				if (GetTickCount64() - lastFeverTime > MARIO_FEVER_TIME)
 				{
 					feverState = 3;
 					pMeterCounting -= PMETER_STEP * dt;// Khi hết feverstate, nó sẽ giảm xuống 0 rồi mới được tăng tiếp
@@ -1149,6 +1149,16 @@ void CMario::OnKeyUp(int KeyCode)
 	if (KeyCode == DIK_S)
 	{
 		canHighJump = false;
+	}
+	if (KeyCode == DIK_A)
+	{
+		pMeterCounting = 0;
+		feverState = 0;
+		if (uiCamera != NULL)
+		{
+			uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(pMeterCounting);
+			uiCamera->GetHUD()->GetPMeter()->SetFeverState(0);
+		}
 	}
 }
 

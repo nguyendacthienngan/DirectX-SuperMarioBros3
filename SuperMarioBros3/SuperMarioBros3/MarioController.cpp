@@ -144,6 +144,7 @@ void CMarioController::SwitchToState(std::string state)
 #pragma endregion
 
 #pragma region PassParamater For P-meter
+		// Lúc pMeter đang giảm, không truyền giá trị ?
 		stateMarioToBeChanged->SetPMeterCounting(currentMario->GetPMeterCounting());
 		stateMarioToBeChanged->SetFeverState(currentMario->GetFeverState());
 #pragma endregion

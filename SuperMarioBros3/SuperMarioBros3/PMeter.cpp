@@ -5,25 +5,25 @@
 #include "Game.h"
 CPMeter::CPMeter(D3DXVECTOR2 pos)
 {
-	this->pos = pos;
-	auto startPos = pos;
-	for (int i = 0; i < 6; i++)
-	{
-		CArrowItemIcon* arrowItem = new CArrowItemIcon();
-		arrowItem->SetPosition(startPos);
-		arrowItemIcons.push_back(arrowItem);
-		startPos.x += arrowItem->GetSize().x;
-	}
-	startPos.x += SPACE_BETWEEN_ARROW_AND_PICON;
-	pIcon = new CPIcon();
-	pIcon->SetPosition(startPos);
-	pMeterCounting = 0.0f;
-	pMeterState = -1;
-	feverState = -2;
-	previousFeverState = -2;
-	isRaccoonMario = false;
-	previousPMeterState = -1;
-	isDecreaseRapidly = false;
+this->pos = pos;
+auto startPos = pos;
+for (int i = 0; i < 6; i++)
+{
+	CArrowItemIcon* arrowItem = new CArrowItemIcon();
+	arrowItem->SetPosition(startPos);
+	arrowItemIcons.push_back(arrowItem);
+	startPos.x += arrowItem->GetSize().x;
+}
+startPos.x += SPACE_BETWEEN_ARROW_AND_PICON;
+pIcon = new CPIcon();
+pIcon->SetPosition(startPos);
+pMeterCounting = 0.0f;
+pMeterState = -1;
+feverState = -2;
+previousFeverState = -2;
+isRaccoonMario = false;
+previousPMeterState = -1;
+isDecrease = false;
 }
 
 void CPMeter::Update()
@@ -32,10 +32,10 @@ void CPMeter::Update()
 	// -2 : Mario bthg ban đầu
 	// -1: Raccoon Mario ban đầu
 	// 0: Bắt đầu 
-	
+
 	if (pMeterCounting <= 0.1f)
 		pMeterState = -2;
-	
+
 	if (InRange(pMeterCounting, 0.1f, 1.0f) == true)
 		pMeterState = 0;
 
@@ -60,6 +60,7 @@ void CPMeter::Update()
 		// Nếu là raccoon mario thì 4,5
 		if (previousPMeterState <= pMeterCounting)
 		{
+			isDecrease = true;
 			if (isRaccoonMario == false && (feverState == 1 || feverState == 2))
 				arrowItemIcons[pMeterState]->SetCharged(true);
 			if (isRaccoonMario == true && (feverState == 4 || feverState == 5))
@@ -67,12 +68,13 @@ void CPMeter::Update()
 		}
 		else // Giảm p-meter
 		{
+			isDecrease = true;
 			if (pMeterState < 5)
 			{
 				if (isRaccoonMario == false && (feverState == 0 || feverState == 1))
 					arrowItemIcons[pMeterState + 1]->SetCharged(false);
 				if (isRaccoonMario == true && (feverState == 4 || feverState == 5)) // Cho nay con loi
-				arrowItemIcons[pMeterState + 1]->SetCharged(false);
+					arrowItemIcons[pMeterState + 1]->SetCharged(false);
 			}
 		}
 
@@ -89,12 +91,23 @@ void CPMeter::Update()
 		if (previousPMeterState >= 0 && previousPMeterState <= 6)
 		{
 			if (previousPMeterState == 6)
-				arrowItemIcons[previousPMeterState -1]->SetCharged(false);
+				arrowItemIcons[previousPMeterState - 1]->SetCharged(false);
 			else
 				arrowItemIcons[previousPMeterState]->SetCharged(false);
 			previousPMeterState--;
 		}
+		else
+		{
+			for (int i = 0; i < 6; i++)
+			{
+				while (arrowItemIcons[i]->IsCharged() == true)
+					arrowItemIcons[i]->SetCharged(false);
+			}
+		}
 	}
+	DebugOut(L"Pmeter counting %f \n", pMeterCounting);
+	DebugOut(L"Previous pMeter counting %f \n", previousPMeterState);
+	DebugOut(L"Fever state %d \n", feverState);
 }
 
 void CPMeter::Render()

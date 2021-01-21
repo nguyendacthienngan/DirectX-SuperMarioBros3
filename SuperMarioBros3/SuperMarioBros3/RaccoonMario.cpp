@@ -32,6 +32,7 @@ void CRaccoonMario::Init()
 	isFly = false;
 	flyDown = false;
 	moreFlyPower = false;
+	waitingFlyTimer = 0;
 #pragma endregion
 
 #pragma region Các biến flag để xét việc Float
@@ -153,8 +154,6 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		beginAttackTime = -1;
 	// Bay
 	// Set Gravity = 0 để bé cáo bay thỏa thích trên trời, đến max time (4s) rồi thì hạ xuống từ từ
-	//DebugOut(L"pMeterCounting %f \n", pMeterCounting);
-	//DebugOut(L"feverState %d \n", feverState);
 	auto velocity = physiscBody->GetVelocity();
 	auto sign = physiscBody->GetNormal().x;
 
@@ -202,6 +201,25 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			uiCamera->GetHUD()->GetPMeter()->SetFeverState(5);
 			uiCamera->GetHUD()->GetPMeter()->SetCanFly(true);
 		}
+		else
+		{
+			// timer nếu feverState = 4 mà chưa canFly = false hoặc thả nút A => pMetercounting
+			
+			if (feverState == 4 || uiCamera->GetHUD()->GetPMeter()->GetFeverState() == 4)
+			{
+				waitingFlyTimer += dt;
+				if (waitingFlyTimer > 1500)
+				{
+					feverState = -1;
+					pMeterCounting = 0;
+					uiCamera->GetHUD()->GetPMeter()->SetFeverState(-1);
+					uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(0);
+
+				}
+			}
+			else
+				waitingFlyTimer = 0;
+		}
 
 		// 6: Hạ cánh an toàn
 		if (GetTickCount64() - lastFlyTime > timeToFly && lastFlyTime != 0 && isFly == true)
@@ -209,9 +227,17 @@ void CRaccoonMario::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			uiCamera->GetHUD()->GetPMeter()->SetFeverState(-1);
 			uiCamera->GetHUD()->GetPMeter()->SetCanFly(false);
 			pMeterCounting = 0.0f;
+			feverState = -1;
 		}
-
+		if (feverState == 0)
+		{
+			feverState = -1;
+			uiCamera->GetHUD()->GetPMeter()->SetFeverState(-1);
+		}
 		uiCamera->GetHUD()->GetPMeter()->SetIsRaccoonMario(true);
+
+		DebugOut(L"Pmeter counting Raccoon %f \n", pMeterCounting);
+		DebugOut(L"Fever state Raccoon %d \n", feverState);
 	}
 
 #pragma endregion
@@ -284,7 +310,7 @@ void CRaccoonMario::OnKeyDown(int KeyCode)
 		// FLY
 		if (canFly == true && isFly == false)
 			lastFlyTime = GetTickCount64();
-		if (GetTickCount() - lastFlyTime > timeToFly && lastFlyTime != 0 && isFly == true) 
+		if (GetTickCount64() - lastFlyTime > timeToFly && lastFlyTime != 0 && isFly == true) 
 		{
 			ResetValueFly();
 		}
@@ -329,6 +355,16 @@ void CRaccoonMario::OnKeyUp(int KeyCode)
 	if (KeyCode == DIK_Z)
 	{
 		isAttackContinious = false;
+	}
+	if (KeyCode == DIK_A)
+	{
+		pMeterCounting = 0;
+		feverState = -1;
+		if (uiCamera != NULL)
+		{
+			uiCamera->GetHUD()->GetPMeter()->SetPMeterCounting(pMeterCounting);
+			uiCamera->GetHUD()->GetPMeter()->SetFeverState(-1);
+		}
 	}
 }
 

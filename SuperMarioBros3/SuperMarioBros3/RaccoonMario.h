@@ -19,6 +19,7 @@ private:
 	bool flyDown;
 	bool canFloat, isFloat; // Giành cho việc ngay khi bay xong có thẩy quẫy đuôi để rơi chậm
 	bool beginAttackTail;
+	int waitingFlyTimer;
 public:
 	CRaccoonMario();
 	void Init() override;
