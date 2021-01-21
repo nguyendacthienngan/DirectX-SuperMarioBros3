@@ -15,7 +15,6 @@ CScene4::CScene4()
 void CScene4::Load()
 {
 	CScene::Load();
-	//camera->SetAutoX(true);
 	CSceneManager::GetInstance()->GetUICamera()->SetDisableBlackTexture(false);
 	auto timer = CSceneManager::GetInstance()->GetUICamera()->GetHUD()->GetTimer();
 	timer->StartTimer(); // Mỗi scene khi load đều start timer trừ map selection

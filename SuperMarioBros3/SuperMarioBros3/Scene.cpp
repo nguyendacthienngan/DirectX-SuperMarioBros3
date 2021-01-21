@@ -117,7 +117,7 @@ void CScene::Load()
 
 			for (TiXmlElement* boundary = scene->FirstChildElement(); boundary != NULL; boundary = boundary->NextSiblingElement())
 			{
-				int id, disX, disY;
+				int id, disX, disY, autoX;
 				RectF bound;
 				D3DXVECTOR2 pos;
 				boundary->QueryIntAttribute("id", &id);
@@ -131,6 +131,7 @@ void CScene::Load()
 
 				boundary->QueryIntAttribute("disX", &disX);
 				boundary->QueryIntAttribute("disY", &disY);
+				boundary->QueryIntAttribute("autoX", &autoX);
 
 				camera->AddCameraProperties(id, pos, bound, disX, disY);
 				if (start == id)
@@ -139,6 +140,7 @@ void CScene::Load()
 					camera->SetPositionCam(pos);
 					camera->SetDisablePosX(disX);
 					camera->SetDisablePosY(disY);
+					camera->SetAutoX(autoX);
 				}
 			}
 			if (player != NULL)

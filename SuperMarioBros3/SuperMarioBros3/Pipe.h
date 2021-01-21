@@ -16,5 +16,6 @@ public:
     void SetHeadRect(RECT headRect1, RECT headRect2);
     void SetBodyRect(RECT bodyRect1, RECT bodyRect2);
     void SetDirection(PipeDirection pipeDirection);
+    bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag) override;
 };
 

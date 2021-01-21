@@ -8,7 +8,7 @@
   </Scene>
   <Scene name="Camera" start="0" main="0" width="760" height="671">
     <!--Camera-->
-    <Boundary id="0" pos_x="94" pos_y="735" left="94" top="0" right="8350" bottom="1400.5" disX ="0" disY="0"/>
-    <Boundary id="1" pos_x="5877" pos_y="1366" left="5877" top="1366" right="7320" bottom="2279.5" disX ="0" disY="1"/>
+    <Boundary id="0" pos_x="94" pos_y="735" left="94" top="0" right="8350" bottom="1400.5" disX ="0" disY="0" autoX="0"/>
+    <Boundary id="1" pos_x="5877" pos_y="1366" left="5877" top="1366" right="7320" bottom="2279.5" disX ="0" disY="1"  autoX="0"/>
   </Scene>
 </Scene>

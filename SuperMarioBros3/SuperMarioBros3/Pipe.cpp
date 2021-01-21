@@ -65,3 +65,8 @@ void CPipe::SetDirection(PipeDirection pipeDirection)
 {
 	this->pipeDirection = pipeDirection;
 }
+
+bool CPipe::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
+{
+	return false;
+}

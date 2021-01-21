@@ -673,7 +673,8 @@ void CMario::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::GhostPlatform
 			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick
 			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::SwitchBlock
-			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::MovingPlatform)
+			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::MovingPlatform
+			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Pipe)
 		{
 			if (collisionEvent->ny < 0 && isOnGround == false)
 			{

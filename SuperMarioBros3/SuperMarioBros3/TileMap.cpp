@@ -661,6 +661,7 @@ CGameObject* CTileMap::LoadBrick(D3DXVECTOR2 position, int type, std::string nam
 			property->QueryIntAttribute("value", &amount);
 		}
 	}
+	
 	CBrick* solid = new CBrick();
 	solid->SetPosition(position - translateConst);
 	if (object->QueryIntAttribute("type", &type) == TIXML_SUCCESS && type == 1)
@@ -716,10 +717,11 @@ CGameObject* CTileMap::LoadCoin(D3DXVECTOR2 position, int type, TiXmlElement* ob
 CGameObject* CTileMap::LoadPipe(D3DXVECTOR2 position, D3DXVECTOR2 size, std::string direction, std::vector<LPGameObject>& listGameObjects)
 {
 	CPipe* pipe = new CPipe(size);
-	pipe->SetPosition(position + translateConst);
+	//auto pos = position;
 	auto pos = position + translateConst;
-	pos.x += 24;
-	
+	pos.y -= 12;
+	pipe->SetPosition(pos);
+
 	int startX = PIPE_START_X, startY = PIPE_START_Y;
 	startX += 2;
 	int sizeTile = PIPE_DEFAULT_TILE_SIZE;
