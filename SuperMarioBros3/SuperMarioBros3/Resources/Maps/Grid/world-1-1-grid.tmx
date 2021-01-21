@@ -366,7 +366,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="13" name="Solid">
+ <objectgroup id="13" name="Solid" visible="0">
   <object id="1" x="1.63636" y="1248" width="1870.18" height="46"/>
   <object id="3" x="1872" y="1198" width="1392" height="96"/>
   <object id="4" x="3458" y="1248" width="1004" height="46"/>
@@ -880,7 +880,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="21" name="Pipes">
+ <objectgroup id="21" name="Pipes" visible="0">
   <object id="234" name="pipe" type="up" x="5328" y="1152" width="96" height="96">
    <properties>
     <property name="cellx" value="13"/>
@@ -933,14 +933,14 @@
    </properties>
    <point/>
   </object>
-  <object id="95" name="piranha" type="basic" x="5375" y="1212.53">
+  <object id="95" name="piranha" type="basic" x="5376" y="1188">
    <properties>
     <property name="cellx" value="13"/>
     <property name="celly" value="3"/>
    </properties>
    <point/>
   </object>
-  <object id="96" name="venus" type="green" x="5568" y="1189.64">
+  <object id="96" name="venus" type="green" x="5568" y="1164">
    <properties>
     <property name="cellx" value="14"/>
     <property name="celly" value="3"/>

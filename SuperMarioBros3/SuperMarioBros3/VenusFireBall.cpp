@@ -69,10 +69,6 @@ void CVenusFireBall::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vect
 
 bool CVenusFireBall::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
-	if (MarioTag(tag) == true)
-		return true;
-	if (GiftTag(tag) == true)
-		return false;
 	return false;
 }
 
