@@ -158,10 +158,13 @@ void CMarioCollisionBox::CollisionHandle(DWORD dt, std::vector<CollisionEvent*>&
 			if (collisionEvent->ny > 0)
 			{
 				auto brick = static_cast<CBrick*>(collisionBox->GetGameObjectAttach());
-				if (mario->GettMarioStateTag() != MarioStates::SmallMario && brick->IsEnabled() == true)
-					brick->Debris();
-				else
+				// Lấy quà thì con nào cũng lấy quà được, chỉ khi bthg k có quà thì small mario k tưng bể được, chỉ tưng lên thui
+				if (brick->IsEnabled() == true)
+				{
 					brick->Bounce();
+					if (mario->GettMarioStateTag() != MarioStates::SmallMario)
+						brick->Debris();
+				}
 			}
 		}
 	}

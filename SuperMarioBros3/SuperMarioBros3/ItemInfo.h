@@ -3,6 +3,7 @@ enum class ItemTag
 {
 	Coin,
 	PowerUp,
+	PSwitch,
 	None
 };
 

@@ -277,7 +277,8 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				}
 				else if (name.compare("Brick") == 0)
 				{
-					gameObject = LoadBrick(position, type, object, listGameObjects);
+					std::string brickName = object->Attribute("name");
+					gameObject = LoadBrick(position, type, brickName, object, listGameObjects);
 				}
 				else if (name.compare("Portal") == 0)
 				{
@@ -643,14 +644,23 @@ CGameObject* CTileMap::LoadQuestionBlock(D3DXVECTOR2 position, int type, std::st
 	{
 		solid->SetItemInfo({ ItemTag::PowerUp, type });
 	}
-
 	solid->SetTarget(player);
 	AddObjectToList(solid, listGameObjects);
 	return solid;
 }
 
-CGameObject* CTileMap::LoadBrick(D3DXVECTOR2 position, int type, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
+CGameObject* CTileMap::LoadBrick(D3DXVECTOR2 position, int type, std::string name, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)
 {
+	int amount;
+	TiXmlElement* properties = object->FirstChildElement();
+	for (TiXmlElement* property = properties->FirstChildElement(); property != NULL; property = property->NextSiblingElement())
+	{
+		std::string propName = property->Attribute("name");
+		if (propName.compare("amount") == 0)
+		{
+			property->QueryIntAttribute("value", &amount);
+		}
+	}
 	CBrick* solid = new CBrick();
 	solid->SetPosition(position - translateConst);
 	if (object->QueryIntAttribute("type", &type) == TIXML_SUCCESS && type == 1)
@@ -664,6 +674,19 @@ CGameObject* CTileMap::LoadBrick(D3DXVECTOR2 position, int type, TiXmlElement* o
 
 		solid->Enable(true);
 	}
+	if (name.compare("bcoin") == 0)
+	{
+		solid->SetItemInfo({ ItemTag::Coin, amount });
+	}
+	if (name.compare("powerup") == 0)
+	{
+		solid->SetItemInfo({ ItemTag::PowerUp, amount });
+	}
+	if (name.compare("pswitch") == 0)
+	{
+		solid->SetItemInfo({ ItemTag::PSwitch, amount });
+	}
+	solid->SetTarget(player);
 	solid->SetType(type);
 	solid->GetObjectPool().AddPoolToScene(scene);
 	AddObjectToList(solid, listGameObjects);

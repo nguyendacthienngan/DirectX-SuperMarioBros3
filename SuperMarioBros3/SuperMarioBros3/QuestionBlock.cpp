@@ -11,6 +11,7 @@
 #include "MarioController.h"
 #include "FireFlower.h"
 #include "BlockConst.h"
+#include "PSwitch.h"
 CQuestionBlock::CQuestionBlock()
 {
 	CBlock::CBlock();
@@ -141,6 +142,15 @@ void CQuestionBlock::Bounce()
 						}
 					}
 					
+					break;
+				}
+				case ItemTag::PSwitch:
+				{
+					CPSwitch* pSwitch = new CPSwitch();
+					pSwitch->SetPosition(transform.position);
+					auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+					activeScene->AddObject(pSwitch);
+					activeScene->GetGrid()->Move(D3DXVECTOR2(-1, -1), pSwitch);
 					break;
 				}
 			}

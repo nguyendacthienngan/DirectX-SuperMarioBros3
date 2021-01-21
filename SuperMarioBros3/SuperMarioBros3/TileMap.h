@@ -59,7 +59,7 @@ public:
 	CGameObject* LoadBoomerangBrother(D3DXVECTOR2 position, std::vector<LPGameObject>& listGameObjects);
 
 	CGameObject* LoadQuestionBlock(D3DXVECTOR2 position, int type, std::string name, std::vector<LPGameObject>& listGameObjects);
-	CGameObject* LoadBrick(D3DXVECTOR2 position, int type, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects);
+	CGameObject* LoadBrick(D3DXVECTOR2 position, int type, std::string name, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects);
 	CGameObject* LoadCoin(D3DXVECTOR2 position, int type, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects);
 
 	CGameObject* LoadPipe(D3DXVECTOR2 position, D3DXVECTOR2 size, std::string direction, std::vector<LPGameObject>& listGameObjects);
