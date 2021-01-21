@@ -3,6 +3,7 @@
 #include "BoomerangBrotherConst.h"
 #include "Boomerang.h"
 #include "SceneManager.h"
+#include "Game.h"
 
 CBoomerangBrother::CBoomerangBrother()
 {
@@ -28,10 +29,15 @@ CBoomerangBrother::CBoomerangBrother()
 	physiscBody->SetGravity(BOOMERANG_BROTHER_GRAVITY);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 
-	moveState = 0;
+	moveState = 1;
 	isAttack = false;
 	canAttack = false;
-	timer = 0;
+	idleTimer = 0;
+	attackTimer = 0;
+	countThrowTimes = 0;
+	attackTime = ATTACK_TIME_THROW_ONCE;
+	onHoldObject = NULL;
+	isHoldBoomerang = false;
 }
 
 void CBoomerangBrother::LoadAnimation()
@@ -39,6 +45,7 @@ void CBoomerangBrother::LoadAnimation()
 	auto animationManager = CAnimationManager::GetInstance();
 	AddAnimation(BOOMERANG_STATE_MOVE, animationManager->Clone("ani-boomerang-brother-move"));
 	AddAnimation(BOOMERANG_STATE_ATTACK, animationManager->Clone("ani-boomerang-brother-attack"));
+	AddAnimation(BOOMERANG_STATE_IDLE, animationManager->Clone("ani-boomerang-brother-idle"));
 }
 
 void CBoomerangBrother::Render(CCamera* cam, int alpha)
@@ -46,16 +53,19 @@ void CBoomerangBrother::Render(CCamera* cam, int alpha)
 	auto normal = physiscBody->GetNormal();
 	SetScale(D3DXVECTOR2(-normal.x, 1.0f));
 
-	if (isAttack == true)
+	if (isHoldBoomerang == true)
 		SetState(BOOMERANG_STATE_ATTACK);
+	else if (idleTimer != 0)
+		SetState(BOOMERANG_STATE_IDLE);
+	else
+		SetState(BOOMERANG_STATE_MOVE);
 	CGameObject::Render(cam, alpha);
 }
 
 void CBoomerangBrother::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	auto normal = physiscBody->GetNormal();
-	auto velocity = physiscBody->GetVelocity();
-	auto targetPos = D3DXVECTOR2(0,0);
+	auto targetPos = D3DXVECTOR2(0, 0);
 	if (target != NULL)
 	{
 		normal.x = (target->GetPosition().x < this->transform.position.x) ? -1 : 1;
@@ -64,127 +74,193 @@ void CBoomerangBrother::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	physiscBody->SetNormal(normal);
 	switch (moveState)
 	{
-		case 0:
-		{
-			// Đứng yên, xác định mario
-			// TO-DO: Nhảy
-			auto distanceBetweenTargetAndBoomerang = target->GetPosition().x - this->transform.position.x;
-			if (abs(distanceBetweenTargetAndBoomerang) <= DISTANCE_CAN_THROW_TWICE)
-				canThrowSecondBoomerang = true;
-			DebugOut(L"Pos X %f \n", transform.position.x);
-			timer += dt;
-			if (timer > 1000)
-			{
-				moveState = 1;
-				timer = 0;
-			}
-			canAttack = false;
-			break;
-		}
 		case 1:
 		{
 			// Tiến về mario. Sau khi tiến xong thì đó là cột mốc X
-			velocity.x = BOOMERANG_BROTHER_VELOCITY * normal.x;
-			transform.position.x += velocity.x * dt;
-
-			if (transform.position.x >= startPosition.x + BOUNDARY)
-			{
-				moveState = 2;
-				startPosition.x = transform.position.x;
-			}
-			// Xét biên
+			auto distanceBetweenTargetAndBoomerang = target->GetPosition().x - this->transform.position.x;
+			if (abs(distanceBetweenTargetAndBoomerang) <= DISTANCE_CAN_THROW_TWICE)
+				canThrowSecondBoomerang = true;
+			OnMovingForward(normal);
 
 			break;
 		}
 		case 2:
 		{
 			// Lùi
-			canAttack = true;
-			velocity.x = -BOOMERANG_BROTHER_VELOCITY * normal.x;
-			transform.position.x += velocity.x * dt;
+			OnMovingBackwards(normal);
 
-			// Xét biên
-			if (transform.position.x <= startPosition.x - BOUNDARY)
-			{
-				startPosition.x = transform.position.x;
-				if (canThrowSecondBoomerang == true)
-					moveState = 3;
-				else
-					moveState = 0;
-				canAttack = false;
-			}
-			
 			break;
 		}
 		case 3:
 		{
 			// Tiến, quay về vị trí ban đầu (cột mốc X)
-			canAttack = true;
-			velocity.x = BOOMERANG_BROTHER_VELOCITY * normal.x;
-			transform.position.x += velocity.x * dt;
-
-			if (transform.position.x >= startPosition.x + BOUNDARY)
-			{
-				moveState = 4;
-				startPosition.x = transform.position.x;
-				canAttack = false;
-			}
-
+			OnMovingForward(normal);
 			break;
 		}
 		case 4:
 		{
 			// Lùi
-			//  TO-DO: Đang bị lõi chưa đc reset 
-			velocity.x = -BOOMERANG_BROTHER_VELOCITY * normal.x;
-			if (transform.position.x <= startPosition.x - BOUNDARY)
-			{
-				startPosition.x = transform.position.x;
-				moveState = 0;
-				canAttack = false;
-			}
+			OnMovingBackwards(normal);
 			break;
+
 		}
 	}
 
-	if (canAttack == true)
+	
+	if (isHoldBoomerang == false)
 	{
-		// Nếu có lấy boomerang được thì mới attack. Attack xong chuyển lại animation move
-		if (isAttack == false)
+		if (moveState == 1 || moveState == 3)
 		{
-			auto currentObj = boomerangs.Init();
-			if (currentObj != NULL)
-			{
-				isAttack = true;
-				auto currentBoomerang = static_cast<CBoomerang*>(currentObj);
-				D3DXVECTOR2 pos = currentBoomerang->GetPosition();
-				currentBoomerang->SetPosition(transform.position);
-				currentBoomerang->SetGoalPosition(targetPos);
-
-				auto boomPhyBody = currentBoomerang->GetPhysiscBody();
-				boomPhyBody->SetGravity(0.0f);
-
-				auto posBoomerangBrother = transform.position + relativePositionOnScreen;
-				posBoomerangBrother.x += BOOMERANG_BROTHER__BBOX.x * 0.5f * normal.x;
-				currentBoomerang->SetPosition(posBoomerangBrother);
-				currentBoomerang->SetStartPosition(posBoomerangBrother);
-				currentBoomerang->Enable(true);
-
-				auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
-				auto grid = activeScene->GetGrid();
-				if (grid != NULL && activeScene->IsSpacePartitioning() == true)
-					grid->Move(pos, currentBoomerang);
-			}
-
+			OnHoldBoomerang(normal);
+			isHoldBoomerang = true;
 		}
 	}
 	else
-		isAttack = false; 
-	//  TO-DO:  Chưa đúng lắm, khi nào tắt k attack nữa? K lẽ cho timer
+	{
+		if (moveState == 2 || moveState == 4)
+		{
+			isHoldBoomerang = false;
+			canAttack = true;
+		}
+	}
+	//attackTime = ATTACK_TIME_THROW_ONCE;
+	//if (canAttack == true)
+	//{
+	//	OnAttack(normal);
+
+	//	// Nếu có lấy boomerang được thì mới attack. Attack xong chuyển lại animation move
+	//	/*if (attackTimer == 0)
+	//	{
+	//		OnAttack(normal);
+	//	}*/
+	//	/*attackTimer += dt;
+	//	if (attackTimer > attackTime)
+	//	{
+	//		attackTimer = 0;
+	//	}*/
+	//}
+	//else
+	//	isAttack = false;
+	DebugOut(L"Move State %d \n", moveState);
+
 
 }
 
 CObjectPool CBoomerangBrother::GetObjectPool()
 {
 	return boomerangs;
+}
+
+void CBoomerangBrother::OnAttack(D3DXVECTOR2 normal)
+{
+	countThrowTimes++;
+	if (canThrowSecondBoomerang == false && countThrowTimes >= 2)
+		return;
+	if (canThrowSecondBoomerang == true)
+	{
+		if (countThrowTimes >= 2)
+		{
+			attackTimer += CGame::GetInstance()->GetDeltaTime();
+			if (attackTimer <= attackTime)
+			{
+				return;
+			}
+		}
+	}
+	if (onHoldObject != NULL)
+	{
+		auto currentBoomerang = static_cast<CBoomerang*>(onHoldObject);
+		currentBoomerang->SetAttackState(0);
+		attackTimer = 0;
+	}
+	else
+		countThrowTimes = 0;
+}
+
+void CBoomerangBrother::OnMovingForward(D3DXVECTOR2 normal)
+{
+	if (transform.position.x >= startPosition.x + BOUNDARY)
+	{
+		idleTimer += CGame::GetInstance()->GetDeltaTime();
+		if (idleTimer > IDLE_TIME)
+		{
+			idleTimer = 0;
+			moveState++;
+			startPosition.x = transform.position.x;
+		}
+
+	}
+	else
+	{
+		float velX = BOOMERANG_BROTHER_VELOCITY * normal.x;
+		transform.position.x += velX * CGame::GetInstance()->GetDeltaTime();
+	}
+}
+
+void CBoomerangBrother::OnMovingBackwards(D3DXVECTOR2 normal)
+{
+	auto distanceBetweenTargetAndBoomerang = target->GetPosition().x - this->transform.position.x;
+	if (abs(distanceBetweenTargetAndBoomerang) <= DISTANCE_CAN_THROW_TWICE)
+		canThrowSecondBoomerang = true;
+
+	// Xét biên
+	if (transform.position.x <= startPosition.x - BOUNDARY)
+	{
+		idleTimer += CGame::GetInstance()->GetDeltaTime();
+		if (idleTimer > IDLE_TIME)
+		{
+			if (moveState == 2)
+			{
+				if (canThrowSecondBoomerang == true)
+					moveState++;
+				else
+				{
+					if (countThrowTimes == 1 && canThrowSecondBoomerang == false)
+						countThrowTimes = 0;
+					moveState = 1;
+				}
+			}
+			else if (moveState == 4)
+			{
+				moveState = 1;
+				if (countThrowTimes == 1 && canThrowSecondBoomerang == false)
+					countThrowTimes = 0;
+			}
+
+			idleTimer = 0;
+			startPosition.x = transform.position.x;
+
+		}
+	}
+	else
+	{
+		float velX = -BOOMERANG_BROTHER_VELOCITY * normal.x;
+		transform.position.x += velX * CGame::GetInstance()->GetDeltaTime();
+	}
+}
+
+void CBoomerangBrother::OnHoldBoomerang(D3DXVECTOR2 normal)
+{
+	
+	if (onHoldObject == NULL)
+	{
+		onHoldObject = boomerangs.Init();
+
+		if (onHoldObject == NULL)
+			return;
+
+		auto currentBoomerang = static_cast<CBoomerang*>(onHoldObject);
+		D3DXVECTOR2 pos = currentBoomerang->GetPosition();
+		auto boomPhyBody = currentBoomerang->GetPhysiscBody();
+
+		auto posBoomerangBrother = transform.position + relativePositionOnScreen;
+		currentBoomerang->SetPosition(posBoomerangBrother);
+		currentBoomerang->SetStartPosition(posBoomerangBrother);
+		currentBoomerang->Enable(true);
+
+		auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+		auto grid = activeScene->GetGrid();
+		if (grid != NULL && activeScene->IsSpacePartitioning() == true)
+			grid->Move(pos, currentBoomerang);
+	}
 }

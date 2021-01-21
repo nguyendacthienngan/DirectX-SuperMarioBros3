@@ -20,5 +20,6 @@ public:
     void SetBoomerangBrother(CGameObject* gO);
     bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag) override;
     void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox) override;
+    void SetAttackState(int attackState);
 };
 

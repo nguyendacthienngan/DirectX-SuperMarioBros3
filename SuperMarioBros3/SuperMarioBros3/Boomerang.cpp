@@ -4,9 +4,10 @@
 
 CBoomerang::CBoomerang()
 {
+	tag = GameObjectTags::Boomerang;
 	boomerangBrother = NULL;
 	LoadAnimation();
-	SetState(BOOMERANG_STATE_SPIN);
+	SetState(BOOMERANG_STATE_IDLE);
 	isEnabled = true;
 
 	CCollisionBox* collisionBox = new CCollisionBox();
@@ -20,17 +21,22 @@ CBoomerang::CBoomerang()
 	physiscBody->SetGravity(0.0f);
 	physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
 
-	attackState = 0;
+	attackState = -1;
 }
 
 void CBoomerang::LoadAnimation()
 {
 	auto animationManager = CAnimationManager::GetInstance();
 	AddAnimation(BOOMERANG_STATE_SPIN, animationManager->Clone("ani-boomerang-spin"));
+	AddAnimation(BOOMERANG_STATE_IDLE, animationManager->Clone("ani-boomerang-idle"));
 }
 
 void CBoomerang::Render(CCamera* cam, int alpha)
 {
+	if (attackState >= 0)
+		SetState(BOOMERANG_STATE_SPIN);
+	else
+		SetState(BOOMERANG_STATE_IDLE);
 	CGameObject::Render(cam, alpha);
 }
 
@@ -39,13 +45,19 @@ void CBoomerang::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	auto vel = physiscBody->GetVelocity();
 	switch (attackState)
 	{
+		case -1:
+		{
+			transform.position = boomerangBrother->GetPosition();
+			transform.position.x -= BOOMERANG_BROTHER__BBOX.x * 0.5f;
+			transform.position.y -= BOOMERANG_BROTHER__BBOX.y * 0.5f;
+		}
 		case 0:
 		{
 			// Phi lên trên bầu trời vòng cung (Gravity = 0)
 			// vy < 0, vx > 0 (cùng hướng target hoặc boomerang brother)
 			vel.y = -BOOMERANG_VEL_Y;
-			vel.x = BOOMERANG_VEL_X;
-			if (transform.position.y <= goalPosition.y) // TO-DO: Thiệt ra tạm để là goal.y chứ thiệt ra là hằng số cố định
+			vel.x = BOOMERANG_VEL_X; 
+			if (transform.position.y <= 609) // TO-DO: Thiệt ra tạm để là goal.y chứ thiệt ra là hằng số cố định  //6600.000000, 609.099976 
 				attackState = 1;
 			break;
 		}
@@ -54,7 +66,7 @@ void CBoomerang::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			vel.y = BOOMERANG_VEL_Y;
 			// Gặp biên => Quay đầu (vx < 0) (Ngược hướng target hoặc boomerang brother) 
 			// Khi quay đầu thì giàm ga chậm tí rồi vy cũng tăng
-			if (transform.position.x >= goalPosition.x) // TO-DO: Thiệt ra tạm để là goal.x chứ thiệt ra là hằng số cố định
+			if (transform.position.x >= 6600) // TO-DO: Thiệt ra tạm để là goal.x chứ thiệt ra là hằng số cố định  //6600.000000, 609.099976 
 			{
 				vel.x = 0;
 				attackState = 2;
@@ -88,7 +100,11 @@ void CBoomerang::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			break;
 		}
 	}
-	transform.position.x += vel.x * dt;
+	if (attackState != -1)
+	{
+		transform.position.x += vel.x * dt;
+
+	}
 	physiscBody->SetVelocity(vel);
 }
 
@@ -114,8 +130,8 @@ void CBoomerang::SetBoomerangBrother(CGameObject* gO)
 
 bool CBoomerang::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
-	if (gO->MarioTag(tag))
-		return true;
+	/*if (gO->MarioTag(tag))
+		return true;*/
 	return false;
 }
 
@@ -126,4 +142,9 @@ void CBoomerang::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBo
 		auto mario = otherCollisionBox->GetGameObjectAttach();
 		//mario->OnDamaged();
 	}
+}
+
+void CBoomerang::SetAttackState(int attackState)
+{
+	this->attackState = attackState;
 }
