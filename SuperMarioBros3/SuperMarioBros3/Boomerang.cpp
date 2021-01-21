@@ -50,27 +50,37 @@ void CBoomerang::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			transform.position = boomerangBrother->GetPosition();
 			transform.position.x -= BOOMERANG_BROTHER__BBOX.x * 0.5f;
 			transform.position.y -= BOOMERANG_BROTHER__BBOX.y * 0.5f;
+			startPosition = transform.position;
 		}
 		case 0:
 		{
 			// Phi lên trên bầu trời vòng cung (Gravity = 0)
 			// vy < 0, vx > 0 (cùng hướng target hoặc boomerang brother)
-			vel.y = -BOOMERANG_VEL_Y;
-			vel.x = BOOMERANG_VEL_X; 
-			if (transform.position.y <= 609) // TO-DO: Thiệt ra tạm để là goal.y chứ thiệt ra là hằng số cố định  //6600.000000, 609.099976 
+			if (transform.position.x < 6600)
+				vel.x = BOOMERANG_VEL_X;
+			else
+				vel.x = 0;
+			if (transform.position.y <= 500)
+			{
 				attackState = 1;
+				vel.y = BOOMERANG_VEL_Y;
+			}
+			else 
+				vel.y = -BOOMERANG_VEL_Y;
 			break;
 		}
 		case 1:
 		{
-			vel.y = BOOMERANG_VEL_Y;
 			// Gặp biên => Quay đầu (vx < 0) (Ngược hướng target hoặc boomerang brother) 
 			// Khi quay đầu thì giàm ga chậm tí rồi vy cũng tăng
-			if (transform.position.x >= 6600) // TO-DO: Thiệt ra tạm để là goal.x chứ thiệt ra là hằng số cố định  //6600.000000, 609.099976 
+			if (transform.position.x >= 6600) 
 			{
 				vel.x = 0;
 				attackState = 2;
 			}
+			else
+				vel.y = BOOMERANG_VEL_Y;
+
 			break;
 		}
 		case 2:
@@ -94,7 +104,11 @@ void CBoomerang::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			{
 				vel.x = 0;
 				vel.y = 0;
-				attackState = 0;
+				attackState = -1;
+				transform.position = boomerangBrother->GetPosition();
+				transform.position.x -= BOOMERANG_BROTHER__BBOX.x * 0.5f;
+				transform.position.y -= BOOMERANG_BROTHER__BBOX.y * 0.5f;
+				startPosition = transform.position;
 				pool->Revoke(this);
 			}
 			break;
@@ -147,4 +161,9 @@ void CBoomerang::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBo
 void CBoomerang::SetAttackState(int attackState)
 {
 	this->attackState = attackState;
+}
+
+int CBoomerang::GetAttackState()
+{
+	return attackState;
 }

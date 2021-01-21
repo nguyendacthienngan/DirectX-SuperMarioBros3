@@ -106,43 +106,28 @@ void CBoomerangBrother::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		}
 	}
 
-	
 	if (isHoldBoomerang == false)
 	{
-		if (moveState == 1 || moveState == 3)
+		if (moveState == 2 || moveState == 4)
 		{
 			OnHoldBoomerang(normal);
 			isHoldBoomerang = true;
+			canAttack = false;
 		}
 	}
 	else
 	{
-		if (moveState == 2 || moveState == 4)
+		if (moveState == 1 || moveState == 3)
 		{
 			isHoldBoomerang = false;
 			canAttack = true;
 		}
 	}
-	//attackTime = ATTACK_TIME_THROW_ONCE;
-	//if (canAttack == true)
-	//{
-	//	OnAttack(normal);
-
-	//	// Nếu có lấy boomerang được thì mới attack. Attack xong chuyển lại animation move
-	//	/*if (attackTimer == 0)
-	//	{
-	//		OnAttack(normal);
-	//	}*/
-	//	/*attackTimer += dt;
-	//	if (attackTimer > attackTime)
-	//	{
-	//		attackTimer = 0;
-	//	}*/
-	//}
-	//else
-	//	isAttack = false;
-	DebugOut(L"Move State %d \n", moveState);
-
+	
+	if (canAttack == true)
+	{
+		OnAttack(normal);
+	}
 
 }
 
@@ -153,7 +138,7 @@ CObjectPool CBoomerangBrother::GetObjectPool()
 
 void CBoomerangBrother::OnAttack(D3DXVECTOR2 normal)
 {
-	countThrowTimes++;
+	/*countThrowTimes++;
 	if (canThrowSecondBoomerang == false && countThrowTimes >= 2)
 		return;
 	if (canThrowSecondBoomerang == true)
@@ -166,15 +151,15 @@ void CBoomerangBrother::OnAttack(D3DXVECTOR2 normal)
 				return;
 			}
 		}
-	}
+	}*/
 	if (onHoldObject != NULL)
 	{
 		auto currentBoomerang = static_cast<CBoomerang*>(onHoldObject);
 		currentBoomerang->SetAttackState(0);
 		attackTimer = 0;
+		onHoldObject = NULL;
+		canAttack = false;
 	}
-	else
-		countThrowTimes = 0;
 }
 
 void CBoomerangBrother::OnMovingForward(D3DXVECTOR2 normal)
@@ -215,16 +200,16 @@ void CBoomerangBrother::OnMovingBackwards(D3DXVECTOR2 normal)
 					moveState++;
 				else
 				{
-					if (countThrowTimes == 1 && canThrowSecondBoomerang == false)
-						countThrowTimes = 0;
+					/*if (countThrowTimes == 1 && canThrowSecondBoomerang == false)
+						countThrowTimes = 0;*/
 					moveState = 1;
 				}
 			}
 			else if (moveState == 4)
 			{
 				moveState = 1;
-				if (countThrowTimes == 1 && canThrowSecondBoomerang == false)
-					countThrowTimes = 0;
+				/*if (countThrowTimes == 1 && canThrowSecondBoomerang == false)
+					countThrowTimes = 0;*/
 			}
 
 			idleTimer = 0;
