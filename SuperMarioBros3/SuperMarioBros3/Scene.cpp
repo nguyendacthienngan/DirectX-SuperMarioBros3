@@ -488,6 +488,8 @@ bool CScene::CheckGlobalObject(GameObjectTags tag)
 		return true;
 	if (tag == GameObjectTags::RaccoonTail)
 		return true;
+	if (tag == GameObjectTags::VenusFireBall || tag == GameObjectTags::Boomerang)
+		return true;
 	return false;
 }
 

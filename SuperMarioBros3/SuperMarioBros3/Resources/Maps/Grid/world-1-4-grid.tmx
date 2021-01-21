@@ -996,30 +996,6 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="16" name="Enemy">
-  <object id="259" name="koopa" type="red" x="3240" y="516">
-   <properties>
-    <property name="cellx" value="8"/>
-    <property name="celly" value="1"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="261" name="para-koopa" type="red" x="5640" y="456">
-   <properties>
-    <property name="bottom" value="260"/>
-    <property name="cellx" value="14"/>
-    <property name="celly" value="1"/>
-    <property name="top" value="30"/>
-   </properties>
-  </object>
-  <object id="277" name="boomerang" type="white" x="6360" y="720">
-   <properties>
-    <property name="cellx" value="16"/>
-    <property name="celly" value="1"/>
-   </properties>
-   <point/>
-  </object>
- </objectgroup>
  <objectgroup id="18" name="Label">
   <object id="270" name="warp-pipe" type="down" x="5808" y="516" width="96" height="60">
    <properties>
@@ -1048,5 +1024,29 @@
  <objectgroup id="20" name="Pipes">
   <object id="278" type="up" x="5808" y="528" width="96" height="192"/>
   <object id="279" type="up" x="6576" y="672" width="96" height="96"/>
+ </objectgroup>
+ <objectgroup id="16" name="Enemy">
+  <object id="259" name="koopa" type="red" x="3240" y="516">
+   <properties>
+    <property name="cellx" value="8"/>
+    <property name="celly" value="1"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="261" name="para-koopa" type="red" x="5640" y="456">
+   <properties>
+    <property name="bottom" value="260"/>
+    <property name="cellx" value="14"/>
+    <property name="celly" value="1"/>
+    <property name="top" value="30"/>
+   </properties>
+  </object>
+  <object id="277" name="boomerang" type="white" x="6360" y="720">
+   <properties>
+    <property name="cellx" value="16"/>
+    <property name="celly" value="1"/>
+   </properties>
+   <point/>
+  </object>
  </objectgroup>
 </map>

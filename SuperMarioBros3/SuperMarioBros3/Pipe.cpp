@@ -8,7 +8,6 @@ CPipe::CPipe(D3DXVECTOR2 size)
 	pipeSize.y = size.y / PIPE_DEFAULT_TILE_SIZE;
 	pipeSize.x = size.x / PIPE_DEFAULT_TILE_SIZE;
 
-
 	pipeSprite = CSpriteManager::GetInstance()->Get("spr-pipe-0");
 	this->physiscBody->SetDynamic(false);
 	isEnabled = true;

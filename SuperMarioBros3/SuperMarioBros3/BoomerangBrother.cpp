@@ -269,10 +269,10 @@ void CBoomerangBrother::OnHoldBoomerang(D3DXVECTOR2 normal)
 		currentBoomerang->SetStartPosition(posBoomerangBrother);
 		currentBoomerang->Enable(true);
 
-		auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+		/*auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 		auto grid = activeScene->GetGrid();
 		if (grid != NULL && activeScene->IsSpacePartitioning() == true)
-			grid->Move(pos, currentBoomerang);
+			grid->Move(pos, currentBoomerang);*/
 	}
 }
 

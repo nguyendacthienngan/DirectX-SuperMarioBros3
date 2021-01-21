@@ -839,78 +839,6 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="15" name="Enemy">
-  <object id="55" name="goomba" type="tan" x="1510" y="1189.33">
-   <properties>
-    <property name="cellx" value="3"/>
-    <property name="celly" value="3"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="91" name="koopa" type="red" x="1641.33" y="1034.66">
-   <properties>
-    <property name="cellx" value="4"/>
-    <property name="celly" value="2"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="95" name="piranha" type="basic" x="5375" y="1212.53">
-   <properties>
-    <property name="cellx" value="13"/>
-    <property name="celly" value="3"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="96" name="venus" type="green" x="5568" y="1189.64">
-   <properties>
-    <property name="cellx" value="14"/>
-    <property name="celly" value="3"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="98" name="venus" type="red" x="1103.82" y="1180.64">
-   <properties>
-    <property name="cellx" value="2"/>
-    <property name="celly" value="3"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="186" name="para-goomba" type="tan" x="2663.82" y="1105.5">
-   <properties>
-    <property name="cellx" value="6"/>
-    <property name="celly" value="2"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="187" name="goomba" type="tan" x="2052" y="1164">
-   <properties>
-    <property name="cellx" value="5"/>
-    <property name="celly" value="3"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="190" name="para-koopa" type="green" x="3893" y="958">
-   <properties>
-    <property name="cellx" value="10"/>
-    <property name="celly" value="2"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="192" name="koopa" type="green" x="4320" y="1122">
-   <properties>
-    <property name="cellx" value="11"/>
-    <property name="celly" value="2"/>
-   </properties>
-   <point/>
-  </object>
-  <object id="196" name="koopa" type="red" x="6264" y="1092">
-   <properties>
-    <property name="cellx" value="16"/>
-    <property name="celly" value="2"/>
-   </properties>
-   <point/>
-  </object>
- </objectgroup>
  <objectgroup id="20" name="Label">
   <object id="131" name="warp-pipe" type="down" x="624" y="1090" width="96" height="28">
    <properties>
@@ -988,6 +916,78 @@
     <property name="cellx" value="1"/>
     <property name="celly" value="2"/>
    </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="15" name="Enemy">
+  <object id="55" name="goomba" type="tan" x="1510" y="1189.33">
+   <properties>
+    <property name="cellx" value="3"/>
+    <property name="celly" value="3"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="91" name="koopa" type="red" x="1641.33" y="1034.66">
+   <properties>
+    <property name="cellx" value="4"/>
+    <property name="celly" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="95" name="piranha" type="basic" x="5375" y="1212.53">
+   <properties>
+    <property name="cellx" value="13"/>
+    <property name="celly" value="3"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="96" name="venus" type="green" x="5568" y="1189.64">
+   <properties>
+    <property name="cellx" value="14"/>
+    <property name="celly" value="3"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="98" name="venus" type="red" x="1103.82" y="1180.64">
+   <properties>
+    <property name="cellx" value="2"/>
+    <property name="celly" value="3"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="186" name="para-goomba" type="tan" x="2663.82" y="1105.5">
+   <properties>
+    <property name="cellx" value="6"/>
+    <property name="celly" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="187" name="goomba" type="tan" x="2052" y="1164">
+   <properties>
+    <property name="cellx" value="5"/>
+    <property name="celly" value="3"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="190" name="para-koopa" type="green" x="3893" y="958">
+   <properties>
+    <property name="cellx" value="10"/>
+    <property name="celly" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="192" name="koopa" type="green" x="4320" y="1122">
+   <properties>
+    <property name="cellx" value="11"/>
+    <property name="celly" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="196" name="koopa" type="red" x="6264" y="1092">
+   <properties>
+    <property name="cellx" value="16"/>
+    <property name="celly" value="2"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
 </map>
