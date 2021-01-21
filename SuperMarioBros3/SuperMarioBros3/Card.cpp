@@ -111,6 +111,7 @@ void CCard::HitGoalRoulette()
 		goalFX->SetState(currentState);
 		auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 		activeScene->AddObject(goalFX);
+		activeScene->GetGrid()->Move(D3DXVECTOR2(-1, -1), goalFX);
 	}
 	// Set State Goals FX
 	isTouched = true;
