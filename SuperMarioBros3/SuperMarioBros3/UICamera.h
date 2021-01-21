@@ -21,6 +21,7 @@ class CUICamera :  public CCamera
     CCurtain* curtain;
     bool isGoalRoulette;
     bool isEnterIntro;
+    bool presentedCardGift;
 public:
     CUICamera();
     CUICamera(int wid, int hei, D3DXVECTOR2 hudPos);

@@ -39,8 +39,6 @@ public:
     void AddingCoin(int coin);
     int GetCoin();
 
-    void EndScene();
-
     void Enable(bool isEnable);
 };
 

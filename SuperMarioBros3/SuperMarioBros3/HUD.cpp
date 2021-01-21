@@ -153,11 +153,6 @@ int CHUD::GetCoin()
 	return coin;
 }
 
-void CHUD::EndScene()
-{
-
-}
-
 void CHUD::Enable(bool isEnable)
 {
 	this->isEnable = isEnable;

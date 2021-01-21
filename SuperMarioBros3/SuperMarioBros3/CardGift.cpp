@@ -36,7 +36,6 @@ void CCardGift::Update()
 
 void CCardGift::Render()
 {
-	// TO-DO: Render nhấp nháy !
 	if (cardSprites.find(state) != cardSprites.end())
 		cardSprites.at(state)->Draw(pos, D3DXVECTOR2(1.0f, 1.0f), 0.0f);
 }
@@ -49,4 +48,9 @@ void CCardGift::SetState(std::string state)
 void CCardGift::SetPosition(D3DXVECTOR2 pos)
 {
 	this->pos = pos;
+}
+
+std::string CCardGift::GetState()
+{
+	return state;
 }

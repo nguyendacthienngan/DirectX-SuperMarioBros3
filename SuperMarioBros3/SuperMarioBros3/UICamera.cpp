@@ -23,6 +23,7 @@ CUICamera::CUICamera(int wid, int hei, D3DXVECTOR2 hudPos)
     giftInFont = NULL;
     curtain = new CCurtain();
     isEnterIntro = false;
+    presentedCardGift = false;
 }
 
 void CUICamera::Update()
@@ -123,6 +124,8 @@ void CUICamera::GoalRouletteProcess()
             giftInFont = NULL;
             goalTimer = 0;
             waitingTimer = 0;
+            presentedCardGift = false;
+            fontResultDisplayed = false;
             EmptyTexts();
             return;
         }
@@ -133,7 +136,38 @@ void CUICamera::GoalRouletteProcess()
         if (this->GetHUD()->GetTimer()->GetTimerState() == 1)
             this->GetHUD()->GetTimer()->ResetToZero();
         // Hiển thị card bên HUD 
-        this->GetHUD()->SetCard(1, goalState);
+        if (presentedCardGift == false)
+        {
+            auto card1 = this->GetHUD()->GetCard(1);
+            if (card1->GetState() != "EMPTY")
+            {
+                auto card2 = this->GetHUD()->GetCard(2);
+                if (card2->GetState() == "EMPTY")
+                {
+                    this->GetHUD()->SetCard(2, goalState);
+                    presentedCardGift = true;
+                }
+                else
+                {
+                    auto card3 = this->GetHUD()->GetCard(3);
+                    if (card3->GetState() == "EMPTY")
+                    {
+                        this->GetHUD()->SetCard(3, goalState);
+                        presentedCardGift = true;
+                    }
+                    else
+                    {
+                        this->GetHUD()->SetCard(1, goalState);
+                        presentedCardGift = true;
+                    }
+                }
+            }
+            else
+            {
+                this->GetHUD()->SetCard(1, goalState);
+                presentedCardGift = true;
+            }
+        }
     }
 }
 
