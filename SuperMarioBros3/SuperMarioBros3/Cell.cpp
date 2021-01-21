@@ -9,10 +9,6 @@ CCell::CCell()
 CCell::CCell(Index index)
 {
 	this->index = index;
-	/*rect.left = index.x;
-	rect.top = index.y;
-	rect.right = index.x + cellWidth;
-	rect.bottom = index.y + cellHeight;*/
 }
 
 void CCell::AddObject(CGameObject* gO)

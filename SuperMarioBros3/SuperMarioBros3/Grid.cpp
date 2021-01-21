@@ -27,24 +27,6 @@ void CGrid::Insert(CGameObject* gameObject)
 {
 	if (gameObject == NULL)
 		return;
-	/*
-	// 1 object thuộc nhiều cell
-	auto objSize = CGameObject::GetGameObjectSize(gameObject);
-	RECT rect = GetRectByPosition(pos, objSize);
-
-	for (int i = rect.top; i <= rect.bottom; i++)
-	{
-		for (int j = rect.left; j <= rect.right; j++)
-		{
-			cells[i][j]->AddObject(gameObject);
-		}
-	}*/
-
-	//auto pos = gameObject->GetPosition();
-	//auto cell = GetCell(pos);// Tự tính pos
-	//cell->AddObject(gameObject);
-
-	
 	auto cell = GetCell(gameObject->GetIndex());
 	cell->AddObject(gameObject);
 }
@@ -53,65 +35,14 @@ void CGrid::Remove(CGameObject* gameObject)
 {
 	if (gameObject == NULL)
 		return;
-	/*
-	// 1 object thuộc nhiều cell
-	auto objSize = CGameObject::GetGameObjectSize(gameObject);
-	RECT rect = GetRectByPosition(pos, objSize);
-
-	for (int i = rect.top; i <= rect.bottom; i++)
-	{
-		for (int j = rect.left; j <= rect.right; j++)
-		{
-			cells[i][j]->RemoveObject(gameObject);
-		}
-	}*/
-
-
-	
-	// 1 object thuộc 1 cell
-	//auto pos = gameObject->GetPosition();
-	//auto cell = GetCell(pos); // Tự tính pos
-	//cell->RemoveObject(gameObject);
-
-	///*auto cell = GetCell(gameObject->GetIndex());
-	//cell->RemoveObject(gameObject);*/
+	auto cell = GetCell(gameObject->GetIndex());
+	cell->RemoveObject(gameObject);
 }
 
 void CGrid::Move(D3DXVECTOR2 oldPosition, CGameObject* gameObject)
 {
 	if (gameObject == NULL)
 		return;
-	/*
-	// 1 object thuộc nhiều cell
-	auto oldRect = GetRectByPosition(oldPosition, size);
-	auto newRect = GetRectByPosition(gameObject->GetPosition(), size);
-	if (RectEqual(oldRect, newRect) == true)
-	{
-		return;
-	}
-
-	for (int i = oldRect.top; i <= oldRect.bottom; i++)
-	{
-		for (int j = oldRect.left; j <= oldRect.right; j++)
-		{
-			cells[i][j]->RemoveObject(gameObject);
-		}
-	}*/
-
-	// 1 object thuộc 1 cell
-	//auto oldCell = GetCellIndexByPosition(oldPosition); // tự tính = pos
-	//auto newCell = GetCellIndexByPosition(gameObject->GetPosition());
-	//if (oldCell.x != newCell.x || oldCell.y != newCell.y)
-	//{
-	//	if (oldCell.x >= 0 && oldCell.x <= columns - 1
-	//		&& oldCell.y >= 0 && oldCell.y <= rows - 1)
-	//	{
-	//		auto cell = GetCell(oldCell);
-	//		cell->RemoveObject(gameObject);
-	//	}
-	//	Insert(gameObject);
-	//}
-
 	auto oldCell = gameObject->GetIndex();
 	auto newCell = GetCellIndexByPosition(gameObject->GetPosition());
 	if (oldCell.x != newCell.x || oldCell.y != newCell.y)
