@@ -14,5 +14,6 @@ public:
 	void OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<CollisionEvent*> otherCollisions);
 	bool CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag) override;
 	void LinkToPool(CObjectPool* pool);
+	void OnDisappearing();
 };
 

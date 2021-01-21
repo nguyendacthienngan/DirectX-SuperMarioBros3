@@ -3,6 +3,7 @@
 #include "AnimationManager.h"
 #include "Ultis.h"
 #include "SceneManager.h"
+#include "HitEffects.h"
 
 CMarioFireBall::CMarioFireBall()
 {
@@ -37,12 +38,16 @@ void CMarioFireBall::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	if (transform.position.y > cam->GetCurrentBoundary().bottom)
 	{
 		if (pool != NULL)
+		{
 			pool->Revoke(this);
+		}
 	}
 	if (transform.position.x < cam->GetPositionCam().x || transform.position.x > cam->GetPositionCam().x + cam->GetWidthCam())
 	{
 		if (pool != NULL)
+		{
 			pool->Revoke(this);
+		}
 	}
 }
 
@@ -58,10 +63,15 @@ void CMarioFireBall::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vect
 	{
 		auto collisionBox = collisionEvent->obj;
 		if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Solid || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::QuestionBlock
-			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick)
+			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Enemy || collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick
+			|| collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Pipe)
 		{
 			if (collisionEvent->nx != 0)
 			{
+				if (collisionBox->GetGameObjectAttach()->GetTag() != GameObjectTags::Enemy )
+				{
+					OnDisappearing();
+				}
 				if (pool != NULL)
 					pool->Revoke(this);
 			}
@@ -84,4 +94,15 @@ bool CMarioFireBall::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags 
 void CMarioFireBall::LinkToPool(CObjectPool* pool)
 {
 	this->pool = pool;
+}
+
+void CMarioFireBall::OnDisappearing()
+{
+	CHitEffects* hitFX = new CHitEffects();
+	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	activeScene->AddObject(hitFX);
+	hitFX->SetStartPosition(this->transform.position);
+	hitFX->SetStartHitTime(GetTickCount64());
+	hitFX->Enable(true);
+	activeScene->GetGrid()->Move(D3DXVECTOR2(-1, -1), hitFX);
 }
