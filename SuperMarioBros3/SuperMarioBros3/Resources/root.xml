@@ -12,6 +12,7 @@
     <Texture id="tex-black" source="Resources/Textures/black.png"/>
     <Texture id="tex-world-map-1" source="Resources/Textures/MapSelection(x3).png"/>
     <Texture id="tex-intro" source="Resources/Textures/intro_x3.png"/>
+    <Texture id="tex-pipe" source="Resources/Textures/pipe.png"/>
   </Root>
   <Root name="Sprites">
     <Sprite id="spr-mario" source="Resources/Sprites/MarioDB.xml"/>
@@ -23,6 +24,7 @@
     <Sprite id="spr-ui" source="Resources/Sprites/UiDB.xml"/>
     <Sprite id="spr-world-map-1" source="Resources/Sprites/MapSelectionDB.xml"/>
     <Sprite id="spr-intro" source="Resources/Sprites/IntroDB.xml"/>
+    <Sprite id="spr-pipe" source="Resources/Sprites/MiscDB.xml"/>
   </Root>
   <Root name="Animations">
     <Animation id="ani-mario" source="Resources/Animations/MarioAnim.xml"/>

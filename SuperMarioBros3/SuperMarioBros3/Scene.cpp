@@ -299,16 +299,6 @@ void CScene::FindUpdateObjects()
 	updateObjects.clear();
 	if (spaceParitioning == true)
 	{
-		if (globalObjects.size() > 0)
-		{
-			for (auto obj : globalObjects)
-			{
-				if (camera != NULL
-					&& camera->CheckObjectInCamera(obj) == false)			continue;
-				updateObjects.push_back(obj);
-			}
-		}
-
 		auto activeCells = grid->FindActiveCells(camera);
 		int count = 0;
 		for (auto activeCell : activeCells)
@@ -317,6 +307,15 @@ void CScene::FindUpdateObjects()
 			{
 				count++;
 				updateObjects.push_back(gameObject);
+			}
+		}
+		if (globalObjects.size() > 0)
+		{
+			for (auto obj : globalObjects)
+			{
+				if (camera != NULL
+					&& camera->CheckObjectInCamera(obj) == false)			continue;
+				updateObjects.push_back(obj);
 			}
 		}
 	}
@@ -338,9 +337,7 @@ void CScene::AddObject(LPGameObject gameObject)
 		return;
 	if (spaceParitioning == true)
 	{
-		if (CheckGlobalObject(gameObject->GetTag()) == true)
-			globalObjects.push_back(gameObject);
-		else
+		if (CheckGlobalObject(gameObject->GetTag()) == false)
 		{
 			if (grid == NULL)
 				return;
@@ -350,6 +347,8 @@ void CScene::AddObject(LPGameObject gameObject)
 				gameObject->SetInGrid(true);
 			}
 		}
+		else
+			globalObjects.push_back(gameObject);
 	}
 	else
 	{
@@ -481,7 +480,7 @@ bool CScene::IsSpacePartitioning()
 
 bool CScene::CheckGlobalObject(GameObjectTags tag)
 {
-	if (tag == GameObjectTags::Solid || tag == GameObjectTags::GhostPlatform)
+	if (tag == GameObjectTags::Solid || tag == GameObjectTags::GhostPlatform || tag == GameObjectTags::Pipe)
 		return true;
 	if (tag == GameObjectTags::Player || tag == GameObjectTags::SmallPlayer || tag == GameObjectTags::PlayerController)
 		return true;

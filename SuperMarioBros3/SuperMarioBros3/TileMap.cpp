@@ -34,10 +34,11 @@
 #include "VenusGreen.h"
 #include "VenusRed.h"
 
+#include "Pipe.h"
 #include "Portal.h"
 #include "Label.h"
-#include "Grass.h"
 
+#include "Grass.h"
 #include "HelpItem.h"
 #include "StartItem.h"
 #include "SceneGate.h"
@@ -188,6 +189,7 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 			tileSet->texture = CTextureManager::GetInstance()->GetTexture(std::to_string(tileSet->firstgid));
 			tileSets[tileSet->firstgid] = tileSet;
 		}
+
 		//Load layer
 		for (TiXmlElement* element = root->FirstChildElement("layer"); element != nullptr; element = element->NextSiblingElement("layer"))
 		{
@@ -310,6 +312,11 @@ CTileMap* CTileMap::LoadMap(std::string filePath, std::string fileMap, std::vect
 				else if (name.compare("MovingPlatform") == 0)
 				{
 					gameObject = LoadMovingPlatform(position, listGameObjects);
+				}
+				else if (name.compare("Pipes") == 0)
+				{
+					std::string direction = object->Attribute("type");
+					gameObject = LoadPipe(position, size, direction, listGameObjects);
 				}
 
 				if (cellX != -1 && cellY != -1)
@@ -681,6 +688,64 @@ CGameObject* CTileMap::LoadCoin(D3DXVECTOR2 position, int type, TiXmlElement* ob
 	solid->SetType(type);
 	AddObjectToList(solid, listGameObjects);
 	return solid;
+}
+
+CGameObject* CTileMap::LoadPipe(D3DXVECTOR2 position, D3DXVECTOR2 size, std::string direction, std::vector<LPGameObject>& listGameObjects)
+{
+	CPipe* pipe = new CPipe(size);
+	pipe->SetPosition(position + translateConst);
+	auto pos = position + translateConst;
+	pos.x += 24;
+	
+	int startX = PIPE_START_X, startY = PIPE_START_Y;
+	startX += 2;
+	int sizeTile = PIPE_DEFAULT_TILE_SIZE;
+	RECT headRect[2], bodyRect[2];
+	if (direction.compare("up") == 0 || direction.compare("down") == 0)
+	{
+		startY += 2;
+
+		headRect[0].left = startX * 48;
+		headRect[0].top = startY * 48;
+		headRect[0].right = headRect[0].left + sizeTile;
+		headRect[0].bottom = headRect[0].top + sizeTile;
+
+		headRect[1].left = (startX + 1) * 48;
+		headRect[1].top = startY * 48;
+		headRect[1].right = headRect[1].left + sizeTile;
+		headRect[1].bottom = headRect[1].top + sizeTile;
+		pipe->SetHeadRect(headRect[0], headRect[1]);
+
+		bodyRect[0].left = startX * 48;
+		bodyRect[0].top = (startY + 1) * 48;
+		bodyRect[0].right = bodyRect[0].left + sizeTile;
+		bodyRect[0].bottom = bodyRect[0].top + sizeTile;
+
+		bodyRect[1].left = (startX + 1) * 48;
+		bodyRect[1].top = (startY + 1) * 48;
+		bodyRect[1].right = bodyRect[1].left + sizeTile;
+		bodyRect[1].bottom = bodyRect[1].top + sizeTile;
+
+		pipe->SetBodyRect(bodyRect[0], bodyRect[1]);
+
+		if (direction.compare("up") == 0)
+			pipe->SetDirection(PipeDirection::Up);
+		else if (direction.compare("down") == 0)
+			pipe->SetDirection(PipeDirection::Down);
+	}
+	else
+	{
+		headRect[0] = RECT{ startX * 48, startY * 48, startX * 48 +  PIPE_DEFAULT_TILE_SIZE , startY * 48 + PIPE_DEFAULT_TILE_SIZE };
+		headRect[1] = RECT{ startX * 48,  (startY + 1) * 48, startX * 48 + PIPE_DEFAULT_TILE_SIZE ,  (startY + 1) * 48 + PIPE_DEFAULT_TILE_SIZE };
+		pipe->SetHeadRect(headRect[0], headRect[1]);
+
+		bodyRect[0] = RECT{ (startX + 1) * 48, startY * 48,  (startX + 1) * 48 + PIPE_DEFAULT_TILE_SIZE , startY * 48 + PIPE_DEFAULT_TILE_SIZE };
+		bodyRect[1] = RECT{ (startX + 1) * 48, (startY + 1) * 48,  (startX + 1) * 48 + PIPE_DEFAULT_TILE_SIZE , (startY + 1) * 48 + PIPE_DEFAULT_TILE_SIZE };
+		pipe->SetBodyRect(bodyRect[0], bodyRect[1]);
+
+	}
+	AddObjectToList(pipe, listGameObjects);
+	return pipe;
 }
 
 CGameObject* CTileMap::LoadPortal(D3DXVECTOR2 position, D3DXVECTOR2 size, TiXmlElement* object, std::vector<LPGameObject>& listGameObjects)

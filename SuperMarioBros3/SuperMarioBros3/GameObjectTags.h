@@ -9,6 +9,7 @@ enum class GameObjectTags
 	Solid,
 	GhostPlatform,
 	Enemy,
+	Pipe,
 
 	MarioFireBall,
 	VenusFireBall,
