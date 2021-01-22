@@ -190,7 +190,11 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Index.h" />
     <ClInclude Include="Intro.h" />
+    <ClInclude Include="IntroScript.h" />
+    <ClInclude Include="IntroTitle.h" />
     <ClInclude Include="Label.h" />
+    <ClInclude Include="LuigiAuto.h" />
+    <ClInclude Include="MarioAuto.h" />
     <ClInclude Include="MarioFireBall.h" />
     <ClInclude Include="FireMario.h" />
     <ClInclude Include="framework.h" />
@@ -332,7 +336,11 @@
     <ClCompile Include="HelpItem.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Intro.cpp" />
+    <ClCompile Include="IntroScript.cpp" />
+    <ClCompile Include="IntroTitle.cpp" />
     <ClCompile Include="Label.cpp" />
+    <ClCompile Include="LuigiAuto.cpp" />
+    <ClCompile Include="MarioAuto.cpp" />
     <ClCompile Include="MarioFireBall.cpp" />
     <ClCompile Include="FireMario.cpp" />
     <ClCompile Include="Game.cpp" />

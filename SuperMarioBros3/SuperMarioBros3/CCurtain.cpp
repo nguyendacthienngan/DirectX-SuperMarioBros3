@@ -15,6 +15,7 @@ void CCurtain::Update()
 {
 	auto dt = CGame::GetInstance()->GetDeltaTime();
 	pos.y -= CURTAIN_SPEED * dt;
+
 }
 
 void CCurtain::Render()
