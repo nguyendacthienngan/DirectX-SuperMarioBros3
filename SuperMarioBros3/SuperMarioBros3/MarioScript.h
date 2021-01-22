@@ -6,6 +6,7 @@
 #include "MushroomEffect.h"
 #include "KoopaShell.h"
 #include "LeafEffect.h"
+
 class CMarioScript : public CGameObject
 {
 private:
@@ -22,5 +23,6 @@ public:
 	CMarioScript();
 	void Update(DWORD dt, CCamera* cam, CCamera* uiCam);
 	void Render(CCamera* cam, int alpha = 255);
+	void SetStartAction();
 };
 

@@ -13,7 +13,35 @@ void CIntroScript::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	switch (cutSceneStages)
 	{
+		case 0:
+		{
+			if (curtain == NULL)
+			{
+				curtain = new CCurtain();
+				auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+				activeScene->AddObject(curtain);
+			}
+			cutSceneStages++;
+			
+			break;
+		}
 		case 1:
+		{
+			if (marioScript == NULL)
+			{
+				marioScript = new CMarioScript();
+				auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+				activeScene->AddObject(marioScript);
+			}
+			if (curtain->GetPosition().y + 250 < cam->GetPositionCam().y)
+			{
+				marioScript->SetStartAction();
+				curtain->Enable(false);
+			}
+			break;
+			
+		}
+		case 2:
 		{
 			CIntroTitle* title = new CIntroTitle();
 			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
@@ -21,18 +49,16 @@ void CIntroScript::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			cutSceneStages++;
 			break;
 		}
-		case 0:
-		{
-			CMarioScript* script = new CMarioScript();
-			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
-			activeScene->AddObject(script);
-			cutSceneStages++;
-		}
 	}
 	
 }
 
 void CIntroScript::Render(CCamera* cam, int alpha)
 {
-
+	switch (cutSceneStages)
+	{
+		case 0:
+		{
+		}
+	}
 }

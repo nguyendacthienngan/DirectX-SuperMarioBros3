@@ -20,7 +20,7 @@ CMarioScript::CMarioScript()
 	activeScene->AddObject(luigi);
 
 	transform.position = D3DXVECTOR2(350, 300);
-
+	stage = -1;
 }
 
 void CMarioScript::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
@@ -35,4 +35,9 @@ void CMarioScript::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 
 void CMarioScript::Render(CCamera* cam, int alpha)
 {
+}
+
+void CMarioScript::SetStartAction()
+{
+	stage = 0;
 }
