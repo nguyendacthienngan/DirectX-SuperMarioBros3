@@ -66,6 +66,7 @@ void CIntroScript::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 				CMenu* menu = new CMenu();
 				activeScene->AddObject(menu);
 				activeScene->AddKeyboardTargetObject(menu);
+				cutSceneStages++;
 			}
 			break;
 		}

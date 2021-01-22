@@ -310,9 +310,6 @@
     <Filter Include="Game\Scene\Intro">
       <UniqueIdentifier>{0d202065-492a-44c0-97a5-623c7dd23d7a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameObject\UI\Menu">
-      <UniqueIdentifier>{b9e30745-3971-4a55-8790-688083f8e4c5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\GameObject\Intro">
       <UniqueIdentifier>{d3c12c7d-0864-4e53-86cb-fb0a67656ba1}</UniqueIdentifier>
     </Filter>
@@ -357,6 +354,9 @@
     </Filter>
     <Filter Include="Game\GameObject\Intro\IntroScript\MarioScript">
       <UniqueIdentifier>{34d3b9d6-f22e-41f0-a32e-0a3b50d4a2d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Intro\Menu">
+      <UniqueIdentifier>{b9e30745-3971-4a55-8790-688083f8e4c5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -781,7 +781,7 @@
       <Filter>Game\Scene\Intro</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
-      <Filter>Game\GameObject\UI\Menu</Filter>
+      <Filter>Game\GameObject\Intro\Menu</Filter>
     </ClInclude>
     <ClInclude Include="CCurtain.h">
       <Filter>Game\GameObject\Intro\Curtain</Filter>
@@ -1137,7 +1137,7 @@
       <Filter>Game\Scene\Intro</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp">
-      <Filter>Game\GameObject\UI\Menu</Filter>
+      <Filter>Game\GameObject\Intro\Menu</Filter>
     </ClCompile>
     <ClCompile Include="CCurtain.cpp">
       <Filter>Game\GameObject\Intro\Curtain</Filter>
