@@ -355,6 +355,9 @@
     <Filter Include="Game\GameObject\Intro\IntroTitle\VersionTitle">
       <UniqueIdentifier>{97708dc0-716e-404c-9d32-64ee1a77b85e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Intro\IntroScript\MarioScript">
+      <UniqueIdentifier>{34d3b9d6-f22e-41f0-a32e-0a3b50d4a2d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -828,6 +831,9 @@
     <ClInclude Include="ThreeAnimation.h">
       <Filter>Game\GameObject\Intro\IntroTitle\VersionTitle</Filter>
     </ClInclude>
+    <ClInclude Include="MarioScript.h">
+      <Filter>Files\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -1168,6 +1174,9 @@
     </ClCompile>
     <ClCompile Include="ThreeAnimation.cpp">
       <Filter>Game\GameObject\Intro\IntroTitle\VersionTitle</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioScript.cpp">
+      <Filter>Files\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

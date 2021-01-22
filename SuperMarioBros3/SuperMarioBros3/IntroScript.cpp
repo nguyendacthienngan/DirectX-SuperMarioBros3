@@ -1,6 +1,7 @@
 ﻿#include "IntroScript.h"
 #include "IntroTitle.h"
 #include "SceneManager.h"
+#include "MarioScript.h"
 CIntroScript::CIntroScript()
 {
 	isEnabled = true;
@@ -12,13 +13,20 @@ void CIntroScript::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	switch (cutSceneStages)
 	{
-		case 0:
+		case 1:
 		{
 			CIntroTitle* title = new CIntroTitle();
 			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 			activeScene->AddObject(title);
 			cutSceneStages++;
 			break;
+		}
+		case 0:
+		{
+			CMarioScript* script = new CMarioScript();
+			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+			activeScene->AddObject(script);
+			cutSceneStages++;
 		}
 	}
 	

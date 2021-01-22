@@ -672,5 +672,26 @@
 			<Sprite id="spr-tanooki-mario-roll-6" left="466" top="387"  width="20" height="23" frameTime="50"/>
 			<Sprite id="spr-tanooki-mario-roll-7" left="489" top="389"  width="20" height="21" frameTime="50"/>
 		</Animation>
-	</Textures>
+
+
+    <!-- Animation WALK-->
+    <Animation aniId="ani-big-luigi-idle" frameTime="50" name="IDLE">
+      <Sprite id="spr-big-luigi-walk-0" left="197" top="48"  width="14" height="27" frameTime="50"/>
+    </Animation>
+    <Animation aniId="ani-big-luigi-walk" frameTime="50" name="WALK">
+      <Sprite id="spr-big-luigi-walk-0" left="197" top="48"  width="14" height="27" frameTime="50"/>
+      <Sprite id="spr-big-luigi-walk-1" left="214" top="48"  width="16" height="27" frameTime="50"/>
+      <Sprite id="spr-big-luigi-walk-2" left="233" top="49"  width="16" height="26" frameTime="50"/>
+      <Sprite id="spr-big-luigi-walk-1" left="214" top="48"  width="16" height="27" frameTime="50"/>
+    </Animation>
+    <!-- Animation JUMP-->
+    <Animation aniId="ani-big-luigi-jump" frameTime="50" name="JUMP">
+      <Sprite id="spr-big-luigi-jump-0" left="271" top="49"  width="16" height="26" frameTime="50"/>
+    </Animation>
+    <!-- Animation FALL-->
+    <Animation aniId="ani-big-luigi-fall" frameTime="50" name="FALL">
+      <Sprite id="spr-big-luigi-fall-0" left="699" top="147"  width="16" height="26" frameTime="50"/>
+    </Animation>
+
+  </Textures>
 </Textures>

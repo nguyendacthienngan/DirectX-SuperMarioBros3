@@ -5,7 +5,7 @@
   </Scene>
   <Scene name="Camera" start="0" main="0" width="720" height="671">
     <!--Camera-->
-    <Boundary id="0" pos_x="-23" pos_y="-23" left="0" top="0" right="6075" bottom="1388" disX ="0" disY="0" autoX="0"/>
+    <Boundary id="0" pos_x="-23" pos_y="-23" left="0" top="0" right="6075" bottom="1388" disX ="1" disY="1" autoX="0"/>
   </Scene>
 </Scene>
 

@@ -4,5 +4,6 @@ class CLuigiAuto : public CMario
 {
 public:
 	CLuigiAuto();
+	void LoadAnimation();
 };
 

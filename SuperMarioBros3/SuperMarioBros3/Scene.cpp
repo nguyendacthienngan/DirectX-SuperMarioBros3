@@ -211,6 +211,8 @@ void CScene::DestroyObject()
 			{
 				if (gO->IsDestroyed() == true)
 				{
+					if (gO->GetTag() == GameObjectTags::PlayerController)
+						continue;
 					RemoveObject(gO);
 					delete gO;
 					gO = NULL;

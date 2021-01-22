@@ -7,7 +7,7 @@
 #include "SceneManager.h"
 
 using namespace std;
-const D3DXVECTOR2 DESTINATION_POS = D3DXVECTOR2(350, 200);
+const D3DXVECTOR2 DESTINATION_POS = D3DXVECTOR2(400, 200);
 const int MOVEMENT_DURATION = 800;
 CIntroTitle::CIntroTitle()
 {
@@ -17,7 +17,7 @@ CIntroTitle::CIntroTitle()
 	titleSprites[2] = spriteManager->Get("spr-title-0");
 	titleSprites[3] = spriteManager->Get("spr-three-1");
 	isEnabled = true;
-	transform.position = D3DXVECTOR2(350, -300); 
+	transform.position = D3DXVECTOR2(400, -200); 
 	titleAppearingState = 0;
 	startPos = transform.position;
 }

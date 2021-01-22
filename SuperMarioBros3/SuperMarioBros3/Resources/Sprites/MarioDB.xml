@@ -244,5 +244,13 @@
 		<Sprite id="spr-tanooki-mario-roll-5" left="442" top="390"  width="21" height="20" frameTime="50"/>
 		<Sprite id="spr-tanooki-mario-roll-6" left="466" top="387"  width="20" height="23" frameTime="50"/>
 		<Sprite id="spr-tanooki-mario-roll-7" left="489" top="389"  width="20" height="21" frameTime="50"/>
+
+
+
+    <Sprite id="spr-big-luigi-walk-0" left="197" top="78"  width="14" height="27" frameTime="50"/>
+    <Sprite id="spr-big-luigi-walk-1" left="214" top="78"  width="16" height="27" frameTime="50"/>
+    <Sprite id="spr-big-luigi-walk-2" left="233" top="79"  width="16" height="26" frameTime="50"/>
+    <Sprite id="spr-big-luigi-jump-0" left="271" top="79"  width="16" height="26" frameTime="50"/>
+    <Sprite id="spr-big-luigi-fall-0" left="233" top="79"  width="16" height="26" frameTime="50"/>
 	</Textures>
 </Textures>
