@@ -20,7 +20,7 @@ public:
 	void Clear();
 	bool InitAnAnimationSet(std::string textureName, std::string filePath);
 	bool LoadAnimation(std::string texName, std::string filePath);
-	void AddAnimation(std::string id, LPAnimation ani); // Lưu toàn bộ DB
+	void AddAnimation(std::string id, LPAnimation ani);
 	LPAnimation Get(std::string id);
 	LPAnimation Clone(std::string id); // Copy constructor: Giúp copy ani ra bản sao để mỗi object xài ani riêng. Không bị trùng nhau
 	static LPAnimationManager GetInstance();

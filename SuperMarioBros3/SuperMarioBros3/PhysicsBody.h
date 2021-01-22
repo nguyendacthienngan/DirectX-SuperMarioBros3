@@ -64,7 +64,6 @@ public:
 
 	LPCollisionEvent SweptAABBEx(LPCollisionBox cO, LPCollisionBox cOOther); // thay vì xét với các gameobject khác, thực chất mình chỉ xét với những collisionbox mà thôi
 	void CalcPotentialCollisions(LPGameObject cO, std::vector<LPGameObject>* coObjects, std::vector<LPCollisionEvent>& coEvents);
-	void CalcOverlappedCollisions(LPGameObject cO, std::vector<LPGameObject>* coObjects);
 	void FilterCollision(
 		std::vector<LPCollisionEvent>& coEvents,
 		std::vector<LPCollisionEvent>& coEventsResult,

@@ -27,6 +27,13 @@ void CScene4::Unload()
 	timer->ResetTimer();
 }
 
+void CScene4::Update(DWORD dt)
+{
+	if (camera->GetPositionCam().x > 6000)
+		camera->SetAutoX(false);
+	CScene::Update(dt);
+}
+
 CScene4::~CScene4()
 {
 }

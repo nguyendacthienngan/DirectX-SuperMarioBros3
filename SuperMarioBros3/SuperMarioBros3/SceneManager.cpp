@@ -86,7 +86,6 @@ std::string CSceneManager::GetActiveSceneId()
 
 LPScene CSceneManager::GetActiveScene()
 {
-	//OutputDebugString(ToLPCWSTR("[INFO] Active Scene: " + activeSceneId + "\n"));
 	if (activeSceneId == "") return nullptr;
 	if (loadedScenes.find(activeSceneId) != loadedScenes.end())
 	{

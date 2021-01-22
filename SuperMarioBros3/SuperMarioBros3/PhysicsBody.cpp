@@ -289,9 +289,6 @@ void CPhysicsBody::CalcPotentialCollisions(
 				continue;
 			}
 		}
-
-		if (gameObject->GetTag() == GameObjectTags::Brick)
-			continue;
 		if (gameObject->CanCollisionWithThisObject(coObjectGO, coObjectGO->GetTag())
 			== false)
 			continue;
@@ -300,7 +297,6 @@ void CPhysicsBody::CalcPotentialCollisions(
 		if (e->t > 0 && e->t <= 1.0f)
 		{
 			temp.push_back(e);
-			std::string name = coObject->GetName();
 			if (coObjectGO->GetTag() == GameObjectTags::Enemy || coObjectGO->GetTag() == GameObjectTags::VenusFireBall)
 			{
 				SetTrigger(true);
@@ -326,7 +322,7 @@ void CPhysicsBody::CalcPotentialCollisions(
 			if (latterCollision->nx != 0)
 			{
 				dist.y *= prevCollision->t;
-				dist.y -= 0.1f; // why
+				dist.y -= 0.1f; 
 			}
 			else
 			{
@@ -351,30 +347,6 @@ void CPhysicsBody::CalcPotentialCollisions(
 
 	std::sort(coEvents.begin(), coEvents.end(), CollisionEvent::compare);
 }
-
-void CPhysicsBody::CalcOverlappedCollisions(LPGameObject gameObject, std::vector<LPGameObject>* coObjects)
-{
-	auto cO = gameObject->GetCollisionBox()->at(0);
-	// Có overlap (Dùng AABB)
-	for (UINT i = 0; i < coObjects->size(); i++)
-	{
-		auto coObject = coObjects->at(i)->GetCollisionBox()->at(0);
-		if (coObject == nullptr) continue;
-		if (coObject == cO) continue;
-		if (coObject->IsEnabled() == false) continue;
-
-		if (coObject->GetGameObjectAttach()->GetTag() != GameObjectTags::Solid && gameObject->GetTag() != GameObjectTags::Solid)
-		{
-			if (CheckAABB(cO->GetBoundingBox(), coObject->GetBoundingBox()) == true || CheckAABB(coObject->GetBoundingBox(), cO->GetBoundingBox()) == true)
-			{
-				gameObject->OnOverlappedEnter(cO, coObject);
-				coObject->GetGameObjectAttach()->OnOverlappedEnter(coObject, cO);
-				continue;
-			}
-		}
-	}
-}
-
 
 // Tìm ra thằng va chạm đầu tiên trong 1 loạt các thằng có thể va chạm
 void CPhysicsBody::FilterCollision(

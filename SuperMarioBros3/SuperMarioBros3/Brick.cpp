@@ -147,6 +147,8 @@ void CBrick::Debris()
 			brickFX->GetPhysiscBody()->SetVelocity(D3DXVECTOR2(velx[i], vely[i]));
 			brickFX->Enable(true);
 			brickFX->SetPosition(this->GetPosition());
+			auto FX = static_cast<CBrickEffect*>(brickFX);
+			FX->SetStartPosition(this->GetPosition());
 
 			auto grid = activeScene->GetGrid();
 			if (grid != NULL && activeScene->IsSpacePartitioning() == true)

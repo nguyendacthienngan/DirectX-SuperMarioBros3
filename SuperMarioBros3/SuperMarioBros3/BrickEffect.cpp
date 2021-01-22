@@ -33,4 +33,7 @@ void CBrickEffect::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 	vel.y += physiscBody->GetGravity() * deltaTime;
 	vel.y = (vel.y < DEBRIS_MIN_FALL) ? vel.y : DEBRIS_MIN_FALL;
 	physiscBody->SetVelocity(vel);
+
+	if (transform.position.y > startPosition.y && physiscBody->GetVelocity() > 0)
+		isEnabled = false;
 }

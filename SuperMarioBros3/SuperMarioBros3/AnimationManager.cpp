@@ -6,9 +6,6 @@
 #include "Game.h"
 #include "Const.h"
 using namespace std;
-//Tạm thời
-#include "TextureManager.h"
-#include "Animation.h"
 LPAnimationManager CAnimationManager::instance = NULL;
 
 LPAnimationManager CAnimationManager::GetInstance()
@@ -133,7 +130,7 @@ bool CAnimationManager::LoadAnimation(std::string texName, std::string filePath)
 			{
 				string id = sprNode->Attribute("id");
 				LPSprite sprite = CSpriteManager::GetInstance()->Get(id);
-				animation->Add(sprite, D3DXVECTOR2(0.0f, 0.0f), frameTime);
+				animation->Add(sprite, frameTime);
 				OutputDebugStringW(ToLPCWSTR("|--" + id + ':' + to_string(frameTime) + '\n'));
 			}
 

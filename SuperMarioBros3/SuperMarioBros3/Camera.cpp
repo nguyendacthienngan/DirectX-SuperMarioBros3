@@ -85,7 +85,7 @@ void CCamera::Update()
         if (posCam.y < currentBoundary.bottom - heightCam && y >= currentBoundary.bottom - heightCam * 0.75)
             posCam.y = currentBoundary.bottom - heightCam;
 
-    if (y > posCam.y + heightCam)
+    if (y > posCam.y + heightCam || y > currentBoundary.bottom)
     {
         auto mario = static_cast<CMario*>(gameObject);
         mario->OnDie();

@@ -32,7 +32,7 @@ private:
 public: 
 	CAnimation(std::string aniID, DWORD defaultTime = 100);
 	CAnimation(const CAnimation& obj);
-	void Add(LPSprite sprite, D3DXVECTOR2 pos, DWORD frameTime = 0);
+	void Add(LPSprite sprite, DWORD frameTime = 0);
 	void Render(D3DXVECTOR2 position, int alpha = 254);
 
 	void SetPosition(D3DXVECTOR2 p) { this->transform.position = p; } // Relative Position. Sẽ có lúc tọa độ thực giữ nguyên nhưng ta thay đổi tọa đọ vẽ lên màn hình

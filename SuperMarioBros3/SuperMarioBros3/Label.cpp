@@ -28,5 +28,5 @@ RectF CLabel::GetPushDirection()
 
 bool CLabel::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
-	return MarioTag(tag);
+	return false;
 }

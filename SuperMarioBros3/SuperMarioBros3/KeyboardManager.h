@@ -35,12 +35,10 @@ public:
 	void ProcessKeyboard(); // Khi Game đang chạy ta sẽ gọi Process keyboard liên tục để kiểm tra
 	bool CheckESCKey();
 
-	//BYTE GetKeyState(); //TO-DO Còn key state khi ấn giữ thì sao?? 
 	bool GetKeyStateDown(int keyCode);
 	bool GetKeyStateUp(int keyCode);
 
 	void SetHWND(HWND h);
-	//void SetKeyEventHandler(LPKeyEventHandler k);
 
 	LPKeyEventHandler GetKeyEventHandler() { return this->keyEventHandler; }
 

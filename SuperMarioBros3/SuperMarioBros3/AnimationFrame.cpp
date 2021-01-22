@@ -1,10 +1,9 @@
 #include "AnimationFrame.h"
 
-CAnimationFrame::CAnimationFrame(LPSprite sprite, DWORD time, D3DXVECTOR2 position)
+CAnimationFrame::CAnimationFrame(LPSprite sprite, DWORD time)
 {
     this->sprite = sprite; 
     this->time = time;
-    this->position = position;
 }
 
 LPSprite CAnimationFrame::GetSprite()

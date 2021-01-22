@@ -30,13 +30,12 @@ CAnimation::CAnimation(const CAnimation& obj)
 	this->isPlaying = obj.isPlaying;
 }
 
-void CAnimation::Add(LPSprite sprite, D3DXVECTOR2 pos, DWORD frameTime)
+void CAnimation::Add(LPSprite sprite, DWORD frameTime)
 {
-	// pos để làm gì: Để animation frame lưu trữ vị trí của sprite. VD những animation đặc biệt cần xác định vị trí của mỗi sprite đó ở nhiều vị trí khác nhau
 	int t = frameTime;
 	if (frameTime <= 0) t = this->defaultFrameTime;
 
-	LPAnimationFrame frame = new CAnimationFrame(sprite, t, pos);
+	LPAnimationFrame frame = new CAnimationFrame(sprite, t);
 	animFrames.push_back(frame);
 }
 
@@ -44,7 +43,7 @@ void CAnimation::Render(D3DXVECTOR2 position, int alpha)
 {
 	if (animFrames.size() == 0) return;
 	
-	DWORD now = GetTickCount();
+	DWORD now = GetTickCount64();
 	if (currentFrame == -1)
 	{
 		currentFrame = 0;
@@ -85,7 +84,6 @@ void CAnimation::SetPlay(bool isPause)
 	{
 		// Reset lại frameTime
 		currentFrame = -1; 
-		//	lastFrameTime = GetTickCount();
 	}
 	isPlaying = true;
 }
