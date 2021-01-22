@@ -47,8 +47,10 @@ protected:
 	CGameObject* marioController;
 	int cardState;
 	bool spaceParitioning;
+	bool canRenderForeground;
 public:
 	CScene();
+	void SetRenderForeground(bool canRender);
 	virtual void Load();
 	virtual void Unload();
 	virtual void DestroyObject();
