@@ -7,14 +7,16 @@ CMarioScript::CMarioScript()
 	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
 
 	marioController = new CMarioAuto();
-	marioController->SetPosition(D3DXVECTOR2(100, 200));
+	marioController->SetPosition(D3DXVECTOR2(743, 450));
 	marioController->AddStateObjectsToScene(activeScene);
 	marioController->SwitchToState(SUPER_MARIO_STATE);
-	marioController->GetCurrentStateObject()->SetPosition(D3DXVECTOR2(100, 200));
+	marioController->GetCurrentStateObject()->SetPosition(D3DXVECTOR2(743, 450));
+	marioController->GetCurrentStateObject()->GetPhysiscBody()->SetNormal(D3DXVECTOR2(-1, 1));
 	activeScene->AddObject(marioController);
 
 	luigi = new CLuigiAuto();
-	luigi->SetPosition(D3DXVECTOR2(200, 200));
+	luigi->SetPosition(D3DXVECTOR2(24, 450));
+
 	activeScene->AddObject(luigi);
 
 	transform.position = D3DXVECTOR2(350, 300);

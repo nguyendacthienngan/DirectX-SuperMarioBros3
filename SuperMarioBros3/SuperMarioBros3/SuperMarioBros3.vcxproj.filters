@@ -832,7 +832,7 @@
       <Filter>Game\GameObject\Intro\IntroTitle\VersionTitle</Filter>
     </ClInclude>
     <ClInclude Include="MarioScript.h">
-      <Filter>Files\Header Files</Filter>
+      <Filter>Game\GameObject\Intro\IntroScript\MarioScript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1176,7 +1176,7 @@
       <Filter>Game\GameObject\Intro\IntroTitle\VersionTitle</Filter>
     </ClCompile>
     <ClCompile Include="MarioScript.cpp">
-      <Filter>Files\Source Files</Filter>
+      <Filter>Game\GameObject\Intro\IntroScript\MarioScript</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
