@@ -11,5 +11,6 @@ public:
 	CIntroTitle();
 	void Update(DWORD dt, CCamera* cam, CCamera* uiCam);
 	void Render(CCamera* cam, int alpha = 255);
+	int GetAppearState();
 };
 

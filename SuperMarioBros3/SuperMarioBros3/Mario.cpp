@@ -40,6 +40,16 @@ CHoldable* CMario::GetHoldObject()
 	return objectHolding;
 }
 
+void CMario::SetAutoGo(bool autoGo)
+{
+	isAutogo = autoGo;
+}
+
+void CMario::SetIsInIntro(bool intro)
+{
+	isInIntro = intro;
+}
+
 void CMario::SetPhysicsState(MarioStateSet physState)
 {
 	currentPhysicsState = physState;
@@ -229,6 +239,7 @@ void CMario::InitProperties()
 	isChangeLevel = false;
 	isSwitchCamera = false;
 	bounceAfterJumpOnEnemy = false;
+	isInIntro = false;
 	feverTime = MARIO_FEVER_TIME;
 	lastFeverTime = 0;
 	feverState = 0;
@@ -1040,7 +1051,7 @@ void CMario::WarpPipeProcess(CCamera* cam)
 			transform.position.y -= MARIO_VENT_SPEED * CGame::GetInstance()->GetDeltaTime();
 		isSwitchCamera = true;
 	}
-	else if (isHitGoalRoulette == false && isDie == false)
+	else if (isHitGoalRoulette == false && isDie == false && isInIntro == false)
 	{
 		isAutogo = false;
 		auto camPos = cam->GetPositionCam();

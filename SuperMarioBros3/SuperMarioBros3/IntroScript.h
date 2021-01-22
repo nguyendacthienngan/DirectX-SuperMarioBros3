@@ -1,10 +1,12 @@
 #pragma once
 #include "GameObject.h"
 #include "MarioScript.h"
+#include "IntroTitle.h"
 class CIntroScript : public CGameObject
 {
 	CGameObject* curtain;
 	CMarioScript* marioScript;
+	CIntroTitle* introTitle;
 	int cutSceneStages;
 public:
 	CIntroScript();

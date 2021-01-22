@@ -47,10 +47,26 @@ void CIntroScript::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 		}
 		case 2:
 		{
-			CIntroTitle* title = new CIntroTitle();
-			auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
-			activeScene->AddObject(title);
-			cutSceneStages++;
+			if (introTitle == NULL)
+			{
+				introTitle = new CIntroTitle();
+				auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+				activeScene->AddObject(introTitle);
+				cutSceneStages++;
+			}
+			break;
+		}
+		case 3:
+		{
+			if (introTitle->GetAppearState() == 2)
+			{
+				auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+				activeScene->SetBackgroundColor(D3DCOLOR_ARGB(255, 255, 219, 161));
+
+				CMenu* menu = new CMenu();
+				activeScene->AddObject(menu);
+				activeScene->AddKeyboardTargetObject(menu);
+			}
 			break;
 		}
 	}

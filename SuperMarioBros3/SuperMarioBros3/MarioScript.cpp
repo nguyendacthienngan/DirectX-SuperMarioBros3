@@ -44,7 +44,8 @@ void CMarioScript::SetStartAction()
 void CMarioScript::MarioScript(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
 	auto currentMario = static_cast<CMario*> (marioController->GetCurrentStateObject());
-
+	/*currentMario->SetAutoGo(true);
+	currentMario->SetIsInIntro(true);*/
 	switch (marioStage)
 	{
 		case 0:
@@ -87,6 +88,31 @@ void CMarioScript::MarioScript(DWORD dt, CCamera* cam, CCamera* uiCam)
 			auto luigiPos = luigi->GetPosition();
 			if (luigiPos.x > 600)
 				currentMario->SetPhysicsState(phyState);
+			marioStage++;
+
+			break;
+		}
+		case 2:
+		{
+			auto phyBody = currentMario->GetPhysiscBody();
+			auto vel = phyBody->GetVelocity();
+			auto pos = currentMario->GetPosition();
+
+			if (pos.x >= 24)
+			{
+				vel.x = -MARIO_WALKING_SPEED * 1.5f;
+				pos.x += vel.x * dt;
+				currentMario->SetPosition(pos);
+
+				MarioStateSet phyState;
+				phyState.move = MoveOnGroundStates::Walk;
+				phyState.jump = JumpOnAirStates::Stand;
+				currentMario->SetPhysicsState(phyState);
+
+
+			}
+			else
+				currentMario->Enable(false);
 			break;
 		}
 	}

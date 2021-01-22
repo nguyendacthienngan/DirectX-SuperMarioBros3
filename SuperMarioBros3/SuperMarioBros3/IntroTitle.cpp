@@ -72,3 +72,8 @@ void CIntroTitle::Render(CCamera* cam, int alpha)
 	auto versionPos = titlePos + D3DXVECTOR2(14, 156);
 	titleSprites[3]->Draw(versionPos, D3DXVECTOR2(1, 1), 0);
 }
+
+int CIntroTitle::GetAppearState()
+{
+	return titleAppearingState;
+}

@@ -8,7 +8,6 @@ CLuigiAuto::CLuigiAuto()
 	CLuigiAuto::LoadAnimation();
 	SetState(MARIO_STATE_IDLE);
 	marioStateTag = MarioStates::SuperMario;
-
 }
 
 void CLuigiAuto::LoadAnimation()
