@@ -40,6 +40,16 @@ CHoldable* CMario::GetHoldObject()
 	return objectHolding;
 }
 
+void CMario::SetPhysicsState(MarioStateSet physState)
+{
+	currentPhysicsState = physState;
+}
+
+MarioStateSet CMario::GetPhysicsState()
+{
+	return currentPhysicsState;
+}
+
 void CMario::SetCurrentPhysicsState(MarioStateSet state)
 {
 	this->currentPhysicsState = state;

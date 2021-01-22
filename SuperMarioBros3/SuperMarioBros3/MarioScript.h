@@ -18,11 +18,14 @@ private:
 	CLeafEffect* leafFX;
 	CKoopaShell* koopaShell;
 
-	int stage;
+	int marioStage, luigiStage;
 public:
 	CMarioScript();
 	void Update(DWORD dt, CCamera* cam, CCamera* uiCam);
 	void Render(CCamera* cam, int alpha = 255);
 	void SetStartAction();
+	void MarioScript(DWORD dt, CCamera* cam, CCamera* uiCam);
+	void LuigiScript(DWORD dt, CCamera* cam, CCamera* uiCam);
+	D3DXVECTOR2 GetLuigiPosition();
 };
 

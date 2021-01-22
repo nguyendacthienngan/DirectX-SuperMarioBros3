@@ -38,6 +38,10 @@ void CIntroScript::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 				marioScript->SetStartAction();
 				curtain->Enable(false);
 			}
+			if (marioScript->GetLuigiPosition().x > 600)
+			{
+				cutSceneStages++;
+			}
 			break;
 			
 		}

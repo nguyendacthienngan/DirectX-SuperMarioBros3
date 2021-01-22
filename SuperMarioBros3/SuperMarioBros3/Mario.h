@@ -63,6 +63,10 @@ public:
 	CMario();
 
 	CHoldable* GetHoldObject();
+
+	void SetPhysicsState(MarioStateSet physState);
+	MarioStateSet GetPhysicsState();
+
 	void SetCurrentPhysicsState(MarioStateSet state);
 	void SetPMeterCounting(int pMeterCounting);
 	void SetFeverState(int fState);
