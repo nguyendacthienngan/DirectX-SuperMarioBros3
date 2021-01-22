@@ -157,6 +157,7 @@ void CScene::Load()
 
 			CMarioMap* marioMap = new CMarioMap();
 			marioMap->SetPosition(startPosition);
+			marioMap->SetStartPosition(startPosition);
 			AddObject(marioMap);
 			marioController = marioMap;
 		}
