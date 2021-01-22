@@ -903,6 +903,35 @@
    <point/>
   </object>
  </objectgroup>
+ <objectgroup id="18" name="Label">
+  <object id="270" name="warp-pipe" type="down" x="5808" y="516" width="96" height="60">
+   <properties>
+    <property name="cellx" value="15"/>
+    <property name="celly" value="1"/>
+    <property name="direction" value="down"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="19" name="Portal">
+  <object id="272" name="hidden-scene" type="1" x="5820" y="612" width="72" height="48">
+   <properties>
+    <property name="cameraID" type="int" value="1"/>
+    <property name="cellx" value="15"/>
+    <property name="celly" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="8" name="Solid">
+  <object id="138" x="5760" y="720" width="384" height="96"/>
+  <object id="139" x="6108" y="768" width="1716" height="48"/>
+  <object id="141" x="6096" y="240" width="108" height="576"/>
+  <object id="281" x="5808" y="528" width="96" height="192"/>
+  <object id="282" x="6576" y="672" width="96" height="96"/>
+ </objectgroup>
+ <objectgroup id="20" name="Pipes">
+  <object id="278" type="up" x="5808" y="528" width="96" height="192"/>
+  <object id="279" type="up" x="6576" y="672" width="96" height="96"/>
+ </objectgroup>
  <objectgroup id="15" name="MovingPlatform">
   <object id="246" name="platform" type="gravity" x="1176" y="504">
    <properties>
@@ -995,35 +1024,6 @@
    </properties>
    <point/>
   </object>
- </objectgroup>
- <objectgroup id="18" name="Label">
-  <object id="270" name="warp-pipe" type="down" x="5808" y="516" width="96" height="60">
-   <properties>
-    <property name="cellx" value="15"/>
-    <property name="celly" value="1"/>
-    <property name="direction" value="down"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup id="19" name="Portal">
-  <object id="272" name="hidden-scene" type="1" x="5820" y="612" width="72" height="48">
-   <properties>
-    <property name="cameraID" type="int" value="1"/>
-    <property name="cellx" value="15"/>
-    <property name="celly" value="1"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup id="8" name="Solid">
-  <object id="138" x="5760" y="720" width="384" height="96"/>
-  <object id="139" x="6108" y="768" width="1716" height="48"/>
-  <object id="141" x="6096" y="240" width="108" height="576"/>
-  <object id="281" x="5808" y="528" width="96" height="192"/>
-  <object id="282" x="6576" y="672" width="96" height="96"/>
- </objectgroup>
- <objectgroup id="20" name="Pipes">
-  <object id="278" type="up" x="5808" y="528" width="96" height="192"/>
-  <object id="279" type="up" x="6576" y="672" width="96" height="96"/>
  </objectgroup>
  <objectgroup id="16" name="Enemy">
   <object id="259" name="koopa" type="red" x="3240" y="516">

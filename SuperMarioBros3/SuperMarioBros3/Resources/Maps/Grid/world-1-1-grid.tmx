@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="26" nextobjectid="249">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="176" height="41" tilewidth="48" tileheight="48" infinite="0" nextlayerid="26" nextobjectid="251">
  <editorsettings>
   <export target="world-1-1-map.xml" format="tmx"/>
  </editorsettings>
@@ -968,16 +968,16 @@
    </properties>
    <point/>
   </object>
-  <object id="190" name="para-koopa" type="green" x="3893" y="958">
+  <object id="190" name="para-koopa" type="green" x="3912" y="912">
    <properties>
     <property name="cellx" value="10"/>
     <property name="celly" value="2"/>
    </properties>
    <point/>
   </object>
-  <object id="192" name="koopa" type="green" x="4320" y="1122">
+  <object id="192" name="koopa" type="green" x="4092" y="1152">
    <properties>
-    <property name="cellx" value="11"/>
+    <property name="cellx" value="10"/>
     <property name="celly" value="2"/>
    </properties>
    <point/>
@@ -985,6 +985,20 @@
   <object id="196" name="koopa" type="red" x="6264" y="1092">
    <properties>
     <property name="cellx" value="16"/>
+    <property name="celly" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="249" name="para-koopa" type="green" x="3792" y="1020">
+   <properties>
+    <property name="cellx" value="10"/>
+    <property name="celly" value="2"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="250" name="para-koopa" type="green" x="4020" y="864">
+   <properties>
+    <property name="cellx" value="10"/>
     <property name="celly" value="2"/>
    </properties>
    <point/>

@@ -482,7 +482,7 @@ bool CScene::IsSpacePartitioning()
 
 bool CScene::CheckGlobalObject(GameObjectTags tag)
 {
-	if (tag == GameObjectTags::Solid || tag == GameObjectTags::GhostPlatform || tag == GameObjectTags::Pipe)
+	if (tag == GameObjectTags::Solid || tag == GameObjectTags::GhostPlatform || tag == GameObjectTags::Pipe || tag == GameObjectTags::MovingPlatform)
 		return true;
 	if (tag == GameObjectTags::Player || tag == GameObjectTags::SmallPlayer || tag == GameObjectTags::PlayerController)
 		return true;
