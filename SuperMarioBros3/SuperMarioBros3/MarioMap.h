@@ -12,6 +12,7 @@ private:
 	CNode* currentNode;
 	int moveState; // 0: Chưa di chuyển, 1: Di chuyển, chưa tới đích, 2: Tới node tiếp theo (Lúc đó gán lại = 0 và cho dừng)
 	bool canEnterScene;
+	D3DXVECTOR2 startPos;
 public:
 	CMarioMap();
 	void LoadAnimation();
@@ -21,5 +22,6 @@ public:
 	void OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox* otherCollisionBox);
 	bool SwitchScene();
 	void OnKeyDown(int KeyCode);
+	void SetStartPosition(D3DXVECTOR2 pos);
 };
 

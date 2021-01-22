@@ -16,6 +16,7 @@ class CSceneManager
 	CUICamera* uiCamera;
 	std::vector<LPScene> requestedLoadScene;
 	std::vector<LPScene> requestedUnloadScene;
+	int currentNodeID;
 public:
 	CSceneManager();
 	static LPSceneManager GetInstance();
@@ -30,6 +31,9 @@ public:
 
 	std::string GetActiveSceneId();
 	LPScene GetActiveScene();
+
+	int GetNodeID();
+	void SetNodeID(int id);
 
 	void LoadRequestScene();
 	void UnloadRequestScene();

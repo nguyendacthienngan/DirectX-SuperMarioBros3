@@ -6,6 +6,7 @@ LPSceneManager CSceneManager::instance = NULL;
 
 CSceneManager::CSceneManager()
 {
+	currentNodeID = -1;
 }
 
 LPSceneManager CSceneManager::GetInstance()
@@ -92,6 +93,16 @@ LPScene CSceneManager::GetActiveScene()
 		return loadedScenes.at(activeSceneId);
 	}
 	return nullptr;
+}
+
+int CSceneManager::GetNodeID()
+{
+	return currentNodeID;
+}
+
+void CSceneManager::SetNodeID(int id)
+{
+	this->currentNodeID = id;
 }
 
 void CSceneManager::LoadRequestScene()

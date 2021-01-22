@@ -27,7 +27,6 @@ CMarioMap::CMarioMap()
 	collisionBox->SetGameObjectAttach(this);
 	collisionBox->SetName("Small-Mario-Map"); // SmallMario
 	collisionBox->SetDistance(D3DXVECTOR2(0.0f, 0.0f));
-	//SetRelativePositionOnScreen(D3DXVECTOR2(0.0f, SUPER_MARIO_BBOX.y / 2 - SMALL_MARIO_BBOX.y / 2));
 	this->collisionBoxs->push_back(collisionBox);
 
 	sceneID = "";
@@ -47,6 +46,7 @@ void CMarioMap::LoadAnimation()
 
 void CMarioMap::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
+	
 	if (SwitchScene() == true)
 		return;
 	if (graph == NULL)
@@ -60,7 +60,16 @@ void CMarioMap::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 			if (nodes.size() > 0)
 				currentNode = nodes.at(0);
 		}
+		auto currentNodeSceneID = CSceneManager::GetInstance()->GetNodeID();
+		if (currentNodeSceneID != -1 && GetPosition() == startPos)
+		{
+			auto currentNodeScene = graph->GetNodeByID(currentNodeSceneID);
+			auto portalNode = static_cast<CSceneGate*>(currentNodeScene);
+			SetPosition(portalNode->GetPosition());
+			currentNode = portalNode;
+		}
 	}
+
 	auto keyboard = CKeyboardManager::GetInstance();
 	switch (moveState)
 	{
@@ -183,6 +192,7 @@ void CMarioMap::OnOverlappedEnter(CCollisionBox* selfCollisionBox, CCollisionBox
 		if (sceneID.compare("") != 0)
 		{
 			this->sceneID = sceneID;
+			CSceneManager::GetInstance()->SetNodeID(portal->GetNodeID());
 		}
 	}
 	if (otherCollisionBox->GetGameObjectAttach()->GetNodeTag() != NodeTag::None && otherCollisionBox->GetGameObjectAttach() != currentNode && moveState != 2)
@@ -213,4 +223,9 @@ void CMarioMap::OnKeyDown(int KeyCode)
 {
 	if (KeyCode == DIK_X)
 		canEnterScene = true;
+}
+
+void CMarioMap::SetStartPosition(D3DXVECTOR2 pos)
+{
+	startPos = pos;
 }
