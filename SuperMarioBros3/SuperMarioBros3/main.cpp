@@ -119,14 +119,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         CGame::GetInstance()->End();
         PostQuitMessage(0);
         break;
-    //case WM_KEYDOWN: // hỏi thầy
-    //    switch (wParam)
-    //    {
-    //    case VK_ESCAPE:
-    //        CGame::GetInstance()->End();
-    //        PostQuitMessage(0);
-    //        break;
-    //    }
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }

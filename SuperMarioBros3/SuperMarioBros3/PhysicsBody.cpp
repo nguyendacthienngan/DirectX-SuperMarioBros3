@@ -58,7 +58,6 @@ void CPhysicsBody::PhysicsUpdate(LPGameObject gameObject, std::vector<LPGameObje
 		// Collision detetion
 		float min_tx, min_ty, nx = 0, ny; 
 
-		// TODO: This is a very ugly designed function!!!!
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
 		pos = gameObject->GetPosition(); 
@@ -68,26 +67,18 @@ void CPhysicsBody::PhysicsUpdate(LPGameObject gameObject, std::vector<LPGameObje
 		{
 			pos.x += min_tx * distance.x + nx *0.4f; 
 			pos.y += min_ty * distance.y + ny *0.4f;
-			//cO->CollisionHandle(dt, coEvents, this, velocity, min_tx, min_ty, nx, ny);
 		}
 		cO->CollisionHandle(dt, coEvents, this, velocity, min_tx, min_ty, nx, ny);
 
 		if (nx != 0 || ny != 0)
 		{
 			gameObject->OnCollisionEnter(cO, coEventsResult);
-
-			/*if (isTrigger == true)
-				gameObject->OnTriggerEnter(cO, coEventsResult);
-			else
-				gameObject->OnCollisionEnter(cO, coEventsResult);*/
 		}
 		gameObject->SetPosition(pos);
 	}
 
 	for (unsigned i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	coEvents.clear();
-	//CalcOverlappedCollisions(cO, coObjects);
-
 }
 void CPhysicsBody::Update(LPGameObject gameObject)
 {

@@ -42,17 +42,7 @@ void CGame::Init()
 	
 	CIntro* intro = new CIntro();
 	CSceneManager::GetInstance()->Load(intro);
-
-	/*CScene4* scene4 = new CScene4();
-	CSceneManager::GetInstance()->Load(scene4);*/
-
-	/*CScene1* scene1 = new CScene1();
-	CSceneManager::GetInstance()->Load(scene1);*/
-
-	/*CWorldMap1* sceneWorld1 = new CWorldMap1();
-	CSceneManager::GetInstance()->Load(sceneWorld1);*/
 	DebugOut(L"[INFO] Init Manager Sucessfully \n");
-
 }
 
 void CGame::Request()
@@ -286,7 +276,7 @@ bool CGame::ImportGameSource()
 		{
 			std::string id = item->Attribute("id");
 			std::string source = item->Attribute("source");
-			bucket.insert(make_pair(id, source)); // ******
+			bucket.insert(make_pair(id, source)); 
 			OutputDebugStringW(ToLPCWSTR("|--" + id + ":" + source + '\n'));
 		}
 		gameSource.insert(make_pair(category, bucket));
