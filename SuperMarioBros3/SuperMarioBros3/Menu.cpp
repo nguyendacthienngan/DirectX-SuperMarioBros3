@@ -20,7 +20,9 @@ CMenu::CMenu()
 
 	auto spriteManager = CSpriteManager::GetInstance();
 	arrow = spriteManager->Get("spr-menu-arrow-0");
-
+	treeLeft = spriteManager->Get("spr-tree-left");
+	treeRight = spriteManager->Get("spr-tree-right");
+	bottomCurtain = spriteManager->Get("spr-bottom-curtain-0");
 	isEnabled = true;
 
 	direction.insert(make_pair("up", D3DXVECTOR2(200, 440)));
@@ -32,6 +34,10 @@ void CMenu::Render(CCamera* cam, int alpha)
 {
 	selection1->Render();
 	selection2->Render();
+	treeLeft->Draw(D3DXVECTOR2(50, 433) - cam->GetPositionCam(), D3DXVECTOR2(1, 1), 0);
+	treeRight->Draw(D3DXVECTOR2(680, 384) - cam->GetPositionCam(), D3DXVECTOR2(1, 1), 0);
+	bottomCurtain->Draw(D3DXVECTOR2(150, 20) - cam->GetPositionCam(), D3DXVECTOR2(1, 1), 0);
+	bottomCurtain->Draw(D3DXVECTOR2(500, 20) - cam->GetPositionCam(), D3DXVECTOR2(1, 1), 0);
 	arrow->Draw(currentDirection, D3DXVECTOR2(1.0f, 1.0f), 0.0f);
 }
 

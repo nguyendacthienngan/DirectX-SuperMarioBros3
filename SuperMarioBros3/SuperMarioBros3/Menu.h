@@ -7,6 +7,10 @@ private:
 	CFont* selection1;
 	CFont* selection2;
 	CSprite* arrow;
+	CSprite* treeLeft;
+	CSprite* treeRight;
+	CSprite* bottomCurtain;
+	
 	bool isUp;
 	std::map<std::string, D3DXVECTOR2> direction;
 	D3DXVECTOR2 currentDirection;
