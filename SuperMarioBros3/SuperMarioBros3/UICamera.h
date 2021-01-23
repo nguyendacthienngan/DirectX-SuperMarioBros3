@@ -18,7 +18,6 @@ class CUICamera :  public CCamera
     bool fontResultDisplayed;
     CSprite* cardResultInFont;
     CCardGift* giftInFont;
-    CCurtain* curtain;
     bool isGoalRoulette;
     bool isEnterIntro;
     bool presentedCardGift;

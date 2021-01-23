@@ -190,7 +190,11 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Index.h" />
     <ClInclude Include="Intro.h" />
+    <ClInclude Include="IntroScript.h" />
+    <ClInclude Include="IntroTitle.h" />
     <ClInclude Include="Label.h" />
+    <ClInclude Include="LuigiAuto.h" />
+    <ClInclude Include="MarioAuto.h" />
     <ClInclude Include="MarioFireBall.h" />
     <ClInclude Include="FireMario.h" />
     <ClInclude Include="framework.h" />
@@ -227,6 +231,7 @@
     <ClInclude Include="MarioControllerConst.h" />
     <ClInclude Include="MarioMap.h" />
     <ClInclude Include="MarioMapConst.h" />
+    <ClInclude Include="MarioScript.h" />
     <ClInclude Include="MarioStateSet.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Misc.h" />
@@ -332,7 +337,11 @@
     <ClCompile Include="HelpItem.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Intro.cpp" />
+    <ClCompile Include="IntroScript.cpp" />
+    <ClCompile Include="IntroTitle.cpp" />
     <ClCompile Include="Label.cpp" />
+    <ClCompile Include="LuigiAuto.cpp" />
+    <ClCompile Include="MarioAuto.cpp" />
     <ClCompile Include="MarioFireBall.cpp" />
     <ClCompile Include="FireMario.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -357,6 +366,7 @@
     <ClCompile Include="MarioCollisionBox.cpp" />
     <ClCompile Include="MarioController.cpp" />
     <ClCompile Include="MarioMap.cpp" />
+    <ClCompile Include="MarioScript.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Misc.cpp" />
     <ClCompile Include="MovingPlatform.cpp" />

@@ -1,13 +1,13 @@
 #pragma once
 #include "Sprite.h"
-class CCurtain
+#include "GameObject.h"
+class CCurtain: public CGameObject
 {
 private:
 	CSprite* curtainSprite;
-	D3DXVECTOR2 pos;
 public: 
 	CCurtain();
-	void Update();
-	void Render();
+	void Update(DWORD dt, CCamera* cam, CCamera* uiCam) override;
+	void Render(CCamera* cam, int alpha = 255) override;
 };
 

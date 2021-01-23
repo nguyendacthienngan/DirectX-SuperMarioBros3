@@ -26,6 +26,12 @@ CScene::CScene()
 	cardState = 0;
 	marioController = NULL;
 	spaceParitioning = true;
+	canRenderForeground = true;
+}
+
+void CScene::SetRenderForeground(bool canRender)
+{
+	canRenderForeground = canRender;
 }
 
 void CScene::Load()
@@ -211,6 +217,8 @@ void CScene::DestroyObject()
 			{
 				if (gO->IsDestroyed() == true)
 				{
+					if (gO->GetTag() == GameObjectTags::PlayerController)
+						continue;
 					RemoveObject(gO);
 					delete gO;
 					gO = NULL;
@@ -294,7 +302,8 @@ void CScene::Render()
 		if (obj->GetCollisionBox()->size() != 0)
 			obj->GetCollisionBox()->at(0)->Render(camera, CollisionBox_Render_Distance);
 	}
-	map->Render(camera, true);
+	if (canRenderForeground == true)
+		map->Render(camera, true);
 }
 
 void CScene::FindUpdateObjects()

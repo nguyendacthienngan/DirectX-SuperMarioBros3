@@ -18,6 +18,7 @@ class CMario : public CGameObject, public IState
 	// Mario Base : Xử lý những thứ cơ bản nhất trước của Mario
 	// Đi, chạy, nhảy, hụp, thắng lại
 protected:
+	bool isInIntro;
 	MarioStates marioStateTag;
 	D3DXVECTOR2 targetVelocity, previousVelocity; 
 	MarioStateSet currentPhysicsState, previousPhysicsState; // state vật lý, còn currentState ở GameObject là state animation
@@ -63,6 +64,10 @@ public:
 	CMario();
 
 	CHoldable* GetHoldObject();
+	void SetAutoGo(bool autoGo);
+	void SetIsInIntro(bool intro);
+	void SetPhysicsState(MarioStateSet physState);
+	MarioStateSet GetPhysicsState();
 	void SetCurrentPhysicsState(MarioStateSet state);
 	void SetPMeterCounting(int pMeterCounting);
 	void SetFeverState(int fState);

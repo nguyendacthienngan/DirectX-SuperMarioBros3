@@ -21,7 +21,6 @@ CUICamera::CUICamera(int wid, int hei, D3DXVECTOR2 hudPos)
     goalTimer = 0;
     fontResultDisplayed = false;
     giftInFont = NULL;
-    curtain = new CCurtain();
     isEnterIntro = false;
     presentedCardGift = false;
 }
@@ -32,7 +31,6 @@ void CUICamera::Update()
         return;
     if (isEnterIntro == true)
     {
-        curtain->Update();
         hud->Enable(false);
     }
     else
@@ -64,10 +62,6 @@ void CUICamera::Render()
     }
     if (giftInFont != NULL)
         giftInFont->Render();
-    if (isEnterIntro == true)
-    {
-        curtain->Render();
-    }
 }
 
 CHUD* CUICamera::GetHUD()

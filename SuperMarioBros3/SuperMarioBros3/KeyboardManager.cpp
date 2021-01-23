@@ -1,6 +1,7 @@
 ﻿#include "KeyboardManager.h"
 #include "Ultis.h"
 #include "Game.h"
+#include "SceneManager.h"
 
 LPKeyboardManager CKeyboardManager::instance = NULL;
 
@@ -177,6 +178,12 @@ void CKeyboardManager::SetHWND(HWND h)
 
 bool CKeyboardManager::GetKeyStateDown(int keyCode)
 {
+	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
+	if (activeScene->GetSceneId() == "intro")
+	{
+		if (keyCode != DIK_Q && keyCode != DIK_W)
+			return false;
+	}
 	return (keyStates[keyCode] & 0x80) > 0; // Lấy ra nút được ấn
 }
 

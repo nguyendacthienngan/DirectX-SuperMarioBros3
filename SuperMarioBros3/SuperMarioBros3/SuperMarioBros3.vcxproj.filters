@@ -310,14 +310,8 @@
     <Filter Include="Game\Scene\Intro">
       <UniqueIdentifier>{0d202065-492a-44c0-97a5-623c7dd23d7a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameObject\UI\Menu">
-      <UniqueIdentifier>{b9e30745-3971-4a55-8790-688083f8e4c5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\GameObject\Intro">
       <UniqueIdentifier>{d3c12c7d-0864-4e53-86cb-fb0a67656ba1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameObject\UI\Curtain">
-      <UniqueIdentifier>{57f4944f-06e6-466e-b000-d18c13463e76}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\GameObject\Enemy\ParaKoopa\RedParaKoopa">
       <UniqueIdentifier>{ffac8340-1949-4c13-ad0a-b07a6dbb4f6f}</UniqueIdentifier>
@@ -339,6 +333,30 @@
     </Filter>
     <Filter Include="Game\GameObject\Enemy\BoomerangBrother\Boomerang">
       <UniqueIdentifier>{48a9776a-1cf0-4fdd-b251-5e5820968a1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Intro\IntroScript">
+      <UniqueIdentifier>{4e139e37-9fd0-48e4-ab8c-3fa523fa3464}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Intro\IntroTitle">
+      <UniqueIdentifier>{2c11f4ac-9d73-4fac-8cc9-db78af2d160b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Intro\MarioAuto">
+      <UniqueIdentifier>{333af523-ce2e-4867-b606-d3eb7915d10e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Intro\LuigiAuto">
+      <UniqueIdentifier>{17da460d-1a24-4fad-8edb-693da62a63b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Intro\Curtain">
+      <UniqueIdentifier>{57f4944f-06e6-466e-b000-d18c13463e76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Intro\IntroTitle\VersionTitle">
+      <UniqueIdentifier>{97708dc0-716e-404c-9d32-64ee1a77b85e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Intro\IntroScript\MarioScript">
+      <UniqueIdentifier>{34d3b9d6-f22e-41f0-a32e-0a3b50d4a2d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Intro\Menu">
+      <UniqueIdentifier>{b9e30745-3971-4a55-8790-688083f8e4c5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -763,13 +781,10 @@
       <Filter>Game\Scene\Intro</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
-      <Filter>Game\GameObject\UI\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="ThreeAnimation.h">
-      <Filter>Game\GameObject\Intro</Filter>
+      <Filter>Game\GameObject\Intro\Menu</Filter>
     </ClInclude>
     <ClInclude Include="CCurtain.h">
-      <Filter>Game\GameObject\UI\Curtain</Filter>
+      <Filter>Game\GameObject\Intro\Curtain</Filter>
     </ClInclude>
     <ClInclude Include="GreenParaKoopa.h">
       <Filter>Game\GameObject\Enemy\ParaKoopa\GreenParaKoopa</Filter>
@@ -800,6 +815,24 @@
     </ClInclude>
     <ClInclude Include="PipeConst.h">
       <Filter>Game\GameObject\Pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScript.h">
+      <Filter>Game\GameObject\Intro\IntroScript</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroTitle.h">
+      <Filter>Game\GameObject\Intro\IntroTitle</Filter>
+    </ClInclude>
+    <ClInclude Include="LuigiAuto.h">
+      <Filter>Game\GameObject\Intro\LuigiAuto</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioAuto.h">
+      <Filter>Game\GameObject\Intro\MarioAuto</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreeAnimation.h">
+      <Filter>Game\GameObject\Intro\IntroTitle\VersionTitle</Filter>
+    </ClInclude>
+    <ClInclude Include="MarioScript.h">
+      <Filter>Game\GameObject\Intro\IntroScript\MarioScript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1104,13 +1137,10 @@
       <Filter>Game\Scene\Intro</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp">
-      <Filter>Game\GameObject\UI\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="ThreeAnimation.cpp">
-      <Filter>Game\GameObject\Intro</Filter>
+      <Filter>Game\GameObject\Intro\Menu</Filter>
     </ClCompile>
     <ClCompile Include="CCurtain.cpp">
-      <Filter>Game\GameObject\UI\Curtain</Filter>
+      <Filter>Game\GameObject\Intro\Curtain</Filter>
     </ClCompile>
     <ClCompile Include="GreenParaKoopa.cpp">
       <Filter>Game\GameObject\Enemy\ParaKoopa\GreenParaKoopa</Filter>
@@ -1129,6 +1159,24 @@
     </ClCompile>
     <ClCompile Include="Boomerang.cpp">
       <Filter>Game\GameObject\Enemy\BoomerangBrother\Boomerang</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScript.cpp">
+      <Filter>Game\GameObject\Intro\IntroScript</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroTitle.cpp">
+      <Filter>Game\GameObject\Intro\IntroTitle</Filter>
+    </ClCompile>
+    <ClCompile Include="LuigiAuto.cpp">
+      <Filter>Game\GameObject\Intro\LuigiAuto</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioAuto.cpp">
+      <Filter>Game\GameObject\Intro\MarioAuto</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreeAnimation.cpp">
+      <Filter>Game\GameObject\Intro\IntroTitle\VersionTitle</Filter>
+    </ClCompile>
+    <ClCompile Include="MarioScript.cpp">
+      <Filter>Game\GameObject\Intro\IntroScript\MarioScript</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

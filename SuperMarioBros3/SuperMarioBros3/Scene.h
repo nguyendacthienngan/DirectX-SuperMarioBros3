@@ -47,8 +47,10 @@ protected:
 	CGameObject* marioController;
 	int cardState;
 	bool spaceParitioning;
+	bool canRenderForeground;
 public:
 	CScene();
+	void SetRenderForeground(bool canRender);
 	virtual void Load();
 	virtual void Unload();
 	virtual void DestroyObject();
@@ -57,7 +59,9 @@ public:
 	virtual void FindUpdateObjects();
 	std::string GetSceneId() { return this->id; }
 	D3DCOLOR GetBackgroundColor() { return backgroundColor; }
-
+	void SetBackgroundColor(D3DCOLOR color) {
+		this->backgroundColor = color;
+	}
 	void SetCamera(int id);
 	CCamera* GetCamera() { return camera; }
 	CMap* GetMap() { return map; }

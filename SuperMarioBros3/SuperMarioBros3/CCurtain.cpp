@@ -8,16 +8,19 @@ CCurtain::CCurtain()
 {
 	auto spriteManager = CSpriteManager::GetInstance();
 	curtainSprite = spriteManager->Get("spr-full-curtain-0");
-	pos = D3DXVECTOR2(384, 300);
+	isEnabled = true;
+	transform.position = D3DXVECTOR2(384, 300);
 }
 
-void CCurtain::Update()
+void CCurtain::Update(DWORD dt, CCamera* cam, CCamera* uiCam)
 {
-	auto dt = CGame::GetInstance()->GetDeltaTime();
-	pos.y -= CURTAIN_SPEED * dt;
+	transform.position.y -= CURTAIN_SPEED * dt;
 }
 
-void CCurtain::Render()
+void CCurtain::Render(CCamera* cam, int alpha)
 {
-	curtainSprite->Draw(pos, D3DXVECTOR2(5.0f, 5.0f), 0.0f);
+
+	auto curtainPos = transform.position - cam->GetPositionCam();
+	curtainSprite->Draw(curtainPos , D3DXVECTOR2(1.0f, 1.0f), 0);
+
 }
