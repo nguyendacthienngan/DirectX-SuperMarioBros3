@@ -1090,22 +1090,21 @@ void CMario::DieProcess(CCamera* cam)
 		{
 			case 0: 
 			{
-				this->physiscBody->SetGravity(0.0f);
-				this->physiscBody->SetVelocity(D3DXVECTOR2(0.0f, 0.0f));
+				this->collisionBoxs->at(0)->SetEnable(false);
 				SetPosition(previousPosition);
 				dieState = 1;
 				break;
 			}
 			case 1:
 			{
-				transform.position.y -= DIE_VELOCITY_Y * CGame::GetInstance()->GetDeltaTime();
+				physiscBody->SetVelocity(D3DXVECTOR2(0, -DIE_VELOCITY_Y));
 				if (transform.position.y < previousPosition.y - DIE_JUMP)
 					dieState = 2;
 				break;
 			}
 			case 2:
 			{
-				transform.position.y += DIE_VELOCITY_Y * CGame::GetInstance()->GetDeltaTime();
+				physiscBody->SetVelocity(D3DXVECTOR2(0, DIE_VELOCITY_Y));
 				if (transform.position.y >= cam->GetCurrentBoundary().bottom - DIE_FALL)
 				{
 					auto sceneManager = CSceneManager::GetInstance();

@@ -1,152 +1,784 @@
 <?xml version="1.0" encoding="utf-8"?>
 <grid>
-  <config cellwidth="undefined" cellheight="undefined" width="NaN" height="NaN"/>
+  <config cellwidth="384" cellheight="384" width="22" height="6"/>
   <data>
     <group id="13" name="Solid">
-        <object id="110" cellx="NaN" celly="NaN"/>
-        <object id="111" cellx="NaN" celly="NaN"/>
-        <object id="118" cellx="NaN" celly="NaN"/>
-        <object id="119" cellx="NaN" celly="NaN"/>
-        <object id="120" cellx="NaN" celly="NaN"/>
-        <object id="121" cellx="NaN" celly="NaN"/>
-        <object id="122" cellx="NaN" celly="NaN"/>
-        <object id="123" cellx="NaN" celly="NaN"/>
-        <object id="124" cellx="NaN" celly="NaN"/>
-        <object id="125" cellx="NaN" celly="NaN"/>
-        <object id="126" cellx="NaN" celly="NaN"/>
-        <object id="127" cellx="NaN" celly="NaN"/>
-        <object id="128" cellx="NaN" celly="NaN"/>
-        <object id="129" cellx="NaN" celly="NaN"/>
-        <object id="130" cellx="NaN" celly="NaN"/>
-        <object id="133" cellx="NaN" celly="NaN"/>
-        <object id="134" cellx="NaN" celly="NaN"/>
-        <object id="135" cellx="NaN" celly="NaN"/>
-        <object id="136" cellx="NaN" celly="NaN"/>
-        <object id="137" cellx="NaN" celly="NaN"/>
-        <object id="138" cellx="NaN" celly="NaN"/>
-        <object id="139" cellx="NaN" celly="NaN"/>
-        <object id="140" cellx="NaN" celly="NaN"/>
-        <object id="141" cellx="NaN" celly="NaN"/>
-        <object id="142" cellx="NaN" celly="NaN"/>
-    </group>
+        <object id="1">
+ <properties>
+            <property name="cellx" value="0"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="2">
+ <properties>
+            <property name="cellx" value="2"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="3">
+ <properties>
+            <property name="cellx" value="4"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="4">
+ <properties>
+            <property name="cellx" value="9"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="5">
+ <properties>
+            <property name="cellx" value="11"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="6">
+ <properties>
+            <property name="cellx" value="12"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="7">
+ <properties>
+            <property name="cellx" value="12"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="8">
+ <properties>
+            <property name="cellx" value="12"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="10">
+ <properties>
+            <property name="cellx" value="12"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="11">
+ <properties>
+            <property name="cellx" value="12"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="12">
+ <properties>
+            <property name="cellx" value="13"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="13">
+ <properties>
+            <property name="cellx" value="12"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="14">
+ <properties>
+            <property name="cellx" value="13"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="15">
+ <properties>
+            <property name="cellx" value="14"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="16">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="17">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="18">
+ <properties>
+            <property name="cellx" value="18"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="19">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="1"/>
+           </properties>
+           </object>
+                    <object id="48">
+ <properties>
+            <property name="cellx" value="11"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="107">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="108">
+ <properties>
+            <property name="cellx" value="18"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="109">
+ <properties>
+            <property name="cellx" value="16"/>
+            <property name="celly" value="4"/>
+           </properties>
+           </object>
+                    <object id="111">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="4"/>
+           </properties>
+           </object>
+                    <object id="112">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="4"/>
+           </properties>
+           </object>
+                    <object id="113">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="4"/>
+           </properties>
+           </object>
+                    <object id="114">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="4"/>
+           </properties>
+           </object>
+                    <object id="115">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="4"/>
+           </properties>
+           </object>
+                    <object id="116">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="4"/>
+           </properties>
+           </object>
+                    <object id="117">
+ <properties>
+            <property name="cellx" value="16"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="130">
+ <properties>
+            <property name="cellx" value="1"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="145">
+ <properties>
+            <property name="cellx" value="18"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="146">
+ <properties>
+            <property name="cellx" value="16"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="209">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                </group>
     <group id="14" name="Ghost">
-        <object id="143" cellx="NaN" celly="NaN"/>
-        <object id="144" cellx="NaN" celly="NaN"/>
-        <object id="145" cellx="NaN" celly="NaN"/>
-        <object id="146" cellx="NaN" celly="NaN"/>
-        <object id="147" cellx="NaN" celly="NaN"/>
-        <object id="148" cellx="NaN" celly="NaN"/>
-        <object id="149" cellx="NaN" celly="NaN"/>
-        <object id="150" cellx="NaN" celly="NaN"/>
-        <object id="151" cellx="NaN" celly="NaN"/>
-        <object id="152" cellx="NaN" celly="NaN"/>
-        <object id="153" cellx="NaN" celly="NaN"/>
-        <object id="154" cellx="NaN" celly="NaN"/>
-        <object id="155" cellx="NaN" celly="NaN"/>
-        <object id="156" cellx="NaN" celly="NaN"/>
-    </group>
-    <group id="15" name="Enemies">
-        <object id="42" cellx="NaN" celly="NaN"/>
-        <object id="43" cellx="NaN" celly="NaN"/>
-        <object id="44" cellx="NaN" celly="NaN"/>
-        <object id="45" cellx="NaN" celly="NaN"/>
-        <object id="76" cellx="NaN" celly="NaN"/>
-        <object id="77" cellx="NaN" celly="NaN"/>
-        <object id="78" cellx="NaN" celly="NaN"/>
-        <object id="80" cellx="NaN" celly="NaN"/>
-        <object id="105" cellx="NaN" celly="NaN"/>
-        <object id="106" cellx="NaN" celly="NaN"/>
-        <object id="107" cellx="NaN" celly="NaN"/>
-        <object id="108" cellx="NaN" celly="NaN"/>
-        <object id="109" cellx="NaN" celly="NaN"/>
-        <object id="157" cellx="NaN" celly="NaN"/>
-        <object id="158" cellx="NaN" celly="NaN"/>
-    </group>
-    <group id="20" name="Items">
-        <object id="81" cellx="NaN" celly="NaN"/>
-        <object id="82" cellx="NaN" celly="NaN"/>
-        <object id="83" cellx="NaN" celly="NaN"/>
-        <object id="84" cellx="NaN" celly="NaN"/>
-        <object id="85" cellx="NaN" celly="NaN"/>
-        <object id="86" cellx="NaN" celly="NaN"/>
-        <object id="87" cellx="NaN" celly="NaN"/>
-        <object id="88" cellx="NaN" celly="NaN"/>
-        <object id="89" cellx="NaN" celly="NaN"/>
-        <object id="90" cellx="NaN" celly="NaN"/>
-        <object id="91" cellx="NaN" celly="NaN"/>
-        <object id="92" cellx="NaN" celly="NaN"/>
-        <object id="93" cellx="NaN" celly="NaN"/>
-        <object id="94" cellx="NaN" celly="NaN"/>
-        <object id="95" cellx="NaN" celly="NaN"/>
-        <object id="96" cellx="NaN" celly="NaN"/>
-        <object id="97" cellx="NaN" celly="NaN"/>
-        <object id="98" cellx="NaN" celly="NaN"/>
-        <object id="99" cellx="NaN" celly="NaN"/>
-        <object id="100" cellx="NaN" celly="NaN"/>
-        <object id="101" cellx="NaN" celly="NaN"/>
-        <object id="102" cellx="NaN" celly="NaN"/>
-        <object id="103" cellx="NaN" celly="NaN"/>
-        <object id="167" cellx="NaN" celly="NaN"/>
-        <object id="168" cellx="NaN" celly="NaN"/>
-        <object id="169" cellx="NaN" celly="NaN"/>
-        <object id="170" cellx="NaN" celly="NaN"/>
-        <object id="171" cellx="NaN" celly="NaN"/>
-        <object id="172" cellx="NaN" celly="NaN"/>
-        <object id="173" cellx="NaN" celly="NaN"/>
-        <object id="174" cellx="NaN" celly="NaN"/>
-        <object id="175" cellx="NaN" celly="NaN"/>
-        <object id="176" cellx="NaN" celly="NaN"/>
-        <object id="177" cellx="NaN" celly="NaN"/>
-        <object id="178" cellx="NaN" celly="NaN"/>
-        <object id="179" cellx="NaN" celly="NaN"/>
-    </group>
+        <object id="28">
+ <properties>
+            <property name="cellx" value="1"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="29">
+ <properties>
+            <property name="cellx" value="2"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="30">
+ <properties>
+            <property name="cellx" value="3"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="31">
+ <properties>
+            <property name="cellx" value="3"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="32">
+ <properties>
+            <property name="cellx" value="4"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="33">
+ <properties>
+            <property name="cellx" value="4"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="34">
+ <properties>
+            <property name="cellx" value="10"/>
+            <property name="celly" value="1"/>
+           </properties>
+           </object>
+                    <object id="35">
+ <properties>
+            <property name="cellx" value="10"/>
+            <property name="celly" value="1"/>
+           </properties>
+           </object>
+                    <object id="36">
+ <properties>
+            <property name="cellx" value="11"/>
+            <property name="celly" value="1"/>
+           </properties>
+           </object>
+                    <object id="37">
+ <properties>
+            <property name="cellx" value="16"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="38">
+ <properties>
+            <property name="cellx" value="16"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="39">
+ <properties>
+            <property name="cellx" value="9"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="40">
+ <properties>
+            <property name="cellx" value="10"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="41">
+ <properties>
+            <property name="cellx" value="10"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                </group>
     <group id="18" name="QuestionBlocks">
-        <object id="47" cellx="NaN" celly="NaN"/>
-        <object id="49" cellx="NaN" celly="NaN"/>
-        <object id="50" cellx="NaN" celly="NaN"/>
-        <object id="51" cellx="NaN" celly="NaN"/>
-        <object id="53" cellx="NaN" celly="NaN"/>
-        <object id="54" cellx="NaN" celly="NaN"/>
-        <object id="55" cellx="NaN" celly="NaN"/>
-        <object id="56" cellx="NaN" celly="NaN"/>
-        <object id="104" cellx="NaN" celly="NaN"/>
-    </group>
-    <group id="19" name="Bricks">
-        <object id="57" cellx="NaN" celly="NaN"/>
-        <object id="58" cellx="NaN" celly="NaN"/>
-        <object id="59" cellx="NaN" celly="NaN"/>
-        <object id="60" cellx="NaN" celly="NaN"/>
-        <object id="61" cellx="NaN" celly="NaN"/>
-        <object id="62" cellx="NaN" celly="NaN"/>
-        <object id="63" cellx="NaN" celly="NaN"/>
-        <object id="64" cellx="NaN" celly="NaN"/>
-        <object id="65" cellx="NaN" celly="NaN"/>
-        <object id="66" cellx="NaN" celly="NaN"/>
-        <object id="67" cellx="NaN" celly="NaN"/>
-        <object id="68" cellx="NaN" celly="NaN"/>
-        <object id="69" cellx="NaN" celly="NaN"/>
-        <object id="70" cellx="NaN" celly="NaN"/>
-        <object id="71" cellx="NaN" celly="NaN"/>
-        <object id="72" cellx="NaN" celly="NaN"/>
-        <object id="73" cellx="NaN" celly="NaN"/>
-        <object id="74" cellx="NaN" celly="NaN"/>
-        <object id="75" cellx="NaN" celly="NaN"/>
-    </group>
-    <group id="21" name="Pipes">
-        <object id="112" cellx="NaN" celly="NaN"/>
-        <object id="113" cellx="NaN" celly="NaN"/>
-        <object id="114" cellx="NaN" celly="NaN"/>
-        <object id="115" cellx="NaN" celly="NaN"/>
-        <object id="116" cellx="NaN" celly="NaN"/>
-        <object id="117" cellx="NaN" celly="NaN"/>
-        <object id="162" cellx="NaN" celly="NaN"/>
-        <object id="164" cellx="NaN" celly="NaN"/>
-    </group>
-    <group id="22" name="Warp">
-        <object id="159" cellx="NaN" celly="NaN"/>
-        <object id="160" cellx="NaN" celly="NaN"/>
-        <object id="165" cellx="NaN" celly="NaN"/>
-        <object id="166" cellx="NaN" celly="NaN"/>
-    </group>
+        <object id="47">
+ <properties>
+            <property name="cellx" value="1"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="49">
+ <properties>
+            <property name="cellx" value="1"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="50">
+ <properties>
+            <property name="cellx" value="1"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="51">
+ <properties>
+            <property name="cellx" value="1"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="53">
+ <properties>
+            <property name="cellx" value="3"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="104">
+ <properties>
+            <property name="cellx" value="5"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="105">
+ <properties>
+            <property name="cellx" value="5"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="106">
+ <properties>
+            <property name="cellx" value="11"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="213">
+ <properties>
+            <property name="cellx" value="11"/>
+            <property name="celly" value="1"/>
+           </properties>
+           </object>
+                </group>
+    <group id="15" name="Coin">
+        <object id="59">
+ <properties>
+            <property name="cellx" value="8"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="64">
+ <properties>
+            <property name="cellx" value="8"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="68">
+ <properties>
+            <property name="cellx" value="8"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="69">
+ <properties>
+            <property name="cellx" value="9"/>
+            <property name="celly" value="1"/>
+           </properties>
+           </object>
+                    <object id="70">
+ <properties>
+            <property name="cellx" value="9"/>
+            <property name="celly" value="1"/>
+           </properties>
+           </object>
+                    <object id="118">
+ <properties>
+            <property name="cellx" value="16"/>
+            <property name="celly" value="4"/>
+           </properties>
+           </object>
+                    <object id="119">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="4"/>
+           </properties>
+           </object>
+                    <object id="120">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="4"/>
+           </properties>
+           </object>
+                    <object id="121">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="4"/>
+           </properties>
+           </object>
+                    <object id="122">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="4"/>
+           </properties>
+           </object>
+                    <object id="123">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="4"/>
+           </properties>
+           </object>
+                    <object id="124">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="4"/>
+           </properties>
+           </object>
+                    <object id="125">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="4"/>
+           </properties>
+           </object>
+                    <object id="126">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="127">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="128">
+ <properties>
+            <property name="cellx" value="17"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="129">
+ <properties>
+            <property name="cellx" value="16"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="210">
+ <properties>
+            <property name="cellx" value="10"/>
+            <property name="celly" value="0"/>
+           </properties>
+           </object>
+                    <object id="211">
+ <properties>
+            <property name="cellx" value="10"/>
+            <property name="celly" value="0"/>
+           </properties>
+           </object>
+                    <object id="212">
+ <properties>
+            <property name="cellx" value="10"/>
+            <property name="celly" value="0"/>
+           </properties>
+           </object>
+                    <object id="214">
+ <properties>
+            <property name="cellx" value="11"/>
+            <property name="celly" value="0"/>
+           </properties>
+           </object>
+                    <object id="215">
+ <properties>
+            <property name="cellx" value="11"/>
+            <property name="celly" value="0"/>
+           </properties>
+           </object>
+                    <object id="216">
+ <properties>
+            <property name="cellx" value="12"/>
+            <property name="celly" value="0"/>
+           </properties>
+           </object>
+                    <object id="217">
+ <properties>
+            <property name="cellx" value="12"/>
+            <property name="celly" value="0"/>
+           </properties>
+           </object>
+                    <object id="218">
+ <properties>
+            <property name="cellx" value="12"/>
+            <property name="celly" value="0"/>
+           </properties>
+           </object>
+                    <object id="219">
+ <properties>
+            <property name="cellx" value="13"/>
+            <property name="celly" value="0"/>
+           </properties>
+           </object>
+                    <object id="220">
+ <properties>
+            <property name="cellx" value="12"/>
+            <property name="celly" value="1"/>
+           </properties>
+           </object>
+                    <object id="221">
+ <properties>
+            <property name="cellx" value="12"/>
+            <property name="celly" value="1"/>
+           </properties>
+           </object>
+                    <object id="222">
+ <properties>
+            <property name="cellx" value="12"/>
+            <property name="celly" value="1"/>
+           </properties>
+           </object>
+                    <object id="223">
+ <properties>
+            <property name="cellx" value="12"/>
+            <property name="celly" value="1"/>
+           </properties>
+           </object>
+                    <object id="224">
+ <properties>
+            <property name="cellx" value="13"/>
+            <property name="celly" value="1"/>
+           </properties>
+           </object>
+                    <object id="225">
+ <properties>
+            <property name="cellx" value="13"/>
+            <property name="celly" value="0"/>
+           </properties>
+           </object>
+                    <object id="226">
+ <properties>
+            <property name="cellx" value="13"/>
+            <property name="celly" value="1"/>
+           </properties>
+           </object>
+                    <object id="227">
+ <properties>
+            <property name="cellx" value="14"/>
+            <property name="celly" value="0"/>
+           </properties>
+           </object>
+                    <object id="228">
+ <properties>
+            <property name="cellx" value="14"/>
+            <property name="celly" value="1"/>
+           </properties>
+           </object>
+                </group>
+    <group id="19" name="Brick">
+        <object id="73">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="74">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="75">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="76">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="77">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="78">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="79">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="80">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="81">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="82">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="83">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="84">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="85">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="86">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="87">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="193">
+ <properties>
+            <property name="cellx" value="16"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="194">
+ <properties>
+            <property name="cellx" value="16"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="195">
+ <properties>
+            <property name="cellx" value="16"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                </group>
+    <group id="15" name="Enemy">
+        <object id="55">
+ <properties>
+            <property name="cellx" value="3"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="91">
+ <properties>
+            <property name="cellx" value="4"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="95">
+ <properties>
+            <property name="cellx" value="13"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="96">
+ <properties>
+            <property name="cellx" value="14"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="98">
+ <properties>
+            <property name="cellx" value="2"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="186">
+ <properties>
+            <property name="cellx" value="6"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="187">
+ <properties>
+            <property name="cellx" value="5"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="190">
+ <properties>
+            <property name="cellx" value="10"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="192">
+ <properties>
+            <property name="cellx" value="11"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="196">
+ <properties>
+            <property name="cellx" value="16"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                </group>
+    <group id="20" name="Label">
+        <object id="131">
+ <properties>
+            <property name="cellx" value="1"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                    <object id="140">
+ <properties>
+            <property name="cellx" value="18"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                </group>
+    <group id="21" name="Portal">
+        <object id="135">
+ <properties>
+            <property name="cellx" value="1"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                    <object id="139">
+ <properties>
+            <property name="cellx" value="18"/>
+            <property name="celly" value="3"/>
+           </properties>
+           </object>
+                </group>
+    <group id="22" name="SwitchBlocks">
+        <object id="206">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                </group>
+    <group id="23" name="Block">
+        <object id="198">
+ <properties>
+            <property name="cellx" value="15"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                </group>
+    <group id="24" name="Card">
+        <object id="202">
+ <properties>
+            <property name="cellx" value="20"/>
+            <property name="celly" value="2"/>
+           </properties>
+           </object>
+                </group>
   </data>
 </grid>

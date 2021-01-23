@@ -199,31 +199,31 @@ void CScene::DestroyObject()
 
 			if (globalObjects.size() > 0)
 			{
-				for (auto gO : globalObjects)
+				/*for (auto gO : globalObjects)
 				{
 					if (gO->GetTag() == GameObjectTags::PlayerController)
 						continue;
 					delete gO;
 					gO = NULL;
-				}
+				}*/
 				globalObjects.clear();
 			}
-			delete grid;
+			//delete grid;
 			grid = NULL;
 		}
 		else
 		{
-			for (auto gO : gameObjects) // IMPORTANT for player problem
-			{
-				if (gO->IsDestroyed() == true)
-				{
-					if (gO->GetTag() == GameObjectTags::PlayerController)
-						continue;
-					RemoveObject(gO);
-					delete gO;
-					gO = NULL;
-				}
-			}
+			//for (auto gO : gameObjects) // IMPORTANT for player problem
+			//{
+			//	if (gO->IsDestroyed() == true)
+			//	{
+			//		if (gO->GetTag() == GameObjectTags::PlayerController)
+			//			continue;
+			//		RemoveObject(gO);
+			//		delete gO;
+			//		gO = NULL;
+			//	}
+			//}
 			gameObjects.clear();
 		}
 		delete map;
@@ -234,12 +234,12 @@ void CScene::DestroyObject()
 	{
 		if (destroyObjects.size() > 0)
 		{
-			for (auto gO : destroyObjects)
+			/*for (auto gO : destroyObjects)
 			{
 				RemoveObject(gO);
 				delete gO;
 				gO = NULL;
-			}
+			}*/
 			destroyObjects.clear();
 		}
 	}

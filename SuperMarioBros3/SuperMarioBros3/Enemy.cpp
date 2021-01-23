@@ -77,6 +77,7 @@ void CEnemy::OnCollisionEnter(CCollisionBox* selfCollisionBox, std::vector<Colli
 				if (collisionBox->GetGameObjectAttach()->GetTag() == GameObjectTags::Brick && enemyTag == EnemyTag::KoopaShell)
 				{
 					auto brick = static_cast<CBrick*>(collisionBox->GetGameObjectAttach());
+					brick->Bounce();
 					brick->Debris();
 				}
 			}

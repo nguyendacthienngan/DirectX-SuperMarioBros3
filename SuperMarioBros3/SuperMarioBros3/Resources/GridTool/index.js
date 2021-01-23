@@ -39,7 +39,11 @@ function generateGridData(objects, config)
     let height = config.heightInTiles
 
     let result = []
-    objects.forEach(obj => {
+    let list = []
+    if (objects.id !== undefined) list = [objects]
+    else list = objects
+
+    list.forEach(obj => {
         let index = {
             x: Math.trunc(obj.x / cellwidth),
             y: Math.trunc(obj.y / cellheight)
@@ -68,7 +72,13 @@ function dataToXml(data)
         xml += `    <group id="${d.id}" name="${d.name}">\n`
 
         grid.forEach(g => {
-            xml += `        <object id="${g.id}" cellx="${g.cell.x}" celly="${g.cell.y}"/>\n`
+            xml += `        <object id="${g.id}">\n`
+            xml += ` <properties>
+            <property name="cellx" value="${g.cell.x}"/>
+            <property name="celly" value="${g.cell.y}"/>
+           </properties>
+           </object>
+            `
         })
 
         xml += '    </group>\n'
@@ -87,6 +97,7 @@ app.post("/", uploadFile.single('file'), function (req, res) {
         var jsonobj = JSON.parse(parser.toJson(data))
         var map = jsonobj.map
 
+        console.log(map)
         gridConfig.cellwidth = req.body.cellwidth
         gridConfig.cellheight = req.body.cellheight
         gridConfig.widthInTiles = Math.ceil(map.width * map.tilewidth / gridConfig.cellwidth)
@@ -96,7 +107,7 @@ app.post("/", uploadFile.single('file'), function (req, res) {
 
         gridData = []
         map.objectgroup.forEach(group => {
-            // console.log(group)
+            console.log(group)
             gridData.push({
                 id: group.id,
                 name: group.name,
@@ -122,6 +133,6 @@ app.post("/", uploadFile.single('file'), function (req, res) {
     })
 })
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log("Listening on port 3000")
+app.listen(process.env.PORT || 8000, () => {
+    console.log("Listening on port 8000")
 })

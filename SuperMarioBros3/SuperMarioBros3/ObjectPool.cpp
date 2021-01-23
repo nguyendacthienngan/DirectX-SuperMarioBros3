@@ -20,9 +20,6 @@ void CObjectPool::Revoke(CGameObject* obj)
 {
 	obj->Enable(false);
 	pool.push_back(obj);
-	auto activeScene = CSceneManager::GetInstance()->GetActiveScene();
-	auto grid = activeScene->GetGrid();
-	grid->Remove(obj);
 }
 
 bool CObjectPool::IsEmpty()

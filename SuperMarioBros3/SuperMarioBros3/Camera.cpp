@@ -35,7 +35,7 @@ void CCamera::Update()
 {
     if (gameObject == NULL)
         return;
-    this->dt = CGame::GetInstance()->GetFixedDeltaTime();
+    this->dt = CGame::GetInstance()->GetFixedDeltaTime() * CGame::GetTimeScale();
     float x, y;
     x = gameObject->GetPosition().x;
     y = gameObject->GetPosition().y;
