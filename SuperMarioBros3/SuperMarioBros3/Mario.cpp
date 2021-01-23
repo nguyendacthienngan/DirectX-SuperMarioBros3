@@ -1090,7 +1090,6 @@ void CMario::DieProcess(CCamera* cam)
 		{
 			case 0: 
 			{
-
 				this->collisionBoxs->at(0)->SetEnable(false);
 				SetPosition(previousPosition);
 				dieState = 1;

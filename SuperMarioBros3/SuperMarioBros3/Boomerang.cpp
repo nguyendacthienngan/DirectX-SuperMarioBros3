@@ -171,8 +171,6 @@ void CBoomerang::SetBoomerangBrother(CGameObject* gO)
 
 bool CBoomerang::CanCollisionWithThisObject(LPGameObject gO, GameObjectTags tag)
 {
-	if (gO->MarioTag(tag))
-		return true;
 	return false;
 }
 
